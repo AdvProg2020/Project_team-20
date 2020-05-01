@@ -19,8 +19,9 @@ public class Product implements Requestable {
     private ArrayList<Score> scores;
     private ArrayList<Comment> comments;
     private double numberVisited;
+    private Product editedProduct;
 
-    public Product(ArrayList<Field> generalFields, Seller seller, Buyer buyer, String description) {
+    public Product(ArrayList<Field> generalFields, Seller seller, Buyer buyer, String description, int count) {
         id = Integer.toString(allProducts.size()+1);
         state =  RequestableState.Created;
         this.generalFields = generalFields;
@@ -31,7 +32,13 @@ public class Product implements Requestable {
         scores = new ArrayList<>();
         comments = new ArrayList<>();
         numberVisited = 0;
-        count = 1;
+        this.count = count;
+    }
+
+    public Product(ArrayList<Field> generalFields, String description, int count) {
+        this.generalFields = generalFields;
+        this.description = description;
+        this.count = count;
     }
 
     public void changeStateAccepted() {
@@ -43,7 +50,18 @@ public class Product implements Requestable {
         state = RequestableState.Rejected;
     }
 
-    // Kolan edit ro naneveshtim!!!!!!!!!!!!!!!!!!!!
+    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count) {
+        editedProduct = new Product(generalFields , description, count);
+        state = RequestableState.Edited;
+    }
+
+    public void edit() {
+        generalFields = editedProduct.getGeneralFields();
+        description = editedProduct.getDescription();
+        count = editedProduct.getCount();
+        editedProduct = null;
+        state = RequestableState.Accepted;
+    }
 
     public void addCategory(Category category) {
         categories.add(category);
@@ -88,5 +106,9 @@ public class Product implements Requestable {
 
     public static class productUnavailableException extends Exception {
         public productUnavailableException() { super("product unavailable"); }
+    }
+
+    public double getCount() {
+        return count;
     }
 }
