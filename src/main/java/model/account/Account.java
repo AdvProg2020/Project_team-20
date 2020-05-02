@@ -9,6 +9,7 @@ public abstract class Account {
     private String email;
     private String phoneNumber;
     private String username;
+    private String password;
     private double credit;
 
     private enum type {
@@ -17,12 +18,13 @@ public abstract class Account {
         BUYER
     }
 
-    public Account(String name, String lastName, String email, String phoneNumber, String username, double credit) {
+    public Account(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.username = username;
+        this.password = password;
         this.credit = credit;
     }
 
@@ -54,9 +56,17 @@ public abstract class Account {
         return credit;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     //TODO design for database
     public static void addAccount(Account account) {
         allAccounts.add(account);
+    }
+
+    public static void deleteAccount(Account account) {
+        allAccounts.remove(account);
     }
 
     public void setName(String name) {
@@ -83,20 +93,21 @@ public abstract class Account {
         this.credit = credit;
     }
 
-    public static Account getAccountWithUsername(String username) throws Exception{
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public static Account getAccountWithUsername(String username) {
         for (Account account : allAccounts) {
             if (account.getUsername().equals(username))
                 return account;
         }
-        throw new AccountUnavailableException();
+        return null;
+        //throw new AccountUnavailableException();
     }
 
     //ehtiaj darim ????
-    public static boolean hasThisAccount(String username) throws Exception {
+    public static boolean hasThisAccount(String username) {
         return getAccountWithUsername(username) != null;
-    }
-
-    public static class AccountUnavailableException extends Exception {
-        public AccountUnavailableException() { super("Account unavailable"); }
     }
 }

@@ -1,8 +1,8 @@
-package main.java.model.product;
+package model.product;
 
-import java.time.LocalDateTime;
 import model.account.Buyer;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 

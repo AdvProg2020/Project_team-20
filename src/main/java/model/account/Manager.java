@@ -1,11 +1,16 @@
 package model.account;
 
+import model.Requestable;
+
+import java.util.ArrayList;
+
 public class Manager extends Account {
     private boolean firstManager;
+    private static ArrayList<Requestable> requests = new ArrayList<>();
 
-    public Manager(String name, String lastName, String email, String phoneNumber, String username, double credit,
-                   boolean firstManager) {
-        super(name, lastName, email, phoneNumber, username, credit);
+    public Manager(String name, String lastName, String email, String phoneNumber, String username, String password,
+                   double credit, boolean firstManager) {
+        super(name, lastName, email, phoneNumber, username, password, credit);
         this.firstManager = firstManager;
     }
 
@@ -24,9 +29,17 @@ public class Manager extends Account {
             Manager manager = (Manager) account;
             if (manager.isFirstManager())
                 return;
-            getAllAccounts().remove(manager);
+            Account.deleteAccount(account);
         } catch (Exception e) {
-            getAllAccounts().remove(account);
+            Account.deleteAccount(account);
         }
+    }
+
+    public static void addRequest(Requestable request) {
+        requests.add(request);
+    }
+
+    public static void deleteRequest(Requestable request) {
+        requests.remove(request);
     }
 }

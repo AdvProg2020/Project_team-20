@@ -2,7 +2,7 @@ package model.account;
 
 import model.Requestable;
 import model.product.Cart;
-import main.java.model.product.Discount;
+import model.product.Discount;
 import main.java.model.receipt.BuyerReceipt;
 import model.product.RequestableState;
 
@@ -15,8 +15,8 @@ public class Buyer extends Account implements Requestable {
     private String address;
     private RequestableState state;
 
-    public Buyer(String name, String lastName, String email, String phoneNumber, String username, double credit) {
-        super(name, lastName, email, phoneNumber, username, credit);
+    public Buyer(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
+        super(name, lastName, email, phoneNumber, username, password, credit);
         this.purchaseHistory = new ArrayList<>();
         this.discountCodes = new ArrayList<>();
     }
