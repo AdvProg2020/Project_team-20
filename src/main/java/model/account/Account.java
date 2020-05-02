@@ -83,16 +83,20 @@ public abstract class Account {
         this.credit = credit;
     }
 
-    public static Account getAccountWithUsername(String username) {
+    public static Account getAccountWithUsername(String username) throws Exception{
         for (Account account : allAccounts) {
             if (account.getUsername().equals(username))
                 return account;
         }
-        return null;
+        throw new AccountUnavailableException();
     }
 
-    public static boolean hasThisAccount(String username) {
+    //ehtiaj darim ????
+    public static boolean hasThisAccount(String username) throws Exception {
         return getAccountWithUsername(username) != null;
     }
 
+    public static class AccountUnavailableException extends Exception {
+        public AccountUnavailableException() { super("Account unavailable"); }
+    }
 }

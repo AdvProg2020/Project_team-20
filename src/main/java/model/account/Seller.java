@@ -2,6 +2,7 @@ package model.account;
 
 import model.Requestable;
 import model.product.Product;
+import model.product.RequestableState;
 import model.product.Sale;
 import main.java.model.receipt.SellerReceipt;
 
@@ -13,6 +14,7 @@ public class Seller extends Account implements Requestable {
     private HashMap<Product, Integer> productsToSell;
     private ArrayList<Sale> sales;
     private HashMap<String, String> details;
+    private RequestableState state;
 
 
     public Seller(String name, String lastName, String email, String phoneNumber, String username, double credit) {
@@ -71,15 +73,15 @@ public class Seller extends Account implements Requestable {
         this.details.remove(topic);
     }
 
-    //TODO write
     @Override
     public void changeStateAccepted() {
-
+        state = RequestableState.Accepted;
+        addAccount(this);
     }
 
     @Override
     public void changeStateRejected() {
-
+        state = RequestableState.Rejected;
     }
 
 }

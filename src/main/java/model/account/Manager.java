@@ -17,15 +17,14 @@ public class Manager extends Account {
         this.firstManager = firstManager;
     }
 
-    public void deleteAccount(String username) {
+    //TODO check this rustin ;)
+    public void deleteAccount(String username) throws Exception {
         Account account = getAccountWithUsername(username);
         try {
             Manager manager = (Manager) account;
-            if (manager != null) {
-                if (manager.isFirstManager())
-                    return;
-                getAllAccounts().remove(manager);
-            }
+            if (manager.isFirstManager())
+                return;
+            getAllAccounts().remove(manager);
         } catch (Exception e) {
             getAllAccounts().remove(account);
         }
