@@ -2,8 +2,8 @@ package model.account;
 
 import model.Requestable;
 import model.product.Cart;
-import model.product.Discount;
-import model.receipt.BuyerReceipt;
+import main.java.model.product.Discount;
+import main.java.model.receipt.BuyerReceipt;
 
 import java.util.ArrayList;
 

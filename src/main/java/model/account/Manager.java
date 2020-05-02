@@ -26,7 +26,7 @@ public class Manager extends Account {
                     return;
                 getAllAccounts().remove(manager);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             getAllAccounts().remove(account);
         }
     }

@@ -3,7 +3,7 @@ package model.account;
 import model.Requestable;
 import model.product.Product;
 import model.product.Sale;
-import model.receipt.SellerReceipt;
+import main.java.model.receipt.SellerReceipt;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,8 +12,7 @@ public class Seller extends Account implements Requestable {
     private ArrayList<SellerReceipt> saleHistory;
     private HashMap<Product, Integer> productsToSell;
     private ArrayList<Sale> sales;
-    private ArrayList<String> details;
-    //private HashMap<String, String> details;
+    private HashMap<String, String> details;
 
 
     public Seller(String name, String lastName, String email, String phoneNumber, String username, double credit) {
@@ -21,8 +20,7 @@ public class Seller extends Account implements Requestable {
         this.saleHistory = new ArrayList<>();
         this.productsToSell = new HashMap<>();
         this.sales = new ArrayList<>();
-        this.details = new ArrayList<>();
-        //this.details = new HashMap<>();
+        this.details = new HashMap<>();
     }
 
     public ArrayList<SellerReceipt> getSaleHistory() {
@@ -37,7 +35,7 @@ public class Seller extends Account implements Requestable {
         return sales;
     }
 
-    public ArrayList<String> getDetails() {
+    public HashMap<String, String> getDetails() {
         return details;
     }
 
@@ -53,13 +51,9 @@ public class Seller extends Account implements Requestable {
         this.sales.add(sale);
     }
 
-    public void addDetail(String detail) {
-        this.details.add(detail);
-    }
-
-    /*public void addDetail(String topic, String details) {
+    public void addDetail(String topic, String details) {
         this.details.put(topic, details);
-    }*/
+    }
 
     public void removeFromSaleHistory(SellerReceipt saleHistory) {
         this.saleHistory.remove(saleHistory);
@@ -73,14 +67,9 @@ public class Seller extends Account implements Requestable {
         this.sales.remove(sale);
     }
 
-    //TODO behtar nist ke in ham hashmap bashe
-    public void removeDetail(String detail) {
-        this.details.remove(detail);
-    }
-
-    /*public void removeDetail(String topic) {
+    public void removeDetail(String topic) {
         this.details.remove(topic);
-    }*/
+    }
 
     //TODO write
     @Override
