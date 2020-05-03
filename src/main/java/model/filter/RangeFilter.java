@@ -1,14 +1,29 @@
 package model.filter;
 
-import model.product.Product;
+import model.product.*;
 
-public class RangeFilter implements Filter{
+public class RangeFilter extends Filter{
     private int min;
     private int max;
 
-    public RangeFilter(int min, int max) {
+    public RangeFilter(String name, int min, int max) {
+        super(name);
         this.min = min;
         this.max = max;
+    }
+
+    @Override
+    public boolean validFilter(Product product) {
+        for (Field field:product.getGeneralFields()) {
+            if (field.getName().equals(name) && field.getType().equals(FieldType.Numerical)) {
+                return validOptionalFilter(((NumericalField)field).getNumericalField());
+            }
+        }
+        return false;
+    }
+
+    public boolean validOptionalFilter(int numericalField){
+        return numericalField < max && numericalField > min;
     }
 
     public int getMin() {
@@ -25,10 +40,5 @@ public class RangeFilter implements Filter{
 
     public void setMax(int max) {
         this.max = max;
-    }
-
-    @Override
-    public boolean validFilter(Product product) {
-        return false;
     }
 }
