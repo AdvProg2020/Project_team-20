@@ -13,8 +13,8 @@ public class Category {
     public Category(String name, Category parent) {
         this.name = name;
         this.parent = parent;
-        this. fields = new ArrayList<>();
-        this. subCategories = new ArrayList<>();
+        this.fields = new ArrayList<>();
+        this.subCategories = new ArrayList<>();
         this.products = new ArrayList<>();
     }
 
