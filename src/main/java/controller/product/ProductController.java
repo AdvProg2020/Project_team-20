@@ -1,6 +1,6 @@
 package controller.product;
 
-import model.product.Product;
+        import model.product.Product;
 
 public class ProductController {
     private Product currentProduct;
