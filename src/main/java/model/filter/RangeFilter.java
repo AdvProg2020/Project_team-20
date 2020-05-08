@@ -15,7 +15,7 @@ public class RangeFilter extends Filter{
     @Override
     public boolean validFilter(Product product) {
         for (Field field:product.getGeneralFields()) {
-            if (field.getName().equals(name) && field.getType().equals(FieldType.Numerical)) {
+            if (field.getName().equals(name) && field.getType().equals(FieldType.NUMERICAL)) {
                 return validOptionalFilter(((NumericalField)field).getNumericalField());
             }
         }

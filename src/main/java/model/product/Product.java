@@ -23,7 +23,7 @@ public class Product implements Requestable {
 
     public Product(ArrayList<Field> generalFields, Seller seller, Buyer buyer, String description, int count) {
         id = Integer.toString(allProducts.size()+1);
-        state =  RequestableState.Created;
+        state =  RequestableState.CREATED;
         this.generalFields = generalFields;
         this.seller = seller;
         this.buyer = buyer;
@@ -42,17 +42,17 @@ public class Product implements Requestable {
     }
 
     public void changeStateAccepted() {
-        state = RequestableState.Accepted;
+        state = RequestableState.ACCEPTED;
         allProducts.add(this);
     }
 
     public void changeStateRejected() {
-        state = RequestableState.Rejected;
+        state = RequestableState.REJECTED;
     }
 
     public void changeStateEdited(ArrayList<Field> generalFields, String description, int count) {
         editedProduct = new Product(generalFields , description, count);
-        state = RequestableState.Edited;
+        state = RequestableState.EDITED;
     }
 
     public void edit() {
@@ -60,7 +60,7 @@ public class Product implements Requestable {
         description = editedProduct.getDescription();
         count = editedProduct.getCount();
         editedProduct = null;
-        state = RequestableState.Accepted;
+        state = RequestableState.ACCEPTED;
     }
 
     public void addCategory(Category category) {

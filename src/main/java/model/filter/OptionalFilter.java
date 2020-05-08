@@ -18,7 +18,7 @@ public class OptionalFilter extends Filter{
     @Override
     public boolean validFilter(Product product) {
         for (Field field:product.getGeneralFields()) {
-            if (field.getName().equals(name) && field.getType().equals(FieldType.Optional)) {
+            if (field.getName().equals(name) && field.getType().equals(FieldType.OPTIONAL)) {
                 return validOptionalFilter(((OptionalField)field).getOptionalFiled());
             }
         }

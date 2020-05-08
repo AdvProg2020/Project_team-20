@@ -19,7 +19,7 @@ public class Sale implements Requestable {
         this.startDate = startDate;
         this.endDate = endDate;
         this.salePercentage = salePercentage;
-        this.state =  RequestableState.Created;
+        this.state =  RequestableState.CREATED;
     }
 
     public Sale(ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage) {
@@ -27,20 +27,20 @@ public class Sale implements Requestable {
         this.startDate = startDate;
         this.endDate = endDate;
         this.salePercentage = salePercentage;
-        this.state =  RequestableState.Created;
+        this.state =  RequestableState.CREATED;
     }
 
     public void changeStateAccepted() {
-        state = RequestableState.Accepted;
+        state = RequestableState.ACCEPTED;
     }
 
     public void changeStateRejected() {
-        state = RequestableState.Rejected;
+        state = RequestableState.REJECTED;
     }
 
     public void changeStateEdited(ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage) {
         editedSale = new Sale(products, startDate, endDate, salePercentage);
-        state = RequestableState.Edited;
+        state = RequestableState.EDITED;
     }
 
     public void edit() {
@@ -48,7 +48,7 @@ public class Sale implements Requestable {
         startDate = editedSale.getStartDate();
         endDate = editedSale.getEndDate();
         editedSale = null;
-        state = RequestableState.Accepted;
+        state = RequestableState.ACCEPTED;
     }
 
     public String getId() {

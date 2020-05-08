@@ -1,6 +1,6 @@
 package model.product;
 
 public enum FieldType {
-    Optional,
-    Numerical
+    OPTIONAL,
+    NUMERICAL
 }

@@ -55,12 +55,12 @@ public class Buyer extends Account implements Requestable {
 
     @Override
     public void changeStateAccepted() {
-        state = RequestableState.Accepted;
+        state = RequestableState.ACCEPTED;
         addAccount(this);
     }
 
     @Override
     public void changeStateRejected() {
-        state = RequestableState.Rejected;
+        state = RequestableState.REJECTED;
     }
 }

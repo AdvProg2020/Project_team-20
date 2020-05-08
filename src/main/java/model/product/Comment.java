@@ -16,17 +16,17 @@ public class Comment implements Requestable {
         this.product = product;
         this.title = title;
         this.content = content;
-        state = RequestableState.Created;
+        state = RequestableState.CREATED;
     }
 
     @Override
     public void changeStateAccepted() {
-        state = RequestableState.Accepted;
+        state = RequestableState.ACCEPTED;
     }
 
     @Override
     public void changeStateRejected() {
-        state = RequestableState.Rejected;
+        state = RequestableState.REJECTED;
     }
 
     public RequestableState getState() {
