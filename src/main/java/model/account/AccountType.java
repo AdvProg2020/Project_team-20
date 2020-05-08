@@ -1,4 +1,4 @@
 package model.account;
 
-public class Person {
+public enum AccountType {
 }

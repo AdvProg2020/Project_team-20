@@ -1,4 +1,4 @@
 package model.account;
 
-public class TempAccount {
+public class TempAccount extends GeneralAccount {
 }

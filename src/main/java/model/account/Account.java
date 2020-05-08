@@ -2,7 +2,7 @@ package model.account;
 
 import java.util.ArrayList;
 
-public abstract class Account {
+public abstract class Account extends GeneralAccount{
     private static ArrayList<Account> allAccounts = new ArrayList<>();
     private String name;
     private String lastName;
