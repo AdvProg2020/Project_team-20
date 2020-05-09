@@ -10,7 +10,7 @@ public class Manager extends Account {
 
     public Manager(String name, String lastName, String email, String phoneNumber, String username, String password,
                    double credit, boolean firstManager) {
-        super(name, lastName, email, phoneNumber, username, password, credit);
+        super(name, lastName, email, phoneNumber, username, password, credit, AccountType.ACCOUNT);
         this.firstManager = firstManager;
     }
 

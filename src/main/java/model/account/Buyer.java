@@ -16,7 +16,7 @@ public class Buyer extends Account implements Requestable {
     private RequestableState state;
 
     public Buyer(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
-        super(name, lastName, email, phoneNumber, username, password, credit);
+        super(name, lastName, email, phoneNumber, username, password, credit, AccountType.ACCOUNT);
         this.purchaseHistory = new ArrayList<>();
         this.discountCodes = new ArrayList<>();
     }
