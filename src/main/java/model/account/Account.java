@@ -18,7 +18,8 @@ public abstract class Account extends GeneralAccount{
         BUYER
     }
 
-    public Account(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
+    public Account(String name, String lastName, String email, String phoneNumber, String username, String password, double credit, AccountType accountType) {
+        super(accountType);
         this.name = name;
         this.lastName = lastName;
         this.email = email;

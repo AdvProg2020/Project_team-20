@@ -9,8 +9,8 @@ public class Cart {
         this.products = new HashMap<>();
     }
 
-    public void addProduct(String id) throws Exception {
-        products.put(Product.getProductById(id), 1);
+    public void addProduct(Product product)  {
+        products.put(product, 1);
     }
 
     public void increaseProduct(String productId, int number) throws Exception {
