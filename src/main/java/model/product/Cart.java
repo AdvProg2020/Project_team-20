@@ -1,6 +1,8 @@
 package model.product;
 
 import model.account.Buyer;
+import model.account.Seller;
+
 import java.util.ArrayList;
 
 public class Cart {
@@ -10,8 +12,8 @@ public class Cart {
         this.selectedProducts = new ArrayList<>();
     }
 
-    public void addProduct(Product product, Buyer buyer)  {
-        selectedProducts.add(new SelectedProduct(product, buyer, 1));
+    public void addProduct(Product product, Seller seller)  {
+        selectedProducts.add(new SelectedProduct(product, seller, 1));
     }
 
     public void increaseProduct(String productId, int number) throws Exception {

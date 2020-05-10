@@ -15,7 +15,7 @@ public class TempAccount extends GeneralAccount {
         return cart;
     }
 
-    public void addProductToCart(Product product, Buyer buyer) {
-        cart.addProduct(product, buyer);
+    public void addProductToCart(Product product, Seller seller) {
+        cart.addProduct(product, seller);
     }
 }

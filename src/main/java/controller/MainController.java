@@ -2,6 +2,7 @@ package controller;
 
 import model.account.Account;
 import model.account.GeneralAccount;
+import model.account.TempAccount;
 import model.product.Cart;
 
 public class MainController {
@@ -11,6 +12,7 @@ public class MainController {
 
     private MainController() {
         this.cart = new Cart();
+        account = new TempAccount();
     }
 
     public static MainController getInstance() {

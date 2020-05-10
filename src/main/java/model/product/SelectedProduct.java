@@ -1,15 +1,16 @@
 package model.product;
 
 import model.account.Buyer;
+import model.account.Seller;
 
 public class SelectedProduct {
     private Product product;
-    private Buyer buyer;
+    private Seller seller;
     private int count;
 
-    public SelectedProduct(Product product, Buyer buyer, int count) {
+    public SelectedProduct(Product product, Seller seller, int count) {
         this.product = product;
-        this.buyer = buyer;
+        this.seller = seller;
         this.count = count;
     }
 
@@ -29,8 +30,8 @@ public class SelectedProduct {
         return product;
     }
 
-    public Buyer getBuyer() {
-        return buyer;
+    public Seller getSeller() {
+        return seller;
     }
 
     public int getCount() {
