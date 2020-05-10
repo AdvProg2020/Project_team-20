@@ -1,6 +1,7 @@
 package model.account;
 
 public enum AccountType {
-    ACCOUNT,
-    TEMP_ACCOUNT
+    MANAGER,
+    SELLER,
+    BUYER
 }

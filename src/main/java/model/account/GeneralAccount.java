@@ -1,13 +1,13 @@
 package model.account;
 
 public abstract class GeneralAccount {
-    private AccountType accountType;
+    private GeneralAccountType generalAccountType;
 
-    public GeneralAccount(AccountType accountType) {
-        this.accountType = accountType;
+    public GeneralAccount(GeneralAccountType generalAccountType) {
+        this.generalAccountType = generalAccountType;
     }
 
-    public AccountType getAccountType() {
-        return accountType;
+    public GeneralAccountType getGeneralAccountType() {
+        return generalAccountType;
     }
 }

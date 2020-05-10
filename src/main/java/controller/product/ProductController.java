@@ -1,7 +1,7 @@
 package controller.product;
 
 import controller.MainController;
-import model.account.Seller;
+import model.account.*;
 import model.product.Product;
 
 public class ProductController {
@@ -15,8 +15,17 @@ public class ProductController {
         mainController = MainController.getInstance();
     }
 
-    private void addProductToCart (String sellerId) {
-        
+    private void addProductToCart (String sellerId) throws Exception{
+        Account accountBuyFrom = Account.getAccountWithUsername(sellerId);
+        GeneralAccount currentAccount = mainController.getAccount();
+        if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) && !(((Account)currentAccount).getAccountType().equals(AccountType.BUYER)))
+            throw new AccountNotBuyerException();
+        else if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) && (((Account)currentAccount).getAccountType().equals(AccountType.BUYER))) {
+            ((Buyer)currentAccount).addProductToCart(currentProduct, (Buyer)accountBuyFrom);
+        }
+        else {
+
+        }
     }
 
     public static ProductController getInstance(Product product) {
@@ -27,5 +36,9 @@ public class ProductController {
 
     public Product getCurrentProduct() {
         return currentProduct;
+    }
+
+    public static class AccountNotBuyerException extends Exception {
+        public AccountNotBuyerException() { super("Account not buyer"); }
     }
 }

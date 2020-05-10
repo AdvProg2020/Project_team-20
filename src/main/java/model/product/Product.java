@@ -27,6 +27,7 @@ public class Product implements Requestable {
         state =  RequestableState.CREATED;
         this.generalFields = generalFields;
         this.seller = seller;
+        buyers = new ArrayList<>();
         buyers.add(buyer);
         categories = new ArrayList<>();
         this.description = description;
@@ -64,6 +65,14 @@ public class Product implements Requestable {
         buyers.add(editedProduct.getBuyerToAdd());
         editedProduct = null;
         state = RequestableState.ACCEPTED;
+    }
+
+    public Buyer getBuyerByUsername(String username) {
+        for (Buyer buyer:buyers) {
+             if (buyer.getUsername().equals(username))
+                 return buyer;
+        }
+        return null;
     }
 
     public void addCategory(Category category) {

@@ -6,8 +6,8 @@ import model.product.Product;
 public class TempAccount extends GeneralAccount {
     private Cart cart;
 
-    public TempAccount(AccountType accountType) {
-        super(accountType);
+    public TempAccount() {
+        super(GeneralAccountType.TEMP_ACCOUNT);
         cart = new Cart();
     }
 

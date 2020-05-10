@@ -1,11 +1,12 @@
 package controller;
 
 import model.account.Account;
+import model.account.GeneralAccount;
 import model.product.Cart;
 
 public class MainController {
     private static MainController mainController = null;
-    private Account account;
+    private GeneralAccount account;
     private Cart cart;
 
     private MainController() {
@@ -18,7 +19,7 @@ public class MainController {
         return mainController;
     }
 
-    public Account getAccount() {
+    public GeneralAccount getAccount() {
         return account;
     }
 

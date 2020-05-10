@@ -10,16 +10,11 @@ public abstract class Account extends GeneralAccount{
     private String phoneNumber;
     private String username;
     private String password;
+    private AccountType accountType;
     private double credit;
 
-    private enum type {
-        MANAGER,
-        SELLER,
-        BUYER
-    }
-
-    public Account(String name, String lastName, String email, String phoneNumber, String username, String password, double credit, AccountType accountType) {
-        super(accountType);
+    public Account(String name, String lastName, String email, String phoneNumber, String username, String password, double credit, GeneralAccountType generalAccountType, AccountType accountType) {
+        super(generalAccountType);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -27,6 +22,7 @@ public abstract class Account extends GeneralAccount{
         this.username = username;
         this.password = password;
         this.credit = credit;
+        this.accountType = accountType;
     }
 
     public static ArrayList<Account> getAllAccounts() {
@@ -59,6 +55,10 @@ public abstract class Account extends GeneralAccount{
 
     public String getPassword() {
         return password;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
     }
 
     //TODO design for database
