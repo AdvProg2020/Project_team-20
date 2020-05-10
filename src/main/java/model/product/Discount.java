@@ -43,6 +43,15 @@ public class Discount {
         return null;
     }
 
+    public  static Discount getDiscountByDiscountCode(String discountCode){
+        for(Discount discount:allDiscounts) {
+                if (discount.getDiscountCode().equals(discountCode))
+                    return discount;
+        }
+        return null;
+        //throw new doesNotExitThisDiscountCodeException();
+    }
+
     public void decreaseNumberOfUsageForBuyer(Buyer buyer){
         Discount buyerSDiscount = getDiscountByBuyer(buyer);
         if(buyerSDiscount!=null){
@@ -65,7 +74,7 @@ public class Discount {
         return true;
     }
 
-    public ArrayList<Discount> getAllDiscounts() {
+    public static ArrayList<Discount> getAllDiscounts() {
         return allDiscounts;
     }
 
