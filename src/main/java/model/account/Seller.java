@@ -4,7 +4,7 @@ import model.Requestable;
 import model.product.Product;
 import model.product.RequestableState;
 import model.product.Sale;
-import main.java.model.receipt.SellerReceipt;
+import model.receipt.SellerReceipt;
 
 import java.util.ArrayList;
 import java.util.HashMap;

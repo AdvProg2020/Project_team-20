@@ -1,6 +1,7 @@
 package controller.product;
 
 import controller.MainController;
+import model.account.Seller;
 import model.product.Product;
 
 public class ProductController {
@@ -15,7 +16,7 @@ public class ProductController {
     }
 
     private void addProductToCart (String sellerId) {
-
+        
     }
 
     public static ProductController getInstance(Product product) {

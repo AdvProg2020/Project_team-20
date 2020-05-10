@@ -54,8 +54,8 @@ public class Buyer extends Account implements Requestable {
         this.address = address;
     }
 
-    public void addProductToCart(Product product) {
-        cart.addProduct(product);
+    public void addProductToCart(Product product, Buyer buyer) {
+        cart.addProduct(product, buyer);
     }
 
     @Override
