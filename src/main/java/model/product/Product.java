@@ -12,7 +12,7 @@ public class Product implements Requestable {
     private RequestableState state;
     private ArrayList<Field> generalFields;
     private Seller seller;
-    private Buyer buyer;
+    private  ArrayList<Buyer> buyers;
     private ArrayList<Category> categories;
     private String description;
     private double count;
@@ -20,13 +20,14 @@ public class Product implements Requestable {
     private ArrayList<Comment> comments;
     private double numberVisited;
     private Product editedProduct;
+    private Buyer buyerToAdd;
 
     public Product(ArrayList<Field> generalFields, Seller seller, Buyer buyer, String description, int count) {
         id = Integer.toString(allProducts.size()+1);
         state =  RequestableState.CREATED;
         this.generalFields = generalFields;
         this.seller = seller;
-        this.buyer = buyer;
+        buyers.add(buyer);
         categories = new ArrayList<>();
         this.description = description;
         scores = new ArrayList<>();
@@ -35,10 +36,11 @@ public class Product implements Requestable {
         this.count = count;
     }
 
-    public Product(ArrayList<Field> generalFields, String description, int count) {
+    public Product(ArrayList<Field> generalFields, String description, int count, Buyer buyers) {
         this.generalFields = generalFields;
         this.description = description;
         this.count = count;
+        buyerToAdd = buyers;
     }
 
     public void changeStateAccepted() {
@@ -50,8 +52,8 @@ public class Product implements Requestable {
         state = RequestableState.REJECTED;
     }
 
-    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count) {
-        editedProduct = new Product(generalFields , description, count);
+    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, Buyer buyer) {
+        editedProduct = new Product(generalFields , description, count, buyer);
         state = RequestableState.EDITED;
     }
 
@@ -59,6 +61,7 @@ public class Product implements Requestable {
         generalFields = editedProduct.getGeneralFields();
         description = editedProduct.getDescription();
         count = editedProduct.getCount();
+        buyers.add(editedProduct.getBuyerToAdd());
         editedProduct = null;
         state = RequestableState.ACCEPTED;
     }
@@ -92,8 +95,8 @@ public class Product implements Requestable {
         return seller;
     }
 
-    public Buyer getBuyer() {
-        return buyer;
+    public ArrayList<Buyer> getBuyers() {
+        return buyers;
     }
 
     public String getDescription() {
@@ -102,6 +105,10 @@ public class Product implements Requestable {
 
     private int getNumberFields() {
         return generalFields.size();
+    }
+
+    public Buyer getBuyerToAdd() {
+        return buyerToAdd;
     }
 
     public static class productUnavailableException extends Exception {

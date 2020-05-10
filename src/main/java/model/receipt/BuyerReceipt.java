@@ -1,4 +1,4 @@
-package main.java.model.receipt;
+package model.receipt;
 import model.account.Seller;
 
 import java.util.ArrayList;
@@ -29,8 +29,4 @@ public class BuyerReceipt extends Receipt {
         return sellers;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }

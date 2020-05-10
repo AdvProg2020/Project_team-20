@@ -1,4 +1,4 @@
-package main.java.model.receipt;
+package model.receipt;
 import model.account.Buyer;
 
 import java.util.ArrayList;

@@ -3,7 +3,8 @@ package model.account;
 import model.Requestable;
 import model.product.Cart;
 import model.product.Discount;
-import main.java.model.receipt.BuyerReceipt;
+import model.receipt.BuyerReceipt;
+import model.product.Product;
 import model.product.RequestableState;
 
 import java.util.ArrayList;
@@ -51,6 +52,10 @@ public class Buyer extends Account implements Requestable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public void addProductToCart(Product product) {
+        cart.addProduct(product);
     }
 
     @Override
