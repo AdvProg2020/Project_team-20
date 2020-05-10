@@ -8,7 +8,7 @@ import model.product.Field.Field;
 import java.util.ArrayList;
 
 public class Product implements Requestable {
-    static private ArrayList<Product> allProducts = new ArrayList<>();
+    private static ArrayList<Product> allProducts = new ArrayList<>();
     private String id;
     private RequestableState state;
     private ArrayList<Field> generalFields;
@@ -93,12 +93,12 @@ public class Product implements Requestable {
         buyers.add(buyer);
     }
 
-    static void removeProduct (String productId) throws Exception {
+    public static void removeProduct (String productId) throws Exception {
         Product productToDelete = getProductById(productId);
         allProducts.remove(productToDelete);
     }
 
-    static Product getProductById(String id) throws Exception{
+    public static Product getProductById(String id) throws Exception{
         for (Product product:allProducts) {
             if (product.getId().equals(id))
                 return product;

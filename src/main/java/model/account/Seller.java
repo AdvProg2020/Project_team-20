@@ -61,8 +61,18 @@ public class Seller extends Account implements Requestable {
         this.saleHistory.remove(saleHistory);
     }
 
-    public void removeFromProductsToSell(Product product, int number) {
-        this.productsToSell.remove(product, number);
+    public void removeFromProductsToSell(Product product) {
+        this.productsToSell.remove(product);
+    }
+
+    public void decreaseProduct(Product product, int number) {
+        int firstNum = this.productsToSell.get(product);
+        this.productsToSell.replace(product,firstNum - number);
+    }
+
+    public void increaseProduct(Product product, int number) {
+        int firstNum = this.productsToSell.get(product);
+        this.productsToSell.replace(product,firstNum + number);
     }
 
     public void removeSale(Sale sale) {
