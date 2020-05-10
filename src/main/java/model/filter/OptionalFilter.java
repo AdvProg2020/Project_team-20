@@ -1,8 +1,8 @@
 package model.filter;
 
-import model.product.Field;
-import model.product.FieldType;
-import model.product.OptionalField;
+import model.product.Field.Field;
+import model.product.Field.FieldType;
+import model.product.Field.OptionalField;
 import model.product.Product;
 
 import java.util.ArrayList;

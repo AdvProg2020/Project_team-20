@@ -3,6 +3,7 @@ package model.product;
 import model.Requestable;
 import model.account.Buyer;
 import model.account.Seller;
+import model.product.Field.Field;
 
 import java.util.ArrayList;
 

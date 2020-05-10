@@ -1,4 +1,4 @@
-package model.product;
+package model.product.Field;
 
 public enum FieldType {
     OPTIONAL,

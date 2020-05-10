@@ -1,6 +1,4 @@
-package model.product;
-
-import java.util.ArrayList;
+package model.product.Field;
 
 public class NumericalField extends Field{
     private int numericalField;

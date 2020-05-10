@@ -1,6 +1,9 @@
 package model.filter;
 
 import model.product.*;
+import model.product.Field.Field;
+import model.product.Field.FieldType;
+import model.product.Field.NumericalField;
 
 public class RangeFilter extends Filter{
     private int min;

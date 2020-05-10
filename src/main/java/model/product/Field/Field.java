@@ -1,4 +1,4 @@
-package model.product;
+package model.product.Field;
 
 public abstract class Field {
     protected String name;

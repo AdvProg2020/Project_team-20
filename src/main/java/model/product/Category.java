@@ -1,5 +1,7 @@
 package model.product;
 
+import model.product.Field.Field;
+
 import java.util.ArrayList;
 
 public class Category {
