@@ -13,6 +13,18 @@ public class SelectedProduct {
         this.count = count;
     }
 
+    public void increaseProduct() {
+        count += 1;
+    }
+
+    public void decreaseProduct() {
+        count -= 1;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     public Product getProduct() {
         return product;
     }

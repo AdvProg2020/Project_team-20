@@ -1,23 +1,38 @@
 package model.product;
 
-import java.util.HashMap;
+import model.account.Buyer;
+import java.util.ArrayList;
 
 public class Cart {
-    public HashMap<Product, Integer> products;
+    public ArrayList<SelectedProduct> selectedProducts;
 
     public Cart() {
-        this.products = new HashMap<>();
+        this.selectedProducts = new ArrayList<>();
     }
 
-    public void addProduct(Product product)  {
-        products.put(product, 1);
+    public void addProduct(Product product, Buyer buyer)  {
+        selectedProducts.add(new SelectedProduct(product, buyer, 1));
     }
 
     public void increaseProduct(String productId, int number) throws Exception {
-        Product product = Product.getProductById(productId);
-        if(products.containsKey(product)) {
-            int currentNumber = products.get(product);
-            products.replace(product, currentNumber + number);
+        for (SelectedProduct selectedProduct:selectedProducts) {
+            if (selectedProduct.getProduct().getId().equals(productId)) {
+                selectedProduct.increaseProduct();
+                return;
+            }
+        }
+        throw new ProductNotInCart();
+    }
+
+    public void decreaseProduct(String productId, int number) throws Exception {
+        for (SelectedProduct selectedProduct:selectedProducts) {
+            if (selectedProduct.getProduct().getId().equals(productId)) {
+                if (selectedProduct.getCount()>1)
+                    selectedProduct.decreaseProduct();
+                else
+                    selectedProducts.remove(selectedProduct);
+                return;
+            }
         }
         throw new ProductNotInCart();
     }
