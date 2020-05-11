@@ -4,21 +4,27 @@ package controller.account.user;
 import model.account.Manager;
 import model.account.Account;
 import  model.product.Discount;
+import  model.product.Discount.buyerWithoutDiscount;
+import  model.product.Discount.discountUnavailableException;
 import  model.account.Buyer;
+import  model.product.Product;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Dictionary;
 
 
+
 public class ManagerController implements controller.account.user.AccountController {
 
-    public void manageUsers(){
-
+    public ArrayList<Account> manageUsers(){
+        return Account.getAllAccounts();
     }
-    // we should discuss
-    public void viewUser(String userName){
 
+    // we should discuss
+    public Account viewUser(String userName) throws Exception{
+        Account account = Account.getAccountWithUsername(userName);
+        return account;
     }
 
     public void deleteUser(String userName){
@@ -41,8 +47,8 @@ public class ManagerController implements controller.account.user.AccountControl
        Manager manager = new Manager(name,lastName,email,phoneNumber , userName , password ,credit , false);
     }
 
-    public void manageAllProducts(){
-
+    public ArrayList<Product> manageAllProducts(){
+        return Product.getAllProducts();
     }
 
     public void removeProduct(String productId){
@@ -54,19 +60,27 @@ public class ManagerController implements controller.account.user.AccountControl
         new Discount(startDate,endDate,discountCode,discountPercentage,maxNumberOfUsage,buyersWithDiscount);
     }
 
-    // we should discuss
-    public void viewDiscountCodes(){
+
+    public  ArrayList<Discount> viewDiscountCodes(){
         ArrayList<Discount> allDiscounts = Discount.getAllDiscounts();
+        return allDiscounts;
     }
-    // we should discuss
-    public void viewDiscountCode(String discountCode){
+
+    public Discount viewDiscountCode(String discountCode) throws Exception {
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+        return discount;
     }
 
     public void editDiscountCodes(String discountCode){
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
     }
 
+    public void removeDiscountCodes(String discountCode) throws Exception{
+        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+        discount.deleteDiscount(discount);
+    }
+
+    
     
 
     @Override
@@ -83,4 +97,5 @@ public class ManagerController implements controller.account.user.AccountControl
     public void logout() {
 
     }
+
 }

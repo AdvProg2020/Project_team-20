@@ -32,7 +32,7 @@ public class Discount {
         this.numberOfUsageForEachBuyer.put(buyersWithDiscount.get(i), maxNumberOfUsage);
     }
 
-    public Discount getDiscountByBuyer(model.account.Buyer buyer){
+    public Discount getDiscountByBuyer(model.account.Buyer buyer) throws Exception{
         for(Discount discount:allDiscounts) {
             for (Buyer buyer1 : discount.buyersWithDiscount) {
                 if (buyer1.equals(buyer)) {
@@ -40,16 +40,15 @@ public class Discount {
                 }
             }
         }
-        return null;
+        throw new buyerWithoutDiscount();
     }
 
-    public  static Discount getDiscountByDiscountCode(String discountCode){
+    public  static Discount getDiscountByDiscountCode(String discountCode) throws Exception{
         for(Discount discount:allDiscounts) {
                 if (discount.getDiscountCode().equals(discountCode))
                     return discount;
         }
-        return null;
-        //throw new doesNotExitThisDiscountCodeException();
+        throw new discountUnavailableException();
     }
 
     public void decreaseNumberOfUsageForBuyer(Buyer buyer){
@@ -124,6 +123,18 @@ public class Discount {
 
     public void setDiscountCode(String discountCode) {
         this.discountCode = discountCode;
+    }
+
+    public static class discountUnavailableException extends Exception {
+        public discountUnavailableException() {
+            super("discount with this code doesn't exist");
+        }
+    }
+
+    public static class buyerWithoutDiscount extends Exception {
+        public buyerWithoutDiscount() {
+            super("buyer doesn't have discount");
+        }
     }
 
     @Override

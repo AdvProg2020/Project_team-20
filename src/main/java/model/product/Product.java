@@ -165,4 +165,8 @@ public class Product implements Requestable {
     public double getPrice() {
         return price;
     }
+
+    public static ArrayList<Product> getAllProducts() {
+        return allProducts;
+    }
 }

@@ -111,13 +111,18 @@ public abstract class Account extends GeneralAccount{
         this.password = password;
     }
 
-    public static Account getAccountWithUsername(String username) {
+    public static Account getAccountWithUsername(String username) throws Exception{
         for (Account account : allAccounts) {
             if (account.getUsername().equals(username))
                 return account;
         }
-        return null;
-        //throw new AccountUnavailableException();
+        throw new AccountUnavailableException();
+    }
+
+    public static class AccountUnavailableException extends Exception {
+        public AccountUnavailableException() {
+            super("Account with this username does not exist.");
+        }
     }
 
     //ehtiaj darim ????
