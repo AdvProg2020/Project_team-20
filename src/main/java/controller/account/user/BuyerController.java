@@ -24,6 +24,14 @@ public class BuyerController implements AccountController {
         return (currentBuyer.getCart()).getProductById(id);
     }
 
+    public void increaseProduct(String id, int number) throws Exception{
+        currentBuyer.getCart().increaseProduct(id, number);
+    }
+
+    public void decreaseProduct(String id, int number) throws Exception{
+        currentBuyer.getCart().decreaseProduct(id, number);
+    }
+
     public void editBuyer(String fieldToChangeName, String editedField) {
         switch (fieldToChangeName) {
             case "name":

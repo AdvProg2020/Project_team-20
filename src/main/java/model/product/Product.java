@@ -16,14 +16,15 @@ public class Product implements Requestable {
     private ArrayList<Buyer> buyers;
     private ArrayList<Category> categories;
     private String description;
-    private double count;
+    private double price;
+    private int count;
     private ArrayList<Score> scores;
     private ArrayList<Comment> comments;
     private double numberVisited;
     private Product editedProduct;
     private Seller sellerToAdd;
 
-    public Product(ArrayList<Field> generalFields, Seller seller, String description, int count) {
+    public Product(ArrayList<Field> generalFields, Seller seller, String description, int count, double price) {
         id = Integer.toString(allProducts.size() + 1);
         state = RequestableState.CREATED;
         this.generalFields = generalFields;
@@ -36,12 +37,14 @@ public class Product implements Requestable {
         comments = new ArrayList<>();
         numberVisited = 0;
         this.count = count;
+        this.price = price;
     }
 
-    public Product(ArrayList<Field> generalFields, String description, int count, Seller seller) {
+    public Product(ArrayList<Field> generalFields, String description, int count, double price,Seller seller) {
         this.generalFields = generalFields;
         this.description = description;
         this.count = count;
+        this.price = price;
         sellerToAdd = seller;
     }
 
@@ -54,8 +57,8 @@ public class Product implements Requestable {
         state = RequestableState.REJECTED;
     }
 
-    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, Seller seller) {
-        editedProduct = new Product(generalFields, description, count, seller);
+    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price,Seller seller) {
+        editedProduct = new Product(generalFields, description, count, price, seller);
         state = RequestableState.EDITED;
     }
 
@@ -64,6 +67,7 @@ public class Product implements Requestable {
         description = editedProduct.getDescription();
         count = editedProduct.getCount();
         sellers.add(editedProduct.getSellerToAdd());
+        price = editedProduct.getPrice();
         editedProduct = null;
         state = RequestableState.ACCEPTED;
     }
@@ -154,7 +158,11 @@ public class Product implements Requestable {
         }
     }
 
-    public double getCount() {
+    public int getCount() {
         return count;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }
