@@ -13,7 +13,7 @@ public class Product implements Requestable {
     private RequestableState state;
     private ArrayList<Field> generalFields;
     private ArrayList<Seller> sellers;
-    private  ArrayList<Buyer> buyers;
+    private ArrayList<Buyer> buyers;
     private ArrayList<Category> categories;
     private String description;
     private double count;
@@ -23,14 +23,13 @@ public class Product implements Requestable {
     private Product editedProduct;
     private Seller sellerToAdd;
 
-    public Product(ArrayList<Field> generalFields, Seller seller, Buyer buyer, String description, int count) {
-        id = Integer.toString(allProducts.size()+1);
-        state =  RequestableState.CREATED;
+    public Product(ArrayList<Field> generalFields, Seller seller, String description, int count) {
+        id = Integer.toString(allProducts.size() + 1);
+        state = RequestableState.CREATED;
         this.generalFields = generalFields;
         sellers = new ArrayList<>();
         sellers.add(seller);
         buyers = new ArrayList<>();
-        buyers.add(buyer);
         categories = new ArrayList<>();
         this.description = description;
         scores = new ArrayList<>();
@@ -56,7 +55,7 @@ public class Product implements Requestable {
     }
 
     public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, Seller seller) {
-        editedProduct = new Product(generalFields , description, count, seller);
+        editedProduct = new Product(generalFields, description, count, seller);
         state = RequestableState.EDITED;
     }
 
@@ -70,19 +69,24 @@ public class Product implements Requestable {
     }
 
     public Buyer getBuyerByUsername(String username) {
-        for (Buyer buyer:buyers) {
-             if (buyer.getUsername().equals(username))
-                 return buyer;
+        for (Buyer buyer : buyers) {
+            if (buyer.getUsername().equals(username))
+                return buyer;
         }
         return null;
     }
 
     public Seller getSellerByUsername(String username) {
-        for (Seller seller:sellers) {
+        for (Seller seller : sellers) {
             if (seller.getUsername().equals(username))
                 return seller;
         }
         return null;
+    }
+
+    public void removeSeller(String username) {
+        Seller seller = getSellerByUsername(username);
+        sellers.remove(seller);
     }
 
     public void addCategory(Category category) {
@@ -93,13 +97,13 @@ public class Product implements Requestable {
         buyers.add(buyer);
     }
 
-    public static void removeProduct (String productId) throws Exception {
+    public static void removeProduct(String productId) throws Exception {
         Product productToDelete = getProductById(productId);
         allProducts.remove(productToDelete);
     }
 
-    public static Product getProductById(String id) throws Exception{
-        for (Product product:allProducts) {
+    public static Product getProductById(String id) throws Exception {
+        for (Product product : allProducts) {
             if (product.getId().equals(id))
                 return product;
         }
@@ -145,7 +149,9 @@ public class Product implements Requestable {
     }
 
     public static class productUnavailableException extends Exception {
-        public productUnavailableException() { super("product unavailable"); }
+        public productUnavailableException() {
+            super("product unavailable");
+        }
     }
 
     public double getCount() {

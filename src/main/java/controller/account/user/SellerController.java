@@ -56,6 +56,7 @@ public class SellerController implements AccountController {
     }
 
     public void addProduct(ArrayList<String> details) {
+
         Product product = new Product();
         Manager.addRequest(product);
     }
@@ -73,6 +74,7 @@ public class SellerController implements AccountController {
     public void deleteProduct(String productId) throws Exception {
         Product product = Product.getProductById(productId);
         seller.removeFromProductsToSell(product);
+        product.removeSeller(seller.getUsername());
     }
 
     public ArrayList<Category> showCategories() {
