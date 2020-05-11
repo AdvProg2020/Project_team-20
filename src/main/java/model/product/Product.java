@@ -65,9 +65,10 @@ public class Product implements Requestable {
     public void edit() {
         generalFields = editedProduct.getGeneralFields();
         description = editedProduct.getDescription();
-        count = editedProduct.getCount();
-        sellers.add(editedProduct.getSellerToAdd());
         price = editedProduct.getPrice();
+        count = editedProduct.getCount();
+        if (editedProduct.getSellerToAdd()!=null)
+            sellers.add(editedProduct.getSellerToAdd());
         editedProduct = null;
         state = RequestableState.ACCEPTED;
     }

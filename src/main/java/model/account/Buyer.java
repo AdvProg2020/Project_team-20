@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class Buyer extends Account implements Requestable {
     private Cart cart;
     private ArrayList<BuyerReceipt> purchaseHistory;
-    private ArrayList<Discount> discountCodes;
     private String address;
     private RequestableState state;
     private Buyer editedBuyer;
@@ -20,7 +19,6 @@ public class Buyer extends Account implements Requestable {
     public Buyer(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
         super(name, lastName, email, phoneNumber, username, password, credit, AccountType.BUYER);
         this.purchaseHistory = new ArrayList<>();
-        this.discountCodes = new ArrayList<>();
     }
 
     public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password, double credit) {
@@ -48,14 +46,6 @@ public class Buyer extends Account implements Requestable {
 
     public void addReceipt(BuyerReceipt receipt) {
         this.purchaseHistory.add(receipt);
-    }
-
-    public ArrayList<Discount> getDiscountCodes() {
-        return discountCodes;
-    }
-
-    public void addDiscountCodes(Discount discountCode) {
-        this.discountCodes.add(discountCode);
     }
 
     public String getAddress() {

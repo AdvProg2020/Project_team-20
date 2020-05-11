@@ -17,12 +17,15 @@ public class BuyerController implements AccountController {
         currentBuyer = (Buyer)mainController.getAccount();
     }
 
-    public void purchase(String address, String phoneNumber) {
-
+    public void purchase(String address, String phoneNumber, String discountCode) {
+        receiveInformation(address, phoneNumber);
+        if (Discount.validDiscountCodeBuyer(currentBuyer, discountCode)) {
+        }
     }
 
-    public ArrayList<Discount> getDiscountCodes() {
-        return currentBuyer.getDiscountCodes();
+    private void receiveInformation(String address, String phoneNumber) {
+        currentBuyer.setAddress(address);
+        currentBuyer.setPhoneNumber(phoneNumber);
     }
 
     public double getTotalPrice() {

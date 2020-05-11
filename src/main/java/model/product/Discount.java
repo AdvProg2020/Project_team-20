@@ -12,7 +12,7 @@ public class Discount {
     private double discountPercentage;
     private int maxNumberOfUsage;
     private ArrayList<model.account.Buyer> buyersWithDiscount;
-    private HashMap<model.account.Buyer,Integer> numberOfUsageForEachBuyer = new HashMap<>();
+    private HashMap<Buyer,Integer> numberOfUsageForEachBuyer = new HashMap<>();
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
@@ -27,12 +27,27 @@ public class Discount {
         setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
     }
 
+    public static boolean validDiscountCodeBuyer(Buyer buyer, String discountCode) {
+        for (Discount discount:allDiscounts) {
+            if (discount.getDiscountCode().equals(discountCode) && discount.getBuyersWithDiscount().contains(buyer) && discount.getNumberOfUsageForEachBuyer().get(buyer)>0)
+                return true;
+        }
+        return false;
+    }
+
+    public static void decreaseDiscountCodeUsageBuyer(Buyer buyer, String discountCode) {
+        for (Discount discount:allDiscounts) {
+            if (discount.getDiscountCode().equals(discountCode) && discount.getBuyersWithDiscount().contains(buyer) && discount.getNumberOfUsageForEachBuyer().get(buyer)>0)
+                discount.getNumberOfUsageForEachBuyer().put(buyer, discount.getNumberOfUsageForEachBuyer().get(buyer)-1);
+        }
+    }
+
     private void setNumberOfUsageForBuyers(int maxNumberOfUsage,ArrayList<Buyer> buyersWithDiscount){
         for(int i =0 ; i<buyersWithDiscount.size() ; i++)
         this.numberOfUsageForEachBuyer.put(buyersWithDiscount.get(i), maxNumberOfUsage);
     }
 
-    public Discount getDiscountByBuyer(model.account.Buyer buyer){
+    public static Discount getDiscountByBuyer(model.account.Buyer buyer){
         for(Discount discount:allDiscounts) {
             for (Buyer buyer1 : discount.buyersWithDiscount) {
                 if (buyer1.equals(buyer)) {
@@ -43,7 +58,7 @@ public class Discount {
         return null;
     }
 
-    public  static Discount getDiscountByDiscountCode(String discountCode){
+    public static Discount getDiscountByDiscountCode(String discountCode){
         for(Discount discount:allDiscounts) {
                 if (discount.getDiscountCode().equals(discountCode))
                     return discount;
@@ -80,6 +95,10 @@ public class Discount {
 
     public String getDiscountCode() {
         return discountCode;
+    }
+
+    public HashMap<Buyer, Integer> getNumberOfUsageForEachBuyer() {
+        return numberOfUsageForEachBuyer;
     }
 
     public double getDiscountPercentage() {
