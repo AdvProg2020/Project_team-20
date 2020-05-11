@@ -7,10 +7,13 @@ import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
 import model.product.Category;
+import model.product.Field.Field;
+import model.product.Field.NumericalField;
 import model.product.Product;
 import model.product.Sale;
 import model.receipt.SellerReceipt;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -84,9 +87,46 @@ public class SellerController implements AccountController {
         return getSaleWithId(offId);
     }
 
-    public void editOff(String offId) throws SaleUnavailableException {
-        Sale sale = getSaleWithId(offId).getEditedSale();
+    public void editOff(String offId, ArrayList<String> details, ArrayList<String> productIdsToRemove,
+                        ArrayList<String> productIdsToAdd) throws Exception {
+        Sale sale = getSaleWithId(offId);
+        LocalDateTime startDate, endDate;
+        double salePercentage;
+        ArrayList<Product> productsToRemove = Product.getProductsWithIds(productIdsToRemove),
+                productsToAdd = Product.getProductsWithIds(productIdsToAdd), newProducts = getSaleProducts(offId);
+        if (!details.get(0).isEmpty()) {
+            startDate = LocalDateTime.parse(details.get(0));
+        } else startDate = sale.getStartDate();
+        if (!details.get(1).isEmpty()) {
+            endDate = LocalDateTime.parse(details.get(1));
+        } else endDate = sale.getEndDate();
+        if (!details.get(2).isEmpty()) {
+            salePercentage = Double.parseDouble(details.get(2));
+        } else salePercentage = sale.getSalePercentage();
+        //momkene hamchin producty tosh nabashe onvaght chi
+        for (Product product : productsToRemove) {
+            newProducts.remove(product);
+        }
+        newProducts.addAll(productsToAdd);
+        sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
+    }
 
+    private ArrayList<Product> getSaleProducts(String offId) throws Exception {
+        Sale sale = getSaleWithId(offId);
+        return new ArrayList<>(sale.getProducts());
+    }
+
+    public void addOff(ArrayList<String> details, ArrayList<String> productIds) throws Exception {
+        String id = details.get(0);
+        LocalDateTime startDate = LocalDateTime.parse(details.get(1)), endDate = LocalDateTime.parse(details.get(2));
+        double salePercentage = Double.parseDouble(details.get(3));
+        ArrayList<Product> products = Product.getProductsWithIds(productIds);
+        Sale sale = new Sale(id, products, startDate, endDate, salePercentage);
+        Manager.addRequest(sale);
+    }
+
+    public double viewBalance() {
+        return seller.getCredit();
     }
 
     private Sale getSaleWithId(String offId) throws SaleUnavailableException {
@@ -98,23 +138,24 @@ public class SellerController implements AccountController {
     }
 
     public static class SaleUnavailableException extends Exception {
-        public SaleUnavailableException() { super("sale(off) unavailable"); }
+        public SaleUnavailableException() {
+            super("sale(off) unavailable");
+        }
     }
 
 
     @Override
 
     public Account getAccountInfo() {
-        return null;
+        return (Account) mainController.getAccount();
     }
 
     @Override
     public void editField(String filed, String context) {
-
     }
 
     @Override
     public void logout() {
-
+        mainController.setAccount(null);
     }
 }

@@ -106,6 +106,16 @@ public class Product implements Requestable {
         throw new productUnavailableException();
     }
 
+    public static ArrayList<Product> getProductsWithIds(ArrayList<String> productIds) throws Exception {
+        ArrayList<Product> products = new ArrayList<>();
+        Product tempProduct;
+        for (String productId : productIds) {
+            tempProduct = Product.getProductById(productId);
+            products.add(tempProduct);
+        }
+        return products;
+    }
+
     public String getId() {
         return id;
     }
