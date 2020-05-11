@@ -1,4 +1,4 @@
-package main.java.controller.account.user;
+package controller.account.user;
 
 
 import model.account.Manager;

@@ -1,4 +1,4 @@
-package main.java.controller.gift;
+package controller.gift;
 
 public interface Action {
 }

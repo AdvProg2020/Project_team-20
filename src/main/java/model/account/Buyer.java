@@ -3,6 +3,7 @@ package model.account;
 import model.Requestable;
 import model.product.Cart;
 import model.product.Discount;
+import model.product.Field.Field;
 import model.receipt.BuyerReceipt;
 import model.product.Product;
 import model.product.RequestableState;
@@ -15,11 +16,23 @@ public class Buyer extends Account implements Requestable {
     private ArrayList<Discount> discountCodes;
     private String address;
     private RequestableState state;
+    private Buyer editedBuyer;
 
     public Buyer(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
-        super(name, lastName, email, phoneNumber, username, password, credit, GeneralAccountType.ACCOUNT, AccountType.BUYER);
+        super(name, lastName, email, phoneNumber, username, password, credit, AccountType.BUYER);
         this.purchaseHistory = new ArrayList<>();
         this.discountCodes = new ArrayList<>();
+    }
+
+    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
+        editedBuyer = new Buyer(name, lastName, email, phoneNumber, username, password, credit);
+        state = RequestableState.EDITED;
+    }
+
+    public void editBuyer() {
+        edit(editedBuyer);
+        editedBuyer = null;
+        state = RequestableState.ACCEPTED;
     }
 
     public Cart getCart() {
