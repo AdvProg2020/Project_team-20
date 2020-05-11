@@ -158,6 +158,6 @@ public class SellerController implements AccountController {
 
     @Override
     public void logout() {
-        mainController.setAccount(null);
+        mainController.logout();
     }
 }

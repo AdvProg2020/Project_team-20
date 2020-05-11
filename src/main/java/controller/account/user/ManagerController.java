@@ -62,4 +62,25 @@ public class ManagerController implements controller.account.user.AccountControl
     public void viewDiscountCode(String discountCode){
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
     }
+
+    public void editDiscountCodes(String discountCode){
+        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+    }
+
+    
+
+    @Override
+    public Account getAccountInfo() {
+        return null;
+    }
+
+    @Override
+    public void editField(String field, String context) {
+
+    }
+
+    @Override
+    public void logout() {
+
+    }
 }

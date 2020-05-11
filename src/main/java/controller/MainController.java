@@ -21,6 +21,10 @@ public class MainController {
         return mainController;
     }
 
+    public void logout() {
+        this.account = new TempAccount();
+    }
+
     public GeneralAccount getAccount() {
         return account;
     }
