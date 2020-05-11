@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Product implements Requestable {
     private static ArrayList<Product> allProducts = new ArrayList<>();
     private String id;
+    private String name;
     private RequestableState state;
     private ArrayList<Field> generalFields;
     private ArrayList<Seller> sellers;
@@ -24,7 +25,9 @@ public class Product implements Requestable {
     private Product editedProduct;
     private Seller sellerToAdd;
 
-    public Product(ArrayList<Field> generalFields, Seller seller, String description, int count, double price) {
+    public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
+                   double price) {
+        this.name = name;
         id = Integer.toString(allProducts.size() + 1);
         state = RequestableState.CREATED;
         this.generalFields = generalFields;

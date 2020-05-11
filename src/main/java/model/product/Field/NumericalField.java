@@ -1,14 +1,14 @@
 package model.product.Field;
 
 public class NumericalField extends Field{
-    private int numericalField;
+    private double numericalField;
 
-    public NumericalField(String name, FieldType type, int numericalField) {
+    public NumericalField(String name, FieldType type, double numericalField) {
         super(name, type);
         this.numericalField = numericalField;
     }
 
-    public int getNumericalField() {
+    public double getNumericalField() {
         return numericalField;
     }
 }

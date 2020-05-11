@@ -1,21 +1,21 @@
 package controller.account.user;
 
 import controller.MainController;
-import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
 import model.product.Category;
 import model.product.Field.Field;
+import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
+import model.product.Field.OptionalField;
 import model.product.Product;
 import model.product.Sale;
 import model.receipt.SellerReceipt;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class SellerController implements AccountController {
     private static SellerController sellerController = null;
@@ -55,10 +55,42 @@ public class SellerController implements AccountController {
 
     }
 
-    public void addProduct(ArrayList<String> details) {
-
-        Product product = new Product();
+    public void addProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
+                           HashMap<String, ArrayList<String>> optionalFields) {
+        String name = details.get(0), description = details.get(1);
+        int count = Integer.parseInt(details.get(2));
+        double price = Double.parseDouble(details.get(3));
+        ArrayList<Field> fields = new ArrayList<>();
+        fields.addAll(createNumericalFields(numericalFields));
+        fields.addAll(createOptionalFields(optionalFields));
+        Product product = new Product(fields, seller, name, description, count, price);
         Manager.addRequest(product);
+    }
+
+    private ArrayList<Field> createOptionalFields(HashMap<String, ArrayList<String>> optionalFields) {
+        ArrayList<Field> fields = new ArrayList<>();
+        String name;
+        ArrayList<String> optionalFiled;
+        Set<Map.Entry<String, ArrayList<String>>> optionalSet = optionalFields.entrySet();
+        for (Map.Entry<String, ArrayList<String>> mentry : optionalSet) {
+            name = mentry.getKey();
+            optionalFiled = mentry.getValue();
+            fields.add(new OptionalField(name, FieldType.OPTIONAL, optionalFiled));
+        }
+        return fields;
+    }
+
+    private ArrayList<Field> createNumericalFields(HashMap<String, Double> numericalFields) {
+        ArrayList<Field> fields = new ArrayList<>();
+        String name;
+        double numericalField;
+        Set<Map.Entry<String, Double>> numericalSet = numericalFields.entrySet();
+        for (Map.Entry<String, Double> mentry : numericalSet) {
+            name = mentry.getKey();
+            numericalField = mentry.getValue();
+            fields.add(new NumericalField(name, FieldType.NUMERICAL, numericalField));
+        }
+        return fields;
     }
 
     public void increaseProduct(String productId, int quantity) throws Exception {
