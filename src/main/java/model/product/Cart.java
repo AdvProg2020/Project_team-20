@@ -47,6 +47,10 @@ public class Cart {
         throw new ProductNotInCart();
     }
 
+    public ArrayList<SelectedProduct> getSelectedProducts() {
+        return selectedProducts;
+    }
+
     public static class ProductNotInCart extends Exception {
         public ProductNotInCart() { super("product unavailable"); }
     }

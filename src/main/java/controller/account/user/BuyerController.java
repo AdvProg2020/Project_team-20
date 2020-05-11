@@ -4,8 +4,9 @@ import controller.MainController;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
-import model.product.Cart;
-import model.product.Product;
+import model.product.*;
+
+import java.util.ArrayList;
 
 public class BuyerController implements AccountController {
     MainController mainController;
@@ -14,6 +15,31 @@ public class BuyerController implements AccountController {
     public BuyerController() {
         this.mainController = MainController.getInstance();
         currentBuyer = (Buyer)mainController.getAccount();
+    }
+
+    public void purchase(String address, String phoneNumber) {
+
+    }
+
+    public ArrayList<Discount> getDiscountCodes() {
+        return currentBuyer.getDiscountCodes();
+    }
+
+    public double getTotalPrice() {
+        double totalPrice = 0;
+        for (SelectedProduct selectedProduct:currentBuyer.getCart().getSelectedProducts()) {
+            totalPrice += selectedProduct.getProduct().getPrice();
+        }
+        return totalPrice;
+    }
+
+    private ArrayList<Sale> getSalesForProduct(SelectedProduct selectedProduct) {
+        ArrayList<Sale> salesForProduct = new ArrayList<>();
+        for (Sale sale:selectedProduct.getSeller().getSales()) {
+            if (sale.hasProduct(selectedProduct.getProduct()))
+                salesForProduct.add(sale);
+        }
+        return salesForProduct;
     }
 
     public Cart viewCart() {

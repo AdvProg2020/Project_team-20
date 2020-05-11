@@ -54,6 +54,14 @@ public class Sale implements Requestable {
         state = RequestableState.ACCEPTED;
     }
 
+    public boolean hasProduct(Product productToFind) {
+        for (Product product: products) {
+            if (product.equals(productToFind))
+                return true;
+        }
+        return false;
+    }
+
     public String getId() {
         return id;
     }
