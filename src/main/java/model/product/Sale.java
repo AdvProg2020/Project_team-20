@@ -82,6 +82,11 @@ public class Sale implements Requestable {
         return endDate;
     }
 
+    public boolean validSaleTime() {
+        LocalDateTime currentTime = LocalDateTime.now();
+        return currentTime.isAfter(startDate) && currentTime.isBefore(endDate);
+    }
+
     public Sale getEditedSale() {
         return editedSale;
     }

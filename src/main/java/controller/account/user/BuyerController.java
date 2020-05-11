@@ -27,8 +27,15 @@ public class BuyerController implements AccountController {
 
     public double getTotalPrice() {
         double totalPrice = 0;
+        ArrayList<Sale> salesForProduct;
         for (SelectedProduct selectedProduct:currentBuyer.getCart().getSelectedProducts()) {
-            totalPrice += selectedProduct.getProduct().getPrice();
+            salesForProduct = getSalesForProduct(selectedProduct);
+            for (Sale sale:salesForProduct) {
+                if (sale.validSaleTime())
+                    totalPrice += selectedProduct.getProduct().getPrice()*sale.getSalePercentage();
+                else
+                    totalPrice += selectedProduct.getProduct().getPrice();
+            }
         }
         return totalPrice;
     }
