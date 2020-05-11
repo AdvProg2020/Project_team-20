@@ -26,7 +26,7 @@ public class Seller extends Account implements Requestable {
         this.details = new HashMap<>();
     }
 
-    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
+    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password, double credit) {
         editedSeller = new Seller(name, lastName, email, phoneNumber, username, password, credit);
         state = RequestableState.EDITED;
     }

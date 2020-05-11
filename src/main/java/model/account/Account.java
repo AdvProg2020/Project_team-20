@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public abstract class Account extends GeneralAccount{
     private static ArrayList<Account> allAccounts = new ArrayList<>();
-    private String name;
-    private String lastName;
-    private String email;
-    private String phoneNumber;
-    private String username;
-    private String password;
-    private AccountType accountType;
-    private double credit;
+    protected String name;
+    protected String lastName;
+    protected String email;
+    protected String phoneNumber;
+    protected String username;
+    protected String password;
+    protected AccountType accountType;
+    protected double credit;
 
     public Account(String name, String lastName, String email, String phoneNumber, String username, String password, double credit, AccountType accountType) {
         super(GeneralAccountType.ACCOUNT);
