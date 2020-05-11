@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public abstract class Account extends GeneralAccount{
     private static ArrayList<Account> allAccounts = new ArrayList<>();
-    private String name;
-    private String lastName;
-    private String email;
-    private String phoneNumber;
-    private String username;
-    private String password;
-    private AccountType accountType;
-    private double credit;
+    protected String name;
+    protected String lastName;
+    protected String email;
+    protected String phoneNumber;
+    protected String username;
+    protected String password;
+    protected AccountType accountType;
+    protected double credit;
 
-    public Account(String name, String lastName, String email, String phoneNumber, String username, String password, double credit, GeneralAccountType generalAccountType, AccountType accountType) {
-        super(generalAccountType);
+    public Account(String name, String lastName, String email, String phoneNumber, String username, String password, double credit, AccountType accountType) {
+        super(GeneralAccountType.ACCOUNT);
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -27,6 +27,17 @@ public abstract class Account extends GeneralAccount{
 
     public static ArrayList<Account> getAllAccounts() {
         return allAccounts;
+    }
+
+    public void edit(Account account) {
+        this.name = account.getName();
+        this.lastName = account.getLastName();
+        this.email = account.getEmail();
+        this.phoneNumber = account.getPhoneNumber();
+        this.username = account.getUsername();
+        this.password = account.getPassword();
+        this.credit = account.getCredit();
+        this.accountType = account.getAccountType();
     }
 
     public String getName() {
@@ -60,6 +71,8 @@ public abstract class Account extends GeneralAccount{
     public AccountType getAccountType() {
         return accountType;
     }
+
+
 
     //TODO design for database
     public static void addAccount(Account account) {

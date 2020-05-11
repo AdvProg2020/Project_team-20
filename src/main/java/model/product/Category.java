@@ -20,11 +20,11 @@ public class Category {
         this.products = new ArrayList<>();
     }
 
-    public ArrayList<Category> getAllCategories() {
+    public static ArrayList<Category> getAllCategories() {
         return allCategories;
     }
 
-    public void AddToCategories(Category category) {
+    public static void AddToCategories(Category category) {
         allCategories.add(category);
     }
 

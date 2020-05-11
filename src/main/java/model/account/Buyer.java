@@ -15,11 +15,23 @@ public class Buyer extends Account implements Requestable {
     private ArrayList<Discount> discountCodes;
     private String address;
     private RequestableState state;
+    private Buyer editedBuyer;
 
     public Buyer(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
-        super(name, lastName, email, phoneNumber, username, password, credit, GeneralAccountType.ACCOUNT, AccountType.BUYER);
+        super(name, lastName, email, phoneNumber, username, password, credit, AccountType.BUYER);
         this.purchaseHistory = new ArrayList<>();
         this.discountCodes = new ArrayList<>();
+    }
+
+    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password, double credit) {
+        editedBuyer = new Buyer(name, lastName, email, phoneNumber, username, password, credit);
+        state = RequestableState.EDITED;
+    }
+
+    public void editBuyer() {
+        edit(editedBuyer);
+        editedBuyer = null;
+        state = RequestableState.ACCEPTED;
     }
 
     public Cart getCart() {
@@ -52,6 +64,10 @@ public class Buyer extends Account implements Requestable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public RequestableState getState() {
+        return state;
     }
 
     public void addProductToCart(Product product, Seller seller) {

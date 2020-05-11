@@ -1,6 +1,8 @@
 package model.product;
 
 import model.Requestable;
+import model.account.Manager;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -41,6 +43,7 @@ public class Sale implements Requestable {
     public void changeStateEdited(ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage) {
         editedSale = new Sale(products, startDate, endDate, salePercentage);
         state = RequestableState.EDITED;
+        Manager.addRequest(editedSale);
     }
 
     public void edit() {

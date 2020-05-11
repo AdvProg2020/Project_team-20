@@ -15,14 +15,26 @@ public class Seller extends Account implements Requestable {
     private ArrayList<Sale> sales;
     private HashMap<String, String> details;
     private RequestableState state;
+    private Seller editedSeller;
 
 
     public Seller(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
-        super(name, lastName, email, phoneNumber, username, password, credit, GeneralAccountType.ACCOUNT, AccountType.SELLER);
+        super(name, lastName, email, phoneNumber, username, password, credit, AccountType.SELLER);
         this.saleHistory = new ArrayList<>();
         this.productsToSell = new HashMap<>();
         this.sales = new ArrayList<>();
         this.details = new HashMap<>();
+    }
+
+    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password, double credit) {
+        editedSeller = new Seller(name, lastName, email, phoneNumber, username, password, credit);
+        state = RequestableState.EDITED;
+    }
+
+    public void editSeller() {
+        edit(editedSeller);
+        editedSeller = null;
+        state = RequestableState.ACCEPTED;
     }
 
     public ArrayList<SellerReceipt> getSaleHistory() {
@@ -61,8 +73,18 @@ public class Seller extends Account implements Requestable {
         this.saleHistory.remove(saleHistory);
     }
 
-    public void removeFromProductsToSell(Product product, int number) {
-        this.productsToSell.remove(product, number);
+    public void removeFromProductsToSell(Product product) {
+        this.productsToSell.remove(product);
+    }
+
+    public void decreaseProduct(Product product, int number) {
+        int firstNum = this.productsToSell.get(product);
+        this.productsToSell.replace(product,firstNum - number);
+    }
+
+    public void increaseProduct(Product product, int number) {
+        int firstNum = this.productsToSell.get(product);
+        this.productsToSell.replace(product,firstNum + number);
     }
 
     public void removeSale(Sale sale) {
