@@ -4,6 +4,8 @@ import controller.MainController;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
+import model.product.Cart;
+import model.product.Product;
 
 public class BuyerController implements AccountController {
     MainController mainController;
@@ -12,6 +14,14 @@ public class BuyerController implements AccountController {
     public BuyerController() {
         this.mainController = MainController.getInstance();
         currentBuyer = (Buyer)mainController.getAccount();
+    }
+
+    public Cart viewCart() {
+        return currentBuyer.getCart();
+    }
+
+    public Product getProductById(String id) throws Exception {
+        return (currentBuyer.getCart()).getProductById(id);
     }
 
     public void editBuyer(String fieldToChangeName, String editedField) {

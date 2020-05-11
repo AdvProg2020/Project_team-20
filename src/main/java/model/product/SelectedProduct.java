@@ -14,12 +14,12 @@ public class SelectedProduct {
         this.count = count;
     }
 
-    public void increaseProduct() {
-        count += 1;
+    public void increaseProduct(int number) {
+        count += number;
     }
 
-    public void decreaseProduct() {
-        count -= 1;
+    public void decreaseProduct(int number) {
+        count -= number;
     }
 
     public void setCount(int count) {
