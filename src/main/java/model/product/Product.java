@@ -12,7 +12,7 @@ public class Product implements Requestable {
     private static ArrayList<Product> allProducts = new ArrayList<>();
     private String id;
     private String name;
-    private RequestableState state;
+    private HashMap<Seller,RequestableState> state;
     private ArrayList<Field> generalFields;
     private ArrayList<Seller> sellers;
     private ArrayList<Buyer> buyers;
@@ -25,13 +25,13 @@ public class Product implements Requestable {
     private ArrayList<Score> scores;
     private ArrayList<Comment> comments;
     private double numberVisited;
-    private Product editedProduct;
+    private HashMap<Seller, Product> editedProducts;
 
     public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
                    double price) {
         this.name = name;
         id = Integer.toString(allProducts.size() + 1);
-        state = RequestableState.CREATED;
+        state.put(seller,RequestableState.CREATED);
         this.generalFields = generalFields;
         sellers = new ArrayList<>();
         sellers.add(seller);
@@ -56,27 +56,27 @@ public class Product implements Requestable {
         this.price.put(seller, price);
     }
 
-    public void changeStateAccepted() {
-        state = RequestableState.ACCEPTED;
+    public void changeStateAccepted(Seller seller) {
+        state.replace(seller,RequestableState.ACCEPTED);
         allProducts.add(this);
     }
 
-    public void changeStateRejected() {
-        state = RequestableState.REJECTED;
+    public void changeStateRejected(Seller seller) {
+        state.replace(seller,RequestableState.REJECTED);
     }
 
     public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws Exception {
-        editedProduct = new Product(generalFields, description, count, price, seller);
-        state = RequestableState.EDITED;
+        editedProducts.put(seller, new Product(generalFields, description, count, price, seller));
+        state.replace(seller,RequestableState.EDITED);
     }
 
     public void edit(Seller seller) {
-        generalFields = editedProduct.getGeneralFields();
-        description = editedProduct.getDescription();
-        price.replace(seller, editedProduct.getPrice(seller));
-        count.replace(seller, editedProduct.getCount(seller));
-        editedProduct = null;
-        state = RequestableState.ACCEPTED;
+        generalFields = editedProducts.get(seller).getGeneralFields();
+        description = editedProducts.get(seller).getDescription();
+        price.replace(seller, editedProducts.get(seller).getPrice(seller));
+        count.replace(seller, editedProducts.get(seller).getCount(seller));
+        editedProducts = new HashMap<>();
+        state.replace(seller,RequestableState.ACCEPTED);
     }
 
     public Buyer getBuyerByUsername(String username) {
