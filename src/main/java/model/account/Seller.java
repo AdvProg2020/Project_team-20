@@ -95,6 +95,10 @@ public class Seller extends Account implements Requestable {
         this.details.remove(topic);
     }
 
+    public RequestableState getState() {
+        return state;
+    }
+
     @Override
     public void changeStateAccepted() {
         state = RequestableState.ACCEPTED;

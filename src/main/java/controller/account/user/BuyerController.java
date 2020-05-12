@@ -4,8 +4,10 @@ import controller.MainController;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
+import model.account.Seller;
 import model.product.*;
 import model.receipt.BuyerReceipt;
+import model.receipt.SellerReceipt;
 
 import java.util.ArrayList;
 
@@ -33,11 +35,36 @@ public class BuyerController implements AccountController {
 
     private void makeReceipt(double totalPrice, double discountPercentage) {
         makeBuyerReceipt(totalPrice, discountPercentage);
-        makeSellerReceipt();
+        makeSellerReceipt(discountPercentage);
     }
 
-    private void makeSellerReceipt() {
+    private void makeSellerReceipt(double discountPercentage) {
+        Cart cart = currentBuyer.getCart();
+        ArrayList<Seller> sellers = cart.getAllSellers();
+        for (Seller seller:sellers) {
+            seller.addToSaleHistory(new SellerReceipt(Integer.toString(SellerReceipt.getSellerReceiptCount()), discountPercentage, cart.getAllProductsOfSeller(seller),
+                    false, getTotalPriceTotalDiscountSeller(seller, 0), currentBuyer, getTotalPriceTotalDiscountSeller(seller, 1)));
+        }
+    }
 
+    private double getTotalPriceTotalDiscountSeller(Seller seller, int type) {
+        Cart cart = currentBuyer.getCart();
+        double totalPriceSeller = 0;
+        double totalDiscount = 0;
+        ArrayList<Product> allProductsSeller = cart.getAllProductsOfSeller(seller);
+        for (Product product:allProductsSeller) {
+            Sale sale = getSaleForProductOfSeller(product, seller);
+            if (sale!=null) {
+                totalPriceSeller += product.getPrice() * sale.getSalePercentage();
+                totalDiscount += product.getPrice() * (1-sale.getSalePercentage());
+            }
+            else
+                totalPriceSeller += product.getPrice();
+        }
+        if (type==0)
+            return totalPriceSeller;
+        else
+            return totalDiscount;
     }
 
     private void makeBuyerReceipt(double totalPrice, double discountPercentage) {
@@ -58,24 +85,29 @@ public class BuyerController implements AccountController {
         double totalPrice = 0;
         ArrayList<Sale> salesForProduct;
         for (SelectedProduct selectedProduct:currentBuyer.getCart().getSelectedProducts()) {
-            salesForProduct = getSalesForProduct(selectedProduct);
-            for (Sale sale:salesForProduct) {
-                if (sale.validSaleTime())
-                    totalPrice += selectedProduct.getProduct().getPrice()*sale.getSalePercentage();
-                else
-                    totalPrice += selectedProduct.getProduct().getPrice();
-            }
+            Sale saleForProduct = getSaleForProduct(selectedProduct);
+            if (saleForProduct!=null && saleForProduct.validSaleTime())
+                totalPrice += selectedProduct.getProduct().getPrice()*saleForProduct.getSalePercentage();
+            else
+                totalPrice += selectedProduct.getProduct().getPrice();
         }
         return totalPrice;
     }
 
-    private ArrayList<Sale> getSalesForProduct(SelectedProduct selectedProduct) {
-        ArrayList<Sale> salesForProduct = new ArrayList<>();
+    private Sale getSaleForProductOfSeller(Product product, Seller seller) {
+        for (Sale sale:seller.getSales()) {
+            if (sale.hasProduct(product))
+                return sale;
+        }
+        return null;
+    }
+
+    private Sale getSaleForProduct(SelectedProduct selectedProduct) {
         for (Sale sale:selectedProduct.getSeller().getSales()) {
             if (sale.hasProduct(selectedProduct.getProduct()))
-                salesForProduct.add(sale);
+                return sale;
         }
-        return salesForProduct;
+        return null;
     }
 
     public Cart viewCart() {

@@ -41,6 +41,10 @@ public class SellerReceipt extends Receipt {
         return discountAmount;
     }
 
+    public static int getSellerReceiptCount() {
+        return sellerReceiptCount;
+    }
+
     @Override
     public String toString() {
         return super.toString();
