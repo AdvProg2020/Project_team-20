@@ -47,6 +47,22 @@ public class Cart {
         throw new ProductNotInCart();
     }
 
+    public ArrayList<Seller> getAllSellers() {
+        ArrayList<Seller> allSellers = new ArrayList<>();
+        for (SelectedProduct selectedProduct:selectedProducts) {
+            allSellers.add(selectedProduct.getSeller());
+        }
+        return allSellers;
+    }
+
+    public ArrayList<Product> getAllProducts() {
+        ArrayList<Product> allProducts = new ArrayList<>();
+        for (SelectedProduct selectedProduct:selectedProducts) {
+            allProducts.add(selectedProduct.getProduct());
+        }
+        return allProducts;
+    }
+
     public ArrayList<SelectedProduct> getSelectedProducts() {
         return selectedProducts;
     }

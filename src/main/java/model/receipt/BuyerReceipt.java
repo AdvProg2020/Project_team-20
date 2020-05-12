@@ -16,6 +16,10 @@ public class BuyerReceipt extends Receipt {
         buyerReceiptCount += 1;
     }
 
+    public static int getBuyerReceiptCount() {
+        return buyerReceiptCount;
+    }
+
     public void setPaidMoney(double paidMoney) {
         this.paidMoney = paidMoney;
     }

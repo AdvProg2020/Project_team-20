@@ -5,6 +5,7 @@ import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
 import model.product.*;
+import model.receipt.BuyerReceipt;
 
 import java.util.ArrayList;
 
@@ -27,15 +28,21 @@ public class BuyerController implements AccountController {
             Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, discountCode);
         }
         pay(totalPrice);
-
+        makeReceipt(totalPrice, discountPercentage);
     }
 
     private void makeReceipt(double totalPrice, double discountPercentage) {
+        makeBuyerReceipt(totalPrice, discountPercentage);
+        makeSellerReceipt();
+    }
+
+    private void makeSellerReceipt() {
 
     }
 
-    private void makeBuyerReceipt() {
-
+    private void makeBuyerReceipt(double totalPrice, double discountPercentage) {
+        Cart cart = currentBuyer.getCart();
+        currentBuyer.addReceipt(new BuyerReceipt(Integer.toString(BuyerReceipt.getBuyerReceiptCount()), discountPercentage, cart.getAllProducts(), false, totalPrice, cart.getAllSellers()));
     }
 
     private void pay(double totalPrice) throws Exception{
