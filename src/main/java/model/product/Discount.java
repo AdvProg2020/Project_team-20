@@ -27,12 +27,15 @@ public class Discount {
         setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
     }
 
-    public static boolean validDiscountCodeBuyer(Buyer buyer, String discountCode) {
+    public static boolean validDiscountCodeBuyer(Buyer buyer, String discountCode) throws Exception{
         for (Discount discount:allDiscounts) {
-            if (discount.getDiscountCode().equals(discountCode) && discount.getBuyersWithDiscount().contains(buyer) && discount.getNumberOfUsageForEachBuyer().get(buyer)>0)
-                return true;
+            if (discount.getDiscountCode().equals(discountCode) && discount.getBuyersWithDiscount().contains(buyer))
+                if (discount.getNumberOfUsageForEachBuyer().get(buyer)==0)
+                    throw new discountUsedException();
+                else
+                    return true;
         }
-        return false;
+        throw  new discountCodeNotFoundException();
     }
 
     public static void decreaseDiscountCodeUsageBuyer(Buyer buyer, String discountCode) {
@@ -143,6 +146,18 @@ public class Discount {
 
     public void setDiscountCode(String discountCode) {
         this.discountCode = discountCode;
+    }
+
+    public static class discountCodeNotFoundException extends Exception {
+        public discountCodeNotFoundException() {
+            super("product unavailable");
+        }
+    }
+
+    public static class discountUsedException extends Exception {
+        public discountUsedException() {
+            super("Discount has reached its maximum number of usage");
+        }
     }
 
     @Override

@@ -17,10 +17,18 @@ public class BuyerController implements AccountController {
         currentBuyer = (Buyer)mainController.getAccount();
     }
 
-    public void purchase(String address, String phoneNumber, String discountCode) {
+    public void purchase(String address, String phoneNumber, String discountCode) throws Exception{
         receiveInformation(address, phoneNumber);
+        double totalPrice = getTotalPrice();
         if (Discount.validDiscountCodeBuyer(currentBuyer, discountCode)) {
+            totalPrice *= Discount.getDiscountByDiscountCode(discountCode).getDiscountPercentage();
+            Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, discountCode);
         }
+        pay(totalPrice);
+    }
+
+    private void pay(double totalPrice) {
+
     }
 
     private void receiveInformation(String address, String phoneNumber) {
