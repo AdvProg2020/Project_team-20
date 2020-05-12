@@ -20,12 +20,30 @@ public class Category {
         this.products = new ArrayList<>();
     }
 
+    public Category(String name){
+        this.name = name;
+        this.parent = null;
+        this.fields = new ArrayList<>();
+        this.subCategories = new ArrayList<>();
+        this.products = new ArrayList<>();
+    }
+
     public static ArrayList<Category> getAllCategories() {
         return allCategories;
     }
 
     public static void AddToCategories(Category category) {
         allCategories.add(category);
+    }
+
+    public static void removeCategory(String categoryName) throws Exception{
+        for(Category category : allCategories){
+            if(category.name.equals(categoryName)){
+                allCategories.remove(category);
+                return;
+            }
+        }
+        throw new CategoryDoesNotFoundException();
     }
 
     public String getName() {
@@ -67,4 +85,19 @@ public class Category {
     public void setParent(Category parent) {
         this.parent = parent;
     }
+
+    public static Category getCategoryByName(String categoryName) throws Exception{
+     for(Category category:allCategories){
+         if(category.name.equals(categoryName))
+             return category;
+     }
+     throw new CategoryDoesNotFoundException();
+    }
+
+    public static class CategoryDoesNotFoundException extends Exception {
+        public CategoryDoesNotFoundException() {
+            super("category doesn't exist");
+        }
+    }
+
 }

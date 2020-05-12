@@ -3,13 +3,16 @@ package controller.account.user;
 
 import model.account.Manager;
 import model.account.Account;
+import model.product.Category;
 import  model.product.Discount;
 import  model.account.Buyer;
+import model.product.Field.Field;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Dictionary;
 
+import static model.product.Category.*;
+import static model.product.Product.removeProduct;
 
 public class ManagerController implements controller.account.user.AccountController {
 
@@ -45,7 +48,7 @@ public class ManagerController implements controller.account.user.AccountControl
 
     }
 
-    public void removeProduct(String productId){
+    public void mangerRemoveProduct(String productId) throws Exception {
         removeProduct(productId);
     }
 
@@ -65,6 +68,36 @@ public class ManagerController implements controller.account.user.AccountControl
 
     public void editDiscountCodes(String discountCode){
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+    }
+
+    //category
+    public ArrayList<Category> manageCategories(){
+        return getAllCategories();
+    }
+
+    public void editCategory(String categoryName, String newName,Field field ) throws Exception{
+      Category category = getCategoryByName(categoryName);
+      category.setName(newName);
+      category.addField(field);
+    }
+
+    public void editCategory(String categoryName,Field field ) throws Exception{
+        Category category = getCategoryByName(categoryName);
+        category.addField(field);
+    }
+
+    public void addCategory(String categoryName , Category parent){
+        Category category = new Category(categoryName,parent);
+        AddToCategories(category);
+    }
+
+    public void addCategory(String categoryName){
+        Category category = new Category(categoryName);
+        AddToCategories(category);
+    }
+
+    public void managerRemoveCategory(String categoryName) throws Exception{
+       removeCategory(categoryName);
     }
 
     
