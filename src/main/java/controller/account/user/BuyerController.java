@@ -24,8 +24,13 @@ public class BuyerController implements AccountController {
         return currentBuyer.getPurchaseHistory();
     }
 
-    public void rate(String productId, int score) {
-
+    public void rate(String productId, double score) throws Exception{
+        if (currentBuyer.hasBoughtProduct(productId)) {
+            Product product = Product.getProductById(productId);
+            product.addScore(new Score(currentBuyer, score, product));
+        }
+        else
+            throw new buyerHasNotBought();
     }
 
     public BuyerReceipt getBuyerReceiptById(String id) throws Exception{
@@ -159,6 +164,10 @@ public class BuyerController implements AccountController {
                 break;
         }
         Manager.addRequest(currentBuyer);
+    }
+
+    public static class buyerHasNotBought extends Exception{
+        public buyerHasNotBought() { super("Buyer has not bought product"); }
     }
 
     @Override
