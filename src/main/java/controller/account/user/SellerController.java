@@ -58,7 +58,7 @@ public class SellerController implements AccountController {
                             HashMap<String, ArrayList<String>> optionalFieldsToAdd) throws Exception {
         Product product = Product.getProductById(productId);
         ArrayList<Field> fields = new ArrayList<>(product.getGeneralFields());
-        fields = editFields(fields, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsTORemove,
+        editFields(fields, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsTORemove,
                 optionalFieldsToAdd);
         String description;
         int count;
@@ -76,15 +76,14 @@ public class SellerController implements AccountController {
         Manager.addRequest(product);
     }
 
-    private ArrayList<Field> editFields(ArrayList<Field> fields, HashMap<String, Double> numericalFieldsToRemove,
-                                        HashMap<String, Double> numericalFieldsToAdd,
-                                        HashMap<String, ArrayList<String>> optionalFieldsTORemove,
-                                        HashMap<String, ArrayList<String>> optionalFieldsToAdd) {
+    private void editFields(ArrayList<Field> fields, HashMap<String, Double> numericalFieldsToRemove,
+                            HashMap<String, Double> numericalFieldsToAdd,
+                            HashMap<String, ArrayList<String>> optionalFieldsTORemove,
+                            HashMap<String, ArrayList<String>> optionalFieldsToAdd) {
         fields.removeAll(createNumericalFields(numericalFieldsToRemove));
         fields.removeAll(createOptionalFields(optionalFieldsTORemove));
         fields.addAll(createOptionalFields(optionalFieldsToAdd));
         fields.addAll(createNumericalFields(numericalFieldsToAdd));
-        return fields;
     }
 
 
