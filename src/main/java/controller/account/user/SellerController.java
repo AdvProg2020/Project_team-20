@@ -55,7 +55,13 @@ public class SellerController implements AccountController {
 
     }
 
-    public void addProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
+    public void addProduct(String id, int count, double price) throws Exception {
+        Product product = Product.getProductById(id);
+        product.addSeller(seller);
+
+    }
+
+    public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
                            HashMap<String, ArrayList<String>> optionalFields) {
         String name = details.get(0), description = details.get(1);
         int count = Integer.parseInt(details.get(2));
@@ -142,7 +148,7 @@ public class SellerController implements AccountController {
             newProducts.remove(product);
         }
         newProducts.addAll(productsToAdd);
-        sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
+        sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);v
     }
 
     private ArrayList<Product> getSaleProducts(String offId) throws Exception {
