@@ -12,6 +12,7 @@ import model.product.Field.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static model.account.Manager.FindRequestWithId;
 import static model.account.Manager.getRequests;
 import static model.product.Category.*;
 import static model.product.Product.removeProduct;
@@ -77,8 +78,9 @@ public class ManagerController implements controller.account.user.AccountControl
         return getRequests();
     }
 
-    public void requestDetails(String requestId){
-
+    public String requestDetails(String requestId){
+       Requestable request  = FindRequestWithId(requestId);
+       return request.toString();
     }
 
     //category

@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Manager extends Account {
     private boolean firstManager;
     private static ArrayList<Requestable> requests = new ArrayList<>();
-    private static HashMap<Requestable,Integer> requestWithIds = new HashMap<>();
+    private static HashMap<Integer,Requestable> requestWithIds = new HashMap<>();
 
     public Manager(String name, String lastName, String email, String phoneNumber, String username, String password,
                    double credit, boolean firstManager) {
@@ -40,7 +40,7 @@ public class Manager extends Account {
 
     public static void addRequest(Requestable request) {
         int n = requests.size()+1;
-        requestWithIds.put(request,n);
+        requestWithIds.put(n , request);
         requests.add(request);
     }
 
@@ -56,5 +56,9 @@ public class Manager extends Account {
         return requests;
     }
 
+    public static Requestable FindRequestWithId(String requestId){
+        int ID=Integer.parseInt(requestId);
+        return requestWithIds.get(ID);
+    }
 
 }

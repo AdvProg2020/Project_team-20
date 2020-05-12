@@ -187,4 +187,9 @@ public class Product implements Requestable {
     public double getPrice(Seller seller) {
         return price.get(seller);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

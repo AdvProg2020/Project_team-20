@@ -94,4 +94,9 @@ public class Sale implements Requestable {
     public double getSalePercentage() {
         return salePercentage;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

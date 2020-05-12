@@ -135,6 +135,11 @@ public abstract class Account extends GeneralAccount{
         }
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     //ehtiaj darim ????
     public static boolean hasThisAccount(String username) {
         return getAccountWithUsername(username) != null;
