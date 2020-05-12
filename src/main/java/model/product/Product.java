@@ -18,12 +18,15 @@ public class Product implements Requestable {
     private ArrayList<Buyer> buyers;
     private ArrayList<Category> categories;
     private String description;
+    //private double price;
     private HashMap<Seller, Double> price;
+    //private int count;
     private HashMap<Seller, Integer> count;
     private ArrayList<Score> scores;
     private ArrayList<Comment> comments;
     private double numberVisited;
     private Product editedProduct;
+    private Seller sellerToAdd;
 
     public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
                    double price) {
@@ -73,6 +76,8 @@ public class Product implements Requestable {
         description = editedProduct.getDescription();
         price.replace(seller, editedProduct.getPrice(seller));
         count.replace(seller, editedProduct.getCount(seller));
+        if (editedProduct.getSellerToAdd() != null)
+            sellers.add(editedProduct.getSellerToAdd());
         editedProduct = null;
         state = RequestableState.ACCEPTED;
     }
@@ -159,6 +164,10 @@ public class Product implements Requestable {
         return generalFields.size();
     }
 
+    public Seller getSellerToAdd() {
+        return sellerToAdd;
+    }
+
     public static class ProductUnavailableException extends Exception {
         public ProductUnavailableException() {
             super("product unavailable");
@@ -178,50 +187,4 @@ public class Product implements Requestable {
     public double getPrice(Seller seller) {
         return price.get(seller);
     }
-
-    public static ArrayList<Product> getAllProducts() {
-        return allProducts;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public RequestableState getState() {
-        return state;
-    }
-
-    public ArrayList<Category> getCategories() {
-        return categories;
-    }
-
-    public ArrayList<Score> getScores() {
-        return scores;
-    }
-
-    public ArrayList<Comment> getComments() {
-        return comments;
-    }
-
-    public double getNumberVisited() {
-        return numberVisited;
-    }
-
-    public Product getEditedProduct() {
-        return editedProduct;
-    }
-
-
-    public void addScore(Score scores) {
-        this.scores.add(scores);
-    }
-
-    public void addComment(Comment comments) {
-        this.comments.add(comments);
-    }
-
-    public void addNumberVisited() {
-        this.numberVisited += 1;
-    }
-
 }
