@@ -51,14 +51,18 @@ public class SellerController implements AccountController {
     }
 
     //TODO nemidonam che konam kase che konam gereftam dastam
-    public void editProduct(String productId) {
+    public void editProduct(String productId) throws Exception {
+        Product product = Product.getProductById(productId);
 
     }
 
-    public void addProduct(String id, int count, double price) throws Exception {
+
+
+    public void addToProduct(String id, int count, double price) throws Exception {
+
         Product product = Product.getProductById(id);
         product.addSeller(seller);
-
+        Manager.addRequest();
     }
 
     public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
