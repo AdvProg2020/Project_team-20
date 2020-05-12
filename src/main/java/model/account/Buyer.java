@@ -40,6 +40,14 @@ public class Buyer extends Account implements Requestable {
         this.cart = cart;
     }
 
+    public BuyerReceipt getReceiptById(String id) throws Exception{
+        for (BuyerReceipt buyerReceipt:purchaseHistory) {
+            if (buyerReceipt.getId().equals(id))
+                return buyerReceipt;
+        }
+        throw new orderNotFoundException();
+    }
+
     public ArrayList<BuyerReceipt> getPurchaseHistory() {
         return purchaseHistory;
     }
@@ -62,6 +70,21 @@ public class Buyer extends Account implements Requestable {
 
     public void addProductToCart(Product product, Seller seller) {
         cart.addProduct(product, seller);
+    }
+
+    public static class orderNotFoundException extends Exception {
+        public orderNotFoundException() {
+            super("Order not found");
+        }
+    }
+
+    public boolean hasBoughtProduct(String productId) {
+        for (BuyerReceipt buyerReceipt:purchaseHistory) {
+            for (Product product:buyerReceipt.getProducts())
+                if (product.getId().equals(productId))
+                    return true;
+        }
+        return false;
     }
 
     @Override
