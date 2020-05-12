@@ -19,16 +19,27 @@ public class BuyerController implements AccountController {
 
     public void purchase(String address, String phoneNumber, String discountCode) throws Exception{
         receiveInformation(address, phoneNumber);
+        double discountPercentage = 0;
         double totalPrice = getTotalPrice();
         if (Discount.validDiscountCodeBuyer(currentBuyer, discountCode)) {
-            totalPrice *= Discount.getDiscountByDiscountCode(discountCode).getDiscountPercentage();
+            discountPercentage = Discount.getDiscountByDiscountCode(discountCode).getDiscountPercentage();
+            totalPrice *= discountPercentage;
             Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, discountCode);
         }
         pay(totalPrice);
+
     }
 
-    private void pay(double totalPrice) {
+    private void makeReceipt(double totalPrice, double discountPercentage) {
 
+    }
+
+    private void makeBuyerReceipt() {
+
+    }
+
+    private void pay(double totalPrice) throws Exception{
+        currentBuyer.decreaseCredit(totalPrice);
     }
 
     private void receiveInformation(String address, String phoneNumber) {

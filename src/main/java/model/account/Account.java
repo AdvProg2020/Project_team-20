@@ -72,7 +72,16 @@ public abstract class Account extends GeneralAccount{
         return accountType;
     }
 
+    public void increaseCredit(double money) {
+        credit += money;
+    }
 
+    public void decreaseCredit(double money) throws Exception{
+        if (credit<money)
+            throw new notEnoughMoneyException();
+        else
+            credit -= money;
+    }
 
     //TODO design for database
     public static void addAccount(Account account) {
@@ -118,6 +127,12 @@ public abstract class Account extends GeneralAccount{
         }
         return null;
         //throw new AccountUnavailableException();
+    }
+
+    public static class notEnoughMoneyException extends Exception {
+        public notEnoughMoneyException() {
+            super("not Enough Money");
+        }
     }
 
     //ehtiaj darim ????

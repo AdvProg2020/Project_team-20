@@ -4,6 +4,7 @@ import model.account.Buyer;
 import java.util.ArrayList;
 
 public class SellerReceipt extends Receipt {
+    static int sellerReceiptCount = 0;
     private double receivedMoney ;
     private model.account.Buyer buyer;
     private double discountAmount ;
@@ -13,6 +14,7 @@ public class SellerReceipt extends Receipt {
         this.receivedMoney = receivedMoney;
         this.buyer = buyer;
         this.discountAmount = discountAmount;
+        sellerReceiptCount += 1;
     }
 
     public void setReceivedMoney(double receivedMoney) {
