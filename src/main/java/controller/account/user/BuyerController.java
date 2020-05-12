@@ -20,6 +20,14 @@ public class BuyerController implements AccountController {
         currentBuyer = (Buyer)mainController.getAccount();
     }
 
+    public ArrayList<BuyerReceipt> viewOrders() {
+        return currentBuyer.getPurchaseHistory();
+    }
+
+    public BuyerReceipt getBuyerReceiptById(String id) {
+        return null;
+    }
+
     public void purchase(String address, String phoneNumber, String discountCode) throws Exception{
         receiveInformation(address, phoneNumber);
         double discountPercentage = 0;
