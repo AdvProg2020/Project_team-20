@@ -7,7 +7,8 @@ import model.product.Field.Field;
 
 import java.util.ArrayList;
 
-public class Product implements Requestable {
+
+public class Product extends Requestable {
     private static ArrayList<Product> allProducts = new ArrayList<>();
     private String id;
     private RequestableState state;

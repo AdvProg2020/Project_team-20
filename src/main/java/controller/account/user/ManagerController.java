@@ -80,8 +80,38 @@ public class ManagerController implements controller.account.user.AccountControl
         discount.deleteDiscount(discount);
     }
 
-    
-    
+    public ArrayList<model.Requestable> manageRequests(){
+      return  Manager.getRequests();
+    }
+
+    public model.Requestable requestDetails(String requestId){
+        return
+    }
+
+    public void acceptRequest(String requestId){
+
+    }
+
+    public void declineRequest(String requestId){
+
+    }
+
+    public void manageCategories(){
+
+    }
+
+    public void editCategory(String categoryName){
+
+    }
+
+    public void addCategory(String categoryName){
+
+    }
+
+    public void removeCategory(String categoryName){
+
+    }
+
 
     @Override
     public Account getAccountInfo() {

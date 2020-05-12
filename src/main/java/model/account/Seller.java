@@ -9,7 +9,7 @@ import model.receipt.SellerReceipt;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Seller extends Account implements Requestable {
+public class Seller extends Account , Requestable {
     private ArrayList<SellerReceipt> saleHistory;
     private HashMap<Product, Integer> productsToSell;
     private ArrayList<Sale> sales;
@@ -95,15 +95,12 @@ public class Seller extends Account implements Requestable {
         this.details.remove(topic);
     }
 
-    @Override
-    public void changeStateAccepted() {
-        state = RequestableState.ACCEPTED;
-        addAccount(this);
+    public void changeStateAccepted(){
+
     }
 
-    @Override
-    public void changeStateRejected() {
-        state = RequestableState.REJECTED;
+    public void changeStateRejected(){
+
     }
 
 }

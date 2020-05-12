@@ -1,6 +1,7 @@
 package model.account;
 
 import model.Requestable;
+import model.account.Account;
 
 import java.util.ArrayList;
 
@@ -41,5 +42,9 @@ public class Manager extends Account {
 
     public static void deleteRequest(Requestable request) {
         requests.remove(request);
+    }
+
+    public static ArrayList<Requestable> getRequests() {
+        return requests;
     }
 }

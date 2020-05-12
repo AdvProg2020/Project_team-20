@@ -51,7 +51,7 @@ public class Discount {
         throw new discountUnavailableException();
     }
 
-    public void decreaseNumberOfUsageForBuyer(Buyer buyer){
+    public void decreaseNumberOfUsageForBuyer(Buyer buyer) throws Exception{
         Discount buyerSDiscount = getDiscountByBuyer(buyer);
         if(buyerSDiscount!=null){
             int number = buyerSDiscount.numberOfUsageForEachBuyer.get(buyer);
