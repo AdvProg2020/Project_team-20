@@ -5,6 +5,7 @@ import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
+import model.product.AddSellerRequest;
 import model.product.Category;
 import model.product.Field.Field;
 import model.product.Field.FieldType;
@@ -59,10 +60,9 @@ public class SellerController implements AccountController {
 
 
     public void addToProduct(String id, int count, double price) throws Exception {
-
         Product product = Product.getProductById(id);
-        product.addSeller(seller);
-        Manager.addRequest();
+        AddSellerRequest request = new AddSellerRequest(product,seller,count,price);
+        Manager.addRequest(request);
     }
 
     public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
@@ -189,13 +189,37 @@ public class SellerController implements AccountController {
 
 
     @Override
-
     public Account getAccountInfo() {
-        return (Account) mainController.getAccount();
+        return seller;
     }
 
     @Override
-    public void editField(String filed, String context) {
+    public void editField(String field, String context) {
+        switch (field) {
+            case "name":
+                seller.changeStateEdited(context, seller.getLastName(), seller.getEmail(), seller.getPhoneNumber(),
+                        seller.getPassword(), seller.getCredit());
+                break;
+            case "lastName":
+                seller.changeStateEdited(seller.getName(), context, seller.getEmail(), seller.getPhoneNumber(),
+                        seller.getPassword(), seller.getCredit());
+            case "email":
+                seller.changeStateEdited(seller.getName(), seller.getLastName(), context, seller.getPhoneNumber(),
+                        seller.getPassword(), seller.getCredit());
+                break;
+            case "phoneNumber":
+                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(), context,
+                        seller.getPassword(), seller.getCredit());
+                break;
+            case "password":
+                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
+                        seller.getPhoneNumber(), context, seller.getCredit());
+                break;
+            case "credit":
+                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
+                        seller.getPhoneNumber(), seller.getPassword(), Integer.parseInt(context));
+        }
+        Manager.addRequest(seller);
     }
 
     @Override
