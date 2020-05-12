@@ -7,6 +7,7 @@ import model.product.Field.Field;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Product implements Requestable {
     private static ArrayList<Product> allProducts = new ArrayList<>();
@@ -26,7 +27,6 @@ public class Product implements Requestable {
     private ArrayList<Comment> comments;
     private double numberVisited;
     private Product editedProduct;
-    private Seller sellerToAdd;
 
     public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
                    double price) {
@@ -48,7 +48,7 @@ public class Product implements Requestable {
         this.price.put(seller, price);
     }
 
-    public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller)  {
+    public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) {
         this.generalFields = generalFields;
         this.description = description;
         this.count = new HashMap<>();
@@ -66,18 +66,22 @@ public class Product implements Requestable {
         state = RequestableState.REJECTED;
     }
 
-    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) {
-        editedProduct = new Product(generalFields, description, count, price, seller);
-        state = RequestableState.EDITED;
+    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws Exception {
+        if (editedProduct == null) {
+            editedProduct = new Product(generalFields, description, count, price, seller);
+            state = RequestableState.EDITED;
+        } else
+            throw new ProductIsUnderEditingException();
     }
 
-    public void edit(Seller seller) {
+    public void edit() {
+        Set<Seller> sellerSet = editedProduct.getCount().keySet();
+        ArrayList<Seller> sellers = new ArrayList<>(sellerSet);
+        Seller seller = sellers.get(0);
         generalFields = editedProduct.getGeneralFields();
         description = editedProduct.getDescription();
         price.replace(seller, editedProduct.getPrice(seller));
         count.replace(seller, editedProduct.getCount(seller));
-        if (editedProduct.getSellerToAdd() != null)
-            sellers.add(editedProduct.getSellerToAdd());
         editedProduct = null;
         state = RequestableState.ACCEPTED;
     }
@@ -105,12 +109,10 @@ public class Product implements Requestable {
         count.remove(seller);
     }
 
-    public void addSeller(Seller seller) {
+    public void addSeller(Seller seller, int count, double price) {
         sellers.add(seller);
-    }
-
-    public void addScore(Score score) {
-        scores.add(score);
+        this.count.put(seller, count);
+        this.price.put(seller, price);
     }
 
     public void addCategory(Category category) {
@@ -144,10 +146,6 @@ public class Product implements Requestable {
         return products;
     }
 
-    public ArrayList<Score> getScores() {
-        return scores;
-    }
-
     public String getId() {
         return id;
     }
@@ -172,10 +170,6 @@ public class Product implements Requestable {
         return generalFields.size();
     }
 
-    public Seller getSellerToAdd() {
-        return sellerToAdd;
-    }
-
     public static class ProductUnavailableException extends Exception {
         public ProductUnavailableException() {
             super("product unavailable");
@@ -188,11 +182,25 @@ public class Product implements Requestable {
         }
     }
 
+    public static class ProductIsUnderEditingException extends Exception {
+        public ProductIsUnderEditingException() {
+            super("product is under editing");
+        }
+    }
+
     public int getCount(Seller seller) {
         return count.get(seller);
     }
 
     public double getPrice(Seller seller) {
         return price.get(seller);
+    }
+
+    public Product getEditedProduct() {
+        return editedProduct;
+    }
+
+    public HashMap<Seller, Integer> getCount() {
+        return count;
     }
 }
