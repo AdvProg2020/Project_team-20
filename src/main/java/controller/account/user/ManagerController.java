@@ -1,6 +1,7 @@
 package controller.account.user;
 
 
+import model.Requestable;
 import model.account.Manager;
 import model.account.Account;
 import model.product.Category;
@@ -11,6 +12,7 @@ import model.product.Field.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static model.account.Manager.getRequests;
 import static model.product.Category.*;
 import static model.product.Product.removeProduct;
 
@@ -68,6 +70,15 @@ public class ManagerController implements controller.account.user.AccountControl
 
     public void editDiscountCodes(String discountCode){
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+    }
+
+    //requests
+    public ArrayList<Requestable> manageRequests(){
+        return getRequests();
+    }
+
+    public void requestDetails(String requestId){
+
     }
 
     //category
