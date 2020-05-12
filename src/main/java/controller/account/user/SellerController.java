@@ -152,7 +152,7 @@ public class SellerController implements AccountController {
             newProducts.remove(product);
         }
         newProducts.addAll(productsToAdd);
-        sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);v
+        sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
     }
 
     private ArrayList<Product> getSaleProducts(String offId) throws Exception {
