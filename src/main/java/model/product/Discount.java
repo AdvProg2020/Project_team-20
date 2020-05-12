@@ -11,7 +11,7 @@ public class Discount {
     private String discountCode;
     private double discountPercentage;
     private int maxNumberOfUsage;
-    private ArrayList<model.account.Buyer> buyersWithDiscount;
+    private ArrayList<Buyer> buyersWithDiscount;
     private HashMap<Buyer,Integer> numberOfUsageForEachBuyer = new HashMap<>();
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -25,6 +25,16 @@ public class Discount {
         this.endDate = endDate;
         allDiscounts.add(this);
         setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
+    }
+
+    public static ArrayList<Discount> getAllDiscountsBuyer (Buyer buyer) {
+        ArrayList<Discount> allDiscountsBuyer = new ArrayList<>();
+        for (Discount discount:allDiscounts) {
+            if (discount.hasBuyer(buyer)) {
+                allDiscountsBuyer.add(discount);
+            }
+        }
+        return allDiscountsBuyer;
     }
 
     public static boolean validDiscountCodeBuyer(Buyer buyer, String discountCode) throws Exception{
@@ -47,7 +57,7 @@ public class Discount {
 
     private void setNumberOfUsageForBuyers(int maxNumberOfUsage,ArrayList<Buyer> buyersWithDiscount){
         for(int i =0 ; i<buyersWithDiscount.size() ; i++)
-        this.numberOfUsageForEachBuyer.put(buyersWithDiscount.get(i), maxNumberOfUsage);
+            this.numberOfUsageForEachBuyer.put(buyersWithDiscount.get(i), maxNumberOfUsage);
     }
 
     public static Discount getDiscountByBuyer(model.account.Buyer buyer){
@@ -90,6 +100,14 @@ public class Discount {
         if(now.isAfter(startDate) && now.isBefore(endDate))
             return false;
         return true;
+    }
+
+    public boolean hasBuyer(Buyer buyer) {
+        for (Buyer buyer1:buyersWithDiscount) {
+            if (buyer1.equals(buyer))
+                return true;
+        }
+        return false;
     }
 
     public static ArrayList<Discount> getAllDiscounts() {

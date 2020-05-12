@@ -20,6 +20,27 @@ public class BuyerController implements AccountController {
         currentBuyer = (Buyer)mainController.getAccount();
     }
 
+    public ArrayList<Discount> getAllDiscounts() {
+        return Discount.getAllDiscountsBuyer(currentBuyer);
+    }
+
+    public ArrayList<BuyerReceipt> viewOrders() {
+        return currentBuyer.getPurchaseHistory();
+    }
+
+    public void rate(String productId, double score) throws Exception{
+        if (currentBuyer.hasBoughtProduct(productId)) {
+            Product product = Product.getProductById(productId);
+            product.addScore(new Score(currentBuyer, score, product));
+        }
+        else
+            throw new buyerHasNotBought();
+    }
+
+    public BuyerReceipt getBuyerReceiptById(String id) throws Exception{
+        return currentBuyer.getReceiptById(id);
+    }
+
     public void purchase(String address, String phoneNumber, String discountCode) throws Exception{
         receiveInformation(address, phoneNumber);
         double discountPercentage = 0;
@@ -55,11 +76,11 @@ public class BuyerController implements AccountController {
         for (Product product:allProductsSeller) {
             Sale sale = getSaleForProductOfSeller(product, seller);
             if (sale!=null) {
-                totalPriceSeller += product.getPrice() * sale.getSalePercentage();
-                totalDiscount += product.getPrice() * (1-sale.getSalePercentage());
+                totalPriceSeller += product.getPrice(seller) * sale.getSalePercentage();
+                totalDiscount += product.getPrice(seller) * (1-sale.getSalePercentage());
             }
             else
-                totalPriceSeller += product.getPrice();
+                totalPriceSeller += product.getPrice(seller);
         }
         if (type==0)
             return totalPriceSeller;
@@ -83,13 +104,13 @@ public class BuyerController implements AccountController {
 
     public double getTotalPrice() {
         double totalPrice = 0;
-        ArrayList<Sale> salesForProduct;
         for (SelectedProduct selectedProduct:currentBuyer.getCart().getSelectedProducts()) {
             Sale saleForProduct = getSaleForProduct(selectedProduct);
+            Seller seller = selectedProduct.getSeller();
             if (saleForProduct!=null && saleForProduct.validSaleTime())
-                totalPrice += selectedProduct.getProduct().getPrice()*saleForProduct.getSalePercentage();
+                totalPrice += selectedProduct.getProduct().getPrice(seller)*saleForProduct.getSalePercentage();
             else
-                totalPrice += selectedProduct.getProduct().getPrice();
+                totalPrice += selectedProduct.getProduct().getPrice(seller);
         }
         return totalPrice;
     }
@@ -126,45 +147,46 @@ public class BuyerController implements AccountController {
         currentBuyer.getCart().decreaseProduct(id, number);
     }
 
-    public void editBuyer(String fieldToChangeName, String editedField) {
-        switch (fieldToChangeName) {
+    public double getCredit() {
+        return currentBuyer.getCredit();
+    }
+
+    public static class buyerHasNotBought extends Exception{
+        public buyerHasNotBought() { super("Buyer has not bought product"); }
+    }
+
+    @Override
+    public Account getAccountInfo() {
+        return currentBuyer;
+    }
+
+    @Override
+    public void editField(String field, String context) {
+        switch (field) {
             case "name":
-                currentBuyer.changeStateEdited(editedField, currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                currentBuyer.changeStateEdited(context, currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
                 break;
             case "lastName":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), editedField, currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                currentBuyer.changeStateEdited(currentBuyer.getName(), context, currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
             case "email":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), editedField, currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), context, currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
                 break;
             case "phoneNumber":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), editedField, currentBuyer.getPassword(), currentBuyer.getCredit());
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), context, currentBuyer.getPassword(), currentBuyer.getCredit());
                 break;
             case "password":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), editedField, currentBuyer.getCredit());
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), context, currentBuyer.getCredit());
                 break;
             case "credit":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), Integer.parseInt(editedField));
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), Integer.parseInt(context));
                 break;
         }
         Manager.addRequest(currentBuyer);
     }
 
     @Override
-    public Account getAccountInfo() {
-        return null;
-    }
-
-    @Override
-    public void editField(String field, String context) {
-
-    }
-
-    @Override
     public void logout() {
-
+        mainController.logout();
     }
 
-    private Buyer getInfo() {
-        return currentBuyer;
-    }
 }

@@ -5,6 +5,7 @@ import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
+import model.product.AddSellerRequest;
 import model.product.Category;
 import model.product.Field.Field;
 import model.product.Field.FieldType;
@@ -51,14 +52,17 @@ public class SellerController implements AccountController {
     }
 
     //TODO nemidonam che konam kase che konam gereftam dastam
-    public void editProduct(String productId) {
+    public void editProduct(String productId) throws Exception {
+        Product product = Product.getProductById(productId);
 
     }
 
-    public void addProduct(String id, int count, double price) throws Exception {
-        Product product = Product.getProductById(id);
-        product.addSeller(seller);
 
+
+    public void addToProduct(String id, int count, double price) throws Exception {
+        Product product = Product.getProductById(id);
+        AddSellerRequest request = new AddSellerRequest(product,seller,count,price);
+        Manager.addRequest(request);
     }
 
     public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
@@ -148,7 +152,7 @@ public class SellerController implements AccountController {
             newProducts.remove(product);
         }
         newProducts.addAll(productsToAdd);
-        sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);v
+        sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
     }
 
     private ArrayList<Product> getSaleProducts(String offId) throws Exception {
@@ -185,13 +189,37 @@ public class SellerController implements AccountController {
 
 
     @Override
-
     public Account getAccountInfo() {
-        return (Account) mainController.getAccount();
+        return seller;
     }
 
     @Override
-    public void editField(String filed, String context) {
+    public void editField(String field, String context) {
+        switch (field) {
+            case "name":
+                seller.changeStateEdited(context, seller.getLastName(), seller.getEmail(), seller.getPhoneNumber(),
+                        seller.getPassword(), seller.getCredit());
+                break;
+            case "lastName":
+                seller.changeStateEdited(seller.getName(), context, seller.getEmail(), seller.getPhoneNumber(),
+                        seller.getPassword(), seller.getCredit());
+            case "email":
+                seller.changeStateEdited(seller.getName(), seller.getLastName(), context, seller.getPhoneNumber(),
+                        seller.getPassword(), seller.getCredit());
+                break;
+            case "phoneNumber":
+                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(), context,
+                        seller.getPassword(), seller.getCredit());
+                break;
+            case "password":
+                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
+                        seller.getPhoneNumber(), context, seller.getCredit());
+                break;
+            case "credit":
+                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
+                        seller.getPhoneNumber(), seller.getPassword(), Integer.parseInt(context));
+        }
+        Manager.addRequest(seller);
     }
 
     @Override
