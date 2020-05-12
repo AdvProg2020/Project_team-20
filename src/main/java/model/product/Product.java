@@ -26,7 +26,6 @@ public class Product implements Requestable {
     private ArrayList<Comment> comments;
     private double numberVisited;
     private Product editedProduct;
-    private Seller sellerToAdd;
 
     public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
                    double price) {
@@ -48,7 +47,7 @@ public class Product implements Requestable {
         this.price.put(seller, price);
     }
 
-    public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws SellerUnavailableException {
+    public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) {
         this.generalFields = generalFields;
         this.description = description;
         this.count = new HashMap<>();
@@ -76,8 +75,6 @@ public class Product implements Requestable {
         description = editedProduct.getDescription();
         price.replace(seller, editedProduct.getPrice(seller));
         count.replace(seller, editedProduct.getCount(seller));
-        if (editedProduct.getSellerToAdd() != null)
-            sellers.add(editedProduct.getSellerToAdd());
         editedProduct = null;
         state = RequestableState.ACCEPTED;
     }
@@ -162,10 +159,6 @@ public class Product implements Requestable {
 
     private int getNumberFields() {
         return generalFields.size();
-    }
-
-    public Seller getSellerToAdd() {
-        return sellerToAdd;
     }
 
     public static class ProductUnavailableException extends Exception {
