@@ -166,6 +166,10 @@ public class BuyerController implements AccountController {
         Manager.addRequest(currentBuyer);
     }
 
+    public double getCredit() {
+        return currentBuyer.getCredit();
+    }
+
     public static class buyerHasNotBought extends Exception{
         public buyerHasNotBought() { super("Buyer has not bought product"); }
     }
