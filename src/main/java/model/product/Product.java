@@ -51,14 +51,10 @@ public class Product implements Requestable {
     public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws SellerUnavailableException {
         this.generalFields = generalFields;
         this.description = description;
-        sellerToAdd = seller;
-        try {
-            this.count.replace(seller, count);
-            this.price.replace(seller, price);
-        }
-        catch (Exception e) {
-            throw new SellerUnavailableException();
-        }
+        this.count = new HashMap<>();
+        this.price = new HashMap<>();
+        this.count.put(seller, count);
+        this.price.put(seller, price);
     }
 
     public void changeStateAccepted() {
@@ -105,6 +101,8 @@ public class Product implements Requestable {
     public void removeSeller(String username) {
         Seller seller = getSellerByUsername(username);
         sellers.remove(seller);
+        price.remove(seller);
+        count.remove(seller);
     }
 
     public void addSeller(Seller seller) {
