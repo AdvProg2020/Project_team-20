@@ -109,8 +109,10 @@ public class Product implements Requestable {
         count.remove(seller);
     }
 
-    public void addSeller(Seller seller) {
+    public void addSeller(Seller seller, int count, double price) {
         sellers.add(seller);
+        this.count.put(seller, count);
+        this.price.put(seller, price);
     }
 
     public void addCategory(Category category) {
