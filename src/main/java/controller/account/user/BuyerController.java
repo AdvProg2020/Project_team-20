@@ -24,6 +24,10 @@ public class BuyerController implements AccountController {
         return currentBuyer.getPurchaseHistory();
     }
 
+    public void rate(String productId, int score) {
+
+    }
+
     public BuyerReceipt getBuyerReceiptById(String id) throws Exception{
         return currentBuyer.getReceiptById(id);
     }

@@ -78,6 +78,15 @@ public class Buyer extends Account implements Requestable {
         }
     }
 
+    public boolean hasBoughtProduct(String productId) {
+        for (BuyerReceipt buyerReceipt:purchaseHistory) {
+            for (Product product:buyerReceipt.getProducts())
+                if (product.getId().equals(productId))
+                    return true;
+        }
+        return false;
+    }
+
     @Override
     public void changeStateAccepted() {
         state = RequestableState.ACCEPTED;

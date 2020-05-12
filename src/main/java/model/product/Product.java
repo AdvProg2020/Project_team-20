@@ -48,7 +48,7 @@ public class Product implements Requestable {
         this.price.put(seller, price);
     }
 
-    public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws SellerUnavailableException {
+    public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller)  {
         this.generalFields = generalFields;
         this.description = description;
         this.count = new HashMap<>();
@@ -66,7 +66,7 @@ public class Product implements Requestable {
         state = RequestableState.REJECTED;
     }
 
-    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws Exception {
+    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) {
         editedProduct = new Product(generalFields, description, count, price, seller);
         state = RequestableState.EDITED;
     }
@@ -109,6 +109,10 @@ public class Product implements Requestable {
         sellers.add(seller);
     }
 
+    public void addScore(Score score) {
+        scores.add(score);
+    }
+
     public void addCategory(Category category) {
         categories.add(category);
     }
@@ -138,6 +142,10 @@ public class Product implements Requestable {
             products.add(tempProduct);
         }
         return products;
+    }
+
+    public ArrayList<Score> getScores() {
+        return scores;
     }
 
     public String getId() {
