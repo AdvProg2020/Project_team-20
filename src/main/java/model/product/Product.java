@@ -7,6 +7,7 @@ import model.product.Field.Field;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Product implements Requestable {
     private static ArrayList<Product> allProducts = new ArrayList<>();
@@ -66,11 +67,17 @@ public class Product implements Requestable {
     }
 
     public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws Exception {
-        editedProduct =  new Product(generalFields, description, count, price, seller);
-        state = RequestableState.EDITED;
+        if (editedProduct == null) {
+            editedProduct = new Product(generalFields, description, count, price, seller);
+            state = RequestableState.EDITED;
+        } else
+            throw new ProductIsUnderEditingException();
     }
 
-    public void edit(Seller seller) {
+    public void edit() {
+        Set<Seller> sellerSet = editedProduct.getCount().keySet();
+        ArrayList<Seller> sellers = new ArrayList<>(sellerSet);
+        Seller seller = sellers.get(0);
         generalFields = editedProduct.getGeneralFields();
         description = editedProduct.getDescription();
         price.replace(seller, editedProduct.getPrice(seller));
@@ -173,11 +180,25 @@ public class Product implements Requestable {
         }
     }
 
+    public static class ProductIsUnderEditingException extends Exception {
+        public ProductIsUnderEditingException() {
+            super("product is under editing");
+        }
+    }
+
     public int getCount(Seller seller) {
         return count.get(seller);
     }
 
     public double getPrice(Seller seller) {
         return price.get(seller);
+    }
+
+    public Product getEditedProduct() {
+        return editedProduct;
+    }
+
+    public HashMap<Seller, Integer> getCount() {
+        return count;
     }
 }
