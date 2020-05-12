@@ -20,6 +20,10 @@ public class BuyerController implements AccountController {
         currentBuyer = (Buyer)mainController.getAccount();
     }
 
+    public ArrayList<Discount> getAllDiscounts() {
+        return Discount.getAllDiscountsBuyer(currentBuyer);
+    }
+
     public ArrayList<BuyerReceipt> viewOrders() {
         return currentBuyer.getPurchaseHistory();
     }
@@ -143,29 +147,6 @@ public class BuyerController implements AccountController {
         currentBuyer.getCart().decreaseProduct(id, number);
     }
 
-    public void editBuyer(String fieldToChangeName, String editedField) {
-        switch (fieldToChangeName) {
-            case "name":
-                currentBuyer.changeStateEdited(editedField, currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
-                break;
-            case "lastName":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), editedField, currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
-            case "email":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), editedField, currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
-                break;
-            case "phoneNumber":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), editedField, currentBuyer.getPassword(), currentBuyer.getCredit());
-                break;
-            case "password":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), editedField, currentBuyer.getCredit());
-                break;
-            case "credit":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), Integer.parseInt(editedField));
-                break;
-        }
-        Manager.addRequest(currentBuyer);
-    }
-
     public double getCredit() {
         return currentBuyer.getCredit();
     }
@@ -176,20 +157,36 @@ public class BuyerController implements AccountController {
 
     @Override
     public Account getAccountInfo() {
-        return null;
+        return currentBuyer;
     }
 
     @Override
     public void editField(String field, String context) {
-
+        switch (field) {
+            case "name":
+                currentBuyer.changeStateEdited(context, currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                break;
+            case "lastName":
+                currentBuyer.changeStateEdited(currentBuyer.getName(), context, currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+            case "email":
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), context, currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                break;
+            case "phoneNumber":
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), context, currentBuyer.getPassword(), currentBuyer.getCredit());
+                break;
+            case "password":
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), context, currentBuyer.getCredit());
+                break;
+            case "credit":
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), Integer.parseInt(context));
+                break;
+        }
+        Manager.addRequest(currentBuyer);
     }
 
     @Override
     public void logout() {
-
+        mainController.logout();
     }
 
-    private Buyer getInfo() {
-        return currentBuyer;
-    }
 }
