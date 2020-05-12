@@ -24,8 +24,8 @@ public class BuyerController implements AccountController {
         return currentBuyer.getPurchaseHistory();
     }
 
-    public BuyerReceipt getBuyerReceiptById(String id) {
-        return null;
+    public BuyerReceipt getBuyerReceiptById(String id) throws Exception{
+        return currentBuyer.getReceiptById(id);
     }
 
     public void purchase(String address, String phoneNumber, String discountCode) throws Exception{
