@@ -6,6 +6,7 @@ import model.account.Seller;
 import model.product.Field.Field;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Product implements Requestable {
     private static ArrayList<Product> allProducts = new ArrayList<>();
@@ -17,8 +18,10 @@ public class Product implements Requestable {
     private ArrayList<Buyer> buyers;
     private ArrayList<Category> categories;
     private String description;
-    private double price;
-    private int count;
+    //private double price;
+    private HashMap<Seller, Double> price;
+    //private int count;
+    private HashMap<Seller, Integer> count;
     private ArrayList<Score> scores;
     private ArrayList<Comment> comments;
     private double numberVisited;
@@ -39,16 +42,23 @@ public class Product implements Requestable {
         scores = new ArrayList<>();
         comments = new ArrayList<>();
         numberVisited = 0;
-        this.count = count;
-        this.price = price;
+        this.count = new HashMap<>();
+        this.price = new HashMap<>();
+        this.count.put(seller, count);
+        this.price.put(seller, price);
     }
 
-    public Product(ArrayList<Field> generalFields, String description, int count, double price,Seller seller) {
+    public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws SellerUnavailableException {
         this.generalFields = generalFields;
         this.description = description;
-        this.count = count;
-        this.price = price;
         sellerToAdd = seller;
+        try {
+            this.count.replace(seller, count);
+            this.price.replace(seller, price);
+        }
+        catch (Exception e) {
+            throw new SellerUnavailableException();
+        }
     }
 
     public void changeStateAccepted() {
@@ -60,17 +70,17 @@ public class Product implements Requestable {
         state = RequestableState.REJECTED;
     }
 
-    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price,Seller seller) {
+    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws Exception {
         editedProduct = new Product(generalFields, description, count, price, seller);
         state = RequestableState.EDITED;
     }
 
-    public void edit() {
+    public void edit(Seller seller) {
         generalFields = editedProduct.getGeneralFields();
         description = editedProduct.getDescription();
-        price = editedProduct.getPrice();
-        count = editedProduct.getCount();
-        if (editedProduct.getSellerToAdd()!=null)
+        price.replace(seller, editedProduct.getPrice(seller));
+        count.replace(seller, editedProduct.getCount(seller));
+        if (editedProduct.getSellerToAdd() != null)
             sellers.add(editedProduct.getSellerToAdd());
         editedProduct = null;
         state = RequestableState.ACCEPTED;
@@ -97,6 +107,10 @@ public class Product implements Requestable {
         sellers.remove(seller);
     }
 
+    public void addSeller(Seller seller) {
+        sellers.add(seller);
+    }
+
     public void addCategory(Category category) {
         categories.add(category);
     }
@@ -115,7 +129,7 @@ public class Product implements Requestable {
             if (product.getId().equals(id))
                 return product;
         }
-        throw new productUnavailableException();
+        throw new ProductUnavailableException();
     }
 
     public static ArrayList<Product> getProductsWithIds(ArrayList<String> productIds) throws Exception {
@@ -156,17 +170,23 @@ public class Product implements Requestable {
         return sellerToAdd;
     }
 
-    public static class productUnavailableException extends Exception {
-        public productUnavailableException() {
+    public static class ProductUnavailableException extends Exception {
+        public ProductUnavailableException() {
             super("product unavailable");
         }
     }
 
-    public int getCount() {
-        return count;
+    public static class SellerUnavailableException extends Exception {
+        public SellerUnavailableException() {
+            super("seller unavailable");
+        }
     }
 
-    public double getPrice() {
-        return price;
+    public int getCount(Seller seller) {
+        return count.get(seller);
+    }
+
+    public double getPrice(Seller seller) {
+        return price.get(seller);
     }
 }
