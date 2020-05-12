@@ -188,6 +188,10 @@ public class Product implements Requestable {
         }
     }
 
+    public void addScore(Score score) {
+        scores.add(score);
+    }
+
     public int getCount(Seller seller) {
         return count.get(seller);
     }
