@@ -87,9 +87,7 @@ public abstract class Menu {
         this.methods = methods;
     }
 
-    public void show() {
-        System.out.println("Welcome To " + this.getName());
-    }
+    public abstract void show();
 
     public void help() {
         System.out.println("Help command:");
