@@ -19,9 +19,8 @@ public abstract class Menu {
     protected ArrayList<String> methods;
 
 
-    public Menu(String name, Menu parent) {
+    public Menu(String name) {
         this.name = name;
-        this.parent = parent;
         this.patterns = new ArrayList<>();
         this.regex = new ArrayList<>();
         scanner = new Scanner(System.in);
