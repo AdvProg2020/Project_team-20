@@ -1,7 +1,6 @@
 package controller.account.user;
 
 import controller.MainController;
-import controller.product.ProductController;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
@@ -27,6 +26,10 @@ public class BuyerController implements AccountController {
         if (buyerController == null)
             buyerController = new BuyerController();
         return buyerController;
+    }
+
+    public ArrayList<Product> getAllProducts() {
+        return Product.getAllProducts();
     }
 
     public ArrayList<Discount> getAllDiscounts() {
@@ -60,7 +63,18 @@ public class BuyerController implements AccountController {
             Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, discountCode);
         }
         pay(totalPrice);
+        decreaseAllProductBought();
         makeReceipt(totalPrice, discountPercentage);
+    }
+
+    private void decreaseAllProductBought() {
+        for (SelectedProduct selectedProduct:currentBuyer.getCart().getSelectedProducts()) {
+            decreaseProductSeller(selectedProduct.getProduct(), selectedProduct.getCount(), selectedProduct.getSeller());
+        }
+    }
+
+    private void decreaseProductSeller(Product product, int number, Seller seller) {
+        seller.decreaseProduct(product, number);
     }
 
     private void makeReceipt(double totalPrice, double discountPercentage) {

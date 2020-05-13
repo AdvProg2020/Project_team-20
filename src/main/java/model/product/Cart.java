@@ -18,6 +18,8 @@ public class Cart {
 
     public void increaseProduct(String id, int number) throws Exception {
         SelectedProduct selectedProduct = getSelectedProductByProductId(id);
+        if (selectedProduct.getSeller().getProductCount(selectedProduct.getProduct())<number)
+            throw new notEnoughProductCountException();
         selectedProduct.increaseProduct(number);
     }
 
@@ -77,6 +79,12 @@ public class Cart {
     }
 
     public static class ProductNotInCart extends Exception {
-        public ProductNotInCart() { super("product unavailable"); }
+        public ProductNotInCart() { super("Product unavailable"); }
+    }
+
+    public static class notEnoughProductCountException extends Exception {
+        public notEnoughProductCountException() {
+            super("Not enough Product count");
+        }
     }
 }

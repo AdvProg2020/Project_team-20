@@ -99,6 +99,10 @@ public class Seller extends Account implements Requestable {
         return state;
     }
 
+    public int getProductCount(Product product) {
+        return productsToSell.get(product);
+    }
+
     @Override
     public void changeStateAccepted() {
         state = RequestableState.ACCEPTED;
