@@ -56,7 +56,7 @@ public abstract class Menu {
         return scanner;
     }
 
-    public ArrayList<String> getPatterns() {
+    public ArrayList<Pattern> getPatterns() {
         return patterns;
     }
 
@@ -64,7 +64,7 @@ public abstract class Menu {
         return regex;
     }
 
-    public void setPatterns(ArrayList<String> patterns) {
+    public void setPatterns(ArrayList<Pattern> patterns) {
         this.patterns = patterns;
     }
 
