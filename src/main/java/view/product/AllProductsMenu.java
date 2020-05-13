@@ -42,14 +42,26 @@ public class AllProductsMenu extends Menu {
         }
     }
 
+    public void showProduct(String id) {
+        try {
+            Product product = Product.getProductById(id);
+            ProductMenu productMenu = new ProductMenu(product);
+            enter(productMenu);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     private void setRegex() {
         regex.add("view categories");
         regex.add("show products");
+        regex.add("show products (\\w+)");
     }
 
     private void setMethods() {
         methods.add("viewCategories");
+        methods.add("showProducts");
         methods.add("showProducts");
     }
 
