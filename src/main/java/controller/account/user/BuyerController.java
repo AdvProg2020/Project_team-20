@@ -119,6 +119,9 @@ public class BuyerController implements AccountController {
 
     private void pay(double totalPrice) throws Exception{
         currentBuyer.decreaseCredit(totalPrice);
+        for (Seller seller:currentBuyer.getCart().getAllSellers()) {
+            seller.decreaseCredit(getTotalPriceTotalDiscountSeller(seller, 0));
+        }
     }
 
     private void receiveInformation(String address, String phoneNumber) {
