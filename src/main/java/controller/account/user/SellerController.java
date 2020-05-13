@@ -52,21 +52,49 @@ public class SellerController implements AccountController {
     }
 
     //TODO nemidonam che konam kase che konam gereftam dastam
-    public void editProduct(String productId) throws Exception {
+    public void editProduct(String productId, ArrayList<String> details, HashMap<String, Double> numericalFieldsToRemove,
+                            HashMap<String, Double> numericalFieldsToAdd,
+                            HashMap<String, ArrayList<String>> optionalFieldsTORemove,
+                            HashMap<String, ArrayList<String>> optionalFieldsToAdd) throws Exception {
         Product product = Product.getProductById(productId);
-
+        ArrayList<Field> fields = new ArrayList<>(product.getGeneralFields());
+        editFields(fields, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsTORemove,
+                optionalFieldsToAdd);
+        String description;
+        int count;
+        double price;
+        if (!details.get(0).isEmpty()) {
+            description = details.get(0);
+        } else description = product.getDescription();
+        if (!details.get(1).isEmpty()) {
+            count = Integer.parseInt(details.get(1));
+        } else count = product.getCount(seller);
+        if (!details.get(2).isEmpty()) {
+            price = Double.parseDouble(details.get(2));
+        } else price = product.getPrice(seller);
+        product.changeStateEdited(fields, description, count, price, seller);
+        Manager.addRequest(product);
     }
 
+    private void editFields(ArrayList<Field> fields, HashMap<String, Double> numericalFieldsToRemove,
+                            HashMap<String, Double> numericalFieldsToAdd,
+                            HashMap<String, ArrayList<String>> optionalFieldsTORemove,
+                            HashMap<String, ArrayList<String>> optionalFieldsToAdd) {
+        fields.removeAll(createNumericalFields(numericalFieldsToRemove));
+        fields.removeAll(createOptionalFields(optionalFieldsTORemove));
+        fields.addAll(createOptionalFields(optionalFieldsToAdd));
+        fields.addAll(createNumericalFields(numericalFieldsToAdd));
+    }
 
 
     public void addToProduct(String id, int count, double price) throws Exception {
         Product product = Product.getProductById(id);
-        AddSellerRequest request = new AddSellerRequest(product,seller,count,price);
+        AddSellerRequest request = new AddSellerRequest(product, seller, count, price);
         Manager.addRequest(request);
     }
 
     public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
-                           HashMap<String, ArrayList<String>> optionalFields) {
+                              HashMap<String, ArrayList<String>> optionalFields) {
         String name = details.get(0), description = details.get(1);
         int count = Integer.parseInt(details.get(2));
         double price = Double.parseDouble(details.get(3));

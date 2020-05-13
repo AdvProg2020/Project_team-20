@@ -1,7 +1,6 @@
 package model.account;
 
 import model.Requestable;
-import model.product.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,10 +41,6 @@ public class Manager extends Account {
         int n = requests.size()+1;
         requestWithIds.put(n , request);
         requests.add(request);
-    }
-
-    public static void addRequest(Requestable requestable, Product product) {
-
     }
 
     public static void deleteRequest(Requestable request) {
