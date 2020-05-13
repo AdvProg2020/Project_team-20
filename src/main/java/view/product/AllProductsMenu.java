@@ -16,7 +16,10 @@ public class AllProductsMenu extends Menu {
 
     private AllProductsMenu() {
         super("allProductsMenu");
+        setRegex();
+        setMethods();
         allProductsController = AllProductsController.getInstance();
+        showProducts();
     }
 
     public static AllProductsMenu getInstance() {
@@ -56,13 +59,13 @@ public class AllProductsMenu extends Menu {
     private void setRegex() {
         regex.add("view categories");
         regex.add("show products");
-        regex.add("show products (\\w+)");
+        regex.add("show product (\\w+)");
     }
 
     private void setMethods() {
         methods.add("viewCategories");
         methods.add("showProducts");
-        methods.add("showProducts");
+        methods.add("showProduct");
     }
 
 }
