@@ -1,6 +1,7 @@
 package view.account;
 
 import controller.account.user.BuyerController;
+import controller.product.ProductController;
 import model.account.Account;
 import model.product.Cart;
 import model.product.Product;
@@ -14,7 +15,15 @@ public class BuyerMenu extends Menu {
     BuyerController buyerController;
     Scanner scanner;
 
-    public BuyerMenu() {
+    private static BuyerMenu buyerMenu = null;
+
+    public static BuyerMenu getInstance() {
+        if (buyerMenu == null)
+            buyerMenu = new BuyerMenu();
+        return buyerMenu;
+    }
+
+    private BuyerMenu() {
         super("BuyerMenu");
         setRegex();
         setMethods();
@@ -67,6 +76,7 @@ public class BuyerMenu extends Menu {
         try {
             Product product = buyerController.getProductById(id);
             ProductMenu productMenu = new ProductMenu(product);
+            enter(productMenu);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
