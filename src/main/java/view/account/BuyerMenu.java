@@ -6,9 +6,11 @@ import model.account.Account;
 import model.product.Cart;
 import model.product.Product;
 import model.product.SelectedProduct;
+import model.receipt.BuyerReceipt;
 import view.Menu;
 import view.product.ProductMenu;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BuyerMenu extends Menu {
@@ -63,8 +65,9 @@ public class BuyerMenu extends Menu {
     public void viewCart() {
         Cart cart = buyerController.viewCart();
         for (SelectedProduct selectedProduct:cart.getSelectedProducts()) {
-            System.out.println("Name                 Count               Buyer\n");
-            System.out.format("%s%20s %40s", selectedProduct.getProduct().getName(), selectedProduct.getCount(), selectedProduct.getSeller().getName());
+            System.out.println("Name                 Count               Buyer               id\n");
+            System.out.format("%s%20s%40s%s60", selectedProduct.getProduct().getName(), selectedProduct.getCount()
+                    , selectedProduct.getSeller().getName(), selectedProduct.getProduct().getId());
         }
     }
 
@@ -125,6 +128,16 @@ public class BuyerMenu extends Menu {
         }
     }
 
+    public void viewOrders() {
+        ArrayList<BuyerReceipt> buyerReceipts = buyerController.viewOrders();
+        for (BuyerReceipt buyerReceipt:buyerReceipts) {
+            System.out.println("____________________");
+            System.out.println("id:                :" + buyerReceipt.getId());
+            System.out.println("discount percentage:" + buyerReceipt.getDiscountPercentage());
+            System.out.println("Time               :" + buyerReceipt.getDateAndTime());
+        }
+    }
+
     private void setRegex() {
         regex.add("view personal info");
         regex.add("edit (\\w+)");
@@ -135,6 +148,7 @@ public class BuyerMenu extends Menu {
         regex.add("decrease (\\w+) (\\d+)");
         regex.add("show total price");
         regex.add("purchase");
+        regex.add("view orders");
     }
 
     private void setMethods() {
@@ -147,5 +161,6 @@ public class BuyerMenu extends Menu {
         methods.add("decreaseProduct");
         methods.add("showTotalPrice");
         methods.add("purchase");
+        methods.add("viewOrders");
     }
 }
