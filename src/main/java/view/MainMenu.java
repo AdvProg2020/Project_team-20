@@ -2,9 +2,9 @@ package view;
 
 public class MainMenu extends Menu {
 
-    public MainMenu(String name) {
-        super(name);
-        this.methods.add("enter");
+    public MainMenu() {
+        super("MainMenu");
+        this.methods.add("enterWithName");
         this.methods.add("back");
         this.methods.add("help");
         this.regex.add("enter [RegistrationMenu|AllProductsMenu]");

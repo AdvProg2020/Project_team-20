@@ -118,7 +118,7 @@ public abstract class Menu {
         Main.setCurrentMenu(this);
     }
 
-    public void enter(String subMenuName) throws Exception {
+    public void enterWithName(String subMenuName) {
         try {
             Menu subMenu = getMenuFromName(subMenuName);
             subMenu.setParent(this);
@@ -126,6 +126,11 @@ public abstract class Menu {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void enter(Menu subMenu) {
+        subMenu.setParent(this);
+        Main.setCurrentMenu(subMenu);
     }
 
     public void preProcess() {
