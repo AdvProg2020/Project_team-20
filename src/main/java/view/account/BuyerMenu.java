@@ -1,11 +1,13 @@
 package view.account;
 
 import controller.account.user.BuyerController;
+import controller.product.ProductController;
 import model.account.Account;
 import model.product.Cart;
 import model.product.Product;
 import model.product.SelectedProduct;
 import view.Menu;
+import view.product.ProductMenu;
 
 import java.util.Scanner;
 
@@ -13,7 +15,15 @@ public class BuyerMenu extends Menu {
     BuyerController buyerController;
     Scanner scanner;
 
-    public BuyerMenu() {
+    private static BuyerMenu buyerMenu = null;
+
+    public static BuyerMenu getInstance() {
+        if (buyerMenu == null)
+            buyerMenu = new BuyerMenu();
+        return buyerMenu;
+    }
+
+    private BuyerMenu() {
         super("BuyerMenu");
         setRegex();
         setMethods();
@@ -58,15 +68,53 @@ public class BuyerMenu extends Menu {
         }
     }
 
+    public void showProducts() {
+        viewCart();
+    }
+
+    public void viewProduct(String id) {
+        try {
+            Product product = buyerController.getProductById(id);
+            ProductMenu productMenu = new ProductMenu(product);
+            enter(productMenu);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void increaseProduct(String id, int number) {
+        try {
+            buyerController.increaseProduct(id, number);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void decreaseProduct(String id, int number) {
+        try {
+            buyerController.decreaseProduct(id, number);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void setRegex() {
         regex.add("view personal info");
         regex.add("edit (\\w+)");
         regex.add("view cart");
+        regex.add("show products");
+        regex.add("view (\\w+)");
+        regex.add("increase (\\w+) (\\d+)");
+        regex.add("decrease (\\w+) (\\d+)");
     }
 
     private void setMethods() {
         methods.add("viewPersonalInfo");
         methods.add("editField");
-        regex.add("viewCart");
+        methods.add("viewCart");
+        methods.add("showProducts");
+        methods.add("viewProduct");
+        methods.add("increaseProduct");
+        methods.add("decreaseProduct");
     }
 }
