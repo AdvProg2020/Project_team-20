@@ -23,14 +23,22 @@ import static model.product.Product.removeProduct;
 
 public class ManagerController implements controller.account.user.AccountController {
 
-    MainController mainController;
-    Manager currentManager;
+    private MainController mainController;
+    private Manager currentManager;
 
     private static ManagerController managerController = null;
 
     private ManagerController() {
         this.mainController = MainController.getInstance();
-        currentManager = (Manager)mainController.getAccount();
+        currentManager = (Manager) mainController.getAccount();
+    }
+
+    public static ManagerController getInstance()
+    {
+        if (managerController == null)
+            managerController = new ManagerController();
+
+        return managerController;
     }
 
 
