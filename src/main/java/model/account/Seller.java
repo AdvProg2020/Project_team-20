@@ -107,6 +107,7 @@ public class Seller extends Account implements Requestable {
         this.details.remove(topic);
     }
 
+
     public RequestableState getState() {
         return state;
     }
@@ -117,6 +118,14 @@ public class Seller extends Account implements Requestable {
                 return true;
         }
         return false;
+    }
+
+    public Sale getSaleWithProduct(Product product) {
+        for (Sale sale : getSales()) {
+            if(sale.hasProduct(product))
+                return sale;
+        }
+        return null;
     }
 
     public int getProductCount(Product product) {
