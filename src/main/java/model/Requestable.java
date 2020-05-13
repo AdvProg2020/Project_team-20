@@ -4,4 +4,5 @@ public interface Requestable {
     void changeStateAccepted();
     void changeStateRejected();
     String toString();
+    void changeStateEdited();
 }

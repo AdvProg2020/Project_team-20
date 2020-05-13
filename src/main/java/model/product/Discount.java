@@ -71,13 +71,12 @@ public class Discount {
         return null;
     }
 
-    public static Discount getDiscountByDiscountCode(String discountCode){
+    public static Discount getDiscountByDiscountCode(String discountCode) throws Exception {
         for(Discount discount:allDiscounts) {
                 if (discount.getDiscountCode().equals(discountCode))
                     return discount;
         }
-        return null;
-        //throw new doesNotExitThisDiscountCodeException();
+        throw new discountCodeNotFoundException();
     }
 
     public void decreaseNumberOfUsageForBuyer(Buyer buyer){
@@ -166,9 +165,19 @@ public class Discount {
         this.discountCode = discountCode;
     }
 
+    public static void removeDiscountCode(String discountCode) throws Exception{
+        for(Discount discount : allDiscounts){
+            if(discount.getDiscountCode().equals(discountCode)){
+                allDiscounts.remove(discount);
+                return;
+            }
+        }
+        throw new discountCodeNotFoundException();
+    }
+
     public static class discountCodeNotFoundException extends Exception {
         public discountCodeNotFoundException() {
-            super("product unavailable");
+            super("discount code doesn't exist");
         }
     }
 

@@ -207,4 +207,8 @@ public class Product implements Requestable {
     public HashMap<Seller, Integer> getCount() {
         return count;
     }
+
+    public static ArrayList<Product> getAllProducts() {
+        return allProducts;
+    }
 }

@@ -56,7 +56,7 @@ public class Manager extends Account {
         return requests;
     }
 
-    public static Requestable FindRequestWithId(String requestId){
+    public static Requestable findRequestWithId(String requestId){
         int ID=Integer.parseInt(requestId);
         return requestWithIds.get(ID);
     }

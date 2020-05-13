@@ -8,13 +8,15 @@ import model.product.Category;
 import  model.product.Discount;
 import  model.account.Buyer;
 import model.product.Field.Field;
+import model.product.Product;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static model.account.Manager.FindRequestWithId;
-import static model.account.Manager.getRequests;
+import static model.account.Manager.*;
 import static model.product.Category.*;
+import static model.product.Discount.removeDiscountCode;
+import static model.product.Product.getAllProducts;
 import static model.product.Product.removeProduct;
 
 public class ManagerController implements controller.account.user.AccountController {
@@ -22,55 +24,51 @@ public class ManagerController implements controller.account.user.AccountControl
     public void manageUsers(){
 
     }
-    // we should discuss
-    public void viewUser(String userName){
 
+    public Account viewUser(String userName) throws Exception{
+        Account account = Account.getAccountWithUsername(userName);
+        return account;
     }
 
-    public void deleteUser(String userName){
-        try {
+    public void deleteUser(String userName) throws Exception{
             Account account = Account.getAccountWithUsername(userName);
             Account.deleteAccount(account);
-        }
-        catch(Exception AccountUnavailableException){
-           // throw new AccountUnavailableException();
-        }
     }
 
-    public void createManagerProfile(String[] details , double credit ){
-        String name = details[0];
-        String lastName = details[1];
-        String email = details[2];
-        String phoneNumber = details[3];
-        String userName = details[4];
-        String password = details[5];
+    public void createManagerProfile(String name,String lastName,String email,String phoneNumber,String userName,String password, double credit ){
        Manager manager = new Manager(name,lastName,email,phoneNumber , userName , password ,credit , false);
     }
 
-    public void manageAllProducts(){
-
+    //products
+    public ArrayList<Product> manageAllProducts(){
+        return getAllProducts();
     }
 
     public void mangerRemoveProduct(String productId) throws Exception {
         removeProduct(productId);
     }
 
+    //discount codes
     public void createDiscountCode(LocalDateTime startDate , LocalDateTime endDate , String discountCode , double discountPercentage,
                                    int maxNumberOfUsage , ArrayList<Buyer> buyersWithDiscount){
         new Discount(startDate,endDate,discountCode,discountPercentage,maxNumberOfUsage,buyersWithDiscount);
     }
 
-    // we should discuss
     public void viewDiscountCodes(){
         ArrayList<Discount> allDiscounts = Discount.getAllDiscounts();
     }
-    // we should discuss
-    public void viewDiscountCode(String discountCode){
+
+    public Discount viewDiscountCode(String discountCode) throws Exception{
+        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+        return discount;
+    }
+//
+    public void editDiscountCodes(String discountCode) throws Exception{
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
     }
 
-    public void editDiscountCodes(String discountCode){
-        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+    public void removeDiscountCodes(String discountCode) throws Exception{
+        removeDiscountCode(discountCode);
     }
 
     //requests
@@ -79,8 +77,18 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     public String requestDetails(String requestId){
-       Requestable request  = FindRequestWithId(requestId);
+       Requestable request  = findRequestWithId(requestId);
        return request.toString();
+    }
+
+    public void acceptRequest(String requestId){
+        Requestable request  = findRequestWithId(requestId);
+        request.changeStateAccepted();
+    }
+
+    public void declineRequest(String requestId){
+        Requestable request  = findRequestWithId(requestId);
+        request.changeStateRejected();
     }
 
     //category
