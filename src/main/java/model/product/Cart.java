@@ -89,7 +89,7 @@ public class Cart {
     }
 
     public static class ProductNotInCart extends Exception {
-        public ProductNotInCart() { super("Product unavailable"); }
+        public ProductNotInCart() { super("Product is not in cart"); }
     }
 
     public static class notEnoughProductCountException extends Exception {

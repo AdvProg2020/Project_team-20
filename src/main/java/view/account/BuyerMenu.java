@@ -6,6 +6,7 @@ import model.product.Cart;
 import model.product.Product;
 import model.product.SelectedProduct;
 import view.Menu;
+import view.product.ProductMenu;
 
 import java.util.Scanner;
 
@@ -58,15 +59,32 @@ public class BuyerMenu extends Menu {
         }
     }
 
+    public void showProducts() {
+        viewCart();
+    }
+
+    public void viewProduct(String id) {
+        try {
+            Product product = buyerController.getProductById(id);
+            ProductMenu productMenu = new ProductMenu(product);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void setRegex() {
         regex.add("view personal info");
         regex.add("edit (\\w+)");
         regex.add("view cart");
+        regex.add("show products");
+        regex.add("view (\\w+)");
     }
 
     private void setMethods() {
         methods.add("viewPersonalInfo");
         methods.add("editField");
-        regex.add("viewCart");
+        methods.add("viewCart");
+        methods.add("showProducts");
+        methods.add("viewProduct");
     }
 }

@@ -1,9 +1,14 @@
 package view.product;
 
+import controller.product.ProductController;
+import model.product.Product;
 import view.Menu;
 
 public class ProductMenu extends Menu {
-    public ProductMenu(String name, Menu parent) {
-        super(name, parent);
+    ProductController productController;
+
+    public ProductMenu(Product product) {
+        super("ProductMenu");
+        productController = ProductController.getInstance(product);
     }
 }
