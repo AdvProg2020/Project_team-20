@@ -11,8 +11,9 @@ public abstract class Menu {
     protected String name;
     protected Menu parent;
     protected ArrayList<Menu> subMenus;
-    protected ArrayList<String> patterns;
+    protected ArrayList<Pattern> patterns;
     protected ArrayList<String> regex;
+    protected ArrayList<String> methods;
 
 
     public Menu(String name, Menu parent) {
@@ -55,7 +56,7 @@ public abstract class Menu {
         return scanner;
     }
 
-    public ArrayList<String> getPatterns() {
+    public ArrayList<Pattern> getPatterns() {
         return patterns;
     }
 
@@ -63,7 +64,7 @@ public abstract class Menu {
         return regex;
     }
 
-    public void setPatterns(ArrayList<String> patterns) {
+    public void setPatterns(ArrayList<Pattern> patterns) {
         this.patterns = patterns;
     }
 
@@ -73,6 +74,14 @@ public abstract class Menu {
 
     public static ArrayList<Menu> getAllMenus() {
         return allMenus;
+    }
+
+    public ArrayList<String> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(ArrayList<String> methods) {
+        this.methods = methods;
     }
 
     public void show() {
