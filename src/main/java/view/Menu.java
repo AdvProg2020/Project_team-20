@@ -27,6 +27,12 @@ public abstract class Menu {
         this.regex = new ArrayList<>();
         this.methods = new ArrayList<>();
         scanner = new Scanner(System.in);
+        this.methods.add("enterWithName");
+        this.methods.add("back");
+        this.methods.add("help");
+        this.regex.add("enter [RegistrationMenu|AllProductsMenu]");
+        this.regex.add("back");
+        this.regex.add("help");
     }
 
     public String getName() {
@@ -96,6 +102,9 @@ public abstract class Menu {
     public void help() {
         System.out.println("Help command:");
         System.out.println("these are the commands you can use in " + this.getName());
+        for (int i = 0; i < methods.size(); i++) {
+            System.out.println(i + ") " + methods.get(i));
+        }
     }
 
     public static Menu getMenuFromName(String name) throws Exception {
