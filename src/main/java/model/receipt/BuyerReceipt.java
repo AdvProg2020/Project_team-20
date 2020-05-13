@@ -2,6 +2,7 @@ package model.receipt;
 import model.account.Seller;
 import model.product.Product;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,6 +16,7 @@ public class BuyerReceipt extends Receipt {
         this.paidMoney = paidMoney;
         this.sellers = sellers;
         buyerReceiptCount += 1;
+        dateAndTime = LocalDateTime.now();
     }
 
     public static int getBuyerReceiptCount() {
