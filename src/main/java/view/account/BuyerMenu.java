@@ -2,6 +2,9 @@ package view.account;
 
 import controller.account.user.BuyerController;
 import model.account.Account;
+import model.product.Cart;
+import model.product.Product;
+import model.product.SelectedProduct;
 import view.Menu;
 
 import java.util.Scanner;
@@ -47,13 +50,23 @@ public class BuyerMenu extends Menu {
         }
     }
 
+    public void viewCart() {
+        Cart cart = buyerController.viewCart();
+        for (SelectedProduct selectedProduct:cart.getSelectedProducts()) {
+            System.out.println("Name                 Count               Buyer\n");
+            System.out.format("%s%20s %40s", selectedProduct.getProduct().getName(), selectedProduct.getCount(), selectedProduct.getSeller().getName());
+        }
+    }
+
     private void setRegex() {
         regex.add("view personal info");
         regex.add("edit (\\w+)");
+        regex.add("view cart");
     }
 
     private void setMethods() {
         methods.add("viewPersonalInfo");
         methods.add("editField");
+        regex.add("viewCart");
     }
 }

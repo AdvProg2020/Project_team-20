@@ -216,4 +216,28 @@ public class Product implements Requestable {
     public RequestableState getState() {
         return state;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public HashMap<Seller, Double> getPrice() {
+        return price;
+    }
+
+    public ArrayList<Score> getScores() {
+        return scores;
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public double getNumberVisited() {
+        return numberVisited;
+    }
 }
