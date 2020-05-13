@@ -7,14 +7,23 @@ import view.Menu;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class RegisterAndLogin extends Menu {
-    public RegisterAndLogin(String name, Menu parent) {
-        super(name);
+public class RegisterAndLoginMenu extends Menu {
+
+    private static RegisterAndLoginMenu single_instance = null;
+
+    private RegisterAndLoginMenu() {
+        super("RegisterAndLoginMenu");
         this.regex.add(0,"create account [manager|buyer|seller] (\\w+)");
         this.regex.add(1,"login (\\w+)");
         this.methods.add(0,"loginUser");
         this.methods.add(1,"registerUser");
-        this.parent = parent;
+    }
+
+    public static RegisterAndLoginMenu getInstance() {
+        if (single_instance == null)
+            single_instance = new RegisterAndLoginMenu();
+
+        return single_instance;
     }
 
     public void loginUser(String username){
@@ -53,7 +62,7 @@ public class RegisterAndLogin extends Menu {
         }
     }
 
-    public ArrayList<String> addDetails(String name,String lastName,String email,String phoneNumber,String password){
+    private ArrayList<String> addDetails(String name,String lastName,String email,String phoneNumber,String password){
         ArrayList<String> detail = new ArrayList<>();
         detail.add(0,name);
         detail.add(1,lastName);
