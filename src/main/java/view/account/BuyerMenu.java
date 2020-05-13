@@ -187,7 +187,7 @@ public class BuyerMenu extends Menu {
     }
 
     @Override
-    public void show() {
+    public void help() {
         super.show();
         for (int i=0; i<15; i++) {
             System.out.println(i + ") "+ methods.get(i));
