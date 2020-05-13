@@ -4,6 +4,7 @@ import controller.account.user.BuyerController;
 import controller.product.ProductController;
 import model.account.Account;
 import model.product.Cart;
+import model.product.Discount;
 import model.product.Product;
 import model.product.SelectedProduct;
 import model.receipt.BuyerReceipt;
@@ -32,10 +33,6 @@ public class BuyerMenu extends Menu {
         setMethods();
         buyerController = BuyerController.getInstance();
         scanner = new Scanner(System.in);
-    }
-
-    @Override
-    public void show() {
     }
 
     public void viewPersonalInfo() {
@@ -170,6 +167,33 @@ public class BuyerMenu extends Menu {
         }
     }
 
+    private void viewBalance() {
+        System.out.println(buyerController.getCredit());
+    }
+
+    private void viewDiscountCodes() {
+        ArrayList<Discount> allDiscounts = buyerController.getAllDiscounts();
+        System.out.println("Discount Code            Discount Percentage      Max number of usage      Number of usage");
+        for (Discount discount:allDiscounts) {
+            System.out.format("%s%20f%40s%60s", discount.getDiscountCode(), discount.getDiscountPercentage()
+                    , discount.getMaxNumberOfUsage(), discount.getNumberOfUsageBuyer(buyerController.getCurrentBuyer()));
+        }
+    }
+
+    private void logout() {
+        buyerController.logout();
+        System.out.println("Logout Successful. GoodBye!");
+
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        for (int i=0; i<15; i++) {
+            System.out.println(i + ") "+ methods.get(i));
+        }
+    }
+
     private void setRegex() {
         regex.add("view personal info");
         regex.add("edit (\\w+)");
@@ -183,6 +207,9 @@ public class BuyerMenu extends Menu {
         regex.add("view orders");
         regex.add("show order (\\w+)");
         regex.add("rate (\\w+) (\\d+)");
+        regex.add("view balance");
+        regex.add("view discount codes");
+        regex.add("logout");
     }
 
     private void setMethods() {
@@ -198,5 +225,8 @@ public class BuyerMenu extends Menu {
         methods.add("viewOrders");
         methods.add("showOrder");
         methods.add("rate");
+        methods.add("viewBalance");
+        methods.add("viewDiscountCodes");
+        methods.add("logout");
     }
 }
