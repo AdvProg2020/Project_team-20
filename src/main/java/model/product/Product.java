@@ -28,6 +28,7 @@ public class Product implements Requestable {
     private double numberVisited;
     private Product editedProduct;
 
+
     public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
                    double price) {
         this.name = name;
@@ -206,5 +207,13 @@ public class Product implements Requestable {
 
     public HashMap<Seller, Integer> getCount() {
         return count;
+    }
+
+    public static ArrayList<Product> getAllProducts() {
+        return allProducts;
+    }
+
+    public RequestableState getState() {
+        return state;
     }
 }

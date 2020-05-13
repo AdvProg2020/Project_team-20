@@ -177,6 +177,7 @@ public class BuyerController implements AccountController {
                 break;
             case "lastName":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), context, currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                break;
             case "email":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), context, currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
                 break;

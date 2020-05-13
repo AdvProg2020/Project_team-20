@@ -27,6 +27,15 @@ public class Discount {
         setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
     }
 
+    public void editDiscount(LocalDateTime startDate,LocalDateTime endDate, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount){
+        this.discountPercentage = discountPercentage;
+        this.maxNumberOfUsage = maxNumberOfUsage;
+        this.buyersWithDiscount = buyersWithDiscount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
+    }
+
     public static ArrayList<Discount> getAllDiscountsBuyer (Buyer buyer) {
         ArrayList<Discount> allDiscountsBuyer = new ArrayList<>();
         for (Discount discount:allDiscounts) {
@@ -71,13 +80,12 @@ public class Discount {
         return null;
     }
 
-    public static Discount getDiscountByDiscountCode(String discountCode){
+    public static Discount getDiscountByDiscountCode(String discountCode) throws Exception {
         for(Discount discount:allDiscounts) {
                 if (discount.getDiscountCode().equals(discountCode))
                     return discount;
         }
-        return null;
-        //throw new doesNotExitThisDiscountCodeException();
+        throw new discountCodeNotFoundException();
     }
 
     public void decreaseNumberOfUsageForBuyer(Buyer buyer){
@@ -166,9 +174,19 @@ public class Discount {
         this.discountCode = discountCode;
     }
 
+    public static void removeDiscountCode(String discountCode) throws Exception{
+        for(Discount discount : allDiscounts){
+            if(discount.getDiscountCode().equals(discountCode)){
+                allDiscounts.remove(discount);
+                return;
+            }
+        }
+        throw new discountCodeNotFoundException();
+    }
+
     public static class discountCodeNotFoundException extends Exception {
         public discountCodeNotFoundException() {
-            super("product unavailable");
+            super("discount code doesn't exist");
         }
     }
 
