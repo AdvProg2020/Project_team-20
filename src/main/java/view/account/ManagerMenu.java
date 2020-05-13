@@ -19,6 +19,10 @@ public class ManagerMenu extends Menu {
         this.methods.add(1,"editPersonalInfo");
         this.regex.add(2,"manage users");
         this.methods.add(2,"manageUsers");
+        this.regex.add(3,"view (\\w+)");
+        this.methods.add(3,"viewUserWithUserName");
+        this.regex.add(4,"delete user (\\w+)");
+        this.methods.add(4,"deleteUserWithUserName");
     }
 
     public static ManagerMenu getInstance() {
@@ -47,6 +51,29 @@ public class ManagerMenu extends Menu {
         ArrayList<Account> accounts = managerController.manageUsers();
         for(Account account : accounts){
             System.out.println("UserName : "+account.getUsername());
+        }
+    }
+
+    public void viewUserWithUserName(String username){
+        ManagerController managerController = ManagerController.getInstance();
+        try {
+            Account account = managerController.viewUser(username);
+            System.out.println("UserName : " + account.getUsername() + "\n" + "Password : " + account.getPassword() + "\n" + "Name : " + account.getName() + "\n" + "LastName : " + account.getLastName() + "\n" + "Email : " + account.getEmail()
+                    + "\n" + "PhoneNumber : " + account.getPhoneNumber());
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteUserWithUserName(String username){
+        ManagerController managerController = ManagerController.getInstance();
+        try{
+            managerController.deleteUser(username);
+            System.out.println("It was successfully removed");
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
