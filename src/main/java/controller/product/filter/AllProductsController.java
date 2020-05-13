@@ -20,7 +20,7 @@ public class AllProductsController implements Filterable {
         this.mainController = MainController.getInstance();
         generalAccount = mainController.getAccount();
     }
-    
+
     public static AllProductsController getInstance() {
         if (allProductsController == null)
             return new AllProductsController();
