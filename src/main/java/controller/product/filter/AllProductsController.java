@@ -1,6 +1,7 @@
 package controller.product.filter;
 
 import controller.MainController;
+import controller.account.user.SellerController;
 import model.account.GeneralAccount;
 import model.account.TempAccount;
 import model.product.Category;
@@ -13,9 +14,17 @@ public class AllProductsController implements Filterable {
     MainController mainController;
     GeneralAccount generalAccount;
 
-    public AllProductsController(MainController mainController) {
-        this.mainController = mainController;
+    public static AllProductsController allProductsController = null;
+
+    private AllProductsController() {
+        this.mainController = MainController.getInstance();
         generalAccount = mainController.getAccount();
+    }
+    
+    public static AllProductsController getInstance() {
+        if (allProductsController == null)
+            return new AllProductsController();
+        return allProductsController;
     }
 
     public void purchase() throws Exception{
