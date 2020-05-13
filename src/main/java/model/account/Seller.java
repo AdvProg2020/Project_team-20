@@ -95,6 +95,10 @@ public class Seller extends Account implements Requestable {
         this.productsToSell.replace(product,firstNum + number);
     }
 
+    public void increaseCredit(double amount) {
+        credit += amount;
+    }
+
     public void removeSale(Sale sale) {
         this.sales.remove(sale);
     }
