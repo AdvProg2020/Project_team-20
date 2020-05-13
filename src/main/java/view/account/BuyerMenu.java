@@ -90,6 +90,14 @@ public class BuyerMenu extends Menu {
         }
     }
 
+    public void decreaseProduct(String id, int number) {
+        try {
+            buyerController.decreaseProduct(id, number);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void setRegex() {
         regex.add("view personal info");
         regex.add("edit (\\w+)");
@@ -97,6 +105,7 @@ public class BuyerMenu extends Menu {
         regex.add("show products");
         regex.add("view (\\w+)");
         regex.add("increase (\\w+) (\\d+)");
+        regex.add("decrease (\\w+) (\\d+)");
     }
 
     private void setMethods() {
@@ -106,5 +115,6 @@ public class BuyerMenu extends Menu {
         methods.add("showProducts");
         methods.add("viewProduct");
         methods.add("increaseProduct");
+        methods.add("decreaseProduct");
     }
 }
