@@ -7,6 +7,17 @@ public class Main {
 
     public static void main(String[] args) {
         initialMenus();
+
+        while (true)
+            currentMenu.getCommand();
+    }
+
+    public static void setCurrentMenu(Menu currentMenu) {
+        Main.currentMenu = currentMenu;
+    }
+
+    public static Menu getCurrentMenu() {
+        return currentMenu;
     }
 
     private static void initialMenus() {
