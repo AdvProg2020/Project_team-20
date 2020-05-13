@@ -27,6 +27,15 @@ public class Discount {
         setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
     }
 
+    public void editDiscount(LocalDateTime startDate,LocalDateTime endDate, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount){
+        this.discountPercentage = discountPercentage;
+        this.maxNumberOfUsage = maxNumberOfUsage;
+        this.buyersWithDiscount = buyersWithDiscount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
+    }
+
     public static ArrayList<Discount> getAllDiscountsBuyer (Buyer buyer) {
         ArrayList<Discount> allDiscountsBuyer = new ArrayList<>();
         for (Discount discount:allDiscounts) {

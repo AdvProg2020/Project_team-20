@@ -31,7 +31,7 @@ public class Seller extends Account implements Requestable {
         state = RequestableState.EDITED;
     }
 
-    public void editSeller() {
+    public void edit() {
         edit(editedSeller);
         editedSeller = null;
         state = RequestableState.ACCEPTED;
@@ -109,5 +109,6 @@ public class Seller extends Account implements Requestable {
     public void changeStateRejected() {
         state = RequestableState.REJECTED;
     }
+
 
 }

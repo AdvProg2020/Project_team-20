@@ -9,6 +9,7 @@ import  model.product.Discount;
 import  model.account.Buyer;
 import model.product.Field.Field;
 import model.product.Product;
+import model.product.RequestableState;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -39,8 +40,8 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     public Account viewUser(String userName) throws Exception{
-        Account account = Account.getAccountWithUsername(userName);
-        return account;
+        Account account1 = Account.getAccountWithUsername(userName);
+        return account1;
     }
 
     public void deleteUser(String userName) throws Exception{
@@ -72,12 +73,13 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     public Discount viewDiscountCode(String discountCode) throws Exception{
-        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
-        return discount;
+        Discount discount1 = Discount.getDiscountByDiscountCode(discountCode);
+        return discount1;
     }
-//
-    public void editDiscountCodes(String discountCode) throws Exception{
+
+    public void editDiscountCodes(LocalDateTime startDate,LocalDateTime endDate,String discountCode, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) throws Exception{
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+        discount.editDiscount(startDate,endDate,discountPercentage,maxNumberOfUsage,buyersWithDiscount);
     }
 
     public void removeDiscountCodes(String discountCode) throws Exception{
@@ -96,7 +98,15 @@ public class ManagerController implements controller.account.user.AccountControl
 
     public void acceptRequest(String requestId){
         Requestable request  = findRequestWithId(requestId);
-        request.changeStateAccepted();
+        RequestableState state = request.getState();
+        switch (state){
+            case EDITED:
+                request.edit();
+                break;
+            case CREATED:
+                request.changeStateAccepted();
+                break;
+        }
     }
 
     public void declineRequest(String requestId){
@@ -154,7 +164,7 @@ public class ManagerController implements controller.account.user.AccountControl
                 currentManager.setEmail(context);
                 break;
             case "phoneNumber":
-                currentManager.setPhoneNumber(context)
+                currentManager.setPhoneNumber(context);
                 break;
             case "password":
                 currentManager.setPassword(context);
