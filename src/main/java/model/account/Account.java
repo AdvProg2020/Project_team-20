@@ -145,6 +145,7 @@ public abstract class Account extends GeneralAccount{
         }
     }
 
+
     //ehtiaj darim ????
     public static boolean hasThisAccount(String username) {
         for (Account account : allAccounts) {

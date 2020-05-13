@@ -1,6 +1,6 @@
 package controller.account.user;
 
-
+import controller.MainController;
 import model.Requestable;
 import model.account.Manager;
 import model.account.Account;
@@ -13,6 +13,7 @@ import model.product.Product;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static controller.MainController.mainController;
 import static model.account.Manager.*;
 import static model.product.Category.*;
 import static model.product.Discount.removeDiscountCode;
@@ -21,8 +22,20 @@ import static model.product.Product.removeProduct;
 
 public class ManagerController implements controller.account.user.AccountController {
 
-    public void manageUsers(){
+    MainController mainController;
+    Manager currentManager;
 
+    private static ManagerController managerController = null;
+
+    private ManagerController() {
+        this.mainController = MainController.getInstance();
+        currentManager = (Manager)mainController.getAccount();
+    }
+
+
+    //manage users
+    public ArrayList<Account> manageUsers(){
+      return getAllAccounts();
     }
 
     public Account viewUser(String userName) throws Exception{
@@ -125,16 +138,34 @@ public class ManagerController implements controller.account.user.AccountControl
 
     @Override
     public Account getAccountInfo() {
-        return null;
+        return currentManager;
     }
 
     @Override
     public void editField(String field, String context) {
-
+        switch (field) {
+            case "name":
+                currentManager.setName(context);
+                break;
+            case "lastName":
+                currentManager.setLastName(context);
+                break;
+            case "email":
+                currentManager.setEmail(context);
+                break;
+            case "phoneNumber":
+                currentManager.setPhoneNumber(context)
+                break;
+            case "password":
+                currentManager.setPassword(context);
+                break;
+            case "credit":
+                currentManager.setCredit(Double.parseDouble(context));
+        }
     }
 
     @Override
     public void logout() {
-
+        mainController.logout();
     }
 }
