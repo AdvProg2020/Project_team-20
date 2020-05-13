@@ -4,6 +4,7 @@ import model.account.Buyer;
 import model.account.Seller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Cart {
     public ArrayList<SelectedProduct> selectedProducts;
@@ -58,20 +59,29 @@ public class Cart {
         return allSelectedProducts;
     }
 
+    public HashMap<Product, Integer> getAllProducts() {
+        HashMap<Product, Integer> allProduct = new HashMap<>();
+        for (SelectedProduct selectedProduct:selectedProducts) {
+            allProduct.put(selectedProduct.getProduct(), selectedProduct.getCount());
+        }
+        return allProduct;
+    }
+
+    public HashMap<Product, Integer> getAllProductsSeller(Seller seller) {
+        HashMap<Product, Integer> allProductSeller = new HashMap<>();
+        for (SelectedProduct selectedProduct:selectedProducts) {
+            if (selectedProduct.getSeller().equals(seller))
+                allProductSeller.put(selectedProduct.getProduct(), selectedProduct.getCount());
+        }
+        return allProductSeller;
+    }
+
     public ArrayList<Seller> getAllSellers() {
         ArrayList<Seller> allSellers = new ArrayList<>();
         for (SelectedProduct selectedProduct:selectedProducts) {
             allSellers.add(selectedProduct.getSeller());
         }
         return allSellers;
-    }
-
-    public ArrayList<Product> getAllProducts() {
-        ArrayList<Product> allProducts = new ArrayList<>();
-        for (SelectedProduct selectedProduct:selectedProducts) {
-            allProducts.add(selectedProduct.getProduct());
-        }
-        return allProducts;
     }
 
     public ArrayList<SelectedProduct> getSelectedProducts() {

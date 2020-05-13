@@ -1,7 +1,9 @@
 package model.receipt;
 import model.account.Buyer;
+import model.product.Product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SellerReceipt extends Receipt {
     static int sellerReceiptCount = 0;
@@ -9,7 +11,7 @@ public class SellerReceipt extends Receipt {
     private model.account.Buyer buyer;
     private double discountAmount ;
 
-    public SellerReceipt(String id, double discountPercentage, ArrayList<model.product.Product > products, Boolean hasItSent,double receivedMoney, Buyer buyer, double discountAmount) {
+    public SellerReceipt(String id, double discountPercentage, HashMap<Product, Integer> products, Boolean hasItSent, double receivedMoney, Buyer buyer, double discountAmount) {
         super(id,discountPercentage, products,hasItSent);
         this.receivedMoney = receivedMoney;
         this.buyer = buyer;

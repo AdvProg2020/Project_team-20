@@ -86,7 +86,7 @@ public class BuyerController implements AccountController {
         Cart cart = currentBuyer.getCart();
         ArrayList<Seller> sellers = cart.getAllSellers();
         for (Seller seller:sellers) {
-            seller.addToSaleHistory(new SellerReceipt(Integer.toString(SellerReceipt.getSellerReceiptCount()), discountPercentage, cart.getAllProductsOfSeller(seller),
+            seller.addToSaleHistory(new SellerReceipt(Integer.toString(SellerReceipt.getSellerReceiptCount()), discountPercentage, cart.getAllProductsSeller(seller),
                     false, getTotalPriceTotalDiscountSeller(seller, 0), currentBuyer, getTotalPriceTotalDiscountSeller(seller, 1)));
         }
     }

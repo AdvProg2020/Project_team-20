@@ -3,13 +3,14 @@ import model.account.Seller;
 import model.product.Product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BuyerReceipt extends Receipt {
     static int buyerReceiptCount = 0;
     private double paidMoney;
     private ArrayList<model.account.Seller> sellers;
 
-    public BuyerReceipt(String id, double discountPercentage, ArrayList<Product> products, Boolean hasItSent, double paidMoney, ArrayList<Seller> sellers) {
+    public BuyerReceipt(String id, double discountPercentage, HashMap<Product, Integer> products, Boolean hasItSent, double paidMoney, ArrayList<Seller> sellers) {
         super(id,discountPercentage, products, hasItSent);
         this.paidMoney = paidMoney;
         this.sellers = sellers;
