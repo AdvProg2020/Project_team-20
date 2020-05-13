@@ -98,9 +98,6 @@ public abstract class Menu {
         System.out.println("these are the commands you can use in " + this.getName());
     }
 
-    public void execute() {
-    }
-
     public void back() {
         if (this.getParent() != null)
             Main.setCurrentMenu(this.getParent());
