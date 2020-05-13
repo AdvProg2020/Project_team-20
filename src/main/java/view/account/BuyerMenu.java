@@ -98,6 +98,33 @@ public class BuyerMenu extends Menu {
         }
     }
 
+    public void showTotalPrice() {
+        System.out.println("Total Price is: " + buyerController.getTotalPrice());
+    }
+
+    public void purchase() {
+        System.out.println("Please insert your address");
+        String address = scanner.nextLine();
+        System.out.println("Please insert your phone number");
+        String phoneNumber = scanner.nextLine();
+        System.out.println("Please insert your discount code otherwise insert enter!");
+        String discountCode = scanner.nextLine();
+        System.out.println("You are buying all these products:");
+        viewCart();
+        showTotalPrice();
+        System.out.println("Are you sure you want to buy? (yes/no)");
+        String answer = scanner.nextLine();
+        if (answer.equalsIgnoreCase("no"))
+            return;
+        try {
+            buyerController.purchase(address, phoneNumber, discountCode);
+            viewCart();
+            System.out.println("Thanks for your buying!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void setRegex() {
         regex.add("view personal info");
         regex.add("edit (\\w+)");
@@ -106,6 +133,8 @@ public class BuyerMenu extends Menu {
         regex.add("view (\\w+)");
         regex.add("increase (\\w+) (\\d+)");
         regex.add("decrease (\\w+) (\\d+)");
+        regex.add("show total price");
+        regex.add("purchase");
     }
 
     private void setMethods() {
@@ -116,5 +145,7 @@ public class BuyerMenu extends Menu {
         methods.add("viewProduct");
         methods.add("increaseProduct");
         methods.add("decreaseProduct");
+        methods.add("showTotalPrice");
+        methods.add("purchase");
     }
 }
