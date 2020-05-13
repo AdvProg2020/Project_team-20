@@ -1,5 +1,7 @@
 package view;
 
+import controller.Main;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ public abstract class Menu {
     private static ArrayList<Menu> allMenus;
     protected static Scanner scanner;
     protected String name;
+    protected String command;
     protected Menu parent;
     protected ArrayList<Menu> subMenus;
     protected ArrayList<Pattern> patterns;
@@ -86,7 +89,9 @@ public abstract class Menu {
         this.methods = methods;
     }
 
-    public abstract void show();
+    public void show() {
+        System.out.println("Welcome To " + this.getName());
+    }
 
     public void help() {
         System.out.println("Help command:");
@@ -96,15 +101,15 @@ public abstract class Menu {
     public void execute() {
     }
 
-    public Menu back() {
+    public void back() {
         if (this.getParent() != null)
-            return this.getParent();
-        return this;
+            Main.setCurrentMenu(this.getParent());
+        Main.setCurrentMenu(this);
     }
 
-    public Menu enter(Menu subMenu) {
+    public void enter(Menu subMenu) {
         subMenu.setParent(this);
-        return subMenu;
+        Main.setCurrentMenu(subMenu);
     }
 
     public static Matcher getMatcher(String input, String regex) {
@@ -120,9 +125,10 @@ public abstract class Menu {
         return null;
     }
 
-    public void callCommand(String command) throws InvocationTargetException, IllegalAccessException, Errors {
+    public void callCommand(String command) throws InvocationTargetException, IllegalAccessException {
+        Matcher matcher;
         for (int i = 0; i < patterns.size(); i++) {
-            Matcher matcher = patterns.get(i).matcher(command);
+            matcher = patterns.get(i).matcher(command);
             if (matcher.matches()) {
                 ArrayList<Object> inputs = new ArrayList<>();
                 for (int j = 1; j <= matcher.groupCount(); j++) {
@@ -136,20 +142,24 @@ public abstract class Menu {
                     if (input != null) inputs.add(input);
                 }
                 Objects.requireNonNull(getMethodByName(methods.get(i))).invoke(this, inputs.toArray());
+                return;
             }
         }
         System.out.println("invalidCommand");
     }
 
     public void getCommand() {
-        String command;
-        while (!(command = scanner.nextLine()).equals("end")) {
+        if (!(command = scanner.nextLine().trim()).equals("end")) {
             try {
                 this.callCommand(command);
-            } catch (InvocationTargetException | IllegalAccessException | Errors e) {
+            } catch (InvocationTargetException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
+        else
+            System.exit(0);
     }
+
+
 
 }
