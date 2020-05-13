@@ -1,6 +1,9 @@
 package view;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -112,5 +115,44 @@ public abstract class Menu {
         return pattern.matcher(input);
     }
 
+
+    private Method getMethodByName(String name) {
+        Class clazz = this.getClass();
+        for (Method declaredMethod : clazz.getDeclaredMethods())
+            if (declaredMethod.getName().equals(name)) return declaredMethod;
+        return null;
+    }
+
+    public void callCommand(String command) throws InvocationTargetException, IllegalAccessException, Errors {
+        for (int i = 0; i < patterns.size(); i++) {
+            Matcher matcher = patterns.get(i).matcher(command);
+            if (matcher.matches()) {
+                ArrayList<Object> inputs = new ArrayList<>();
+                for (int j = 1; j <= matcher.groupCount(); j++) {
+                    Object input = null;
+                    try {
+                        input = Double.parseDouble(matcher.group(j));
+                    } catch (Exception e) {
+                        if (!matcher.group(j).isEmpty())
+                            input = matcher.group(j);
+                    }
+                    if (input != null) inputs.add(input);
+                }
+                Objects.requireNonNull(getMethodByName(methods.get(i))).invoke(this, inputs.toArray());
+            }
+        }
+        System.out.println("invalidCommand");
+    }
+
+    public void getCommand() {
+        String command;
+        while (!(command = scanner.nextLine()).equals("end")) {
+            try {
+                this.callCommand(command);
+            } catch (InvocationTargetException | IllegalAccessException | Errors e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
