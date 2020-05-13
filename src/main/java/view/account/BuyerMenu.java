@@ -1,7 +1,6 @@
 package view.account;
 
 import controller.account.user.BuyerController;
-import controller.product.ProductController;
 import model.account.Account;
 import model.product.Cart;
 import model.product.Discount;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class BuyerMenu extends Menu {
+public class   BuyerMenu extends Menu {
     BuyerController buyerController;
     Scanner scanner;
 
@@ -185,14 +184,6 @@ public class BuyerMenu extends Menu {
         buyerController.logout();
         System.out.println("Logout Successful. GoodBye!");
 
-    }
-
-    @Override
-    public void help() {
-        super.show();
-        for (int i=0; i<15; i++) {
-            System.out.println(i + ") "+ methods.get(i));
-        }
     }
 
     private void setRegex() {
