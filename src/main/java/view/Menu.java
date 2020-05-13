@@ -85,12 +85,21 @@ public abstract class Menu {
     }
 
     public void show() {
+        System.out.println("Welcome To " + this.getName());
     }
 
-    public abstract void execute();
+    public void help() {
+        System.out.println("Help command:");
+        System.out.println("these are the commands you can use in " + this.getName());
+    }
+
+    public void execute() {
+    }
 
     public Menu back() {
-        return this.getParent();
+        if (this.getParent() != null)
+            return this.getParent();
+        return this;
     }
 
     public Menu enter(Menu subMenu) {
@@ -98,9 +107,10 @@ public abstract class Menu {
         return subMenu;
     }
 
-    private static Matcher getMatcher(String input, String regex) {
+    public static Matcher getMatcher(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(input);
     }
+
 
 }
