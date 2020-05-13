@@ -42,6 +42,10 @@ public class SellerController implements AccountController {
         return seller.getSaleHistory();
     }
 
+    public ArrayList<Product> getAllProducts() {
+        return Product.getAllProducts();
+    }
+
     public Product viewProduct(String productId) throws Exception {
         return Product.getProductById(productId);
     }
