@@ -1,6 +1,7 @@
 package controller.account.user;
 
 import controller.MainController;
+import controller.product.ProductController;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
@@ -15,9 +16,17 @@ public class BuyerController implements AccountController {
     MainController mainController;
     Buyer currentBuyer;
 
-    public BuyerController() {
+    private static BuyerController buyerController = null;
+
+    private BuyerController() {
         this.mainController = MainController.getInstance();
         currentBuyer = (Buyer)mainController.getAccount();
+    }
+
+    public static BuyerController getInstance() {
+        if (buyerController == null)
+            buyerController = new BuyerController();
+        return buyerController;
     }
 
     public ArrayList<Discount> getAllDiscounts() {
@@ -168,6 +177,7 @@ public class BuyerController implements AccountController {
                 break;
             case "lastName":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), context, currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                break;
             case "email":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), context, currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
                 break;

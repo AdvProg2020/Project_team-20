@@ -120,13 +120,12 @@ public abstract class Account extends GeneralAccount{
         this.password = password;
     }
 
-    public static Account getAccountWithUsername(String username) {
+    public static Account getAccountWithUsername(String username) throws Exception {
         for (Account account : allAccounts) {
             if (account.getUsername().equals(username))
                 return account;
         }
-        return null;
-        //throw new AccountUnavailableException();
+        throw new AccountUnavailableException();
     }
 
     public static class notEnoughMoneyException extends Exception {
@@ -140,8 +139,19 @@ public abstract class Account extends GeneralAccount{
         return super.toString();
     }
 
+    public static class AccountUnavailableException extends Exception {
+        public AccountUnavailableException() {
+            super("Account doesn't exist");
+        }
+    }
+
+
     //ehtiaj darim ????
     public static boolean hasThisAccount(String username) {
-        return getAccountWithUsername(username) != null;
+        for (Account account : allAccounts) {
+            if (account.getUsername().equals(username))
+                return true;
+        }
+        return false;
     }
 }

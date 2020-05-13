@@ -25,6 +25,16 @@ public class AddSellerRequest implements Requestable {
     public void changeStateRejected() {
     }
 
+    @Override
+    public void edit() {
+
+    }
+
+    @Override
+    public RequestableState getState() {
+        return null;
+    }
+
     public Product getProduct() {
         return product;
     }
