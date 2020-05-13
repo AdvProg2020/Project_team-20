@@ -60,18 +60,19 @@ public class SellerController implements AccountController {
         ArrayList<Field> fields = new ArrayList<>(product.getGeneralFields());
         editFields(fields, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsTORemove,
                 optionalFieldsToAdd);
-        String description;
-        int count;
-        double price;
+        String description = product.getDescription();
+        int count = product.getCount(seller);
+        double price = product.getPrice(seller);
         if (!details.get(0).isEmpty()) {
             description = details.get(0);
-        } else description = product.getDescription();
+        }
+        //increase or decrease product (manfi bashe ya mosbat(addad vorodi))
         if (!details.get(1).isEmpty()) {
-            count = Integer.parseInt(details.get(1));
-        } else count = product.getCount(seller);
+            count += Integer.parseInt(details.get(1));
+        }
         if (!details.get(2).isEmpty()) {
-            price = Double.parseDouble(details.get(2));
-        } else price = product.getPrice(seller);
+            price += Double.parseDouble(details.get(2));
+        }
         product.changeStateEdited(fields, description, count, price, seller);
         Manager.addRequest(product);
     }
@@ -88,10 +89,15 @@ public class SellerController implements AccountController {
 
 
     public void addToProduct(String id, int count, double price) throws Exception {
-        Product product = Product.getProductById(id);
-        AddSellerRequest request = new AddSellerRequest(product, seller, count, price);
-        Manager.addRequest(request);
+        if (seller.hasProduct(id)) {
+            throw new AlreadyHaveThisProductException();
+        } else {
+            Product product = Product.getProductById(id);
+            AddSellerRequest request = new AddSellerRequest(product, seller, count, price);
+            Manager.addRequest(request);
+        }
     }
+
 
     public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
                               HashMap<String, ArrayList<String>> optionalFields) {
@@ -131,16 +137,6 @@ public class SellerController implements AccountController {
         return fields;
     }
 
-    public void increaseProduct(String productId, int quantity) throws Exception {
-        Product product = Product.getProductById(productId);
-        seller.increaseProduct(product, quantity);
-    }
-
-    public void decreaseProduct(String productId, int quantity) throws Exception {
-        Product product = Product.getProductById(productId);
-        seller.decreaseProduct(product, quantity);
-    }
-
     public void deleteProduct(String productId) throws Exception {
         Product product = Product.getProductById(productId);
         seller.removeFromProductsToSell(product);
@@ -175,9 +171,12 @@ public class SellerController implements AccountController {
         if (!details.get(2).isEmpty()) {
             salePercentage = Double.parseDouble(details.get(2));
         } else salePercentage = sale.getSalePercentage();
-        //momkene hamchin producty tosh nabashe onvaght chi
+        //momkene hamchin producty tosh nabashe onvaght chi(in ro throw mikone hala baiad check she
         for (Product product : productsToRemove) {
-            newProducts.remove(product);
+            if (seller.hasProduct(product.getId()))
+                newProducts.remove(product);
+            else
+                throw new HaveNotThisProductException(product);
         }
         newProducts.addAll(productsToAdd);
         sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
@@ -215,6 +214,25 @@ public class SellerController implements AccountController {
         }
     }
 
+    public static class AlreadyHaveThisProductException extends Exception {
+        public AlreadyHaveThisProductException() {
+            super("seller already have this product");
+        }
+    }
+
+    public static class HaveNotThisProductException extends Exception {
+        private Product product;
+
+        public HaveNotThisProductException(Product product) {
+            super("seller have not this product with this id: " + product.getId());
+            this.product = product;
+        }
+
+        //check shavad che qalati bokonim
+        private String generateString(Product product) {
+            return "";
+        }
+    }
 
     @Override
     public Account getAccountInfo() {

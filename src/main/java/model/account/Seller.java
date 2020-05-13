@@ -12,6 +12,7 @@ import java.util.HashMap;
 public class Seller extends Account implements Requestable {
     private ArrayList<SellerReceipt> saleHistory;
     private HashMap<Product, Integer> productsToSell;
+    private ArrayList<Product> products;
     private ArrayList<Sale> sales;
     private HashMap<String, String> details;
     private RequestableState state;
@@ -22,6 +23,7 @@ public class Seller extends Account implements Requestable {
         super(name, lastName, email, phoneNumber, username, password, credit, AccountType.SELLER);
         this.saleHistory = new ArrayList<>();
         this.productsToSell = new HashMap<>();
+        this.products = new ArrayList<>();
         this.sales = new ArrayList<>();
         this.details = new HashMap<>();
     }
@@ -59,6 +61,7 @@ public class Seller extends Account implements Requestable {
 
     public void AddToProductsToSell(Product product, int number) {
         this.productsToSell.put(product, number);
+        this.products.add(product);
     }
 
     public void addSale(Sale sale) {
@@ -75,6 +78,11 @@ public class Seller extends Account implements Requestable {
 
     public void removeFromProductsToSell(Product product) {
         this.productsToSell.remove(product);
+        this.products.remove(product);
+    }
+
+    public ArrayList<Product> getProducts() {
+        return products;
     }
 
     public void decreaseProduct(Product product, int number) {
@@ -97,6 +105,14 @@ public class Seller extends Account implements Requestable {
 
     public RequestableState getState() {
         return state;
+    }
+
+    public boolean hasProduct(String id) {
+        for (Product product : products) {
+            if(product.getId().equals(id))
+                return true;
+        }
+        return false;
     }
 
     public int getProductCount(Product product) {
