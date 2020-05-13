@@ -21,11 +21,11 @@ public abstract class Menu {
     protected ArrayList<String> regex;
     protected ArrayList<String> methods;
 
-
     public Menu(String name) {
         this.name = name;
         this.patterns = new ArrayList<>();
         this.regex = new ArrayList<>();
+        this.methods = new ArrayList<>();
         scanner = new Scanner(System.in);
     }
 
@@ -98,22 +98,41 @@ public abstract class Menu {
         System.out.println("these are the commands you can use in " + this.getName());
     }
 
+    public static Menu getMenuFromName(String name) throws Exception {
+        for (Menu menu : allMenus) {
+            if (menu.getName().equals(name))
+                return menu;
+        }
+        throw new MenuHasNotExistException();
+    }
+
+    public static class MenuHasNotExistException extends Exception {
+        public MenuHasNotExistException() {
+            super("Menu has not exist");
+        }
+    }
+
     public void back() {
         if (this.getParent() != null)
             Main.setCurrentMenu(this.getParent());
         Main.setCurrentMenu(this);
     }
 
-    public void enter(Menu subMenu) {
-        subMenu.setParent(this);
-        Main.setCurrentMenu(subMenu);
+    public void enter(String subMenuName) throws Exception {
+        try {
+            Menu subMenu = getMenuFromName(subMenuName);
+            subMenu.setParent(this);
+            Main.setCurrentMenu(subMenu);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public static Matcher getMatcher(String input, String regex) {
-        Pattern pattern = Pattern.compile(regex);
-        return pattern.matcher(input);
+    public void preProcess() {
+        for (int i = 0; i < regex.size(); i++) {
+            patterns.set(i, Pattern.compile(regex.get(i)));
+        }
     }
-
 
     private Method getMethodByName(String name) {
         Class clazz = this.getClass();
@@ -146,17 +165,17 @@ public abstract class Menu {
     }
 
     public void getCommand() {
+        this.show();
+        this.preProcess();
         if (!(command = scanner.nextLine().trim()).equals("end")) {
             try {
                 this.callCommand(command);
             } catch (InvocationTargetException | IllegalAccessException e) {
                 e.printStackTrace();
             }
-        }
-        else
+        } else
             System.exit(0);
     }
-
 
 
 }
