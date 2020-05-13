@@ -178,6 +178,10 @@ public class BuyerController implements AccountController {
         return currentBuyer.getCredit();
     }
 
+    public Buyer getCurrentBuyer() {
+        return currentBuyer;
+    }
+
     public static class buyerHasNotBought extends Exception{
         public buyerHasNotBought() { super("Buyer has not bought product"); }
     }

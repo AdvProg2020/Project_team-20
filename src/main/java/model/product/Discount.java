@@ -174,6 +174,10 @@ public class Discount {
         this.discountCode = discountCode;
     }
 
+    public int getNumberOfUsageBuyer(Buyer buyer) {
+        return numberOfUsageForEachBuyer.get(buyer);
+    }
+
     public static void removeDiscountCode(String discountCode) throws Exception{
         for(Discount discount : allDiscounts){
             if(discount.getDiscountCode().equals(discountCode)){

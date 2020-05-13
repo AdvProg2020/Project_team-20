@@ -4,6 +4,7 @@ import controller.account.user.BuyerController;
 import controller.product.ProductController;
 import model.account.Account;
 import model.product.Cart;
+import model.product.Discount;
 import model.product.Product;
 import model.product.SelectedProduct;
 import model.receipt.BuyerReceipt;
@@ -11,6 +12,7 @@ import view.Menu;
 import view.product.ProductMenu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class BuyerMenu extends Menu {
@@ -31,10 +33,6 @@ public class BuyerMenu extends Menu {
         setMethods();
         buyerController = BuyerController.getInstance();
         scanner = new Scanner(System.in);
-    }
-
-    @Override
-    public void show() {
     }
 
     public void viewPersonalInfo() {
@@ -131,10 +129,68 @@ public class BuyerMenu extends Menu {
     public void viewOrders() {
         ArrayList<BuyerReceipt> buyerReceipts = buyerController.viewOrders();
         for (BuyerReceipt buyerReceipt:buyerReceipts) {
-            System.out.println("____________________");
-            System.out.println("id:                :" + buyerReceipt.getId());
-            System.out.println("discount percentage:" + buyerReceipt.getDiscountPercentage());
-            System.out.println("Time               :" + buyerReceipt.getDateAndTime());
+            showGeneralDescriptionBuyerReceipt(buyerReceipt);
+        }
+    }
+
+    public void showOrder(String id) {
+        try {
+            BuyerReceipt buyerReceipt = buyerController.getBuyerReceiptById(id);
+            showGeneralDescriptionBuyerReceipt(buyerReceipt);
+            System.out.println("Products you bought: ( Name, Count)");
+            showProductsOrder(buyerReceipt.getProducts());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    private void showProductsOrder(HashMap<Product, Integer> allProducts) {
+        for (Product product:allProducts.keySet()) {
+            System.out.format("%s%20d",product.getName(), allProducts.get(product));
+        }
+    }
+
+    private void showGeneralDescriptionBuyerReceipt(BuyerReceipt buyerReceipt) {
+        System.out.println("____________________");
+        System.out.println("Id:                :" + buyerReceipt.getId());
+        System.out.println("Discount percentage:" + buyerReceipt.getDiscountPercentage());
+        System.out.println("Paid money         :");
+        System.out.println("Time               :" + buyerReceipt.getDateAndTime());
+    }
+
+    private void rate(String id, int score) {
+        try {
+            buyerController.rate(id, score);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void viewBalance() {
+        System.out.println(buyerController.getCredit());
+    }
+
+    private void viewDiscountCodes() {
+        ArrayList<Discount> allDiscounts = buyerController.getAllDiscounts();
+        System.out.println("Discount Code            Discount Percentage      Max number of usage      Number of usage");
+        for (Discount discount:allDiscounts) {
+            System.out.format("%s%20f%40s%60s", discount.getDiscountCode(), discount.getDiscountPercentage()
+                    , discount.getMaxNumberOfUsage(), discount.getNumberOfUsageBuyer(buyerController.getCurrentBuyer()));
+        }
+    }
+
+    private void logout() {
+        buyerController.logout();
+        System.out.println("Logout Successful. GoodBye!");
+
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        for (int i=0; i<15; i++) {
+            System.out.println(i + ") "+ methods.get(i));
         }
     }
 
@@ -149,6 +205,11 @@ public class BuyerMenu extends Menu {
         regex.add("show total price");
         regex.add("purchase");
         regex.add("view orders");
+        regex.add("show order (\\w+)");
+        regex.add("rate (\\w+) (\\d+)");
+        regex.add("view balance");
+        regex.add("view discount codes");
+        regex.add("logout");
     }
 
     private void setMethods() {
@@ -162,5 +223,10 @@ public class BuyerMenu extends Menu {
         methods.add("showTotalPrice");
         methods.add("purchase");
         methods.add("viewOrders");
+        methods.add("showOrder");
+        methods.add("rate");
+        methods.add("viewBalance");
+        methods.add("viewDiscountCodes");
+        methods.add("logout");
     }
 }
