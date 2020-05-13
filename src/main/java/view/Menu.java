@@ -75,11 +75,9 @@ public abstract class Menu {
         return allMenus;
     }
 
-    public void show() {
-    }
+    public abstract void show();
 
-    public void execute() {
-    }
+    public abstract void execute();
 
     public Menu back() {
         return this.getParent();
