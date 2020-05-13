@@ -49,13 +49,13 @@ public class Cart {
         throw new ProductNotInCart();
     }
 
-    public ArrayList<Product> getAllProductsOfSeller(Seller seller) {
-        ArrayList<Product> allProducts = new ArrayList<>();
+    public ArrayList<SelectedProduct> getAllProductsOfSeller(Seller seller) {
+        ArrayList<SelectedProduct> allSelectedProducts= new ArrayList<>();
         for (SelectedProduct selectedProduct:selectedProducts) {
             if (selectedProduct.getSeller().equals(seller))
-                allProducts.add(selectedProduct.getProduct());
+                allSelectedProducts.add(selectedProduct);
         }
-        return allProducts;
+        return allSelectedProducts;
     }
 
     public ArrayList<Seller> getAllSellers() {

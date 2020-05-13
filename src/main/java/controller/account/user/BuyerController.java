@@ -95,15 +95,16 @@ public class BuyerController implements AccountController {
         Cart cart = currentBuyer.getCart();
         double totalPriceSeller = 0;
         double totalDiscount = 0;
-        ArrayList<Product> allProductsSeller = cart.getAllProductsOfSeller(seller);
-        for (Product product:allProductsSeller) {
+        ArrayList<SelectedProduct> allSelectedProductsSeller = cart.getAllProductsOfSeller(seller);
+        for (SelectedProduct selectedProduct:allSelectedProductsSeller) {
+            Product product = selectedProduct.getProduct();
             Sale sale = getSaleForProductOfSeller(product, seller);
             if (sale!=null) {
-                totalPriceSeller += product.getPrice(seller) * sale.getSalePercentage();
-                totalDiscount += product.getPrice(seller) * (1-sale.getSalePercentage());
+                totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount() * sale.getSalePercentage();
+                totalDiscount += product.getPrice(seller)* selectedProduct.getCount() * (1-sale.getSalePercentage());
             }
             else
-                totalPriceSeller += product.getPrice(seller);
+                totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount();
         }
         if (type==0)
             return totalPriceSeller;
@@ -131,9 +132,9 @@ public class BuyerController implements AccountController {
             Sale saleForProduct = getSaleForProduct(selectedProduct);
             Seller seller = selectedProduct.getSeller();
             if (saleForProduct!=null && saleForProduct.validSaleTime())
-                totalPrice += selectedProduct.getProduct().getPrice(seller)*saleForProduct.getSalePercentage();
+                totalPrice += selectedProduct.getProduct().getPrice(seller)*selectedProduct.getCount()*saleForProduct.getSalePercentage();
             else
-                totalPrice += selectedProduct.getProduct().getPrice(seller);
+                totalPrice += selectedProduct.getProduct().getPrice(seller)*selectedProduct.getCount();
         }
         return totalPrice;
     }
