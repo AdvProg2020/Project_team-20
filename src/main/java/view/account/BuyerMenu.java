@@ -82,12 +82,21 @@ public class BuyerMenu extends Menu {
         }
     }
 
+    public void increaseProduct(String id, int number) {
+        try {
+            buyerController.increaseProduct(id, number);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void setRegex() {
         regex.add("view personal info");
         regex.add("edit (\\w+)");
         regex.add("view cart");
         regex.add("show products");
         regex.add("view (\\w+)");
+        regex.add("increase (\\w+) (\\d+)");
     }
 
     private void setMethods() {
@@ -96,5 +105,6 @@ public class BuyerMenu extends Menu {
         methods.add("viewCart");
         methods.add("showProducts");
         methods.add("viewProduct");
+        methods.add("increaseProduct");
     }
 }
