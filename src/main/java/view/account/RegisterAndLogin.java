@@ -12,11 +12,24 @@ public class RegisterAndLogin extends Menu {
         super(name);
         this.regex.add(0,"create account [manager|buyer|seller] (\\w+)");
         this.regex.add(1,"login (\\w+)");
+        this.methods.add(0,"loginUser");
+        this.methods.add(1,"registerUser");
+        this.parent = parent;
     }
 
-    public void LoginUser(String user){
-
+    public void loginUser(String username){
+        System.out.println("please enter your password:");
+        String password = Menu.scanner.nextLine();
+        try{
+            LoginController loginController = LoginController.getInstance();
+            loginController.login(username,password);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            this.back();
+        }
     }
+
     public void registerUser(String type , String username){
         System.out.println("please enter your password:");
         String password = Menu.scanner.nextLine();
@@ -28,14 +41,14 @@ public class RegisterAndLogin extends Menu {
         String email = Menu.scanner.nextLine();
         System.out.println("please enter your phone number:");
         String phoneNumber = Menu.scanner.nextLine();
-        System.out.println("Please wait for your information to be verified");
+        System.out.println("Thank you:) " + "Please wait for your information to be verified");
         ArrayList<String> details = addDetails(name,lastName,email,phoneNumber,password);
         try{
             LoginController loginController = LoginController.getInstance();
             loginController.createAccount(username,type,details);
         }
         catch (Exception e){
-            e.getMessage();
+            System.out.println(e.getMessage());
             this.back();
         }
     }
