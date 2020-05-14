@@ -4,6 +4,7 @@ import model.filter.Filter;
 import model.filter.OptionalFilter;
 import model.filter.RangeFilter;
 import model.product.Field.NumericalField;
+import model.product.Product;
 
 import java.util.ArrayList;
 
@@ -45,5 +46,9 @@ public abstract class Filterable {
 
     public ArrayList<Filter> getFilters() {
         return filters;
+    }
+
+    public ArrayList<Product> SortByNUmberOfViews(ArrayList<Product> products){
+
     }
 }
