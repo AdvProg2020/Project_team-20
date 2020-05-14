@@ -84,9 +84,24 @@ public class ManagerController implements controller.account.user.AccountControl
         return Discount.getDiscountByDiscountCode(discountCode);
     }
 
-    public void editDiscountCodes(LocalDateTime startDate,LocalDateTime endDate,int discountCode, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) throws Exception{
+    public void editDiscountPercentage(int discountCode , Double newOne) throws Exception{
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
-        discount.editDiscount(startDate,endDate,discountPercentage,maxNumberOfUsage,buyersWithDiscount);
+        discount.setDiscountPercentage(newOne);
+    }
+
+    public void editMaxDiscountUsage(int discountCode , int newOne) throws Exception{
+        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+        discount.setMaxNumberOfUsage(newOne);
+    }
+
+    public void editStartDateOfDiscountCode(int id , LocalDateTime startDate) throws Exception {
+        Discount discount = Discount.getDiscountByDiscountCode(id);
+        discount.setStartDate(startDate);
+    }
+
+    public void editEndDateOfDiscount(int id , LocalDateTime endDate) throws Exception{
+        Discount discount = Discount.getDiscountByDiscountCode(id);
+        discount.setEndDate(endDate);
     }
 
     public void removeDiscountCodes(int discountCode) throws Exception{

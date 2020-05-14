@@ -19,9 +19,7 @@ public class Product implements Requestable {
     private ArrayList<Buyer> buyers;
     private ArrayList<Category> categories;
     private String description;
-    //private double price;
     private HashMap<Seller, Double> price;
-    //private int count;
     private HashMap<Seller, Integer> count;
     private ArrayList<Score> scores;
     private ArrayList<Comment> comments;
@@ -231,6 +229,14 @@ public class Product implements Requestable {
 
     public ArrayList<Score> getScores() {
         return scores;
+    }
+
+    public double getAverage() {
+        double sum = 0;
+        for (Score score : getScores()) {
+            sum += score.getScore();
+        }
+        return sum / getScores().size();
     }
 
     public ArrayList<Comment> getComments() {

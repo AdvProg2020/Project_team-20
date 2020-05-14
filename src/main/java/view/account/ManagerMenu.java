@@ -42,6 +42,9 @@ public class ManagerMenu extends Menu {
         this.regex.add(7,"remove (\\w+)");
         this.regex.add(8,"create discount code");
         this.regex.add(9,"view discount codes");
+        this.regex.add(10,"view discount code (\\d+)");
+        this.regex.add(11,"edit discount code (\\d+)");
+        this.regex.add(12,"remove discount code (\\d+)");
     }
 
     private void setMethods(){
@@ -55,6 +58,9 @@ public class ManagerMenu extends Menu {
         this.methods.add(7,"removeProductWithID");
         this.methods.add(8,"createDiscountCode");
         this.methods.add(9,"viewDiscountCodes");
+        this.methods.add(10,"viewDiscountCodeWithId");
+        this.methods.add(11,"editDiscountCode");
+        this.methods.add(12,"removeDiscountCode");
     }
 
     public void viewPersonalInfo() {
@@ -133,7 +139,11 @@ public class ManagerMenu extends Menu {
 
     public void createDiscountCode(){
         LocalDateTime startDate = getStartDate();
-        LocalDateTime endDate = getEndDate();
+        LocalDateTime endDate;
+        do {
+            endDate = getEndDate();
+        }
+        while (endDate.isBefore(LocalDateTime.now()));
         double percentage;
         do {
             System.out.println("please write discount percentage:");
@@ -204,7 +214,80 @@ public class ManagerMenu extends Menu {
             i++;
         }
     }
+
+    public void viewDiscountCodeWithId(int id){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
+        try {
+            Discount discount = managerController.viewDiscountCode(id);
+            System.out.println("Discount code                        : "+discount.getDiscountCode());
+            System.out.println("Discount percentage                  : "+discount.getDiscountPercentage());
+            System.out.println("Maximum number of usage this discount: "+discount.getMaxNumberOfUsage());
+            System.out.println("Start Date                           : "+formatter.format(discount.getStartDate()));
+            System.out.println("End Date                             : "+formatter.format(discount.getEndDate()));
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void editDiscountCode(int id){
+        System.out.println("Fields:");
+        System.out.println("1) Start Date"+"\n"+"2) End Date"+"\n"+"3) Discount Percentage"+"\n"+"4) maximum Number Of Usage");
+        System.out.println("please select field which you want edit:");
+        int n = Menu.scanner.nextInt();
+        selectEditedField(n,id);
+    }
+
+    private void selectEditedField(int n , int id){
+        switch (n){
+            case 1:
+                LocalDateTime startDate = getStartDate();
+                try {
+                    managerController.editStartDateOfDiscountCode(id,startDate);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            case 2:
+                LocalDateTime endDate = getEndDate();
+                try {
+                    managerController.editEndDateOfDiscount(id,endDate);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            case 3:
+                try {
+                    System.out.println("please enter new discount percentage:");
+                    Double newOne = Menu.scanner.nextDouble();
+                    managerController.editDiscountPercentage(id , newOne);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            case 4:
+                try {
+                    System.out.println("please enter new maximum Number Of Usage:");
+                    int newOne = Menu.scanner.nextInt();
+                    managerController.editMaxDiscountUsage(id , newOne);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+        }
+    }
+
+    public void removeDiscountCode(int id){
+        try {
+            managerController.removeDiscountCodes(id);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     
+
 
     @Override
     public void show() {
