@@ -3,6 +3,7 @@ package view.account;
 import controller.account.user.SellerController;
 import model.account.Account;
 import model.account.Buyer;
+import model.account.Seller;
 import model.product.Category;
 import model.product.Product;
 import model.product.Sale;
@@ -248,14 +249,14 @@ public class SellerMenu extends Menu {
     public void addProductOff(ArrayList<String> products) {
         System.out.println("How many products do you want to add to this sale?");
         int count = Integer.parseInt(scanner.nextLine());
-        System.out.println("Please inert their id.");
+        System.out.println("Please insert their id.");
         for (int i=0; i<count; i++) {
             products.add(scanner.nextLine());
         }
     }
 
     public void editProduct(String id) {
-        System.out.println("Welcome to edit menu!");
+        System.out.println("Welcome to edit product menu!");
         System.out.println("How many fields do you want to edit?");
         int count = Integer.parseInt(scanner.nextLine());
         ArrayList<String> details = new ArrayList<>();
@@ -285,13 +286,13 @@ public class SellerMenu extends Menu {
                 System.out.println("I'm clever:) input a correct type!");
                 i--;
             }
-            try {
-                sellerController.editProduct(id, details, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsToRemove, optionalFieldsToAdd);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
         }
-
+        try {
+            sellerController.editProduct(id, details, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsToRemove, optionalFieldsToAdd);
+            System.out.println("Your edit request was sent to manager successfully. I hope they will accept that:)");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void removeOptionalFields(ArrayList<String> optionalFieldsToRemove) {
@@ -328,7 +329,70 @@ public class SellerMenu extends Menu {
     }
 
     public void editOff(String id) {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        System.out.println("Welcome to edit off menu!");
+        System.out.println("How many fields do you want to edit?");
+        int count = Integer.parseInt(scanner.nextLine());
+        ArrayList<String> details = new ArrayList<>();
+        ArrayList<String> productIdsToRemove = new ArrayList<>();
+        ArrayList<String> productIdsToAdd = new ArrayList<>();
+        String input;
+        for (int i=0; i<count; i++) {
+            System.out.println("What is your type of editing? [ start date | end date | sale percentage | (add|remove) product]");
+            input = scanner.nextLine();
+            if (input.equalsIgnoreCase("start date"))
+                editStartDate(details);
+            else if (input.equalsIgnoreCase("end date"))
+                editEndDate(details);
+            else if (input.equalsIgnoreCase("salePercentage"))
+                editSalePercentage(details);
+            else if (input.equalsIgnoreCase("add product"))
+                addProductSeller(productIdsToAdd);
+            else if (input.equalsIgnoreCase("remove product"))
+                removeProductSeller(productIdsToRemove);
+            else {
+                System.out.println("I'm clever:) input a correct type!");
+                i--;
+            }
+        }
+        try {
+            sellerController.editOff(id, details, productIdsToRemove, productIdsToAdd);
+            System.out.println("Your edit request was sent to manager successfully. I hope they will accept that:)");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void removeProductSeller(ArrayList<String> productIdsToRemove) {
+        System.out.println("How many products do you want to remove?");
+        int count = Integer.parseInt(scanner.nextLine());
+        for (int i=0; i<count; i++) {
+            System.out.println("Please insert the Id of the product which you want to remove.");
+            productIdsToRemove.add(scanner.nextLine());
+        }
+    }
+
+    private void addProductSeller(ArrayList<String> productIdsToAdd) {
+        System.out.println("How many products do you want to add?");
+        int count = Integer.parseInt(scanner.nextLine());
+        for (int i=0; i<count; i++) {
+            System.out.println("Please insert the Id of the product which you want to add.");
+            productIdsToAdd.add(scanner.nextLine());
+        }
+    }
+
+    private void editSalePercentage(ArrayList<String> details) {
+        System.out.println("Please insert you edited sale percentage.");
+        details.add(2, scanner.nextLine());
+    }
+
+    private void editEndDate(ArrayList<String> details) {
+        System.out.println("Please insert you edited end date.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (am|pm)]. ( Otherwise I will sent you an error:( ");
+        details.add(1, scanner.nextLine());
+    }
+
+    private void editStartDate(ArrayList<String> details) {
+        System.out.println("Please insert you edited start date.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (am|pm)]. ( Otherwise I will sent you an error:( ");
+        details.add(0, scanner.nextLine());
     }
 
     public void setRegex() {

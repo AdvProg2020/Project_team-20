@@ -396,9 +396,85 @@ public class ManagerMenu extends Menu {
     }
 
     public void editCategory(String name){
-        System.out.println("fields:");
-        System.out.println("1)category's name"+"\n"+"2)");
-        System.out.println("please select field which you want to edit:");
+        System.out.println("please select item which you want to do:");
+        System.out.println("1)Change category's name"+"\n"+"2)Add new field"+"\n"+"3)Remove field"+"\n"+"4)Add new subCategory"
+        +"\n"+"5)Remove subCategory"+"\n"+"6)Remove product"+"\n"+"7)Add new Product");
+        int n = Menu.scanner.nextInt();
+        editFieldsForCategory(name , n);
+    }
+
+    private void editFieldsForCategory(String name , int n){
+        switch (n){
+            case 1:
+                changeCategoryName(name);
+                break;
+            case 2:
+                addFieldPart(name);
+                break;
+            case 3:
+                removeCategoryField(name);
+                break;
+            case 4:
+                addSubCategoryPart(name);
+                break;
+            case 5:
+                removeSubCategory(name);
+                break;
+            case 6:
+                removeProduct(name);
+                break;
+            case 7:
+                addProductPart(name);
+                break;
+            default:
+                System.out.println("invalid input");
+                editCategory(name);
+
+        }
+    }
+
+    private void removeProduct(String name){
+        try {
+            System.out.println("please enter product's name:");
+            String productName = Menu.scanner.nextLine();
+            managerController.removeProductFromCategory(name , productName);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void removeSubCategory(String name){
+        try {
+            System.out.println("please enter subCategory's name:");
+            String subCategoryName = Menu.scanner.nextLine();
+            managerController.removeSubCategoryFromAllSubCategories(name , subCategoryName);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void removeCategoryField(String name){
+        try {
+            System.out.println("please enter field's name:");
+            String fieldName = Menu.scanner.nextLine();
+            managerController.removeFieldFromCategory(name , fieldName);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void changeCategoryName(String name){
+        try {
+            System.out.println("please write new name:");
+            String newName = Menu.scanner.nextLine();
+            managerController.editCategoryName(name , newName);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void addCategory(String name){

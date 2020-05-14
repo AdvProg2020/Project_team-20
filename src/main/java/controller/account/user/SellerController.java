@@ -176,13 +176,22 @@ public class SellerController implements AccountController {
         Sale sale = getSaleWithId(offId);
         LocalDateTime startDate, endDate;
         double salePercentage;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
         ArrayList<Product> productsToRemove = Product.getProductsWithIds(productIdsToRemove),
                 productsToAdd = Product.getProductsWithIds(productIdsToAdd), newProducts = getSaleProducts(offId);
         if (!details.get(0).isEmpty()) {
-            startDate = LocalDateTime.parse(details.get(0));
+            try {
+                startDate = LocalDateTime.parse(details.get(0), formatter);
+            } catch (Exception e) {
+                throw new FormatInvalidException();
+            }
         } else startDate = sale.getStartDate();
         if (!details.get(1).isEmpty()) {
-            endDate = LocalDateTime.parse(details.get(1));
+            try {
+                endDate = LocalDateTime.parse(details.get(1), formatter);
+            } catch (Exception e) {
+                throw new FormatInvalidException();
+            }
         } else endDate = sale.getEndDate();
         if (!details.get(2).isEmpty()) {
             salePercentage = Double.parseDouble(details.get(2));
