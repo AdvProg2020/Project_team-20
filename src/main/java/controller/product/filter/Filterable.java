@@ -1,4 +1,4 @@
 package controller.product.filter;
 
-public interface Filtrable {
+public interface Filterable {
 }

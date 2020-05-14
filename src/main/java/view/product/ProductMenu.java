@@ -10,5 +10,13 @@ public class ProductMenu extends Menu {
     public ProductMenu(Product product) {
         super("ProductMenu");
         productController = ProductController.getInstance(product);
+        this.methods.add("enter");
+        this.methods.add("back");
+        this.methods.add("help");
+        this.regex.add("enter [RegistrationMenu|AllProductsMenu]");
+        this.regex.add("back");
+        this.regex.add("help");
     }
+
+
 }

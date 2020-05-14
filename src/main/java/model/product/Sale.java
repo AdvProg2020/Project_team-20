@@ -1,7 +1,9 @@
 package model.product;
 
 import model.Requestable;
+import model.account.Account;
 import model.account.Manager;
+import model.account.Seller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -93,6 +95,17 @@ public class Sale implements Requestable {
 
     public double getSalePercentage() {
         return salePercentage;
+    }
+
+    public static ArrayList<Sale> getAllSales() {
+        ArrayList<Sale> allSales = new ArrayList<>();
+        for (Account account:Seller.getAllAccounts()) {
+            if (account instanceof Seller) {
+                Seller seller = (Seller)account;
+                allSales.addAll(seller.getSales());
+            }
+        }
+        return allSales;
     }
 
     @Override
