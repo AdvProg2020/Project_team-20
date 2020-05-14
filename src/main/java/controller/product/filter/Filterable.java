@@ -6,12 +6,14 @@ import model.filter.OptionalFilter;
 import model.filter.RangeFilter;
 import model.product.Category;
 import model.product.Field.NumericalField;
+import model.product.Product;
 
 import java.util.ArrayList;
 
 public abstract class Filterable {
     protected ArrayList<Filter> filters = new ArrayList<>();
     protected ArrayList<String> categoryFilters = new ArrayList<>();
+    protected ArrayList<Product> productsToShow;
 
     public void filter(String filterType, ArrayList<String> details) throws Exception{
         if (filterType.equalsIgnoreCase("category")) {

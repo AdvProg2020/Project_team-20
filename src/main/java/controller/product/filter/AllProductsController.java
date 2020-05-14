@@ -13,7 +13,6 @@ public class AllProductsController extends Filterable {
     private String sortElement;
     MainController mainController;
     GeneralAccount generalAccount;
-    ArrayList<Product> productsToShow;
 
     public static AllProductsController allProductsController = null;
 
