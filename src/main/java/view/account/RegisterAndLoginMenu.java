@@ -1,10 +1,8 @@
 package view.account;
 
 import controller.account.LoginController;
-import model.account.Seller;
 import view.Menu;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class RegisterAndLoginMenu extends Menu {
@@ -74,6 +72,16 @@ public class RegisterAndLoginMenu extends Menu {
 
     @Override
     public void show() {
+        super.show();
+    }
 
+    @Override
+    public void help() {
+        super.help();
+    }
+
+    @Override
+    public void enterWithName(String subMenuName) {
+        super.enterWithName(subMenuName);
     }
 }

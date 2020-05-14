@@ -10,7 +10,7 @@ public class Main {
         initialMenus();
 
         while (true)
-            currentMenu.getCommand();
+            currentMenu.  getCommand();
     }
 
     public static void setCurrentMenu(Menu currentMenu) {

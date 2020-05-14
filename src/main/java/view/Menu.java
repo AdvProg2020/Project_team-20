@@ -30,9 +30,10 @@ public abstract class Menu {
         this.methods.add("enterWithName");
         this.methods.add("back");
         this.methods.add("help");
-        this.regex.add("enter [RegistrationMenu|AllProductsMenu]");
+        this.regex.add("enter (RegistrationMenu|AllProductsMenu)");
         this.regex.add("back");
         this.regex.add("help");
+        this.preProcess();
     }
 
     public String getName() {
@@ -180,11 +181,11 @@ public abstract class Menu {
 
     public void getCommand() {
         this.show();
-        this.preProcess();
         if (!(command = scanner.nextLine().trim()).equals("end")) {
             try {
                 this.callCommand(command);
             } catch (InvocationTargetException | IllegalAccessException e) {
+                System.out.println(e.getMessage());
                 e.printStackTrace();
             }
         } else
