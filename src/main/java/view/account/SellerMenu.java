@@ -254,7 +254,58 @@ public class SellerMenu extends Menu {
     }
 
     public void editProduct(String id) {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        System.out.println("Welcome to edit menu!");
+        System.out.println("How many fields do you want to edit?");
+        int count = Integer.parseInt(scanner.nextLine());
+        ArrayList<String> details = new ArrayList<>();
+        ArrayList<String> numericalFieldsToRemove = new ArrayList<>();
+        HashMap<String, Double> numericalFieldsToAdd = new HashMap<>();
+        ArrayList<String> optionalFieldsTORemove = new ArrayList<>();
+        HashMap<String, ArrayList<String>> optionalFieldsToAdd =  new HashMap<>();
+        String input;
+        for (int i=0; i<count; i++) {
+            System.out.println("What is your type of editing? [description| count | price | (remove|add) a (numerical|optional) filed]");
+            input = scanner.nextLine();
+            if (input.equalsIgnoreCase("description"))
+                editDescription(details);
+            else if (input.equalsIgnoreCase("count"))
+                editCount(details);
+            else if (input.equalsIgnoreCase("price"))
+                editPrice(details);
+            else if (input.equalsIgnoreCase("remove a numerical filed"))
+                removeNumericalFiled(numericalFieldsToRemove);
+            else if (input.equalsIgnoreCase("add a numerical field"))
+                addNumericalFiled(numericalFieldsToAdd);
+        }
+
+    }
+
+    private void addNumericalFiled( HashMap<String, Double> numericalFieldsToAdd) {
+        
+    }
+
+    private void removeNumericalFiled(ArrayList<String> numericalFieldsToRemove) {
+        System.out.println("How many numerical fields do you want to remove?");
+        int count = Integer.parseInt(scanner.nextLine());
+        for (int i=0; i<count; i++) {
+            System.out.println("Please insert the name of your field which you want to remove.");
+            numericalFieldsToRemove.add(scanner.nextLine());
+        }
+    }
+
+    private void editPrice(ArrayList<String> details) {
+        System.out.println("Please insert you edited price:");
+        details.add(2, scanner.nextLine());
+    }
+
+    private void editCount(ArrayList<String> details) {
+        System.out.println("Please insert you edited count:");
+        details.add(1, scanner.nextLine());
+    }
+
+    private void editDescription(ArrayList<String> details) {
+        System.out.println("Please insert you edited description:");
+        details.add(0, scanner.nextLine());
     }
 
     public void editOff(String id) {

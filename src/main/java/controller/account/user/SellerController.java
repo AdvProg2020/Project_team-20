@@ -254,12 +254,24 @@ public class SellerController implements AccountController {
             super("seller have not this product with this id: " + product.getId());
         }
 
+        //check shavad che qalati bokonim
+        private String generateString(Product product) {
+            return "";
+        }
     }
 
+    public static class FormatInvalidException extends Exception {
+        public FormatInvalidException() {
+            super("Your input format is invalid!");
+        }
 
-    public HashMap<Product, Integer> getProductsToSell() {
-        return seller.getProductsToSell();
+        //check shavad che qalati bokonim
+        private String generateString(Product product) {
+            return "";
+        }
     }
+
+    public HashMap<Product, Integer> getProductsToSell() {return seller.getProductsToSell();}
 
     public int getProductCount(Product product) {
         return seller.getProductCount(product);
@@ -302,11 +314,5 @@ public class SellerController implements AccountController {
     @Override
     public void logout() {
         mainController.logout();
-    }
-
-    public static class FormatInvalidException extends Exception {
-        public FormatInvalidException() {
-            super("Format is invalid");
-        }
     }
 }
