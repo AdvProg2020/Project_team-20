@@ -165,15 +165,27 @@ public class ManagerController implements controller.account.user.AccountControl
         return getAllCategories();
     }
 
-    public void editCategory(String categoryName, String newName,Field field ) throws Exception{
-      Category category = getCategoryByName(categoryName);
-      category.setName(newName);
-      //category.addField(field);
+    public void editCategoryName(String name,String newName) throws Exception{
+        Category category = getCategoryByName(name);
+        category.setName(newName);
+   }
+
+    public void removeFieldFromCategory(String name ,String fieldName) throws Exception{
+        Category category = getCategoryByName(name);
+        category.removeField(fieldName);
     }
 
-    public void editCategory(String categoryName,Field field ) throws Exception{
+    public void removeSubCategoryFromAllSubCategories(String categoryName , String subCategoryName) throws Exception{
         Category category = getCategoryByName(categoryName);
-        //category.addField(field);
+        Category subCategory = getCategoryByName(subCategoryName);
+        subCategory.setParent(null);
+        category.removeSubCategory(subCategory);
+    }
+
+    public void removeProductFromCategory(String categoryName , String productName)throws Exception{
+        Category category = getCategoryByName(categoryName);
+        Product product = getProductWithItsName(productName);
+        category.removeProduct(product);
     }
 
     public void addCategory(String categoryName , Category parent){
