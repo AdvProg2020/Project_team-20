@@ -19,6 +19,7 @@ public class SaleMenu extends Menu {
         setRegex();
         setMethods();
         saleController = new SaleController();
+        showOffs();
     }
 
     public void showProduct(String id) {

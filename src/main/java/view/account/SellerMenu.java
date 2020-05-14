@@ -9,6 +9,7 @@ import model.product.Sale;
 import model.receipt.SellerReceipt;
 import view.Menu;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -198,12 +199,31 @@ public class SellerMenu extends Menu {
 
     public void viewOffs() {
         ArrayList<Sale> sales = sellerController.viewOffs();
-        System.out.println("Name                Price                Off                 Id\n");
+        System.out.println("Id                  Off\n");
         for (Sale sale:sales) {
-            for (Product product:sale.getProducts()) {
-                System.out.format("%s%20s%40f%60s", product.getName(), product.getPrice(),
-                        sale.getSalePercentage(), product.getId());
-            }
+            System.out.format("%s%20s", sale.getId(), sale.getSalePercentage());
+        }
+    }
+
+    public void viewOff(String id) {
+        try {
+            Sale sale = sellerController.viewOff(id);
+            System.out.println("Id                  : " + sale.getId());
+            System.out.println("Off                 : " + sale.getSalePercentage());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            System.out.println("Start Date          : " + formatter.format(sale.getStartDate()));
+            System.out.println("End Date            : " + formatter.format(sale.getEndDate()));
+            showProducts(sale.getProducts());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void showProducts (ArrayList<Product> products) {
+        System.out.println("Products:");
+        System.out.println("Name                Id");
+        for (Product product:products) {
+            System.out.format("%s%20s", product.getName(), product.getId());
         }
     }
 
@@ -224,6 +244,7 @@ public class SellerMenu extends Menu {
         regex.add("remove product (\\w+)");
         regex.add("show categories");
         regex.add("view offs");
+        regex.add("view off (\\w+)");
     }
 
     public void setMethods() {
@@ -239,5 +260,6 @@ public class SellerMenu extends Menu {
         methods.add("removeProduct");
         methods.add("showCategories");
         methods.add("viewOffs");
+        methods.add("viewOff");
     }
 }
