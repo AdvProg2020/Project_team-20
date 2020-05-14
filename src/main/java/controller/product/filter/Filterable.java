@@ -77,4 +77,8 @@ public abstract class Filterable {
     public ArrayList<Filter> getFilters() {
         return filters;
     }
+
+    public ArrayList<Product> SortByNUmberOfViews(ArrayList<Product> products){
+
+    }
 }
