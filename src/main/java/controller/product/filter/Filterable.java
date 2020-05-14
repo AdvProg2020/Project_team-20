@@ -90,4 +90,10 @@ public abstract class Filterable {
         return products;
     }
 
+    public ArrayList<Product> sortByAddingDate(){
+        ArrayList<Product> products = getProducts();
+        products.sort(new CompareDates());
+        return products;
+    }
+
 }

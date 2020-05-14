@@ -5,6 +5,7 @@ import model.account.Buyer;
 import model.account.Seller;
 import model.product.Field.Field;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -26,6 +27,7 @@ public class Product implements Requestable {
     private ArrayList<Comment> comments;
     private double numberVisited;
     private Product editedProduct;
+    private LocalDateTime addingDate;
 
 
     public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
@@ -47,6 +49,7 @@ public class Product implements Requestable {
         this.price = new HashMap<>();
         this.count.put(seller, count);
         this.price.put(seller, price);
+        this.addingDate = LocalDateTime.now();
     }
 
     public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) {
@@ -65,6 +68,10 @@ public class Product implements Requestable {
 
     public int getViews() {
         return views;
+    }
+
+    public LocalDateTime getAddingDate(){
+        return  addingDate;
     }
 
     public void changeStateAccepted() {
