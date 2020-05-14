@@ -16,6 +16,7 @@ import model.product.Sale;
 import model.receipt.SellerReceipt;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class SellerController implements AccountController {
@@ -192,12 +193,19 @@ public class SellerController implements AccountController {
     }
 
     public void addOff(ArrayList<String> details, ArrayList<String> productIds) throws Exception {
-        String id = details.get(0);
-        LocalDateTime startDate = LocalDateTime.parse(details.get(1)), endDate = LocalDateTime.parse(details.get(2));
-        double salePercentage = Double.parseDouble(details.get(3));
-        ArrayList<Product> products = Product.getProductsWithIds(productIds);
-        Sale sale = new Sale(id, products, startDate, endDate, salePercentage);
-        Manager.addRequest(sale);
+        String id = Integer.toString(Sale.allSalesCount);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
+        LocalDateTime startDate, endDate;
+        try {
+            startDate = LocalDateTime.parse(details.get(0), formatter);
+            endDate = LocalDateTime.parse(details.get(1), formatter);
+            double salePercentage = Double.parseDouble(details.get(2));
+            ArrayList<Product> products = Product.getProductsWithIds(productIds);
+            Sale sale = new Sale(id, products, startDate, endDate, salePercentage);
+            Manager.addRequest(sale);
+        } catch (Exception e) {
+            throw new FormatInvalidException();
+        }
     }
 
     public double viewBalance() {
@@ -281,5 +289,11 @@ public class SellerController implements AccountController {
     @Override
     public void logout() {
         mainController.logout();
+    }
+
+    public static class FormatInvalidException extends Exception {
+        public FormatInvalidException() {
+            super("Format is invalid");
+        }
     }
 }

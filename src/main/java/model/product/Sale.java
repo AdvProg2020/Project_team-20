@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Sale implements Requestable {
+    static public int allSalesCount = 0;
     private String id;
     private ArrayList<Product> products;
     private RequestableState state;
@@ -24,6 +25,7 @@ public class Sale implements Requestable {
         this.endDate = endDate;
         this.salePercentage = salePercentage;
         this.state =  RequestableState.CREATED;
+        allSalesCount++;
     }
 
     public Sale(ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage) {

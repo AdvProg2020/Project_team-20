@@ -227,7 +227,19 @@ public class SellerMenu extends Menu {
         }
     }
 
+    public void addOff() {
+        ArrayList<String> products = new ArrayList<>();
+        ArrayList<String> details = new ArrayList<>();
+        System.out.println("Please insert the start date of your sale.");
+        String input = scanner.nextLine();
+
+    }
+
     public void editProduct(String id) {
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
+
+    public void editOff(String id) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
@@ -245,6 +257,8 @@ public class SellerMenu extends Menu {
         regex.add("show categories");
         regex.add("view offs");
         regex.add("view off (\\w+)");
+        regex.add("edit off (\\w+)");
+        regex.add("add off");
     }
 
     public void setMethods() {
@@ -261,5 +275,7 @@ public class SellerMenu extends Menu {
         methods.add("showCategories");
         methods.add("viewOffs");
         methods.add("viewOff");
+        methods.add("editOff");
+        methods.add("addOff");
     }
 }
