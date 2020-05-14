@@ -5,7 +5,7 @@ import model.product.Sale;
 
 import java.util.ArrayList;
 
-public class SaleController implements Filterable {
+public class SaleController extends Filterable {
     private String sortElement;
     private MainController mainController;
 
