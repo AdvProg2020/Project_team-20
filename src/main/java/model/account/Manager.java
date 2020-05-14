@@ -53,9 +53,18 @@ public class Manager extends Account {
         return requests;
     }
 
-    public static Requestable findRequestWithId(String requestId){
-        int ID=Integer.parseInt(requestId);
-        return requestWithIds.get(ID);
+    public static Requestable findRequestWithId(int requestId) throws Exception{
+        Requestable requestable = requestWithIds.get(requestId);
+        if(requestable!=null)
+        return requestWithIds.get(requestId);
+        throw new requestNotFoundException();
     }
+
+    public static class requestNotFoundException extends Exception {
+        public requestNotFoundException() {
+            super("request doesn't exist!");
+        }
+    }
+
 
 }

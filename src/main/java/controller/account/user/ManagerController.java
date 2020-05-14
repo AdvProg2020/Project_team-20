@@ -83,9 +83,24 @@ public class ManagerController implements controller.account.user.AccountControl
         return Discount.getDiscountByDiscountCode(discountCode);
     }
 
-    public void editDiscountCodes(LocalDateTime startDate,LocalDateTime endDate,int discountCode, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) throws Exception{
+    public void editDiscountPercentage(int discountCode , Double newOne) throws Exception{
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
-        discount.editDiscount(startDate,endDate,discountPercentage,maxNumberOfUsage,buyersWithDiscount);
+        discount.setDiscountPercentage(newOne);
+    }
+
+    public void editMaxDiscountUsage(int discountCode , int newOne) throws Exception{
+        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+        discount.setMaxNumberOfUsage(newOne);
+    }
+
+    public void editStartDateOfDiscountCode(int id , LocalDateTime startDate) throws Exception {
+        Discount discount = Discount.getDiscountByDiscountCode(id);
+        discount.setStartDate(startDate);
+    }
+
+    public void editEndDateOfDiscount(int id , LocalDateTime endDate) throws Exception{
+        Discount discount = Discount.getDiscountByDiscountCode(id);
+        discount.setEndDate(endDate);
     }
 
     public void removeDiscountCodes(int discountCode) throws Exception{
@@ -100,12 +115,12 @@ public class ManagerController implements controller.account.user.AccountControl
         return getRequests();
     }
 
-    public String requestDetails(String requestId){
+    public String requestDetails(int requestId) throws Exception{
        Requestable request  = findRequestWithId(requestId);
        return request.toString();
     }
 
-    public void acceptRequest(String requestId){
+    public void acceptRequest(int requestId) throws Exception{
         Requestable request  = findRequestWithId(requestId);
         RequestableState state = request.getState();
         switch (state){
@@ -119,7 +134,7 @@ public class ManagerController implements controller.account.user.AccountControl
         deleteRequest(request, Integer.parseInt(requestId));
     }
 
-    public void declineRequest(String requestId){
+    public void declineRequest(int requestId) throws Exception{
         Requestable request  = findRequestWithId(requestId);
         request.changeStateRejected();
         deleteRequest(request, Integer.parseInt(requestId));

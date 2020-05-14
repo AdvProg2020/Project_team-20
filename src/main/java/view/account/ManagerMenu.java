@@ -2,6 +2,7 @@ package view.account;
 
 import controller.account.user.ManagerController;
 import jdk.vm.ci.meta.Local;
+import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
@@ -42,6 +43,13 @@ public class ManagerMenu extends Menu {
         this.regex.add(7,"remove (\\w+)");
         this.regex.add(8,"create discount code");
         this.regex.add(9,"view discount codes");
+        this.regex.add(10,"view discount code (\\d+)");
+        this.regex.add(11,"edit discount code (\\d+)");
+        this.regex.add(12,"remove discount code (\\d+)");
+        this.regex.add(13,"manage requests");
+        this.regex.add(14,"details (\\d+)");
+        this.regex.add(15,"accept (\\d+)");
+        this.regex.add(16,"decline (\\d+)");
     }
 
     private void setMethods(){
@@ -55,6 +63,13 @@ public class ManagerMenu extends Menu {
         this.methods.add(7,"removeProductWithID");
         this.methods.add(8,"createDiscountCode");
         this.methods.add(9,"viewDiscountCodes");
+        this.methods.add(10,"viewDiscountCodeWithId");
+        this.methods.add(11,"editDiscountCode");
+        this.methods.add(12,"removeDiscountCode");
+        this.methods.add(13,"manageRequests");
+        this.methods.add(14,"detailsOfRequest");
+        this.methods.add(15,"acceptRequest");
+        this.methods.add(16,"declineRequest");
     }
 
     public void viewPersonalInfo() {
@@ -133,7 +148,11 @@ public class ManagerMenu extends Menu {
 
     public void createDiscountCode(){
         LocalDateTime startDate = getStartDate();
-        LocalDateTime endDate = getEndDate();
+        LocalDateTime endDate;
+        do {
+            endDate = getEndDate();
+        }
+        while (endDate.isBefore(LocalDateTime.now()));
         double percentage;
         do {
             System.out.println("please write discount percentage:");
@@ -202,6 +221,111 @@ public class ManagerMenu extends Menu {
             System.out.println("discountCode: "+discount.getDiscountCode());
             System.out.println("discountPercentage: "+discount.getDiscountPercentage());
             i++;
+        }
+    }
+
+    public void viewDiscountCodeWithId(int id){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
+        try {
+            Discount discount = managerController.viewDiscountCode(id);
+            System.out.println("Discount code                        : "+discount.getDiscountCode());
+            System.out.println("Discount percentage                  : "+discount.getDiscountPercentage());
+            System.out.println("Maximum number of usage this discount: "+discount.getMaxNumberOfUsage());
+            System.out.println("Start Date                           : "+formatter.format(discount.getStartDate()));
+            System.out.println("End Date                             : "+formatter.format(discount.getEndDate()));
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void editDiscountCode(int id){
+        System.out.println("Fields:");
+        System.out.println("1) Start Date"+"\n"+"2) End Date"+"\n"+"3) Discount Percentage"+"\n"+"4) maximum Number Of Usage");
+        System.out.println("please select field which you want edit:");
+        int n = Menu.scanner.nextInt();
+        selectEditedField(n,id);
+    }
+
+    private void selectEditedField(int n , int id){
+        switch (n){
+            case 1:
+                LocalDateTime startDate = getStartDate();
+                try {
+                    managerController.editStartDateOfDiscountCode(id,startDate);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            case 2:
+                LocalDateTime endDate = getEndDate();
+                try {
+                    managerController.editEndDateOfDiscount(id,endDate);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            case 3:
+                try {
+                    System.out.println("please enter new discount percentage:");
+                    Double newOne = Menu.scanner.nextDouble();
+                    managerController.editDiscountPercentage(id , newOne);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            case 4:
+                try {
+                    System.out.println("please enter new maximum Number Of Usage:");
+                    int newOne = Menu.scanner.nextInt();
+                    managerController.editMaxDiscountUsage(id , newOne);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+        }
+    }
+
+    public void removeDiscountCode(int id){
+        try {
+            managerController.removeDiscountCodes(id);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void manageRequests(){
+       ArrayList<Requestable> requests = managerController.manageRequests();
+       for(Requestable requestable:requests){
+           System.out.println(requestable.toString());
+       }
+    }
+
+    public void detailsOfRequest(int requestId){
+        try {
+           System.out.println(managerController.requestDetails(requestId));
+        }
+       catch (Exception e){
+            System.out.println(e.getMessage());
+       }
+    }
+
+    public void acceptRequest(int id){
+        try {
+            managerController.acceptRequest(id);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void declineRequest(int id){
+        try {
+            managerController.declineRequest(id);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
     
