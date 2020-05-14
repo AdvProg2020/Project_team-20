@@ -6,6 +6,7 @@ import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
+import model.product.Category;
 import model.product.Discount;
 import model.product.Product;
 import view.Menu;
@@ -50,6 +51,10 @@ public class ManagerMenu extends Menu {
         this.regex.add(14,"details (\\d+)");
         this.regex.add(15,"accept (\\d+)");
         this.regex.add(16,"decline (\\d+)");
+        this.regex.add(17,"manage categories");
+        this.regex.add(18,"edit (\\w+)");
+        this.regex.add(19,"add (\\w+)");
+        this.regex.add(20,"remove (\\w+)");
     }
 
     private void setMethods(){
@@ -70,8 +75,13 @@ public class ManagerMenu extends Menu {
         this.methods.add(14,"detailsOfRequest");
         this.methods.add(15,"acceptRequest");
         this.methods.add(16,"declineRequest");
+        this.methods.add(17,"manageCategory");
+        this.methods.add(18,"editCategory");
+        this.methods.add(19,"addCategory");
+        this.methods.add(20,"removeCategory");
     }
 
+    //personalInfo
     public void viewPersonalInfo() {
         Account account = managerController.getAccountInfo();
         System.out.println("UserName : " + account.getUsername() + "\n" + "Password : " + account.getPassword() + "\n" + "Name : " + account.getName() + "\n" + "LastName : " + account.getLastName() + "\n" + "Email : " + account.getEmail()
@@ -84,6 +94,7 @@ public class ManagerMenu extends Menu {
         managerController.editField(field , context);
     }
 
+    //manage users
     public void manageUsers(){
         ArrayList<Account> accounts = managerController.manageUsers();
         for(Account account : accounts){
@@ -112,6 +123,7 @@ public class ManagerMenu extends Menu {
         }
     }
 
+    //create manager profile
     public void createManagerProfile(){
         System.out.println("please enter new manager's name:");
         String name = Menu.scanner.nextLine();
@@ -129,6 +141,7 @@ public class ManagerMenu extends Menu {
         System.out.println("The new manager was successfully added.");
     }
 
+    //manage products
     public void manageAllProducts(){
         ArrayList<Product> products = managerController.manageAllProducts();
         for(Product product : products){
@@ -146,6 +159,7 @@ public class ManagerMenu extends Menu {
         }
     }
 
+    //manage discounts
     public void createDiscountCode(){
         LocalDateTime startDate = getStartDate();
         LocalDateTime endDate;
@@ -338,6 +352,7 @@ public class ManagerMenu extends Menu {
         }
     }
 
+    //manage requests
     public void manageRequests(){
        ArrayList<Requestable> requests = managerController.manageRequests();
        for(Requestable requestable:requests){
@@ -372,6 +387,100 @@ public class ManagerMenu extends Menu {
         }
     }
 
+    //manage category
+    public void manageCategory(){
+       ArrayList<Category> categories = managerController.manageCategories();
+       for(Category category:categories){
+           System.out.println("Name : "+category.getName());
+       }
+    }
+
+    public void editCategory(String name){
+        System.out.println("fields:");
+        System.out.println("1)category's name"+"\n"+"2)");
+        System.out.println("please select field which you want to edit:");
+    }
+
+    public void addCategory(String name){
+        addProductPart(name);
+        addSubCategoryPart(name);
+        addFieldPart(name);
+        addParentPart(name);
+    }
+
+    private void addProductPart(String name){
+        System.out.println("please write products which you want to add to this category:(write \"end\" when you reached end of products)");
+        String productName = Menu.scanner.nextLine();
+        while (!productName.equals("end")){
+            try {
+                managerController.addProductToCategory(name,productName);
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+            productName = Menu.scanner.nextLine();
+        }
+    }
+
+    private void addSubCategoryPart(String name){
+        System.out.println("please write subCategories:(write \"end\" when you reached end of subCategories)");
+        String subcategoryName = Menu.scanner.nextLine();
+        while (!subcategoryName.equals("end")){
+            try {
+                managerController.addSubCategoryToCategory(name,subcategoryName);
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+            subcategoryName = Menu.scanner.nextLine();
+        }
+    }
+
+    private void addFieldPart(String name){
+        System.out.println("Please enter \"end\" when fields which you want add finished");
+        String fieldName = Menu.scanner.nextLine();
+        while (!fieldName.equals("end")){
+            try {
+                managerController.addNewFieldToCategory(name,fieldName);
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+            fieldName = Menu.scanner.nextLine();
+        }
+    }
+
+    private void addParentPart(String name){
+        System.out.println("is it a subCategory of another Category?");
+        System.out.println("1)yes"+"\n"+"2)No");
+        int n = Menu.scanner.nextInt();
+        switch (n){
+            case 1:
+                try {
+                    System.out.println("please write parent category's name:");
+                    String parentName = Menu.scanner.nextLine();
+                    managerController.addParentToCategory(name , parentName);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case 2:
+                return;
+            default:
+                System.out.println("invalid input");
+                addParentPart(name);
+        }
+    }
+
+    public void removeCategory(String name){
+        try {
+            managerController.managerRemoveCategory(name);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     @Override
     public void show() {

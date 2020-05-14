@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Category {
     private static ArrayList<Category> allCategories = new ArrayList<>();
     private String name;
-    private ArrayList<Field> fields;
+    private ArrayList<String> fieldNames;
     private ArrayList<Category> subCategories;
     private ArrayList<Product> products;
     private Category parent;
@@ -15,7 +15,7 @@ public class Category {
     public Category(String name, Category parent) {
         this.name = name;
         this.parent = parent;
-        this.fields = new ArrayList<>();
+        this.fieldNames = new ArrayList<>();
         this.subCategories = new ArrayList<>();
         this.products = new ArrayList<>();
     }
@@ -23,7 +23,7 @@ public class Category {
     public Category(String name){
         this.name = name;
         this.parent = null;
-        this.fields = new ArrayList<>();
+        this.fieldNames = new ArrayList<>();
         this.subCategories = new ArrayList<>();
         this.products = new ArrayList<>();
     }
@@ -54,12 +54,12 @@ public class Category {
         this.name = name;
     }
 
-    public ArrayList<Field> getFields() {
-        return fields;
+    public ArrayList<String> getFields() {
+        return fieldNames;
     }
 
-    public void addField(Field field) {
-        this.fields.add(field);
+    public void addField(String field) {
+        this.fieldNames.add(field);
     }
 
     public ArrayList<Category> getSubCategories() {

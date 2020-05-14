@@ -8,17 +8,19 @@ import model.account.Manager;
 import model.product.Category;
 import model.product.Discount;
 import model.product.Field.Field;
+import model.product.Field.FieldType;
+import model.product.Field.NumericalField;
 import model.product.Product;
 import model.product.RequestableState;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import static model.account.Manager.*;
 import static model.product.Category.*;
 import static model.product.Discount.removeDiscountCode;
-import static model.product.Product.getAllProducts;
-import static model.product.Product.removeProduct;
+import static model.product.Product.*;
 
 public class ManagerController implements controller.account.user.AccountController {
 
@@ -166,12 +168,12 @@ public class ManagerController implements controller.account.user.AccountControl
     public void editCategory(String categoryName, String newName,Field field ) throws Exception{
       Category category = getCategoryByName(categoryName);
       category.setName(newName);
-      category.addField(field);
+      //category.addField(field);
     }
 
     public void editCategory(String categoryName,Field field ) throws Exception{
         Category category = getCategoryByName(categoryName);
-        category.addField(field);
+        //category.addField(field);
     }
 
     public void addCategory(String categoryName , Category parent){
@@ -188,6 +190,30 @@ public class ManagerController implements controller.account.user.AccountControl
        removeCategory(categoryName);
     }
 
+    public void addProductToCategory(String categoryName , String productName) throws Exception{
+        Product product = getProductWithItsName(productName);
+        Category category = getCategoryByName(categoryName);
+        category.addProduct(product);
+    }
+
+    public void addSubCategoryToCategory(String categoryName , String subCategoryName) throws Exception{
+        Category category = getCategoryByName(categoryName);
+        Category subCategory = getCategoryByName(subCategoryName);
+        subCategory.setParent(category);
+        category.addSubCategory(subCategory);
+    }
+
+    public void addNewFieldToCategory(String categoryName , String name) throws Exception{
+            Category category = Category.getCategoryByName(categoryName);
+            category.addField(name);
+    }
+
+    public void addParentToCategory(String categoryName, String parentName) throws Exception{
+        Category category = getCategoryByName(categoryName);
+        Category parentCategory = getCategoryByName(parentName);
+        category.setParent(parentCategory);
+        parentCategory.addSubCategory(category);
+    }
 
     @Override
     public Account getAccountInfo() {

@@ -219,6 +219,14 @@ public class Product implements Requestable {
         return name;
     }
 
+    public static Product getProductWithItsName(String name) throws Exception{
+        for(Product product:allProducts){
+            if(product.getName().equals(name))
+                return product;
+        }
+        throw new productNotFoundException();
+    }
+
     public ArrayList<Category> getCategories() {
         return categories;
     }
@@ -249,5 +257,11 @@ public class Product implements Requestable {
 
     public void addComment(Comment comment) {
         comments.add(comment);
+    }
+
+    public static class productNotFoundException extends Exception {
+        public productNotFoundException() {
+            super("product doesn't exist");
+        }
     }
 }
