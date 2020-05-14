@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public abstract class Filterable {
     protected ArrayList<Filter> filters = new ArrayList<>();
     protected ArrayList<String> filterNames = new ArrayList<>();
+    protected String currentSort;
     protected ArrayList<Product> productsToShow;
 
     public void filter(String filterType, ArrayList<String> details) throws Exception{
@@ -48,6 +49,23 @@ public abstract class Filterable {
                     return true;})
                 .collect(Collectors
                 .toCollection(ArrayList::new));
+    }
+
+    public ArrayList<Product> showProducts() throws Exception{
+        switch (currentSort){
+            case "ByScores":
+                return sortByScores();
+            case "ByDates":
+                return sortByAddingDate();
+            case "ByNumberOfViews":
+                return sortByNUmberOfViews();
+        }
+        throw new SortNotFoundException();
+    }
+
+    public void changeSort(String newSort) throws Exception {
+        this.currentSort = newSort;
+        showProducts();
     }
 
     public void filterByCategory(ArrayList<String> details) throws Exception{
@@ -94,7 +112,7 @@ public abstract class Filterable {
         return filters;
     }
 
-    public ArrayList<Product> sortByNUmberOfViews(){
+   private ArrayList<Product> sortByNUmberOfViews(){
         ArrayList<Product> products = getProducts();
         products.sort(new CompareNumberOfViews());
         return products;
@@ -106,16 +124,24 @@ public abstract class Filterable {
         }
     }
 
-    public ArrayList<Product> sortByScores(){
+    public static class SortNotFoundException extends Exception {
+        public SortNotFoundException() {
+            super("you didn't select any sortType");
+        }
+    }
+
+    private ArrayList<Product> sortByScores(){
         ArrayList<Product> products = getProducts();
         products.sort(new CompareScores());
         return products;
     }
 
-    public ArrayList<Product> sortByAddingDate(){
+    private ArrayList<Product> sortByAddingDate(){
         ArrayList<Product> products = getProducts();
         products.sort(new CompareDates());
         return products;
     }
+
+
 
 }
