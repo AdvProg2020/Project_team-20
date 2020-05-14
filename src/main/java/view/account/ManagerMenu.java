@@ -129,18 +129,6 @@ public class ManagerMenu extends Menu {
         System.out.println("The new manager was successfully added.");
     }
 
-    public void editBuyersWithDiscount(int discountId){
-        System.out.println("please select the desired option:");
-        System.out.println("1)remove buyer from list of buyers"+"\n"+"2)add buyer to list of buyers");
-        int n = Menu.scanner.nextInt();
-        System.out.println("please enter username:");
-        String username = Menu.scanner.nextLine();
-        switch (n){
-            case 1:
-
-        }
-    }
-
     public void manageAllProducts(){
         ArrayList<Product> products = managerController.manageAllProducts();
         for(Product product : products){
@@ -253,8 +241,9 @@ public class ManagerMenu extends Menu {
 
     public void editDiscountCode(int id){
         System.out.println("Fields:");
-        System.out.println("1) Start Date"+"\n"+"2) End Date"+"\n"+"3) Discount Percentage"+"\n"+"4) maximum Number Of Usage");
-        System.out.println("please select field which you want edit:");
+        System.out.println("1) Start Date"+"\n"+"2) End Date"+"\n"+"3) Discount Percentage"+"\n"+"4) maximum Number Of Usage"
+        +"\n"+"5)edit buyers with this discount");
+        System.out.println("please select field which you want to edit:");
         int n = Menu.scanner.nextInt();
         selectEditedField(n,id);
     }
@@ -299,9 +288,44 @@ public class ManagerMenu extends Menu {
                     System.out.println(e.getMessage());
                 }
                 break;
+            case 5:
+                editBuyersWithDiscount(id);
             default:
                 System.out.println("invalid input :)");
                 editDiscountCode(id);
+        }
+    }
+
+    private void editBuyersWithDiscount(int discountId){
+        System.out.println("please select the desired option:");
+        System.out.println("1)remove buyer from list of buyers"+"\n"+"2)add buyer to list of buyers");
+        int n = Menu.scanner.nextInt();
+        System.out.println("please enter username:");
+        String username = Menu.scanner.nextLine();
+        switch (n){
+            case 1:
+                try{
+                    managerController.removeBuyerFromBuyersWithDiscount(discountId,username);
+                    return;
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                    editBuyersWithDiscount(discountId);
+                }
+                break;
+            case 2:
+                try{
+                    managerController.addBuyerToBuyersWithDiscount(discountId,username);
+                    return;
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                    editBuyersWithDiscount(discountId);
+                }
+                break;
+            default:
+                System.out.println("invalid input");
+                editBuyersWithDiscount(discountId);
         }
     }
 

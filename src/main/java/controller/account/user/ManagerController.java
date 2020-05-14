@@ -47,8 +47,7 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     public Account viewUser(String userName) throws Exception{
-        Account account1 = Account.getAccountWithUsername(userName);
-        return account1;
+        return Account.getAccountWithUsername(userName);
     }
 
     public void deleteUser(String userName) throws Exception{
@@ -115,6 +114,20 @@ public class ManagerController implements controller.account.user.AccountControl
     public Buyer checkUsername(String userName) throws Exception{
         return getBuyerWithUsername(userName);
     }
+
+
+    public void addBuyerToBuyersWithDiscount(int discountId , String username) throws Exception{
+        Buyer buyer = getBuyerWithUsername(username);
+        Discount discount = Discount.getDiscountByDiscountCode(discountId);
+        discount.addBuyerToBuyersList(buyer);
+    }
+
+    public void removeBuyerFromBuyersWithDiscount(int discountId , String username) throws Exception{
+        Buyer buyer = getBuyerWithUsername(username);
+        Discount discount = Discount.getDiscountByDiscountCode(discountId);
+        discount.removeBuyerFromBuyersList(buyer);
+    }
+
     //requests
     public ArrayList<Requestable> manageRequests(){
         return getRequests();
@@ -136,13 +149,13 @@ public class ManagerController implements controller.account.user.AccountControl
                 request.changeStateAccepted();
                 break;
         }
-        deleteRequest(request, Integer.parseInt(requestId));
+        deleteRequest(request, requestId);
     }
 
     public void declineRequest(int requestId) throws Exception{
         Requestable request  = findRequestWithId(requestId);
         request.changeStateRejected();
-        deleteRequest(request, Integer.parseInt(requestId));
+        deleteRequest(request, requestId);
     }
 
     //category
@@ -175,7 +188,6 @@ public class ManagerController implements controller.account.user.AccountControl
        removeCategory(categoryName);
     }
 
-    
 
     @Override
     public Account getAccountInfo() {

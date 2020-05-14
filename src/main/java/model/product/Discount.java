@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Discount {
     private static ArrayList<Discount> allDiscounts = new ArrayList<>();
-    public static int numberOfDiscounts;
+    private static int numberOfDiscounts;
     private int discountCode;
     private double discountPercentage;
     private int maxNumberOfUsage;
@@ -207,7 +207,7 @@ public class Discount {
         this.buyersWithDiscount.add(buyer);
         this.numberOfUsageForEachBuyer.put(buyer,maxNumberOfUsage);
     }
-    
+
     public int getNumberOfUsageBuyer(Buyer buyer){
         return this.numberOfUsageForEachBuyer.get(buyer);
     }
