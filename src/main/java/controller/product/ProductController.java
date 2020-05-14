@@ -32,6 +32,10 @@ public class ProductController {
         return currentProduct;
     }
 
+    public Product getAnotherProduct(String id) throws Exception {
+        return Product.getProductById(id);
+    }
+
     public static class AccountNotBuyerException extends Exception {
         public AccountNotBuyerException() {
             super("Account not buyer");
