@@ -1,11 +1,9 @@
 package view.account;
 
 import controller.account.user.ManagerController;
-import jdk.vm.ci.meta.Local;
 import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
-import model.account.Manager;
 import model.product.Category;
 import model.product.Discount;
 import model.product.Product;
@@ -14,6 +12,8 @@ import view.Menu;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+//import jdk.vm.ci.meta.Local;
 
 public class ManagerMenu extends Menu {
 

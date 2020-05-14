@@ -6,10 +6,10 @@ import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 
 public class RangeFilter extends Filter{
-    private int min;
-    private int max;
+    private double min;
+    private double max;
 
-    public RangeFilter(String name, int min, int max) {
+    public RangeFilter(String name, double min, double max) {
         super(name);
         this.min = min;
         this.max = max;
@@ -25,11 +25,11 @@ public class RangeFilter extends Filter{
         return false;
     }
 
-    public boolean validOptionalFilter(int numericalField){
+    public boolean validOptionalFilter(double numericalField){
         return numericalField < max && numericalField > min;
     }
 
-    public int getMin() {
+    public double getMin() {
         return min;
     }
 
@@ -37,7 +37,7 @@ public class RangeFilter extends Filter{
         this.min = min;
     }
 
-    public int getMax() {
+    public double getMax() {
         return max;
     }
 

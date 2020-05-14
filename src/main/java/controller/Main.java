@@ -1,5 +1,6 @@
 package controller;
 
+import view.MainMenu;
 import view.Menu;
 
 public class Main {
@@ -21,6 +22,6 @@ public class Main {
     }
 
     private static void initialMenus() {
-
+        currentMenu = new MainMenu();
     }
 }
