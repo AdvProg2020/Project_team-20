@@ -1,11 +1,15 @@
 package view.account;
 
 import controller.account.user.ManagerController;
+import jdk.vm.ci.meta.Local;
 import model.account.Account;
+import model.account.Buyer;
 import model.account.Manager;
 import model.product.Product;
 import view.Menu;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ManagerMenu extends Menu {
@@ -121,7 +125,68 @@ public class ManagerMenu extends Menu {
             System.out.println(e.getMessage());
         }
     }
-    
+
+    public void createDiscountCode(){
+        LocalDateTime startDate = getStartDate();
+        LocalDateTime endDate = getEndDate();
+        double percentage;
+        do {
+            System.out.println("please write discount percentage:");
+            percentage = Menu.scanner.nextInt();
+        }
+        while(percentage > 100 || percentage < 0);
+        System.out.println("please write maximum number of usage this discount:");
+        int maxNumberOfUsage = Menu.scanner.nextInt();
+        System.out.println("please write number of users who can use this discount:");
+        int n = Menu.scanner.nextInt();
+        int i=0;
+        ArrayList<Buyer> buyersWithDiscount = new ArrayList<>();
+        System.out.println("please write the username of those who can use this discount:");
+        while(i<n){
+            String userName = Menu.scanner.nextLine();
+            try {
+               Buyer buyer = managerController.checkUsername(userName);
+               buyersWithDiscount.add(buyer);
+               i++;
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        managerController.createDiscountCode(startDate , endDate ,percentage,maxNumberOfUsage,buyersWithDiscount);
+    }
+
+    private LocalDateTime getStartDate(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
+        System.out.println("please write discount start date and time (your format should be like this --> MM/dd/yyyy 'at' hh:mm PM/AM):");
+        String dateTime = Menu.scanner.nextLine();
+        LocalDateTime startDate;
+        try {
+            startDate = LocalDateTime.parse(dateTime, formatter);
+            return startDate;
+        }
+        catch (Exception e){
+            System.out.println("Input is invalid");
+            startDate = getStartDate();
+        }
+        return startDate;
+    }
+
+    private LocalDateTime getEndDate(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
+        System.out.println("please write discount start date and time (your format should be like this --> MM/dd/yyyy 'at' hh:mm PM/AM):");
+        String endDateTime = Menu.scanner.nextLine();
+        LocalDateTime endDate;
+        try {
+            endDate = LocalDateTime.parse(endDateTime, formatter);
+            return endDate;
+        }
+        catch (Exception e) {
+            System.out.println("Input is invalid");
+            endDate = getEndDate();
+        }
+        return endDate;
+    }
 
     @Override
     public void show() {

@@ -128,6 +128,14 @@ public abstract class Account extends GeneralAccount{
         throw new AccountUnavailableException();
     }
 
+    public static Buyer getBuyerWithUsername(String username) throws Exception{
+        Account account = getAccountWithUsername(username);
+        if(account instanceof Buyer){
+            return (Buyer)account;
+        }
+        throw new AccountIsNotBuyerException();
+    }
+
     public static class notEnoughMoneyException extends Exception {
         public notEnoughMoneyException() {
             super("not Enough Money");
@@ -145,6 +153,11 @@ public abstract class Account extends GeneralAccount{
         }
     }
 
+    public static class AccountIsNotBuyerException extends Exception {
+        public AccountIsNotBuyerException() {
+            super("Account Is Not Buyer!");
+        }
+    }
 
     //ehtiaj darim ????
     public static boolean hasThisAccount(String username) {

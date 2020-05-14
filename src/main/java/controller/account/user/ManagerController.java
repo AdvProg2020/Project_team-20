@@ -71,29 +71,31 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     //discount codes
-    public void createDiscountCode(LocalDateTime startDate , LocalDateTime endDate , String discountCode , double discountPercentage,
+    public void createDiscountCode(LocalDateTime startDate , LocalDateTime endDate ,  double discountPercentage,
                                    int maxNumberOfUsage , ArrayList<Buyer> buyersWithDiscount){
-        new Discount(startDate,endDate,discountCode,discountPercentage,maxNumberOfUsage,buyersWithDiscount);
+        new Discount(startDate,endDate,discountPercentage,maxNumberOfUsage,buyersWithDiscount);
     }
 
     public void viewDiscountCodes(){
         ArrayList<Discount> allDiscounts = Discount.getAllDiscounts();
     }
 
-    public Discount viewDiscountCode(String discountCode) throws Exception{
-        Discount discount1 = Discount.getDiscountByDiscountCode(discountCode);
-        return discount1;
+    public Discount viewDiscountCode(int discountCode) throws Exception{
+        return Discount.getDiscountByDiscountCode(discountCode);
     }
 
-    public void editDiscountCodes(LocalDateTime startDate,LocalDateTime endDate,String discountCode, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) throws Exception{
+    public void editDiscountCodes(LocalDateTime startDate,LocalDateTime endDate,int discountCode, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) throws Exception{
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
         discount.editDiscount(startDate,endDate,discountPercentage,maxNumberOfUsage,buyersWithDiscount);
     }
 
-    public void removeDiscountCodes(String discountCode) throws Exception{
+    public void removeDiscountCodes(int discountCode) throws Exception{
         removeDiscountCode(discountCode);
     }
 
+    public Buyer checkUsername(String userName) throws Exception{
+        return getBuyerWithUsername(userName);
+    }
     //requests
     public ArrayList<Requestable> manageRequests(){
         return getRequests();
