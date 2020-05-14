@@ -118,11 +118,20 @@ public class SellerMenu extends Menu {
 
     public void addProduct() {
         ArrayList<String> details = new ArrayList<>();
-        HashMap<String, Integer> numericalFields = new HashMap<>();
+        HashMap<String, Double> numericalFields = new HashMap<>();
         HashMap<String, ArrayList<String>> optionalFields = new HashMap<>();
         getDetails(details);
-        getNumericalFields(numericalFields);
-        getOptionalField(optionalFields);
+        System.out.println("Now you have to add numerical fields of your product.");
+        System.out.println("Does your product has numerical fields? (yes/no)");
+        String input = scanner.nextLine();
+        if (input.equalsIgnoreCase("yes"))
+            getNumericalFields(numericalFields);
+        System.out.println("Now you have to add optional fields of your product.");
+        System.out.println("Does your product has numerical fields? (yes/no)");
+        input = scanner.nextLine();
+        if (input.equalsIgnoreCase("yes"))
+            getOptionalField(optionalFields);
+        sellerController.createProduct(details, numericalFields, optionalFields);
         System.out.println("Thanks for adding product! :)");
         System.out.println("Your addingProduct request was sent to manager. Manager will accept or reject your request.");
     }
@@ -138,46 +147,38 @@ public class SellerMenu extends Menu {
         details.add(scanner.nextLine());
     }
 
-    private void getNumericalFields(HashMap<String, Integer> numericalFields) {
-        System.out.println("Now you have to add numerical fields of your product.");
-        System.out.println("Does your product has numerical fields? (yes/no)");
-        String input = scanner.nextLine();
-        if (input.equalsIgnoreCase("yes")) {
-            System.out.println("How many numerical fields do you want to add?");
+    private void getNumericalFields(HashMap<String, Double> numericalFields) {
+        String input;
+        System.out.println("How many numerical fields do you want to add?");
+        input = scanner.nextLine();
+        String intField;
+        int count = Integer.parseInt(input);
+        for (int i=0; i<count; i++) {
+            System.out.println("Please insert the name of your field.");
             input = scanner.nextLine();
-            String intField;
-            int count = Integer.parseInt(input);
-            for (int i=0; i<count; i++) {
-                System.out.println("Please insert the name of your field.");
-                input = scanner.nextLine();
-                System.out.println("Please insert the number of your numerical field.");
-                intField = scanner.nextLine();
-                numericalFields.put(input, Integer.parseInt(intField));
-            }
+            System.out.println("Please insert the number of your numerical field.");
+            intField = scanner.nextLine();
+            numericalFields.put(input, Double.parseDouble(intField));
         }
     }
 
     private void getOptionalField(HashMap<String, ArrayList<String>> optionalFields) {
-        System.out.println("Now you have to add optional fields of your product.");
-        System.out.println("Does your product has numerical fields? (yes/no)");
-        String input = scanner.nextLine();
-        if (input.equalsIgnoreCase("yes")) {
-            System.out.println("How many optional fields do you want to add?");
+        String input;
+        System.out.println("How many optional fields do you want to add?");
+        input = scanner.nextLine();
+        int count = Integer.parseInt(input);
+        ArrayList<String> optionalFieldsOfField = new ArrayList<>();
+        for (int i=0; i<count; i++) {
+            System.out.println("Please insert the name of your field.");
             input = scanner.nextLine();
-            int count = Integer.parseInt(input);
-            ArrayList<String> optionalFieldsOfField = new ArrayList<>();
-            for (int i=0; i<count; i++) {
-                System.out.println("Please insert the name of your field.");
-                input = scanner.nextLine();
-                System.out.println("How many optional fields does " + input + " filed has?");
-                int count2 = Integer.parseInt(scanner.nextLine());
-                System.out.println("Please insert them line by line!");
-                for (int j=0; j<count2; j++) {
-                    optionalFieldsOfField.add(scanner.nextLine());
-                }
-                optionalFields.put(input, optionalFieldsOfField);
-                optionalFieldsOfField.clear();
+            System.out.println("How many optional fields does " + input + " filed has?");
+            int count2 = Integer.parseInt(scanner.nextLine());
+            System.out.println("Please insert them line by line!");
+            for (int j=0; j<count2; j++) {
+                optionalFieldsOfField.add(scanner.nextLine());
             }
+            optionalFields.put(input, optionalFieldsOfField);
+            optionalFieldsOfField.clear();
         }
     }
 
@@ -281,7 +282,18 @@ public class SellerMenu extends Menu {
     }
 
     private void addNumericalFiled( HashMap<String, Double> numericalFieldsToAdd) {
-        
+        String input;
+        System.out.println("How many numerical fields do you want to add?");
+        input = scanner.nextLine();
+        String intField;
+        int count = Integer.parseInt(input);
+        for (int i=0; i<count; i++) {
+            System.out.println("Please insert the name of your field.");
+            input = scanner.nextLine();
+            System.out.println("Please insert the number of your numerical field.");
+            intField = scanner.nextLine();
+            numericalFieldsToAdd.put(input, Double.parseDouble(intField));
+        }
     }
 
     private void removeNumericalFiled(ArrayList<String> numericalFieldsToRemove) {
