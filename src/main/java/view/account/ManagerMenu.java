@@ -5,6 +5,7 @@ import jdk.vm.ci.meta.Local;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
+import model.product.Discount;
 import model.product.Product;
 import view.Menu;
 
@@ -39,6 +40,8 @@ public class ManagerMenu extends Menu {
         this.regex.add(5,"create manager profile");
         this.regex.add(6,"manage all products");
         this.regex.add(7,"remove (\\w+)");
+        this.regex.add(8,"create discount code");
+        this.regex.add(9,"view discount codes");
     }
 
     private void setMethods(){
@@ -50,6 +53,8 @@ public class ManagerMenu extends Menu {
         this.methods.add(5,"createManagerProfile");
         this.methods.add(6,"manageAllProducts");
         this.methods.add(7,"removeProductWithID");
+        this.methods.add(8,"createDiscountCode");
+        this.methods.add(9,"viewDiscountCodes");
     }
 
     public void viewPersonalInfo() {
@@ -154,6 +159,7 @@ public class ManagerMenu extends Menu {
             }
         }
         managerController.createDiscountCode(startDate , endDate ,percentage,maxNumberOfUsage,buyersWithDiscount);
+        System.out.println("discountCode was successfully created.");
     }
 
     private LocalDateTime getStartDate(){
@@ -187,6 +193,18 @@ public class ManagerMenu extends Menu {
         }
         return endDate;
     }
+
+    public void viewDiscountCodes(){
+        ArrayList<Discount> discounts = managerController.viewDiscountCodes();
+        int i = 1;
+        for(Discount discount:discounts){
+            System.out.println(i+")");
+            System.out.println("discountCode: "+discount.getDiscountCode());
+            System.out.println("discountPercentage: "+discount.getDiscountPercentage());
+            i++;
+        }
+    }
+    
 
     @Override
     public void show() {

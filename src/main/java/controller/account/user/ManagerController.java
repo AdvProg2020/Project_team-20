@@ -76,8 +76,8 @@ public class ManagerController implements controller.account.user.AccountControl
         new Discount(startDate,endDate,discountPercentage,maxNumberOfUsage,buyersWithDiscount);
     }
 
-    public void viewDiscountCodes(){
-        ArrayList<Discount> allDiscounts = Discount.getAllDiscounts();
+    public ArrayList<Discount> viewDiscountCodes() {
+        return Discount.getAllDiscounts();
     }
 
     public Discount viewDiscountCode(int discountCode) throws Exception{
