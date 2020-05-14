@@ -144,7 +144,7 @@ public abstract class Menu {
 
     public void preProcess() {
         for (int i = 0; i < regex.size(); i++) {
-            patterns.set(i, Pattern.compile(regex.get(i)));
+            patterns.add(i, Pattern.compile(regex.get(i)));
         }
     }
 
