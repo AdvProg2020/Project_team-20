@@ -9,10 +9,12 @@ import model.product.Field.NumericalField;
 import model.product.Product;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public abstract class Filterable {
     protected ArrayList<Filter> filters = new ArrayList<>();
     protected ArrayList<String> categoryFilters = new ArrayList<>();
+    protected ArrayList<Product> productsToShow;
 
     public void filter(String filterType, ArrayList<String> details) throws Exception{
         if (filterType.equalsIgnoreCase("category")) {
@@ -27,6 +29,17 @@ public abstract class Filterable {
         else if (filterType.equalsIgnoreCase("numerical field")) {
             filterByNumericalFilter(details);
         }
+    }
+
+    public ArrayList<Product> getProducts () {
+        return productsToShow.stream()
+                .filter( product -> {
+                    for (Filter filter:filters)
+                        if (!filter.validFilter(product))
+                            return false;
+                    return true;})
+                .collect(Collectors
+                .toCollection(ArrayList::new));
     }
 
     public void filterByCategory(ArrayList<String> details) throws Exception{
