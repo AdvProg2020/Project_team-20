@@ -5,6 +5,7 @@ import model.account.*;
 import model.product.Comment;
 import model.product.Product;
 import model.product.Score;
+import java.util.ArrayList;
 
 public class ProductController {
     private Product currentProduct;
@@ -40,7 +41,7 @@ public class ProductController {
         Manager.addRequest(new Comment((Buyer) currentAccount, product, title, content));
     }
 
-    public void addScore(double score, Product product) throws Exception{
+    public void addScore(double score, Product product) throws Exception {
         GeneralAccount currentAccount = mainController.getAccount();
         if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
                 !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)))
@@ -52,8 +53,20 @@ public class ProductController {
         return currentProduct;
     }
 
-    public Product getAnotherProduct(String id) throws Exception {
+    public Product getAnotherProduct(String id, ArrayList<String> othersIds) throws Exception {
+        if (hasExistInOthers(id, othersIds))
+            throw new ProductIsInCompare();
+        else if (currentProduct.getId().equals(id))
+            throw new ThisProductIsFirstProduct();
         return Product.getProductById(id);
+    }
+
+    private boolean hasExistInOthers(String id, ArrayList<String> othersIds) {
+        for (String otherId : othersIds) {
+            if (id.equals(otherId))
+                return true;
+        }
+        return false;
     }
 
     public static class AccountNotBuyerException extends Exception {
@@ -65,6 +78,18 @@ public class ProductController {
     public static class SellerNotFound extends Exception {
         public SellerNotFound() {
             super("Seller not found");
+        }
+    }
+
+    public static class ProductIsInCompare extends Exception {
+        public ProductIsInCompare() {
+            super("this product is in compare");
+        }
+    }
+
+    public static class ThisProductIsFirstProduct extends Exception {
+        public ThisProductIsFirstProduct() {
+            super("this product is first product");
         }
     }
 }

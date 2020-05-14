@@ -27,6 +27,7 @@ public class ProductMenu extends Menu {
         this.methods.add("compare");
         this.methods.add("comments");
         this.methods.add("addComment");
+        this.methods.add("addScore");
         this.regex.add("digest");
         this.regex.add("add to cart");
         this.regex.add("select seller (\\S+)");
@@ -34,6 +35,7 @@ public class ProductMenu extends Menu {
         this.regex.add("compare (\\S+)");
         this.regex.add("comments");
         this.regex.add("Add comment");
+        this.regex.add("addScore");
     }
 
     public void digest() {
@@ -64,30 +66,25 @@ public class ProductMenu extends Menu {
     public void attributes() {
         for (Category category : product.getCategories()) {
             System.out.println("category name : " + category.getName());
-            for (Field field : category.getFields()) {
-                System.out.print("field name : " + field.getName());
-                if (field.getType().equals(FieldType.NUMERICAL))
-                    System.out.println("numerical field : " + ((NumericalField) field).getNumericalField());
-                else System.out.println("optional field : " + ((OptionalField) field).getOptionalFiled());
+            for (String field : category.getFields()) {
+                System.out.print("field name : " + field);
             }
-            System.out.println();
-            System.out.println("general fields");
-            for (Field generalField : product.getGeneralFields()) {
-                System.out.print("field name : " + generalField.getName());
-                if (generalField.getType().equals(FieldType.NUMERICAL))
-                    System.out.println("numerical field : " + ((NumericalField) generalField).getNumericalField());
-                else System.out.println("optional field : " + ((OptionalField) generalField).getOptionalFiled());
-            }
+        }
+        System.out.println();
+        System.out.println("general fields");
+        for (Field generalField : product.getGeneralFields()) {
+            System.out.print("field name : " + generalField.getName());
+            if (generalField.getType().equals(FieldType.NUMERICAL))
+                System.out.println("numerical field : " + ((NumericalField) generalField).getNumericalField());
+            else System.out.println("optional field : " + ((OptionalField) generalField).getOptionalFiled());
         }
     }
 
     public void compare(String anotherProductId) {
+        CompareMenu compareMenu = null;
         try {
-            Product anotherProduct = productController.getAnotherProduct(anotherProductId);
-            System.out.println("first product");
-            attributes();
-            System.out.println("second product");
-            (new ProductMenu(anotherProduct)).attributes();
+            compareMenu = new CompareMenu(this, product, anotherProductId);
+            enter(compareMenu);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -116,15 +113,24 @@ public class ProductMenu extends Menu {
         System.out.println("please enter your content");
         content = scanner.nextLine();
         try {
-            productController.addComment(product, title,content);
+            productController.addComment(product, title, content);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
 
-
-
+    public void addScore() {
+        double score;
+        System.out.println("please enter your Score");
+        score = scanner.nextDouble();
+        try {
+            productController.addScore(score, product);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 
     public void selectSeller(String sellerId) {
@@ -137,5 +143,9 @@ public class ProductMenu extends Menu {
 
     public String getSellerId() {
         return sellerId;
+    }
+
+    public ProductController getProductController() {
+        return productController;
     }
 }

@@ -1,9 +1,88 @@
 package view.product;
 
+import controller.product.ProductController;
+import model.product.Category;
+import model.product.Field.Field;
+import model.product.Field.FieldType;
+import model.product.Field.NumericalField;
+import model.product.Field.OptionalField;
+import model.product.Product;
 import view.Menu;
 
+import java.util.ArrayList;
+
 public class CompareMenu extends Menu {
-    public CompareMenu(String name, Menu parent) {
-        super(name);
+    private Product firstProduct;
+    private ArrayList<Product> otherProducts;
+    private ArrayList<String> otherProductsId;
+    private ProductController productController;
+
+    public CompareMenu(Menu parent, Product firstProduct, String anotherProductId) throws Exception {
+        super("CompareMenu");
+        this.parent = parent;
+        this.firstProduct = firstProduct;
+        this.otherProducts = new ArrayList<>();
+        this.otherProductsId = new ArrayList<>();
+        this.productController = ((ProductMenu) parent).getProductController();
+        otherProducts.add(productController.getAnotherProduct(anotherProductId, otherProductsId));
+        otherProductsId.add(anotherProductId);
+        this.methods.add("showCompares");
+        this.methods.add("addProductToCompare");
+        this.methods.add("removeProduct");
+        this.regex.add("showCompares");
+        this.regex.add("add product to compare (\\S+)");
+        this.regex.add("remove product (\\S+)");
     }
+
+    @Override
+    public void show() {
+        super.show();
+        showCompares();
+    }
+
+    public void showCompares() {
+        System.out.println("first product: " + firstProduct.getName());
+        categoryDetails(firstProduct);
+        for (Product otherProduct : otherProducts) {
+            System.out.println("product name: " + otherProduct.getName());
+            categoryDetails(otherProduct);
+        }
+        System.out.println();
+        System.out.println("general fields");
+        System.out.println("first product: " + firstProduct.getName());
+        fieldDetails(firstProduct);
+        for (Product otherProduct : otherProducts) {
+            System.out.println("product name: " + otherProduct.getName());
+            fieldDetails(otherProduct);
+        }
+    }
+
+    private void categoryDetails(Product otherProduct) {
+        for (Category category : otherProduct.getCategories()) {
+            System.out.println("category name : " + category.getName());
+            for (String field : category.getFields()) {
+                System.out.print("field name : " + field);
+            }
+        }
+    }
+
+    private void fieldDetails(Product product) {
+        for (Field generalField : product.getGeneralFields()) {
+            System.out.print("field name : " + generalField.getName());
+            if (generalField.getType().equals(FieldType.NUMERICAL))
+                System.out.println("numerical field : " + ((NumericalField) generalField).getNumericalField());
+            else System.out.println("optional field : " + ((OptionalField) generalField).getOptionalFiled());
+        }
+    }
+
+    public void addProductToCompare(String productId) throws Exception {
+        otherProducts.add(productController.getAnotherProduct(productId, otherProductsId));
+        otherProductsId.add(productId);
+    }
+
+    public void removeProduct(String productId) throws Exception {
+        otherProducts.remove(productController.getAnotherProduct(productId, otherProductsId));
+        otherProductsId.remove(productId);
+    }
+
 }
