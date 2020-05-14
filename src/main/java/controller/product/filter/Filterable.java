@@ -146,6 +146,7 @@ public abstract class Filterable {
         return products;
     }
 
-
-
+    public String getCurrentSort() {
+        return currentSort;
+    }
 }

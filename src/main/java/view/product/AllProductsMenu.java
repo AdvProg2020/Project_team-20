@@ -104,6 +104,22 @@ public class AllProductsMenu extends Menu {
         }
     }
 
+    public void showAvailableSorts() {
+        System.out.println("You can sort product by time/score/views. The default sort is by views.");
+    }
+
+    public void sort(String sortType) {
+        try {
+            allProductsController.changeSort(sortType);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void showCurrentSort() {
+        System.out.println(allProductsController.getCurrentSort());
+    }
+
     private void setRegex() {
         regex.add("view categories");
         regex.add("show products");
@@ -112,6 +128,9 @@ public class AllProductsMenu extends Menu {
         regex.add("filter");
         regex.add("current filters");
         regex.add("disable filter (\\w+)");
+        regex.add("show available sorts");
+        regex.add("sort ([ByScores | ByDates | ByNumberOfViews])");
+        regex.add("current sort");
     }
 
     private void setMethods() {
@@ -122,6 +141,9 @@ public class AllProductsMenu extends Menu {
         methods.add("filter");
         methods.add("showCurrentFilters");
         methods.add("disableFilter");
+        methods.add("showAvailableSorts");
+        methods.add("sort");
+        methods.add("showCurrentSort");
     }
 
 }
