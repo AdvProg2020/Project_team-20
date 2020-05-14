@@ -198,6 +198,20 @@ public class Discount {
         }
     }
 
+    public void removeBuyerFromBuyersList(Buyer buyer){
+        this.buyersWithDiscount.remove(buyer);
+        this.numberOfUsageForEachBuyer.remove(buyer);
+    }
+
+    public void addBuyerToBuyersList(Buyer buyer){
+        this.buyersWithDiscount.add(buyer);
+        this.numberOfUsageForEachBuyer.put(buyer,maxNumberOfUsage);
+    }
+    
+    public int getNumberOfUsageBuyer(Buyer buyer){
+        return this.numberOfUsageForEachBuyer.get(buyer);
+    }
+
     @Override
     public String toString() {
         return super.toString();

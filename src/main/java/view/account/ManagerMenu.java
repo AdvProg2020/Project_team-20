@@ -129,6 +129,18 @@ public class ManagerMenu extends Menu {
         System.out.println("The new manager was successfully added.");
     }
 
+    public void editBuyersWithDiscount(int discountId){
+        System.out.println("please select the desired option:");
+        System.out.println("1)remove buyer from list of buyers"+"\n"+"2)add buyer to list of buyers");
+        int n = Menu.scanner.nextInt();
+        System.out.println("please enter username:");
+        String username = Menu.scanner.nextLine();
+        switch (n){
+            case 1:
+
+        }
+    }
+
     public void manageAllProducts(){
         ArrayList<Product> products = managerController.manageAllProducts();
         for(Product product : products){
@@ -257,6 +269,7 @@ public class ManagerMenu extends Menu {
                 catch (Exception e){
                     System.out.println(e.getMessage());
                 }
+                break;
             case 2:
                 LocalDateTime endDate = getEndDate();
                 try {
@@ -265,6 +278,7 @@ public class ManagerMenu extends Menu {
                 catch (Exception e){
                     System.out.println(e.getMessage());
                 }
+                break;
             case 3:
                 try {
                     System.out.println("please enter new discount percentage:");
@@ -274,6 +288,7 @@ public class ManagerMenu extends Menu {
                 catch (Exception e){
                     System.out.println(e.getMessage());
                 }
+                break;
             case 4:
                 try {
                     System.out.println("please enter new maximum Number Of Usage:");
@@ -283,6 +298,10 @@ public class ManagerMenu extends Menu {
                 catch (Exception e){
                     System.out.println(e.getMessage());
                 }
+                break;
+            default:
+                System.out.println("invalid input :)");
+                editDiscountCode(id);
         }
     }
 
@@ -328,7 +347,7 @@ public class ManagerMenu extends Menu {
             System.out.println(e.getMessage());
         }
     }
-    
+
 
     @Override
     public void show() {

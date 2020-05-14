@@ -80,6 +80,11 @@ public class ManagerController implements controller.account.user.AccountControl
         return Discount.getAllDiscounts();
     }
 
+    public void addNewBuyerToBuyersWithDiscount(int discountId) throws Exception{
+        Discount discount = Discount.getDiscountByDiscountCode(discountId);
+
+    }
+
     public Discount viewDiscountCode(int discountCode) throws Exception{
         return Discount.getDiscountByDiscountCode(discountCode);
     }
