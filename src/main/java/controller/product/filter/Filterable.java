@@ -78,12 +78,14 @@ public abstract class Filterable {
         return filters;
     }
 
-    public ArrayList<Product> sortByNUmberOfViews(ArrayList<Product> products){
-       products.sort(new CompareNumberOfViews());
-       return products;
+    public ArrayList<Product> sortByNUmberOfViews(){
+        ArrayList<Product> products = getProducts();
+        products.sort(new CompareNumberOfViews());
+        return products;
     }
 
-    public ArrayList<Product> sortByScores(ArrayList<Product> products){
+    public ArrayList<Product> sortByScores(){
+        ArrayList<Product> products = getProducts();
         products.sort(new CompareScores());
         return products;
     }
