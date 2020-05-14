@@ -5,6 +5,7 @@ import model.account.Account;
 import model.account.Buyer;
 import model.product.Category;
 import model.product.Product;
+import model.product.Sale;
 import model.receipt.SellerReceipt;
 import view.Menu;
 
@@ -195,6 +196,17 @@ public class SellerMenu extends Menu {
             System.out.println(category.getName());
     }
 
+    public void viewOffs() {
+        ArrayList<Sale> sales = sellerController.viewOffs();
+        System.out.println("Name                Price                Off                 Id\n");
+        for (Sale sale:sales) {
+            for (Product product:sale.getProducts()) {
+                System.out.format("%s%20s%40f%60s", product.getName(), product.getPrice(),
+                        sale.getSalePercentage(), product.getId());
+            }
+        }
+    }
+
     public void editProduct(String id) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
@@ -211,6 +223,7 @@ public class SellerMenu extends Menu {
         regex.add("add product");
         regex.add("remove product (\\w+)");
         regex.add("show categories");
+        regex.add("view offs");
     }
 
     public void setMethods() {
@@ -225,5 +238,6 @@ public class SellerMenu extends Menu {
         methods.add("addProduct");
         methods.add("removeProduct");
         methods.add("showCategories");
+        methods.add("viewOffs");
     }
 }
