@@ -8,7 +8,8 @@ import java.util.HashMap;
 
 public class Discount {
     private static ArrayList<Discount> allDiscounts = new ArrayList<>();
-    private String discountCode;
+    public static int numberOfDiscounts;
+    private int discountCode;
     private double discountPercentage;
     private int maxNumberOfUsage;
     private ArrayList<Buyer> buyersWithDiscount;
@@ -16,8 +17,9 @@ public class Discount {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public Discount(LocalDateTime startDate,LocalDateTime endDate,String discountCode, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
-        this.discountCode = discountCode;
+    public Discount(LocalDateTime startDate,LocalDateTime endDate,double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
+        numberOfDiscounts++;
+        this.discountCode = numberOfDiscounts;
         this.discountPercentage = discountPercentage;
         this.maxNumberOfUsage = maxNumberOfUsage;
         this.buyersWithDiscount = buyersWithDiscount;
@@ -46,9 +48,9 @@ public class Discount {
         return allDiscountsBuyer;
     }
 
-    public static boolean validDiscountCodeBuyer(Buyer buyer, String discountCode) throws Exception{
+    public static boolean validDiscountCodeBuyer(Buyer buyer, int discountCode) throws Exception{
         for (Discount discount:allDiscounts) {
-            if (discount.getDiscountCode().equals(discountCode) && discount.getBuyersWithDiscount().contains(buyer))
+            if (discount.getDiscountCode()==discountCode && discount.getBuyersWithDiscount().contains(buyer))
                 if (discount.getNumberOfUsageForEachBuyer().get(buyer)==0)
                     throw new discountUsedException();
                 else
@@ -57,9 +59,9 @@ public class Discount {
         throw  new discountCodeNotFoundException();
     }
 
-    public static void decreaseDiscountCodeUsageBuyer(Buyer buyer, String discountCode) {
+    public static void decreaseDiscountCodeUsageBuyer(Buyer buyer, int discountCode) {
         for (Discount discount:allDiscounts) {
-            if (discount.getDiscountCode().equals(discountCode) && discount.getBuyersWithDiscount().contains(buyer) && discount.getNumberOfUsageForEachBuyer().get(buyer)>0)
+            if (discount.getDiscountCode()==discountCode && discount.getBuyersWithDiscount().contains(buyer) && discount.getNumberOfUsageForEachBuyer().get(buyer)>0)
                 discount.getNumberOfUsageForEachBuyer().put(buyer, discount.getNumberOfUsageForEachBuyer().get(buyer)-1);
         }
     }
@@ -80,9 +82,9 @@ public class Discount {
         return null;
     }
 
-    public static Discount getDiscountByDiscountCode(String discountCode) throws Exception {
+    public static Discount getDiscountByDiscountCode(int discountCode) throws Exception {
         for(Discount discount:allDiscounts) {
-                if (discount.getDiscountCode().equals(discountCode))
+                if (discount.getDiscountCode()==discountCode)
                     return discount;
         }
         throw new discountCodeNotFoundException();
@@ -122,7 +124,7 @@ public class Discount {
         return allDiscounts;
     }
 
-    public String getDiscountCode() {
+    public int getDiscountCode() {
         return discountCode;
     }
 
@@ -170,17 +172,13 @@ public class Discount {
         this.endDate = endDate;
     }
 
-    public void setDiscountCode(String discountCode) {
+    public void setDiscountCode(int discountCode) {
         this.discountCode = discountCode;
     }
 
-    public int getNumberOfUsageBuyer(Buyer buyer) {
-        return numberOfUsageForEachBuyer.get(buyer);
-    }
-
-    public static void removeDiscountCode(String discountCode) throws Exception{
+    public static void removeDiscountCode(int discountCode) throws Exception{
         for(Discount discount : allDiscounts){
-            if(discount.getDiscountCode().equals(discountCode)){
+            if(discount.getDiscountCode()==discountCode){
                 allDiscounts.remove(discount);
                 return;
             }

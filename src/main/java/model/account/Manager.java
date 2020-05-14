@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 public class Manager extends Account {
     private boolean firstManager;
+    public static int numberOfRequests;
     private static ArrayList<Requestable> requests = new ArrayList<>();
     private static HashMap<Integer,Requestable> requestWithIds = new HashMap<>();
 
@@ -38,13 +39,14 @@ public class Manager extends Account {
     }
 
     public static void addRequest(Requestable request) {
-        int n = requests.size()+1;
-        requestWithIds.put(n , request);
+        numberOfRequests++;
+        requestWithIds.put(numberOfRequests , request);
         requests.add(request);
     }
 
     public static void deleteRequest(Requestable request) {
         requests.remove(request);
+        requestWithIds.remove(request);
     }
 
     public static ArrayList<Requestable> getRequests() {
