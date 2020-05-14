@@ -15,12 +15,6 @@ public class RangeFilter extends Filter{
         this.max = max;
     }
 
-    public RangeFilter(String name) {
-        super(name);
-        this.min = -1;
-        this.max = -1;
-    }
-
     @Override
     public boolean validFilter(Product product) {
         for (Field field:product.getGeneralFields()) {
@@ -32,7 +26,7 @@ public class RangeFilter extends Filter{
     }
 
     public boolean validNumericalFilter(double numericalField){
-        return (numericalField < max && numericalField > min) || (max==-1 && min==-1);
+        return (numericalField < max && numericalField > min);
     }
 
     public double getMin() {
