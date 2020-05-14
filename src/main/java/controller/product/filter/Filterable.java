@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public abstract class Filterable {
     protected ArrayList<Filter> filters = new ArrayList<>();
     protected ArrayList<String> filterNames = new ArrayList<>();
-    protected String currentSort;
+    protected String currentSort = "ByNumberOfViews";
     protected ArrayList<Product> productsToShow;
 
     public void filter(String filterType, ArrayList<String> details) throws Exception{
@@ -66,6 +66,10 @@ public abstract class Filterable {
     public void changeSort(String newSort) throws Exception {
         this.currentSort = newSort;
         showProducts();
+    }
+
+    public void disableSort(){
+        currentSort = null;
     }
 
     public void filterByCategory(ArrayList<String> details) throws Exception{
