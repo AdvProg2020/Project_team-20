@@ -140,7 +140,7 @@ public class SellerMenu extends Menu {
     private void getDetails(ArrayList<String> details) {
         System.out.println("Please insert the name of your product.");
         details.add(scanner.nextLine());
-        System.out.println("Please insert the details of your product.");
+        System.out.println("Please insert the description of your product.");
         details.add(scanner.nextLine());
         System.out.println("Please insert the number of your product.");
         details.add(scanner.nextLine());
@@ -395,6 +395,27 @@ public class SellerMenu extends Menu {
         details.add(0, scanner.nextLine());
     }
 
+    public void showAllProducts() {
+        ArrayList<Product> products = Product.getAllProducts();
+        for (Product product:products) {
+            System.out.println("Name                id\n");
+            System.out.format("%s%20s", product.getName()
+                    , product.getId());
+        }
+    }
+
+    public void addToProduct(String id) {
+        System.out.println("Please insert the number of this product that you want to add.");
+        int count = Integer.parseInt(scanner.nextLine());
+        System.out.println("Please insert your price for this product.");
+        double price = Double.parseDouble(scanner.nextLine());
+        try {
+            sellerController.addToProduct(id, count, price);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void setRegex() {
         regex.add("view personal info");
         regex.add("edit (\\w+)");
@@ -411,6 +432,8 @@ public class SellerMenu extends Menu {
         regex.add("view off (\\w+)");
         regex.add("edit off (\\w+)");
         regex.add("add off");
+        regex.add("show all products");
+        regex.add("add me to product (\\w+)");
     }
 
     public void setMethods() {
@@ -429,5 +452,7 @@ public class SellerMenu extends Menu {
         methods.add("viewOff");
         methods.add("editOff");
         methods.add("addOff");
+        methods.add("showAllProducts");
+        methods.add("addToProduct");
     }
 }
