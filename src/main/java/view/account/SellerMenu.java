@@ -2,6 +2,7 @@ package view.account;
 
 import controller.account.user.SellerController;
 import model.account.Account;
+import model.account.Buyer;
 import model.product.Product;
 import model.receipt.SellerReceipt;
 import view.Menu;
@@ -99,6 +100,17 @@ public class SellerMenu extends Menu {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void viewBuyer(String id) {
+        try {
+            ArrayList<Buyer> buyers = sellerController.viewBuyers(id);
+            for (Buyer buyer:buyers) {
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -109,6 +121,7 @@ public class SellerMenu extends Menu {
         regex.add("view sales history");
         regex.add("manage products");
         regex.add("view (\\w+)");
+        regex.add("view buyers (\\w+)");
     }
 
     public void setMethods() {
@@ -118,5 +131,6 @@ public class SellerMenu extends Menu {
         methods.add("viewSalesHistory");
         methods.add("manageProducts");
         methods.add("viewProduct");
+        methods.add("viewBuyer");
     }
 }
