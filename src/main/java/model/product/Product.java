@@ -2,7 +2,6 @@ package model.product;
 
 import model.Requestable;
 import model.account.Buyer;
-import model.account.Manager;
 import model.account.Seller;
 import model.product.Field.Field;
 
@@ -60,12 +59,10 @@ public class Product implements Requestable {
     public void changeStateAccepted() {
         state = RequestableState.ACCEPTED;
         allProducts.add(this);
-        Manager.deleteRequest(this);
     }
 
     public void changeStateRejected() {
         state = RequestableState.REJECTED;
-        Manager.deleteRequest(this);
     }
 
     public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws Exception {

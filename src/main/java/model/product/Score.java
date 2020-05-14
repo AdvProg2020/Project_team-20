@@ -2,7 +2,6 @@ package model.product;
 
 import model.Requestable;
 import model.account.Buyer;
-import model.account.Manager;
 
 public class Score implements Requestable {
     private Buyer buyer;
@@ -33,13 +32,11 @@ public class Score implements Requestable {
     public void changeStateAccepted() {
         state = RequestableState.ACCEPTED;
         product.addScore(this);
-        Manager.deleteRequest(this);
     }
 
     @Override
     public void changeStateRejected() {
         state = RequestableState.REJECTED;
-        Manager.deleteRequest(this);
     }
 
     @Override

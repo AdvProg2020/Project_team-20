@@ -44,9 +44,9 @@ public class Manager extends Account {
         requests.add(request);
     }
 
-    public static void deleteRequest(Requestable request) {
+    public static void deleteRequest(Requestable request, int requestId) {
         requests.remove(request);
-        requestWithIds.remove(request);
+        requestWithIds.remove(requestId, request);
     }
 
     public static ArrayList<Requestable> getRequests() {
