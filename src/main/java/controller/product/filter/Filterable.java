@@ -39,7 +39,7 @@ public abstract class Filterable {
         filterNames.remove(filter.getName());
     }
 
-    public ArrayList<Product> getProducts () {
+    public ArrayList<Product> getProducts() {
         return productsToShow.stream()
                 .filter( product -> {
                     for (Filter filter:filters)
@@ -100,12 +100,12 @@ public abstract class Filterable {
         return products;
     }
 
-    }
-
-    public static class FilterNotFoundException extends Exception{
+    public static class FilterNotFoundException extends Exception {
         public FilterNotFoundException() {
             super("Filter name is not correct.");
         }
+    }
+
     public ArrayList<Product> sortByScores(){
         ArrayList<Product> products = getProducts();
         products.sort(new CompareScores());
