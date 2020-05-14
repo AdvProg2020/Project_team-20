@@ -261,7 +261,7 @@ public class SellerMenu extends Menu {
         ArrayList<String> details = new ArrayList<>();
         ArrayList<String> numericalFieldsToRemove = new ArrayList<>();
         HashMap<String, Double> numericalFieldsToAdd = new HashMap<>();
-        ArrayList<String> optionalFieldsTORemove = new ArrayList<>();
+        ArrayList<String> optionalFieldsToRemove = new ArrayList<>();
         HashMap<String, ArrayList<String>> optionalFieldsToAdd =  new HashMap<>();
         String input;
         for (int i=0; i<count; i++) {
@@ -274,29 +274,36 @@ public class SellerMenu extends Menu {
             else if (input.equalsIgnoreCase("price"))
                 editPrice(details);
             else if (input.equalsIgnoreCase("remove a numerical filed"))
-                removeNumericalFiled(numericalFieldsToRemove);
+                removeNumericalFields(numericalFieldsToRemove);
             else if (input.equalsIgnoreCase("add a numerical field"))
-                addNumericalFiled(numericalFieldsToAdd);
+                getNumericalFields(numericalFieldsToAdd);
+            else if (input.equalsIgnoreCase("remove an optional filed"))
+                removeOptionalFields(optionalFieldsToRemove);
+            else if (input.equalsIgnoreCase("add an optional field"))
+                getOptionalField(optionalFieldsToAdd);
+            else {
+                System.out.println("I'm clever:) input a correct type!");
+                i--;
+            }
+            try {
+                sellerController.editProduct(id, details, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsToRemove, optionalFieldsToAdd);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
 
     }
 
-    private void addNumericalFiled( HashMap<String, Double> numericalFieldsToAdd) {
-        String input;
-        System.out.println("How many numerical fields do you want to add?");
-        input = scanner.nextLine();
-        String intField;
-        int count = Integer.parseInt(input);
+    private void removeOptionalFields(ArrayList<String> optionalFieldsToRemove) {
+        System.out.println("How many optional fields do you want to remove?");
+        int count = Integer.parseInt(scanner.nextLine());
         for (int i=0; i<count; i++) {
-            System.out.println("Please insert the name of your field.");
-            input = scanner.nextLine();
-            System.out.println("Please insert the number of your numerical field.");
-            intField = scanner.nextLine();
-            numericalFieldsToAdd.put(input, Double.parseDouble(intField));
+            System.out.println("Please insert the name of your field which you want to remove.");
+            optionalFieldsToRemove.add(scanner.nextLine());
         }
     }
 
-    private void removeNumericalFiled(ArrayList<String> numericalFieldsToRemove) {
+    private void removeNumericalFields(ArrayList<String> numericalFieldsToRemove) {
         System.out.println("How many numerical fields do you want to remove?");
         int count = Integer.parseInt(scanner.nextLine());
         for (int i=0; i<count; i++) {
