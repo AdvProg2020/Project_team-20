@@ -246,4 +246,8 @@ public class Product implements Requestable {
     public double getNumberVisited() {
         return numberVisited;
     }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
 }

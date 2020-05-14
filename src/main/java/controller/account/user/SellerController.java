@@ -16,6 +16,7 @@ import model.product.Sale;
 import model.receipt.SellerReceipt;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class SellerController implements AccountController {
@@ -55,10 +56,9 @@ public class SellerController implements AccountController {
         return product.getBuyers();
     }
 
-    //TODO nemidonam che konam kase che konam gereftam dastam
-    public void editProduct(String productId, ArrayList<String> details, HashMap<String, Double> numericalFieldsToRemove,
+    public void editProduct(String productId, ArrayList<String> details, ArrayList<String> numericalFieldsToRemove,
                             HashMap<String, Double> numericalFieldsToAdd,
-                            HashMap<String, ArrayList<String>> optionalFieldsTORemove,
+                            ArrayList<String> optionalFieldsTORemove,
                             HashMap<String, ArrayList<String>> optionalFieldsToAdd) throws Exception {
         Product product = Product.getProductById(productId);
         ArrayList<Field> fields = new ArrayList<>(product.getGeneralFields());
@@ -81,12 +81,12 @@ public class SellerController implements AccountController {
         Manager.addRequest(product);
     }
 
-    private void editFields(ArrayList<Field> fields, HashMap<String, Double> numericalFieldsToRemove,
+    private void editFields(ArrayList<Field> fields, ArrayList<String> numericalFieldsToRemove,
                             HashMap<String, Double> numericalFieldsToAdd,
-                            HashMap<String, ArrayList<String>> optionalFieldsTORemove,
-                            HashMap<String, ArrayList<String>> optionalFieldsToAdd) {
-        fields.removeAll(createNumericalFields(numericalFieldsToRemove));
-        fields.removeAll(createOptionalFields(optionalFieldsTORemove));
+                            ArrayList<String> optionalFieldsTORemove,
+                            HashMap<String, ArrayList<String>> optionalFieldsToAdd) throws Exception {
+        fields.removeAll(createFieldsToRemove(numericalFieldsToRemove, fields));
+        fields.removeAll(createFieldsToRemove(optionalFieldsTORemove, fields));
         fields.addAll(createOptionalFields(optionalFieldsToAdd));
         fields.addAll(createNumericalFields(numericalFieldsToAdd));
     }
@@ -126,6 +126,18 @@ public class SellerController implements AccountController {
             fields.add(new OptionalField(name, FieldType.OPTIONAL, optionalFiled));
         }
         return fields;
+    }
+
+    private ArrayList<Field> createFieldsToRemove(ArrayList<String> fieldsToRemove, ArrayList<Field> fields) throws Exception {
+        ArrayList<Field> newFields = new ArrayList<>(fields);
+        for (Field newField : newFields) {
+            for (String field : fieldsToRemove) {
+                if (newField.getName().equals(field))
+                    newFields.remove(newField);
+                else throw new hasNotThisFiledException(newField);
+            }
+        }
+        return newFields;
     }
 
     private ArrayList<Field> createNumericalFields(HashMap<String, Double> numericalFields) {
@@ -192,12 +204,19 @@ public class SellerController implements AccountController {
     }
 
     public void addOff(ArrayList<String> details, ArrayList<String> productIds) throws Exception {
-        String id = details.get(0);
-        LocalDateTime startDate = LocalDateTime.parse(details.get(1)), endDate = LocalDateTime.parse(details.get(2));
-        double salePercentage = Double.parseDouble(details.get(3));
-        ArrayList<Product> products = Product.getProductsWithIds(productIds);
-        Sale sale = new Sale(id, products, startDate, endDate, salePercentage);
-        Manager.addRequest(sale);
+        String id = Integer.toString(Sale.allSalesCount);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
+        LocalDateTime startDate, endDate;
+        try {
+            startDate = LocalDateTime.parse(details.get(0), formatter);
+            endDate = LocalDateTime.parse(details.get(1), formatter);
+            double salePercentage = Double.parseDouble(details.get(2));
+            ArrayList<Product> products = Product.getProductsWithIds(productIds);
+            Sale sale = new Sale(id, products, startDate, endDate, salePercentage);
+            Manager.addRequest(sale);
+        } catch (Exception e) {
+            throw new FormatInvalidException();
+        }
     }
 
     public double viewBalance() {
@@ -224,21 +243,23 @@ public class SellerController implements AccountController {
         }
     }
 
-    public static class HaveNotThisProductException extends Exception {
-        private Product product;
-
-        public HaveNotThisProductException(Product product) {
-            super("seller have not this product with this id: " + product.getId());
-            this.product = product;
-        }
-
-        //check shavad che qalati bokonim
-        private String generateString(Product product) {
-            return "";
+    public static class hasNotThisFiledException extends Exception {
+        public hasNotThisFiledException(Field field) {
+            super(field.getName() + " is not in this product");
         }
     }
 
-    public HashMap<Product, Integer> getProductsToSell() {return seller.getProductsToSell();}
+    public static class HaveNotThisProductException extends Exception {
+        public HaveNotThisProductException(Product product) {
+            super("seller have not this product with this id: " + product.getId());
+        }
+
+    }
+
+
+    public HashMap<Product, Integer> getProductsToSell() {
+        return seller.getProductsToSell();
+    }
 
     public int getProductCount(Product product) {
         return seller.getProductCount(product);
@@ -281,5 +302,11 @@ public class SellerController implements AccountController {
     @Override
     public void logout() {
         mainController.logout();
+    }
+
+    public static class FormatInvalidException extends Exception {
+        public FormatInvalidException() {
+            super("Format is invalid");
+        }
     }
 }

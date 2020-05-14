@@ -3,10 +3,13 @@ package view.account;
 import controller.account.user.SellerController;
 import model.account.Account;
 import model.account.Buyer;
+import model.product.Category;
 import model.product.Product;
+import model.product.Sale;
 import model.receipt.SellerReceipt;
 import view.Menu;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -120,7 +123,7 @@ public class SellerMenu extends Menu {
         getDetails(details);
         getNumericalFields(numericalFields);
         getOptionalField(optionalFields);
-        System.out.println("Thanks for adding product!");
+        System.out.println("Thanks for adding product! :)");
         System.out.println("Your addingProduct request was sent to manager. Manager will accept or reject your request.");
     }
 
@@ -178,7 +181,83 @@ public class SellerMenu extends Menu {
         }
     }
 
+    public void removeProduct(String id) {
+        try {
+            sellerController.deleteProduct(id);
+            System.out.println("Product was removed successfully. :(");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void showCategories() {
+        ArrayList<Category> categories = sellerController.showCategories();
+        System.out.println("All categories:");
+        for (Category category:categories)
+            System.out.println(category.getName());
+    }
+
+    public void viewOffs() {
+        ArrayList<Sale> sales = sellerController.viewOffs();
+        System.out.println("Id                  Off\n");
+        for (Sale sale:sales) {
+            System.out.format("%s%20s", sale.getId(), sale.getSalePercentage());
+        }
+    }
+
+    public void viewOff(String id) {
+        try {
+            Sale sale = sellerController.viewOff(id);
+            System.out.println("Id                  : " + sale.getId());
+            System.out.println("Off                 : " + sale.getSalePercentage());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            System.out.println("Start Date          : " + formatter.format(sale.getStartDate()));
+            System.out.println("End Date            : " + formatter.format(sale.getEndDate()));
+            showProducts(sale.getProducts());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void showProducts (ArrayList<Product> products) {
+        System.out.println("Products:");
+        System.out.println("Name                Id");
+        for (Product product:products) {
+            System.out.format("%s%20s", product.getName(), product.getId());
+        }
+    }
+
+    public void addOff() {
+        try {
+            ArrayList<String> products = new ArrayList<>();
+            ArrayList<String> details = new ArrayList<>();
+            System.out.println("Please insert the start date of your sale.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (am|pm)]. ( Otherwise I will sent you an error:( )");
+            details.add(scanner.nextLine());
+            System.out.println("Now please insert the end date of your sale.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (am|pm)]. ( Otherwise I will sent you an error:( )");
+            details.add(scanner.nextLine());
+            System.out.println("Please insert the percentage of your sale.");
+            details.add(scanner.nextLine());
+            addProductOff(products);
+            sellerController.addOff(details, products);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addProductOff(ArrayList<String> products) {
+        System.out.println("How many products do you want to add to this sale?");
+        int count = Integer.parseInt(scanner.nextLine());
+        System.out.println("Please inert their id.");
+        for (int i=0; i<count; i++) {
+            products.add(scanner.nextLine());
+        }
+    }
+
     public void editProduct(String id) {
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
+
+    public void editOff(String id) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
@@ -188,10 +267,16 @@ public class SellerMenu extends Menu {
         regex.add("view company information");
         regex.add("view sales history");
         regex.add("manage products");
-        regex.add("view (\\w+)");
+        regex.add("view product (\\w+)");
         regex.add("view buyers (\\w+)");
-        regex.add("edit (\\w+)");
+        regex.add("edit product (\\w+)");
         regex.add("add product");
+        regex.add("remove product (\\w+)");
+        regex.add("show categories");
+        regex.add("view offs");
+        regex.add("view off (\\w+)");
+        regex.add("edit off (\\w+)");
+        regex.add("add off");
     }
 
     public void setMethods() {
@@ -204,5 +289,11 @@ public class SellerMenu extends Menu {
         methods.add("viewBuyers");
         methods.add("editProduct");
         methods.add("addProduct");
+        methods.add("removeProduct");
+        methods.add("showCategories");
+        methods.add("viewOffs");
+        methods.add("viewOff");
+        methods.add("editOff");
+        methods.add("addOff");
     }
 }

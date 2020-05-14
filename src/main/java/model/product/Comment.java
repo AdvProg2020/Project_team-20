@@ -22,6 +22,7 @@ public class Comment implements Requestable {
     @Override
     public void changeStateAccepted() {
         state = RequestableState.ACCEPTED;
+        product.addComment(this);
     }
 
     @Override
