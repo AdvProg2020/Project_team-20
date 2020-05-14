@@ -94,7 +94,11 @@ public abstract class Filterable {
         return filters;
     }
 
-    public ArrayList<Product> SortByNUmberOfViews(ArrayList<Product> products){
+    public ArrayList<Product> sortByNUmberOfViews(){
+        ArrayList<Product> products = getProducts();
+        products.sort(new CompareNumberOfViews());
+        return products;
+    }
 
     }
 
@@ -102,5 +106,10 @@ public abstract class Filterable {
         public FilterNotFoundException() {
             super("Filter name is not correct.");
         }
+    public ArrayList<Product> sortByScores(){
+        ArrayList<Product> products = getProducts();
+        products.sort(new CompareScores());
+        return products;
     }
+
 }
