@@ -34,12 +34,10 @@ public class OptionalFilter extends Filter{
 
     public boolean validOptionalFilter(ArrayList<String> allFields){
         for (String option:options) {
-            for (String field:allFields) {
-                if (option.equals(field))
-                    return true;
-            }
+            if (!allFields.contains(option))
+                return false;
         }
-        return false;
+        return true;
     }
 
     public ArrayList<String> getOptions() {

@@ -1,14 +1,17 @@
 package controller.product.filter;
 
 import model.filter.Filter;
+import model.filter.NameFilter;
 import model.filter.OptionalFilter;
 import model.filter.RangeFilter;
+import model.product.Category;
 import model.product.Field.NumericalField;
 
 import java.util.ArrayList;
 
 public abstract class Filterable {
     protected ArrayList<Filter> filters = new ArrayList<>();
+    protected ArrayList<String> categoryFilters = new ArrayList<>();
 
     public void filter(String filterType, ArrayList<String> details) throws Exception{
         if (filterType.equalsIgnoreCase("category")) {
@@ -25,12 +28,26 @@ public abstract class Filterable {
         }
     }
 
-    public void filterByCategory(ArrayList<String> details) {
+    public void filterByCategory(ArrayList<String> details) throws Exception{
+        String categoryName = details.get(0);
+        Category category = Category.getCategoryByName(categoryName);
+        addAllFieldsCategory(category);
+    }
 
+    public void addAllFieldsCategory(Category category) {
+        for (String fieldName:category.getFields()) {
+            if (!categoryFilters.contains(fieldName)) {
+                categoryFilters.add(fieldName);
+                filters.add(new OptionalFilter(fieldName));
+            }
+        }
+        for (Category subCategory:category.getSubCategories()) {
+            addAllFieldsCategory(subCategory);
+        }
     }
 
     public void filterByProductName(ArrayList<String> details) {
-        filters.add(new OptionalFilter(details.get(0)));
+        filters.add(new NameFilter(details.get(0)));
     }
 
     public void filterByOptionalFilter(ArrayList<String> details) {
@@ -40,7 +57,7 @@ public abstract class Filterable {
     }
 
     public void filterByNumericalFilter(ArrayList<String> details) {
-        filters.add(new RangeFilter(details.get(0), Double.parseDouble(details.get(1)), Double.parseDouble(details.get(2))))
+        filters.add(new RangeFilter(details.get(0), Double.parseDouble(details.get(1)), Double.parseDouble(details.get(2))));
     }
 
     public ArrayList<Filter> getFilters() {
