@@ -26,7 +26,7 @@ public class Buyer extends Account implements Requestable {
         state = RequestableState.EDITED;
     }
 
-    public void editBuyer() {
+    public void edit() {
         edit(editedBuyer);
         editedBuyer = null;
         state = RequestableState.ACCEPTED;
@@ -80,7 +80,7 @@ public class Buyer extends Account implements Requestable {
 
     public boolean hasBoughtProduct(String productId) {
         for (BuyerReceipt buyerReceipt:purchaseHistory) {
-            for (Product product:buyerReceipt.getProducts())
+            for (Product product:buyerReceipt.getProducts().keySet())
                 if (product.getId().equals(productId))
                     return true;
         }

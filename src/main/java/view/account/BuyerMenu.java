@@ -12,11 +12,9 @@ import view.product.ProductMenu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class   BuyerMenu extends Menu {
     BuyerController buyerController;
-    Scanner scanner;
 
     private static BuyerMenu buyerMenu = null;
 
@@ -31,7 +29,6 @@ public class   BuyerMenu extends Menu {
         setRegex();
         setMethods();
         buyerController = BuyerController.getInstance();
-        scanner = new Scanner(System.in);
     }
 
     public void viewPersonalInfo() {
@@ -62,9 +59,10 @@ public class   BuyerMenu extends Menu {
     public void viewCart() {
         Cart cart = buyerController.viewCart();
         for (SelectedProduct selectedProduct:cart.getSelectedProducts()) {
-            System.out.println("Name                 Count               Buyer               id\n");
-            System.out.format("%s%20s%40s%s60", selectedProduct.getProduct().getName(), selectedProduct.getCount()
-                    , selectedProduct.getSeller().getName(), selectedProduct.getProduct().getId());
+            Product product = selectedProduct.getProduct();
+            System.out.println("Name                 Count               Buyer               Price               Id\n");
+            System.out.format("%s%20s%40s%s60%80s", product.getName(), selectedProduct.getCount()
+                    , selectedProduct.getSeller().getName(), product.getPrice(), product.getId());
         }
     }
 
@@ -152,10 +150,10 @@ public class   BuyerMenu extends Menu {
 
     private void showGeneralDescriptionBuyerReceipt(BuyerReceipt buyerReceipt) {
         System.out.println("____________________");
-        System.out.println("Id:                :" + buyerReceipt.getId());
-        System.out.println("Discount percentage:" + buyerReceipt.getDiscountPercentage());
-        System.out.println("Paid money         :");
-        System.out.println("Time               :" + buyerReceipt.getDateAndTime());
+        System.out.println("Id:                : " + buyerReceipt.getId());
+        System.out.println("Discount percentage: " + buyerReceipt.getDiscountPercentage());
+        System.out.println("Paid money         : " + buyerReceipt.getPaidMoney());
+        System.out.println("Time               : " + buyerReceipt.getDateAndTime());
     }
 
     private void rate(String id, int score) {
