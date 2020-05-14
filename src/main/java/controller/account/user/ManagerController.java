@@ -202,8 +202,8 @@ public class ManagerController implements controller.account.user.AccountControl
        removeCategory(categoryName);
     }
 
-    public void addProductToCategory(String categoryName , String productName) throws Exception{
-        Product product = getProductWithItsName(productName);
+    public void addProductToCategory(String categoryName , String productId) throws Exception{
+        Product product = getProductById(productId);
         Category category = getCategoryByName(categoryName);
         category.addProduct(product);
     }
