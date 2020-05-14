@@ -153,10 +153,10 @@ public class   BuyerMenu extends Menu {
 
     private void showGeneralDescriptionBuyerReceipt(BuyerReceipt buyerReceipt) {
         System.out.println("____________________");
-        System.out.println("Id:                :" + buyerReceipt.getId());
-        System.out.println("Discount percentage:" + buyerReceipt.getDiscountPercentage());
-        System.out.println("Paid money         :");
-        System.out.println("Time               :" + buyerReceipt.getDateAndTime());
+        System.out.println("Id:                : " + buyerReceipt.getId());
+        System.out.println("Discount percentage: " + buyerReceipt.getDiscountPercentage());
+        System.out.println("Paid money         : " + buyerReceipt.getPaidMoney());
+        System.out.println("Time               : " + buyerReceipt.getDateAndTime());
     }
 
     private void rate(String id, int score) {
