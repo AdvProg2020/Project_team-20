@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public abstract class Filterable {
     protected ArrayList<Filter> filters = new ArrayList<>();
-    protected ArrayList<String> categoryFilters = new ArrayList<>();
+    protected ArrayList<String> filterNames = new ArrayList<>();
     protected ArrayList<Product> productsToShow;
 
     public void filter(String filterType, ArrayList<String> details) throws Exception{
@@ -31,7 +31,15 @@ public abstract class Filterable {
         }
     }
 
-    public ArrayList<Product> getProducts () {
+    public void disAbleFilter(String filterName) throws Exception{
+        Filter filter = getFilterByName(filterName);
+        if (filter==null)
+            throw new FilterNotFoundException();
+        filters.remove(filter);
+        filterNames.remove(filter.getName());
+    }
+
+    public ArrayList<Product> getProducts() {
         return productsToShow.stream()
                 .filter( product -> {
                     for (Filter filter:filters)
@@ -50,8 +58,8 @@ public abstract class Filterable {
 
     public void addAllFieldsCategory(Category category) {
         for (String fieldName:category.getFields()) {
-            if (!categoryFilters.contains(fieldName)) {
-                categoryFilters.add(fieldName);
+            if (!filterNames.contains(fieldName)) {
+                filterNames.add(fieldName);
                 filters.add(new OptionalFilter(fieldName));
             }
         }
@@ -74,6 +82,14 @@ public abstract class Filterable {
         filters.add(new RangeFilter(details.get(0), Double.parseDouble(details.get(1)), Double.parseDouble(details.get(2))));
     }
 
+    private Filter getFilterByName(String name) {
+        for (Filter filter:filters) {
+            if (filter.getName().equals(name))
+                return filter;
+        }
+        return null;
+    }
+
     public ArrayList<Filter> getFilters() {
         return filters;
     }
@@ -82,6 +98,12 @@ public abstract class Filterable {
         ArrayList<Product> products = getProducts();
         products.sort(new CompareNumberOfViews());
         return products;
+    }
+
+    public static class FilterNotFoundException extends Exception {
+        public FilterNotFoundException() {
+            super("Filter name is not correct.");
+        }
     }
 
     public ArrayList<Product> sortByScores(){
