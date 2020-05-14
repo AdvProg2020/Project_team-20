@@ -228,11 +228,29 @@ public class SellerMenu extends Menu {
     }
 
     public void addOff() {
-        ArrayList<String> products = new ArrayList<>();
-        ArrayList<String> details = new ArrayList<>();
-        System.out.println("Please insert the start date of your sale.");
-        String input = scanner.nextLine();
+        try {
+            ArrayList<String> products = new ArrayList<>();
+            ArrayList<String> details = new ArrayList<>();
+            System.out.println("Please insert the start date of your sale.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (am|pm)]. ( Otherwise I will sent you an error:( )");
+            details.add(scanner.nextLine());
+            System.out.println("Now please insert the end date of your sale.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (am|pm)]. ( Otherwise I will sent you an error:( )");
+            details.add(scanner.nextLine());
+            System.out.println("Please insert the percentage of your sale.");
+            details.add(scanner.nextLine());
+            addProductOff(products);
+            sellerController.addOff(details, products);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    public void addProductOff(ArrayList<String> products) {
+        System.out.println("How many products do you want to add to this sale?");
+        int count = Integer.parseInt(scanner.nextLine());
+        System.out.println("Please inert their id.");
+        for (int i=0; i<count; i++) {
+            products.add(scanner.nextLine());
+        }
     }
 
     public void editProduct(String id) {
