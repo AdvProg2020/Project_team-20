@@ -2,6 +2,7 @@ package view.account;
 
 import controller.account.user.ManagerController;
 import jdk.vm.ci.meta.Local;
+import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
@@ -45,6 +46,10 @@ public class ManagerMenu extends Menu {
         this.regex.add(10,"view discount code (\\d+)");
         this.regex.add(11,"edit discount code (\\d+)");
         this.regex.add(12,"remove discount code (\\d+)");
+        this.regex.add(13,"manage requests");
+        this.regex.add(14,"details (\\d+)");
+        this.regex.add(15,"accept (\\d+)");
+        this.regex.add(16,"decline (\\d+)");
     }
 
     private void setMethods(){
@@ -61,6 +66,10 @@ public class ManagerMenu extends Menu {
         this.methods.add(10,"viewDiscountCodeWithId");
         this.methods.add(11,"editDiscountCode");
         this.methods.add(12,"removeDiscountCode");
+        this.methods.add(13,"manageRequests");
+        this.methods.add(14,"detailsOfRequest");
+        this.methods.add(15,"acceptRequest");
+        this.methods.add(16,"declineRequest");
     }
 
     public void viewPersonalInfo() {
@@ -286,8 +295,40 @@ public class ManagerMenu extends Menu {
         }
     }
 
-    
+    public void manageRequests(){
+       ArrayList<Requestable> requests = managerController.manageRequests();
+       for(Requestable requestable:requests){
+           System.out.println(requestable.toString());
+       }
+    }
 
+    public void detailsOfRequest(int requestId){
+        try {
+           System.out.println(managerController.requestDetails(requestId));
+        }
+       catch (Exception e){
+            System.out.println(e.getMessage());
+       }
+    }
+
+    public void acceptRequest(int id){
+        try {
+            managerController.acceptRequest(id);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void declineRequest(int id){
+        try {
+            managerController.declineRequest(id);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
 
     @Override
     public void show() {

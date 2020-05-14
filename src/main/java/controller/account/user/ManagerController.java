@@ -116,12 +116,12 @@ public class ManagerController implements controller.account.user.AccountControl
         return getRequests();
     }
 
-    public String requestDetails(String requestId){
+    public String requestDetails(int requestId) throws Exception{
        Requestable request  = findRequestWithId(requestId);
        return request.toString();
     }
 
-    public void acceptRequest(String requestId){
+    public void acceptRequest(int requestId) throws Exception{
         Requestable request  = findRequestWithId(requestId);
         RequestableState state = request.getState();
         switch (state){
@@ -134,7 +134,7 @@ public class ManagerController implements controller.account.user.AccountControl
         }
     }
 
-    public void declineRequest(String requestId){
+    public void declineRequest(int requestId) throws Exception{
         Requestable request  = findRequestWithId(requestId);
         request.changeStateRejected();
     }
