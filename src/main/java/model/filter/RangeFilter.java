@@ -19,14 +19,14 @@ public class RangeFilter extends Filter{
     public boolean validFilter(Product product) {
         for (Field field:product.getGeneralFields()) {
             if (field.getName().equals(name) && field.getType().equals(FieldType.NUMERICAL)) {
-                return validOptionalFilter(((NumericalField)field).getNumericalField());
+                return validNumericalFilter(((NumericalField)field).getNumericalField());
             }
         }
         return false;
     }
 
-    public boolean validOptionalFilter(double numericalField){
-        return numericalField < max && numericalField > min;
+    public boolean validNumericalFilter(double numericalField){
+        return (numericalField < max && numericalField > min);
     }
 
     public double getMin() {

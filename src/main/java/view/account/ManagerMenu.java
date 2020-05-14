@@ -485,7 +485,7 @@ public class ManagerMenu extends Menu {
     }
 
     private void addProductPart(String name){
-        System.out.println("please write products which you want to add to this category:(write \"end\" when you reached end of products)");
+        System.out.println("please write productIds which you want to add to this category:(write \"end\" when you reached end of products)");
         String productName = Menu.scanner.nextLine();
         while (!productName.equals("end")){
             try {

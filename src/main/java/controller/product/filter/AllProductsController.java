@@ -9,7 +9,7 @@ import model.product.Product;
 
 import java.util.ArrayList;
 
-public class AllProductsController implements Filterable {
+public class AllProductsController extends Filterable {
     private String sortElement;
     MainController mainController;
     GeneralAccount generalAccount;
@@ -19,6 +19,7 @@ public class AllProductsController implements Filterable {
     private AllProductsController() {
         this.mainController = MainController.getInstance();
         generalAccount = mainController.getAccount();
+        productsToShow = Product.getAllProducts();
     }
 
     public static AllProductsController getInstance() {
@@ -38,8 +39,8 @@ public class AllProductsController implements Filterable {
         return Category.getAllCategories();
     }
 
-    public ArrayList<Product> getAllProducts() {
-        return Product.getAllProducts();
+    public ArrayList<Product> getProductsToShow() {
+        return productsToShow;
     }
 
     public static class NotLoggedInException extends Exception{

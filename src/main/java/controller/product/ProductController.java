@@ -13,6 +13,7 @@ public class ProductController {
 
     public ProductController(Product product) {
         this.currentProduct = product;
+        product.increaseProductViews();
         mainController = MainController.getInstance();
     }
 

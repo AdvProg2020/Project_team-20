@@ -15,10 +15,17 @@ public class OptionalFilter extends Filter{
         this.options = options;
     }
 
+    public OptionalFilter(String name) {
+        super(name);
+        this.options = null;
+    }
+
     @Override
     public boolean validFilter(Product product) {
         for (Field field:product.getGeneralFields()) {
             if (field.getName().equals(name) && field.getType().equals(FieldType.OPTIONAL)) {
+                if (options==null)
+                    return true;
                 return validOptionalFilter(((OptionalField)field).getOptionalFiled());
             }
         }
@@ -27,12 +34,10 @@ public class OptionalFilter extends Filter{
 
     public boolean validOptionalFilter(ArrayList<String> allFields){
         for (String option:options) {
-            for (String field:allFields) {
-                if (option.equals(field))
-                    return true;
-            }
+            if (!allFields.contains(option))
+                return false;
         }
-        return false;
+        return true;
     }
 
     public ArrayList<String> getOptions() {
