@@ -238,6 +238,12 @@ public class SellerController implements AccountController {
         }
     }
 
+    public HashMap<Product, Integer> getProductsToSell() {return seller.getProductsToSell();}
+
+    public int getProductCount(Product product) {
+
+    }
+
     @Override
     public Account getAccountInfo() {
         return seller;

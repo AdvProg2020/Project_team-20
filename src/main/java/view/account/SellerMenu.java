@@ -80,9 +80,26 @@ public class SellerMenu extends Menu {
     }
 
     private void showProducts(HashMap<Product, Integer> allProducts) {
+        System.out.println("Name                Count               Id");
         for (Product product:allProducts.keySet()) {
-            System.out.format("%s%20d",product.getName(), allProducts.get(product));
+            System.out.format("%s%20d%40s",product.getName(), allProducts.get(product), product.getId());
         }
+    }
+
+    public void manageProducts() {
+        showProducts(sellerController.getProductsToSell());
+    }
+
+    public void viewProduct(String id) {
+        try {
+            Product product = sellerController.viewProduct(id);
+            System.out.println("Name                : " + product.getName());
+            System.out.println("Count               : " + sellerController.getProductCount(product));
+            System.out.println("Id                  : " + product.getId());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void setRegex() {
@@ -90,6 +107,8 @@ public class SellerMenu extends Menu {
         regex.add("edit (\\w+)");
         regex.add("view company information");
         regex.add("view sales history");
+        regex.add("manage products");
+        regex.add("view (\\w+)");
     }
 
     public void setMethods() {
@@ -97,5 +116,7 @@ public class SellerMenu extends Menu {
         methods.add("editField");
         methods.add("viewCompanyInfo");
         methods.add("viewSalesHistory");
+        methods.add("manageProducts");
+        methods.add("viewProduct");
     }
 }
