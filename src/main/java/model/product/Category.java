@@ -62,6 +62,18 @@ public class Category {
         this.fieldNames.add(field);
     }
 
+    public void removeField(String field){
+        this.fieldNames.remove(field);
+    }
+
+    public void removeProduct(Product product){
+        this.products.remove(product);
+    }
+
+    public void removeSubCategory(Category subCategory){
+        this.subCategories.remove(subCategory);
+    }
+
     public ArrayList<Category> getSubCategories() {
         return subCategories;
     }
