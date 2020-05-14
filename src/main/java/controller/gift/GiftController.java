@@ -9,11 +9,8 @@ public class GiftController {
         this.event = event;
     }
 
-    public Action getAction() {
-        return action;
-    }
-
-    public Event getEvent() {
-        return event;
+    public void perform() {
+        if (event.isEvent())
+            action.perform();
     }
 }
