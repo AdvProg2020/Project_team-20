@@ -57,10 +57,10 @@ public class BuyerController implements AccountController {
         receiveInformation(address, phoneNumber);
         double discountPercentage = 0;
         double totalPrice = getTotalPrice();
-        if (Discount.validDiscountCodeBuyer(currentBuyer, discountCode)) {
-            discountPercentage = Discount.getDiscountByDiscountCode(discountCode).getDiscountPercentage();
+        if (Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
+            discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode)).getDiscountPercentage();
             totalPrice *= discountPercentage;
-            Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, discountCode);
+            Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, Integer.parseInt(discountCode));
         }
         pay(totalPrice);
         decreaseAllProductBought();

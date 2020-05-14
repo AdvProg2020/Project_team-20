@@ -3,6 +3,7 @@ package view.account;
 import controller.account.user.SellerController;
 import model.account.Account;
 import model.account.Buyer;
+import model.product.Category;
 import model.product.Product;
 import model.receipt.SellerReceipt;
 import view.Menu;
@@ -120,7 +121,7 @@ public class SellerMenu extends Menu {
         getDetails(details);
         getNumericalFields(numericalFields);
         getOptionalField(optionalFields);
-        System.out.println("Thanks for adding product!");
+        System.out.println("Thanks for adding product! :)");
         System.out.println("Your addingProduct request was sent to manager. Manager will accept or reject your request.");
     }
 
@@ -178,6 +179,22 @@ public class SellerMenu extends Menu {
         }
     }
 
+    public void removeProduct(String id) {
+        try {
+            sellerController.deleteProduct(id);
+            System.out.println("Product was removed successfully. :(");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void showCategories() {
+        ArrayList<Category> categories = sellerController.showCategories();
+        System.out.println("All categories:");
+        for (Category category:categories)
+            System.out.println(category.getName());
+    }
+
     public void editProduct(String id) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
@@ -188,10 +205,12 @@ public class SellerMenu extends Menu {
         regex.add("view company information");
         regex.add("view sales history");
         regex.add("manage products");
-        regex.add("view (\\w+)");
+        regex.add("view product (\\w+)");
         regex.add("view buyers (\\w+)");
-        regex.add("edit (\\w+)");
+        regex.add("edit product (\\w+)");
         regex.add("add product");
+        regex.add("remove product (\\w+)");
+        regex.add("show categories");
     }
 
     public void setMethods() {
@@ -204,5 +223,7 @@ public class SellerMenu extends Menu {
         methods.add("viewBuyers");
         methods.add("editProduct");
         methods.add("addProduct");
+        methods.add("removeProduct");
+        methods.add("showCategories");
     }
 }
