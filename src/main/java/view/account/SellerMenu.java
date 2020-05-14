@@ -3,7 +3,6 @@ package view.account;
 import controller.account.user.SellerController;
 import model.account.Account;
 import model.account.Buyer;
-import model.account.Seller;
 import model.product.Category;
 import model.product.Product;
 import model.product.Sale;
@@ -24,6 +23,7 @@ public class SellerMenu extends Menu {
         sellerController = SellerController.getInstance();
         setRegex();
         setMethods();
+        preProcess();
     }
 
     public static SellerMenu getInstance() {
@@ -455,4 +455,20 @@ public class SellerMenu extends Menu {
         methods.add("showAllProducts");
         methods.add("addToProduct");
     }
+
+    @Override
+    public void show() {
+        super.show();
+    }
+
+    @Override
+    public void help() {
+        super.help();
+    }
+
+    @Override
+    public void back() {
+        super.back();
+    }
+
 }

@@ -4,9 +4,7 @@ import controller.product.filter.AllProductsController;
 import model.filter.Filter;
 import model.product.Category;
 import model.product.Product;
-import model.product.SelectedProduct;
 import view.Menu;
-import view.account.BuyerMenu;
 
 import java.util.ArrayList;
 
@@ -21,6 +19,7 @@ public class AllProductsMenu extends Menu {
         setMethods();
         allProductsController = AllProductsController.getInstance();
         showProducts();
+        preProcess();
     }
 
     public static AllProductsMenu getInstance() {
@@ -138,7 +137,7 @@ public class AllProductsMenu extends Menu {
         regex.add("current filters");
         regex.add("disable filter (\\w+)");
         regex.add("show available sorts");
-        regex.add("sort ([ByScores | ByDates | ByNumberOfViews])");
+        regex.add("sort (ByScores|ByDates|ByNumberOfViews)");
         regex.add("current sort");
         regex.add("disable sort");
     }
@@ -155,6 +154,21 @@ public class AllProductsMenu extends Menu {
         methods.add("sort");
         methods.add("showCurrentSort");
         methods.add("disableSort");
+    }
+
+    @Override
+    public void show() {
+        super.show();
+    }
+
+    @Override
+    public void help() {
+        super.help();
+    }
+
+    @Override
+    public void back() {
+        super.back();
     }
 
 }

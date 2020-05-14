@@ -36,6 +36,7 @@ public class ProductMenu extends Menu {
         this.regex.add("comments");
         this.regex.add("Add comment");
         this.regex.add("addScore");
+        preProcess();
     }
 
     public void digest() {
@@ -147,5 +148,21 @@ public class ProductMenu extends Menu {
 
     public ProductController getProductController() {
         return productController;
+    }
+
+
+    @Override
+    public void show() {
+        super.show();
+    }
+
+    @Override
+    public void help() {
+        super.help();
+    }
+
+    @Override
+    public void back() {
+        super.back();
     }
 }

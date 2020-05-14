@@ -1,11 +1,9 @@
 package view.product;
 
 import controller.product.filter.SaleController;
-import model.account.Seller;
 import model.product.Product;
 import model.product.Sale;
 import view.Menu;
-import view.account.BuyerMenu;
 
 import java.util.ArrayList;
 
@@ -20,6 +18,7 @@ public class SaleMenu extends Menu {
         setMethods();
         saleController = new SaleController();
         showOffs();
+        preProcess();
     }
 
     public void showProduct(String id) {
@@ -55,5 +54,20 @@ public class SaleMenu extends Menu {
         if (saleMenu == null)
             saleMenu = new SaleMenu();
         return saleMenu;
+    }
+
+    @Override
+    public void show() {
+        super.show();
+    }
+
+    @Override
+    public void help() {
+        super.help();
+    }
+
+    @Override
+    public void back() {
+        super.back();
     }
 }

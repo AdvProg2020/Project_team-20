@@ -11,10 +11,11 @@ public class RegisterAndLoginMenu extends Menu {
 
     private RegisterAndLoginMenu() {
         super("RegisterAndLoginMenu");
-        this.regex.add(0,"create account [manager|buyer|seller] (\\w+)");
+        this.regex.add(0,"create account (manager|buyer|seller) (\\w+)");
         this.regex.add(1,"login (\\w+)");
         this.methods.add(0,"loginUser");
         this.methods.add(1,"registerUser");
+        preProcess();
     }
 
     public static RegisterAndLoginMenu getInstance() {

@@ -24,6 +24,7 @@ public class ManagerMenu extends Menu {
         super("ManagerMenu");
         setRegex();
         setMethods();
+        preProcess();
     }
 
     public static ManagerMenu getInstance() {
@@ -560,6 +561,16 @@ public class ManagerMenu extends Menu {
 
     @Override
     public void show() {
+        super.show();
+    }
 
+    @Override
+    public void help() {
+        super.help();
+    }
+
+    @Override
+    public void back() {
+        super.back();
     }
 }

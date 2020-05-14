@@ -29,6 +29,7 @@ public class   BuyerMenu extends Menu {
         setRegex();
         setMethods();
         buyerController = BuyerController.getInstance();
+        preProcess();
     }
 
     public void viewPersonalInfo() {
@@ -217,5 +218,20 @@ public class   BuyerMenu extends Menu {
         methods.add("viewBalance");
         methods.add("viewDiscountCodes");
         methods.add("logout");
+    }
+
+    @Override
+    public void show() {
+        super.show();
+    }
+
+    @Override
+    public void help() {
+        super.help();
+    }
+
+    @Override
+    public void back() {
+        super.back();
     }
 }

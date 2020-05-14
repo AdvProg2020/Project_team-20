@@ -32,13 +32,9 @@ public class CompareMenu extends Menu {
         this.regex.add("showCompares");
         this.regex.add("add product to compare (\\S+)");
         this.regex.add("remove product (\\S+)");
+        preProcess();
     }
 
-    @Override
-    public void show() {
-        super.show();
-        showCompares();
-    }
 
     public void showCompares() {
         System.out.println("first product: " + firstProduct.getName());
@@ -83,6 +79,22 @@ public class CompareMenu extends Menu {
     public void removeProduct(String productId) throws Exception {
         otherProducts.remove(productController.getAnotherProduct(productId, otherProductsId));
         otherProductsId.remove(productId);
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        showCompares();
+    }
+
+    @Override
+    public void help() {
+        super.help();
+    }
+
+    @Override
+    public void back() {
+        super.back();
     }
 
 }

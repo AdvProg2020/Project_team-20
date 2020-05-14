@@ -33,7 +33,6 @@ public abstract class Menu {
         this.regex.add("enter (RegistrationMenu|AllProductsMenu)");
         this.regex.add("back");
         this.regex.add("help");
-        this.preProcess();
     }
 
     public String getName() {
