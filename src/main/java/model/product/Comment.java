@@ -2,6 +2,7 @@ package model.product;
 
 import model.Requestable;
 import model.account.Buyer;
+import model.account.Manager;
 
 public class Comment implements Requestable {
     private Buyer buyer;
@@ -22,11 +23,14 @@ public class Comment implements Requestable {
     @Override
     public void changeStateAccepted() {
         state = RequestableState.ACCEPTED;
+        product.addComment(this);
+        Manager.deleteRequest(this);
     }
 
     @Override
     public void changeStateRejected() {
         state = RequestableState.REJECTED;
+        Manager.deleteRequest(this);
     }
 
     @Override
