@@ -65,7 +65,14 @@ public abstract class Filterable {
         return filters;
     }
 
-    public ArrayList<Product> SortByNUmberOfViews(ArrayList<Product> products){
-
+    public ArrayList<Product> sortByNUmberOfViews(ArrayList<Product> products){
+       products.sort(new CompareNumberOfViews());
+       return products;
     }
+
+    public ArrayList<Product> sortByScores(ArrayList<Product> products){
+        products.sort(new CompareScores());
+        return products;
+    }
+
 }
