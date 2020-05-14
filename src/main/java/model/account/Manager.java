@@ -44,18 +44,27 @@ public class Manager extends Account {
         requests.add(request);
     }
 
-    public static void deleteRequest(Requestable request) {
+    public static void deleteRequest(Requestable request, int requestId) {
         requests.remove(request);
-        requestWithIds.remove(request);
+        requestWithIds.remove(requestId, request);
     }
 
     public static ArrayList<Requestable> getRequests() {
         return requests;
     }
 
-    public static Requestable findRequestWithId(String requestId){
-        int ID=Integer.parseInt(requestId);
-        return requestWithIds.get(ID);
+    public static Requestable findRequestWithId(int requestId) throws Exception{
+        Requestable requestable = requestWithIds.get(requestId);
+        if(requestable!=null)
+        return requestWithIds.get(requestId);
+        throw new requestNotFoundException();
     }
+
+    public static class requestNotFoundException extends Exception {
+        public requestNotFoundException() {
+            super("request doesn't exist!");
+        }
+    }
+
 
 }

@@ -2,11 +2,11 @@ package controller.account.user;
 
 import controller.MainController;
 import model.Requestable;
-import model.account.Manager;
 import model.account.Account;
+import model.account.Buyer;
+import model.account.Manager;
 import model.product.Category;
-import  model.product.Discount;
-import  model.account.Buyer;
+import model.product.Discount;
 import model.product.Field.Field;
 import model.product.Product;
 import model.product.RequestableState;
@@ -14,7 +14,6 @@ import model.product.RequestableState;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static controller.MainController.mainController;
 import static model.account.Manager.*;
 import static model.product.Category.*;
 import static model.product.Discount.removeDiscountCode;
@@ -116,12 +115,12 @@ public class ManagerController implements controller.account.user.AccountControl
         return getRequests();
     }
 
-    public String requestDetails(String requestId){
+    public String requestDetails(int requestId) throws Exception{
        Requestable request  = findRequestWithId(requestId);
        return request.toString();
     }
 
-    public void acceptRequest(String requestId){
+    public void acceptRequest(int requestId) throws Exception{
         Requestable request  = findRequestWithId(requestId);
         RequestableState state = request.getState();
         switch (state){
@@ -132,11 +131,13 @@ public class ManagerController implements controller.account.user.AccountControl
                 request.changeStateAccepted();
                 break;
         }
+        deleteRequest(request, Integer.parseInt(requestId));
     }
 
-    public void declineRequest(String requestId){
+    public void declineRequest(int requestId) throws Exception{
         Requestable request  = findRequestWithId(requestId);
         request.changeStateRejected();
+        deleteRequest(request, Integer.parseInt(requestId));
     }
 
     //category

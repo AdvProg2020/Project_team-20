@@ -110,8 +110,20 @@ public class ProductMenu extends Menu {
     }
 
     public void addComment() {
-
+        String title, content;
+        System.out.println("please enter your title:");
+        title = scanner.nextLine();
+        System.out.println("please enter your content");
+        content = scanner.nextLine();
+        try {
+            productController.addComment(product, title,content);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
+
+
 
 
 
