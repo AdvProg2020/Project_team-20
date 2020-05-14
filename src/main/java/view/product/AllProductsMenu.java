@@ -84,6 +84,7 @@ public class AllProductsMenu extends Menu {
         }
         try {
             allProductsController.filter(filterName, details);
+            System.out.println("Filter was added successfully.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -91,14 +92,16 @@ public class AllProductsMenu extends Menu {
 
     public void showCurrentFilters() {
         ArrayList<Filter> currentFilters = allProductsController.getFilters();
+        System.out.println("Current filters are:");
         for (Filter filter:currentFilters) {
-            System.out.println("Name : " + filter.getName());
+            System.out.println("Name               : " + filter.getName());
         }
     }
 
     public void disableFilter(String filterName) {
         try {
             allProductsController.disAbleFilter(filterName);
+            System.out.println("The filter was disabled successfully.");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -111,13 +114,19 @@ public class AllProductsMenu extends Menu {
     public void sort(String sortType) {
         try {
             allProductsController.changeSort(sortType);
+            System.out.println("The sort was successful!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void showCurrentSort() {
-        System.out.println(allProductsController.getCurrentSort());
+        System.out.println("The current sort is: " + allProductsController.getCurrentSort());
+    }
+
+    public void disableSort() {
+        allProductsController.disableSort();
+        System.out.println("The sort was disabled. The default sort is viewsSort.");
     }
 
     private void setRegex() {
@@ -131,6 +140,7 @@ public class AllProductsMenu extends Menu {
         regex.add("show available sorts");
         regex.add("sort ([ByScores | ByDates | ByNumberOfViews])");
         regex.add("current sort");
+        regex.add("disable sort");
     }
 
     private void setMethods() {
@@ -144,6 +154,7 @@ public class AllProductsMenu extends Menu {
         methods.add("showAvailableSorts");
         methods.add("sort");
         methods.add("showCurrentSort");
+        methods.add("disableSort");
     }
 
 }
