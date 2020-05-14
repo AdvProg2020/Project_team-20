@@ -29,6 +29,11 @@ public class Comment implements Requestable {
         state = RequestableState.REJECTED;
     }
 
+    @Override
+    public void edit() {
+
+    }
+
     public RequestableState getState() {
         return state;
     }

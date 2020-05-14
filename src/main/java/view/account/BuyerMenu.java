@@ -12,11 +12,9 @@ import view.product.ProductMenu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class   BuyerMenu extends Menu {
     BuyerController buyerController;
-    Scanner scanner;
 
     private static BuyerMenu buyerMenu = null;
 
@@ -31,7 +29,6 @@ public class   BuyerMenu extends Menu {
         setRegex();
         setMethods();
         buyerController = BuyerController.getInstance();
-        scanner = new Scanner(System.in);
     }
 
     public void viewPersonalInfo() {

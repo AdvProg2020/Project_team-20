@@ -8,14 +8,12 @@ public class ProductController {
     private Product currentProduct;
     MainController mainController;
 
-    private static ProductController productController = null;
-
-    private ProductController(Product product) {
+    public ProductController(Product product) {
         this.currentProduct = product;
         mainController = MainController.getInstance();
     }
 
-    private void addProductToCart(String sellerId) throws Exception {
+    public void addProductToCart(String sellerId) throws Exception {
         Seller seller = currentProduct.getSellerByUsername(sellerId);
         if (seller == null)
             throw new SellerNotFound();
@@ -30,14 +28,12 @@ public class ProductController {
         }
     }
 
-    public static ProductController getInstance(Product product) {
-        if (productController == null)
-            productController = new ProductController(product);
-        return productController;
-    }
-
     public Product getCurrentProduct() {
         return currentProduct;
+    }
+
+    public Product getAnotherProduct(String id) throws Exception {
+        return Product.getProductById(id);
     }
 
     public static class AccountNotBuyerException extends Exception {
