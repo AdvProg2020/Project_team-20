@@ -63,7 +63,7 @@ public class   BuyerMenu extends Menu {
         for (SelectedProduct selectedProduct:cart.getSelectedProducts()) {
             Product product = selectedProduct.getProduct();
             System.out.println("Name                 Count               Buyer               Price               Id\n");
-            System.out.format("%s%20s%40s%s60%80s", product.getName(), selectedProduct.getCount()
+            System.out.format("%s%20s%40s%s60%80s\n", product.getName(), selectedProduct.getCount()
                     , selectedProduct.getSeller().getName(), product.getPrice(), product.getId());
         }
     }
@@ -146,7 +146,7 @@ public class   BuyerMenu extends Menu {
 
     private void showProductsOrder(HashMap<Product, Integer> allProducts) {
         for (Product product:allProducts.keySet()) {
-            System.out.format("%s%20d",product.getName(), allProducts.get(product));
+            System.out.format("%s%20d\n",product.getName(), allProducts.get(product));
         }
     }
 
@@ -174,7 +174,7 @@ public class   BuyerMenu extends Menu {
         ArrayList<Discount> allDiscounts = buyerController.getAllDiscounts();
         System.out.println("Discount Code            Discount Percentage      Max number of usage      Number of usage");
         for (Discount discount:allDiscounts) {
-            System.out.format("%s%20f%40s%60s", discount.getDiscountCode(), discount.getDiscountPercentage()
+            System.out.format("%s%20f%40s%60s\n", discount.getDiscountCode(), discount.getDiscountPercentage()
                     , discount.getMaxNumberOfUsage(), discount.getNumberOfUsageBuyer(buyerController.getCurrentBuyer()));
         }
     }

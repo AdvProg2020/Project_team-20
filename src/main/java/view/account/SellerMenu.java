@@ -84,7 +84,7 @@ public class SellerMenu extends Menu {
     private void showProducts(HashMap<Product, Integer> allProducts) {
         System.out.println("Name                Count               Id");
         for (Product product:allProducts.keySet()) {
-            System.out.format("%s%20d%40s",product.getName(), allProducts.get(product), product.getId());
+            System.out.format("%s%20d%40s\n",product.getName(), allProducts.get(product), product.getId());
         }
     }
 
@@ -203,7 +203,7 @@ public class SellerMenu extends Menu {
         ArrayList<Sale> sales = sellerController.viewOffs();
         System.out.println("Id                  Off\n");
         for (Sale sale:sales) {
-            System.out.format("%s%20s", sale.getId(), sale.getSalePercentage());
+            System.out.format("%s%20s\n", sale.getId(), sale.getSalePercentage());
         }
     }
 
@@ -225,7 +225,7 @@ public class SellerMenu extends Menu {
         System.out.println("Products:");
         System.out.println("Name                Id");
         for (Product product:products) {
-            System.out.format("%s%20s", product.getName(), product.getId());
+            System.out.format("%s%20s\n", product.getName(), product.getId());
         }
     }
 
@@ -399,7 +399,7 @@ public class SellerMenu extends Menu {
         ArrayList<Product> products = Product.getAllProducts();
         for (Product product:products) {
             System.out.println("Name                id\n");
-            System.out.format("%s%20s", product.getName()
+            System.out.format("%s%20s\n", product.getName()
                     , product.getId());
         }
     }
