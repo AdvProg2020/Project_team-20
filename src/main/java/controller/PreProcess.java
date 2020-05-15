@@ -13,14 +13,23 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class PreProcess {
-    private BuyerController buyerController = BuyerController.getInstance();
-    private ArrayList<Buyer> buyers = new ArrayList<>();
-    private ArrayList<Account> allBuyers = Buyer.getAllAccounts();
+    private BuyerController buyerController;
+    private ArrayList<Buyer> buyers;
+    private ArrayList<Account> allBuyers;
     private ArrayList<GiftController> giftControllers;
+    ArrayList<Event> events;
+    ArrayList<Action> actions;
 
-    {
-        ArrayList<Event> events = new ArrayList<>();
-        ArrayList<Action> actions = new ArrayList<>();
+    public PreProcess() {
+        this.buyerController = BuyerController.getInstance();
+        this.buyers = new ArrayList<>();
+        this.allBuyers = Buyer.getAllAccounts();
+        this.giftControllers = new ArrayList<>();
+        this.events = new ArrayList<>();
+        this.actions = new ArrayList<>();
+    }
+
+    public void initialEvents() {
         events.add(() -> {
             double totalPrice = buyerController.getTotalPrice();
             return totalPrice >= 1000000;
@@ -49,8 +58,9 @@ public class PreProcess {
             }
             return count != 0;
         });
+    }
 
-
+    public void initialActions() {
         actions.add(() -> {
             Buyer buyer = buyerController.getCurrentBuyer();
             buyers.add(buyer);
@@ -77,13 +87,15 @@ public class PreProcess {
                     5, buyers);
             buyers.clear();
         });
+    }
 
-
+    public void processOnlyOneTime() {
+        initialEvents();
+        initialActions();
         giftControllers.add(new GiftController(actions.get(1), events.get(0)));
         giftControllers.add(new GiftController(actions.get(2), events.get(1)));
         giftControllers.add(new GiftController(actions.get(3), events.get(2)));
         giftControllers.add(new GiftController(actions.get(0), events.get(3)));
-
         giftControllers.get(3).perform();
     }
 

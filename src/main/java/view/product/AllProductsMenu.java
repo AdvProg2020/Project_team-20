@@ -14,7 +14,7 @@ public class AllProductsMenu extends Menu {
    private static AllProductsMenu allProductsMenu = null;
 
     private AllProductsMenu() {
-        super("allProductsMenu");
+        super("AllProductsMenu");
         setRegex();
         setMethods();
         allProductsController = AllProductsController.getInstance();

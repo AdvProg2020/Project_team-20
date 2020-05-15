@@ -1,7 +1,6 @@
 package controller.product.filter;
 
 import controller.MainController;
-import controller.account.user.SellerController;
 import model.account.GeneralAccount;
 import model.account.TempAccount;
 import model.product.Category;
@@ -24,7 +23,7 @@ public class AllProductsController extends Filterable {
 
     public static AllProductsController getInstance() {
         if (allProductsController == null)
-            return new AllProductsController();
+            allProductsController =  new AllProductsController();
         return allProductsController;
     }
 
