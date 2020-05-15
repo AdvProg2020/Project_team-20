@@ -143,5 +143,14 @@ public class Seller extends Account implements Requestable {
         state = RequestableState.REJECTED;
     }
 
-
+    @Override
+    public String toString() {
+        String buyerString = "Name                : " + name + "\n" +
+                "RequestType         : Seller" + "\n" +
+                "Username            : " + username + "\n" +
+                "Email               : " + email + "\n" +
+                "Credit              : " + credit + "\n" +
+                "Phone number        : " + phoneNumber;
+        return buyerString;
+    }
 }

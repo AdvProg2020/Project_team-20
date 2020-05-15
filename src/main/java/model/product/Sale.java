@@ -112,6 +112,13 @@ public class Sale implements Requestable {
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuilder productStr = new StringBuilder();
+        for (Product product:products) {
+            productStr.append(' ');
+            productStr.append(product.getName());
+        }
+        String buyerString = "RequestType         : Sale" + "\n" +
+                             "Products            : " + productStr;
+        return buyerString;
     }
 }

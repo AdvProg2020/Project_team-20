@@ -97,4 +97,16 @@ public class Buyer extends Account implements Requestable {
     public void changeStateRejected() {
         state = RequestableState.REJECTED;
     }
+
+    @Override
+    public String toString() {
+        String buyerString = "Name                : " + name + "\n" +
+                             "RequestType         : Buyer" + "\n" +
+                             "Username            : " + username + "\n" +
+                             "Email               : " + email + "\n" +
+                             "Address             : " + address + "\n" +
+                             "Credit              : " + credit + "\n" +
+                             "Phone number        : " + phoneNumber;
+        return buyerString;
+    }
 }

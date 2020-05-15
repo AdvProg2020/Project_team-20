@@ -282,4 +282,14 @@ public class Product implements Requestable {
             super("product doesn't exist");
         }
     }
+
+    @Override
+    public String toString() {
+        String buyerString = "Name                : " + name + "\n" +
+                             "RequestType         : Product" + "\n" +
+                             "Seller              : " + sellers.get(0).getName() + "\n" +
+                             "Price               : " + price.get(sellers.get(0)) + "\n" +
+                             "Count               : " + count.get(sellers.get(0));
+        return buyerString;
+    }
 }
