@@ -128,7 +128,7 @@ public class SellerMenu extends Menu {
         if (input.equalsIgnoreCase("yes"))
             getNumericalFields(numericalFields);
         System.out.println("Now you have to add optional fields of your product.");
-        System.out.println("Does your product has numerical fields? (yes/no)");
+        System.out.println("Does your product has optional fields? (yes/no)");
         input = scanner.nextLine();
         if (input.equalsIgnoreCase("yes"))
             getOptionalField(optionalFields);
