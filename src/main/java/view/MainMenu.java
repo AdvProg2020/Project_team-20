@@ -8,17 +8,22 @@ public class MainMenu extends Menu {
     }
 
     @Override
+    public void show() {
+        super.show();
+    }
+
+    @Override
     public void help() {
         super.help();
     }
 
     @Override
-    public void back() {
-        super.back();
+    public void enterWithName(String subMenuName) {
+        super.enterWithName(subMenuName);
     }
 
     @Override
-    public void enterWithName(String subMenuName) {
-        super.enterWithName(subMenuName);
+    public void back() {
+        super.back();
     }
 }

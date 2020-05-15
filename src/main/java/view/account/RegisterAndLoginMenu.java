@@ -92,4 +92,10 @@ public class RegisterAndLoginMenu extends Menu {
     public void enterWithName(String subMenuName) {
         super.enterWithName(subMenuName);
     }
+
+    @Override
+    public void back() {
+        super.back();
+    }
+
 }
