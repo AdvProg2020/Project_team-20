@@ -2,6 +2,7 @@ package model.product;
 
 import model.Requestable;
 import model.account.Account;
+import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
 
@@ -16,15 +17,17 @@ public class Sale implements Requestable {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Sale editedSale;
+    private Seller seller;
     double salePercentage;
 
-    public Sale(String id, ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage) {
+    public Sale(String id, ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage, Seller seller) {
         this.id = id;
         this.products = products;
         this.startDate = startDate;
         this.endDate = endDate;
         this.salePercentage = salePercentage;
         this.state =  RequestableState.CREATED;
+        this.seller = seller;
         allSalesCount++;
     }
 

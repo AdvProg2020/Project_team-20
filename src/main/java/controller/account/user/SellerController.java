@@ -221,7 +221,7 @@ public class SellerController implements AccountController {
             endDate = LocalDateTime.parse(details.get(1), formatter);
             double salePercentage = Double.parseDouble(details.get(2));
             ArrayList<Product> products = Product.getProductsWithIds(productIds);
-            Sale sale = new Sale(id, products, startDate, endDate, salePercentage);
+            Sale sale = new Sale(id, products, startDate, endDate, salePercentage, seller);
             Manager.addRequest(sale);
         } catch (Exception e) {
             throw new FormatInvalidException();
