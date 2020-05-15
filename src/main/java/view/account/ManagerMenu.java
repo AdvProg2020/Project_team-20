@@ -569,7 +569,7 @@ public class ManagerMenu extends Menu {
         }
     }
 
-    public void logoutManger() {
+    public void logoutManager() {
         managerController.logout();
         System.out.println("Logout Successful. GoodBye!");
     }

@@ -455,7 +455,7 @@ public class SellerMenu extends Menu {
         methods.add("addOff");
         methods.add("showAllProducts");
         methods.add("addToProduct");
-        methods.add("LogoutSeller");
+        methods.add("logoutSeller");
     }
 
     public void logoutSeller() {
