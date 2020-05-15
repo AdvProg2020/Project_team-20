@@ -21,6 +21,7 @@ public class Seller extends Account implements Requestable {
 
     public Seller(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
         super(name, lastName, email, phoneNumber, username, password, credit, AccountType.SELLER);
+        state = RequestableState.CREATED;
         this.saleHistory = new ArrayList<>();
         this.productsToSell = new HashMap<>();
         this.products = new ArrayList<>();
