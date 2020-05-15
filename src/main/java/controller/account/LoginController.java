@@ -1,10 +1,7 @@
 package controller.account;
 
 import controller.MainController;
-import model.account.Account;
-import model.account.Buyer;
-import model.account.Manager;
-import model.account.Seller;
+import model.account.*;
 
 import java.util.ArrayList;
 
@@ -59,7 +56,7 @@ public class LoginController {
         Manager.addRequest(new Seller(name, lastName, email, phoneNumber, username, password, credit));
     }
 
-    public void login(String username, String password) throws Exception {
+    public AccountType login(String username, String password) throws Exception {
         if (!Account.hasThisAccount(username)) {
             throw new AccountUnavailableException();
         }
@@ -68,6 +65,11 @@ public class LoginController {
             throw new IncorrectPasswordException();
         }
         MainController.getInstance().setAccount(account);
+        if (account instanceof Manager)
+            return AccountType.MANAGER;
+        else if (account instanceof Buyer)
+            return AccountType.BUYER;
+        return AccountType.SELLER;
     }
 
     //hosele nadaram check konam ke in baiad inja bashe ya na
