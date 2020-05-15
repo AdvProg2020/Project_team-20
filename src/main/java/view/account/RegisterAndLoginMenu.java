@@ -1,6 +1,7 @@
 package view.account;
 
 import controller.account.LoginController;
+import model.account.AccountType;
 import view.Menu;
 
 import java.util.ArrayList;
@@ -30,7 +31,14 @@ public class RegisterAndLoginMenu extends Menu {
         String password = Menu.scanner.nextLine();
         try{
             LoginController loginController = LoginController.getInstance();
-            loginController.login(username,password);
+            AccountType type = loginController.login(username,password);
+            if (type.equals(AccountType.MANAGER)) {
+                enterWithName("ManagerMenu");
+            } else if (type.equals(AccountType.BUYER)) {
+                enterWithName("BuyerMenu");
+            } else {
+                enterWithName("SellerMenu");
+            }
         }
         catch (Exception e){
             System.out.println(e.getMessage());
