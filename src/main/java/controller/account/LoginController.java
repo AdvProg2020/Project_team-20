@@ -2,6 +2,7 @@ package controller.account;
 
 import controller.MainController;
 import model.account.*;
+import model.product.Cart;
 
 import java.util.ArrayList;
 
@@ -64,11 +65,15 @@ public class LoginController {
         if(!account.getPassword().equals(password)) {
             throw new IncorrectPasswordException();
         }
+        MainController mainController = MainController.getInstance();
+        Cart cart = ((TempAccount)mainController.getAccount()).getCart();
         MainController.getInstance().setAccount(account);
         if (account instanceof Manager)
             return AccountType.MANAGER;
-        else if (account instanceof Buyer)
+        else if (account instanceof Buyer) {
+            ((Buyer)account).setCart(cart);
             return AccountType.BUYER;
+        }
         return AccountType.SELLER;
     }
 
