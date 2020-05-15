@@ -89,8 +89,12 @@ public class ManagerMenu extends Menu {
     //personalInfo
     public void viewPersonalInfo() {
         Account account = managerController.getAccountInfo();
-        System.out.println("UserName : " + account.getUsername() + "\n" + "Password : " + account.getPassword() + "\n" + "Name : " + account.getName() + "\n" + "LastName : " + account.getLastName() + "\n" + "Email : " + account.getEmail()
-                + "\n" + "PhoneNumber : " + account.getPhoneNumber());
+        System.out.println("UserName    : " + account.getUsername());
+        System.out.println("Password    : " + account.getPassword());
+        System.out.println("Name        : " + account.getName());
+        System.out.println("LastName    : " + account.getLastName());
+        System.out.println("Email       : " + account.getEmail());
+        System.out.println("PhoneNumber : " + account.getPhoneNumber());
     }
 
     public void editPersonalInfo(String field){
