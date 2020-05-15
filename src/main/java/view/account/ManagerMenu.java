@@ -373,7 +373,8 @@ public class ManagerMenu extends Menu {
        }
     }
 
-    public void acceptRequest(int id){
+    public void acceptRequest(double strId){
+        int id = (int)strId;
         try {
             managerController.acceptRequest(id);
         }
