@@ -1,6 +1,7 @@
 package controller.account.user;
 
 import controller.MainController;
+import controller.PreProcess;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
@@ -33,6 +34,9 @@ public class BuyerController implements AccountController {
     }
 
     public ArrayList<Discount> getAllDiscounts() {
+        PreProcess preProcess = new PreProcess();
+        preProcess.setBuyerController(buyerController);
+        preProcess.purchaseGift();
         return Discount.getAllDiscountsBuyer(currentBuyer);
     }
 
@@ -87,8 +91,10 @@ public class BuyerController implements AccountController {
         Cart cart = currentBuyer.getCart();
         ArrayList<Seller> sellers = cart.getAllSellers();
         for (Seller seller:sellers) {
-            seller.addToSaleHistory(new SellerReceipt(Integer.toString(SellerReceipt.getSellerReceiptCount()), discountPercentage, cart.getAllProductsSeller(seller),
-                    false, getTotalPriceTotalDiscountSeller(seller, 0), currentBuyer, getTotalPriceTotalDiscountSeller(seller, 1)));
+            seller.addToSaleHistory(new SellerReceipt(Integer.toString(SellerReceipt.getSellerReceiptCount()),
+                    discountPercentage, cart.getAllProductsSeller(seller),
+                    false, getTotalPriceTotalDiscountSeller(seller, 0), currentBuyer,
+                    getTotalPriceTotalDiscountSeller(seller, 1)));
         }
     }
 
@@ -115,7 +121,8 @@ public class BuyerController implements AccountController {
 
     private void makeBuyerReceipt(double totalPrice, double discountPercentage) {
         Cart cart = currentBuyer.getCart();
-        currentBuyer.addReceipt(new BuyerReceipt(Integer.toString(BuyerReceipt.getBuyerReceiptCount()), discountPercentage, cart.getAllProducts(), false, totalPrice, cart.getAllSellers()));
+        currentBuyer.addReceipt(new BuyerReceipt(Integer.toString(BuyerReceipt.getBuyerReceiptCount()),
+                discountPercentage, cart.getAllProducts(), false, totalPrice, cart.getAllSellers()));
     }
 
     private void pay(double totalPrice) throws Exception{
@@ -196,22 +203,28 @@ public class BuyerController implements AccountController {
     public void editField(String field, String context) {
         switch (field) {
             case "name":
-                currentBuyer.changeStateEdited(context, currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                currentBuyer.changeStateEdited(context, currentBuyer.getLastName(), currentBuyer.getEmail(),
+                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
                 break;
             case "lastName":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), context, currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                currentBuyer.changeStateEdited(currentBuyer.getName(), context, currentBuyer.getEmail(),
+                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
                 break;
             case "email":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), context, currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), context,
+                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
                 break;
             case "phoneNumber":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), context, currentBuyer.getPassword(), currentBuyer.getCredit());
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
+                        currentBuyer.getEmail(), context, currentBuyer.getPassword(), currentBuyer.getCredit());
                 break;
             case "password":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), context, currentBuyer.getCredit());
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
+                        currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), context, currentBuyer.getCredit());
                 break;
             case "credit":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), Integer.parseInt(context));
+                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
+                        currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), Integer.parseInt(context));
                 break;
         }
         Manager.addRequest(currentBuyer);
