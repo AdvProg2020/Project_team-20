@@ -12,6 +12,7 @@ import view.Menu;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 //import jdk.vm.ci.meta.Local;
 
@@ -357,9 +358,9 @@ public class ManagerMenu extends Menu {
 
     //manage requests
     public void manageRequests(){
-       ArrayList<Requestable> requests = managerController.manageRequests();
-       for(Requestable requestable:requests){
-           System.out.println(requestable.toString());
+       HashMap<Integer,Requestable> requests = managerController.manageRequests();
+       for(Integer id : requests.keySet()){
+           System.out.println("Request Id : "+id);
        }
     }
 

@@ -74,4 +74,8 @@ public class Manager extends Account {
     public static void setHasFirstManger(boolean hasFirstManger) {
         Manager.hasFirstManger = hasFirstManger;
     }
+
+    public static HashMap<Integer, Requestable> getRequestWithIds() {
+        return requestWithIds;
+    }
 }

@@ -15,6 +15,7 @@ import model.product.RequestableState;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.Callable;
 
 import static model.account.Manager.*;
@@ -131,8 +132,8 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     //requests
-    public ArrayList<Requestable> manageRequests(){
-        return getRequests();
+    public HashMap<Integer, Requestable> manageRequests() {
+        return getRequestWithIds();
     }
 
     public String requestDetails(int requestId) throws Exception{
