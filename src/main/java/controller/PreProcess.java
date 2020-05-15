@@ -16,35 +16,55 @@ public class PreProcess {
     private BuyerController buyerController;
     private ArrayList<Buyer> buyers;
     private ArrayList<Account> allBuyers;
-    private ArrayList<GiftController> giftControllers;
+    private ArrayList<GiftController> giftControllersArrayList;
     ArrayList<Event> events;
     ArrayList<Action> actions;
 
     public PreProcess() {
-        this.buyerController = BuyerController.getInstance();
         this.buyers = new ArrayList<>();
         this.allBuyers = Buyer.getAllAccounts();
-        this.giftControllers = new ArrayList<>();
+        this.giftControllersArrayList = new ArrayList<>();
         this.events = new ArrayList<>();
         this.actions = new ArrayList<>();
     }
 
-    public void initialEvents() {
-        events.add(() -> {
+
+    public void purchaseGift() {
+        Action[] actions = {() -> {
+            Buyer buyer = buyerController.getCurrentBuyer();
+            ArrayList<Buyer> buyerArrayList = new ArrayList<>();
+            buyerArrayList.add(buyer);
+            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS), 20,
+                    1, buyerArrayList);
+        }, () -> {
+            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.DAYS), 5,
+                    5, buyers);
+            buyers.clear();
+        }, () -> {
+            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.DAYS), 3,
+                    1, buyers);
+            buyers.clear();
+        }};
+        Event[] events = {() -> {
             double totalPrice = buyerController.getTotalPrice();
             return totalPrice >= 1000000;
-        });
-
-        events.add(() -> {
+        }, () -> {
             double totalPrice = buyerController.getTotalPrice();
             return totalPrice >= 10000000;
-        });
-
-        events.add(() -> {
+        }, () -> {
             double totalPrice = buyerController.getTotalPrice();
             return totalPrice >= 100000000;
-        });
+        }};
+        GiftController[] giftControllers = {new GiftController(actions[0], events[2]),
+                new GiftController(actions[1], events[1]),
+                new GiftController(actions[2], events[0])
+        };
+        for (GiftController giftController : giftControllers) {
+            giftController.perform();
+        }
+    }
 
+    public void initialEvents() {
         events.add(() -> {
             int count = 0;
             for (Account buyer : allBuyers) {
@@ -62,27 +82,6 @@ public class PreProcess {
 
     public void initialActions() {
         actions.add(() -> {
-            Buyer buyer = buyerController.getCurrentBuyer();
-            buyers.add(buyer);
-            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS), 20,
-                    1, buyers);
-            buyers.clear();
-        });
-
-        actions.add(() -> {
-            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.DAYS), 3,
-                    1, buyers);
-            buyers.clear();
-        });
-
-        actions.add(() -> {
-            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.DAYS), 5,
-                    5, buyers);
-            buyers.clear();
-        });
-
-
-        actions.add(() -> {
             new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.MONTHS), 5,
                     5, buyers);
             buyers.clear();
@@ -92,16 +91,13 @@ public class PreProcess {
     public void processOnlyOneTime() {
         initialEvents();
         initialActions();
-        giftControllers.add(new GiftController(actions.get(1), events.get(0)));
-        giftControllers.add(new GiftController(actions.get(2), events.get(1)));
-        giftControllers.add(new GiftController(actions.get(3), events.get(2)));
-        giftControllers.add(new GiftController(actions.get(0), events.get(3)));
-        giftControllers.get(3).perform();
+        giftControllersArrayList.add(new GiftController(actions.get(0), events.get(0)));
+        for (GiftController giftController : giftControllersArrayList) {
+            giftController.perform();
+        }
     }
 
-    public void doPreProcess() {
-        giftControllers.get(0).perform();
-        giftControllers.get(1).perform();
-        giftControllers.get(2).perform();
+    public void setBuyerController(BuyerController buyerController) {
+        this.buyerController = buyerController;
     }
 }

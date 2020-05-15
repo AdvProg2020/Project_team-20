@@ -7,13 +7,13 @@ import view.product.AllProductsMenu;
 
 public class Main {
     private static Menu currentMenu;
-    private static PreProcess preProcess;
+    private static PreProcess preProcess = new PreProcess();
 
     public static void main(String[] args) {
         initialMenus();
-        //preProcess.processOnlyOneTime();
+        //data base rp zadi inja ye boolean bezar ke hey nasaze
+        preProcess.processOnlyOneTime();
         while (true) {
-            //preProcess.doPreProcess();
             currentMenu.getCommand();
         }
     }
@@ -27,6 +27,4 @@ public class Main {
         Menu.addToAllMenus(RegisterAndLoginMenu.getInstance());
         Menu.addToAllMenus(AllProductsMenu.getInstance());
     }
-
-
 }

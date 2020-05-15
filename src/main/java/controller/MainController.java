@@ -12,7 +12,7 @@ public class MainController {
 
     private MainController() {
         this.cart = new Cart();
-        account = new TempAccount();
+        this.account = new TempAccount();
     }
 
     public static MainController getInstance() {
