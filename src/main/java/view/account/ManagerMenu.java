@@ -4,6 +4,7 @@ import controller.account.user.ManagerController;
 import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
+import model.account.Manager;
 import model.product.Category;
 import model.product.Discount;
 import model.product.Product;
@@ -82,7 +83,7 @@ public class ManagerMenu extends Menu {
         this.methods.add(18,"editCategory");
         this.methods.add(19,"addCategory");
         this.methods.add(20,"removeCategory");
-        this.methods.add(21,"logout");
+        this.methods.add(21,"logoutManager");
     }
 
     //personalInfo
@@ -242,7 +243,8 @@ public class ManagerMenu extends Menu {
         }
     }
 
-    public void viewDiscountCodeWithId(int id){
+    public void viewDiscountCodeWithId(double strId){
+        int id = (int)strId;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
         try {
             Discount discount = managerController.viewDiscountCode(id);
@@ -257,7 +259,8 @@ public class ManagerMenu extends Menu {
         }
     }
 
-    public void editDiscountCode(int id){
+    public void editDiscountCode(double strId){
+        int id = (int)strId;
         System.out.println("Fields:");
         System.out.println("1) Start Date"+"\n"+"2) End Date"+"\n"+"3) Discount Percentage"+"\n"+"4) maximum Number Of Usage"
         +"\n"+"5)edit buyers with this discount");
@@ -347,7 +350,8 @@ public class ManagerMenu extends Menu {
         }
     }
 
-    public void removeDiscountCode(int id){
+    public void removeDiscountCode(double strId){
+        int id = (int)strId;
         try {
             managerController.removeDiscountCodes(id);
         }
@@ -364,7 +368,8 @@ public class ManagerMenu extends Menu {
        }
     }
 
-    public void detailsOfRequest(int requestId){
+    public void detailsOfRequest(double strId){
+        int requestId = (int)strId;
         try {
            System.out.println(managerController.requestDetails(requestId));
         }
@@ -383,7 +388,8 @@ public class ManagerMenu extends Menu {
         }
     }
 
-    public void declineRequest(int id){
+    public void declineRequest(double strId){
+        int id = (int)strId;
         try {
             managerController.declineRequest(id);
         }
@@ -563,7 +569,7 @@ public class ManagerMenu extends Menu {
         }
     }
 
-    public void logout() {
+    public void logoutManger() {
         managerController.logout();
         System.out.println("Logout Successful. GoodBye!");
     }

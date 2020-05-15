@@ -2,6 +2,7 @@ package view.account;
 
 import controller.account.user.BuyerController;
 import model.account.Account;
+import model.account.Buyer;
 import model.product.Cart;
 import model.product.Discount;
 import model.product.Product;
@@ -217,7 +218,12 @@ public class   BuyerMenu extends Menu {
         methods.add("rate");
         methods.add("viewBalance");
         methods.add("viewDiscountCodes");
-        methods.add("logout");
+        methods.add("logoutBuyer");
+    }
+
+    public void logoutBuyer() {
+        buyerController.logout();
+        System.out.println("Logout Successful. GoodBye!");
     }
 
     @Override
