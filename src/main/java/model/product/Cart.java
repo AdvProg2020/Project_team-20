@@ -32,6 +32,10 @@ public class Cart {
             selectedProducts.remove(selectedProduct);
     }
 
+    public void resetCart() {
+        selectedProducts.clear();
+    }
+
     public SelectedProduct getSelectedProductByProductId(String id) throws Exception{
         for (SelectedProduct selectedProduct:selectedProducts) {
             if (selectedProduct.getProduct().getId().equals(id)) {

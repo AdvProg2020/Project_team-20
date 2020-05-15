@@ -65,6 +65,7 @@ public class BuyerController implements AccountController {
         pay(totalPrice);
         decreaseAllProductBought();
         makeReceipt(totalPrice, discountPercentage);
+        currentBuyer.getCart().resetCart();
     }
 
     private void decreaseAllProductBought() {
