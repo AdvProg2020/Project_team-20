@@ -128,6 +128,14 @@ public class AllProductsMenu extends Menu {
         System.out.println("The sort was disabled. The default sort is viewsSort.");
     }
 
+    public void purchase() {
+        try {
+            allProductsController.purchase();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void setRegex() {
         regex.add("view categories");
         regex.add("show products");
@@ -140,6 +148,7 @@ public class AllProductsMenu extends Menu {
         regex.add("sort (ByScores|ByDates|ByNumberOfViews)");
         regex.add("current sort");
         regex.add("disable sort");
+        regex.add("purchase");
     }
 
     private void setMethods() {
@@ -154,6 +163,7 @@ public class AllProductsMenu extends Menu {
         methods.add("sort");
         methods.add("showCurrentSort");
         methods.add("disableSort");
+        methods.add("purchase");
     }
 
     @Override

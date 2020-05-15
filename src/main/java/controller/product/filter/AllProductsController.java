@@ -10,7 +10,6 @@ import model.product.Product;
 import java.util.ArrayList;
 
 public class AllProductsController extends Filterable {
-    private String sortElement;
     MainController mainController;
     GeneralAccount generalAccount;
 
