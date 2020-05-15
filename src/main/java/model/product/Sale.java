@@ -41,6 +41,7 @@ public class Sale implements Requestable {
 
     public void changeStateAccepted() {
         state = RequestableState.ACCEPTED;
+        seller.addSale(this);
     }
 
     public void changeStateRejected() {
