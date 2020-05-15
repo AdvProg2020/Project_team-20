@@ -12,10 +12,10 @@ public class RegisterAndLoginMenu extends Menu {
 
     private RegisterAndLoginMenu() {
         super("RegisterAndLoginMenu");
-        this.regex.add(0,"create account (manager|buyer|seller) (\\w+)");
-        this.regex.add(1,"login (\\w+)");
-        this.methods.add(0,"loginUser");
-        this.methods.add(1,"registerUser");
+        this.regex.add("create account (manager|buyer|seller) (\\w+)");
+        this.regex.add("login (\\w+)");
+        this.methods.add("registerUser");
+        this.methods.add("loginUser");
         preProcess();
     }
 
@@ -32,11 +32,11 @@ public class RegisterAndLoginMenu extends Menu {
             LoginController loginController = LoginController.getInstance();
             AccountType type = loginController.login(username,password);
             if (type.equals(AccountType.MANAGER)) {
-                enterWithName("ManagerMenu");
+                enter(ManagerMenu.getInstance());
             } else if (type.equals(AccountType.BUYER)) {
-                enterWithName("BuyerMenu");
+                enter(BuyerMenu.getInstance());
             } else {
-                enterWithName("SellerMenu");
+                enter(SellerMenu.getInstance());
             }
         }
         catch (Exception e){
@@ -47,17 +47,19 @@ public class RegisterAndLoginMenu extends Menu {
 
     public void registerUser(String type , String username){
         System.out.println("please enter your password:");
-        String password = Menu.scanner.nextLine();
+        String password = scanner.nextLine();
         System.out.println("please enter your name:");
-        String name = Menu.scanner.nextLine();
+        String name = scanner.nextLine();
         System.out.println("please enter your lastName:");
-        String lastName = Menu.scanner.nextLine();
+        String lastName = scanner.nextLine();
         System.out.println("please enter your email:");
-        String email = Menu.scanner.nextLine();
+        String email = scanner.nextLine();
         System.out.println("please enter your phone number:");
-        String phoneNumber = Menu.scanner.nextLine();
+        String phoneNumber = scanner.nextLine();
+        System.out.println("please enter your credit");
+        String credit = scanner.nextLine();
         System.out.println("Thank you:) " + "Please wait for your information to be verified");
-        ArrayList<String> details = addDetails(name,lastName,email,phoneNumber,password);
+        ArrayList<String> details = addDetails(name,lastName,email,phoneNumber,password,credit);
         try{
             LoginController loginController = LoginController.getInstance();
             loginController.createAccount(username,type,details);
@@ -68,13 +70,15 @@ public class RegisterAndLoginMenu extends Menu {
         }
     }
 
-    private ArrayList<String> addDetails(String name,String lastName,String email,String phoneNumber,String password){
+    private ArrayList<String> addDetails(String name,String lastName,String email,String phoneNumber,String password,
+                                         String credit){
         ArrayList<String> detail = new ArrayList<>();
-        detail.add(0,name);
-        detail.add(1,lastName);
-        detail.add(2,email);
-        detail.add(3,phoneNumber);
-        detail.add(4,password);
+        detail.add(name);
+        detail.add(lastName);
+        detail.add(email);
+        detail.add(phoneNumber);
+        detail.add(password);
+        detail.add(credit);
         return detail;
     }
 

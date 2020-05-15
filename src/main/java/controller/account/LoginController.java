@@ -35,12 +35,14 @@ public class LoginController {
         }
     }
 
-    private void createManagerAccount(String username, ArrayList<String> details) {
+    private void createManagerAccount(String username, ArrayList<String> details) throws Exception {
         String name = details.get(0), lastName = details.get(1), email = details.get(2), phoneNumber = details.get(3),
                 password = details.get(4);
         double credit = Double.parseDouble(details.get(5));
-        boolean firstManager = Boolean.parseBoolean(details.get(6));
-        Account.addAccount(new Manager(name, lastName, email, phoneNumber, username, password, credit, firstManager));
+        if (Manager.isHasFirstManger()) {
+            throw new ThereIsFirstManagerException();
+        }
+        Account.addAccount(new Manager(name, lastName, email, phoneNumber, username, password, credit, true));
     }
 
     private void createBuyerAccount(String username, ArrayList<String> details) {
@@ -62,16 +64,16 @@ public class LoginController {
             throw new AccountUnavailableException();
         }
         Account account = Account.getAccountWithUsername(username);
-        if(!account.getPassword().equals(password)) {
+        if (!account.getPassword().equals(password)) {
             throw new IncorrectPasswordException();
         }
         MainController mainController = MainController.getInstance();
-        Cart cart = ((TempAccount)mainController.getAccount()).getCart();
+        Cart cart = ((TempAccount) mainController.getAccount()).getCart();
         MainController.getInstance().setAccount(account);
         if (account instanceof Manager)
             return AccountType.MANAGER;
         else if (account instanceof Buyer) {
-            ((Buyer)account).setCart(cart);
+            ((Buyer) account).setCart(cart);
             return AccountType.BUYER;
         }
         return AccountType.SELLER;
@@ -97,6 +99,12 @@ public class LoginController {
     public static class IncorrectPasswordException extends Exception {
         public IncorrectPasswordException() {
             super("password is incorrect");
+        }
+    }
+
+    public static class ThereIsFirstManagerException extends Exception {
+        public ThereIsFirstManagerException() {
+            super("there is a first manager");
         }
     }
 }

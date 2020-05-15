@@ -4,6 +4,7 @@ import view.MainMenu;
 import view.Menu;
 import view.account.RegisterAndLoginMenu;
 import view.product.AllProductsMenu;
+import view.product.SaleMenu;
 
 public class Main {
     private static Menu currentMenu;
@@ -26,5 +27,6 @@ public class Main {
         currentMenu = new MainMenu();
         Menu.addToAllMenus(RegisterAndLoginMenu.getInstance());
         Menu.addToAllMenus(AllProductsMenu.getInstance());
+        Menu.addToAllMenus(SaleMenu.getInstance());
     }
 }

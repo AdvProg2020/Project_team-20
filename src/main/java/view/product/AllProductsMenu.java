@@ -18,7 +18,7 @@ public class AllProductsMenu extends Menu {
         setRegex();
         setMethods();
         allProductsController = AllProductsController.getInstance();
-        showProducts();
+        //showProducts();
         preProcess();
     }
 
@@ -149,6 +149,7 @@ public class AllProductsMenu extends Menu {
         regex.add("current sort");
         regex.add("disable sort");
         regex.add("purchase");
+        regex.add("showProducts");
     }
 
     private void setMethods() {
@@ -164,6 +165,7 @@ public class AllProductsMenu extends Menu {
         methods.add("showCurrentSort");
         methods.add("disableSort");
         methods.add("purchase");
+        methods.add("showProducts");
     }
 
     @Override

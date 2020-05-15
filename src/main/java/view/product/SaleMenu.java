@@ -18,7 +18,7 @@ public class SaleMenu extends Menu {
         setRegex();
         setMethods();
         saleController = new SaleController();
-        showOffs();
+        //showOffs();
         preProcess();
     }
 
@@ -121,6 +121,7 @@ public class SaleMenu extends Menu {
         regex.add("sort (ByScores|ByDates|ByNumberOfViews)");
         regex.add("current sort");
         regex.add("disable sort");
+        regex.add("showOffs");
     }
 
     private void setMethods() {
@@ -133,6 +134,7 @@ public class SaleMenu extends Menu {
         methods.add("sort");
         methods.add("showCurrentSort");
         methods.add("disableSort");
+        methods.add("showOffs");
     }
 
     public static SaleMenu getInstance() {

@@ -8,8 +8,9 @@ import java.util.HashMap;
 public class Manager extends Account {
     private boolean firstManager;
     public static int numberOfRequests;
+    private static boolean hasFirstManger = false;
     private static ArrayList<Requestable> requests = new ArrayList<>();
-    private static HashMap<Integer,Requestable> requestWithIds = new HashMap<>();
+    private static HashMap<Integer, Requestable> requestWithIds = new HashMap<>();
 
     public Manager(String name, String lastName, String email, String phoneNumber, String username, String password,
                    double credit, boolean firstManager) {
@@ -40,7 +41,7 @@ public class Manager extends Account {
 
     public static void addRequest(Requestable request) {
         numberOfRequests++;
-        requestWithIds.put(numberOfRequests , request);
+        requestWithIds.put(numberOfRequests, request);
         requests.add(request);
     }
 
@@ -53,10 +54,10 @@ public class Manager extends Account {
         return requests;
     }
 
-    public static Requestable findRequestWithId(int requestId) throws Exception{
+    public static Requestable findRequestWithId(int requestId) throws Exception {
         Requestable requestable = requestWithIds.get(requestId);
-        if(requestable!=null)
-        return requestWithIds.get(requestId);
+        if (requestable != null)
+            return requestWithIds.get(requestId);
         throw new requestNotFoundException();
     }
 
@@ -66,5 +67,11 @@ public class Manager extends Account {
         }
     }
 
+    public static boolean isHasFirstManger() {
+        return hasFirstManger;
+    }
 
+    public static void setHasFirstManger(boolean hasFirstManger) {
+        Manager.hasFirstManger = hasFirstManger;
+    }
 }

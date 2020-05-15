@@ -30,7 +30,7 @@ public abstract class Menu {
         this.methods.add("enterWithName");
         this.methods.add("back");
         this.methods.add("help");
-        this.regex.add("enter (RegisterAndLoginMenu|AllProductsMenu)");
+        this.regex.add("enter (RegisterAndLoginMenu|AllProductsMenu|SaleMenu)");
         this.regex.add("back");
         this.regex.add("help");
     }
