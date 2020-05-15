@@ -434,6 +434,7 @@ public class SellerMenu extends Menu {
         regex.add("add off");
         regex.add("show all products");
         regex.add("add me to product (\\w+)");
+        regex.add("logout");
     }
 
     public void setMethods() {
@@ -454,6 +455,12 @@ public class SellerMenu extends Menu {
         methods.add("addOff");
         methods.add("showAllProducts");
         methods.add("addToProduct");
+        methods.add("LogoutSeller");
+    }
+
+    public void logoutSeller() {
+        sellerController.logout();
+        System.out.println("Logout Successful. GoodBye!");
     }
 
     @Override
