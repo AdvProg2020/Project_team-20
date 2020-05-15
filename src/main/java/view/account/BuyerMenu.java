@@ -178,7 +178,7 @@ public class   BuyerMenu extends Menu {
         }
     }
 
-    private void logout() {
+    public void logout() {
         buyerController.logout();
         System.out.println("Logout Successful. GoodBye!");
 

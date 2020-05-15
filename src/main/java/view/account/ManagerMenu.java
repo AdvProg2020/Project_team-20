@@ -56,6 +56,7 @@ public class ManagerMenu extends Menu {
         this.regex.add(18,"edit (\\w+)");
         this.regex.add(19,"add (\\w+)");
         this.regex.add(20,"remove (\\w+)");
+        this.regex.add(21,"logout");
     }
 
     private void setMethods(){
@@ -80,6 +81,7 @@ public class ManagerMenu extends Menu {
         this.methods.add(18,"editCategory");
         this.methods.add(19,"addCategory");
         this.methods.add(20,"removeCategory");
+        this.methods.add(21,"logout");
     }
 
     //personalInfo
@@ -558,6 +560,11 @@ public class ManagerMenu extends Menu {
         catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public void logout() {
+        managerController.logout();
+        System.out.println("Logout Successful. GoodBye!");
     }
 
     @Override
