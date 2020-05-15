@@ -77,7 +77,8 @@ public class Product implements Requestable {
     public void changeStateAccepted() {
         state = RequestableState.ACCEPTED;
         Seller seller = sellers.get(0);
-        seller.addProduct(this);
+        int num = count.get(seller);
+        seller.addToProductsToSell(this, num);
         allProducts.add(this);
     }
 

@@ -59,7 +59,7 @@ public class Seller extends Account implements Requestable {
         this.saleHistory.add(saleHistory);
     }
 
-    public void AddToProductsToSell(Product product, int number) {
+    public void addToProductsToSell(Product product, int number) {
         this.productsToSell.put(product, number);
         this.products.add(product);
     }
