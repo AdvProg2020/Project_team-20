@@ -22,7 +22,6 @@ public class RegisterAndLoginMenu extends Menu {
     public static RegisterAndLoginMenu getInstance() {
         if (single_instance == null)
             single_instance = new RegisterAndLoginMenu();
-
         return single_instance;
     }
 

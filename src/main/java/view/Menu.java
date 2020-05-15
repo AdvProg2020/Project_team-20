@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Menu {
-    private static ArrayList<Menu> allMenus;
+    private static ArrayList<Menu> allMenus = new ArrayList<>();
     protected static Scanner scanner;
     protected String name;
     protected String command;
@@ -30,7 +30,7 @@ public abstract class Menu {
         this.methods.add("enterWithName");
         this.methods.add("back");
         this.methods.add("help");
-        this.regex.add("enter (RegistrationMenu|AllProductsMenu)");
+        this.regex.add("enter (RegisterAndLoginMenu|AllProductsMenu)");
         this.regex.add("back");
         this.regex.add("help");
     }
@@ -103,7 +103,7 @@ public abstract class Menu {
         System.out.println("Help command:");
         System.out.println("these are the commands you can use in " + this.getName());
         for (int i = 0; i < methods.size(); i++) {
-            System.out.println(i + ") " + methods.get(i));
+            System.out.println(i + 1 + ") " + regex.get(i));
         }
     }
 

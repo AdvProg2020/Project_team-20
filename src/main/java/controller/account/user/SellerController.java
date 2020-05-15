@@ -30,7 +30,7 @@ public class SellerController implements AccountController {
 
     public static SellerController getInstance() {
         if (sellerController == null)
-            return new SellerController();
+            sellerController =  new SellerController();
         return sellerController;
     }
 
