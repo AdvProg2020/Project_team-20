@@ -357,6 +357,7 @@ public class ManagerMenu extends Menu {
     public void manageRequests(){
        ArrayList<Requestable> requests = managerController.manageRequests();
        for(Requestable requestable:requests){
+           System.out.println("____________________");
            System.out.println(requestable.toString());
        }
     }
