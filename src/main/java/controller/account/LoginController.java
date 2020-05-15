@@ -43,6 +43,7 @@ public class LoginController {
             throw new ThereIsFirstManagerException();
         }
         Account.addAccount(new Manager(name, lastName, email, phoneNumber, username, password, credit, true));
+        Manager.setHasFirstManger(true);
     }
 
     private void createBuyerAccount(String username, ArrayList<String> details) {
