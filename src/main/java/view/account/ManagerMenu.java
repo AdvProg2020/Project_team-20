@@ -570,6 +570,11 @@ public class ManagerMenu extends Menu {
     }
 
     @Override
+    public void enterWithName(String subMenuName) {
+        super.enterWithName(subMenuName);
+    }
+
+    @Override
     public void back() {
         super.back();
     }
