@@ -55,6 +55,10 @@ public class Seller extends Account implements Requestable {
         return details;
     }
 
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
     public void addToSaleHistory(SellerReceipt saleHistory) {
         this.saleHistory.add(saleHistory);
     }
