@@ -58,11 +58,13 @@ public class RegisterAndLoginMenu extends Menu {
         String phoneNumber = scanner.nextLine();
         System.out.println("please enter your credit");
         String credit = scanner.nextLine();
+        System.out.println("please insert your company information(if you are not seller you can just type hi:D)");
+        String detail = scanner.nextLine();
         System.out.println("Thank you:) " + "Please wait for your information to be verified");
         ArrayList<String> details = addDetails(name,lastName,email,phoneNumber,password,credit);
         try{
             LoginController loginController = LoginController.getInstance();
-            loginController.createAccount(username,type,details);
+            loginController.createAccount(username,type,details,detail);
         }
         catch (Exception e){
             System.out.println(e.getMessage());

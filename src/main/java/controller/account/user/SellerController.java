@@ -35,8 +35,7 @@ public class SellerController implements AccountController {
     }
 
     public String viewCompanyInformation() {
-        HashMap<String, String> details = seller.getDetails();
-        return details.get("CompanyInformation");
+        return seller.getDetails();
     }
 
     public ArrayList<SellerReceipt> viewSalesHistory() {
@@ -300,26 +299,26 @@ public class SellerController implements AccountController {
         switch (field) {
             case "name":
                 seller.changeStateEdited(context, seller.getLastName(), seller.getEmail(), seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit());
+                        seller.getPassword(), seller.getCredit(),seller.getDetails());
                 break;
             case "lastName":
                 seller.changeStateEdited(seller.getName(), context, seller.getEmail(), seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit());
+                        seller.getPassword(), seller.getCredit(),seller.getDetails());
             case "email":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), context, seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit());
+                        seller.getPassword(), seller.getCredit(),seller.getDetails());
                 break;
             case "phoneNumber":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(), context,
-                        seller.getPassword(), seller.getCredit());
+                        seller.getPassword(), seller.getCredit(),seller.getDetails());
                 break;
             case "password":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), context, seller.getCredit());
+                        seller.getPhoneNumber(), context, seller.getCredit(),seller.getDetails());
                 break;
             case "credit":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), seller.getPassword(), Integer.parseInt(context));
+                        seller.getPhoneNumber(), seller.getPassword(), Integer.parseInt(context),seller.getDetails());
         }
         Manager.addRequest(seller);
     }
