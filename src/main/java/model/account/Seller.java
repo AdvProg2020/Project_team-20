@@ -154,9 +154,16 @@ public class Seller extends Account implements Requestable {
                 "Username            : " + username + "\n" +
                 "Email               : " + email + "\n" +
                 "Credit              : " + credit + "\n" +
-                "Phone number        : " + phoneNumber;
-        if (state.equals(RequestableState.EDITED))
+                "Phone number        : " + phoneNumber + "\n";
+        if (state.equals(RequestableState.EDITED)) {
             sellerString = "<Edited>\n" + sellerString;
+            sellerString += "Edited Fields:\n";
+            sellerString += "Name                : " + editedSeller.getName() + "\n" +
+                    "RequestType         : Seller" + "\n" +
+                    "Email               : " + editedSeller.getEmail() + "\n" +
+                    "Credit              : " + editedSeller.getCredit() + "\n" +
+                    "Phone number        : " + editedSeller.getPhoneNumber();
+        }
         return sellerString;
     }
 }

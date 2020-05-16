@@ -4,6 +4,9 @@ import controller.account.user.SellerController;
 import model.account.Account;
 import model.account.Buyer;
 import model.product.Category;
+import model.product.Field.Field;
+import model.product.Field.NumericalField;
+import model.product.Field.OptionalField;
 import model.product.Product;
 import model.product.Sale;
 import model.receipt.SellerReceipt;
@@ -46,7 +49,7 @@ public class SellerMenu extends Menu {
     public void editField(String field) {
         if (!field.equalsIgnoreCase("name") && !field.equalsIgnoreCase("last name") &&
                 !field.equalsIgnoreCase("email") && !field.equalsIgnoreCase("phone number") &&
-                !field.equalsIgnoreCase("password") && !field.equalsIgnoreCase("username") &&
+                !field.equalsIgnoreCase("password") && !field.equalsIgnoreCase("credit") &&
                 !field.equalsIgnoreCase("field")) {
             System.out.println("Field is not valid!");
         }
@@ -98,6 +101,19 @@ public class SellerMenu extends Menu {
             System.out.println("Name                : " + product.getName());
             System.out.println("Count               : " + sellerController.getProductCount(product));
             System.out.println("Id                  : " + product.getId());
+            System.out.println("Description         : " + product.getDescription());
+            System.out.println("Fields              : ");
+            for (Field field:product.getGeneralFields()) {
+                if (field instanceof NumericalField)
+                    System.out.format("%-20s: %f",field.getName(), ((NumericalField)field).getNumericalField());
+                else {
+                    System.out.println(((OptionalField)field).getName() + " : ");
+                    for (String fieldStr:((OptionalField)field).getOptionalFiled()) {
+                        System.out.println(fieldStr + " ");
+                    }
+                    System.out.println();
+                }
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -260,7 +276,7 @@ public class SellerMenu extends Menu {
         System.out.println("Welcome to edit product menu!");
         System.out.println("How many fields do you want to edit?");
         int count = Integer.parseInt(scanner.nextLine());
-        ArrayList<String> details = new ArrayList<>();
+        ArrayList<String> details = new ArrayList<>(3);
         ArrayList<String> numericalFieldsToRemove = new ArrayList<>();
         HashMap<String, Double> numericalFieldsToAdd = new HashMap<>();
         ArrayList<String> optionalFieldsToRemove = new ArrayList<>();
