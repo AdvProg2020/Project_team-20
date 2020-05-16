@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Sale implements Requestable {
-    static public int allSalesCount = 0;
+    static public int allSalesCount = 1;
     private String id;
     private ArrayList<Product> products;
     private RequestableState state;
@@ -100,7 +100,7 @@ public class Sale implements Requestable {
     }
 
     public double getSalePercentage() {
-        return salePercentage;
+        return (salePercentage*100);
     }
 
     public static ArrayList<Sale> getAllSales() {
@@ -118,8 +118,8 @@ public class Sale implements Requestable {
     public String toString() {
         StringBuilder productStr = new StringBuilder();
         for (Product product:products) {
-            productStr.append(' ');
             productStr.append(product.getName());
+            productStr.append(' ');
         }
         String buyerString = "RequestType         : Sale" + "\n" +
                              "Products            : " + productStr;

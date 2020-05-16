@@ -220,7 +220,7 @@ public class SellerController implements AccountController {
         try {
             startDate = LocalDateTime.parse(details.get(0), formatter);
             endDate = LocalDateTime.parse(details.get(1), formatter);
-            double salePercentage = Double.parseDouble(details.get(2));
+            double salePercentage = Double.parseDouble(details.get(2))/100;
             ArrayList<Product> products = Product.getProductsWithIds(productIds);
             Sale sale = new Sale(id, products, startDate, endDate, salePercentage, seller);
             Manager.addRequest(sale);

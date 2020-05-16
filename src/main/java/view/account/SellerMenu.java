@@ -204,7 +204,7 @@ public class SellerMenu extends Menu {
         ArrayList<Sale> sales = sellerController.viewOffs();
         System.out.format("%-20s%-20s\n","Id","Off");
         for (Sale sale:sales) {
-            System.out.format("%-20s%-20s\n", sale.getId(), sale.getSalePercentage());
+            System.out.format("%-20s%s%s\n", sale.getId(), sale.getSalePercentage(), "%");
         }
     }
 
