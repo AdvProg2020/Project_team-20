@@ -19,7 +19,6 @@ public class SaleMenu extends Menu {
         setRegex();
         setMethods();
         saleController = new SaleController();
-        //showOffs();
         preProcess();
     }
 
@@ -103,10 +102,10 @@ public class SaleMenu extends Menu {
 
     public void showOffs() {
         ArrayList<Sale> sales = saleController.getAllSales();
-        System.out.println("Name                Price                Off                 Id\n");
+        System.out.format("%-20s%-20s%-20s%-20s","Name","Price","Off","Id\n");
         for (Sale sale:sales) {
             for (Product product:sale.getProducts()) {
-                System.out.format("%s%20s%40f%60s", product.getName(), product.getPrice(),
+                System.out.format("%-20s%-20s%-20f%-20s", product.getName(), product.getPrice(sale.getSeller()),
                         sale.getSalePercentage(), product.getId());
             }
         }

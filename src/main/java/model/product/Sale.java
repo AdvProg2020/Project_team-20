@@ -113,6 +113,10 @@ public class Sale implements Requestable {
         return allSales;
     }
 
+    public Seller getSeller() {
+        return seller;
+    }
+
     @Override
     public String toString() {
         StringBuilder productStr = new StringBuilder();
