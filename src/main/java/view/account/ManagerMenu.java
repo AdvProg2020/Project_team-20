@@ -55,9 +55,9 @@ public class ManagerMenu extends Menu {
         this.regex.add(15,"accept (\\d+)");
         this.regex.add(16,"decline (\\d+)");
         this.regex.add(17,"manage categories");
-        this.regex.add(18,"edit (\\w+)");
-        this.regex.add(19,"add (\\w+)");
-        this.regex.add(20,"remove (\\w+)");
+        this.regex.add(18,"edit category (\\w+)");
+        this.regex.add(19,"add category (\\w+)");
+        this.regex.add(20,"remove category (\\w+)");
         this.regex.add(21,"logout");
     }
 
