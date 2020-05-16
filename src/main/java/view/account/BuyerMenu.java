@@ -164,7 +164,7 @@ public class   BuyerMenu extends Menu {
         }
     }
 
-    private void viewDiscountCodes() {
+    public void viewDiscountCodes() {
         ArrayList<Discount> allDiscounts = buyerController.getAllDiscounts();
         System.out.format("%-20s%-20s%-20s%-20s\n","Discount Code","Discount Percentage","Max number of usage","Number of usage");
         for (Discount discount:allDiscounts) {
