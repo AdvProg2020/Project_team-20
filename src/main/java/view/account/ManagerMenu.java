@@ -44,7 +44,7 @@ public class ManagerMenu extends Menu {
         this.regex.add(4,"delete user (\\w+)");
         this.regex.add(5,"create manager profile");
         this.regex.add(6,"manage all products");
-        this.regex.add(7,"remove (\\w+)");
+        this.regex.add(7,"remove (\\d+)");
         this.regex.add(8,"create discount code");
         this.regex.add(9,"view discount codes");
         this.regex.add(10,"view discount code (\\d+)");
@@ -163,9 +163,10 @@ public class ManagerMenu extends Menu {
         }
     }
 
-    public void removeProductWithID(String productId){
+    public void removeProductWithID(double productId){
         try {
-            managerController.mangerRemoveProduct(productId);
+            int id = (int) productId;
+            managerController.mangerRemoveProduct(String.valueOf(id));
             System.out.println("product was successfully removed.");
         }
         catch (Exception e){
