@@ -194,7 +194,7 @@ public class SellerController implements AccountController {
             }
         } else endDate = sale.getEndDate();
         if (!details.get(2).isEmpty()) {
-            salePercentage = Double.parseDouble(details.get(2));
+            salePercentage = Double.parseDouble(details.get(2))/100;
         } else salePercentage = sale.getSalePercentage();
         //momkene hamchin producty tosh nabashe onvaght chi(in ro throw mikone hala baiad check she
         for (Product product : productsToRemove) {
