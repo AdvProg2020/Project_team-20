@@ -44,7 +44,7 @@ public class ManagerMenu extends Menu {
         this.regex.add(4,"delete user (\\w+)");
         this.regex.add(5,"create manager profile");
         this.regex.add(6,"manage all products");
-        this.regex.add(7,"remove (\\w+)");
+        this.regex.add(7,"remove (\\d+)");
         this.regex.add(8,"create discount code");
         this.regex.add(9,"view discount codes");
         this.regex.add(10,"view discount code (\\d+)");
@@ -163,9 +163,10 @@ public class ManagerMenu extends Menu {
         }
     }
 
-    public void removeProductWithID(String productId){
+    public void removeProductWithID(double productId){
         try {
-            managerController.mangerRemoveProduct(productId);
+            int id = (int) productId;
+            managerController.mangerRemoveProduct(String.valueOf(id));
             System.out.println("product was successfully removed.");
         }
         catch (Exception e){
@@ -194,6 +195,7 @@ public class ManagerMenu extends Menu {
         int i=0;
         ArrayList<Buyer> buyersWithDiscount = new ArrayList<>();
         System.out.println("please write the username of those who can use this discount:");
+        Menu.scanner.nextLine();
         while(i<n){
             String userName = Menu.scanner.nextLine();
             try {
@@ -227,7 +229,7 @@ public class ManagerMenu extends Menu {
 
     private LocalDateTime getEndDate(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
-        System.out.println("please write discount start date and time (your format should be like this --> MM/dd/yyyy 'at' hh:mm PM/AM):");
+        System.out.println("please write discount end date and time (your format should be like this --> MM/dd/yyyy 'at' hh:mm PM/AM):");
         String endDateTime = Menu.scanner.nextLine();
         LocalDateTime endDate;
         try {
@@ -246,7 +248,7 @@ public class ManagerMenu extends Menu {
         int i = 1;
         for(Discount discount:discounts){
             System.out.println(i+")");
-            System.out.println("discountCode: "+discount.getDiscountCode());
+            System.out.println("discountCode:       "+discount.getDiscountCode());
             System.out.println("discountPercentage: "+discount.getDiscountPercentage());
             i++;
         }
@@ -320,6 +322,7 @@ public class ManagerMenu extends Menu {
                 break;
             case 5:
                 editBuyersWithDiscount(id);
+                break;
             default:
                 System.out.println("invalid input :)");
                 editDiscountCode(id);
@@ -331,6 +334,7 @@ public class ManagerMenu extends Menu {
         System.out.println("1)remove buyer from list of buyers"+"\n"+"2)add buyer to list of buyers");
         int n = Menu.scanner.nextInt();
         System.out.println("please enter username:");
+        Menu.scanner.nextLine();
         String username = Menu.scanner.nextLine();
         switch (n){
             case 1:
@@ -420,6 +424,7 @@ public class ManagerMenu extends Menu {
         System.out.println("1)Change category's name"+"\n"+"2)Add new field"+"\n"+"3)Remove field"+"\n"+"4)Add new subCategory"
         +"\n"+"5)Remove subCategory"+"\n"+"6)Remove product"+"\n"+"7)Add new Product");
         int n = Menu.scanner.nextInt();
+        Menu.scanner.nextLine();
         editFieldsForCategory(name , n);
     }
 
@@ -498,6 +503,7 @@ public class ManagerMenu extends Menu {
     }
 
     public void addCategory(String name){
+        managerController.addCategory(name);
         addProductPart(name);
         addSubCategoryPart(name);
         addFieldPart(name);

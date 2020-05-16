@@ -48,6 +48,8 @@ public class   BuyerMenu extends Menu {
             try {
                 System.out.println("Please insert the new field");
                 String context = scanner.nextLine().trim();
+                if (context.equalsIgnoreCase("undo"))
+                    return;
                 buyerController.editField(field, context);
             }
             catch (Exception e){
@@ -57,11 +59,11 @@ public class   BuyerMenu extends Menu {
 
     public void viewCart() {
         Cart cart = buyerController.viewCart();
+        System.out.format("%-20s%-20s%-20s%-20s%-20s\n","Name","Count","Buyer","Price","Id");
         for (SelectedProduct selectedProduct:cart.getSelectedProducts()) {
             Product product = selectedProduct.getProduct();
-            System.out.format("%-20s%-20s%-20s%-20s%-20s\n","Name","Count","Buyer","Price","Id");
-            System.out.format("%-20s%-20s%-20s%s-20%-20s\n", product.getName(), selectedProduct.getCount()
-                    , selectedProduct.getSeller().getName(), product.getPrice(), product.getId());
+            System.out.format("%-20s%-20s%-20s%-20s%-20s\n", product.getName(), selectedProduct.getCount()
+                    , (selectedProduct.getSeller()).getUsername(), product.getPrice(selectedProduct.getSeller()), product.getId());
         }
     }
 
@@ -79,17 +81,17 @@ public class   BuyerMenu extends Menu {
         }
     }
 
-    public void increaseProduct(double idDouble, int number) {
+    public void increaseProduct(double idDouble, double number) {
         try {
-            buyerController.increaseProduct(Integer.toString((int) idDouble), number);
+            buyerController.increaseProduct(Integer.toString((int) idDouble), (int)number);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void decreaseProduct(double idDouble, int number) {
+    public void decreaseProduct(double idDouble, double number) {
         try {
-            buyerController.decreaseProduct(Integer.toString((int) idDouble), number);
+            buyerController.decreaseProduct(Integer.toString((int) idDouble), (int)number);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -155,9 +157,9 @@ public class   BuyerMenu extends Menu {
         System.out.println("Time               : " + buyerReceipt.getDateAndTime());
     }
 
-    private void rate(double idDouble, int score) {
+    private void rate(double idDouble, double score) {
         try {
-            buyerController.rate(Integer.toString((int) idDouble), score);
+            buyerController.rate(Integer.toString((int) idDouble), (int) score);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
