@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SellerReceipt extends Receipt {
-    static int sellerReceiptCount = 0;
+    static int sellerReceiptCount = 1;
     private double receivedMoney ;
     private model.account.Buyer buyer;
     private double discountAmount ;

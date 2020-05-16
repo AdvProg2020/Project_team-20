@@ -270,6 +270,11 @@ public class Product implements Requestable {
         return sum / getScores().size();
     }
 
+    public void decreaseCountSeller(Seller seller, int number) {
+        int temp = count.get(seller);
+        count.replace(seller, temp-number);
+    }
+
     public ArrayList<Comment> getComments() {
         return comments;
     }

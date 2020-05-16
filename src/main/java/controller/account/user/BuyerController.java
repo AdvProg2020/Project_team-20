@@ -61,7 +61,7 @@ public class BuyerController implements AccountController {
         receiveInformation(address, phoneNumber);
         double discountPercentage = 0;
         double totalPrice = getTotalPrice();
-        if (Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
+        if ( !discountCode.equals("") && Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
             discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode)).getDiscountPercentage();
             totalPrice *= discountPercentage;
             Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, Integer.parseInt(discountCode));
@@ -80,6 +80,7 @@ public class BuyerController implements AccountController {
 
     private void decreaseProductSeller(Product product, int number, Seller seller) {
         seller.decreaseProduct(product, number);
+        product.decreaseCountSeller(seller, number);
     }
 
     private void makeReceipt(double totalPrice, double discountPercentage) {
@@ -128,7 +129,7 @@ public class BuyerController implements AccountController {
     private void pay(double totalPrice) throws Exception{
         currentBuyer.decreaseCredit(totalPrice);
         for (Seller seller:currentBuyer.getCart().getAllSellers()) {
-            seller.decreaseCredit(getTotalPriceTotalDiscountSeller(seller, 0));
+            seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0));
         }
     }
 
