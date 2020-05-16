@@ -72,9 +72,9 @@ public class   BuyerMenu extends Menu {
         viewCart();
     }
 
-    public void viewProduct(String id) {
+    public void viewProduct(double idDouble) {
         try {
-            Product product = buyerController.getProductById(id);
+            Product product = buyerController.getProductById(Integer.toString((int)idDouble));
             ProductMenu productMenu = new ProductMenu(product);
             enter(productMenu);
         } catch (Exception e) {
@@ -82,17 +82,17 @@ public class   BuyerMenu extends Menu {
         }
     }
 
-    public void increaseProduct(String id, int number) {
+    public void increaseProduct(double idDouble, int number) {
         try {
-            buyerController.increaseProduct(id, number);
+            buyerController.increaseProduct(Integer.toString((int) idDouble), number);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void decreaseProduct(String id, int number) {
+    public void decreaseProduct(double idDouble, int number) {
         try {
-            buyerController.decreaseProduct(id, number);
+            buyerController.decreaseProduct(Integer.toString((int) idDouble), number);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -132,9 +132,9 @@ public class   BuyerMenu extends Menu {
         }
     }
 
-    public void showOrder(String id) {
+    public void showOrder(double idDouble) {
         try {
-            BuyerReceipt buyerReceipt = buyerController.getBuyerReceiptById(id);
+            BuyerReceipt buyerReceipt = buyerController.getBuyerReceiptById(Integer.toString((int) idDouble));
             showGeneralDescriptionBuyerReceipt(buyerReceipt);
             System.out.println("Products you bought: ( Name, Count)");
             showProductsOrder(buyerReceipt.getProducts());
@@ -158,9 +158,9 @@ public class   BuyerMenu extends Menu {
         System.out.println("Time               : " + buyerReceipt.getDateAndTime());
     }
 
-    private void rate(String id, int score) {
+    private void rate(double idDouble, int score) {
         try {
-            buyerController.rate(id, score);
+            buyerController.rate(Integer.toString((int) idDouble), score);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

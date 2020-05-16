@@ -92,9 +92,9 @@ public class SellerMenu extends Menu {
         showProducts(sellerController.getProductsToSell());
     }
 
-    public void viewProduct(String id) {
+    public void viewProduct(double idDouble) {
         try {
-            Product product = sellerController.viewProduct(id);
+            Product product = sellerController.viewProduct(Integer.toString((int)idDouble));
             System.out.println("Name                : " + product.getName());
             System.out.println("Count               : " + sellerController.getProductCount(product));
             System.out.println("Id                  : " + product.getId());
@@ -103,9 +103,9 @@ public class SellerMenu extends Menu {
         }
     }
 
-    public void viewBuyers(String id) {
+    public void viewBuyers(double idDouble) {
         try {
-            ArrayList<Buyer> buyers = sellerController.viewBuyers(id);
+            ArrayList<Buyer> buyers = sellerController.viewBuyers(Integer.toString((int)idDouble));
             System.out.println("All buyers of this product: ");
             for (Buyer buyer:buyers) {
                 System.out.println("____________________");
@@ -208,12 +208,12 @@ public class SellerMenu extends Menu {
         }
     }
 
-    public void viewOff(String id) {
+    public void viewOff(double idDouble) {
         try {
-            Sale sale = sellerController.viewOff(id);
+            Sale sale = sellerController.viewOff(Integer.toString((int)idDouble));
             System.out.println("Id                  : " + sale.getId());
             System.out.println("Off                 : " + sale.getSalePercentage());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
             System.out.println("Start Date          : " + formatter.format(sale.getStartDate()));
             System.out.println("End Date            : " + formatter.format(sale.getEndDate()));
             showProducts(sale.getProducts());
@@ -256,7 +256,7 @@ public class SellerMenu extends Menu {
         }
     }
 
-    public void editProduct(String id) {
+    public void editProduct(double idDouble) {
         System.out.println("Welcome to edit product menu!");
         System.out.println("How many fields do you want to edit?");
         int count = Integer.parseInt(scanner.nextLine());
@@ -289,7 +289,7 @@ public class SellerMenu extends Menu {
             }
         }
         try {
-            sellerController.editProduct(id, details, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsToRemove, optionalFieldsToAdd);
+            sellerController.editProduct(Integer.toString((int)idDouble), details, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsToRemove, optionalFieldsToAdd);
             System.out.println("Your edit request was sent to manager successfully. I hope they will accept that:)");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -329,7 +329,7 @@ public class SellerMenu extends Menu {
         details.add(0, scanner.nextLine());
     }
 
-    public void editOff(String id) {
+    public void editOff(double idDouble) {
         System.out.println("Welcome to edit off menu!");
         System.out.println("How many fields do you want to edit?");
         int count = Integer.parseInt(scanner.nextLine());
@@ -356,7 +356,7 @@ public class SellerMenu extends Menu {
             }
         }
         try {
-            sellerController.editOff(id, details, productIdsToRemove, productIdsToAdd);
+            sellerController.editOff(Integer.toString((int)idDouble), details, productIdsToRemove, productIdsToAdd);
             System.out.println("Your edit request was sent to manager successfully. I hope they will accept that:)");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -405,13 +405,13 @@ public class SellerMenu extends Menu {
         }
     }
 
-    public void addToProduct(String id) {
+    public void addToProduct(double idDouble) {
         System.out.println("Please insert the number of this product that you want to add.");
         int count = Integer.parseInt(scanner.nextLine());
         System.out.println("Please insert your price for this product.");
         double price = Double.parseDouble(scanner.nextLine());
         try {
-            sellerController.addToProduct(id, count, price);
+            sellerController.addToProduct(Integer.toString((int)idDouble), count, price);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
