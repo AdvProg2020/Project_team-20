@@ -40,8 +40,8 @@ public class AllProductsMenu extends Menu {
         try {
             ArrayList<Product> products = allProductsController.showProducts();
             for (Product product:products) {
-                System.out.println("Name                id\n");
-                System.out.format("%s%20s", product.getName()
+                System.out.format("%-20s%-20s","Name","id\n");
+                System.out.format("%-20s%-20s\n", product.getName()
                         , product.getId());
             }
         } catch (Exception e) {

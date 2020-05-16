@@ -404,17 +404,17 @@ public class SellerMenu extends Menu {
 
     private void editSalePercentage(ArrayList<String> details) {
         System.out.println("Please insert you edited sale percentage.");
-        details.add(2, scanner.nextLine());
+        details.set(2, scanner.nextLine());
     }
 
     private void editEndDate(ArrayList<String> details) {
         System.out.println("Please insert you edited end date.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( ");
-        details.add(1, scanner.nextLine());
+        details.set(1, scanner.nextLine());
     }
 
     private void editStartDate(ArrayList<String> details) {
         System.out.println("Please insert you edited start date.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( ");
-        details.add(0, scanner.nextLine());
+        details.set(0, scanner.nextLine());
     }
 
     public void showAllProducts() {
