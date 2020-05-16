@@ -14,22 +14,22 @@ public class Seller extends Account implements Requestable {
     private HashMap<Product, Integer> productsToSell;
     private ArrayList<Product> products;
     private ArrayList<Sale> sales;
-    private HashMap<String, String> details;
+    private String details;
     private RequestableState state;
     private Seller editedSeller;
 
-    public Seller(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
+    public Seller(String name, String lastName, String email, String phoneNumber, String username, String password, double credit , String details) {
         super(name, lastName, email, phoneNumber, username, password, credit, AccountType.SELLER);
         state = RequestableState.CREATED;
         this.saleHistory = new ArrayList<>();
         this.productsToSell = new HashMap<>();
         this.products = new ArrayList<>();
         this.sales = new ArrayList<>();
-        this.details = new HashMap<>();
+        this.details = details;
     }
 
-    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password, double credit) {
-        editedSeller = new Seller(name, lastName, email, phoneNumber, username, password, credit);
+    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password, double credit,String details) {
+        editedSeller = new Seller(name, lastName, email, phoneNumber, username, password, credit,details);
         state = RequestableState.EDITED;
     }
 
@@ -51,7 +51,7 @@ public class Seller extends Account implements Requestable {
         return sales;
     }
 
-    public HashMap<String, String> getDetails() {
+    public String  getDetails() {
         return details;
     }
 
@@ -68,9 +68,6 @@ public class Seller extends Account implements Requestable {
         this.sales.add(sale);
     }
 
-    public void addDetail(String topic, String details) {
-        this.details.put(topic, details);
-    }
 
     public void removeFromSaleHistory(SellerReceipt saleHistory) {
         this.saleHistory.remove(saleHistory);
@@ -101,10 +98,6 @@ public class Seller extends Account implements Requestable {
 
     public void removeSale(Sale sale) {
         this.sales.remove(sale);
-    }
-
-    public void removeDetail(String topic) {
-        this.details.remove(topic);
     }
 
 
