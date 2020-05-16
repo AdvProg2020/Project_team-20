@@ -36,6 +36,7 @@ public class ProductMenu extends Menu {
         this.regex.add("comments");
         this.regex.add("Add comment");
         this.regex.add("addScore");
+        this.product = product;
         preProcess();
     }
 
@@ -57,6 +58,8 @@ public class ProductMenu extends Menu {
     public void addProductToCart() {
         try {
             productController.addProductToCart(getSellerId());
+            if (sellerId==null)
+                System.out.println("First please select a seller.");
             System.out.println("addition was successful");
         } catch (Exception e) {
             System.out.println(e.getMessage());

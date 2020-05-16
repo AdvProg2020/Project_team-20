@@ -39,10 +39,9 @@ public class AllProductsMenu extends Menu {
     public void showProducts() {
         try {
             ArrayList<Product> products = allProductsController.showProducts();
+            System.out.format("%-20s%-20s\n","Name","id");
             for (Product product:products) {
-                System.out.format("%-20s%-20s","Name","id\n");
-                System.out.format("%-20s%-20s\n", product.getName()
-                        , product.getId());
+                System.out.format("%-20s%-20s\n", product.getName(), product.getId());
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -50,9 +49,9 @@ public class AllProductsMenu extends Menu {
 
     }
 
-    public void showProduct(String id) {
+    public void showProduct(double idDouble) {
         try {
-            Product product = Product.getProductById(id);
+            Product product = Product.getProductById(Integer.toString((int)idDouble));
             ProductMenu productMenu = new ProductMenu(product);
             enter(productMenu);
         } catch (Exception e) {
@@ -139,7 +138,7 @@ public class AllProductsMenu extends Menu {
     private void setRegex() {
         regex.add("view categories");
         regex.add("show products");
-        regex.add("show product (\\w+)");
+        regex.add("show product (\\d+)");
         regex.add("show available filters");
         regex.add("filter");
         regex.add("current filters");
