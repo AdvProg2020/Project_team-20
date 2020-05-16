@@ -12,9 +12,11 @@ public class RegisterAndLoginMenu extends Menu {
 
     private RegisterAndLoginMenu() {
         super("RegisterAndLoginMenu");
-        this.regex.add("create account (manager|buyer|seller) (\\w+)");
+        this.regex.add("create account (manager|buyer) (\\w+)");
+        this.regex.add("create account seller (\\w+)");
         this.regex.add("login (\\w+)");
         this.methods.add("registerUser");
+        this.methods.add("registerSeller");
         this.methods.add("loginUser");
         preProcess();
     }
@@ -58,13 +60,39 @@ public class RegisterAndLoginMenu extends Menu {
         String phoneNumber = scanner.nextLine();
         System.out.println("please enter your credit");
         String credit = scanner.nextLine();
-        System.out.println("please insert your company information(if you are not seller you can just type hi:D)");
+        System.out.println("Thank you:) " + "Please wait for your information to be verified");
+        ArrayList<String> details = addDetails(name,lastName,email,phoneNumber,password,credit);
+        String detail = null;
+        try{
+            LoginController loginController = LoginController.getInstance();
+            loginController.createAccount(username,type,details,detail);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            this.back();
+        }
+    }
+
+    public void registerSeller(String username){
+        System.out.println("please enter your password:");
+        String password = scanner.nextLine();
+        System.out.println("please enter your name:");
+        String name = scanner.nextLine();
+        System.out.println("please enter your lastName:");
+        String lastName = scanner.nextLine();
+        System.out.println("please enter your email:");
+        String email = scanner.nextLine();
+        System.out.println("please enter your phone number:");
+        String phoneNumber = scanner.nextLine();
+        System.out.println("please enter your credit");
+        String credit = scanner.nextLine();
+        System.out.println("please insert your company information");
         String detail = scanner.nextLine();
         System.out.println("Thank you:) " + "Please wait for your information to be verified");
         ArrayList<String> details = addDetails(name,lastName,email,phoneNumber,password,credit);
         try{
             LoginController loginController = LoginController.getInstance();
-            loginController.createAccount(username,type,details,detail);
+            loginController.createAccount(username,"seller",details,detail);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
