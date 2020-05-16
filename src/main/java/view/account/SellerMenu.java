@@ -234,9 +234,9 @@ public class SellerMenu extends Menu {
         try {
             ArrayList<String> products = new ArrayList<>();
             ArrayList<String> details = new ArrayList<>();
-            System.out.println("Please insert the start date of your sale.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (am|pm)]. ( Otherwise I will sent you an error:( )");
+            System.out.println("Please insert the start date of your sale.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( )");
             details.add(scanner.nextLine());
-            System.out.println("Now please insert the end date of your sale.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (am|pm)]. ( Otherwise I will sent you an error:( )");
+            System.out.println("Now please insert the end date of your sale.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( )");
             details.add(scanner.nextLine());
             System.out.println("Please insert the percentage of your sale.");
             details.add(scanner.nextLine());
@@ -387,12 +387,12 @@ public class SellerMenu extends Menu {
     }
 
     private void editEndDate(ArrayList<String> details) {
-        System.out.println("Please insert you edited end date.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (am|pm)]. ( Otherwise I will sent you an error:( ");
+        System.out.println("Please insert you edited end date.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( ");
         details.add(1, scanner.nextLine());
     }
 
     private void editStartDate(ArrayList<String> details) {
-        System.out.println("Please insert you edited start date.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (am|pm)]. ( Otherwise I will sent you an error:( ");
+        System.out.println("Please insert you edited start date.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( ");
         details.add(0, scanner.nextLine());
     }
 

@@ -225,7 +225,10 @@ public class SellerController implements AccountController {
             Sale sale = new Sale(id, products, startDate, endDate, salePercentage, seller);
             Manager.addRequest(sale);
         } catch (Exception e) {
-            throw new FormatInvalidException();
+            if (e instanceof Product.productNotFoundException)
+                throw e;
+            else
+                throw new FormatInvalidException();
         }
     }
 
