@@ -124,7 +124,8 @@ public abstract class Menu {
     public void back() {
         if (this.getParent() != null)
             Main.setCurrentMenu(this.getParent());
-        Main.setCurrentMenu(this);
+        else
+            Main.setCurrentMenu(this);
     }
 
     public void enterWithName(String subMenuName) {
