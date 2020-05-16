@@ -43,7 +43,6 @@ public class RegisterAndLoginMenu extends Menu {
         }
         catch (Exception e){
             System.out.println(e.getMessage());
-            this.back();
         }
     }
 
