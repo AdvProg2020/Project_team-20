@@ -51,7 +51,6 @@ public class Sale implements Requestable {
     public void changeStateEdited(ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage) {
         editedSale = new Sale(products, startDate, endDate, salePercentage);
         state = RequestableState.EDITED;
-        Manager.addRequest(editedSale);
     }
 
     public void edit() {
@@ -122,9 +121,19 @@ public class Sale implements Requestable {
             productStr.append(' ');
         }
         String buyerString = "RequestType         : Sale" + "\n" +
-                             "Products            : " + productStr + "\n";
+                             "Products            : " + productStr + "\n" +
+                             "Sale Percentage     : " + salePercentage + "\n";
         if (state.equals(RequestableState.EDITED)) {
+            StringBuilder productEditStr = new StringBuilder();
+            for (Product product:editedSale.getProducts()) {
+                productEditStr.append(product.getName());
+                productEditStr.append(' ');
+            }
             buyerString = "<Edited>\n" + buyerString;
+            buyerString += "Edited Fields:\n";
+            buyerString += "RequestType         : Sale" + "\n" +
+                            "Products            : " + productEditStr + "\n" +
+                            "Sale Percentage     : " + editedSale.getSalePercentage() + "\n";
         }
         return buyerString;
     }

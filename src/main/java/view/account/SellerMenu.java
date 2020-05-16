@@ -216,7 +216,7 @@ public class SellerMenu extends Menu {
         ArrayList<Sale> sales = sellerController.viewOffs();
         System.out.format("%-20s%-20s\n","Id","Off");
         for (Sale sale:sales) {
-            System.out.format("%-20s%s%s\n", sale.getId(), sale.getSalePercentage(), "%");
+            System.out.format("%-20s%s%s\n", sale.getId(), sale.getSalePercentage()*100, "%");
         }
     }
 
@@ -224,7 +224,7 @@ public class SellerMenu extends Menu {
         try {
             Sale sale = sellerController.viewOff(Integer.toString((int)idDouble));
             System.out.println("Id                  : " + sale.getId());
-            System.out.println("Off                 : " + sale.getSalePercentage());
+            System.out.println("Off                 : " + sale.getSalePercentage()*100);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
             System.out.println("Start Date          : " + formatter.format(sale.getStartDate()));
             System.out.println("End Date            : " + formatter.format(sale.getEndDate()));
@@ -331,17 +331,17 @@ public class SellerMenu extends Menu {
 
     private void editPrice(ArrayList<String> details) {
         System.out.println("Please insert you edited price:");
-        details.add(2, scanner.nextLine());
+        details.set(2, scanner.nextLine());
     }
 
     private void editCount(ArrayList<String> details) {
         System.out.println("Please insert you edited count:");
-        details.add(1, scanner.nextLine());
+        details.set(1, scanner.nextLine());
     }
 
     private void editDescription(ArrayList<String> details) {
         System.out.println("Please insert you edited description:");
-        details.add(0, scanner.nextLine());
+        details.set(0, scanner.nextLine());
     }
 
     public void editOff(double idDouble) {

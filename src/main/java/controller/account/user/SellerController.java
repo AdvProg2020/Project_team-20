@@ -205,6 +205,7 @@ public class SellerController implements AccountController {
         }
         newProducts.addAll(productsToAdd);
         sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
+        Manager.addRequest(sale);
     }
 
     private ArrayList<Product> getSaleProducts(String offId) throws Exception {
