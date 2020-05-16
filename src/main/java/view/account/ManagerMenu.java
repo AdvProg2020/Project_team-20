@@ -424,6 +424,7 @@ public class ManagerMenu extends Menu {
         System.out.println("1)Change category's name"+"\n"+"2)Add new field"+"\n"+"3)Remove field"+"\n"+"4)Add new subCategory"
         +"\n"+"5)Remove subCategory"+"\n"+"6)Remove product"+"\n"+"7)Add new Product");
         int n = Menu.scanner.nextInt();
+        Menu.scanner.nextLine();
         editFieldsForCategory(name , n);
     }
 
@@ -502,6 +503,7 @@ public class ManagerMenu extends Menu {
     }
 
     public void addCategory(String name){
+        managerController.addCategory(name);
         addProductPart(name);
         addSubCategoryPart(name);
         addFieldPart(name);
