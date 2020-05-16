@@ -59,10 +59,10 @@ public class   BuyerMenu extends Menu {
 
     public void viewCart() {
         Cart cart = buyerController.viewCart();
+        System.out.format("%-20s%-20s%-20s%-20s%-20s\n","Name","Count","Buyer","Price","Id");
         for (SelectedProduct selectedProduct:cart.getSelectedProducts()) {
             Product product = selectedProduct.getProduct();
-            System.out.format("%-20s%-20s%-20s%-20s%-20s\n","Name","Count","Buyer","Price","Id");
-            System.out.format("%-20s%-20s%-20s%s-20%-20s\n", product.getName(), selectedProduct.getCount()
+            System.out.format("%-20s%-20s%-20s%-20s%-20s\n", product.getName(), selectedProduct.getCount()
                     , (selectedProduct.getSeller()).getUsername(), product.getPrice(selectedProduct.getSeller()), product.getId());
         }
     }
