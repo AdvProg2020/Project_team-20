@@ -105,11 +105,11 @@ public class SellerMenu extends Menu {
             System.out.println("Fields              : ");
             for (Field field:product.getGeneralFields()) {
                 if (field instanceof NumericalField)
-                    System.out.format("%-20s: %f",field.getName(), ((NumericalField)field).getNumericalField());
+                    System.out.format("%-20s: %f\n",field.getName(), ((NumericalField)field).getNumericalField());
                 else {
-                    System.out.println(((OptionalField)field).getName() + " : ");
+                    System.out.format( "%-20s: ",field.getName());
                     for (String fieldStr:((OptionalField)field).getOptionalFiled()) {
-                        System.out.println(fieldStr + " ");
+                        System.out.print(fieldStr + " ");
                     }
                     System.out.println();
                 }
@@ -184,8 +184,8 @@ public class SellerMenu extends Menu {
         System.out.println("How many optional fields do you want to add?");
         input = scanner.nextLine();
         int count = Integer.parseInt(input);
-        ArrayList<String> optionalFieldsOfField = new ArrayList<>();
         for (int i=0; i<count; i++) {
+            ArrayList<String> optionalFieldsOfField = new ArrayList<>();
             System.out.println("Please insert the name of your field.");
             input = scanner.nextLine();
             System.out.println("How many optional fields does " + input + " filed has?");
@@ -195,7 +195,6 @@ public class SellerMenu extends Menu {
                 optionalFieldsOfField.add(scanner.nextLine());
             }
             optionalFields.put(input, optionalFieldsOfField);
-            optionalFieldsOfField.clear();
         }
     }
 
@@ -276,7 +275,10 @@ public class SellerMenu extends Menu {
         System.out.println("Welcome to edit product menu!");
         System.out.println("How many fields do you want to edit?");
         int count = Integer.parseInt(scanner.nextLine());
-        ArrayList<String> details = new ArrayList<>(3);
+        ArrayList<String> details = new ArrayList<>();
+        details.add("");
+        details.add("");
+        details.add("");
         ArrayList<String> numericalFieldsToRemove = new ArrayList<>();
         HashMap<String, Double> numericalFieldsToAdd = new HashMap<>();
         ArrayList<String> optionalFieldsToRemove = new ArrayList<>();
@@ -350,6 +352,9 @@ public class SellerMenu extends Menu {
         System.out.println("How many fields do you want to edit?");
         int count = Integer.parseInt(scanner.nextLine());
         ArrayList<String> details = new ArrayList<>();
+        details.add("");
+        details.add("");
+        details.add("");
         ArrayList<String> productIdsToRemove = new ArrayList<>();
         ArrayList<String> productIdsToAdd = new ArrayList<>();
         String input;
@@ -360,7 +365,7 @@ public class SellerMenu extends Menu {
                 editStartDate(details);
             else if (input.equalsIgnoreCase("end date"))
                 editEndDate(details);
-            else if (input.equalsIgnoreCase("salePercentage"))
+            else if (input.equalsIgnoreCase("sale percentage"))
                 editSalePercentage(details);
             else if (input.equalsIgnoreCase("add product"))
                 addProductSeller(productIdsToAdd);
@@ -435,22 +440,22 @@ public class SellerMenu extends Menu {
 
     public void setRegex() {
         regex.add("view personal info");
-        regex.add("edit (\\w+)");
+        regex.add("edit (\\d+)");
         regex.add("view company information");
         regex.add("view sales history");
         regex.add("manage products");
-        regex.add("view product (\\w+)");
-        regex.add("view buyers (\\w+)");
-        regex.add("edit product (\\w+)");
+        regex.add("view product (\\d+)");
+        regex.add("view buyers (\\d+)");
+        regex.add("edit product (\\d+)");
         regex.add("add product");
-        regex.add("remove product (\\w+)");
+        regex.add("remove product (\\d+)");
         regex.add("show categories");
         regex.add("view offs");
-        regex.add("view off (\\w+)");
-        regex.add("edit off (\\w+)");
+        regex.add("view off (\\d+)");
+        regex.add("edit off (\\d+)");
         regex.add("add off");
         regex.add("show all products");
-        regex.add("add me to product (\\w+)");
+        regex.add("add me to product (\\d+)");
         regex.add("logout");
         regex.add("view balance");
     }
