@@ -5,7 +5,6 @@ import model.filter.NameFilter;
 import model.filter.OptionalFilter;
 import model.filter.RangeFilter;
 import model.product.Category;
-import model.product.Field.NumericalField;
 import model.product.Product;
 
 import java.util.ArrayList;

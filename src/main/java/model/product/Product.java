@@ -278,6 +278,10 @@ public class Product implements Requestable {
         return numberVisited;
     }
 
+    public void addToNumberOfViews() {
+        numberVisited += 1;
+    }
+
     public void addComment(Comment comment) {
         comments.add(comment);
     }

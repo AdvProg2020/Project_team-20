@@ -16,4 +16,6 @@ public class SaleController extends Filterable {
     public ArrayList<Sale> getAllSales() {
         return Sale.getAllSales();
     }
+
+
 }

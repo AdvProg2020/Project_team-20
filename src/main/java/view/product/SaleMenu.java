@@ -1,5 +1,6 @@
 package view.product;
 
+import controller.product.filter.AllProductsController;
 import controller.product.filter.SaleController;
 import model.filter.Filter;
 import model.product.Product;
@@ -24,7 +25,7 @@ public class SaleMenu extends Menu {
 
     public void showProduct(String id) {
         try {
-            Product product = Product.getProductById(id);
+            Product product = AllProductsController.getInstance().getProduct(id);
             ProductMenu productMenu = new ProductMenu(product);
             enter(productMenu);
         } catch (Exception e) {

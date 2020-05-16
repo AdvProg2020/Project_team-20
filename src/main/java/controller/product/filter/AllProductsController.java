@@ -52,4 +52,10 @@ public class AllProductsController extends Filterable {
             super("invalid command");
         }
     }
+
+    public Product getProduct(String id) throws Exception {
+        Product product = Product.getProductById(id);
+        product.addToNumberOfViews();
+        return product;
+    }
 }
