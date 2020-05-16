@@ -1,12 +1,15 @@
 import controller.product.filter.Filterable;
 import mockit.Tested;
 import model.account.Seller;
+import model.filter.Filter;
+import model.product.Category;
 import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
 import model.product.Product;
 import org.junit.Before;
+import org.junit.Test;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -16,7 +19,72 @@ public class FilterableTest {
 
 
     @Tested
-    Filterable filterablel;
+    Filterable filterablel = new Filterable() {
+        @Override
+        public void filter(String filterType, ArrayList<String> details) throws Exception {
+            super.filter(filterType, details);
+        }
+
+        @Override
+        public void disAbleFilter(String filterName) throws Exception {
+            super.disAbleFilter(filterName);
+        }
+
+        @Override
+        public ArrayList<Product> getProducts() {
+            return super.getProducts();
+        }
+
+        @Override
+        public ArrayList<Product> showProducts() throws Exception {
+            return super.showProducts();
+        }
+
+        @Override
+        public void changeSort(String newSort) throws Exception {
+            super.changeSort(newSort);
+        }
+
+        @Override
+        public void disableSort() {
+            super.disableSort();
+        }
+
+        @Override
+        public void filterByCategory(ArrayList<String> details) throws Exception {
+            super.filterByCategory(details);
+        }
+
+        @Override
+        public void addAllFieldsCategory(Category category) {
+            super.addAllFieldsCategory(category);
+        }
+
+        @Override
+        public void filterByProductName(ArrayList<String> details) {
+            super.filterByProductName(details);
+        }
+
+        @Override
+        public void filterByOptionalFilter(ArrayList<String> details) {
+            super.filterByOptionalFilter(details);
+        }
+
+        @Override
+        public void filterByNumericalFilter(ArrayList<String> details) {
+            super.filterByNumericalFilter(details);
+        }
+
+        @Override
+        public ArrayList<Filter> getFilters() {
+            return super.getFilters();
+        }
+
+        @Override
+        public String getCurrentSort() {
+            return super.getCurrentSort();
+        }
+    };
 
 
     LocalDateTime start = LocalDateTime.now(), end = LocalDateTime.now().plus(1, ChronoUnit.DAYS);
@@ -50,6 +118,9 @@ public class FilterableTest {
         products.add(product1);
         products.add(product2);
     }
+
+
+    @Test
 
 
 }
