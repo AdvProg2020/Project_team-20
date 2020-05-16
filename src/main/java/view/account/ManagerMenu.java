@@ -44,7 +44,7 @@ public class ManagerMenu extends Menu {
         this.regex.add(4,"delete user (\\w+)");
         this.regex.add(5,"create manager profile");
         this.regex.add(6,"manage all products");
-        this.regex.add(7,"remove (\\w+)");
+        this.regex.add(7,"remove (\\d+)");
         this.regex.add(8,"create discount code");
         this.regex.add(9,"view discount codes");
         this.regex.add(10,"view discount code (\\d+)");
@@ -163,9 +163,10 @@ public class ManagerMenu extends Menu {
         }
     }
 
-    public void removeProductWithID(String productId){
+    public void removeProductWithID(double productId){
         try {
-            managerController.mangerRemoveProduct(productId);
+            int id = (int) productId;
+            managerController.mangerRemoveProduct(String.valueOf(id));
             System.out.println("product was successfully removed.");
         }
         catch (Exception e){
@@ -423,6 +424,7 @@ public class ManagerMenu extends Menu {
         System.out.println("1)Change category's name"+"\n"+"2)Add new field"+"\n"+"3)Remove field"+"\n"+"4)Add new subCategory"
         +"\n"+"5)Remove subCategory"+"\n"+"6)Remove product"+"\n"+"7)Add new Product");
         int n = Menu.scanner.nextInt();
+        Menu.scanner.nextLine();
         editFieldsForCategory(name , n);
     }
 
@@ -501,6 +503,7 @@ public class ManagerMenu extends Menu {
     }
 
     public void addCategory(String name){
+        managerController.addCategory(name);
         addProductPart(name);
         addSubCategoryPart(name);
         addFieldPart(name);
