@@ -228,13 +228,19 @@ public class ManagerController implements controller.account.user.AccountControl
         parentCategory.addSubCategory(category);
     }
 
+    public static class fieldIsInvalidException extends Exception {
+        public fieldIsInvalidException() {
+            super("field is invalid!");
+        }
+    }
+
     @Override
     public Account getAccountInfo() {
         return currentManager;
     }
 
     @Override
-    public void editField(String field, String context) {
+    public void editField(String field, String context) throws Exception {
         switch (field) {
             case "name":
                 currentManager.setName(context);
@@ -253,6 +259,9 @@ public class ManagerController implements controller.account.user.AccountControl
                 break;
             case "credit":
                 currentManager.setCredit(Double.parseDouble(context));
+                break;
+            default:
+                throw new fieldIsInvalidException();
         }
     }
 

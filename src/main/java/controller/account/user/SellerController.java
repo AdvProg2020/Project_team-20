@@ -295,7 +295,7 @@ public class SellerController implements AccountController {
     }
 
     @Override
-    public void editField(String field, String context) {
+    public void editField(String field, String context) throws Exception {
         switch (field) {
             case "name":
                 seller.changeStateEdited(context, seller.getLastName(), seller.getEmail(), seller.getPhoneNumber(),
@@ -319,6 +319,9 @@ public class SellerController implements AccountController {
             case "credit":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
                         seller.getPhoneNumber(), seller.getPassword(), Integer.parseInt(context),seller.getDetails());
+                break;
+            default:
+                throw new ManagerController.fieldIsInvalidException();
         }
         Manager.addRequest(seller);
     }

@@ -45,17 +45,14 @@ public class   BuyerMenu extends Menu {
     }
 
     public void editField(String field) {
-        if (!field.equalsIgnoreCase("name") && !field.equalsIgnoreCase("last name") &&
-            !field.equalsIgnoreCase("email") && !field.equalsIgnoreCase("phone number") &&
-            !field.equalsIgnoreCase("password") && !field.equalsIgnoreCase("username") &&
-            !field.equalsIgnoreCase("field")) {
-            System.out.println("Field is not valid!");
-        }
-        else {
-            System.out.println("Please insert the new field");
-            String context = scanner.nextLine().trim();
-            buyerController.editField(field, context);
-        }
+            try {
+                System.out.println("Please insert the new field");
+                String context = scanner.nextLine().trim();
+                buyerController.editField(field, context);
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
     }
 
     public void viewCart() {
