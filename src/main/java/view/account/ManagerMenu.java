@@ -194,6 +194,7 @@ public class ManagerMenu extends Menu {
         int i=0;
         ArrayList<Buyer> buyersWithDiscount = new ArrayList<>();
         System.out.println("please write the username of those who can use this discount:");
+        Menu.scanner.nextLine();
         while(i<n){
             String userName = Menu.scanner.nextLine();
             try {
@@ -227,7 +228,7 @@ public class ManagerMenu extends Menu {
 
     private LocalDateTime getEndDate(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
-        System.out.println("please write discount start date and time (your format should be like this --> MM/dd/yyyy 'at' hh:mm PM/AM):");
+        System.out.println("please write discount end date and time (your format should be like this --> MM/dd/yyyy 'at' hh:mm PM/AM):");
         String endDateTime = Menu.scanner.nextLine();
         LocalDateTime endDate;
         try {
@@ -246,7 +247,7 @@ public class ManagerMenu extends Menu {
         int i = 1;
         for(Discount discount:discounts){
             System.out.println(i+")");
-            System.out.println("discountCode: "+discount.getDiscountCode());
+            System.out.println("discountCode:       "+discount.getDiscountCode());
             System.out.println("discountPercentage: "+discount.getDiscountPercentage());
             i++;
         }
@@ -320,6 +321,7 @@ public class ManagerMenu extends Menu {
                 break;
             case 5:
                 editBuyersWithDiscount(id);
+                break;
             default:
                 System.out.println("invalid input :)");
                 editDiscountCode(id);
@@ -331,6 +333,7 @@ public class ManagerMenu extends Menu {
         System.out.println("1)remove buyer from list of buyers"+"\n"+"2)add buyer to list of buyers");
         int n = Menu.scanner.nextInt();
         System.out.println("please enter username:");
+        Menu.scanner.nextLine();
         String username = Menu.scanner.nextLine();
         switch (n){
             case 1:
