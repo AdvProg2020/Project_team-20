@@ -82,9 +82,9 @@ public class SellerMenu extends Menu {
     }
 
     private void showProducts(HashMap<Product, Integer> allProducts) {
-        System.out.println("Name                Count               Id");
+        System.out.format("%-20s%-20s%-20s\n","Name", "Count", "Id");
         for (Product product:allProducts.keySet()) {
-            System.out.format("%s%20d%40s\n",product.getName(), allProducts.get(product), product.getId());
+            System.out.format("%-20s%-20d%-20s\n",product.getName(), allProducts.get(product), product.getId());
         }
     }
 
@@ -183,9 +183,10 @@ public class SellerMenu extends Menu {
         }
     }
 
-    public void removeProduct(String id) {
+    public void removeProduct(double idDouble) {
         try {
-            sellerController.deleteProduct(id);
+            int id = (int)idDouble;
+            sellerController.deleteProduct(Integer.toString(id));
             System.out.println("Product was removed successfully. :(");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -201,9 +202,9 @@ public class SellerMenu extends Menu {
 
     public void viewOffs() {
         ArrayList<Sale> sales = sellerController.viewOffs();
-        System.out.println("Id                  Off\n");
+        System.out.format("%-20s%-20s\n","Id","Off");
         for (Sale sale:sales) {
-            System.out.format("%s%20s\n", sale.getId(), sale.getSalePercentage());
+            System.out.format("%-20s%-20s\n", sale.getId(), sale.getSalePercentage());
         }
     }
 
@@ -223,9 +224,9 @@ public class SellerMenu extends Menu {
 
     private void showProducts (ArrayList<Product> products) {
         System.out.println("Products:");
-        System.out.println("Name                Id");
+        System.out.format("%-20s%-20s\n","Name","Id");
         for (Product product:products) {
-            System.out.format("%s%20s\n", product.getName(), product.getId());
+            System.out.format("%-20s%-20s\n", product.getName(), product.getId());
         }
     }
 
@@ -398,8 +399,8 @@ public class SellerMenu extends Menu {
     public void showAllProducts() {
         ArrayList<Product> products = Product.getAllProducts();
         for (Product product:products) {
-            System.out.println("Name                id\n");
-            System.out.format("%s%20s\n", product.getName()
+            System.out.format("%-20s%-20s\n","Name","id");
+            System.out.format("%-20s%-20s\n", product.getName()
                     , product.getId());
         }
     }
@@ -435,6 +436,7 @@ public class SellerMenu extends Menu {
         regex.add("show all products");
         regex.add("add me to product (\\w+)");
         regex.add("logout");
+        regex.add("view balance");
     }
 
     public void setMethods() {
@@ -456,11 +458,16 @@ public class SellerMenu extends Menu {
         methods.add("showAllProducts");
         methods.add("addToProduct");
         methods.add("logoutSeller");
+        methods.add("viewBalance");
     }
 
     public void logoutSeller() {
         sellerController.logout();
         System.out.println("Logout Successful. GoodBye!");
+    }
+
+    public void viewBalance() {
+        System.out.println("Your credit: " + sellerController.viewBalance());
     }
 
     @Override

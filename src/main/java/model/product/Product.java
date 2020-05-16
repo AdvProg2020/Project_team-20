@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class Product implements Requestable {
     private static ArrayList<Product> allProducts = new ArrayList<>();
+    private static int productCount = 1;
     private String id;
     private int views;
     private String name;
@@ -34,7 +35,7 @@ public class Product implements Requestable {
                    double price) {
         this.views = 0;
         this.name = name;
-        id = Integer.toString(allProducts.size() + 1);
+        id = Integer.toString(productCount);
         state = RequestableState.CREATED;
         this.generalFields = generalFields;
         sellers = new ArrayList<>();
@@ -50,6 +51,7 @@ public class Product implements Requestable {
         this.count.put(seller, count);
         this.price.put(seller, price);
         this.addingDate = LocalDateTime.now();
+        productCount++;
     }
 
     public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) {

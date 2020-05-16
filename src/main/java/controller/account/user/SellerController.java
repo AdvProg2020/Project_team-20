@@ -157,6 +157,7 @@ public class SellerController implements AccountController {
         Product product = Product.getProductById(productId);
         seller.removeFromProductsToSell(product);
         product.removeSeller(seller.getUsername());
+        Product.removeProduct(productId);
     }
 
     public ArrayList<Category> showCategories() {
