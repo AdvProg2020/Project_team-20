@@ -47,17 +47,14 @@ public class SellerMenu extends Menu {
     }
 
     public void editField(String field) {
-        if (!field.equalsIgnoreCase("name") && !field.equalsIgnoreCase("last name") &&
-                !field.equalsIgnoreCase("email") && !field.equalsIgnoreCase("phone number") &&
-                !field.equalsIgnoreCase("password") && !field.equalsIgnoreCase("credit") &&
-                !field.equalsIgnoreCase("field")) {
-            System.out.println("Field is not valid!");
-        }
-        else {
-            System.out.println("Please insert the new field");
-            String context = scanner.nextLine().trim();
-            sellerController.editField(field, context);
-        }
+            try {
+                System.out.println("Please insert the new field");
+                String context = scanner.nextLine().trim();
+                sellerController.editField(field, context);
+            }
+            catch (Exception e){
+                System.out.println(e.getMessage());
+            }
     }
 
     public void viewCompanyInfo() {

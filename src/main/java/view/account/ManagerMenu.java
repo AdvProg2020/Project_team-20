@@ -98,9 +98,14 @@ public class ManagerMenu extends Menu {
     }
 
     public void editPersonalInfo(String field){
-        System.out.println("please write new field : ");
-        String context = Menu.scanner.nextLine();
-        managerController.editField(field , context);
+        try {
+            System.out.println("Please insert the new field");
+            String context = Menu.scanner.nextLine();
+            managerController.editField(field , context);
+        }
+        catch (Exception e){
+         System.out.println(e.getMessage());
+        }
     }
 
     //manage users

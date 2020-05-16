@@ -200,7 +200,7 @@ public class BuyerController implements AccountController {
     }
 
     @Override
-    public void editField(String field, String context) {
+    public void editField(String field, String context) throws Exception {
         switch (field) {
             case "name":
                 currentBuyer.changeStateEdited(context, currentBuyer.getLastName(), currentBuyer.getEmail(),
@@ -226,6 +226,8 @@ public class BuyerController implements AccountController {
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
                         currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), Integer.parseInt(context));
                 break;
+            default:
+                throw new ManagerController.fieldIsInvalidException();
         }
         Manager.addRequest(currentBuyer);
     }
