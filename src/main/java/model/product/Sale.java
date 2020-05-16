@@ -122,7 +122,10 @@ public class Sale implements Requestable {
             productStr.append(' ');
         }
         String buyerString = "RequestType         : Sale" + "\n" +
-                             "Products            : " + productStr;
+                             "Products            : " + productStr + "\n";
+        if (state.equals(RequestableState.EDITED)) {
+            buyerString = "<Edited>\n" + buyerString;
+        }
         return buyerString;
     }
 }

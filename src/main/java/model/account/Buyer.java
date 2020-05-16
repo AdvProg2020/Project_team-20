@@ -108,6 +108,8 @@ public class Buyer extends Account implements Requestable {
                              "Address             : " + address + "\n" +
                              "Credit              : " + credit + "\n" +
                              "Phone number        : " + phoneNumber;
+        if (state.equals(RequestableState.EDITED))
+            buyerString = "<Edited>\n" + buyerString;
         return buyerString;
     }
 }

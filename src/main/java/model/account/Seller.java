@@ -149,12 +149,14 @@ public class Seller extends Account implements Requestable {
 
     @Override
     public String toString() {
-        String buyerString = "Name                : " + name + "\n" +
+        String sellerString = "Name                : " + name + "\n" +
                 "RequestType         : Seller" + "\n" +
                 "Username            : " + username + "\n" +
                 "Email               : " + email + "\n" +
                 "Credit              : " + credit + "\n" +
                 "Phone number        : " + phoneNumber;
-        return buyerString;
+        if (state.equals(RequestableState.EDITED))
+            sellerString = "<Edited>\n" + sellerString;
+        return sellerString;
     }
 }

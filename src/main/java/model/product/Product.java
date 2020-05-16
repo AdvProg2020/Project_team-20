@@ -290,11 +290,13 @@ public class Product implements Requestable {
 
     @Override
     public String toString() {
-        String buyerString = "Name                : " + name + "\n" +
+        String productString = "Name                : " + name + "\n" +
                              "RequestType         : Product" + "\n" +
                              "Seller              : " + sellers.get(0).getName() + "\n" +
                              "Price               : " + price.get(sellers.get(0)) + "\n" +
                              "Count               : " + count.get(sellers.get(0));
-        return buyerString;
+        if (state.equals(RequestableState.EDITED))
+            productString = "<Edited>\n" + productString;
+        return productString;
     }
 }
