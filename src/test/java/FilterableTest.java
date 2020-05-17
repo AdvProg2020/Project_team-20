@@ -1,13 +1,14 @@
-import controller.product.filter.Filterable;
+import controller.product.filter.AllProductsController;
 import mockit.Tested;
+import model.account.Buyer;
 import model.account.Seller;
-import model.filter.Filter;
-import model.product.Category;
 import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
 import model.product.Product;
+import model.product.Score;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,73 +20,7 @@ public class FilterableTest {
 
 
     @Tested
-    Filterable filterablel = new Filterable() {
-        @Override
-        public void filter(String filterType, ArrayList<String> details) throws Exception {
-            super.filter(filterType, details);
-        }
-
-        @Override
-        public void disAbleFilter(String filterName) throws Exception {
-            super.disAbleFilter(filterName);
-        }
-
-        @Override
-        public ArrayList<Product> getProducts() {
-            return super.getProducts();
-        }
-
-        @Override
-        public ArrayList<Product> showProducts() throws Exception {
-            return super.showProducts();
-        }
-
-        @Override
-        public void changeSort(String newSort) throws Exception {
-            super.changeSort(newSort);
-        }
-
-        @Override
-        public void disableSort() {
-            super.disableSort();
-        }
-
-        @Override
-        public void filterByCategory(ArrayList<String> details) throws Exception {
-            super.filterByCategory(details);
-        }
-
-        @Override
-        public void addAllFieldsCategory(Category category) {
-            super.addAllFieldsCategory(category);
-        }
-
-        @Override
-        public void filterByProductName(ArrayList<String> details) {
-            super.filterByProductName(details);
-        }
-
-        @Override
-        public void filterByOptionalFilter(ArrayList<String> details) {
-            super.filterByOptionalFilter(details);
-        }
-
-        @Override
-        public void filterByNumericalFilter(ArrayList<String> details) {
-            super.filterByNumericalFilter(details);
-        }
-
-        @Override
-        public ArrayList<Filter> getFilters() {
-            return super.getFilters();
-        }
-
-        @Override
-        public String getCurrentSort() {
-            return super.getCurrentSort();
-        }
-    };
-
+    AllProductsController allProductsController = AllProductsController.getInstance();
 
     LocalDateTime start = LocalDateTime.now(), end = LocalDateTime.now().plus(1, ChronoUnit.DAYS);
     ArrayList<Product> products = new ArrayList<>();
@@ -93,6 +28,8 @@ public class FilterableTest {
     ArrayList<Field> fields = new ArrayList<>(), fields1 = new ArrayList<>(), fields2 = new ArrayList<>();
     Seller seller = new Seller("ehsan", "ehsan", "ehsan@", "4444"
             , "aaa", "ehsan", 5000, "aaa");
+    Buyer buyer = new Buyer("sadegh", "amoo", "amoo@", "1"
+            , "biJohar", "sadegh", 500000);
 
     @Before
     public void preProcess() {
@@ -114,6 +51,15 @@ public class FilterableTest {
         Product product = new Product(fields, seller, "milk", "description", 10, 500);
         Product product1 = new Product(fields1, seller, "coco", "description1", 5, 1000);
         Product product2 = new Product(fields2, seller, "choc", "description2", 22, 600);
+        product.changeStateAccepted();
+        product1.changeStateAccepted();
+        product2.changeStateAccepted();
+        Score score = new Score(buyer, 3, product);
+        Score score1 = new Score(buyer, 5, product1);
+        Score score2 = new Score(buyer, 1, product2);
+        product.addScore(score);
+        product1.addScore(score1);
+        product2.addScore(score2);
         products.add(product);
         products.add(product1);
         products.add(product2);
@@ -121,6 +67,74 @@ public class FilterableTest {
 
 
     @Test
+    public void showProductsByScoresInAllProductsController() {
+        allProductsController.getProducts().clear();
+        ArrayList<Product> productArrayList = new ArrayList<>();
+        productArrayList.add(products.get(1));
+        productArrayList.add(products.get(0));
+        productArrayList.add(products.get(2));
+        try {
+            allProductsController.changeSort("ByScores");
+            ArrayList<Product> result = allProductsController.showProducts();
+            Assert.assertEquals(productArrayList, result);
+        } catch (Exception e) {
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void showProductsByDatesInAllProductsController() {
+        allProductsController.getProducts().clear();
+        ArrayList<Product> productArrayList = new ArrayList<>();
+        Product product4 = new Product(fields2, seller, "chocoooo", "description2a", 22, 600);
+        product4.changeStateAccepted();
+        productArrayList.add(product4);
+        productArrayList.add(products.get(1));
+        //productArrayList.add(product4);
+        productArrayList.add(products.get(0));
+        productArrayList.add(products.get(2));
+        try {
+            allProductsController.changeSort("ByScores");
+            ArrayList<Product> result = allProductsController.showProducts();
+            Assert.assertEquals(productArrayList, result);
+        } catch (Exception e) {
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void showProductsByNumberOfViewsInAllProductsController() {
+        allProductsController.getProducts().clear();
+        ArrayList<Product> productArrayList = new ArrayList<>();
+        Product product4 = new Product(fields2, seller, "chocoooo", "description2a", 22, 600);
+        product4.addToNumberOfViews();
+        product4.addToNumberOfViews();
+        product4.addToNumberOfViews();
+        products.get(0).addToNumberOfViews();
+        products.get(0).addToNumberOfViews();
+        products.get(1).addToNumberOfViews();
+        products.get(1).addToNumberOfViews();
+        products.get(1).addToNumberOfViews();
+        products.get(1).addToNumberOfViews();
+        products.get(2).addToNumberOfViews();
+        product4.changeStateAccepted();
+
+        productArrayList.add(products.get(1));
+        //productArrayList.add(product4);
+        productArrayList.add(products.get(0));
+        productArrayList.add(product4);
+        productArrayList.add(products.get(2));
+        try {
+            allProductsController.changeSort("ByNumberOfViews");
+            ArrayList<Product> result = allProductsController.showProducts();
+            Assert.assertEquals(productArrayList, result);
+        } catch (Exception e) {
+            Assert.fail();
+        }
+    }
+
+
+
 
 
 }
