@@ -9,6 +9,6 @@ import java.util.Comparator;
 class  CompareDates implements Comparator<LocalDateTime> {
     @Override
     public int compare(LocalDateTime date1, LocalDateTime date2) {
-        return date2.compareTo(date2);
+        return date2.compareTo(date1);
     }
 }

@@ -606,6 +606,7 @@ public class ManagerMenu extends Menu {
 
     @Override
     public void back() {
-        super.back();
+        managerController.logout();
+        System.out.println("Logout Successful. GoodBye!");
     }
 }
