@@ -157,7 +157,7 @@ public class   BuyerMenu extends Menu {
         System.out.println("Time               : " + buyerReceipt.getDateAndTime());
     }
 
-    private void rate(double idDouble, double score) {
+    public void rate(double idDouble, double score) {
         try {
             buyerController.rate(Integer.toString((int) idDouble), (int) score);
         } catch (Exception e) {
@@ -165,11 +165,11 @@ public class   BuyerMenu extends Menu {
         }
     }
 
-    private void viewBalance() {
+    public void viewBalance() {
         System.out.println(buyerController.getCredit());
     }
 
-    private void viewDiscountCodes() {
+    public void viewDiscountCodes() {
         ArrayList<Discount> allDiscounts = buyerController.getAllDiscounts();
         System.out.format("%-20s%-20s%-20s%-20s\n","Discount Code","Discount Percentage","Max number of usage","Number of usage");
         for (Discount discount:allDiscounts) {
