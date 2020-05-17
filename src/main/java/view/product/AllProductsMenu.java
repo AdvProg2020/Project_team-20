@@ -70,7 +70,7 @@ public class AllProductsMenu extends Menu {
         System.out.println("please insert the name of filter:");
         ArrayList<String> details = new ArrayList<>();
         details.add(scanner.nextLine());
-        if (details.get(0).equals("optional field")) {
+        if (details.get(0).equalsIgnoreCase("optional field")) {
             System.out.println("How many optional field do you want to insert?");
             int count = Integer.parseInt(scanner.nextLine());
             for (int i=0; i<count; i++)
