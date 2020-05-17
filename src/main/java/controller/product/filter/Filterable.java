@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-import static model.product.Product.getProductByAddingDate;
 
 public abstract class Filterable {
     protected ArrayList<Filter> filters = new ArrayList<>();
