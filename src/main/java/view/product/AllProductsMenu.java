@@ -51,7 +51,7 @@ public class AllProductsMenu extends Menu {
 
     public void showProduct(double idDouble) {
         try {
-            Product product = Product.getProductById(Integer.toString((int)idDouble));
+            Product product = allProductsController.getProduct(Integer.toString((int)idDouble));
             ProductMenu productMenu = new ProductMenu(product);
             enter(productMenu);
         } catch (Exception e) {

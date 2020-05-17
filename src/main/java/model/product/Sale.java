@@ -99,7 +99,7 @@ public class Sale implements Requestable {
     }
 
     public double getSalePercentage() {
-        return (salePercentage*100);
+        return salePercentage;
     }
 
     public static ArrayList<Sale> getAllSales() {
@@ -111,6 +111,10 @@ public class Sale implements Requestable {
             }
         }
         return allSales;
+    }
+
+    public Seller getSeller() {
+        return seller;
     }
 
     @Override

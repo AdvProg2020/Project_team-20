@@ -1,5 +1,6 @@
 package view.product;
 
+import controller.product.filter.AllProductsController;
 import controller.product.filter.SaleController;
 import model.filter.Filter;
 import model.product.Product;
@@ -18,13 +19,12 @@ public class SaleMenu extends Menu {
         setRegex();
         setMethods();
         saleController = new SaleController();
-        //showOffs();
         preProcess();
     }
 
     public void showProduct(String id) {
         try {
-            Product product = Product.getProductById(id);
+            Product product = AllProductsController.getInstance().getProduct(id);
             ProductMenu productMenu = new ProductMenu(product);
             enter(productMenu);
         } catch (Exception e) {
@@ -102,11 +102,11 @@ public class SaleMenu extends Menu {
 
     public void showOffs() {
         ArrayList<Sale> sales = saleController.getAllSales();
-        System.out.println("Name                Price                Off                 Id\n");
+        System.out.format("%-20s%-20s%-20s%-20s\n","Name","Price","Off","Id");
         for (Sale sale:sales) {
             for (Product product:sale.getProducts()) {
-                System.out.format("%s%20s%40f%60s", product.getName(), product.getPrice(),
-                        sale.getSalePercentage(), product.getId());
+                System.out.format("%-20s%-20s%-20f%-20s", product.getName(), product.getPrice(sale.getSeller()),
+                        sale.getSalePercentage()*100, product.getId());
             }
         }
     }

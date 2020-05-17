@@ -117,7 +117,6 @@ public class   BuyerMenu extends Menu {
             return;
         try {
             buyerController.purchase(address, phoneNumber, discountCode);
-            viewCart();
             System.out.println("Thanks for your buying!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -165,10 +164,6 @@ public class   BuyerMenu extends Menu {
         }
     }
 
-    public void viewBalance() {
-        System.out.println(buyerController.getCredit());
-    }
-
     public void viewDiscountCodes() {
         ArrayList<Discount> allDiscounts = buyerController.getAllDiscounts();
         System.out.format("%-20s%-20s%-20s%-20s\n","Discount Code","Discount Percentage","Max number of usage","Number of usage");
@@ -189,17 +184,17 @@ public class   BuyerMenu extends Menu {
         regex.add("edit (\\w+)");
         regex.add("view cart");
         regex.add("show products");
-        regex.add("view (\\w+)");
+        regex.add("view product (\\w+)");
         regex.add("increase (\\w+) (\\d+)");
         regex.add("decrease (\\w+) (\\d+)");
         regex.add("show total price");
         regex.add("purchase");
         regex.add("view orders");
         regex.add("show order (\\w+)");
-        regex.add("rate (\\w+) (\\d+)");
-        regex.add("view balance");
+        regex.add("rate (\\d+) (\\d+)");
         regex.add("view discount codes");
         regex.add("logout");
+        regex.add("view balance");
     }
 
     private void setMethods() {
@@ -215,9 +210,13 @@ public class   BuyerMenu extends Menu {
         methods.add("viewOrders");
         methods.add("showOrder");
         methods.add("rate");
-        methods.add("viewBalance");
         methods.add("viewDiscountCodes");
         methods.add("logoutBuyer");
+        methods.add("viewBalance");
+    }
+
+    public void viewBalance() {
+        System.out.println("Your credit: " + buyerController.getCredit());
     }
 
     public void logoutBuyer() {
