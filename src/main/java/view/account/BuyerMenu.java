@@ -15,13 +15,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class   BuyerMenu extends Menu {
-    BuyerController buyerController;
+    private static BuyerController buyerController;
 
     private static BuyerMenu buyerMenu = null;
 
     public static BuyerMenu getInstance() {
         if (buyerMenu == null)
             buyerMenu = new BuyerMenu();
+        buyerController = BuyerController.getInstance();
         return buyerMenu;
     }
 
@@ -29,7 +30,6 @@ public class   BuyerMenu extends Menu {
         super("BuyerMenu");
         setRegex();
         setMethods();
-        buyerController = BuyerController.getInstance();
         preProcess();
     }
 
@@ -111,7 +111,7 @@ public class   BuyerMenu extends Menu {
         System.out.println("You are buying all these products:");
         viewCart();
         showTotalPrice();
-        System.out.println("Are you sure you want to buy? (yes/no)");
+        System.out.println("Are you sure you want to buy (If you have inserted a discount code it will be added! Don't worry and just buy:) )? (yes/no)");
         String answer = scanner.nextLine();
         if (answer.equalsIgnoreCase("no"))
             return;

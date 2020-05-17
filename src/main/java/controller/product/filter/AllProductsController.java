@@ -43,7 +43,7 @@ public class AllProductsController extends Filterable {
 
     public static class NotLoggedInException extends Exception{
         public NotLoggedInException() {
-            super("not logged in");
+            super("You have not logged in. Please go to LoginMenu and log in!:)");
         }
     }
 

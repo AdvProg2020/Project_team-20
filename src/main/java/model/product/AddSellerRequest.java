@@ -8,17 +8,21 @@ public class AddSellerRequest implements Requestable {
     private Seller seller;
     private int count;
     private double price;
+    private RequestableState state;
 
     public AddSellerRequest(Product product, Seller seller, int count, double price) {
         this.product = product;
         this.seller = seller;
         this.count = count;
         this.price = price;
+        this.state = RequestableState.CREATED;
     }
 
     @Override
     public void changeStateAccepted() {
         product.addSeller(seller, count, price);
+        seller.addToProductsToSell(product, count);
+        state = RequestableState.ACCEPTED;
     }
 
     @Override
@@ -32,7 +36,7 @@ public class AddSellerRequest implements Requestable {
 
     @Override
     public RequestableState getState() {
-        return null;
+        return state;
     }
 
     public Product getProduct() {
@@ -65,5 +69,16 @@ public class AddSellerRequest implements Requestable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        String temp = "Seller wants to be added to this product: \n";
+        temp += "Seller username     : " + seller.getUsername() + "\n";
+        temp += "Product Id          : " + product.getId() + "\n";
+        temp += "Name                : " + product.getName() + "\n";
+        temp += "Count               : " + count + "\n";
+        temp += "Price               : " + price;
+        return temp;
     }
 }

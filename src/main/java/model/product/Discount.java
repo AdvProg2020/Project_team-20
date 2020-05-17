@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Discount {
     private static ArrayList<Discount> allDiscounts = new ArrayList<>();
-    private static int numberOfDiscounts;
+    private static int numberOfDiscounts = 0;
     private int discountCode;
     private double discountPercentage;
     private int maxNumberOfUsage;
@@ -50,11 +50,12 @@ public class Discount {
 
     public static boolean validDiscountCodeBuyer(Buyer buyer, int discountCode) throws Exception{
         for (Discount discount:allDiscounts) {
-            if (discount.getDiscountCode()==discountCode && discount.getBuyersWithDiscount().contains(buyer))
-                if (discount.getNumberOfUsageForEachBuyer().get(buyer)==0)
+            if (discount.getDiscountCode()==discountCode && discount.getBuyersWithDiscount().contains(buyer)) {
+                if (discount.getNumberOfUsageForEachBuyer().get(buyer) == 0)
                     throw new discountUsedException();
                 else
                     return true;
+            }
         }
         throw  new discountCodeNotFoundException();
     }

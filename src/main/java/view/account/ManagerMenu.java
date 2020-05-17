@@ -20,7 +20,7 @@ import java.util.HashMap;
 public class ManagerMenu extends Menu {
 
     private static ManagerMenu single_instance = null;
-    private ManagerController managerController = ManagerController.getInstance();
+    private static ManagerController managerController;
 
     private ManagerMenu() {
         super("ManagerMenu");
@@ -32,7 +32,7 @@ public class ManagerMenu extends Menu {
     public static ManagerMenu getInstance() {
         if (single_instance == null)
             single_instance = new ManagerMenu();
-
+        managerController = ManagerController.getInstance();
         return single_instance;
     }
 
@@ -185,17 +185,17 @@ public class ManagerMenu extends Menu {
         double percentage;
         do {
             System.out.println("please write discount percentage:");
-            percentage = Menu.scanner.nextInt();
+            percentage = Menu.scanner.nextDouble();
         }
-        while(percentage > 100 || percentage < 0);
+        while(percentage > 1);
         System.out.println("please write maximum number of usage this discount:");
         int maxNumberOfUsage = Menu.scanner.nextInt();
         System.out.println("please write number of users who can use this discount:");
         int n = Menu.scanner.nextInt();
+        scanner.nextLine();
         int i=0;
         ArrayList<Buyer> buyersWithDiscount = new ArrayList<>();
         System.out.println("please write the username of those who can use this discount:");
-        Menu.scanner.nextLine();
         while(i<n){
             String userName = Menu.scanner.nextLine();
             try {
@@ -559,6 +559,7 @@ public class ManagerMenu extends Menu {
         switch (n){
             case 1:
                 try {
+                    Menu.scanner.nextLine();
                     System.out.println("please write parent category's name:");
                     String parentName = Menu.scanner.nextLine();
                     managerController.addParentToCategory(name , parentName);
@@ -568,7 +569,7 @@ public class ManagerMenu extends Menu {
                 }
                 break;
             case 2:
-                return;
+                break;
             default:
                 System.out.println("invalid input");
                 addParentPart(name);
