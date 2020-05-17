@@ -1,7 +1,5 @@
 package model.product;
 
-import model.product.Field.Field;
-
 import java.util.ArrayList;
 
 public class Category {
@@ -18,6 +16,7 @@ public class Category {
         this.fieldNames = new ArrayList<>();
         this.subCategories = new ArrayList<>();
         this.products = new ArrayList<>();
+        allCategories.add(this);
     }
 
     public Category(String name){
@@ -26,6 +25,7 @@ public class Category {
         this.fieldNames = new ArrayList<>();
         this.subCategories = new ArrayList<>();
         this.products = new ArrayList<>();
+        allCategories.add(this);
     }
 
     public static ArrayList<Category> getAllCategories() {

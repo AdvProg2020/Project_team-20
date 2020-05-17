@@ -2,6 +2,7 @@ import controller.product.filter.AllProductsController;
 import mockit.Tested;
 import model.account.Buyer;
 import model.account.Seller;
+import model.product.Category;
 import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
@@ -30,6 +31,7 @@ public class FilterableTest {
             , "aaa", "ehsan", 5000, "aaa");
     Buyer buyer = new Buyer("sadegh", "amoo", "amoo@", "1"
             , "biJohar", "sadegh", 500000);
+    Category category = new Category("option");
 
     @Before
     public void preProcess() {
@@ -56,8 +58,8 @@ public class FilterableTest {
         product1.changeStateAccepted();
         Product product2 = new Product(fields2, seller, "choc", "description", 22, 600);
         product2.changeStateAccepted();
-        Product product5 = new Product(fields, seller, "milk", "description5", 10, 500);
-        //product5.changeStateAccepted();
+        Product product4 = new Product(fields, seller, "milk", "description5", 101, 50);
+        product4.changeStateAccepted();
         Score score = new Score(buyer, 3, product);
         Score score1 = new Score(buyer, 5, product1);
         Score score2 = new Score(buyer, 1, product2);
@@ -67,7 +69,11 @@ public class FilterableTest {
         products.add(product);
         products.add(product1);
         products.add(product2);
-        products.add(product5);
+        products.add(product4);
+        category.addProduct(product);
+        category.addProduct(product1);
+        category.addProduct(product2);
+        //category.addProduct(product4);
     }
 
 
@@ -125,8 +131,9 @@ public class FilterableTest {
         productArrayList.add(products.get(1));
         productArrayList.add(product4);
         productArrayList.add(products.get(0));
-        productArrayList.add(product4);
+        //productArrayList.add(product4);
         productArrayList.add(products.get(2));
+        productArrayList.add(products.get(3));
         try {
             allProductsController.changeSort("ByNumberOfViews");
             ArrayList<Product> result = allProductsController.showProducts();
@@ -198,5 +205,26 @@ public class FilterableTest {
         }
 
     }
+
+    @Test
+    public void filterByCategory() {
+        ArrayList<String> stringArrayList = new ArrayList<>();
+        stringArrayList.add("option");
+        category.addField("optional1");
+        try {
+            ArrayList<Product> arrayList1 = new ArrayList<>();
+            allProductsController.filter("category", stringArrayList);
+            //arrayList1.add(products.get(0));
+            arrayList1.add(products.get(1));
+            arrayList1.add(products.get(2));
+           // arrayList1.add(products.get(3));
+            ArrayList<Product> result = allProductsController.getProducts();
+            Assert.assertEquals(arrayList1, result);
+        } catch (Exception e) {
+            Assert.fail();
+            e.printStackTrace();
+        }
+    }
+
 
 }
