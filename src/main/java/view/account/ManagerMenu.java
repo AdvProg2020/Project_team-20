@@ -191,11 +191,10 @@ public class ManagerMenu extends Menu {
         System.out.println("please write maximum number of usage this discount:");
         int maxNumberOfUsage = Menu.scanner.nextInt();
         System.out.println("please write number of users who can use this discount:");
-        int n = Menu.scanner.nextInt();
+        int n = Integer.parseInt(Menu.scanner.nextLine());
         int i=0;
         ArrayList<Buyer> buyersWithDiscount = new ArrayList<>();
         System.out.println("please write the username of those who can use this discount:");
-        Menu.scanner.nextLine();
         while(i<n){
             String userName = Menu.scanner.nextLine();
             try {
