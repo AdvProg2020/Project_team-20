@@ -7,8 +7,11 @@ import model.filter.RangeFilter;
 import model.product.Category;
 import model.product.Product;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import static model.product.Product.getProductByAddingDate;
 
 public abstract class Filterable {
     protected ArrayList<Filter> filters = new ArrayList<>();
@@ -141,8 +144,16 @@ public abstract class Filterable {
 
     private ArrayList<Product> sortByAddingDate(){
         ArrayList<Product> products = getProducts();
-        products.sort(new CompareDates());
-        return products;
+        ArrayList<LocalDateTime> addingDates = new ArrayList<>();
+        for(Product product:products){
+            addingDates.add(product.getAddingDate());
+        }
+        addingDates.sort(new CompareDates());
+        ArrayList<Product> newProducts = new ArrayList<>();
+        for(LocalDateTime date :addingDates){
+            newProducts.add(getProductByAddingDate(date));
+        }
+        return newProducts;
     }
 
     public String getCurrentSort() {

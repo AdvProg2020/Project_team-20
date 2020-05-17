@@ -1,4 +1,4 @@
-import controller.MainController;
+/*import controller.MainController;
 import controller.account.user.SellerController;
 import mockit.Tested;
 import model.account.Buyer;
@@ -103,3 +103,4 @@ public class SellerControllerTest {
 
 
 }
+*/
