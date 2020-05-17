@@ -111,7 +111,7 @@ public class   BuyerMenu extends Menu {
         System.out.println("You are buying all these products:");
         viewCart();
         showTotalPrice();
-        System.out.println("Are you sure you want to buy? (yes/no)");
+        System.out.println("Are you sure you want to buy (If you have inserted a discount code it will be added! Don't worry and just buy:) )? (yes/no)");
         String answer = scanner.nextLine();
         if (answer.equalsIgnoreCase("no"))
             return;
