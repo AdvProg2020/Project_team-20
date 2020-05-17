@@ -22,15 +22,15 @@ import java.util.*;
 public class SellerController implements AccountController {
     private static SellerController sellerController = null;
     private MainController mainController = MainController.getInstance();
-    private Seller seller;
+    private static Seller seller;
 
     private SellerController() {
-        this.seller = (Seller) mainController.getAccount();
     }
 
     public static SellerController getInstance() {
         if (sellerController == null)
             sellerController =  new SellerController();
+        seller = (Seller) MainController.getInstance().getAccount();
         return sellerController;
     }
 

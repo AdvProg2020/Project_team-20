@@ -15,13 +15,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class   BuyerMenu extends Menu {
-     BuyerController buyerController;
+    private static BuyerController buyerController;
 
     private static BuyerMenu buyerMenu = null;
 
     public static BuyerMenu getInstance() {
         if (buyerMenu == null)
             buyerMenu = new BuyerMenu();
+        buyerController = BuyerController.getInstance();
         return buyerMenu;
     }
 
@@ -29,7 +30,6 @@ public class   BuyerMenu extends Menu {
         super("BuyerMenu");
         setRegex();
         setMethods();
-        buyerController = BuyerController.getInstance();
         preProcess();
     }
 

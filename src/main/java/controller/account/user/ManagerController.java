@@ -26,20 +26,19 @@ import static model.product.Product.*;
 public class ManagerController implements controller.account.user.AccountController {
 
     private MainController mainController;
-    private Manager currentManager;
+    private static Manager currentManager;
 
     private static ManagerController managerController = null;
 
     private ManagerController() {
         this.mainController = MainController.getInstance();
-        currentManager = (Manager) mainController.getAccount();
     }
 
     public static ManagerController getInstance()
     {
         if (managerController == null)
             managerController = new ManagerController();
-
+        currentManager = (Manager) MainController.getInstance().getAccount();
         return managerController;
     }
 

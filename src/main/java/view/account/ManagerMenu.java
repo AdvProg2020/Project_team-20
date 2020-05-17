@@ -20,7 +20,7 @@ import java.util.HashMap;
 public class ManagerMenu extends Menu {
 
     private static ManagerMenu single_instance = null;
-    private ManagerController managerController = ManagerController.getInstance();
+    private static ManagerController managerController;
 
     private ManagerMenu() {
         super("ManagerMenu");
@@ -32,7 +32,7 @@ public class ManagerMenu extends Menu {
     public static ManagerMenu getInstance() {
         if (single_instance == null)
             single_instance = new ManagerMenu();
-
+        managerController = ManagerController.getInstance();
         return single_instance;
     }
 
