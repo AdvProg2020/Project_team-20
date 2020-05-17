@@ -185,9 +185,9 @@ public class ManagerMenu extends Menu {
         double percentage;
         do {
             System.out.println("please write discount percentage:");
-            percentage = Menu.scanner.nextInt();
+            percentage = Menu.scanner.nextDouble();
         }
-        while(percentage > 100 || percentage < 0);
+        while(percentage > 1);
         System.out.println("please write maximum number of usage this discount:");
         int maxNumberOfUsage = Menu.scanner.nextInt();
         System.out.println("please write number of users who can use this discount:");

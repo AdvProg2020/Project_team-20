@@ -67,16 +67,22 @@ public class AllProductsMenu extends Menu {
     public void filter() {
         System.out.println("Please insert the type of your filter. ( category | product name | optional field | numerical field");
         String filterName = Menu.scanner.nextLine();
-        System.out.println("please insert the name of filter:");
         ArrayList<String> details = new ArrayList<>();
-        details.add(scanner.nextLine());
-        if (details.get(0).equalsIgnoreCase("optional field")) {
+        if(filterName.equals("category")){
+            System.out.println("please insert the name of category:");
+            details.add(scanner.nextLine());
+        }
+        if(filterName.equals("product name")){
+            System.out.println("please insert the name of product:");
+            details.add(scanner.nextLine());
+        }
+        if (filterName.equals("optional field")) {
             System.out.println("How many optional field do you want to insert?");
             int count = Integer.parseInt(scanner.nextLine());
             for (int i=0; i<count; i++)
                 details.add(scanner.nextLine());
         }
-        if (details.get(0).equals("numerical field")) {
+        if (filterName.equals("numerical field")) {
             System.out.println("Please insert you min filed.");
             details.add(scanner.nextLine());
             System.out.println("Please insert you max filed.");
