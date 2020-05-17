@@ -416,8 +416,6 @@ public class ManagerMenu extends Menu {
        ArrayList<Category> categories = managerController.manageCategories();
        for(Category category:categories){
            System.out.println("Name : "+category.getName());
-           for(Product product : category.getProducts())
-               System.out.println("Product Name: "+product.getName());
        }
     }
 

@@ -65,9 +65,9 @@ public class AllProductsMenu extends Menu {
     }
 
     public void filter() {
-        System.out.println("please insert the name of filter:");
-        String filterName = Menu.scanner.nextLine();
         System.out.println("Please insert the type of your filter. ( category | product name | optional field | numerical field");
+        String filterName = Menu.scanner.nextLine();
+        System.out.println("please insert the name of filter:");
         ArrayList<String> details = new ArrayList<>();
         details.add(scanner.nextLine());
         if (details.get(0).equals("optional field")) {
