@@ -8,7 +8,14 @@ import java.util.Comparator;
 
 class  CompareDates implements Comparator<Product> {
     @Override
-    public int compare(Product date1, Product date2) {
-        return date2.getAddingDate().compareTo(date1.getAddingDate());
+    public int compare(Product product1, Product product2) {
+        int compareAddingDates = product2.getAddingDate().compareTo(product1.getAddingDate());
+        int compareIDS =  product2.getId().compareTo(product1.getId());
+        if(compareAddingDates==0){
+            return compareIDS;
+        }
+        else {
+            return compareAddingDates;
+        }
     }
 }
