@@ -1,4 +1,4 @@
-import controller.product.filter.Filterable;
+/*import controller.product.filter.Filterable;
 import mockit.Tested;
 import model.account.Seller;
 import model.filter.Filter;
@@ -119,3 +119,4 @@ public class FilterableTest {
         products.add(product2);
     }
 }
+*/
