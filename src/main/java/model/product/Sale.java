@@ -99,7 +99,7 @@ public class Sale implements Requestable {
     }
 
     public double getSalePercentage() {
-        return (salePercentage*100);
+        return salePercentage;
     }
 
     public static ArrayList<Sale> getAllSales() {
@@ -107,7 +107,9 @@ public class Sale implements Requestable {
         for (Account account:Seller.getAllAccounts()) {
             if (account instanceof Seller) {
                 Seller seller = (Seller)account;
-                allSales.addAll(seller.getSales());
+                for (Sale sale:seller.getSales())
+                    if (sale.validSaleTime())
+                        allSales.add(sale);
             }
         }
         return allSales;

@@ -17,5 +17,4 @@ public class SaleController extends Filterable {
         return Sale.getAllSales();
     }
 
-
 }
