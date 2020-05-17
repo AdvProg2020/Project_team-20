@@ -57,13 +57,10 @@ public class ProductMenu extends Menu {
 
     public void addProductToCart() {
         try {
-            if (sellerId==null)
-                System.out.println("First please select a seller.");
             productController.addProductToCart(getSellerId());
             System.out.println("addition was successful");
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 

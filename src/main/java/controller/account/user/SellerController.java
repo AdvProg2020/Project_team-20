@@ -221,6 +221,8 @@ public class SellerController implements AccountController {
             startDate = LocalDateTime.parse(details.get(0), formatter);
             endDate = LocalDateTime.parse(details.get(1), formatter);
             double salePercentage = Double.parseDouble(details.get(2))/100;
+            if (salePercentage>1)
+                throw new discountPercentageNotValidException();
             ArrayList<Product> products = Product.getProductsWithIds(productIds);
             Sale sale = new Sale(id, products, startDate, endDate, salePercentage, seller);
             Manager.addRequest(sale);
@@ -325,6 +327,11 @@ public class SellerController implements AccountController {
                 throw new ManagerController.fieldIsInvalidException();
         }
         Manager.addRequest(seller);
+    }
+
+    public static class discountPercentageNotValidException extends Exception {
+        public discountPercentageNotValidException() { super("Discount percentage must be lower than 100!");
+        }
     }
 
     @Override

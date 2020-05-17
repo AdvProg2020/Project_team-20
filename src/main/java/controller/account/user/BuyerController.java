@@ -108,8 +108,8 @@ public class BuyerController implements AccountController {
             Product product = selectedProduct.getProduct();
             Sale sale = getSaleForProductOfSeller(product, seller);
             if (sale!=null) {
-                totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount() * sale.getSalePercentage();
-                totalDiscount += product.getPrice(seller)* selectedProduct.getCount() * (1-sale.getSalePercentage());
+                totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount() * (1-sale.getSalePercentage());
+                totalDiscount += product.getPrice(seller)* selectedProduct.getCount() * sale.getSalePercentage();
             }
             else
                 totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount();
@@ -144,7 +144,7 @@ public class BuyerController implements AccountController {
             Sale saleForProduct = getSaleForProduct(selectedProduct);
             Seller seller = selectedProduct.getSeller();
             if (saleForProduct!=null && saleForProduct.validSaleTime())
-                totalPrice += selectedProduct.getProduct().getPrice(seller)*selectedProduct.getCount()*saleForProduct.getSalePercentage();
+                totalPrice += selectedProduct.getProduct().getPrice(seller)*selectedProduct.getCount()*(1-saleForProduct.getSalePercentage());
             else
                 totalPrice += selectedProduct.getProduct().getPrice(seller)*selectedProduct.getCount();
         }
