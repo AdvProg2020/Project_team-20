@@ -144,16 +144,8 @@ public abstract class Filterable {
 
     private ArrayList<Product> sortByAddingDate(){
         ArrayList<Product> products = getProducts();
-        ArrayList<LocalDateTime> addingDates = new ArrayList<>();
-        for(Product product:products){
-            addingDates.add(product.getAddingDate());
-        }
-        addingDates.sort(new CompareDates());
-        ArrayList<Product> newProducts = new ArrayList<>();
-        for(LocalDateTime date :addingDates){
-            newProducts.add(getProductByAddingDate(date));
-        }
-        return newProducts;
+        products.sort(new CompareDates());
+        return products;
     }
 
     public String getCurrentSort() {

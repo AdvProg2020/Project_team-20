@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 
 
-class  CompareDates implements Comparator<LocalDateTime> {
+class  CompareDates implements Comparator<Product> {
     @Override
-    public int compare(LocalDateTime date1, LocalDateTime date2) {
-        return date2.compareTo(date1);
+    public int compare(Product date1, Product date2) {
+        return date2.getAddingDate().compareTo(date1.getAddingDate());
     }
 }
