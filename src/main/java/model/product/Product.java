@@ -297,6 +297,7 @@ public class Product implements Requestable {
         }
     }
 
+
     @Override
     public String toString() {
         String productString = "Name                : " + name + "\n" +
