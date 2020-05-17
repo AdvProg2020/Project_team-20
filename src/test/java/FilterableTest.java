@@ -36,12 +36,14 @@ public class FilterableTest {
         strings.add("this is option");
         strings.add("second");
         strings.add("third");
+        ArrayList<String> strings1 = new ArrayList<>();
+        strings1.add("test");
         Field numericalField = new NumericalField("numeric", FieldType.NUMERICAL, 0);
         Field numericalField1 = new NumericalField("numeric1", FieldType.NUMERICAL, 10);
         Field numericalField2 = new NumericalField("numeric1", FieldType.NUMERICAL, 15);
         Field optionalFiled = new OptionalField("optional", FieldType.OPTIONAL, strings);
-        Field optionalFiled1 = new OptionalField("optional1", FieldType.OPTIONAL, strings);
-        Field optionalFiled2 = new OptionalField("optional2", FieldType.OPTIONAL, strings);
+        Field optionalFiled1 = new OptionalField("optional1", FieldType.OPTIONAL, strings1);
+        Field optionalFiled2 = new OptionalField("optional1", FieldType.OPTIONAL, strings1);
         fields.add(numericalField);
         fields1.add(numericalField1);
         fields2.add(numericalField2);
@@ -176,6 +178,24 @@ public class FilterableTest {
 
     @Test
     public void filterByOptional() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("optional1");
+        strings.add("test");
+        /*arrayList.add("optional");
+        arrayList.add("this is option");
+        arrayList.add("second");
+        arrayList.add("third");*/
+        try {
+            allProductsController.filter("optional field", arrayList);
+            ArrayList<Product> arrayList1 = new ArrayList<>();
+            arrayList1.add(products.get(1));
+            arrayList1.add(products.get(2));
+            //arrayList1.add(products.get(0));
+            ArrayList<Product> result = allProductsController.getProducts();
+            Assert.assertEquals(arrayList1, result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
