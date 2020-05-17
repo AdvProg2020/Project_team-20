@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class   BuyerMenu extends Menu {
-    BuyerController buyerController;
+     BuyerController buyerController;
 
     private static BuyerMenu buyerMenu = null;
 

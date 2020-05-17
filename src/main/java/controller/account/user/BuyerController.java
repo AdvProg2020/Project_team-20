@@ -14,16 +14,16 @@ import java.util.ArrayList;
 
 public class BuyerController implements AccountController {
     MainController mainController;
-    Buyer currentBuyer;
+    static Buyer currentBuyer;
 
     private static BuyerController buyerController = null;
 
     private BuyerController() {
         this.mainController = MainController.getInstance();
-        currentBuyer = (Buyer)mainController.getAccount();
     }
 
     public static BuyerController getInstance() {
+        currentBuyer = (Buyer)MainController.getInstance().getAccount();
         if (buyerController == null)
             buyerController = new BuyerController();
         return buyerController;

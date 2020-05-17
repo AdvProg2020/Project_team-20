@@ -416,6 +416,8 @@ public class ManagerMenu extends Menu {
        ArrayList<Category> categories = managerController.manageCategories();
        for(Category category:categories){
            System.out.println("Name : "+category.getName());
+           for(Product product : category.getProducts())
+               System.out.println("Product Name: "+product.getName());
        }
     }
 
@@ -559,6 +561,7 @@ public class ManagerMenu extends Menu {
         switch (n){
             case 1:
                 try {
+                    Menu.scanner.nextLine();
                     System.out.println("please write parent category's name:");
                     String parentName = Menu.scanner.nextLine();
                     managerController.addParentToCategory(name , parentName);
@@ -568,7 +571,7 @@ public class ManagerMenu extends Menu {
                 }
                 break;
             case 2:
-                return;
+                break;
             default:
                 System.out.println("invalid input");
                 addParentPart(name);

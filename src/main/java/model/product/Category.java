@@ -80,6 +80,8 @@ public class Category {
 
     public void addSubCategory(Category subCategory) {
         this.subCategories.add(subCategory);
+        for(Product product:subCategory.getProducts())
+            this.products.add(product);
     }
 
     public ArrayList<Product> getProducts() {
