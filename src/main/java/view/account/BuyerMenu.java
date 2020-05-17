@@ -185,8 +185,8 @@ public class   BuyerMenu extends Menu {
         regex.add("view cart");
         regex.add("show products");
         regex.add("view product (\\w+)");
-        regex.add("increase (\\w+) (\\d+)");
-        regex.add("decrease (\\w+) (\\d+)");
+        regex.add("increase (\\d+) (\\d+)");
+        regex.add("decrease (\\d+) (\\d+)");
         regex.add("show total price");
         regex.add("purchase");
         regex.add("view orders");
@@ -241,6 +241,7 @@ public class   BuyerMenu extends Menu {
 
     @Override
     public void back() {
-        super.back();
+        buyerController.logout();
+        System.out.println("Logout Successful. GoodBye!");
     }
 }

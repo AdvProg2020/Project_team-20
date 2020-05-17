@@ -505,7 +505,8 @@ public class SellerMenu extends Menu {
 
     @Override
     public void back() {
-        super.back();
+        sellerController.logout();
+        System.out.println("Logout Successful. GoodBye!");;
     }
 
 }
