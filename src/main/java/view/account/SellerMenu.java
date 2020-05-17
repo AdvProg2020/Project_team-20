@@ -431,6 +431,7 @@ public class SellerMenu extends Menu {
         double price = Double.parseDouble(scanner.nextLine());
         try {
             sellerController.addToProduct(Integer.toString((int)idDouble), count, price);
+            System.out.println("Your add request was sent to manager successfully. I hope they will accept that:)");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
