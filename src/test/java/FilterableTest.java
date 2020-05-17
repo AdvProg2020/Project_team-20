@@ -118,9 +118,4 @@ public class FilterableTest {
         products.add(product1);
         products.add(product2);
     }
-
-
-    @Test
-
-
 }
