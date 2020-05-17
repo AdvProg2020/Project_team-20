@@ -76,6 +76,14 @@ public class Product implements Requestable {
         return  addingDate;
     }
 
+    public static Product getProductByAddingDate(LocalDateTime date){
+        for(Product product : allProducts){
+            if(product.getAddingDate().isEqual(date))
+                return product;
+        }
+        return null;
+    }
+
     public void changeStateAccepted() {
         state = RequestableState.ACCEPTED;
         Seller seller = sellers.get(0);
