@@ -99,13 +99,14 @@ public class Sale implements Requestable {
     }
 
     public double getSalePercentage() {
-        return (salePercentage*100);
+        return salePercentage;
     }
 
     public static ArrayList<Sale> getAllSales() {
         ArrayList<Sale> allSales = new ArrayList<>();
         for (Account account:Seller.getAllAccounts()) {
             if (account instanceof Seller) {
+                System.out.println("Hello");
                 Seller seller = (Seller)account;
                 allSales.addAll(seller.getSales());
             }

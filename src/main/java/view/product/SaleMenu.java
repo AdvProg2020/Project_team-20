@@ -102,11 +102,11 @@ public class SaleMenu extends Menu {
 
     public void showOffs() {
         ArrayList<Sale> sales = saleController.getAllSales();
-        System.out.format("%-20s%-20s%-20s%-20s","Name","Price","Off","Id\n");
+        System.out.format("%-20s%-20s%-20s%-20s\n","Name","Price","Off","Id");
         for (Sale sale:sales) {
             for (Product product:sale.getProducts()) {
                 System.out.format("%-20s%-20s%-20f%-20s", product.getName(), product.getPrice(sale.getSeller()),
-                        sale.getSalePercentage(), product.getId());
+                        sale.getSalePercentage()*100, product.getId());
             }
         }
     }

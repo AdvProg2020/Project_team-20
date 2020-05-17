@@ -49,7 +49,7 @@ public class ProductMenu extends Menu {
                     + " price : " + product.getPrice(seller) + " count : " + product.getCount(seller));
             if (sale != null)
                 System.out.println("sale start date : " + sale.getStartDate() + " sale end date"
-                        + sale.getEndDate() + " sale percentage " + sale.getSalePercentage());
+                        + sale.getEndDate() + " sale percentage " + sale.getSalePercentage()*100);
             else System.out.println();
         }
         System.out.println("average score : " + product.getAverage());
