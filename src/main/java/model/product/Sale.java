@@ -106,7 +106,6 @@ public class Sale implements Requestable {
         ArrayList<Sale> allSales = new ArrayList<>();
         for (Account account:Seller.getAllAccounts()) {
             if (account instanceof Seller) {
-                System.out.println("Hello");
                 Seller seller = (Seller)account;
                 allSales.addAll(seller.getSales());
             }

@@ -41,25 +41,25 @@ public class ProductMenu extends Menu {
     }
 
     public void digest() {
-        System.out.println("name : " + product.getName());
-        System.out.println("description : " + product.getDescription());
+        System.out.println("name                : " + product.getName());
+        System.out.println("description         : " + product.getDescription());
         for (Seller seller : product.getSellers()) {
             Sale sale = seller.getSaleWithProduct(product);
-            System.out.print("seller : " + seller.getName() + " seller username : " + seller.getUsername()
-                    + " price : " + product.getPrice(seller) + " count : " + product.getCount(seller));
+            System.out.print("seller         : " + seller.getName() + "\n" + "seller username     : " + seller.getUsername() +"\n"
+                    + "price          : " + product.getPrice(seller) +"\n" + "count          : " + product.getCount(seller));
             if (sale != null)
-                System.out.println("sale start date : " + sale.getStartDate() + " sale end date"
-                        + sale.getEndDate() + " sale percentage " + sale.getSalePercentage()*100);
+                System.out.println("sale start date     : " + "\n"+ sale.getStartDate() + "sale end date       : " + "\n"
+                        + sale.getEndDate() + "\n" + "sale percentage     : " + "\n" + sale.getSalePercentage()*100);
             else System.out.println();
         }
-        System.out.println("average score : " + product.getAverage());
+        System.out.println("average score       : " + product.getAverage());
     }
 
     public void addProductToCart() {
         try {
-            productController.addProductToCart(getSellerId());
             if (sellerId==null)
                 System.out.println("First please select a seller.");
+            productController.addProductToCart(getSellerId());
             System.out.println("addition was successful");
         } catch (Exception e) {
             System.out.println(e.getMessage());
