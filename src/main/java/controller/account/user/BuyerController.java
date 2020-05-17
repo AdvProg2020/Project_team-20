@@ -13,19 +13,19 @@ import model.receipt.SellerReceipt;
 import java.util.ArrayList;
 
 public class BuyerController implements AccountController {
-    MainController mainController;
-    Buyer currentBuyer;
+    private MainController mainController;
+    private static Buyer currentBuyer;
 
     private static BuyerController buyerController = null;
 
     private BuyerController() {
         this.mainController = MainController.getInstance();
-        currentBuyer = (Buyer)mainController.getAccount();
     }
 
     public static BuyerController getInstance() {
         if (buyerController == null)
             buyerController = new BuyerController();
+        currentBuyer = (Buyer) MainController.getInstance().getAccount();
         return buyerController;
     }
 

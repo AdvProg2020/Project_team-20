@@ -1,5 +1,6 @@
 package view.account;
 
+import controller.account.user.ManagerController;
 import controller.account.user.SellerController;
 import model.account.Account;
 import model.account.Buyer;
@@ -17,13 +18,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SellerMenu extends Menu {
-    SellerController sellerController;
+    private static SellerController sellerController;
 
     private static SellerMenu sellerMenu = null;
 
     private SellerMenu() {
         super("SellerMenu");
-        sellerController = SellerController.getInstance();
         setRegex();
         setMethods();
         preProcess();
@@ -32,6 +32,7 @@ public class SellerMenu extends Menu {
     public static SellerMenu getInstance() {
         if (sellerMenu == null)
             sellerMenu = new SellerMenu();
+        sellerController = SellerController.getInstance();
         return sellerMenu;
     }
 
@@ -416,8 +417,8 @@ public class SellerMenu extends Menu {
 
     public void showAllProducts() {
         ArrayList<Product> products = Product.getAllProducts();
+        System.out.format("%-20s%-20s\n","Name","id");
         for (Product product:products) {
-            System.out.format("%-20s%-20s\n","Name","id");
             System.out.format("%-20s%-20s\n", product.getName()
                     , product.getId());
         }
