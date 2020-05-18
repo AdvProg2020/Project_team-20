@@ -1,6 +1,11 @@
 package model.product;
 
 
+import com.gilecode.yagson.YaGson;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Category {
@@ -151,13 +156,25 @@ public class Category {
         }
     }
 
-    public class CategoryNameException extends Exception {
+    public static class CategoryNameException extends Exception {
         public CategoryNameException() {
             super("we have another category with this name!");
         }
     }
 
-
+    public static void storeCategory() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutProduct/Category.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Category category : allCategories) {
+                fileWriter.write(yaGson.toJson(category) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

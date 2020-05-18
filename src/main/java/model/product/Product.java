@@ -25,12 +25,12 @@ public class Product implements Requestable {
     private String name;
     private RequestableState state;
     private ArrayList<Field> generalFields;
-    private ArrayList<Seller> sellers;
-    private ArrayList<Buyer> buyers;
-    private ArrayList<Category> categories;
+    private ArrayList<String> sellersUsername;
+    private ArrayList<String> buyersUsername;
+    private ArrayList<String> categoriesName;
     private String description;
-    private HashMap<Seller, Double> price;
-    private HashMap<Seller, Integer> count;
+    private HashMap<String , Double> priceWithName;
+    private HashMap<String, Integer> countWithName;
     private ArrayList<Score> scores;
     private ArrayList<Comment> comments;
     private double numberVisited;
@@ -44,18 +44,18 @@ public class Product implements Requestable {
         id = Integer.toString(productCount);
         state = RequestableState.CREATED;
         this.generalFields = generalFields;
-        sellers = new ArrayList<>();
-        sellers.add(seller);
-        buyers = new ArrayList<>();
-        categories = new ArrayList<>();
+        sellersUsername = new ArrayList<>();
+        sellersUsername.add(seller.getUsername());
+        buyersUsername = new ArrayList<>();
+        categoriesName = new ArrayList<>();
         this.description = description;
         scores = new ArrayList<>();
         comments = new ArrayList<>();
         numberVisited = 0;
-        this.count = new HashMap<>();
-        this.price = new HashMap<>();
-        this.count.put(seller, count);
-        this.price.put(seller, price);
+        this.countWithName = new HashMap<>();
+        this.priceWithName = new HashMap<>();
+        this.countWithName.put(seller.getUsername(), count);
+        this.priceWithName.put(seller.getUsername(), price);
         this.addingDate = LocalDateTime.now();
         productCount++;
     }
@@ -64,10 +64,10 @@ public class Product implements Requestable {
         this.views = 0;
         this.generalFields = generalFields;
         this.description = description;
-        this.count = new HashMap<>();
-        this.price = new HashMap<>();
-        this.count.put(seller, count);
-        this.price.put(seller, price);
+        this.countWithName = new HashMap<>();
+        this.priceWithName = new HashMap<>();
+        this.countWithName.put(seller.getUsername(), count);
+        this.priceWithName.put(seller.getUsername(), price);
     }
 
     public void increaseProductViews(){
@@ -83,11 +83,15 @@ public class Product implements Requestable {
     }
 
     public void changeStateAccepted() {
-        state = RequestableState.ACCEPTED;
-        Seller seller = sellers.get(0);
-        int num = count.get(seller);
-        seller.addToProductsToSell(this, num);
-        allProducts.add(this);
+        try {
+            state = RequestableState.ACCEPTED;
+            Seller seller = (Seller) Account.getAccountWithUsername(sellersUsername.get(0));
+            int num = countWithName.get(seller.getUsername());
+            seller.addToProductsToSell(this, num);
+            allProducts.add(this);
+        }
+        catch (Exception e){
+        }
     }
 
     public void changeStateRejected() {
@@ -108,47 +112,59 @@ public class Product implements Requestable {
         Seller seller = sellers.get(0);
         generalFields = editedProduct.getGeneralFields();
         description = editedProduct.getDescription();
-        price.replace(seller, editedProduct.getPrice(seller));
-        count.replace(seller, editedProduct.getCount(seller));
+        priceWithName.replace(seller.getUsername(), editedProduct.getPrice(seller));
+        countWithName.replace(seller.getUsername(), editedProduct.getCount(seller));
         editedProduct = null;
         state = RequestableState.ACCEPTED;
     }
 
     public Buyer getBuyerByUsername(String username) {
-        for (Buyer buyer : buyers) {
-            if (buyer.getUsername().equals(username))
-                return buyer;
+        for (String buyerUsername : buyersUsername) {
+            if (buyerUsername.equals(username)){
+                try {
+                    Buyer buyer = (Buyer) Account.getAccountWithUsername(username);
+                    return buyer;
+                }
+                catch (Exception e){
+                }
+            }
         }
         return null;
     }
 
     public Seller getSellerByUsername(String username) {
-        for (Seller seller : sellers) {
-            if (seller.getUsername().equals(username))
-                return seller;
+        for (String sellerName : sellersUsername) {
+            if (sellerName.equals(username)){
+               try {
+                   Seller seller = (Seller) Account.getAccountWithUsername(username);
+                   return seller;
+               }
+               catch (Exception e){
+               }
+            }
         }
         return null;
     }
 
     public void removeSeller(String username) {
         Seller seller = getSellerByUsername(username);
-        sellers.remove(seller);
-        price.remove(seller);
-        count.remove(seller);
+        sellersUsername.remove(seller.getUsername());
+        priceWithName.remove(seller.getUsername());
+        countWithName.remove(seller.getUsername());
     }
 
     public void addSeller(Seller seller, int count, double price) {
-        sellers.add(seller);
-        this.count.put(seller, count);
-        this.price.put(seller, price);
+        sellersUsername.add(seller.getUsername());
+        this.countWithName.put(seller.getUsername(), count);
+        this.priceWithName.put(seller.getUsername(), price);
     }
 
     public void addCategory(Category category) {
-        categories.add(category);
+        categoriesName.add(category.getName());
     }
 
     public void addBuyer(Buyer buyer) {
-        buyers.add(buyer);
+        buyersUsername.add(buyer.getUsername());
     }
 
     public static void removeProduct(String productId) throws Exception {
@@ -183,10 +199,28 @@ public class Product implements Requestable {
     }
 
     public ArrayList<Seller> getSellers() {
+        ArrayList<Seller> sellers = new ArrayList<>();
+        for(String sellerName : sellersUsername){
+            try {
+                Seller seller = (Seller) Account.getAccountWithUsername(sellerName);
+                sellers.add(seller);
+            }
+            catch (Exception e){
+            }
+        }
         return sellers;
     }
 
     public ArrayList<Buyer> getBuyers() {
+        ArrayList<Buyer> buyers = new ArrayList<>();
+        for(String buyerName : buyersUsername){
+            try {
+                Buyer buyer = (Buyer) Account.getAccountWithUsername(buyerName);
+                buyers.add(buyer);
+            }
+            catch (Exception e){
+            }
+        }
         return buyers;
     }
 
@@ -221,11 +255,11 @@ public class Product implements Requestable {
     }
 
     public int getCount(Seller seller) {
-        return count.get(seller);
+        return countWithName.get(seller.getUsername());
     }
 
     public double getPrice(Seller seller) {
-        return price.get(seller);
+        return priceWithName.get(seller.getUsername());
     }
 
     public Product getEditedProduct() {
@@ -233,6 +267,15 @@ public class Product implements Requestable {
     }
 
     public HashMap<Seller, Integer> getCount() {
+        HashMap<Seller , Integer> count = new HashMap<>();
+        for(String name : countWithName.keySet()){
+            try {
+                Seller seller = (Seller) Account.getAccountWithUsername(name);
+                count.put(seller,countWithName.get(name));
+            }
+            catch (Exception e){
+            }
+        }
         return count;
     }
 
@@ -257,10 +300,28 @@ public class Product implements Requestable {
     }
 
     public ArrayList<Category> getCategories() {
+        ArrayList<Category> categories = new ArrayList<>();
+        for(String categoryName :categoriesName){
+            try {
+                Category category = Category.getCategoryByName(categoryName);
+                categories.add(category);
+            }
+            catch (Exception e){
+            }
+        }
         return categories;
     }
 
     public HashMap<Seller, Double> getPrice() {
+        HashMap<Seller,Double> price = new HashMap<>();
+        for(String name : priceWithName.keySet()){
+            try {
+                Seller seller = (Seller) Account.getAccountWithUsername(name);
+                price.put(seller,priceWithName.get(name));
+            }
+            catch (Exception e){
+            }
+        }
         return price;
     }
 
@@ -277,8 +338,8 @@ public class Product implements Requestable {
     }
 
     public void decreaseCountSeller(Seller seller, int number) {
-        int temp = count.get(seller);
-        count.replace(seller, temp-number);
+        int temp = countWithName.get(seller.getUsername());
+        countWithName.replace(seller.getUsername(), temp-number);
     }
 
     public ArrayList<Comment> getComments() {
@@ -305,30 +366,52 @@ public class Product implements Requestable {
 
     @Override
     public String toString() {
-        String productString = "Name                : " + name + "\n" +
-                             "RequestType         : Product" + "\n" +
-                             "Seller              : " + sellers.get(0).getName() + "\n" +
-                             "Price               : " + price.get(sellers.get(0)) + "\n" +
-                             "Count               : " + count.get(sellers.get(0));
-        if (state.equals(RequestableState.EDITED))
-            productString = "<Edited>\n" + productString;
-        return productString;
+        try {
+            Seller seller = (Seller) Account.getAccountWithUsername(sellersUsername.get(0));
+            String productString = "Name                : " + name + "\n" +
+                    "RequestType         : Product" + "\n" +
+                    "Seller              : " + seller.getName() + "\n" +
+                    "Price               : " + priceWithName.get(seller.getUsername()) + "\n" +
+                    "Count               : " + countWithName.get(seller.getUsername());
+            if (state.equals(RequestableState.EDITED))
+                productString = "<Edited>\n" + productString;
+            return productString;
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     public void setSellers(ArrayList<Seller> sellers) {
-        this.sellers = sellers;
+        ArrayList<String> names = new ArrayList<>();
+        for(Seller seller:sellers){
+            names.add(seller.getUsername());
+        }
+        this.sellersUsername = names;
     }
 
     public void setBuyers(ArrayList<Buyer> buyers) {
-        this.buyers = buyers;
+        ArrayList<String> names = new ArrayList<>();
+        for(Buyer buyer:buyers){
+            names.add(buyer.getUsername());
+        }
+        this.buyersUsername = names;
     }
 
     public void setPrice(HashMap<Seller, Double> price) {
-        this.price = price;
+        HashMap<String , Double> newOne = new HashMap<>();
+        for(Seller seller:price.keySet()){
+            newOne.put(seller.getUsername(),price.get(seller));
+        }
+        this.priceWithName = newOne;
     }
 
     public void setCount(HashMap<Seller, Integer> count) {
-        this.count = count;
+        HashMap<String , Integer> newOne = new HashMap<>();
+        for(Seller seller:count.keySet()){
+            newOne.put(seller.getUsername(),count.get(seller));
+        }
+        this.countWithName = newOne;
     }
 
     public static void load() {
