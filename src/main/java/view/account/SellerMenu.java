@@ -1,6 +1,5 @@
 package view.account;
 
-import controller.account.user.ManagerController;
 import controller.account.user.SellerController;
 import model.account.Account;
 import model.account.Buyer;
@@ -48,14 +47,13 @@ public class SellerMenu extends Menu {
     }
 
     public void editField(String field) {
-            try {
-                System.out.println("Please insert the new field");
-                String context = scanner.nextLine().trim();
-                sellerController.editField(field, context);
-            }
-            catch (Exception e){
-                System.out.println(e.getMessage());
-            }
+        try {
+            System.out.println("Please insert the new field");
+            String context = scanner.nextLine().trim();
+            sellerController.editField(field, context);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void viewCompanyInfo() {
@@ -65,7 +63,7 @@ public class SellerMenu extends Menu {
 
     public void viewSalesHistory() {
         ArrayList<SellerReceipt> sellerReceipts = sellerController.viewSalesHistory();
-        for (SellerReceipt sellerReceipt:sellerReceipts) {
+        for (SellerReceipt sellerReceipt : sellerReceipts) {
             showSellerReceipt(sellerReceipt);
         }
     }
@@ -83,9 +81,9 @@ public class SellerMenu extends Menu {
     }
 
     private void showProducts(HashMap<Product, Integer> allProducts) {
-        System.out.format("%-20s%-20s%-20s\n","Name", "Count", "Id");
-        for (Product product:allProducts.keySet()) {
-            System.out.format("%-20s%-20d%-20s\n",product.getName(), allProducts.get(product), product.getId());
+        System.out.format("%-20s%-20s%-20s\n", "Name", "Count", "Id");
+        for (Product product : allProducts.keySet()) {
+            System.out.format("%-20s%-20d%-20s\n", product.getName(), allProducts.get(product), product.getId());
         }
     }
 
@@ -95,18 +93,18 @@ public class SellerMenu extends Menu {
 
     public void viewProduct(double idDouble) {
         try {
-            Product product = sellerController.viewProduct(Integer.toString((int)idDouble));
+            Product product = sellerController.viewProduct(Integer.toString((int) idDouble));
             System.out.println("Name                : " + product.getName());
             System.out.println("Count               : " + sellerController.getProductCount(product));
             System.out.println("Id                  : " + product.getId());
             System.out.println("Description         : " + product.getDescription());
             System.out.println("Fields              : ");
-            for (Field field:product.getGeneralFields()) {
+            for (Field field : product.getGeneralFields()) {
                 if (field instanceof NumericalField)
-                    System.out.format("%-20s: %f\n",field.getName(), ((NumericalField)field).getNumericalField());
+                    System.out.format("%-20s: %f\n", field.getName(), ((NumericalField) field).getNumericalField());
                 else {
-                    System.out.format( "%-20s: ",field.getName());
-                    for (String fieldStr:((OptionalField)field).getOptionalFiled()) {
+                    System.out.format("%-20s: ", field.getName());
+                    for (String fieldStr : ((OptionalField) field).getOptionalFiled()) {
                         System.out.print(fieldStr + " ");
                     }
                     System.out.println();
@@ -119,9 +117,9 @@ public class SellerMenu extends Menu {
 
     public void viewBuyers(double idDouble) {
         try {
-            ArrayList<Buyer> buyers = sellerController.viewBuyers(Integer.toString((int)idDouble));
+            ArrayList<Buyer> buyers = sellerController.viewBuyers(Integer.toString((int) idDouble));
             System.out.println("All buyers of this product: ");
-            for (Buyer buyer:buyers) {
+            for (Buyer buyer : buyers) {
                 System.out.println("____________________");
                 System.out.println("Name                : " + buyer.getName());
                 System.out.println("Username            : " + buyer.getUsername());
@@ -168,7 +166,7 @@ public class SellerMenu extends Menu {
         input = scanner.nextLine();
         String intField;
         int count = Integer.parseInt(input);
-        for (int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             System.out.println("Please insert the name of your field.");
             input = scanner.nextLine();
             System.out.println("Please insert the number of your numerical field.");
@@ -182,14 +180,14 @@ public class SellerMenu extends Menu {
         System.out.println("How many optional fields do you want to add?");
         input = scanner.nextLine();
         int count = Integer.parseInt(input);
-        for (int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             ArrayList<String> optionalFieldsOfField = new ArrayList<>();
             System.out.println("Please insert the name of your field.");
             input = scanner.nextLine();
             System.out.println("How many optional fields does " + input + " filed has?");
             int count2 = Integer.parseInt(scanner.nextLine());
             System.out.println("Please insert them line by line!");
-            for (int j=0; j<count2; j++) {
+            for (int j = 0; j < count2; j++) {
                 optionalFieldsOfField.add(scanner.nextLine());
             }
             optionalFields.put(input, optionalFieldsOfField);
@@ -198,7 +196,7 @@ public class SellerMenu extends Menu {
 
     public void removeProduct(double idDouble) {
         try {
-            int id = (int)idDouble;
+            int id = (int) idDouble;
             sellerController.deleteProduct(Integer.toString(id));
             System.out.println("Product was removed successfully. :(");
         } catch (Exception e) {
@@ -209,23 +207,23 @@ public class SellerMenu extends Menu {
     public void showCategories() {
         ArrayList<Category> categories = sellerController.showCategories();
         System.out.println("All categories:");
-        for (Category category:categories)
+        for (Category category : categories)
             System.out.println(category.getName());
     }
 
     public void viewOffs() {
         ArrayList<Sale> sales = sellerController.viewOffs();
-        System.out.format("%-20s%-20s\n","Id","Off");
-        for (Sale sale:sales) {
-            System.out.format("%-20s%s%s\n", sale.getId(), sale.getSalePercentage()*100, "%");
+        System.out.format("%-20s%-20s\n", "Id", "Off");
+        for (Sale sale : sales) {
+            System.out.format("%-20s%s%s\n", sale.getId(), sale.getSalePercentage() * 100, "%");
         }
     }
 
     public void viewOff(double idDouble) {
         try {
-            Sale sale = sellerController.viewOff(Integer.toString((int)idDouble));
+            Sale sale = sellerController.viewOff(Integer.toString((int) idDouble));
             System.out.println("Id                  : " + sale.getId());
-            System.out.println("Off                 : " + sale.getSalePercentage()*100);
+            System.out.println("Off                 : " + sale.getSalePercentage() * 100);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
             System.out.println("Start Date          : " + formatter.format(sale.getStartDate()));
             System.out.println("End Date            : " + formatter.format(sale.getEndDate()));
@@ -235,10 +233,10 @@ public class SellerMenu extends Menu {
         }
     }
 
-    private void showProducts (ArrayList<Product> products) {
+    private void showProducts(ArrayList<Product> products) {
         System.out.println("Products:");
-        System.out.format("%-20s%-20s\n","Name","Id");
-        for (Product product:products) {
+        System.out.format("%-20s%-20s\n", "Name", "Id");
+        for (Product product : products) {
             System.out.format("%-20s%-20s\n", product.getName(), product.getId());
         }
     }
@@ -247,9 +245,11 @@ public class SellerMenu extends Menu {
         try {
             ArrayList<String> products = new ArrayList<>();
             ArrayList<String> details = new ArrayList<>();
-            System.out.println("Please insert the start date of your sale.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( )");
+            System.out.println("Please insert the start date of your sale.\nNote than the pattern of your input must " +
+                    "be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( )");
             details.add(scanner.nextLine());
-            System.out.println("Now please insert the end date of your sale.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( )");
+            System.out.println("Now please insert the end date of your sale.\nNote than the pattern of your input " +
+                    "must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( )");
             details.add(scanner.nextLine());
             System.out.println("Please insert the percentage of your sale.");
             details.add(scanner.nextLine());
@@ -264,7 +264,7 @@ public class SellerMenu extends Menu {
         System.out.println("How many products do you want to add to this sale?");
         int count = Integer.parseInt(scanner.nextLine());
         System.out.println("Please insert their id.");
-        for (int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             products.add(scanner.nextLine());
         }
     }
@@ -280,10 +280,11 @@ public class SellerMenu extends Menu {
         ArrayList<String> numericalFieldsToRemove = new ArrayList<>();
         HashMap<String, Double> numericalFieldsToAdd = new HashMap<>();
         ArrayList<String> optionalFieldsToRemove = new ArrayList<>();
-        HashMap<String, ArrayList<String>> optionalFieldsToAdd =  new HashMap<>();
+        HashMap<String, ArrayList<String>> optionalFieldsToAdd = new HashMap<>();
         String input;
-        for (int i=0; i<count; i++) {
-            System.out.println("What is your type of editing? [description| count | price | (remove|add) a (numerical|optional) filed]");
+        for (int i = 0; i < count; i++) {
+            System.out.println("What is your type of editing? [description| count | price | (remove|add) a" +
+                    " (numerical|optional) filed]");
             input = scanner.nextLine();
             if (input.equalsIgnoreCase("description"))
                 editDescription(details);
@@ -305,7 +306,8 @@ public class SellerMenu extends Menu {
             }
         }
         try {
-            sellerController.editProduct(Integer.toString((int)idDouble), details, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsToRemove, optionalFieldsToAdd);
+            sellerController.editProduct(Integer.toString((int) idDouble), details, numericalFieldsToRemove,
+                    numericalFieldsToAdd, optionalFieldsToRemove, optionalFieldsToAdd);
             System.out.println("Your edit request was sent to manager successfully. I hope they will accept that:)");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -315,7 +317,7 @@ public class SellerMenu extends Menu {
     private void removeOptionalFields(ArrayList<String> optionalFieldsToRemove) {
         System.out.println("How many optional fields do you want to remove?");
         int count = Integer.parseInt(scanner.nextLine());
-        for (int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             System.out.println("Please insert the name of your field which you want to remove.");
             optionalFieldsToRemove.add(scanner.nextLine());
         }
@@ -324,7 +326,7 @@ public class SellerMenu extends Menu {
     private void removeNumericalFields(ArrayList<String> numericalFieldsToRemove) {
         System.out.println("How many numerical fields do you want to remove?");
         int count = Integer.parseInt(scanner.nextLine());
-        for (int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             System.out.println("Please insert the name of your field which you want to remove.");
             numericalFieldsToRemove.add(scanner.nextLine());
         }
@@ -356,8 +358,9 @@ public class SellerMenu extends Menu {
         ArrayList<String> productIdsToRemove = new ArrayList<>();
         ArrayList<String> productIdsToAdd = new ArrayList<>();
         String input;
-        for (int i=0; i<count; i++) {
-            System.out.println("What is your type of editing? [ start date | end date | sale percentage | (add|remove) product]");
+        for (int i = 0; i < count; i++) {
+            System.out.println("What is your type of editing? [ start date | end date | sale percentage | " +
+                    "(add|remove) product]");
             input = scanner.nextLine();
             if (input.equalsIgnoreCase("start date"))
                 editStartDate(details);
@@ -375,7 +378,7 @@ public class SellerMenu extends Menu {
             }
         }
         try {
-            sellerController.editOff(Integer.toString((int)idDouble), details, productIdsToRemove, productIdsToAdd);
+            sellerController.editOff(Integer.toString((int) idDouble), details, productIdsToRemove, productIdsToAdd);
             System.out.println("Your edit request was sent to manager successfully. I hope they will accept that:)");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -385,7 +388,7 @@ public class SellerMenu extends Menu {
     private void removeProductSeller(ArrayList<String> productIdsToRemove) {
         System.out.println("How many products do you want to remove?");
         int count = Integer.parseInt(scanner.nextLine());
-        for (int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             System.out.println("Please insert the Id of the product which you want to remove.");
             productIdsToRemove.add(scanner.nextLine());
         }
@@ -394,7 +397,7 @@ public class SellerMenu extends Menu {
     private void addProductSeller(ArrayList<String> productIdsToAdd) {
         System.out.println("How many products do you want to add?");
         int count = Integer.parseInt(scanner.nextLine());
-        for (int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             System.out.println("Please insert the Id of the product which you want to add.");
             productIdsToAdd.add(scanner.nextLine());
         }
@@ -406,19 +409,21 @@ public class SellerMenu extends Menu {
     }
 
     private void editEndDate(ArrayList<String> details) {
-        System.out.println("Please insert you edited end date.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( ");
+        System.out.println("Please insert you edited end date.\nNote than the pattern of your input must be " +
+                "[MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( ");
         details.set(1, scanner.nextLine());
     }
 
     private void editStartDate(ArrayList<String> details) {
-        System.out.println("Please insert you edited start date.\nNote than the pattern of your input must be [MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( ");
+        System.out.println("Please insert you edited start date.\nNote than the pattern of your input must be " +
+                "[MM/dd/yyyy at hh:mm (AM|PM)]. ( Otherwise I will sent you an error:( ");
         details.set(0, scanner.nextLine());
     }
 
     public void showAllProducts() {
         ArrayList<Product> products = Product.getAllProducts();
-        System.out.format("%-20s%-20s\n","Name","id");
-        for (Product product:products) {
+        System.out.format("%-20s%-20s\n", "Name", "id");
+        for (Product product : products) {
             System.out.format("%-20s%-20s\n", product.getName()
                     , product.getId());
         }
@@ -430,7 +435,7 @@ public class SellerMenu extends Menu {
         System.out.println("Please insert your price for this product.");
         double price = Double.parseDouble(scanner.nextLine());
         try {
-            sellerController.addToProduct(Integer.toString((int)idDouble), count, price);
+            sellerController.addToProduct(Integer.toString((int) idDouble), count, price);
             System.out.println("Your add request was sent to manager successfully. I hope they will accept that:)");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -508,7 +513,8 @@ public class SellerMenu extends Menu {
     @Override
     public void back() {
         sellerController.logout();
-        System.out.println("Logout Successful. GoodBye!");;
+        System.out.println("Logout Successful. GoodBye!");
+        ;
     }
 
 }

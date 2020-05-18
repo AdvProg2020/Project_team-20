@@ -45,11 +45,13 @@ public class ProductMenu extends Menu {
         System.out.println("description         : " + product.getDescription());
         for (Seller seller : product.getSellers()) {
             Sale sale = seller.getSaleWithProduct(product);
-            System.out.println("seller              : " + seller.getName() + "\n" + "seller username     : " + seller.getUsername() +"\n"
-                    + "price               : " + product.getPrice(seller) +"\n" + "count               : " + product.getCount(seller));
+            System.out.println("seller              : " + seller.getName() + "\n" + "seller username     : " +
+                    seller.getUsername() + "\n" + "price               : " + product.getPrice(seller) + "\n" +
+                    "count               : " + product.getCount(seller));
             if (sale != null)
-                System.out.println("sale start date     : " + "\n"+ sale.getStartDate() + "\n" + "sale end date       : " + "\n"
-                        + sale.getEndDate() + "\n" + "sale percentage     : " + "\n" + sale.getSalePercentage()*100);
+                System.out.println("sale start date     : " + "\n" + sale.getStartDate() +
+                        "\n" + "sale end date       : " + "\n" + sale.getEndDate() + "\n" +
+                        "sale percentage     : " + "\n" + sale.getSalePercentage() * 100);
             else System.out.println();
         }
         System.out.println("average score       : " + product.getAverage());

@@ -12,11 +12,9 @@ public class RegisterAndLoginMenu extends Menu {
 
     private RegisterAndLoginMenu() {
         super("RegisterAndLoginMenu");
-        this.regex.add("create account (manager|buyer) (\\w+)");
-        this.regex.add("create account seller (\\w+)");
+        this.regex.add("create account (manager|buyer|seller) (\\w+)");
         this.regex.add("login (\\w+)");
         this.methods.add("registerUser");
-        this.methods.add("registerSeller");
         this.methods.add("loginUser");
         preProcess();
     }
@@ -27,12 +25,12 @@ public class RegisterAndLoginMenu extends Menu {
         return single_instance;
     }
 
-    public void loginUser(String username){
+    public void loginUser(String username) {
         System.out.println("please enter your password:");
         String password = Menu.scanner.nextLine();
-        try{
+        try {
             LoginController loginController = LoginController.getInstance();
-            AccountType type = loginController.login(username,password);
+            AccountType type = loginController.login(username, password);
             if (type.equals(AccountType.MANAGER)) {
                 enter(ManagerMenu.getInstance());
             } else if (type.equals(AccountType.BUYER)) {
@@ -40,13 +38,16 @@ public class RegisterAndLoginMenu extends Menu {
             } else {
                 enter(SellerMenu.getInstance());
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void registerUser(String type , String username){
+    public void registerUser(String type, String username) {
+        if (type.equals("seller")) {
+            registerSeller(username);
+            return;
+        }
         System.out.println("please enter your password:");
         String password = scanner.nextLine();
         System.out.println("please enter your name:");
@@ -60,18 +61,17 @@ public class RegisterAndLoginMenu extends Menu {
         System.out.println("please enter your credit");
         String credit = scanner.nextLine();
         System.out.println("Thank you:) " + "Please wait for your information to be verified");
-        ArrayList<String> details = addDetails(name,lastName,email,phoneNumber,password,credit);
+        ArrayList<String> details = addDetails(name, lastName, email, phoneNumber, password, credit);
         String detail = null;
-        try{
+        try {
             LoginController loginController = LoginController.getInstance();
-            loginController.createAccount(username,type,details,detail);
-        }
-        catch (Exception e){
+            loginController.createAccount(username, type, details, detail);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void registerSeller(String username){
+    private void registerSeller(String username) {
         System.out.println("please enter your password:");
         String password = scanner.nextLine();
         System.out.println("please enter your name:");
@@ -87,19 +87,18 @@ public class RegisterAndLoginMenu extends Menu {
         System.out.println("please insert your company information");
         String detail = scanner.nextLine();
         System.out.println("Thank you:) " + "Please wait for your information to be verified");
-        ArrayList<String> details = addDetails(name,lastName,email,phoneNumber,password,credit);
-        try{
+        ArrayList<String> details = addDetails(name, lastName, email, phoneNumber, password, credit);
+        try {
             LoginController loginController = LoginController.getInstance();
-            loginController.createAccount(username,"seller",details,detail);
-        }
-        catch (Exception e){
+            loginController.createAccount(username, "seller", details, detail);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             this.back();
         }
     }
 
-    private ArrayList<String> addDetails(String name,String lastName,String email,String phoneNumber,String password,
-                                         String credit){
+    private ArrayList<String> addDetails(String name, String lastName, String email, String phoneNumber,
+                                         String password, String credit) {
         ArrayList<String> detail = new ArrayList<>();
         detail.add(name);
         detail.add(lastName);

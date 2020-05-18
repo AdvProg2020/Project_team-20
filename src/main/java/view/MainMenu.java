@@ -6,6 +6,7 @@ public class MainMenu extends Menu {
         super("MainMenu");
         preProcess();
     }
+
     @Override
     public void show() {
         super.show();

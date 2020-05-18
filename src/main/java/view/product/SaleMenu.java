@@ -34,17 +34,19 @@ public class SaleMenu extends Menu {
 
     public void showAvailableFilters() {
         System.out.println("You can filter products by their names, categories.");
-        System.out.println("Also there is an option which you can filter products by their numerical or optional fields.");
+        System.out.println("Also there is an option which you can filter products by their numerical or " +
+                "optional fields.");
     }
 
     public void filter(String filterName) {
-        System.out.println("Please insert the type of your filter. ( category | product name | optional field | numerical field");
+        System.out.println("Please insert the type of your filter. ( category | product name | optional field | " +
+                "numerical field");
         ArrayList<String> details = new ArrayList<>();
         details.add(scanner.nextLine());
         if (details.get(0).equals("optional field")) {
             System.out.println("How many optional field do you want to insert?");
             int count = Integer.parseInt(scanner.nextLine());
-            for (int i=0; i<count; i++)
+            for (int i = 0; i < count; i++)
                 details.add(scanner.nextLine());
         }
         if (details.get(0).equals("numerical field")) {
@@ -64,7 +66,7 @@ public class SaleMenu extends Menu {
     public void showCurrentFilters() {
         ArrayList<Filter> currentFilters = saleController.getFilters();
         System.out.println("Current filters are:");
-        for (Filter filter:currentFilters) {
+        for (Filter filter : currentFilters) {
             System.out.println("Name               : " + filter.getName());
         }
     }
@@ -102,11 +104,11 @@ public class SaleMenu extends Menu {
 
     public void showOffs() {
         ArrayList<Sale> sales = saleController.getAllSales();
-        System.out.format("%-20s%-20s%-20s%-20s\n","Name","Price","Off","Id");
-        for (Sale sale:sales) {
-            for (Product product:sale.getProducts()) {
+        System.out.format("%-20s%-20s%-20s%-20s\n", "Name", "Price", "Off", "Id");
+        for (Sale sale : sales) {
+            for (Product product : sale.getProducts()) {
                 System.out.format("%-20s%-20s%-20f%-20s", product.getName(), product.getPrice(sale.getSeller()),
-                        sale.getSalePercentage()*100, product.getId());
+                        sale.getSalePercentage() * 100, product.getId());
             }
         }
     }

@@ -2,7 +2,6 @@ package view.account;
 
 import controller.account.user.BuyerController;
 import model.account.Account;
-import model.account.Buyer;
 import model.product.Cart;
 import model.product.Discount;
 import model.product.Product;
@@ -14,7 +13,7 @@ import view.product.ProductMenu;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class   BuyerMenu extends Menu {
+public class BuyerMenu extends Menu {
     private static BuyerController buyerController;
 
     private static BuyerMenu buyerMenu = null;
@@ -45,22 +44,21 @@ public class   BuyerMenu extends Menu {
     }
 
     public void editField(String field) {
-            try {
-                System.out.println("Please insert the new field");
-                String context = scanner.nextLine().trim();
-                if (context.equalsIgnoreCase("undo"))
-                    return;
-                buyerController.editField(field, context);
-            }
-            catch (Exception e){
-                System.out.println(e.getMessage());
-            }
+        try {
+            System.out.println("Please insert the new field");
+            String context = scanner.nextLine().trim();
+            if (context.equalsIgnoreCase("undo"))
+                return;
+            buyerController.editField(field, context);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void viewCart() {
         Cart cart = buyerController.viewCart();
-        System.out.format("%-20s%-20s%-20s%-20s%-20s\n","Name","Count","Buyer","Price","Id");
-        for (SelectedProduct selectedProduct:cart.getSelectedProducts()) {
+        System.out.format("%-20s%-20s%-20s%-20s%-20s\n", "Name", "Count", "Buyer", "Price", "Id");
+        for (SelectedProduct selectedProduct : cart.getSelectedProducts()) {
             Product product = selectedProduct.getProduct();
             System.out.format("%-20s%-20s%-20s%-20s%-20s\n", product.getName(), selectedProduct.getCount()
                     , (selectedProduct.getSeller()).getUsername(), product.getPrice(selectedProduct.getSeller()), product.getId());
@@ -73,7 +71,7 @@ public class   BuyerMenu extends Menu {
 
     public void viewProduct(double idDouble) {
         try {
-            Product product = buyerController.getProductById(Integer.toString((int)idDouble));
+            Product product = buyerController.getProductById(Integer.toString((int) idDouble));
             ProductMenu productMenu = new ProductMenu(product);
             enter(productMenu);
         } catch (Exception e) {
@@ -83,7 +81,7 @@ public class   BuyerMenu extends Menu {
 
     public void increaseProduct(double idDouble, double number) {
         try {
-            buyerController.increaseProduct(Integer.toString((int) idDouble), (int)number);
+            buyerController.increaseProduct(Integer.toString((int) idDouble), (int) number);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -91,7 +89,7 @@ public class   BuyerMenu extends Menu {
 
     public void decreaseProduct(double idDouble, double number) {
         try {
-            buyerController.decreaseProduct(Integer.toString((int) idDouble), (int)number);
+            buyerController.decreaseProduct(Integer.toString((int) idDouble), (int) number);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -111,7 +109,8 @@ public class   BuyerMenu extends Menu {
         System.out.println("You are buying all these products:");
         viewCart();
         showTotalPrice();
-        System.out.println("Are you sure you want to buy (If you have inserted a discount code it will be added! Don't worry and just buy:) )? (yes/no)");
+        System.out.println("Are you sure you want to buy (If you have inserted a discount code it will be added! Don't "
+                + "worry and just buy:) )? (yes/no)");
         String answer = scanner.nextLine();
         if (answer.equalsIgnoreCase("no"))
             return;
@@ -125,7 +124,7 @@ public class   BuyerMenu extends Menu {
 
     public void viewOrders() {
         ArrayList<BuyerReceipt> buyerReceipts = buyerController.viewOrders();
-        for (BuyerReceipt buyerReceipt:buyerReceipts) {
+        for (BuyerReceipt buyerReceipt : buyerReceipts) {
             showGeneralDescriptionBuyerReceipt(buyerReceipt);
         }
     }
@@ -143,8 +142,8 @@ public class   BuyerMenu extends Menu {
     }
 
     private void showProductsOrder(HashMap<Product, Integer> allProducts) {
-        for (Product product:allProducts.keySet()) {
-            System.out.format("%-20s%-20d\n",product.getName(), allProducts.get(product));
+        for (Product product : allProducts.keySet()) {
+            System.out.format("%-20s%-20d\n", product.getName(), allProducts.get(product));
         }
     }
 
@@ -166,8 +165,9 @@ public class   BuyerMenu extends Menu {
 
     public void viewDiscountCodes() {
         ArrayList<Discount> allDiscounts = buyerController.getAllDiscounts();
-        System.out.format("%-20s%-20s%-20s%-20s\n","Discount Code","Discount Percentage","Max number of usage","Number of usage");
-        for (Discount discount:allDiscounts) {
+        System.out.format("%-20s%-20s%-20s%-20s\n", "Discount Code", "Discount Percentage", "Max number of usage",
+                "Number of usage");
+        for (Discount discount : allDiscounts) {
             System.out.format("%-20s%-20f%-20s%-20s\n", discount.getDiscountCode(), discount.getDiscountPercentage()
                     , discount.getMaxNumberOfUsage(), discount.getNumberOfUsageBuyer(buyerController.getCurrentBuyer()));
         }

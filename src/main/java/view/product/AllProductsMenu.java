@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class AllProductsMenu extends Menu {
     AllProductsController allProductsController;
 
-   private static AllProductsMenu allProductsMenu = null;
+    private static AllProductsMenu allProductsMenu = null;
 
     private AllProductsMenu() {
         super("AllProductsMenu");
@@ -32,15 +32,15 @@ public class AllProductsMenu extends Menu {
     public void viewCategories() {
         ArrayList<Category> categories = allProductsController.getAllCategories();
         System.out.println("All categories:");
-        for (Category category:categories)
+        for (Category category : categories)
             System.out.println(category.getName());
     }
 
     public void showProducts() {
         try {
             ArrayList<Product> products = allProductsController.showProducts();
-            System.out.format("%-20s%-20s\n","Name","id");
-            for (Product product:products) {
+            System.out.format("%-20s%-20s\n", "Name", "id");
+            for (Product product : products) {
                 System.out.format("%-20s%-20s\n", product.getName(), product.getId());
             }
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class AllProductsMenu extends Menu {
 
     public void showProduct(double idDouble) {
         try {
-            Product product = allProductsController.getProduct(Integer.toString((int)idDouble));
+            Product product = allProductsController.getProduct(Integer.toString((int) idDouble));
             ProductMenu productMenu = new ProductMenu(product);
             enter(productMenu);
         } catch (Exception e) {
@@ -61,25 +61,27 @@ public class AllProductsMenu extends Menu {
 
     public void showAvailableFilters() {
         System.out.println("You can filter products by their names, categories.");
-        System.out.println("Also there is an option which you can filter products by their numerical or optional fields.");
+        System.out.println("Also there is an option which you can filter products by their numerical or optional" +
+                " fields.");
     }
 
     public void filter() {
-        System.out.println("Please insert the type of your filter. ( category | product name | optional field | numerical field");
+        System.out.println("Please insert the type of your filter. ( category | product name | optional field" +
+                " | numerical field");
         String filterName = Menu.scanner.nextLine();
         ArrayList<String> details = new ArrayList<>();
-        if(filterName.equals("category")){
+        if (filterName.equals("category")) {
             System.out.println("please insert the name of category:");
             details.add(scanner.nextLine());
         }
-        if(filterName.equals("product name")){
+        if (filterName.equals("product name")) {
             System.out.println("please insert the name of product:");
             details.add(scanner.nextLine());
         }
         if (filterName.equals("optional field")) {
             System.out.println("How many optional field do you want to insert?");
             int count = Integer.parseInt(scanner.nextLine());
-            for (int i=0; i<count; i++)
+            for (int i = 0; i < count; i++)
                 details.add(scanner.nextLine());
         }
         if (filterName.equals("numerical field")) {
@@ -99,7 +101,7 @@ public class AllProductsMenu extends Menu {
     public void showCurrentFilters() {
         ArrayList<Filter> currentFilters = allProductsController.getFilters();
         System.out.println("Current filters are:");
-        for (Filter filter:currentFilters) {
+        for (Filter filter : currentFilters) {
             System.out.println("Name               : " + filter.getName());
         }
     }
