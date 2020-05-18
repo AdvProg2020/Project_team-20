@@ -9,7 +9,6 @@ public class Comment implements Requestable {
     private String title;
     private String content;
     private RequestableState state;
-    private RequestType requestType = RequestType.Comment;
 
     public Comment(Buyer buyer, Product product, String title, String content) {
         this.buyer = buyer;
@@ -56,6 +55,6 @@ public class Comment implements Requestable {
     }
 
     public RequestType getRequestType() {
-        return requestType;
+        return RequestType.Comment;
     }
 }

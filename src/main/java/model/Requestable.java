@@ -1,5 +1,6 @@
 package model;
 
+import model.product.RequestType;
 import model.product.RequestableState;
 
 public interface Requestable {
@@ -8,4 +9,5 @@ public interface Requestable {
     String toString();
     void edit();
     RequestableState getState();
+    RequestType getRequestType();
 }

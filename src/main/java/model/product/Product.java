@@ -36,7 +36,6 @@ public class Product implements Requestable {
     private double numberVisited;
     private Product editedProduct;
     private LocalDateTime addingDate;
-    private RequestType requestType = RequestType.Product;
 
     public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
                    double price) {
@@ -337,6 +336,6 @@ public class Product implements Requestable {
     }
 
     public RequestType getRequestType() {
-        return requestType;
+        return RequestType.Product;
     }
 }

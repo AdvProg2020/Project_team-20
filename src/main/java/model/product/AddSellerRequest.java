@@ -9,7 +9,6 @@ public class AddSellerRequest implements Requestable {
     private int count;
     private double price;
     private RequestableState state;
-    private RequestType requestType = RequestType.AddSellerRequest;
 
     public AddSellerRequest(Product product, Seller seller, int count, double price) {
         this.product = product;
@@ -73,7 +72,7 @@ public class AddSellerRequest implements Requestable {
     }
 
     public RequestType getRequestType() {
-        return requestType;
+        return RequestType.AddSellerRequest;
     }
 
     @Override

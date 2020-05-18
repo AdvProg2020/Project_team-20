@@ -4,6 +4,7 @@ import com.gilecode.yagson.YaGson;
 import model.Requestable;
 import model.product.Cart;
 import model.product.Product;
+import model.product.RequestType;
 import model.product.RequestableState;
 import model.receipt.BuyerReceipt;
 
@@ -132,4 +133,8 @@ public class Buyer extends Account implements Requestable {
         }
     }
 
+    @Override
+    public RequestType getRequestType() {
+        return RequestType.Buyer;
+    }
 }

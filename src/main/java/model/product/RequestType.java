@@ -5,5 +5,7 @@ public enum RequestType {
     Comment,
     Product,
     Sale,
-    Score
+    Score,
+    Buyer,
+    Seller
 }

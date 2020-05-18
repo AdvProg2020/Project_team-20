@@ -3,6 +3,7 @@ package model.account;
 import com.gilecode.yagson.YaGson;
 import model.Requestable;
 import model.product.Product;
+import model.product.RequestType;
 import model.product.RequestableState;
 import model.product.Sale;
 import model.receipt.SellerReceipt;
@@ -200,4 +201,8 @@ public class Seller extends Account implements Requestable {
         }
     }
 
+    @Override
+    public RequestType getRequestType() {
+        return RequestType.Seller;
+    }
 }
