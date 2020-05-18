@@ -1,5 +1,6 @@
 package controller;
 
+import model.account.Account;
 import view.MainMenu;
 import view.Menu;
 import view.account.RegisterAndLoginMenu;
@@ -14,6 +15,7 @@ public class Main {
         initialMenus();
         //data base rp zadi inja ye boolean bezar ke hey nasaze
         preProcess.processOnlyOneTime();
+        Account.store();
         while (true) {
             currentMenu.getCommand();
         }

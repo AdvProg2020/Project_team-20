@@ -188,8 +188,9 @@ public abstract class Menu {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
-        } else
+        } else{
             System.exit(0);
+        }
     }
 
 
