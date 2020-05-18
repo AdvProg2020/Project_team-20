@@ -1,31 +1,50 @@
 package model.product;
 
+
 import java.util.ArrayList;
 
 public class Category {
     private static ArrayList<Category> allCategories = new ArrayList<>();
     private String name;
     private ArrayList<String> fieldNames;
-    private ArrayList<Category> subCategories;
-    private ArrayList<Product> products;
+    private ArrayList<String> subCategoriesName;
+    private ArrayList<String> productIDs;
     private Category parent;
 
-    public Category(String name, Category parent) {
-        this.name = name;
-        this.parent = parent;
-        this.fieldNames = new ArrayList<>();
-        this.subCategories = new ArrayList<>();
-        this.products = new ArrayList<>();
-        allCategories.add(this);
+    public Category(String name, Category parent) throws Exception {
+        if(checkName(name)) {
+            this.name = name;
+            this.parent = parent;
+            this.fieldNames = new ArrayList<>();
+            this.subCategoriesName = new ArrayList<>();
+            this.productIDs = new ArrayList<>();
+            allCategories.add(this);
+        }
+        else {
+            throw new CategoryNameException();
+        }
     }
 
-    public Category(String name){
-        this.name = name;
-        this.parent = null;
-        this.fieldNames = new ArrayList<>();
-        this.subCategories = new ArrayList<>();
-        this.products = new ArrayList<>();
-        allCategories.add(this);
+    public Category(String name) throws Exception{
+        if(checkName(name)) {
+            this.name = name;
+            this.parent = null;
+            this.fieldNames = new ArrayList<>();
+            this.subCategoriesName = new ArrayList<>();
+            this.productIDs = new ArrayList<>();
+            allCategories.add(this);
+        }
+        else{
+            throw new CategoryNameException();
+        }
+    }
+
+    public Boolean checkName(String name){
+        for(Category category : allCategories){
+            if(category.getName().equals(name))
+                return false;
+        }
+        return true;
     }
 
     public static ArrayList<Category> getAllCategories() {
@@ -67,29 +86,47 @@ public class Category {
     }
 
     public void removeProduct(Product product){
-        this.products.remove(product);
+        this.productIDs.remove(product.getId());
     }
 
     public void removeSubCategory(Category subCategory){
-        this.subCategories.remove(subCategory);
+        this.subCategoriesName.remove(subCategory.getName());
     }
 
     public ArrayList<Category> getSubCategories() {
+        ArrayList<Category> subCategories = new ArrayList<>();
+        for(String categoryName : subCategoriesName){
+            try {
+                Category category = getCategoryByName(categoryName);
+                subCategories.add(category);
+            }
+            catch (Exception e){
+            }
+        }
         return subCategories;
     }
 
     public void addSubCategory(Category subCategory) {
-        this.subCategories.add(subCategory);
+        this.subCategoriesName.add(subCategory.getName());
         for(Product product:subCategory.getProducts())
-            this.products.add(product);
+            this.productIDs.add(product.getId());
     }
 
     public ArrayList<Product> getProducts() {
-        return products;
+        ArrayList<Product> allProducts = new ArrayList<>();
+        for(String productID : productIDs){
+            try {
+                Product product = Product.getProductById(productID);
+                allProducts.add(product);
+            }
+            catch (Exception e){
+            }
+        }
+        return allProducts;
     }
 
     public void addProduct(Product product) {
-        this.products.add(product);
+        this.productIDs.add(product.getId());
     }
 
     public Category getParent() {
@@ -111,6 +148,12 @@ public class Category {
     public static class CategoryDoesNotFoundException extends Exception {
         public CategoryDoesNotFoundException() {
             super("category doesn't exist");
+        }
+    }
+
+    public class CategoryNameException extends Exception {
+        public CategoryNameException() {
+            super("we have another category with this name!");
         }
     }
 

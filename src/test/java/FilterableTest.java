@@ -33,6 +33,9 @@ public class FilterableTest {
             , "biJohar", "sadegh", 500000);
     Category category = new Category("option");
 
+    public FilterableTest() throws Exception {
+    }
+
     @Before
     public void preProcess() {
         strings.add("this is option");
