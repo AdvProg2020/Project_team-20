@@ -1,8 +1,12 @@
 package model.product;
 
+import com.gilecode.yagson.YaGson;
 import model.account.Account;
 import model.account.Buyer;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,11 +18,11 @@ public class Discount {
     private double discountPercentage;
     private int maxNumberOfUsage;
     private ArrayList<String> buyersWithDiscountIDs;
-    private HashMap<String,Integer> numberOfUsageForEachBuyerUserName = new HashMap<>();
+    private HashMap<String, Integer> numberOfUsageForEachBuyerUserName = new HashMap<>();
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public Discount(LocalDateTime startDate,LocalDateTime endDate,double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
+    public Discount(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
         numberOfDiscounts++;
         this.discountCode = numberOfDiscounts;
         this.discountPercentage = discountPercentage;
@@ -27,28 +31,28 @@ public class Discount {
         this.startDate = startDate;
         this.endDate = endDate;
         allDiscounts.add(this);
-        setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
+        setNumberOfUsageForBuyers(maxNumberOfUsage, buyersWithDiscount);
     }
 
-    private void addTOBuyersWithDiscount(ArrayList<Buyer> buyersWithDiscount){
+    private void addTOBuyersWithDiscount(ArrayList<Buyer> buyersWithDiscount) {
         this.buyersWithDiscountIDs = new ArrayList<>();
-        for (Buyer buyer:buyersWithDiscount){
+        for (Buyer buyer : buyersWithDiscount) {
             buyersWithDiscountIDs.add(buyer.getUsername());
         }
     }
 
-    public void editDiscount(LocalDateTime startDate,LocalDateTime endDate, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount){
+    public void editDiscount(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
         this.discountPercentage = discountPercentage;
         this.maxNumberOfUsage = maxNumberOfUsage;
         addTOBuyersWithDiscount(buyersWithDiscount);
         this.startDate = startDate;
         this.endDate = endDate;
-        setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
+        setNumberOfUsageForBuyers(maxNumberOfUsage, buyersWithDiscount);
     }
 
-    public static ArrayList<Discount> getAllDiscountsBuyer (Buyer buyer) {
+    public static ArrayList<Discount> getAllDiscountsBuyer(Buyer buyer) {
         ArrayList<Discount> allDiscountsBuyer = new ArrayList<>();
-        for (Discount discount:allDiscounts) {
+        for (Discount discount : allDiscounts) {
             if (discount.hasBuyer(buyer)) {
                 allDiscountsBuyer.add(discount);
             }
@@ -56,32 +60,32 @@ public class Discount {
         return allDiscountsBuyer;
     }
 
-    public static boolean validDiscountCodeBuyer(Buyer buyer, int discountCode) throws Exception{
-        for (Discount discount:allDiscounts) {
-            if (discount.getDiscountCode()==discountCode && discount.getBuyersWithDiscount().contains(buyer)) {
+    public static boolean validDiscountCodeBuyer(Buyer buyer, int discountCode) throws Exception {
+        for (Discount discount : allDiscounts) {
+            if (discount.getDiscountCode() == discountCode && discount.getBuyersWithDiscount().contains(buyer)) {
                 if (discount.getNumberOfUsageForEachBuyer().get(buyer) == 0)
                     throw new discountUsedException();
                 else
                     return true;
             }
         }
-        throw  new discountCodeNotFoundException();
+        throw new discountCodeNotFoundException();
     }
 
     public static void decreaseDiscountCodeUsageBuyer(Buyer buyer, int discountCode) {
-        for (Discount discount:allDiscounts) {
-            if (discount.getDiscountCode()==discountCode && discount.getBuyersWithDiscount().contains(buyer) && discount.getNumberOfUsageForEachBuyer().get(buyer)>0)
-                discount.getNumberOfUsageForEachBuyer().put(buyer, discount.getNumberOfUsageForEachBuyer().get(buyer)-1);
+        for (Discount discount : allDiscounts) {
+            if (discount.getDiscountCode() == discountCode && discount.getBuyersWithDiscount().contains(buyer) && discount.getNumberOfUsageForEachBuyer().get(buyer) > 0)
+                discount.getNumberOfUsageForEachBuyer().put(buyer, discount.getNumberOfUsageForEachBuyer().get(buyer) - 1);
         }
     }
 
-    private void setNumberOfUsageForBuyers(int maxNumberOfUsage,ArrayList<Buyer> buyersWithDiscount){
-        for(int i =0 ; i<buyersWithDiscount.size() ; i++)
+    private void setNumberOfUsageForBuyers(int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
+        for (int i = 0; i < buyersWithDiscount.size(); i++)
             this.numberOfUsageForEachBuyerUserName.put(buyersWithDiscount.get(i).getUsername(), maxNumberOfUsage);
     }
 
-    public static Discount getDiscountByBuyer(model.account.Buyer buyer){
-        for(Discount discount:allDiscounts) {
+    public static Discount getDiscountByBuyer(model.account.Buyer buyer) {
+        for (Discount discount : allDiscounts) {
             for (String username : discount.buyersWithDiscountIDs) {
                 if (username.equals(buyer.getUsername())) {
                     return discount;
@@ -92,37 +96,37 @@ public class Discount {
     }
 
     public static Discount getDiscountByDiscountCode(int discountCode) throws Exception {
-        for(Discount discount:allDiscounts) {
-                if (discount.getDiscountCode()==discountCode)
-                    return discount;
+        for (Discount discount : allDiscounts) {
+            if (discount.getDiscountCode() == discountCode)
+                return discount;
         }
         throw new discountCodeNotFoundException();
     }
 
-    public void decreaseNumberOfUsageForBuyer(Buyer buyer){
+    public void decreaseNumberOfUsageForBuyer(Buyer buyer) {
         Discount buyerSDiscount = getDiscountByBuyer(buyer);
-        if(buyerSDiscount!=null){
+        if (buyerSDiscount != null) {
             int number = buyerSDiscount.numberOfUsageForEachBuyerUserName.get(buyer.getUsername());
-            if(number>0)
-                buyerSDiscount.numberOfUsageForEachBuyerUserName.replace(buyer.getUsername(), number-1);
+            if (number > 0)
+                buyerSDiscount.numberOfUsageForEachBuyerUserName.replace(buyer.getUsername(), number - 1);
             else
                 buyerSDiscount.numberOfUsageForEachBuyerUserName.replace(buyer.getUsername(), 0);
         }
     }
 
-    public void deleteDiscount(Discount discount){
+    public void deleteDiscount(Discount discount) {
         allDiscounts.remove(discount);
     }
 
-    public Boolean isTheDiscountPeriodOver(){
+    public Boolean isTheDiscountPeriodOver() {
         LocalDateTime now = LocalDateTime.now();
-        if(now.isAfter(startDate) && now.isBefore(endDate))
+        if (now.isAfter(startDate) && now.isBefore(endDate))
             return false;
         return true;
     }
 
     public boolean hasBuyer(Buyer buyer) {
-        for (String buyer1:buyersWithDiscountIDs) {
+        for (String buyer1 : buyersWithDiscountIDs) {
             if (buyer1.equals(buyer.getUsername()))
                 return true;
         }
@@ -138,13 +142,12 @@ public class Discount {
     }
 
     public HashMap<Buyer, Integer> getNumberOfUsageForEachBuyer() {
-        HashMap<Buyer,Integer> hashMap = new HashMap<>();
-        for(String username: numberOfUsageForEachBuyerUserName.keySet()){
+        HashMap<Buyer, Integer> hashMap = new HashMap<>();
+        for (String username : numberOfUsageForEachBuyerUserName.keySet()) {
             try {
                 Buyer buyer = Account.getBuyerWithUsername(username);
-                hashMap.put(buyer,numberOfUsageForEachBuyerUserName.get(username));
-            }
-            catch (Exception e){
+                hashMap.put(buyer, numberOfUsageForEachBuyerUserName.get(username));
+            } catch (Exception e) {
             }
         }
         return hashMap;
@@ -160,12 +163,11 @@ public class Discount {
 
     public ArrayList<Buyer> getBuyersWithDiscount() {
         ArrayList<Buyer> buyers = new ArrayList<>();
-        for(String buyerName : buyersWithDiscountIDs){
+        for (String buyerName : buyersWithDiscountIDs) {
             try {
                 Buyer buyer = (Buyer) Account.getAccountWithUsername(buyerName);
                 buyers.add(buyer);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
             }
         }
         return buyers;
@@ -203,9 +205,9 @@ public class Discount {
         this.discountCode = discountCode;
     }
 
-    public static void removeDiscountCode(int discountCode) throws Exception{
-        for(Discount discount : allDiscounts){
-            if(discount.getDiscountCode()==discountCode){
+    public static void removeDiscountCode(int discountCode) throws Exception {
+        for (Discount discount : allDiscounts) {
+            if (discount.getDiscountCode() == discountCode) {
                 allDiscounts.remove(discount);
                 return;
             }
@@ -225,17 +227,17 @@ public class Discount {
         }
     }
 
-    public void removeBuyerFromBuyersList(Buyer buyer){
+    public void removeBuyerFromBuyersList(Buyer buyer) {
         this.buyersWithDiscountIDs.remove(buyer.getUsername());
         this.numberOfUsageForEachBuyerUserName.remove(buyer.getUsername());
     }
 
-    public void addBuyerToBuyersList(Buyer buyer){
+    public void addBuyerToBuyersList(Buyer buyer) {
         this.buyersWithDiscountIDs.add(buyer.getUsername());
-        this.numberOfUsageForEachBuyerUserName.put(buyer.getUsername(),maxNumberOfUsage);
+        this.numberOfUsageForEachBuyerUserName.put(buyer.getUsername(), maxNumberOfUsage);
     }
 
-    public int getNumberOfUsageBuyer(Buyer buyer){
+    public int getNumberOfUsageBuyer(Buyer buyer) {
         return this.numberOfUsageForEachBuyerUserName.get(buyer.getUsername());
     }
 
@@ -243,4 +245,37 @@ public class Discount {
     public String toString() {
         return super.toString();
     }
+
+
+    public static void store() {
+        storeDiscount();
+        storeNumberOfDiscounts();
+    }
+
+    public static void storeDiscount() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutDiscount/Discount.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Discount discount : allDiscounts) {
+                fileWriter.write(yaGson.toJson(discount) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void storeNumberOfDiscounts() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutDiscount/numberOfDiscounts.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(numberOfDiscounts) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

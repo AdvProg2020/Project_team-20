@@ -2,17 +2,13 @@ package model.account;
 
 import com.gilecode.yagson.YaGson;
 import model.Requestable;
+import model.product.*;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Manager extends Account {
     private boolean firstManager;
@@ -88,6 +84,13 @@ public class Manager extends Account {
         return requestWithIds;
     }
 
+    public static void store() {
+        storeHasFirstManger();
+        storeNumberOfRequests();
+        storeRequestsWithId();
+        storeAccount();
+    }
+
 
     public static void storeAccount() {
         YaGson yaGson = new YaGson();
@@ -129,35 +132,117 @@ public class Manager extends Account {
         }
     }
 
-
-    public static void storeRequests() {
+    public static void storeRequestsWithId() {
         YaGson yaGson = new YaGson();
-        File file = new File("src/main/resources/aboutManager/requests.txt");
+        Requestable request;
+        int id;
+        Set<Map.Entry<Integer, Requestable>> optionalSet = requestWithIds.entrySet();
+        for (Map.Entry<Integer, Requestable> mentry : optionalSet) {
+            id = mentry.getKey();
+            request = mentry.getValue();
+            switch (request.getRequestType()) {
+                case Sale:
+                    storeSaleRequests(yaGson, (Sale) request, id);
+                    break;
+                case Buyer:
+                    storeBuyerRequests(yaGson, (Buyer) request, id);
+                    break;
+                case Score:
+                    storeScoreRequests(yaGson, (Score) request, id);
+                    break;
+                case Seller:
+                    storeSellerRequests(yaGson, (Seller) request, id);
+                    break;
+                case Comment:
+                    storeCommentRequests(yaGson, (Comment) request, id);
+                    break;
+                case Product:
+                    storeProductRequests(yaGson, (Product) request, id);
+                    break;
+                case AddSellerRequest:
+                    storeAddSellerToProductRequests(yaGson, (AddSellerRequest) request, id);
+            }
+        }
+    }
+
+    public static void storeAddSellerToProductRequests(YaGson yaGson, AddSellerRequest addSellerRequest, int id) {
+        File file = new File("src/main/resources/aboutManager/requests/AddSellerToProduct.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, false);
-            for (Requestable request : requests) {
-                fileWriter.write(yaGson.toJson(request) + "\n");
-            }
+            fileWriter.write(yaGson.toJson(id) + "\n");
+            fileWriter.write(yaGson.toJson(addSellerRequest) + "\n");
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void storeRequestsWithId() {
-        YaGson yaGson = new YaGson();
-        Requestable request;
-        int id;
-        File file = new File("src/main/resources/aboutManager/requestsWithId.txt");
+    public static void storeProductRequests(YaGson yaGson, Product product, int id) {
+        File file = new File("src/main/resources/aboutManager/requests/Product.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, false);
-            Set<Map.Entry<Integer, Requestable>> optionalSet = requestWithIds.entrySet();
-            for (Map.Entry<Integer, Requestable> mentry : optionalSet) {
-                id = mentry.getKey();
-                request = mentry.getValue();
-                fileWriter.write(yaGson.toJson(id) + "\n");
-                fileWriter.write(yaGson.toJson(request) + "\n");
-            }
+            fileWriter.write(yaGson.toJson(id) + "\n");
+            fileWriter.write(yaGson.toJson(product) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void storeCommentRequests(YaGson yaGson, Comment comment, int id) {
+        File file = new File("src/main/resources/aboutManager/requests/Comment.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(id) + "\n");
+            fileWriter.write(yaGson.toJson(comment) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void storeSellerRequests(YaGson yaGson, Seller seller, int id) {
+        File file = new File("src/main/resources/aboutManager/requests/Seller.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(id) + "\n");
+            fileWriter.write(yaGson.toJson(seller) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void storeScoreRequests(YaGson yaGson, Score score, int id) {
+        File file = new File("src/main/resources/aboutManager/requests/Score.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(id) + "\n");
+            fileWriter.write(yaGson.toJson(score) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void storeBuyerRequests(YaGson yaGson, Buyer buyer, int id) {
+        File file = new File("src/main/resources/aboutManager/requests/Buyer.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(id) + "\n");
+            fileWriter.write(yaGson.toJson(buyer) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void storeSaleRequests(YaGson yaGson, Sale sale, int id) {
+        File file = new File("src/main/resources/aboutManager/requests/sale.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(id) + "\n");
+            fileWriter.write(yaGson.toJson(sale) + "\n");
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
