@@ -166,7 +166,7 @@ public class Sale implements Requestable {
 
     public static void storeAllSalesCount() {
         YaGson yaGson = new YaGson();
-        File file = new File("src/main/resources/aboutSale/sales.txt");
+        File file = new File("src/main/resources/aboutSale/saleCounts.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, false);
             fileWriter.write(yaGson.toJson(allSalesCount) + "\n");
@@ -179,7 +179,7 @@ public class Sale implements Requestable {
     public static void load() {
         YaGson yaGson = new YaGson();
         try {
-            InputStream inputStream = new FileInputStream("Sale.txt");
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutSale/saleCounts.txt");
             Scanner scanner = new Scanner(inputStream);
             while (scanner.hasNextLine()) {
                 String saleStr = scanner.nextLine();

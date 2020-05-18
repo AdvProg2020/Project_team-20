@@ -152,7 +152,7 @@ public class Manager extends Account {
 
     public static void storeHasFirstManger() {
         YaGson yaGson = new YaGson();
-        File file = new File("src/main/resources/aboutManager/hasFirstManger.txt");
+        File file = new File("src/main/resources/aboutManager/hasFirstManager.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, false);
             fileWriter.write(yaGson.toJson(hasFirstManger) + "\n");
@@ -165,7 +165,7 @@ public class Manager extends Account {
     public static void loadHasFirstManger() {
         YaGson yaGson = new YaGson();
         try {
-            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/hasFirstManger.txt");
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/hasFirstManager.txt");
             Scanner fileScanner = new Scanner(inputStream);
             hasFirstManger = yaGson.fromJson(fileScanner.nextLine(), boolean.class);
             fileScanner.close();
