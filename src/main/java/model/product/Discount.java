@@ -4,12 +4,11 @@ import com.gilecode.yagson.YaGson;
 import model.account.Account;
 import model.account.Buyer;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Discount {
     private static ArrayList<Discount> allDiscounts = new ArrayList<>();
@@ -252,6 +251,11 @@ public class Discount {
         storeNumberOfDiscounts();
     }
 
+    public static void load() {
+        loadDiscounts();
+        loadNumberOfDiscounts();
+    }
+
     public static void storeDiscounts() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutDiscount/discounts.txt");
@@ -262,6 +266,20 @@ public class Discount {
             }
             fileWriter.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadDiscounts() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutDiscount/discounts.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                Discount discount = yaGson.fromJson(fileScanner.nextLine(), Discount.class);
+                allDiscounts.add(discount);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -278,4 +296,15 @@ public class Discount {
         }
     }
 
+    public static void loadNumberOfDiscounts() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutDiscount/numberOfDiscounts.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            numberOfDiscounts = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            fileScanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

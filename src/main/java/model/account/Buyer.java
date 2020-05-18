@@ -8,10 +8,9 @@ import model.product.RequestType;
 import model.product.RequestableState;
 import model.receipt.BuyerReceipt;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Buyer extends Account implements Requestable {
     private Cart cart;
@@ -118,7 +117,7 @@ public class Buyer extends Account implements Requestable {
     }
 
 
-    public static void storeAccount() {
+    public static void store() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutBuyer/buyers.txt");
         try {
@@ -129,6 +128,20 @@ public class Buyer extends Account implements Requestable {
             }
             fileWriter.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void load() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutBuyer/buyers.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                Buyer buyer = yaGson.fromJson(fileScanner.nextLine(), Buyer.class);
+                allAccounts.add(buyer);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

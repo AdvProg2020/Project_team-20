@@ -7,12 +7,11 @@ import model.account.Buyer;
 import model.account.Seller;
 import model.product.Field.Field;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.Set;
 
 
@@ -409,6 +408,11 @@ public class Product implements Requestable {
         storeNumberOfProducts();
     }
 
+    public static void load() {
+        loadProducts();
+        loadNumberOfProducts();
+    }
+
     public static void storeProducts() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutProduct/products.txt");
@@ -419,6 +423,20 @@ public class Product implements Requestable {
             }
             fileWriter.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadProducts() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutProduct/products.tx");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                Product product = yaGson.fromJson(fileScanner.nextLine(), Product.class);
+                allProducts.add(product);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -435,8 +453,16 @@ public class Product implements Requestable {
         }
     }
 
-    public static void load() {
+    public static void loadNumberOfProducts() {
         YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutProduct/numberOfProducts.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            productCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            fileScanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public RequestType getRequestType() {

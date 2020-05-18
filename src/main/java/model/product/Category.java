@@ -2,11 +2,11 @@ package model.product;
 
 
 import com.gilecode.yagson.YaGson;
+import model.account.Buyer;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Category {
     private static ArrayList<Category> allCategories = new ArrayList<>();
@@ -162,7 +162,7 @@ public class Category {
         }
     }
 
-    public static void storeCategory() {
+    public static void store() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutProduct/Category.txt");
         try {
@@ -176,5 +176,17 @@ public class Category {
         }
     }
 
-
+    public static void load() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutProduct/Category.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                Category category = yaGson.fromJson(fileScanner.nextLine(), Category.class);
+                allCategories.add(category);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

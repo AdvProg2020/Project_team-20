@@ -238,6 +238,7 @@ public class Manager extends Account {
                 int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
                 AddSellerRequest addSellerRequest = yaGson.fromJson(fileScanner.nextLine(), AddSellerRequest.class);
                 requestWithIds.put(id, addSellerRequest);
+                requests.add(addSellerRequest);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -265,6 +266,7 @@ public class Manager extends Account {
                 int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
                 Product product = yaGson.fromJson(fileScanner.nextLine(), Product.class);
                 requestWithIds.put(id, product);
+                requests.add(product);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -292,6 +294,7 @@ public class Manager extends Account {
                 int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
                 Comment comment = yaGson.fromJson(fileScanner.nextLine(), Comment.class);
                 requestWithIds.put(id, comment);
+                requests.add(comment);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -319,6 +322,7 @@ public class Manager extends Account {
                 int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
                 Seller seller = yaGson.fromJson(fileScanner.nextLine(), Seller.class);
                 requestWithIds.put(id, seller);
+                requests.add(seller);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -346,6 +350,7 @@ public class Manager extends Account {
                 int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
                 Score score = yaGson.fromJson(fileScanner.nextLine(), Score.class);
                 requestWithIds.put(id, score);
+                requests.add(score);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -373,6 +378,7 @@ public class Manager extends Account {
                 int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
                 Buyer buyer = yaGson.fromJson(fileScanner.nextLine(), Buyer.class);
                 requestWithIds.put(id, buyer);
+                requests.add(buyer);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -400,6 +406,7 @@ public class Manager extends Account {
                 int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
                 Sale sale = yaGson.fromJson(fileScanner.nextLine(), Sale.class);
                 requestWithIds.put(id, sale);
+                requests.add(sale);
             }
         } catch (Exception e) {
             e.printStackTrace();

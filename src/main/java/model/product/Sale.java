@@ -164,7 +164,7 @@ public class Sale implements Requestable {
         return buyerString;
     }
 
-    public static void storeAllSalesCount() {
+    public static void store() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutSale/sales.txt");
         try {
@@ -179,16 +179,12 @@ public class Sale implements Requestable {
     public static void load() {
         YaGson yaGson = new YaGson();
         try {
-            InputStream inputStream = new FileInputStream("Sale.txt");
-            Scanner scanner = new Scanner(inputStream);
-            while (scanner.hasNextLine()) {
-                String saleStr = scanner.nextLine();
-                Sale sale = yaGson.fromJson(saleStr, Sale.class);
-
-            }
-            scanner.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutSale/sales.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            allSalesCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            fileScanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

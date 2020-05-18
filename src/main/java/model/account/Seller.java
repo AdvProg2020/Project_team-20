@@ -8,11 +8,10 @@ import model.product.RequestableState;
 import model.product.Sale;
 import model.receipt.SellerReceipt;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Seller extends Account implements Requestable {
     private ArrayList<SellerReceipt> saleHistory;
@@ -186,7 +185,7 @@ public class Seller extends Account implements Requestable {
     }
 
 
-    public static void storeAccount() {
+    public static void store() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutSeller/sellers.txt");
         try {
@@ -197,6 +196,20 @@ public class Seller extends Account implements Requestable {
             }
             fileWriter.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void load() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutSeller/sellers.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                Seller seller = yaGson.fromJson(fileScanner.nextLine(), Seller.class);
+                allAccounts.add(seller);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
