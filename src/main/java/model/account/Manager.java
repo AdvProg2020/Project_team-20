@@ -5,9 +5,14 @@ import model.Requestable;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.Set;
 
 public class Manager extends Account {
     private boolean firstManager;
@@ -81,6 +86,82 @@ public class Manager extends Account {
 
     public static HashMap<Integer, Requestable> getRequestWithIds() {
         return requestWithIds;
+    }
+
+
+    public static void storeAccount() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutManager/managers.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Account account : allAccounts) {
+                if (account.getAccountType().equals(AccountType.MANAGER))
+                    fileWriter.write(yaGson.toJson(account) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void storeNumberOfRequests() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutManager/numberOfRequests.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(numberOfRequests) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void storeHasFirstManger() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutManager/hasFirstManger.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(hasFirstManger) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void storeRequests() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutManager/requests.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Requestable request : requests) {
+                fileWriter.write(yaGson.toJson(request) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void storeRequestsWithId() {
+        YaGson yaGson = new YaGson();
+        Requestable request;
+        int id;
+        File file = new File("src/main/resources/aboutManager/requestsWithId.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            Set<Map.Entry<Integer, Requestable>> optionalSet = requestWithIds.entrySet();
+            for (Map.Entry<Integer, Requestable> mentry : optionalSet) {
+                id = mentry.getKey();
+                request = mentry.getValue();
+                fileWriter.write(yaGson.toJson(id) + "\n");
+                fileWriter.write(yaGson.toJson(request) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void load() {

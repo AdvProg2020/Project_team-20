@@ -1,10 +1,15 @@
 package model.account;
 
+import com.gilecode.yagson.YaGson;
 import model.Requestable;
 import model.product.Product;
 import model.product.RequestableState;
 import model.product.Sale;
 import model.receipt.SellerReceipt;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,7 +22,7 @@ public class Seller extends Account implements Requestable {
     private RequestableState state;
     private Seller editedSeller;
 
-    public Seller(String name, String lastName, String email, String phoneNumber, String username, String password, double credit , String details) {
+    public Seller(String name, String lastName, String email, String phoneNumber, String username, String password, double credit, String details) {
         super(name, lastName, email, phoneNumber, username, password, credit, AccountType.SELLER);
         state = RequestableState.CREATED;
         this.saleHistory = new ArrayList<>();
@@ -27,8 +32,8 @@ public class Seller extends Account implements Requestable {
         this.details = details;
     }
 
-    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password, double credit,String details) {
-        editedSeller = new Seller(name, lastName, email, phoneNumber, username, password, credit,details);
+    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password, double credit, String details) {
+        editedSeller = new Seller(name, lastName, email, phoneNumber, username, password, credit, details);
         state = RequestableState.EDITED;
     }
 
@@ -43,14 +48,13 @@ public class Seller extends Account implements Requestable {
     }
 
     public HashMap<Product, Integer> getProductsToSell() {
-        HashMap<Product,Integer> productsToSell = new HashMap<>();
-        for(String productID : productIDsToSell.keySet()){
+        HashMap<Product, Integer> productsToSell = new HashMap<>();
+        for (String productID : productIDsToSell.keySet()) {
             try {
                 Product product = Product.getProductById(productID);
-                productsToSell.put(product,productIDsToSell.get(productID));
+                productsToSell.put(product, productIDsToSell.get(productID));
+            } catch (Exception e) {
             }
-           catch (Exception e){
-           }
         }
         return productsToSell;
     }
@@ -59,7 +63,7 @@ public class Seller extends Account implements Requestable {
         return sales;
     }
 
-    public String  getDetails() {
+    public String getDetails() {
         return details;
     }
 
@@ -92,12 +96,11 @@ public class Seller extends Account implements Requestable {
 
     public ArrayList<Product> getProducts() {
         ArrayList<Product> products = new ArrayList<>();
-        for(String id:productIDs){
+        for (String id : productIDs) {
             try {
                 Product product = Product.getProductById(id);
                 products.add(product);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
             }
         }
         return products;
@@ -105,12 +108,12 @@ public class Seller extends Account implements Requestable {
 
     public void decreaseProduct(Product product, int number) {
         int firstNum = this.productIDsToSell.get(product.getId());
-        this.productIDsToSell.replace(product.getId(),firstNum - number);
+        this.productIDsToSell.replace(product.getId(), firstNum - number);
     }
 
     public void increaseProduct(Product product, int number) {
         int firstNum = this.productIDsToSell.get(product.getId());
-        this.productIDsToSell.replace(product.getId(),firstNum + number);
+        this.productIDsToSell.replace(product.getId(), firstNum + number);
     }
 
     public void increaseCredit(double amount) {
@@ -128,7 +131,7 @@ public class Seller extends Account implements Requestable {
 
     public boolean hasProduct(String id) {
         for (String productID : productIDs) {
-            if(productID.equals(id))
+            if (productID.equals(id))
                 return true;
         }
         return false;
@@ -136,7 +139,7 @@ public class Seller extends Account implements Requestable {
 
     public Sale getSaleWithProduct(Product product) {
         for (Sale sale : getSales()) {
-            if(sale.hasProduct(product))
+            if (sale.hasProduct(product))
                 return sale;
         }
         return null;
@@ -180,4 +183,21 @@ public class Seller extends Account implements Requestable {
         }
         return sellerString;
     }
+
+
+    public static void storeAccount() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutSeller/sellers.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Account account : allAccounts) {
+                if (account.getAccountType().equals(AccountType.SELLER))
+                    fileWriter.write(yaGson.toJson(account) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
