@@ -1,12 +1,15 @@
 package model.account;
 
+import com.gilecode.yagson.YaGson;
 import model.Requestable;
 import model.product.Cart;
-import model.product.Discount;
-import model.receipt.BuyerReceipt;
 import model.product.Product;
 import model.product.RequestableState;
+import model.receipt.BuyerReceipt;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Buyer extends Account implements Requestable {
@@ -112,4 +115,21 @@ public class Buyer extends Account implements Requestable {
             buyerString = "<Edited>\n" + buyerString;
         return buyerString;
     }
+
+
+    public static void storeAccount() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutBuyer/buyers.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Account account : allAccounts) {
+                if (account.getAccountType().equals(AccountType.BUYER))
+                    fileWriter.write(yaGson.toJson(account) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
