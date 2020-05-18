@@ -179,8 +179,9 @@ public abstract class Account extends GeneralAccount{
         try {
             FileWriter fileWriter = new FileWriter(file, false);
             for (Account account : allAccounts) {
-                fileWriter.write(yaGson.toJson(account));
+                fileWriter.write(yaGson.toJson(account) + "\n");
             }
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
