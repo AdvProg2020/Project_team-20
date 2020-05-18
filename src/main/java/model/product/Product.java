@@ -1,14 +1,20 @@
 package model.product;
 
+import com.gilecode.yagson.YaGson;
+import controller.product.filter.Filterable;
 import model.Requestable;
 import model.account.Buyer;
 import model.account.Seller;
 import model.product.Field.Field;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.Set;
+
 
 public class Product implements Requestable {
     private static ArrayList<Product> allProducts = new ArrayList<>();
@@ -297,7 +303,6 @@ public class Product implements Requestable {
         }
     }
 
-
     @Override
     public String toString() {
         String productString = "Name                : " + name + "\n" +
@@ -308,5 +313,21 @@ public class Product implements Requestable {
         if (state.equals(RequestableState.EDITED))
             productString = "<Edited>\n" + productString;
         return productString;
+    }
+
+    public static void load() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("Product.txt");
+            Scanner scanner = new Scanner(inputStream);
+            while (scanner.hasNextLine()) {
+                String productStr = scanner.nextLine();
+                Product product = yaGson.fromJson(productStr, Product.class);
+                allProducts.add(product);
+            }
+            scanner.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
