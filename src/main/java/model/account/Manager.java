@@ -84,6 +84,13 @@ public class Manager extends Account {
         return requestWithIds;
     }
 
+    public static void store() {
+        storeHasFirstManger();
+        storeNumberOfRequests();
+        storeRequestsWithId();
+        storeAccount();
+    }
+
 
     public static void storeAccount() {
         YaGson yaGson = new YaGson();
