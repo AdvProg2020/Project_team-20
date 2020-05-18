@@ -125,21 +125,6 @@ public class Manager extends Account {
         }
     }
 
-
-    public static void storeRequests() {
-        YaGson yaGson = new YaGson();
-        File file = new File("src/main/resources/aboutManager/requests.txt");
-        try {
-            FileWriter fileWriter = new FileWriter(file, false);
-            for (Requestable request : requests) {
-                fileWriter.write(yaGson.toJson(request) + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void storeRequestsWithId() {
         YaGson yaGson = new YaGson();
         Requestable request;
