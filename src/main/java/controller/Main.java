@@ -1,5 +1,6 @@
 package controller;
 
+import controller.account.user.BuyerController;
 import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
@@ -24,7 +25,7 @@ public class Main {
             preProcess.processOnlyOneTime();
         PreProcess.AddPeriod();
         while (true) {
-            if (PreProcess.getPeriod() == 3)
+            if (PreProcess.getPeriod() >= 3 && BuyerController.getInstance().getCurrentBuyer() != null)
                 preProcess.purchaseGift();
             currentMenu.getCommand();
         }

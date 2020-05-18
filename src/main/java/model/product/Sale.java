@@ -21,19 +21,20 @@ public class Sale implements Requestable {
     private Seller seller;
     double salePercentage;
 
-    public Sale(String id, ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage, Seller seller) {
+    public Sale(String id, ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate,
+                double salePercentage, Seller seller) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         addToProducts(products);
         this.salePercentage = salePercentage;
-        this.state =  RequestableState.CREATED;
+        this.state = RequestableState.CREATED;
         this.seller = seller;
         allSalesCount++;
     }
 
-    public void addToProducts(ArrayList<Product> allProducts){
-        for (Product product:allProducts){
+    public void addToProducts(ArrayList<Product> allProducts) {
+        for (Product product : allProducts) {
             this.products.add(product.getId());
         }
     }
@@ -43,7 +44,7 @@ public class Sale implements Requestable {
         this.startDate = startDate;
         this.endDate = endDate;
         this.salePercentage = salePercentage;
-        this.state =  RequestableState.CREATED;
+        this.state = RequestableState.CREATED;
     }
 
     public void changeStateAccepted() {
@@ -55,7 +56,8 @@ public class Sale implements Requestable {
         state = RequestableState.REJECTED;
     }
 
-    public void changeStateEdited(ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage) {
+    public void changeStateEdited(ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate,
+                                  double salePercentage) {
         editedSale = new Sale(products, startDate, endDate, salePercentage);
         state = RequestableState.EDITED;
     }
@@ -69,7 +71,7 @@ public class Sale implements Requestable {
     }
 
     public boolean hasProduct(Product productToFind) {
-        for (String productId: products) {
+        for (String productId : products) {
             if (productId.equals(productToFind.getId()))
                 return true;
         }
@@ -82,12 +84,11 @@ public class Sale implements Requestable {
 
     public ArrayList<Product> getProducts() {
         ArrayList<Product> newProducts = new ArrayList<>();
-        for(String productID:products){
+        for (String productID : products) {
             try {
                 newProducts.add(Product.getProductById(productID));
+            } catch (Exception e) {
             }
-           catch (Exception e){
-           }
         }
         return newProducts;
     }
@@ -119,10 +120,10 @@ public class Sale implements Requestable {
 
     public static ArrayList<Sale> getAllSales() {
         ArrayList<Sale> allSales = new ArrayList<>();
-        for (Account account:Seller.getAllAccounts()) {
+        for (Account account : Seller.getAllAccounts()) {
             if (account instanceof Seller) {
-                Seller seller = (Seller)account;
-                for (Sale sale:seller.getSales())
+                Seller seller = (Seller) account;
+                for (Sale sale : seller.getSales())
                     if (sale.validSaleTime())
                         allSales.add(sale);
             }
@@ -137,29 +138,28 @@ public class Sale implements Requestable {
     @Override
     public String toString() {
         StringBuilder productStr = new StringBuilder();
-        for (String productID:products) {
+        for (String productID : products) {
             try {
                 productStr.append(Product.getProductById(productID).getName());
                 productStr.append(' ');
-            }
-            catch (Exception e){
+            } catch (Exception e) {
 
             }
         }
         String buyerString = "RequestType         : Sale" + "\n" +
-                             "Products            : " + productStr + "\n" +
-                             "Sale Percentage     : " + salePercentage + "\n";
+                "Products            : " + productStr + "\n" +
+                "Sale Percentage     : " + salePercentage + "\n";
         if (state.equals(RequestableState.EDITED)) {
             StringBuilder productEditStr = new StringBuilder();
-            for (Product product:editedSale.getProducts()) {
+            for (Product product : editedSale.getProducts()) {
                 productEditStr.append(product.getName());
                 productEditStr.append(' ');
             }
             buyerString = "<Edited>\n" + buyerString;
             buyerString += "Edited Fields:\n";
             buyerString += "RequestType         : Sale" + "\n" +
-                            "Products            : " + productEditStr + "\n" +
-                            "Sale Percentage     : " + editedSale.getSalePercentage() + "\n";
+                    "Products            : " + productEditStr + "\n" +
+                    "Sale Percentage     : " + editedSale.getSalePercentage() + "\n";
         }
         return buyerString;
     }

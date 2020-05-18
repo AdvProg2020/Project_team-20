@@ -40,7 +40,8 @@ public class Discount {
         }
     }
 
-    public void editDiscount(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
+    public void editDiscount(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage,
+                             int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
         this.discountPercentage = discountPercentage;
         this.maxNumberOfUsage = maxNumberOfUsage;
         addTOBuyersWithDiscount(buyersWithDiscount);
@@ -73,8 +74,10 @@ public class Discount {
 
     public static void decreaseDiscountCodeUsageBuyer(Buyer buyer, int discountCode) {
         for (Discount discount : allDiscounts) {
-            if (discount.getDiscountCode() == discountCode && discount.getBuyersWithDiscount().contains(buyer) && discount.getNumberOfUsageForEachBuyer().get(buyer) > 0)
-                discount.getNumberOfUsageForEachBuyer().put(buyer, discount.getNumberOfUsageForEachBuyer().get(buyer) - 1);
+            if (discount.getDiscountCode() == discountCode && discount.getBuyersWithDiscount().contains(buyer)
+                    && discount.getNumberOfUsageForEachBuyer().get(buyer) > 0)
+                discount.getNumberOfUsageForEachBuyer().put(buyer,
+                        discount.getNumberOfUsageForEachBuyer().get(buyer) - 1);
         }
     }
 
@@ -296,7 +299,8 @@ public class Discount {
     public static void loadNumberOfDiscounts() {
         YaGson yaGson = new YaGson();
         try {
-            InputStream inputStream = new FileInputStream("src/main/resources/aboutDiscount/numberOfDiscounts.txt");
+            InputStream inputStream = new FileInputStream(
+                    "src/main/resources/aboutDiscount/numberOfDiscounts.txt");
             Scanner fileScanner = new Scanner(inputStream);
             numberOfDiscounts = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
             fileScanner.close();

@@ -1,4 +1,5 @@
 package model.receipt;
+
 import model.account.Account;
 import model.account.Seller;
 import model.product.Product;
@@ -12,17 +13,18 @@ public class BuyerReceipt extends Receipt {
     private double paidMoney;
     private ArrayList<String> sellersUsername;
 
-    public BuyerReceipt(String id, double discountPercentage, HashMap<Product, Integer> products, Boolean hasItSent, double paidMoney, ArrayList<Seller> sellers) {
-        super(id,discountPercentage, products, hasItSent);
+    public BuyerReceipt(String id, double discountPercentage, HashMap<Product, Integer> products, Boolean hasItSent,
+                        double paidMoney, ArrayList<Seller> sellers) {
+        super(id, discountPercentage, products, hasItSent);
         this.paidMoney = paidMoney;
         addToSellersUsername(sellers);
         buyerReceiptCount += 1;
         dateAndTime = LocalDateTime.now();
     }
 
-    private void addToSellersUsername(ArrayList<Seller> sellers){
+    private void addToSellersUsername(ArrayList<Seller> sellers) {
         ArrayList<String> username = new ArrayList<>();
-        for(Seller seller:sellers){
+        for (Seller seller : sellers) {
             username.add(seller.getUsername());
         }
         this.sellersUsername = username;
@@ -46,12 +48,11 @@ public class BuyerReceipt extends Receipt {
 
     public ArrayList<Seller> getSellers() {
         ArrayList<Seller> sellers = new ArrayList<>();
-        for (String name : sellersUsername){
+        for (String name : sellersUsername) {
             try {
                 Seller seller = (Seller) Account.getAccountWithUsername(name);
                 sellers.add(seller);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
             }
         }
         return sellers;

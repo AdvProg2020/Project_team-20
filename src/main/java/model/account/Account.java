@@ -1,12 +1,8 @@
 package model.account;
 
-import com.gilecode.yagson.YaGson;
-
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public abstract class Account extends GeneralAccount{
+public abstract class Account extends GeneralAccount {
     protected static ArrayList<Account> allAccounts = new ArrayList<>();
     protected String name;
     protected String lastName;
@@ -17,7 +13,8 @@ public abstract class Account extends GeneralAccount{
     protected AccountType accountType;
     protected double credit;
 
-    public Account(String name, String lastName, String email, String phoneNumber, String username, String password, double credit, AccountType accountType) {
+    public Account(String name, String lastName, String email, String phoneNumber, String username, String password,
+                   double credit, AccountType accountType) {
         super(GeneralAccountType.ACCOUNT);
         this.name = name;
         this.lastName = lastName;
@@ -80,8 +77,8 @@ public abstract class Account extends GeneralAccount{
         credit += money;
     }
 
-    public void decreaseCredit(double money) throws Exception{
-        if (credit<money)
+    public void decreaseCredit(double money) throws Exception {
+        if (credit < money)
             throw new notEnoughMoneyException();
         else
             credit -= money;
@@ -132,10 +129,10 @@ public abstract class Account extends GeneralAccount{
         throw new AccountUnavailableException();
     }
 
-    public static Buyer getBuyerWithUsername(String username) throws Exception{
+    public static Buyer getBuyerWithUsername(String username) throws Exception {
         Account account = getAccountWithUsername(username);
-        if(account instanceof Buyer){
-            return (Buyer)account;
+        if (account instanceof Buyer) {
+            return (Buyer) account;
         }
         throw new AccountIsNotBuyerException();
     }

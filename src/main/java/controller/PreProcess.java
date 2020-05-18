@@ -38,15 +38,15 @@ public class PreProcess {
             Buyer buyer = buyerController.getCurrentBuyer();
             ArrayList<Buyer> buyerArrayList = new ArrayList<>();
             buyerArrayList.add(buyer);
-            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS), 20,
-                    1, buyerArrayList);
+            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS),
+                    20, 1, buyerArrayList);
         }, () -> {
-            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.DAYS), 5,
-                    5, buyers);
+            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.DAYS),
+                    5, 5, buyers);
             buyers.clear();
         }, () -> {
-            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.DAYS), 3,
-                    1, buyers);
+            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.DAYS),
+                    3, 1, buyers);
             buyers.clear();
         }};
         Event[] events = {() -> {
@@ -86,8 +86,8 @@ public class PreProcess {
 
     public void initialActions() {
         actions.add(() -> {
-            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.MONTHS), 5,
-                    5, buyers);
+            new Discount(LocalDateTime.now(), LocalDateTime.now().plus(10, ChronoUnit.MONTHS),
+                    5, 5, buyers);
             buyers.clear();
         });
     }

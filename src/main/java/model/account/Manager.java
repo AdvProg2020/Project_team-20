@@ -225,7 +225,8 @@ public class Manager extends Account {
     public static void loadAddSellerToProductRequests() {
         YaGson yaGson = new YaGson();
         try {
-            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/requests/AddSellerToProduct.txt");
+            InputStream inputStream = new FileInputStream(
+                    "src/main/resources/aboutManager/requests/AddSellerToProduct.txt");
             Scanner fileScanner = new Scanner(inputStream);
             while (fileScanner.hasNextLine()) {
                 int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);

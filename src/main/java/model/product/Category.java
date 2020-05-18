@@ -16,36 +16,34 @@ public class Category {
     private Category parent;
 
     public Category(String name, Category parent) throws Exception {
-        if(checkName(name)) {
+        if (checkName(name)) {
             this.name = name;
             this.parent = parent;
             this.fieldNames = new ArrayList<>();
             this.subCategoriesName = new ArrayList<>();
             this.productIDs = new ArrayList<>();
             allCategories.add(this);
-        }
-        else {
+        } else {
             throw new CategoryNameException();
         }
     }
 
-    public Category(String name) throws Exception{
-        if(checkName(name)) {
+    public Category(String name) throws Exception {
+        if (checkName(name)) {
             this.name = name;
             this.parent = null;
             this.fieldNames = new ArrayList<>();
             this.subCategoriesName = new ArrayList<>();
             this.productIDs = new ArrayList<>();
             allCategories.add(this);
-        }
-        else{
+        } else {
             throw new CategoryNameException();
         }
     }
 
-    public Boolean checkName(String name){
-        for(Category category : allCategories){
-            if(category.getName().equals(name))
+    public Boolean checkName(String name) {
+        for (Category category : allCategories) {
+            if (category.getName().equals(name))
                 return false;
         }
         return true;
@@ -59,9 +57,9 @@ public class Category {
         allCategories.add(category);
     }
 
-    public static void removeCategory(String categoryName) throws Exception{
-        for(Category category : allCategories){
-            if(category.name.equals(categoryName)){
+    public static void removeCategory(String categoryName) throws Exception {
+        for (Category category : allCategories) {
+            if (category.name.equals(categoryName)) {
                 allCategories.remove(category);
                 return;
             }
@@ -85,26 +83,25 @@ public class Category {
         this.fieldNames.add(field);
     }
 
-    public void removeField(String field){
+    public void removeField(String field) {
         this.fieldNames.remove(field);
     }
 
-    public void removeProduct(Product product){
+    public void removeProduct(Product product) {
         this.productIDs.remove(product.getId());
     }
 
-    public void removeSubCategory(Category subCategory){
+    public void removeSubCategory(Category subCategory) {
         this.subCategoriesName.remove(subCategory.getName());
     }
 
     public ArrayList<Category> getSubCategories() {
         ArrayList<Category> subCategories = new ArrayList<>();
-        for(String categoryName : subCategoriesName){
+        for (String categoryName : subCategoriesName) {
             try {
                 Category category = getCategoryByName(categoryName);
                 subCategories.add(category);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
             }
         }
         return subCategories;
@@ -112,18 +109,17 @@ public class Category {
 
     public void addSubCategory(Category subCategory) {
         this.subCategoriesName.add(subCategory.getName());
-        for(Product product:subCategory.getProducts())
+        for (Product product : subCategory.getProducts())
             this.productIDs.add(product.getId());
     }
 
     public ArrayList<Product> getProducts() {
         ArrayList<Product> allProducts = new ArrayList<>();
-        for(String productID : productIDs){
+        for (String productID : productIDs) {
             try {
                 Product product = Product.getProductById(productID);
                 allProducts.add(product);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
             }
         }
         return allProducts;
@@ -141,12 +137,12 @@ public class Category {
         this.parent = parent;
     }
 
-    public static Category getCategoryByName(String categoryName) throws Exception{
-     for(Category category:allCategories){
-         if(category.name.equals(categoryName))
-             return category;
-     }
-     throw new CategoryDoesNotFoundException();
+    public static Category getCategoryByName(String categoryName) throws Exception {
+        for (Category category : allCategories) {
+            if (category.name.equals(categoryName))
+                return category;
+        }
+        throw new CategoryDoesNotFoundException();
     }
 
     public static class CategoryDoesNotFoundException extends Exception {

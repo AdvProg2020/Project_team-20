@@ -7,7 +7,6 @@ import model.filter.RangeFilter;
 import model.product.Category;
 import model.product.Product;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -18,24 +17,21 @@ public abstract class Filterable {
     protected String currentSort = "ByNumberOfViews";
     protected ArrayList<Product> productsToShow;
 
-    public void filter(String filterType, ArrayList<String> details) throws Exception{
+    public void filter(String filterType, ArrayList<String> details) throws Exception {
         if (filterType.equalsIgnoreCase("category")) {
             filterByCategory(details);
-        }
-        else if (filterType.equalsIgnoreCase("product name")) {
+        } else if (filterType.equalsIgnoreCase("product name")) {
             filterByProductName(details);
-        }
-        else if (filterType.equalsIgnoreCase("optional field")) {
+        } else if (filterType.equalsIgnoreCase("optional field")) {
             filterByOptionalFilter(details);
-        }
-        else if (filterType.equalsIgnoreCase("numerical field")) {
+        } else if (filterType.equalsIgnoreCase("numerical field")) {
             filterByNumericalFilter(details);
         }
     }
 
-    public void disAbleFilter(String filterName) throws Exception{
+    public void disAbleFilter(String filterName) throws Exception {
         Filter filter = getFilterByName(filterName);
-        if (filter==null)
+        if (filter == null)
             throw new FilterNotFoundException();
         filters.remove(filter);
         filterNames.remove(filter.getName());
@@ -43,17 +39,18 @@ public abstract class Filterable {
 
     public ArrayList<Product> getProducts() {
         return productsToShow.stream()
-                .filter( product -> {
-                    for (Filter filter:filters)
+                .filter(product -> {
+                    for (Filter filter : filters)
                         if (!filter.validFilter(product))
                             return false;
-                    return true;})
+                    return true;
+                })
                 .collect(Collectors
-                .toCollection(ArrayList::new));
+                        .toCollection(ArrayList::new));
     }
 
-    public ArrayList<Product> showProducts() throws Exception{
-        switch (currentSort){
+    public ArrayList<Product> showProducts() throws Exception {
+        switch (currentSort) {
             case "ByScores":
                 return sortByScores();
             case "ByDates":
@@ -69,24 +66,24 @@ public abstract class Filterable {
         showProducts();
     }
 
-    public void disableSort(){
+    public void disableSort() {
         currentSort = null;
     }
 
-    public void filterByCategory(ArrayList<String> details) throws Exception{
+    public void filterByCategory(ArrayList<String> details) throws Exception {
         String categoryName = details.get(0);
         Category category = Category.getCategoryByName(categoryName);
         addAllFieldsCategory(category);
     }
 
     public void addAllFieldsCategory(Category category) {
-        for (String fieldName:category.getFields()) {
+        for (String fieldName : category.getFields()) {
             if (!filterNames.contains(fieldName)) {
                 filterNames.add(fieldName);
                 filters.add(new OptionalFilter(fieldName));
             }
         }
-        for (Category subCategory:category.getSubCategories()) {
+        for (Category subCategory : category.getSubCategories()) {
             addAllFieldsCategory(subCategory);
         }
     }
@@ -102,11 +99,12 @@ public abstract class Filterable {
     }
 
     public void filterByNumericalFilter(ArrayList<String> details) {
-        filters.add(new RangeFilter(details.get(0), Double.parseDouble(details.get(1)), Double.parseDouble(details.get(2))));
+        filters.add(new RangeFilter(details.get(0), Double.parseDouble(details.get(1)),
+                Double.parseDouble(details.get(2))));
     }
 
     private Filter getFilterByName(String name) {
-        for (Filter filter:filters) {
+        for (Filter filter : filters) {
             if (filter.getName().equals(name))
                 return filter;
         }
@@ -117,7 +115,7 @@ public abstract class Filterable {
         return filters;
     }
 
-   private ArrayList<Product> sortByNUmberOfViews(){
+    private ArrayList<Product> sortByNUmberOfViews() {
         ArrayList<Product> products = getProducts();
         products.sort(new CompareNumberOfViews());
         return products;
@@ -135,13 +133,13 @@ public abstract class Filterable {
         }
     }
 
-    private ArrayList<Product> sortByScores(){
+    private ArrayList<Product> sortByScores() {
         ArrayList<Product> products = getProducts();
         products.sort(new CompareScores());
         return products;
     }
 
-    private ArrayList<Product> sortByAddingDate(){
+    private ArrayList<Product> sortByAddingDate() {
         ArrayList<Product> products = getProducts();
         products.sort(new CompareDates());
         return products;

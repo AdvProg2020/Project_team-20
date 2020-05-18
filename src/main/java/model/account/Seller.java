@@ -22,7 +22,8 @@ public class Seller extends Account implements Requestable {
     private RequestableState state;
     private Seller editedSeller;
 
-    public Seller(String name, String lastName, String email, String phoneNumber, String username, String password, double credit, String details) {
+    public Seller(String name, String lastName, String email, String phoneNumber, String username, String password,
+                  double credit, String details) {
         super(name, lastName, email, phoneNumber, username, password, credit, AccountType.SELLER);
         state = RequestableState.CREATED;
         this.saleHistory = new ArrayList<>();
@@ -32,7 +33,8 @@ public class Seller extends Account implements Requestable {
         this.details = details;
     }
 
-    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password, double credit, String details) {
+    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password,
+                                  double credit, String details) {
         editedSeller = new Seller(name, lastName, email, phoneNumber, username, password, credit, details);
         state = RequestableState.EDITED;
     }

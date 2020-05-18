@@ -2,7 +2,7 @@ package model.product.Field;
 
 import java.util.ArrayList;
 
-public class OptionalField extends Field{
+public class OptionalField extends Field {
     private ArrayList<String> optionalFiled;
 
     public OptionalField(String name, FieldType type, ArrayList<String> optionalFiled) {

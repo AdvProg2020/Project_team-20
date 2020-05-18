@@ -19,13 +19,15 @@ public class Buyer extends Account implements Requestable {
     private RequestableState state;
     private Buyer editedBuyer;
 
-    public Buyer(String name, String lastName, String email, String phoneNumber, String username, String password, double credit) {
+    public Buyer(String name, String lastName, String email, String phoneNumber, String username, String password,
+                 double credit) {
         super(name, lastName, email, phoneNumber, username, password, credit, AccountType.BUYER);
         state = RequestableState.CREATED;
         this.purchaseHistory = new ArrayList<>();
     }
 
-    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password, double credit) {
+    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password,
+                                  double credit) {
         editedBuyer = new Buyer(name, lastName, email, phoneNumber, username, password, credit);
         state = RequestableState.EDITED;
     }

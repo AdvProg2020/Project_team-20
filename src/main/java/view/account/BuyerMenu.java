@@ -61,7 +61,8 @@ public class BuyerMenu extends Menu {
         for (SelectedProduct selectedProduct : cart.getSelectedProducts()) {
             Product product = selectedProduct.getProduct();
             System.out.format("%-20s%-20s%-20s%-20s%-20s\n", product.getName(), selectedProduct.getCount()
-                    , (selectedProduct.getSeller()).getUsername(), product.getPrice(selectedProduct.getSeller()), product.getId());
+                    , (selectedProduct.getSeller()).getUsername(), product.getPrice(selectedProduct.getSeller()),
+                    product.getId());
         }
     }
 

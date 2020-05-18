@@ -5,6 +5,7 @@ import model.account.*;
 import model.product.Comment;
 import model.product.Product;
 import model.product.Score;
+
 import java.util.ArrayList;
 
 public class ProductController {

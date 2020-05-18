@@ -5,7 +5,7 @@ import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 
-public class RangeFilter extends Filter{
+public class RangeFilter extends Filter {
     private double min;
     private double max;
 
@@ -17,15 +17,15 @@ public class RangeFilter extends Filter{
 
     @Override
     public boolean validFilter(Product product) {
-        for (Field field:product.getGeneralFields()) {
+        for (Field field : product.getGeneralFields()) {
             if (field.getName().equals(name) && field.getType().equals(FieldType.NUMERICAL)) {
-                return validNumericalFilter(((NumericalField)field).getNumericalField());
+                return validNumericalFilter(((NumericalField) field).getNumericalField());
             }
         }
         return false;
     }
 
-    public boolean validNumericalFilter(double numericalField){
+    public boolean validNumericalFilter(double numericalField) {
         return (numericalField < max && numericalField > min);
     }
 

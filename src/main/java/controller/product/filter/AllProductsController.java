@@ -22,11 +22,11 @@ public class AllProductsController extends Filterable {
 
     public static AllProductsController getInstance() {
         if (allProductsController == null)
-            allProductsController =  new AllProductsController();
+            allProductsController = new AllProductsController();
         return allProductsController;
     }
 
-    public void purchase() throws Exception{
+    public void purchase() throws Exception {
         if (generalAccount instanceof TempAccount)
             throw new NotLoggedInException();
         else
@@ -41,7 +41,7 @@ public class AllProductsController extends Filterable {
         return productsToShow;
     }
 
-    public static class NotLoggedInException extends Exception{
+    public static class NotLoggedInException extends Exception {
         public NotLoggedInException() {
             super("You have not logged in. Please go to LoginMenu and log in!:)");
         }

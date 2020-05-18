@@ -7,7 +7,7 @@ import model.product.Product;
 
 import java.util.ArrayList;
 
-public class OptionalFilter extends Filter{
+public class OptionalFilter extends Filter {
     private ArrayList<String> options;
 
     public OptionalFilter(String name, ArrayList<String> options) {
@@ -22,18 +22,18 @@ public class OptionalFilter extends Filter{
 
     @Override
     public boolean validFilter(Product product) {
-        for (Field field:product.getGeneralFields()) {
+        for (Field field : product.getGeneralFields()) {
             if (field.getName().equals(name) && field.getType().equals(FieldType.OPTIONAL)) {
-                if (options==null)
+                if (options == null)
                     return true;
-                return validOptionalFilter(((OptionalField)field).getOptionalFiled());
+                return validOptionalFilter(((OptionalField) field).getOptionalFiled());
             }
         }
         return false;
     }
 
-    public boolean validOptionalFilter(ArrayList<String> allFields){
-        for (String option:options) {
+    public boolean validOptionalFilter(ArrayList<String> allFields) {
+        for (String option : options) {
             if (!allFields.contains(option))
                 return false;
         }

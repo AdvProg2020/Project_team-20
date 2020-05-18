@@ -1,6 +1,5 @@
 package model.product;
 
-import model.account.Buyer;
 import model.account.Seller;
 
 import java.util.ArrayList;
@@ -13,20 +12,20 @@ public class Cart {
         this.selectedProducts = new ArrayList<>();
     }
 
-    public void addProduct(Product product, Seller seller)  {
+    public void addProduct(Product product, Seller seller) {
         selectedProducts.add(new SelectedProduct(product, seller, 1));
     }
 
     public void increaseProduct(String id, int number) throws Exception {
         SelectedProduct selectedProduct = getSelectedProductByProductId(id);
-        if (selectedProduct.getSeller().getProductCount(selectedProduct.getProduct())<number)
+        if (selectedProduct.getSeller().getProductCount(selectedProduct.getProduct()) < number)
             throw new notEnoughProductCountException();
         selectedProduct.increaseProduct(number);
     }
 
     public void decreaseProduct(String id, int number) throws Exception {
         SelectedProduct selectedProduct = getSelectedProductByProductId(id);
-        if (selectedProduct.getCount()>number)
+        if (selectedProduct.getCount() > number)
             selectedProduct.decreaseProduct(number);
         else
             selectedProducts.remove(selectedProduct);
@@ -36,8 +35,8 @@ public class Cart {
         selectedProducts.clear();
     }
 
-    public SelectedProduct getSelectedProductByProductId(String id) throws Exception{
-        for (SelectedProduct selectedProduct:selectedProducts) {
+    public SelectedProduct getSelectedProductByProductId(String id) throws Exception {
+        for (SelectedProduct selectedProduct : selectedProducts) {
             if (selectedProduct.getProduct().getId().equals(id)) {
                 return selectedProduct;
             }
@@ -45,8 +44,8 @@ public class Cart {
         throw new ProductNotInCart();
     }
 
-    public Product getProductById(String id) throws Exception{
-        for (SelectedProduct selectedProduct:selectedProducts) {
+    public Product getProductById(String id) throws Exception {
+        for (SelectedProduct selectedProduct : selectedProducts) {
             if (selectedProduct.getProduct().getId().equals(id)) {
                 return selectedProduct.getProduct();
             }
@@ -55,8 +54,8 @@ public class Cart {
     }
 
     public ArrayList<SelectedProduct> getAllProductsOfSeller(Seller seller) {
-        ArrayList<SelectedProduct> allSelectedProducts= new ArrayList<>();
-        for (SelectedProduct selectedProduct:selectedProducts) {
+        ArrayList<SelectedProduct> allSelectedProducts = new ArrayList<>();
+        for (SelectedProduct selectedProduct : selectedProducts) {
             if (selectedProduct.getSeller().equals(seller))
                 allSelectedProducts.add(selectedProduct);
         }
@@ -65,7 +64,7 @@ public class Cart {
 
     public HashMap<Product, Integer> getAllProducts() {
         HashMap<Product, Integer> allProduct = new HashMap<>();
-        for (SelectedProduct selectedProduct:selectedProducts) {
+        for (SelectedProduct selectedProduct : selectedProducts) {
             allProduct.put(selectedProduct.getProduct(), selectedProduct.getCount());
         }
         return allProduct;
@@ -73,7 +72,7 @@ public class Cart {
 
     public HashMap<Product, Integer> getAllProductsSeller(Seller seller) {
         HashMap<Product, Integer> allProductSeller = new HashMap<>();
-        for (SelectedProduct selectedProduct:selectedProducts) {
+        for (SelectedProduct selectedProduct : selectedProducts) {
             if (selectedProduct.getSeller().equals(seller))
                 allProductSeller.put(selectedProduct.getProduct(), selectedProduct.getCount());
         }
@@ -82,7 +81,7 @@ public class Cart {
 
     public ArrayList<Seller> getAllSellers() {
         ArrayList<Seller> allSellers = new ArrayList<>();
-        for (SelectedProduct selectedProduct:selectedProducts) {
+        for (SelectedProduct selectedProduct : selectedProducts) {
             allSellers.add(selectedProduct.getSeller());
         }
         return allSellers;
@@ -93,7 +92,9 @@ public class Cart {
     }
 
     public static class ProductNotInCart extends Exception {
-        public ProductNotInCart() { super("Product is not in cart"); }
+        public ProductNotInCart() {
+            super("Product is not in cart");
+        }
     }
 
     public static class notEnoughProductCountException extends Exception {

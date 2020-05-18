@@ -1,8 +1,8 @@
 package model.receipt;
+
 import model.product.Product;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Receipt {
@@ -20,10 +20,10 @@ public abstract class Receipt {
         dateAndTime = LocalDateTime.now();
     }
 
-    public void addToProducts(HashMap<Product, Integer> products){
-        HashMap<String , Integer> productName = new HashMap<>();
-        for(Product product : products.keySet()){
-            productName.put(product.getId(),products.get(product));
+    public void addToProducts(HashMap<Product, Integer> products) {
+        HashMap<String, Integer> productName = new HashMap<>();
+        for (Product product : products.keySet()) {
+            productName.put(product.getId(), products.get(product));
         }
         this.productsWithIds = productName;
     }
@@ -41,13 +41,12 @@ public abstract class Receipt {
     }
 
     public HashMap<Product, Integer> getProducts() {
-        HashMap<Product,Integer> products = new HashMap<>();
-        for(String name : productsWithIds.keySet()){
+        HashMap<Product, Integer> products = new HashMap<>();
+        for (String name : productsWithIds.keySet()) {
             try {
                 Product product = Product.getProductById(name);
-                products.put(product,productsWithIds.get(name));
-            }
-            catch (Exception e){
+                products.put(product, productsWithIds.get(name));
+            } catch (Exception e) {
             }
         }
         return products;

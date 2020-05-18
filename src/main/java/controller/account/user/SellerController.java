@@ -29,7 +29,7 @@ public class SellerController implements AccountController {
 
     public static SellerController getInstance() {
         if (sellerController == null)
-            sellerController =  new SellerController();
+            sellerController = new SellerController();
         seller = (Seller) MainController.getInstance().getAccount();
         return sellerController;
     }
@@ -127,7 +127,8 @@ public class SellerController implements AccountController {
         return fields;
     }
 
-    private ArrayList<Field> createFieldsToRemove(ArrayList<String> fieldsToRemove, ArrayList<Field> fields) throws Exception {
+    private ArrayList<Field> createFieldsToRemove(ArrayList<String> fieldsToRemove, ArrayList<Field> fields)
+            throws Exception {
         ArrayList<Field> newFields = new ArrayList<>(fields);
         for (Field newField : newFields) {
             for (String field : fieldsToRemove) {
@@ -194,7 +195,7 @@ public class SellerController implements AccountController {
             }
         } else endDate = sale.getEndDate();
         if (!details.get(2).isEmpty()) {
-            salePercentage = Double.parseDouble(details.get(2))/100;
+            salePercentage = Double.parseDouble(details.get(2)) / 100;
         } else salePercentage = sale.getSalePercentage();
         //momkene hamchin producty tosh nabashe onvaght chi(in ro throw mikone hala baiad check she
         for (Product product : productsToRemove) {
@@ -220,8 +221,8 @@ public class SellerController implements AccountController {
         try {
             startDate = LocalDateTime.parse(details.get(0), formatter);
             endDate = LocalDateTime.parse(details.get(1), formatter);
-            double salePercentage = Double.parseDouble(details.get(2))/100;
-            if (salePercentage>1)
+            double salePercentage = Double.parseDouble(details.get(2)) / 100;
+            if (salePercentage > 1)
                 throw new discountPercentageNotValidException();
             ArrayList<Product> products = Product.getProductsWithIds(productIds);
             Sale sale = new Sale(id, products, startDate, endDate, salePercentage, seller);
@@ -286,7 +287,9 @@ public class SellerController implements AccountController {
         }
     }
 
-    public HashMap<Product, Integer> getProductsToSell() {return seller.getProductsToSell();}
+    public HashMap<Product, Integer> getProductsToSell() {
+        return seller.getProductsToSell();
+    }
 
     public int getProductCount(Product product) {
         return seller.getProductCount(product);
@@ -302,26 +305,26 @@ public class SellerController implements AccountController {
         switch (field) {
             case "name":
                 seller.changeStateEdited(context, seller.getLastName(), seller.getEmail(), seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit(),seller.getDetails());
+                        seller.getPassword(), seller.getCredit(), seller.getDetails());
                 break;
             case "lastName":
                 seller.changeStateEdited(seller.getName(), context, seller.getEmail(), seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit(),seller.getDetails());
+                        seller.getPassword(), seller.getCredit(), seller.getDetails());
             case "email":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), context, seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit(),seller.getDetails());
+                        seller.getPassword(), seller.getCredit(), seller.getDetails());
                 break;
             case "phoneNumber":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(), context,
-                        seller.getPassword(), seller.getCredit(),seller.getDetails());
+                        seller.getPassword(), seller.getCredit(), seller.getDetails());
                 break;
             case "password":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), context, seller.getCredit(),seller.getDetails());
+                        seller.getPhoneNumber(), context, seller.getCredit(), seller.getDetails());
                 break;
             case "credit":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), seller.getPassword(), Integer.parseInt(context),seller.getDetails());
+                        seller.getPhoneNumber(), seller.getPassword(), Integer.parseInt(context), seller.getDetails());
                 break;
             default:
                 throw new ManagerController.fieldIsInvalidException();
@@ -330,7 +333,8 @@ public class SellerController implements AccountController {
     }
 
     public static class discountPercentageNotValidException extends Exception {
-        public discountPercentageNotValidException() { super("Discount percentage must be lower than 100!");
+        public discountPercentageNotValidException() {
+            super("Discount percentage must be lower than 100!");
         }
     }
 

@@ -44,26 +44,26 @@ public class BuyerController implements AccountController {
         return currentBuyer.getPurchaseHistory();
     }
 
-    public void rate(String productId, double score) throws Exception{
+    public void rate(String productId, double score) throws Exception {
         if (currentBuyer.hasBoughtProduct(productId)) {
             Product product = Product.getProductById(productId);
             product.addScore(new Score(currentBuyer, score, product));
-        }
-        else
+        } else
             throw new buyerHasNotBought();
     }
 
-    public BuyerReceipt getBuyerReceiptById(String id) throws Exception{
+    public BuyerReceipt getBuyerReceiptById(String id) throws Exception {
         return currentBuyer.getReceiptById(id);
     }
 
-    public void purchase(String address, String phoneNumber, String discountCode) throws Exception{
+    public void purchase(String address, String phoneNumber, String discountCode) throws Exception {
         receiveInformation(address, phoneNumber);
         double discountPercentage = 0;
         double totalPrice = getTotalPrice();
-        if ( !discountCode.equals("") && Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
-            discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode)).getDiscountPercentage();
-            totalPrice *= (1-discountPercentage);
+        if (!discountCode.equals("") && Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
+            discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode))
+                    .getDiscountPercentage();
+            totalPrice *= (1 - discountPercentage);
             Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, Integer.parseInt(discountCode));
         }
         pay(totalPrice);
@@ -73,7 +73,7 @@ public class BuyerController implements AccountController {
     }
 
     private void decreaseAllProductBought() {
-        for (SelectedProduct selectedProduct:currentBuyer.getCart().getSelectedProducts()) {
+        for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
             decreaseProductSeller(selectedProduct.getProduct(), selectedProduct.getCount(), selectedProduct.getSeller());
         }
     }
@@ -91,7 +91,7 @@ public class BuyerController implements AccountController {
     private void makeSellerReceipt(double discountPercentage) {
         Cart cart = currentBuyer.getCart();
         ArrayList<Seller> sellers = cart.getAllSellers();
-        for (Seller seller:sellers) {
+        for (Seller seller : sellers) {
             seller.addToSaleHistory(new SellerReceipt(Integer.toString(SellerReceipt.getSellerReceiptCount()),
                     discountPercentage, cart.getAllProductsSeller(seller),
                     false, getTotalPriceTotalDiscountSeller(seller, 0), currentBuyer,
@@ -104,17 +104,17 @@ public class BuyerController implements AccountController {
         double totalPriceSeller = 0;
         double totalDiscount = 0;
         ArrayList<SelectedProduct> allSelectedProductsSeller = cart.getAllProductsOfSeller(seller);
-        for (SelectedProduct selectedProduct:allSelectedProductsSeller) {
+        for (SelectedProduct selectedProduct : allSelectedProductsSeller) {
             Product product = selectedProduct.getProduct();
             Sale sale = getSaleForProductOfSeller(product, seller);
-            if (sale!=null) {
-                totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount() * (1-sale.getSalePercentage());
-                totalDiscount += product.getPrice(seller)* selectedProduct.getCount() * sale.getSalePercentage();
-            }
-            else
+            if (sale != null) {
+                totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount() *
+                        (1 - sale.getSalePercentage());
+                totalDiscount += product.getPrice(seller) * selectedProduct.getCount() * sale.getSalePercentage();
+            } else
                 totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount();
         }
-        if (type==0)
+        if (type == 0)
             return totalPriceSeller;
         else
             return totalDiscount;
@@ -126,9 +126,9 @@ public class BuyerController implements AccountController {
                 discountPercentage, cart.getAllProducts(), false, totalPrice, cart.getAllSellers()));
     }
 
-    private void pay(double totalPrice) throws Exception{
+    private void pay(double totalPrice) throws Exception {
         currentBuyer.decreaseCredit(totalPrice);
-        for (Seller seller:currentBuyer.getCart().getAllSellers()) {
+        for (Seller seller : currentBuyer.getCart().getAllSellers()) {
             seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0));
         }
     }
@@ -140,19 +140,20 @@ public class BuyerController implements AccountController {
 
     public double getTotalPrice() {
         double totalPrice = 0;
-        for (SelectedProduct selectedProduct:currentBuyer.getCart().getSelectedProducts()) {
+        for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
             Sale saleForProduct = getSaleForProduct(selectedProduct);
             Seller seller = selectedProduct.getSeller();
-            if (saleForProduct!=null && saleForProduct.validSaleTime())
-                totalPrice += selectedProduct.getProduct().getPrice(seller)*selectedProduct.getCount()*(1-saleForProduct.getSalePercentage());
+            if (saleForProduct != null && saleForProduct.validSaleTime())
+                totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount() *
+                        (1 - saleForProduct.getSalePercentage());
             else
-                totalPrice += selectedProduct.getProduct().getPrice(seller)*selectedProduct.getCount();
+                totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
         }
         return totalPrice;
     }
 
     private Sale getSaleForProductOfSeller(Product product, Seller seller) {
-        for (Sale sale:seller.getSales()) {
+        for (Sale sale : seller.getSales()) {
             if (sale.hasProduct(product))
                 return sale;
         }
@@ -160,7 +161,7 @@ public class BuyerController implements AccountController {
     }
 
     private Sale getSaleForProduct(SelectedProduct selectedProduct) {
-        for (Sale sale:selectedProduct.getSeller().getSales()) {
+        for (Sale sale : selectedProduct.getSeller().getSales()) {
             if (sale.hasProduct(selectedProduct.getProduct()))
                 return sale;
         }
@@ -175,11 +176,11 @@ public class BuyerController implements AccountController {
         return (currentBuyer.getCart()).getProductById(id);
     }
 
-    public void increaseProduct(String id, int number) throws Exception{
+    public void increaseProduct(String id, int number) throws Exception {
         currentBuyer.getCart().increaseProduct(id, number);
     }
 
-    public void decreaseProduct(String id, int number) throws Exception{
+    public void decreaseProduct(String id, int number) throws Exception {
         currentBuyer.getCart().decreaseProduct(id, number);
     }
 
@@ -191,8 +192,10 @@ public class BuyerController implements AccountController {
         return currentBuyer;
     }
 
-    public static class buyerHasNotBought extends Exception{
-        public buyerHasNotBought() { super("Buyer has not bought product"); }
+    public static class buyerHasNotBought extends Exception {
+        public buyerHasNotBought() {
+            super("Buyer has not bought product");
+        }
     }
 
     @Override
@@ -225,7 +228,8 @@ public class BuyerController implements AccountController {
                 break;
             case "credit":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
-                        currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), Integer.parseInt(context));
+                        currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(),
+                        Integer.parseInt(context));
                 break;
             default:
                 throw new ManagerController.fieldIsInvalidException();

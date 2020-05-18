@@ -95,7 +95,8 @@ public class Product implements Requestable {
         state = RequestableState.REJECTED;
     }
 
-    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) throws Exception {
+    public void changeStateEdited(ArrayList<Field> generalFields, String description, int count,
+                                  double price, Seller seller) throws Exception {
         if (editedProduct == null) {
             editedProduct = new Product(generalFields, description, count, price, seller);
             state = RequestableState.EDITED;
