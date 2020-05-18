@@ -4,10 +4,7 @@ import com.gilecode.yagson.YaGson;
 import model.Requestable;
 import model.product.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Manager extends Account {
@@ -91,6 +88,12 @@ public class Manager extends Account {
         storeAccount();
     }
 
+    public static void load() {
+        loadHasFirstManger();
+        loadNumberOfRequests();
+        loadRequestsWithId();
+        loadAccount();
+    }
 
     public static void storeAccount() {
         YaGson yaGson = new YaGson();
@@ -107,6 +110,21 @@ public class Manager extends Account {
         }
     }
 
+    public static void loadAccount() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/managers.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            String managerStr;
+            while (fileScanner.hasNextLine()) {
+                managerStr = fileScanner.nextLine();
+                allAccounts.add(yaGson.fromJson(managerStr, Manager.class));
+            }
+            fileScanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void storeNumberOfRequests() {
         YaGson yaGson = new YaGson();
@@ -120,6 +138,18 @@ public class Manager extends Account {
         }
     }
 
+    public static void loadNumberOfRequests() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/numberOfRequests.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            numberOfRequests = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            fileScanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void storeHasFirstManger() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutManager/hasFirstManger.txt");
@@ -127,6 +157,18 @@ public class Manager extends Account {
             FileWriter fileWriter = new FileWriter(file, false);
             fileWriter.write(yaGson.toJson(hasFirstManger) + "\n");
             fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadHasFirstManger() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/hasFirstManger.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            hasFirstManger = yaGson.fromJson(fileScanner.nextLine(), boolean.class);
+            fileScanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -165,6 +207,16 @@ public class Manager extends Account {
         }
     }
 
+    public static void loadRequestsWithId() {
+        loadAddSellerToProductRequests();
+        loadProductRequests();
+        loadCommentRequests();
+        loadSellerRequests();
+        loadScoreRequests();
+        loadBuyerRequests();
+        loadSaleRequests();
+    }
+
     public static void storeAddSellerToProductRequests(YaGson yaGson, AddSellerRequest addSellerRequest, int id) {
         File file = new File("src/main/resources/aboutManager/requests/AddSellerToProduct.txt");
         try {
@@ -173,6 +225,21 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(addSellerRequest) + "\n");
             fileWriter.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadAddSellerToProductRequests() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/requests/AddSellerToProduct.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+                AddSellerRequest addSellerRequest = yaGson.fromJson(fileScanner.nextLine(), AddSellerRequest.class);
+                requestWithIds.put(id, addSellerRequest);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -189,6 +256,21 @@ public class Manager extends Account {
         }
     }
 
+    public static void loadProductRequests() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/requests/Product.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+                Product product = yaGson.fromJson(fileScanner.nextLine(), Product.class);
+                requestWithIds.put(id, product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void storeCommentRequests(YaGson yaGson, Comment comment, int id) {
         File file = new File("src/main/resources/aboutManager/requests/Comment.txt");
         try {
@@ -197,6 +279,21 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(comment) + "\n");
             fileWriter.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadCommentRequests() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/requests/Comment.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+                Comment comment = yaGson.fromJson(fileScanner.nextLine(), Comment.class);
+                requestWithIds.put(id, comment);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -213,6 +310,21 @@ public class Manager extends Account {
         }
     }
 
+    public static void loadSellerRequests() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/requests/Seller.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+                Seller seller = yaGson.fromJson(fileScanner.nextLine(), Seller.class);
+                requestWithIds.put(id, seller);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void storeScoreRequests(YaGson yaGson, Score score, int id) {
         File file = new File("src/main/resources/aboutManager/requests/Score.txt");
         try {
@@ -221,6 +333,21 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(score) + "\n");
             fileWriter.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadScoreRequests() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/requests/Score.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+                Score score = yaGson.fromJson(fileScanner.nextLine(), Score.class);
+                requestWithIds.put(id, score);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -237,6 +364,21 @@ public class Manager extends Account {
         }
     }
 
+    public static void loadBuyerRequests() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/requests/Buyer.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+                Buyer buyer = yaGson.fromJson(fileScanner.nextLine(), Buyer.class);
+                requestWithIds.put(id, buyer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void storeSaleRequests(YaGson yaGson, Sale sale, int id) {
         File file = new File("src/main/resources/aboutManager/requests/sale.txt");
         try {
@@ -249,18 +391,17 @@ public class Manager extends Account {
         }
     }
 
-    public static void load() {
+    public static void loadSaleRequests() {
         YaGson yaGson = new YaGson();
         try {
-            FileInputStream fis = new FileInputStream("src/main/resources/Manager.txt");
-            Scanner fileScanner = new Scanner(fis);
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/requests/sale.txt");
+            Scanner fileScanner = new Scanner(inputStream);
             while (fileScanner.hasNextLine()) {
-                String managerStr = fileScanner.nextLine();
-                Manager manager = yaGson.fromJson(managerStr, Manager.class);
-                Account.addAccount(manager);
+                int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+                Sale sale = yaGson.fromJson(fileScanner.nextLine(), Sale.class);
+                requestWithIds.put(id, sale);
             }
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
