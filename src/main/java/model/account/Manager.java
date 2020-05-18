@@ -86,6 +86,22 @@ public class Manager extends Account {
     }
 
 
+    public static void storeAccount() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutManager/managers.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Account account : allAccounts) {
+                if (account.getAccountType().equals(AccountType.MANAGER))
+                    fileWriter.write(yaGson.toJson(account) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static void storeNumberOfRequests() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutManager/numberOfRequests.txt");

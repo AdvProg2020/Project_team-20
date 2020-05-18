@@ -1,14 +1,9 @@
 package model.account;
 
-import com.gilecode.yagson.YaGson;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class Account extends GeneralAccount{
-    private static ArrayList<Account> allAccounts = new ArrayList<>();
+    protected static ArrayList<Account> allAccounts = new ArrayList<>();
     protected String name;
     protected String lastName;
     protected String email;
@@ -173,17 +168,5 @@ public abstract class Account extends GeneralAccount{
         return false;
     }
 
-    public static void store() {
-        YaGson yaGson = new YaGson();
-        File file = new File("src/main/resources/Account.txt");
-        try {
-            FileWriter fileWriter = new FileWriter(file, false);
-            for (Account account : allAccounts) {
-                fileWriter.write(yaGson.toJson(account) + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 }
