@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Sale implements Requestable {
     static public int allSalesCount = 1;
     private String id;
-    private ArrayList<Product> products;
+    private ArrayList<String> products = new ArrayList<>();
     private RequestableState state;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -24,17 +24,23 @@ public class Sale implements Requestable {
 
     public Sale(String id, ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage, Seller seller) {
         this.id = id;
-        this.products = products;
         this.startDate = startDate;
         this.endDate = endDate;
+        addToProducts(products);
         this.salePercentage = salePercentage;
         this.state =  RequestableState.CREATED;
         this.seller = seller;
         allSalesCount++;
     }
 
+    public void addToProducts(ArrayList<Product> allProducts){
+        for (Product product:allProducts){
+            this.products.add(product.getId());
+        }
+    }
+
     public Sale(ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage) {
-        this.products = products;
+        addToProducts(products);
         this.startDate = startDate;
         this.endDate = endDate;
         this.salePercentage = salePercentage;
@@ -56,7 +62,7 @@ public class Sale implements Requestable {
     }
 
     public void edit() {
-        products = editedSale.getProducts();
+        addToProducts(editedSale.getProducts());
         startDate = editedSale.getStartDate();
         endDate = editedSale.getEndDate();
         editedSale = null;
@@ -64,8 +70,8 @@ public class Sale implements Requestable {
     }
 
     public boolean hasProduct(Product productToFind) {
-        for (Product product: products) {
-            if (product.equals(productToFind))
+        for (String productId: products) {
+            if (productId.equals(productToFind.getId()))
                 return true;
         }
         return false;
@@ -76,7 +82,15 @@ public class Sale implements Requestable {
     }
 
     public ArrayList<Product> getProducts() {
-        return products;
+        ArrayList<Product> newProducts = new ArrayList<>();
+        for(String productID:products){
+            try {
+                newProducts.add(Product.getProductById(productID));
+            }
+           catch (Exception e){
+           }
+        }
+        return newProducts;
     }
 
     public RequestableState getState() {
@@ -124,9 +138,14 @@ public class Sale implements Requestable {
     @Override
     public String toString() {
         StringBuilder productStr = new StringBuilder();
-        for (Product product:products) {
-            productStr.append(product.getName());
-            productStr.append(' ');
+        for (String productID:products) {
+            try {
+                productStr.append(Product.getProductById(productID).getName());
+                productStr.append(' ');
+            }
+            catch (Exception e){
+
+            }
         }
         String buyerString = "RequestType         : Sale" + "\n" +
                              "Products            : " + productStr + "\n" +
