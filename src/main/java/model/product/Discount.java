@@ -1,5 +1,6 @@
 package model.product;
 
+import model.account.Account;
 import model.account.Buyer;
 
 import java.time.LocalDateTime;
@@ -12,8 +13,8 @@ public class Discount {
     private int discountCode;
     private double discountPercentage;
     private int maxNumberOfUsage;
-    private ArrayList<Buyer> buyersWithDiscount;
-    private HashMap<Buyer,Integer> numberOfUsageForEachBuyer = new HashMap<>();
+    private ArrayList<String> buyersWithDiscountIDs;
+    private HashMap<String,Integer> numberOfUsageForEachBuyerUserName = new HashMap<>();
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
@@ -22,17 +23,24 @@ public class Discount {
         this.discountCode = numberOfDiscounts;
         this.discountPercentage = discountPercentage;
         this.maxNumberOfUsage = maxNumberOfUsage;
-        this.buyersWithDiscount = buyersWithDiscount;
+        addTOBuyersWithDiscount(buyersWithDiscount);
         this.startDate = startDate;
         this.endDate = endDate;
         allDiscounts.add(this);
         setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
     }
 
+    private void addTOBuyersWithDiscount(ArrayList<Buyer> buyersWithDiscount){
+        this.buyersWithDiscountIDs = new ArrayList<>();
+        for (Buyer buyer:buyersWithDiscount){
+            buyersWithDiscountIDs.add(buyer.getUsername());
+        }
+    }
+
     public void editDiscount(LocalDateTime startDate,LocalDateTime endDate, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount){
         this.discountPercentage = discountPercentage;
         this.maxNumberOfUsage = maxNumberOfUsage;
-        this.buyersWithDiscount = buyersWithDiscount;
+        addTOBuyersWithDiscount(buyersWithDiscount);
         this.startDate = startDate;
         this.endDate = endDate;
         setNumberOfUsageForBuyers(maxNumberOfUsage,buyersWithDiscount);
@@ -69,13 +77,13 @@ public class Discount {
 
     private void setNumberOfUsageForBuyers(int maxNumberOfUsage,ArrayList<Buyer> buyersWithDiscount){
         for(int i =0 ; i<buyersWithDiscount.size() ; i++)
-            this.numberOfUsageForEachBuyer.put(buyersWithDiscount.get(i), maxNumberOfUsage);
+            this.numberOfUsageForEachBuyerUserName.put(buyersWithDiscount.get(i).getUsername(), maxNumberOfUsage);
     }
 
     public static Discount getDiscountByBuyer(model.account.Buyer buyer){
         for(Discount discount:allDiscounts) {
-            for (Buyer buyer1 : discount.buyersWithDiscount) {
-                if (buyer1.equals(buyer)) {
+            for (String username : discount.buyersWithDiscountIDs) {
+                if (username.equals(buyer.getUsername())) {
                     return discount;
                 }
             }
@@ -94,11 +102,11 @@ public class Discount {
     public void decreaseNumberOfUsageForBuyer(Buyer buyer){
         Discount buyerSDiscount = getDiscountByBuyer(buyer);
         if(buyerSDiscount!=null){
-            int number = buyerSDiscount.numberOfUsageForEachBuyer.get(buyer);
+            int number = buyerSDiscount.numberOfUsageForEachBuyerUserName.get(buyer.getUsername());
             if(number>0)
-                buyerSDiscount.numberOfUsageForEachBuyer.replace(buyer, number-1);
+                buyerSDiscount.numberOfUsageForEachBuyerUserName.replace(buyer.getUsername(), number-1);
             else
-                buyerSDiscount.numberOfUsageForEachBuyer.replace(buyer, 0);
+                buyerSDiscount.numberOfUsageForEachBuyerUserName.replace(buyer.getUsername(), 0);
         }
     }
 
@@ -114,8 +122,8 @@ public class Discount {
     }
 
     public boolean hasBuyer(Buyer buyer) {
-        for (Buyer buyer1:buyersWithDiscount) {
-            if (buyer1.equals(buyer))
+        for (String buyer1:buyersWithDiscountIDs) {
+            if (buyer1.equals(buyer.getUsername()))
                 return true;
         }
         return false;
@@ -130,7 +138,16 @@ public class Discount {
     }
 
     public HashMap<Buyer, Integer> getNumberOfUsageForEachBuyer() {
-        return numberOfUsageForEachBuyer;
+        HashMap<Buyer,Integer> hashMap = new HashMap<>();
+        for(String username: numberOfUsageForEachBuyerUserName.keySet()){
+            try {
+                Buyer buyer = Account.getBuyerWithUsername(username);
+                hashMap.put(buyer,numberOfUsageForEachBuyerUserName.get(username));
+            }
+            catch (Exception e){
+            }
+        }
+        return hashMap;
     }
 
     public double getDiscountPercentage() {
@@ -142,7 +159,16 @@ public class Discount {
     }
 
     public ArrayList<Buyer> getBuyersWithDiscount() {
-        return buyersWithDiscount;
+        ArrayList<Buyer> buyers = new ArrayList<>();
+        for(String buyerName : buyersWithDiscountIDs){
+            try {
+                Buyer buyer = (Buyer) Account.getAccountWithUsername(buyerName);
+                buyers.add(buyer);
+            }
+            catch (Exception e){
+            }
+        }
+        return buyers;
     }
 
     public LocalDateTime getStartDate() {
@@ -162,7 +188,7 @@ public class Discount {
     }
 
     public void setBuyersWithDiscount(ArrayList<Buyer> buyersWithDiscount) {
-        this.buyersWithDiscount = buyersWithDiscount;
+        addTOBuyersWithDiscount(buyersWithDiscount);
     }
 
     public void setStartDate(LocalDateTime startDate) {
@@ -200,17 +226,17 @@ public class Discount {
     }
 
     public void removeBuyerFromBuyersList(Buyer buyer){
-        this.buyersWithDiscount.remove(buyer);
-        this.numberOfUsageForEachBuyer.remove(buyer);
+        this.buyersWithDiscountIDs.remove(buyer.getUsername());
+        this.numberOfUsageForEachBuyerUserName.remove(buyer.getUsername());
     }
 
     public void addBuyerToBuyersList(Buyer buyer){
-        this.buyersWithDiscount.add(buyer);
-        this.numberOfUsageForEachBuyer.put(buyer,maxNumberOfUsage);
+        this.buyersWithDiscountIDs.add(buyer.getUsername());
+        this.numberOfUsageForEachBuyerUserName.put(buyer.getUsername(),maxNumberOfUsage);
     }
 
     public int getNumberOfUsageBuyer(Buyer buyer){
-        return this.numberOfUsageForEachBuyer.get(buyer);
+        return this.numberOfUsageForEachBuyerUserName.get(buyer.getUsername());
     }
 
     @Override
