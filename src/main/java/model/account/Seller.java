@@ -5,14 +5,13 @@ import model.product.Product;
 import model.product.RequestableState;
 import model.product.Sale;
 import model.receipt.SellerReceipt;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Seller extends Account implements Requestable {
     private ArrayList<SellerReceipt> saleHistory;
-    private HashMap<Product, Integer> productsToSell;
-    private ArrayList<Product> products;
+    private HashMap<String, Integer> productIDsToSell;
+    private ArrayList<String> productIDs;
     private ArrayList<Sale> sales;
     private String details;
     private RequestableState state;
@@ -22,8 +21,8 @@ public class Seller extends Account implements Requestable {
         super(name, lastName, email, phoneNumber, username, password, credit, AccountType.SELLER);
         state = RequestableState.CREATED;
         this.saleHistory = new ArrayList<>();
-        this.productsToSell = new HashMap<>();
-        this.products = new ArrayList<>();
+        this.productIDsToSell = new HashMap<>();
+        this.productIDs = new ArrayList<>();
         this.sales = new ArrayList<>();
         this.details = details;
     }
@@ -44,6 +43,15 @@ public class Seller extends Account implements Requestable {
     }
 
     public HashMap<Product, Integer> getProductsToSell() {
+        HashMap<Product,Integer> productsToSell = new HashMap<>();
+        for(String productID : productIDsToSell.keySet()){
+            try {
+                Product product = Product.getProductById(productID);
+                productsToSell.put(product,productIDsToSell.get(productID));
+            }
+           catch (Exception e){
+           }
+        }
         return productsToSell;
     }
 
@@ -64,8 +72,8 @@ public class Seller extends Account implements Requestable {
     }
 
     public void addToProductsToSell(Product product, int number) {
-        this.productsToSell.put(product, number);
-        this.products.add(product);
+        this.productIDsToSell.put(product.getId(), number);
+        this.productIDs.add(product.getId());
     }
 
     public void addSale(Sale sale) {
@@ -78,22 +86,31 @@ public class Seller extends Account implements Requestable {
     }
 
     public void removeFromProductsToSell(Product product) {
-        this.productsToSell.remove(product);
-        this.products.remove(product);
+        this.productIDsToSell.remove(product.getId());
+        this.productIDs.remove(product.getId());
     }
 
     public ArrayList<Product> getProducts() {
+        ArrayList<Product> products = new ArrayList<>();
+        for(String id:productIDs){
+            try {
+                Product product = Product.getProductById(id);
+                products.add(product);
+            }
+            catch (Exception e){
+            }
+        }
         return products;
     }
 
     public void decreaseProduct(Product product, int number) {
-        int firstNum = this.productsToSell.get(product);
-        this.productsToSell.replace(product,firstNum - number);
+        int firstNum = this.productIDsToSell.get(product.getId());
+        this.productIDsToSell.replace(product.getId(),firstNum - number);
     }
 
     public void increaseProduct(Product product, int number) {
-        int firstNum = this.productsToSell.get(product);
-        this.productsToSell.replace(product,firstNum + number);
+        int firstNum = this.productIDsToSell.get(product.getId());
+        this.productIDsToSell.replace(product.getId(),firstNum + number);
     }
 
     public void increaseCredit(double amount) {
@@ -110,8 +127,8 @@ public class Seller extends Account implements Requestable {
     }
 
     public boolean hasProduct(String id) {
-        for (Product product : products) {
-            if(product.getId().equals(id))
+        for (String productID : productIDs) {
+            if(productID.equals(id))
                 return true;
         }
         return false;
@@ -126,11 +143,11 @@ public class Seller extends Account implements Requestable {
     }
 
     public void addProduct(Product product) {
-        products.add(product);
+        productIDs.add(product.getId());
     }
 
     public int getProductCount(Product product) {
-        return productsToSell.get(product);
+        return productIDsToSell.get(product.getId());
     }
 
     @Override
