@@ -2,7 +2,6 @@ package model.product;
 
 
 import com.gilecode.yagson.YaGson;
-import model.account.Buyer;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -172,7 +171,6 @@ public class Category {
             }
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -186,7 +184,6 @@ public class Category {
                 allCategories.add(category);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

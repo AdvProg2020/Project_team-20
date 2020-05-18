@@ -172,7 +172,6 @@ public class Sale implements Requestable {
             fileWriter.write(yaGson.toJson(allSalesCount) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -184,7 +183,6 @@ public class Sale implements Requestable {
             allSalesCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
             fileScanner.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

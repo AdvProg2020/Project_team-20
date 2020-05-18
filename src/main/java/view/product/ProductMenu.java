@@ -88,7 +88,6 @@ public class ProductMenu extends Menu {
             enter(compareMenu);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -117,7 +116,6 @@ public class ProductMenu extends Menu {
             productController.addComment(product, title, content);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -129,7 +127,6 @@ public class ProductMenu extends Menu {
             productController.addScore(score, product);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            e.printStackTrace();
         }
     }
 

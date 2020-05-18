@@ -129,7 +129,6 @@ public class PreProcess {
             fileWriter.write(yaGson.toJson(period) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -141,7 +140,6 @@ public class PreProcess {
             PreProcess.period = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
             fileScanner.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

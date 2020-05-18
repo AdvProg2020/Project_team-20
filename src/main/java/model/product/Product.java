@@ -423,7 +423,6 @@ public class Product implements Requestable {
             }
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -437,7 +436,6 @@ public class Product implements Requestable {
                 allProducts.add(product);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -449,7 +447,6 @@ public class Product implements Requestable {
             fileWriter.write(yaGson.toJson(productCount) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -461,7 +458,6 @@ public class Product implements Requestable {
             productCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
             fileScanner.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

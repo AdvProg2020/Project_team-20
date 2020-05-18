@@ -266,7 +266,6 @@ public class Discount {
             }
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -280,7 +279,6 @@ public class Discount {
                 allDiscounts.add(discount);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -292,7 +290,6 @@ public class Discount {
             fileWriter.write(yaGson.toJson(numberOfDiscounts) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -304,7 +301,6 @@ public class Discount {
             numberOfDiscounts = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
             fileScanner.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

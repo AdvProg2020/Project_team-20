@@ -128,7 +128,6 @@ public class Buyer extends Account implements Requestable {
             }
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -142,7 +141,6 @@ public class Buyer extends Account implements Requestable {
                 allAccounts.add(buyer);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

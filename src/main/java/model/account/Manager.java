@@ -106,7 +106,6 @@ public class Manager extends Account {
             }
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -122,7 +121,6 @@ public class Manager extends Account {
             }
             fileScanner.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -134,7 +132,6 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(numberOfRequests) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -146,7 +143,6 @@ public class Manager extends Account {
             numberOfRequests = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
             fileScanner.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -158,7 +154,6 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(hasFirstManger) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -170,7 +165,6 @@ public class Manager extends Account {
             hasFirstManger = yaGson.fromJson(fileScanner.nextLine(), boolean.class);
             fileScanner.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -225,7 +219,6 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(addSellerRequest) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -241,7 +234,6 @@ public class Manager extends Account {
                 requests.add(addSellerRequest);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -253,7 +245,6 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(product) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -269,7 +260,6 @@ public class Manager extends Account {
                 requests.add(product);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -281,7 +271,6 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(comment) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -297,7 +286,6 @@ public class Manager extends Account {
                 requests.add(comment);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -309,7 +297,6 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(seller) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -325,7 +312,6 @@ public class Manager extends Account {
                 requests.add(seller);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -337,7 +323,6 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(score) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -353,7 +338,6 @@ public class Manager extends Account {
                 requests.add(score);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -365,7 +349,6 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(buyer) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -381,7 +364,6 @@ public class Manager extends Account {
                 requests.add(buyer);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -393,7 +375,6 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(sale) + "\n");
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -409,7 +390,6 @@ public class Manager extends Account {
                 requests.add(sale);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

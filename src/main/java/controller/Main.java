@@ -19,11 +19,13 @@ public class Main {
 
     public static void main(String[] args) {
         initialMenus();
+        loadData();
         if (PreProcess.getPeriod() == 10)
             preProcess.processOnlyOneTime();
         PreProcess.AddPeriod();
         while (true) {
-            preProcess.purchaseGift();
+            if (PreProcess.getPeriod() == 3)
+                preProcess.purchaseGift();
             currentMenu.getCommand();
         }
     }

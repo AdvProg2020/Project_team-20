@@ -196,7 +196,6 @@ public class Seller extends Account implements Requestable {
             }
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -210,7 +209,6 @@ public class Seller extends Account implements Requestable {
                 allAccounts.add(seller);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
