@@ -3,6 +3,7 @@ package model.product;
 import com.gilecode.yagson.YaGson;
 import controller.product.filter.Filterable;
 import model.Requestable;
+import model.account.Account;
 import model.account.Buyer;
 import model.account.Seller;
 import model.product.Field.Field;
@@ -315,6 +316,22 @@ public class Product implements Requestable {
         return productString;
     }
 
+    public void setSellers(ArrayList<Seller> sellers) {
+        this.sellers = sellers;
+    }
+
+    public void setBuyers(ArrayList<Buyer> buyers) {
+        this.buyers = buyers;
+    }
+
+    public void setPrice(HashMap<Seller, Double> price) {
+        this.price = price;
+    }
+
+    public void setCount(HashMap<Seller, Integer> count) {
+        this.count = count;
+    }
+
     public static void load() {
         YaGson yaGson = new YaGson();
         try {
@@ -325,9 +342,61 @@ public class Product implements Requestable {
                 Product product = yaGson.fromJson(productStr, Product.class);
                 allProducts.add(product);
             }
+            deleteDuplicates();
             scanner.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    //private ArrayList<Seller> sellers;
+    //private ArrayList<Buyer> buyers;
+    //private HashMap<Seller, Double> price;
+    //private HashMap<Seller, Integer> count;
+
+    public static void deleteDuplicates() {
+        for (Product product:allProducts) {
+            deleteDupSeller(product);
+            deleteDupBuyers(product);
+            deleteDupPrice(product);
+            deleteDupCount(product);
+        }
+    }
+
+    public static void deleteDupSeller(Product product) {
+        ArrayList<Seller> allSellers = product.getSellers();
+        for (int i=0; i<allSellers.size(); i++) {
+            try {
+                allSellers.set(i, (Seller) Account.getAccountWithUsername(allSellers.get(i).getUsername()));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void deleteDupBuyers(Product product) {
+        ArrayList<Buyer> allBuyers = product.getBuyers();
+        for (int i=0; i<allBuyers.size(); i++) {
+            try {
+                allBuyers.set(i, (Buyer) Account.getAccountWithUsername(allBuyers.get(i).getUsername()));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void deleteDupPrice(Product product) {
+        HashMap<Seller, Double> allPrices = new HashMap<>();
+        for (Seller seller:product.getPrice().keySet()) {
+            allPrices.put(seller, product.getPrice(seller));
+        }
+        product.setPrice(allPrices);
+    }
+
+    public static void deleteDupCount(Product product) {
+        HashMap<Seller, Integer> allCounts = new HashMap<>();
+        for (Seller seller:product.getCount().keySet()) {
+            allCounts.put(seller, product.getCount(seller));
+        }
+        product.setCount(allCounts);
     }
 }

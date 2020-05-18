@@ -1,13 +1,15 @@
 package model.product;
 
+import com.gilecode.yagson.YaGson;
 import model.Requestable;
 import model.account.Account;
-import model.account.Buyer;
-import model.account.Manager;
 import model.account.Seller;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Sale implements Requestable {
     static public int allSalesCount = 1;
@@ -142,5 +144,21 @@ public class Sale implements Requestable {
                             "Sale Percentage     : " + editedSale.getSalePercentage() + "\n";
         }
         return buyerString;
+    }
+
+    public static void load() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("Sale.txt");
+            Scanner scanner = new Scanner(inputStream);
+            while (scanner.hasNextLine()) {
+                String saleStr = scanner.nextLine();
+                Sale sale = yaGson.fromJson(saleStr, Sale.class);
+
+            }
+            scanner.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
