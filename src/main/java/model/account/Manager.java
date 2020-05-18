@@ -1,9 +1,13 @@
 package model.account;
 
+import com.gilecode.yagson.YaGson;
 import model.Requestable;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Manager extends Account {
     private boolean firstManager;
@@ -77,5 +81,21 @@ public class Manager extends Account {
 
     public static HashMap<Integer, Requestable> getRequestWithIds() {
         return requestWithIds;
+    }
+
+    public static void load() {
+        YaGson yaGson = new YaGson();
+        try {
+            FileInputStream fis = new FileInputStream("src/main/resources/Manager.txt");
+            Scanner fileScanner = new Scanner(fis);
+            while (fileScanner.hasNextLine()) {
+                String managerStr = fileScanner.nextLine();
+                Manager manager = yaGson.fromJson(managerStr, Manager.class);
+                Account.addAccount(manager);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
