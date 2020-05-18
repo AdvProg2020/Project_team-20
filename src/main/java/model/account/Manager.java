@@ -3,11 +3,14 @@ package model.account;
 import com.gilecode.yagson.YaGson;
 import model.Requestable;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.Map;
 import java.util.Set;
 
@@ -86,6 +89,22 @@ public class Manager extends Account {
     }
 
 
+    public static void storeAccount() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutManager/managers.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Account account : allAccounts) {
+                if (account.getAccountType().equals(AccountType.MANAGER))
+                    fileWriter.write(yaGson.toJson(account) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static void storeNumberOfRequests() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutManager/numberOfRequests.txt");
@@ -140,6 +159,22 @@ public class Manager extends Account {
                 fileWriter.write(yaGson.toJson(request) + "\n");
             }
             fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void load() {
+        YaGson yaGson = new YaGson();
+        try {
+            FileInputStream fis = new FileInputStream("src/main/resources/Manager.txt");
+            Scanner fileScanner = new Scanner(fis);
+            while (fileScanner.hasNextLine()) {
+                String managerStr = fileScanner.nextLine();
+                Manager manager = yaGson.fromJson(managerStr, Manager.class);
+                Account.addAccount(manager);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

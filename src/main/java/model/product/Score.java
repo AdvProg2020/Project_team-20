@@ -8,6 +8,7 @@ public class Score implements Requestable {
     private double score;
     private Product product;
     private RequestableState state;
+    private RequestType requestType = RequestType.Score;
 
     public Score(Buyer buyer, double score, Product product) {
         this.buyer = buyer;
@@ -47,5 +48,9 @@ public class Score implements Requestable {
     @Override
     public RequestableState getState() {
         return null;
+    }
+
+    public RequestType getRequestType() {
+        return requestType;
     }
 }
