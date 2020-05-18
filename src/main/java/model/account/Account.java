@@ -1,12 +1,6 @@
 package model.account;
 
-import model.product.Product;
-
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
-import com.gilecode.yagson.YaGson;
 
 public abstract class Account extends GeneralAccount{
     private static ArrayList<Account> allAccounts = new ArrayList<>();
@@ -145,23 +139,6 @@ public abstract class Account extends GeneralAccount{
     public static class notEnoughMoneyException extends Exception {
         public notEnoughMoneyException() {
             super("not Enough Money");
-        }
-    }
-
-    public static void load(){
-        try {
-            YaGson yagson = new YaGson();
-            InputStream inputStream = new FileInputStream("allAccounts.txt");
-            Scanner scanner = new Scanner(inputStream);
-            while (scanner.hasNextLine()){
-                String accountInput = scanner.nextLine();
-                Account account = yagson.fromJson(accountInput, Account.class);
-                allAccounts.add(account);
-            }
-            scanner.close();
-        }
-        catch (Exception e){
-         System.out.println(e.getMessage());
         }
     }
 
