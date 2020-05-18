@@ -171,20 +171,4 @@ public abstract class Account extends GeneralAccount{
         }
         return false;
     }
-
-    public static void store() {
-        YaGson yaGson = new YaGson();
-        File file = new File("src/main/resources/Account.txt");
-        try {
-            FileWriter fileWriter = new FileWriter(file, false);
-            for (Account account : allAccounts) {
-                fileWriter.write(yaGson.toJson(account) + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }

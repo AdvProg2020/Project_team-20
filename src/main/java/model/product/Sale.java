@@ -21,6 +21,7 @@ public class Sale implements Requestable {
     private Sale editedSale;
     private Seller seller;
     double salePercentage;
+    private RequestType requestType = RequestType.Sale;
 
     public Sale(String id, ArrayList<Product> products, LocalDateTime startDate, LocalDateTime endDate, double salePercentage, Seller seller) {
         this.id = id;
@@ -179,5 +180,9 @@ public class Sale implements Requestable {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public RequestType getRequestType() {
+        return requestType;
     }
 }
