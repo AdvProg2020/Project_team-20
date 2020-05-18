@@ -3,6 +3,7 @@ package model.account;
 import com.gilecode.yagson.YaGson;
 import model.Requestable;
 import model.product.Sale;
+import model.product.Score;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -159,9 +160,10 @@ public class Manager extends Account {
                         storeBuyerRequests(yaGson, (Buyer) request, id);
                         break;
                     case Score:
-
+                        storeScoreRequests(yaGson, (Score) request, id);
+                        break;
                     case Seller:
-
+                        storeSellerRequests(yaGson, (Seller) request, id);
                     case Comment:
 
                     case Product:
@@ -178,6 +180,30 @@ public class Manager extends Account {
         }
     }
 
+
+    public static void storeSellerRequests(YaGson yaGson, Seller seller, int id) {
+        File file = new File("src/main/resources/aboutManager/requests/Seller.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(id) + "\n");
+            fileWriter.write(yaGson.toJson(seller) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void storeScoreRequests(YaGson yaGson, Score score, int id) {
+        File file = new File("src/main/resources/aboutManager/requests/Score.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(id) + "\n");
+            fileWriter.write(yaGson.toJson(score) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void storeBuyerRequests(YaGson yaGson, Buyer buyer, int id) {
         File file = new File("src/main/resources/aboutManager/requests/Buyer.txt");
