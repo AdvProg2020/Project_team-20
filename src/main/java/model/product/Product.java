@@ -1,19 +1,17 @@
 package model.product;
 
 import com.gilecode.yagson.YaGson;
-import controller.product.filter.Filterable;
 import model.Requestable;
-import model.account.Account;
 import model.account.Buyer;
 import model.account.Seller;
 import model.product.Field.Field;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.Set;
 
 
@@ -70,7 +68,7 @@ public class Product implements Requestable {
         this.price.put(seller, price);
     }
 
-    public void increaseProductViews(){
+    public void increaseProductViews() {
         this.views++;
     }
 
@@ -78,8 +76,8 @@ public class Product implements Requestable {
         return views;
     }
 
-    public LocalDateTime getAddingDate(){
-        return  addingDate;
+    public LocalDateTime getAddingDate() {
+        return addingDate;
     }
 
     public void changeStateAccepted() {
@@ -248,9 +246,9 @@ public class Product implements Requestable {
         return name;
     }
 
-    public static Product getProductWithItsName(String name) throws Exception{
-        for(Product product:allProducts){
-            if(product.getName().equals(name))
+    public static Product getProductWithItsName(String name) throws Exception {
+        for (Product product : allProducts) {
+            if (product.getName().equals(name))
                 return product;
         }
         throw new productNotFoundException();
@@ -278,7 +276,7 @@ public class Product implements Requestable {
 
     public void decreaseCountSeller(Seller seller, int number) {
         int temp = count.get(seller);
-        count.replace(seller, temp-number);
+        count.replace(seller, temp - number);
     }
 
     public ArrayList<Comment> getComments() {
@@ -306,10 +304,10 @@ public class Product implements Requestable {
     @Override
     public String toString() {
         String productString = "Name                : " + name + "\n" +
-                             "RequestType         : Product" + "\n" +
-                             "Seller              : " + sellers.get(0).getName() + "\n" +
-                             "Price               : " + price.get(sellers.get(0)) + "\n" +
-                             "Count               : " + count.get(sellers.get(0));
+                "RequestType         : Product" + "\n" +
+                "Seller              : " + sellers.get(0).getName() + "\n" +
+                "Price               : " + price.get(sellers.get(0)) + "\n" +
+                "Count               : " + count.get(sellers.get(0));
         if (state.equals(RequestableState.EDITED))
             productString = "<Edited>\n" + productString;
         return productString;
@@ -329,6 +327,37 @@ public class Product implements Requestable {
 
     public void setCount(HashMap<Seller, Integer> count) {
         this.count = count;
+    }
+
+    public static void store() {
+        storeProducts();
+        storeNumberOfProducts();
+    }
+
+    public static void storeProducts() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutProduct/products.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Product product : allProducts) {
+                fileWriter.write(yaGson.toJson(product) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void storeNumberOfProducts() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutProduct/numberOfProducts.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(productCount) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void load() {

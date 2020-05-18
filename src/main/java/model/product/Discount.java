@@ -248,13 +248,13 @@ public class Discount {
 
 
     public static void store() {
-        storeDiscount();
+        storeDiscounts();
         storeNumberOfDiscounts();
     }
 
-    public static void storeDiscount() {
+    public static void storeDiscounts() {
         YaGson yaGson = new YaGson();
-        File file = new File("src/main/resources/aboutDiscount/Discount.txt");
+        File file = new File("src/main/resources/aboutDiscount/discounts.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, false);
             for (Discount discount : allDiscounts) {
