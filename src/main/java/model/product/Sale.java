@@ -5,14 +5,13 @@ import model.Requestable;
 import model.account.Account;
 import model.account.Seller;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sale implements Requestable {
-    static public int allSalesCount = 1;
+    public static int allSalesCount = 1;
     private String id;
     private ArrayList<String> products = new ArrayList<>();
     private RequestableState state;
@@ -163,6 +162,18 @@ public class Sale implements Requestable {
                             "Sale Percentage     : " + editedSale.getSalePercentage() + "\n";
         }
         return buyerString;
+    }
+
+    public static void storeAllSalesCount() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutSale/sales.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(allSalesCount) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void load() {
