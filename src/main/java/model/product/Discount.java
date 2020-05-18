@@ -254,7 +254,7 @@ public class Discount {
 
     public static void storeDiscount() {
         YaGson yaGson = new YaGson();
-        File file = new File("src/main/resources/aboutBuyer/Discount.txt");
+        File file = new File("src/main/resources/aboutDiscount/Discount.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, false);
             for (Discount discount : allDiscounts) {
@@ -268,7 +268,7 @@ public class Discount {
 
     public static void storeNumberOfDiscounts() {
         YaGson yaGson = new YaGson();
-        File file = new File("src/main/resources/aboutManager/numberOfDiscounts.txt");
+        File file = new File("src/main/resources/aboutDiscount/numberOfDiscounts.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, false);
             fileWriter.write(yaGson.toJson(numberOfDiscounts) + "\n");
