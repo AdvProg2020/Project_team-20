@@ -189,6 +189,7 @@ public abstract class Menu {
                 e.printStackTrace();
             }
         } else{
+            Main.storeData();
             System.exit(0);
         }
     }

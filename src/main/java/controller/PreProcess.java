@@ -1,5 +1,6 @@
 package controller;
 
+import com.gilecode.yagson.YaGson;
 import controller.account.user.BuyerController;
 import controller.gift.Action;
 import controller.gift.Event;
@@ -8,11 +9,14 @@ import model.account.Account;
 import model.account.Buyer;
 import model.product.Discount;
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PreProcess {
+    private static int period;
     private BuyerController buyerController;
     private ArrayList<Buyer> buyers;
     private ArrayList<Account> allBuyers;
@@ -99,5 +103,45 @@ public class PreProcess {
 
     public void setBuyerController(BuyerController buyerController) {
         this.buyerController = buyerController;
+    }
+
+    public static int getPeriod() {
+        return period;
+    }
+
+    public static void AddPeriod() {
+        PreProcess.period += 1;
+    }
+
+    public static void store() {
+        storePeriods();
+    }
+
+    public static void load() {
+        loadPeriods();
+    }
+
+    private static void storePeriods() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutGift/numberOfPeriods.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(period) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadPeriods() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutGift/numberOfPeriods.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            PreProcess.period = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            fileScanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

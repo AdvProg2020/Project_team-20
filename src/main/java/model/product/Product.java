@@ -430,7 +430,7 @@ public class Product implements Requestable {
     public static void loadProducts() {
         YaGson yaGson = new YaGson();
         try {
-            InputStream inputStream = new FileInputStream("src/main/resources/aboutProduct/products.tx");
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutProduct/products.txt");
             Scanner fileScanner = new Scanner(inputStream);
             while (fileScanner.hasNextLine()) {
                 Product product = yaGson.fromJson(fileScanner.nextLine(), Product.class);

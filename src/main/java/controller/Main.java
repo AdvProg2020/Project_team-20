@@ -1,5 +1,12 @@
 package controller;
 
+import model.account.Buyer;
+import model.account.Manager;
+import model.account.Seller;
+import model.product.Category;
+import model.product.Discount;
+import model.product.Product;
+import model.product.Sale;
 import view.MainMenu;
 import view.Menu;
 import view.account.RegisterAndLoginMenu;
@@ -12,9 +19,11 @@ public class Main {
 
     public static void main(String[] args) {
         initialMenus();
-        //data base rp zadi inja ye boolean bezar ke hey nasaze
-        preProcess.processOnlyOneTime();
+        if (PreProcess.getPeriod() == 10)
+            preProcess.processOnlyOneTime();
+        PreProcess.AddPeriod();
         while (true) {
+            preProcess.purchaseGift();
             currentMenu.getCommand();
         }
     }
@@ -28,5 +37,27 @@ public class Main {
         Menu.addToAllMenus(RegisterAndLoginMenu.getInstance());
         Menu.addToAllMenus(AllProductsMenu.getInstance());
         Menu.addToAllMenus(SaleMenu.getInstance());
+    }
+
+    private static void loadData() {
+        PreProcess.load();
+        Manager.load();
+        Buyer.load();
+        Seller.load();
+        Category.load();
+        Discount.load();
+        Product.load();
+        Sale.load();
+    }
+
+    public static void storeData() {
+        PreProcess.store();
+        Manager.store();
+        Buyer.store();
+        Seller.store();
+        Category.store();
+        Discount.store();
+        Product.store();
+        Sale.store();
     }
 }
