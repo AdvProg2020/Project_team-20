@@ -2,10 +2,14 @@ package model.product;
 
 import com.gilecode.yagson.YaGson;
 import model.Requestable;
+import model.account.Account;
 import model.account.Buyer;
 import model.account.Seller;
 import model.product.Field.Field;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
