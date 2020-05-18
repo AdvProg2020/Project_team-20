@@ -8,16 +8,24 @@ import java.util.HashMap;
 public abstract class Receipt {
     protected String id;
     protected double discountPercentage;
-    protected HashMap<Product, Integer> products;
+    protected HashMap<String, Integer> productsWithIds;
     protected Boolean hasItSent;
     protected LocalDateTime dateAndTime;
 
     Receipt(String id, double discountPercentage, HashMap<Product, Integer> products, Boolean hasItSent) {
         this.id = id;
         this.discountPercentage = discountPercentage;
-        this.products = products;
+        addToProducts(products);
         this.hasItSent = hasItSent;
         dateAndTime = LocalDateTime.now();
+    }
+
+    public void addToProducts(HashMap<Product, Integer> products){
+        HashMap<String , Integer> productName = new HashMap<>();
+        for(Product product : products.keySet()){
+            productName.put(product.getId(),products.get(product));
+        }
+        this.productsWithIds = productName;
     }
 
     public LocalDateTime getDateAndTime() {
@@ -33,6 +41,15 @@ public abstract class Receipt {
     }
 
     public HashMap<Product, Integer> getProducts() {
+        HashMap<Product,Integer> products = new HashMap<>();
+        for(String name : productsWithIds.keySet()){
+            try {
+                Product product = Product.getProductById(name);
+                products.put(product,productsWithIds.get(name));
+            }
+            catch (Exception e){
+            }
+        }
         return products;
     }
 
