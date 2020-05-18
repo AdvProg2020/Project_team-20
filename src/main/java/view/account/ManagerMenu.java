@@ -503,11 +503,16 @@ public class ManagerMenu extends Menu {
     }
 
     public void addCategory(String name){
-        managerController.addCategory(name);
-        addProductPart(name);
-        addSubCategoryPart(name);
-        addFieldPart(name);
-        addParentPart(name);
+        try {
+            managerController.addCategory(name);
+            addProductPart(name);
+            addSubCategoryPart(name);
+            addFieldPart(name);
+            addParentPart(name);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     private void addProductPart(String name){

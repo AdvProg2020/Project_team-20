@@ -188,14 +188,12 @@ public class ManagerController implements controller.account.user.AccountControl
         category.removeProduct(product);
     }
 
-    public void addCategory(String categoryName , Category parent){
-        Category category = new Category(categoryName,parent);
-        AddToCategories(category);
+    public void addCategory(String categoryName , Category parent) throws Exception{
+            Category category = new Category(categoryName,parent);
     }
 
-    public void addCategory(String categoryName){
+    public void addCategory(String categoryName) throws Exception{
         Category category = new Category(categoryName);
-        AddToCategories(category);
     }
 
     public void managerRemoveCategory(String categoryName) throws Exception{
