@@ -3,39 +3,17 @@ package model.product;
 import model.Requestable;
 import model.account.Buyer;
 
-public class Comment implements Requestable {
+public class Comment {
     private Buyer buyer;
     private Product product;
     private String title;
     private String content;
-    private RequestableState state;
 
     public Comment(Buyer buyer, Product product, String title, String content) {
         this.buyer = buyer;
         this.product = product;
         this.title = title;
         this.content = content;
-        state = RequestableState.CREATED;
-    }
-
-    @Override
-    public void changeStateAccepted() {
-        state = RequestableState.ACCEPTED;
-        product.addComment(this);
-    }
-
-    @Override
-    public void changeStateRejected() {
-        state = RequestableState.REJECTED;
-    }
-
-    @Override
-    public void edit() {
-
-    }
-
-    public RequestableState getState() {
-        return state;
     }
 
     public Buyer getBuyer() {

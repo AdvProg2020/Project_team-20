@@ -40,7 +40,7 @@ public class ProductController {
         if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
                 !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)))
             throw new AccountNotBuyerException();
-        Manager.addRequest(new Comment((Buyer) currentAccount, product, title, content));
+        product.addComment(new Comment((Buyer) currentAccount, product, title, content));
     }
 
     public void addScore(double score, Product product) throws Exception {
@@ -48,7 +48,7 @@ public class ProductController {
         if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
                 !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)))
             throw new AccountNotBuyerException();
-        Manager.addRequest(new Score((Buyer) currentAccount, score, product));
+        product.addScore(new Score((Buyer) currentAccount, score, product));
     }
 
     public Product getCurrentProduct() {

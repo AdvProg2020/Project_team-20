@@ -4,17 +4,14 @@ import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
 
-public class Score implements Requestable {
+public class Score {
     private String buyerUsername;
     private double score;
     private String productID;
-    private RequestableState state;
 
     public Score(Buyer buyer, double score, Product product) {
         this.buyerUsername = buyer.getUsername();
         this.score = score;
-        this.productID = product.getId();
-        this.state = RequestableState.CREATED;
     }
 
     public Buyer getBuyer() {
@@ -39,46 +36,5 @@ public class Score implements Requestable {
         catch (Exception e){
             return null;
         }
-    }
-
-    @Override
-    public void changeStateAccepted() {
-        try {
-            state = RequestableState.ACCEPTED;
-            Product.getProductById(productID).addScore(this);
-        }
-        catch (Exception e){
-        }
-    }
-
-    @Override
-    public void changeStateRejected() {
-        state = RequestableState.REJECTED;
-    }
-
-    @Override
-    public void edit() {
-
-    }
-
-    @Override
-    public RequestableState getState() {
-        return null;
-    }
-
-    public RequestType getRequestType() {
-        return RequestType.Score;
-    }
-
-    @Override
-    public String toString() {
-            String scoreString =
-                    "RequestType         : Score" + "\n" +
-                    "Product              : " + productID + "\n" +
-                    "Buyer               : " + buyerUsername + "\n" +
-                    "Score               : " + score;
-            if (state.equals(RequestableState.EDITED))
-                scoreString = "<Edited>\n" + scoreString;
-            return scoreString;
     }
 }
