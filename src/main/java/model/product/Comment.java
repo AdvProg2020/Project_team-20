@@ -1,6 +1,5 @@
 package model.product;
 
-import model.Requestable;
 import model.account.Buyer;
 
 public class Comment {
@@ -30,9 +29,5 @@ public class Comment {
 
     public String getContent() {
         return content;
-    }
-
-    public RequestType getRequestType() {
-        return RequestType.Comment;
     }
 }

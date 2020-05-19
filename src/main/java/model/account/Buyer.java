@@ -129,7 +129,7 @@ public class Buyer extends Account implements Requestable {
                     fileWriter.write(yaGson.toJson(account) + "\n");
             }
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -142,7 +142,7 @@ public class Buyer extends Account implements Requestable {
                 Buyer buyer = yaGson.fromJson(fileScanner.nextLine(), Buyer.class);
                 allAccounts.add(buyer);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 

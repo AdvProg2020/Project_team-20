@@ -1,6 +1,5 @@
 package model.product;
 
-import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
 
@@ -16,8 +15,7 @@ public class Score {
 
     public Buyer getBuyer() {
         try {
-            Buyer buyer =(Buyer) Account.getAccountWithUsername(buyerUsername);
-            return buyer;
+            return (Buyer) Account.getAccountWithUsername(buyerUsername);
         }
         catch (Exception e){
             return null;
@@ -30,8 +28,7 @@ public class Score {
 
     public Product getProduct() {
         try {
-            Product product = Product.getProductById(productID);
-            return product;
+            return Product.getProductById(productID);
         }
         catch (Exception e){
             return null;

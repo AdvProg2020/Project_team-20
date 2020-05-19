@@ -171,7 +171,7 @@ public class Sale implements Requestable {
             FileWriter fileWriter = new FileWriter(file, false);
             fileWriter.write(yaGson.toJson(allSalesCount) + "\n");
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -182,7 +182,7 @@ public class Sale implements Requestable {
             Scanner fileScanner = new Scanner(inputStream);
             allSalesCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
             fileScanner.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
