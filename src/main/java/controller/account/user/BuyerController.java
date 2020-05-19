@@ -47,7 +47,7 @@ public class BuyerController implements AccountController {
     public void rate(String productId, double score) throws Exception {
         if (currentBuyer.hasBoughtProduct(productId)) {
             Product product = Product.getProductById(productId);
-            product.addScore(new Score(currentBuyer, score, product));
+            Manager.addRequest(new Score(currentBuyer, score, product));
         } else
             throw new buyerHasNotBought();
     }
