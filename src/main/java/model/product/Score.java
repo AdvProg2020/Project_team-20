@@ -1,23 +1,30 @@
 package model.product;
 
 import model.Requestable;
+import model.account.Account;
 import model.account.Buyer;
 
 public class Score implements Requestable {
-    private Buyer buyer;
+    private String buyerUsername;
     private double score;
-    private Product product;
+    private String productID;
     private RequestableState state;
 
     public Score(Buyer buyer, double score, Product product) {
-        this.buyer = buyer;
+        this.buyerUsername = buyer.getUsername();
         this.score = score;
-        this.product = product;
+        this.productID = product.getId();
         this.state = RequestableState.CREATED;
     }
 
     public Buyer getBuyer() {
-        return buyer;
+        try {
+            Buyer buyer =(Buyer) Account.getAccountWithUsername(buyerUsername);
+            return buyer;
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     public double getScore() {
@@ -25,13 +32,23 @@ public class Score implements Requestable {
     }
 
     public Product getProduct() {
-        return product;
+        try {
+            Product product = Product.getProductById(productID);
+            return product;
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 
     @Override
     public void changeStateAccepted() {
-        state = RequestableState.ACCEPTED;
-        product.addScore(this);
+        try {
+            state = RequestableState.ACCEPTED;
+            Product.getProductById(productID).addScore(this);
+        }
+        catch (Exception e){
+        }
     }
 
     @Override
@@ -51,5 +68,17 @@ public class Score implements Requestable {
 
     public RequestType getRequestType() {
         return RequestType.Score;
+    }
+
+    @Override
+    public String toString() {
+            String scoreString =
+                    "RequestType         : Score" + "\n" +
+                    "Product              : " + productID + "\n" +
+                    "Buyer               : " + buyerUsername + "\n" +
+                    "Score               : " + score;
+            if (state.equals(RequestableState.EDITED))
+                scoreString = "<Edited>\n" + scoreString;
+            return scoreString;
     }
 }
