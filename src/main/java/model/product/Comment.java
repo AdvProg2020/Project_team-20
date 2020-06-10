@@ -1,9 +1,8 @@
 package model.product;
 
 import model.account.Buyer;
-import model.Requestable;
 
-public class Comment implements Requestable{
+public class Comment{
     private Buyer buyer;
     private Product product;
     private String title;
@@ -32,27 +31,4 @@ public class Comment implements Requestable{
         return content;
     }
 
-    @Override
-    public void changeStateAccepted() {
-
-    }
-
-    @Override
-    public void changeStateRejected() {
-
-    }
-
-    @Override
-    public void edit() {
-
-    }
-
-    @Override
-    public RequestableState getState() {
-        return null;
-    }
-
-    public RequestType getRequestType() {
-        return RequestType.Comment;
-    }
 }
