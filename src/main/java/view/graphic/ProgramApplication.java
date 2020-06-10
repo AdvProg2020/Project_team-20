@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.graphic.fxml.mainMenu.FxmlMainMenu;
+import view.graphic.fxml.saleMenu.FxmlSaleMenu;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,13 +28,13 @@ public class ProgramApplication extends Application {
     private void initializeScenes() throws Exception {
         Parent root;
         root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/mainMenu/mainMenu.fxml").toURI().toURL());
-        mainMenu = new Scene(root, 800, 600);
+        mainMenu = new Scene(root, 994, 666);
         root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/allProducts.fxml").toURI().toURL());
-        allProductsMenu = new Scene(root, 800, 600);
+        allProductsMenu = new Scene(root, 994, 666);
         root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/registerAndLoginMenu/registerAndLoginMenu.fxml").toURI().toURL());
-        registerAndLoginMenu = new Scene(root, 800, 600);
+        registerAndLoginMenu = new Scene(root, 994, 666);
         root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/saleMenu/saleMenu.fxml").toURI().toURL());
-        saleMenu = new Scene(root, 800, 600);
+        saleMenu = new Scene(root, 994, 666);
     }
 
     public static Stage getMainStage() {
@@ -52,6 +54,7 @@ public class ProgramApplication extends Application {
         switch (name) {
             case MAINMENU:
                 mainStage.setTitle("main menu");
+                FxmlMainMenu.setWindow(mainStage);
                 mainStage.setScene(mainMenu);
                 mainStage.show();
                 break;
