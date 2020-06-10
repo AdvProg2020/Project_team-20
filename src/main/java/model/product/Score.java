@@ -1,9 +1,10 @@
 package model.product;
 
+import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
 
-public class Score implements Requestable{
+public class Score implements Requestable {
     private String buyerUsername;
     private double score;
     private String productID;

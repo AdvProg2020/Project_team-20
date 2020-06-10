@@ -53,6 +53,6 @@ public class Comment implements Requestable{
     }
 
     public RequestType getRequestType() {
-        return RequestType.Comment;
+        return null;
     }
 }
