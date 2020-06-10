@@ -1,7 +1,7 @@
 package model.product;
 
-import model.Requestable;
 import model.account.Buyer;
+import model.Requestable;
 
 public class Comment implements Requestable{
     private Buyer buyer;

@@ -25,8 +25,12 @@ public class Main {
             preProcess.processOnlyOneTime();
         PreProcess.AddPeriod();
         while (true) {
-            if (PreProcess.getPeriod() >= 3 && BuyerController.getInstance().getCurrentBuyer() != null)
-                preProcess.purchaseGift();
+            if (PreProcess.getPeriod() >= 3)
+                try {
+                    if (BuyerController.getInstance().getCurrentBuyer() != null)
+                        preProcess.purchaseGift();
+                } catch (Exception ignored) {
+                }
             currentMenu.getCommand();
         }
     }

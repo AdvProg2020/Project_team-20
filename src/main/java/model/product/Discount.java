@@ -268,7 +268,7 @@ public class Discount {
                 fileWriter.write(yaGson.toJson(discount) + "\n");
             }
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -281,7 +281,7 @@ public class Discount {
                 Discount discount = yaGson.fromJson(fileScanner.nextLine(), Discount.class);
                 allDiscounts.add(discount);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -292,7 +292,7 @@ public class Discount {
             FileWriter fileWriter = new FileWriter(file, false);
             fileWriter.write(yaGson.toJson(numberOfDiscounts) + "\n");
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -304,7 +304,7 @@ public class Discount {
             Scanner fileScanner = new Scanner(inputStream);
             numberOfDiscounts = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
             fileScanner.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 }

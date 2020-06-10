@@ -105,7 +105,7 @@ public class Manager extends Account {
                     fileWriter.write(yaGson.toJson(account) + "\n");
             }
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -120,7 +120,7 @@ public class Manager extends Account {
                 allAccounts.add(yaGson.fromJson(managerStr, Manager.class));
             }
             fileScanner.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -131,7 +131,7 @@ public class Manager extends Account {
             FileWriter fileWriter = new FileWriter(file, false);
             fileWriter.write(yaGson.toJson(numberOfRequests) + "\n");
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -142,7 +142,7 @@ public class Manager extends Account {
             Scanner fileScanner = new Scanner(inputStream);
             numberOfRequests = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
             fileScanner.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -153,7 +153,7 @@ public class Manager extends Account {
             FileWriter fileWriter = new FileWriter(file, false);
             fileWriter.write(yaGson.toJson(hasFirstManger) + "\n");
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -164,7 +164,7 @@ public class Manager extends Account {
             Scanner fileScanner = new Scanner(inputStream);
             hasFirstManger = yaGson.fromJson(fileScanner.nextLine(), boolean.class);
             fileScanner.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -183,14 +183,8 @@ public class Manager extends Account {
                 case Buyer:
                     storeBuyerRequests(yaGson, (Buyer) request, id);
                     break;
-                case Score:
-                    storeScoreRequests(yaGson, (Score) request, id);
-                    break;
                 case Seller:
                     storeSellerRequests(yaGson, (Seller) request, id);
-                    break;
-                case Comment:
-                    storeCommentRequests(yaGson, (Comment) request, id);
                     break;
                 case Product:
                     storeProductRequests(yaGson, (Product) request, id);
@@ -204,9 +198,7 @@ public class Manager extends Account {
     public static void loadRequestsWithId() {
         loadAddSellerToProductRequests();
         loadProductRequests();
-        loadCommentRequests();
         loadSellerRequests();
-        loadScoreRequests();
         loadBuyerRequests();
         loadSaleRequests();
     }
@@ -218,7 +210,7 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(id) + "\n");
             fileWriter.write(yaGson.toJson(addSellerRequest) + "\n");
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -234,7 +226,7 @@ public class Manager extends Account {
                 requestWithIds.put(id, addSellerRequest);
                 requests.add(addSellerRequest);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -245,7 +237,7 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(id) + "\n");
             fileWriter.write(yaGson.toJson(product) + "\n");
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -260,35 +252,10 @@ public class Manager extends Account {
                 requestWithIds.put(id, product);
                 requests.add(product);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
-    public static void storeCommentRequests(YaGson yaGson, Comment comment, int id) {
-        File file = new File("src/main/resources/aboutManager/requests/Comment.txt");
-        try {
-            FileWriter fileWriter = new FileWriter(file, false);
-            fileWriter.write(yaGson.toJson(id) + "\n");
-            fileWriter.write(yaGson.toJson(comment) + "\n");
-            fileWriter.close();
-        } catch (IOException e) {
-        }
-    }
-
-    public static void loadCommentRequests() {
-        YaGson yaGson = new YaGson();
-        try {
-            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/requests/Comment.txt");
-            Scanner fileScanner = new Scanner(inputStream);
-            while (fileScanner.hasNextLine()) {
-                int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
-                Comment comment = yaGson.fromJson(fileScanner.nextLine(), Comment.class);
-                requestWithIds.put(id, comment);
-                requests.add(comment);
-            }
-        } catch (Exception e) {
-        }
-    }
 
     public static void storeSellerRequests(YaGson yaGson, Seller seller, int id) {
         File file = new File("src/main/resources/aboutManager/requests/Seller.txt");
@@ -297,7 +264,7 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(id) + "\n");
             fileWriter.write(yaGson.toJson(seller) + "\n");
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -312,35 +279,10 @@ public class Manager extends Account {
                 requestWithIds.put(id, seller);
                 requests.add(seller);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
-    public static void storeScoreRequests(YaGson yaGson, Score score, int id) {
-        File file = new File("src/main/resources/aboutManager/requests/Score.txt");
-        try {
-            FileWriter fileWriter = new FileWriter(file, false);
-            fileWriter.write(yaGson.toJson(id) + "\n");
-            fileWriter.write(yaGson.toJson(score) + "\n");
-            fileWriter.close();
-        } catch (IOException e) {
-        }
-    }
-
-    public static void loadScoreRequests() {
-        YaGson yaGson = new YaGson();
-        try {
-            InputStream inputStream = new FileInputStream("src/main/resources/aboutManager/requests/Score.txt");
-            Scanner fileScanner = new Scanner(inputStream);
-            while (fileScanner.hasNextLine()) {
-                int id = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
-                Score score = yaGson.fromJson(fileScanner.nextLine(), Score.class);
-                requestWithIds.put(id, score);
-                requests.add(score);
-            }
-        } catch (Exception e) {
-        }
-    }
 
     public static void storeBuyerRequests(YaGson yaGson, Buyer buyer, int id) {
         File file = new File("src/main/resources/aboutManager/requests/Buyer.txt");
@@ -349,7 +291,7 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(id) + "\n");
             fileWriter.write(yaGson.toJson(buyer) + "\n");
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -364,7 +306,7 @@ public class Manager extends Account {
                 requestWithIds.put(id, buyer);
                 requests.add(buyer);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -375,7 +317,7 @@ public class Manager extends Account {
             fileWriter.write(yaGson.toJson(id) + "\n");
             fileWriter.write(yaGson.toJson(sale) + "\n");
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -390,7 +332,7 @@ public class Manager extends Account {
                 requestWithIds.put(id, sale);
                 requests.add(sale);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 }

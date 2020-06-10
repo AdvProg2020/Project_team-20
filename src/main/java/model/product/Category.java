@@ -166,7 +166,7 @@ public class Category {
                 fileWriter.write(yaGson.toJson(category) + "\n");
             }
             fileWriter.close();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 
@@ -179,7 +179,7 @@ public class Category {
                 Category category = yaGson.fromJson(fileScanner.nextLine(), Category.class);
                 allCategories.add(category);
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 }
