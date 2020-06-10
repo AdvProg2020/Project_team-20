@@ -1,8 +1,8 @@
-package view.account;
+package view.console.account;
 
 import controller.account.LoginController;
 import model.account.AccountType;
-import view.Menu;
+import view.console.Menu;
 
 import java.util.ArrayList;
 

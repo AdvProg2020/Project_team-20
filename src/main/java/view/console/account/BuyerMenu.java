@@ -1,4 +1,4 @@
-package view.account;
+package view.console.account;
 
 import controller.account.user.BuyerController;
 import model.account.Account;
@@ -7,8 +7,8 @@ import model.product.Discount;
 import model.product.Product;
 import model.product.SelectedProduct;
 import model.receipt.BuyerReceipt;
-import view.Menu;
-import view.product.ProductMenu;
+import view.console.Menu;
+import view.console.product.ProductMenu;
 
 import java.util.ArrayList;
 import java.util.HashMap;

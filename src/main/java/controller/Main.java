@@ -7,23 +7,30 @@ import model.product.Category;
 import model.product.Discount;
 import model.product.Product;
 import model.product.Sale;
-import view.MainMenu;
-import view.Menu;
-import view.account.RegisterAndLoginMenu;
-import view.product.AllProductsMenu;
-import view.product.SaleMenu;
+import view.console.MainMenu;
+import view.console.Menu;
+import view.console.account.RegisterAndLoginMenu;
+import view.console.product.AllProductsMenu;
+import view.console.product.SaleMenu;
+import view.graphic.ProgramApplication;
 
 public class Main {
     private static Menu currentMenu;
     private static PreProcess preProcess = new PreProcess();
 
     public static void main(String[] args) {
-        initialMenus();
         loadData();
         if (PreProcess.getPeriod() == 10)
             preProcess.processOnlyOneTime();
         PreProcess.AddPeriod();
-       /* while (true) {
+
+        // for graphic view
+        ProgramApplication.startApp(args);
+
+        // for console view
+       /*
+       initialMenus();
+       while (true) {
             if (PreProcess.getPeriod() >= 3)
                 try {
                     if (BuyerController.getInstance().getCurrentBuyer() != null)
@@ -32,7 +39,7 @@ public class Main {
                 }
             currentMenu.getCommand();
         }*/
-        ProgramApplication.startApp(args);
+
     }
 
     public static void setCurrentMenu(Menu currentMenu) {

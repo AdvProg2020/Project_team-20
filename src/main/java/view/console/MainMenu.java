@@ -1,4 +1,4 @@
-package view;
+package view.console;
 
 public class MainMenu extends Menu {
 

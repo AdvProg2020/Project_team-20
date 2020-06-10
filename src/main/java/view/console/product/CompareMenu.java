@@ -1,4 +1,4 @@
-package view.product;
+package view.console.product;
 
 import controller.product.ProductController;
 import model.product.Category;
@@ -7,7 +7,7 @@ import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
 import model.product.Product;
-import view.Menu;
+import view.console.Menu;
 
 import java.util.ArrayList;
 

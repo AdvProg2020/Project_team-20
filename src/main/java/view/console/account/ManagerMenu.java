@@ -1,4 +1,4 @@
-package view.account;
+package view.console.account;
 
 import controller.account.user.ManagerController;
 import model.Requestable;
@@ -7,7 +7,7 @@ import model.account.Buyer;
 import model.product.Category;
 import model.product.Discount;
 import model.product.Product;
-import view.Menu;
+import view.console.Menu;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

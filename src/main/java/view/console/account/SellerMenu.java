@@ -1,4 +1,4 @@
-package view.account;
+package view.console.account;
 
 import controller.account.user.SellerController;
 import model.account.Account;
@@ -10,7 +10,7 @@ import model.product.Field.OptionalField;
 import model.product.Product;
 import model.product.Sale;
 import model.receipt.SellerReceipt;
-import view.Menu;
+import view.console.Menu;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

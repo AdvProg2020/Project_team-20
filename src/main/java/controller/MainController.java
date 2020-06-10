@@ -4,7 +4,7 @@ import model.account.Account;
 import model.account.GeneralAccount;
 import model.account.TempAccount;
 import model.product.Cart;
-import view.MainMenu;
+import view.console.MainMenu;
 
 public class MainController {
     private static MainController mainController = null;
