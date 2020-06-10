@@ -4,7 +4,7 @@ import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
 
-public class Score implements Requestable {
+public class Score {
     private String buyerUsername;
     private double score;
     private String productID;
@@ -34,30 +34,5 @@ public class Score implements Requestable {
         catch (Exception e){
             return null;
         }
-    }
-
-    @Override
-    public void changeStateAccepted() {
-
-    }
-
-    @Override
-    public void changeStateRejected() {
-
-    }
-
-    @Override
-    public void edit() {
-
-    }
-
-    @Override
-    public RequestableState getState() {
-        return null;
-    }
-
-    @Override
-    public RequestType getRequestType() {
-        return null;
     }
 }

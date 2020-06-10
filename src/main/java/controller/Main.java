@@ -1,6 +1,5 @@
 package controller;
 
-import controller.account.user.BuyerController;
 import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
@@ -24,7 +23,7 @@ public class Main {
         if (PreProcess.getPeriod() == 10)
             preProcess.processOnlyOneTime();
         PreProcess.AddPeriod();
-        while (true) {
+       /* while (true) {
             if (PreProcess.getPeriod() >= 3)
                 try {
                     if (BuyerController.getInstance().getCurrentBuyer() != null)
@@ -32,7 +31,8 @@ public class Main {
                 } catch (Exception ignored) {
                 }
             currentMenu.getCommand();
-        }
+        }*/
+        ProgramApplication.startApp(args);
     }
 
     public static void setCurrentMenu(Menu currentMenu) {
