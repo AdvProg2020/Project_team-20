@@ -20,7 +20,7 @@
             <Insets />
          </opaqueInsets>
          <children>
-            <Button mnemonicParsing="false" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="364.0" style="-fx-background-radius: 20; -fx-background-color: #F0F2BD #F0F2BD;" text="Registration and Login" textFill="#028090">
+            <Button mnemonicParsing="false" onAction="#handleRegistrationLogin" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="364.0" style="-fx-background-radius: 20; -fx-background-color: #F0F2BD #F0F2BD;" text="Registration and Login" textFill="#028090">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" top="20.0" />
                </VBox.margin>
@@ -28,7 +28,7 @@
                   <Font name="Helvetica" size="20.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="404.0" style="-fx-background-radius: 20; -fx-background-color: #F0F2BD #F0F2BD;" text="All products" textFill="#028090">
+            <Button mnemonicParsing="false" onAction="#handleAllProducts" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="404.0" style="-fx-background-radius: 20; -fx-background-color: #F0F2BD #F0F2BD;" text="All products" textFill="#028090">
                <font>
                   <Font name="Helvetica" size="20.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Insets left="30.0" right="30.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="359.0" style="-fx-background-radius: 20; -fx-background-color: #F0F2BD #F0F2BD;" text="Sales" textFill="#028090">
+            <Button mnemonicParsing="false" onAction="#handleSales" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="359.0" style="-fx-background-radius: 20; -fx-background-color: #F0F2BD #F0F2BD;" text="Sales" textFill="#028090">
                <font>
                   <Font name="Helvetica" size="20.0" />
                </font>

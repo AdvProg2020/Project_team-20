@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import view.graphic.MenuNames;
+import view.graphic.ProgramApplication;
 
 import javax.swing.text.html.ImageView;
 
@@ -21,15 +23,15 @@ public class FxmlMainMenu {
     }
 
     public void handleRegistrationLogin() {
-
+        ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
     }
 
     public void handleAllProducts() {
-
+        ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
     public void handleSales() {
-
+        ProgramApplication.setMenu(MenuNames.SALEMENU);
     }
 
     public void handleExit() {
