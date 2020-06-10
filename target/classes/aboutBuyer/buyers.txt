@@ -1,0 +1,1 @@
+{"@type":"model.account.Buyer","@val":{"purchaseHistory":[],"state":"ACCEPTED","name":"ehsan","lastName":"ehsan","email":"ehsan","phoneNumber":"455445.","username":"ehsan","password":"ehsan","accountType":"BUYER","credit":3223.0,"generalAccountType":"ACCOUNT"}}
