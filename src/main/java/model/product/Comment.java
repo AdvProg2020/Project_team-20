@@ -3,7 +3,7 @@ package model.product;
 import model.Requestable;
 import model.account.Buyer;
 
-public class Comment {
+public class Comment implements Requestable{
     private Buyer buyer;
     private Product product;
     private String title;
@@ -30,6 +30,26 @@ public class Comment {
 
     public String getContent() {
         return content;
+    }
+
+    @Override
+    public void changeStateAccepted() {
+
+    }
+
+    @Override
+    public void changeStateRejected() {
+
+    }
+
+    @Override
+    public void edit() {
+
+    }
+
+    @Override
+    public RequestableState getState() {
+        return null;
     }
 
     public RequestType getRequestType() {
