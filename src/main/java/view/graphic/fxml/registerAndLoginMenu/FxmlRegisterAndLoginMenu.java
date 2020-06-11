@@ -12,6 +12,9 @@ import model.account.AccountType;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
+import view.graphic.fxml.accountMenus.BuyerMenuController;
+import view.graphic.fxml.accountMenus.ManagerMenuController;
+import view.graphic.fxml.accountMenus.SellerMenuController;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -58,22 +61,13 @@ public class FxmlRegisterAndLoginMenu {
             AccountType accountType = loginController.login(username, password);
             switch (accountType) {
                 case BUYER:
-                    Parent root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/BuyerMenuFxml.fxml").toURI().toURL());
-                    window.setTitle("Sign up menu");
-                    window.setScene(new Scene(root, 994, 666));
-                    window.show();
+                    BuyerMenuController.start(window);
                     break;
                 case MANAGER:
-                    root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/ManagerMenuFxml.fxml").toURI().toURL());
-                    window.setTitle("Sign up menu");
-                    window.setScene(new Scene(root, 994, 666));
-                    window.show();
+                    ManagerMenuController.start(window);
                     break;
                 case SELLER:
-                    root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/SellerMenuFxml.fxml").toURI().toURL());
-                    window.setTitle("Sign up menu");
-                    window.setScene(new Scene(root, 994, 666));
-                    window.show();
+                    SellerMenuController.start(window);
             }
             new AlertController().create(AlertType.CONFIRMATION, "login was successful");
         } catch (Exception e) {
