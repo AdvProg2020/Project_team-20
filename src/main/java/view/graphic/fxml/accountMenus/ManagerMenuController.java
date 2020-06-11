@@ -12,9 +12,11 @@ public class ManagerMenuController {
 
     public void start(Stage mainStage) throws Exception{
         window = mainStage;
-        Parent root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/registerAndLoginMenu/SignUpSeller.fxml").toURI().toURL());
-        window.setTitle("Sign up menu");
+        Parent root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/ManagerMenuFxml.fxml").toURI().toURL());
+        window.setTitle("Manager account");
         window.setScene(new Scene(root, 994, 666));
         window.show();
     }
+
+
 }
