@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import view.graphic.ProgramApplication;
+import view.graphic.alert.AlertController;
+import view.graphic.alert.AlertType;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,17 +49,18 @@ public class FxmlRegisterAndLoginMenu {
         ;
     }
 
-    public void handleLogin() {
+    public void handleLogin() throws Exception {
         LoginController loginController = LoginController.getInstance();
         String username = usernameText.getText(), password = passwordText.getText();
         if (username.isEmpty() || password.isEmpty()) {
-            //  new AlertController().create(window, AlertType.ERROR);
+            new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
             return;
         }
         try {
             loginController.login(username, password);
+            new AlertController().create(AlertType.CONFIRMATION, "login was successful");
         } catch (Exception e) {
-            //  new AlertController().create(window, AlertType.ERROR);
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
@@ -102,14 +105,14 @@ public class FxmlRegisterAndLoginMenu {
         ;
     }
 
-    public void handleSignUpBuyer() {
+    public void handleSignUpBuyer() throws Exception {
         LoginController loginController = LoginController.getInstance();
         String name = newName.getText(), username = newUsername.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
                 phoneNumber = newPhoneNumber.getText();
         if (phoneNumber.isEmpty() || username.isEmpty() || name.isEmpty() || password.isEmpty() || lastName.isEmpty() ||
                 email.isEmpty() || creditString.isEmpty()) {
-            //  new AlertController().create(window, AlertType.ERROR);
+            new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
             return;
         }
         ArrayList<String> details = new ArrayList<>();
@@ -121,19 +124,20 @@ public class FxmlRegisterAndLoginMenu {
         details.add(creditString);
         try {
             loginController.createAccount(username, "buyer", details, "");
+            new AlertController().create(AlertType.CONFIRMATION, "sign up was successful");
         } catch (Exception e) {
-            // new AlertController().create(window, AlertType.ERROR);
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
-    public void handleSignUpSeller() {
+    public void handleSignUpSeller() throws Exception {
         LoginController loginController = LoginController.getInstance();
         String name = newName.getText(), username = newUsername.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
                 phoneNumber = newPhoneNumber.getText(), detail = newCompanyInfo.getText();
         if (phoneNumber.isEmpty() || username.isEmpty() || name.isEmpty() || password.isEmpty() || lastName.isEmpty() ||
                 email.isEmpty() || creditString.isEmpty() || detail.isEmpty()) {
-            //  new AlertController().create(window, AlertType.ERROR);
+            new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
             return;
         }
         ArrayList<String> details = new ArrayList<>();
@@ -145,8 +149,9 @@ public class FxmlRegisterAndLoginMenu {
         details.add(creditString);
         try {
             loginController.createAccount(username, "seller", details, detail);
+            new AlertController().create(AlertType.CONFIRMATION, "sign up was successful");
         } catch (Exception e) {
-            // new AlertController().create(window, AlertType.ERROR);
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
