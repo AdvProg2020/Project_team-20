@@ -1,16 +1,13 @@
 package view.graphic.fxml.mainMenu;
 
-import javafx.scene.Scene;
+import controller.Main;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
-
-import javax.swing.text.html.ImageView;
 
 public class FxmlMainMenu {
     private static Stage window;
@@ -38,6 +35,7 @@ public class FxmlMainMenu {
     }
 
     public void handleExit() {
+        Main.storeData();
         window.close();
     }
 
