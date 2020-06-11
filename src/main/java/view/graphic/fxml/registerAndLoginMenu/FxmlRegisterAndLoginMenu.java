@@ -24,6 +24,7 @@ public class FxmlRegisterAndLoginMenu {
     public TextField newLastName;
     public TextField newCredit;
     public TextField newCompanyInfo;
+    public TextField newPhoneNumber;
 
     public void enterMouse(MouseEvent event) {
         ((Button)event.getSource()).setStyle("-fx-background-color: #14b5a8; -fx-background-radius: 10");
@@ -91,7 +92,7 @@ public class FxmlRegisterAndLoginMenu {
     }
     
     public void handleSignUpSeller() {
-        
+
     }
 
 }

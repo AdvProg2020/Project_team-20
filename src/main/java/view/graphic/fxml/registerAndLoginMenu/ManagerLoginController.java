@@ -13,6 +13,7 @@ public class ManagerLoginController {
     public TextField newLastName;
     public TextField newEmail;
     public TextField newCredit;
+    public TextField newPhoneNumber;
 
     public void handleSignIn() {
         //Controller To DO

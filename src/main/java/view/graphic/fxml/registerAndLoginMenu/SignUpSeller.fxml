@@ -88,7 +88,7 @@
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="newCompanyInfo" layoutX="141.0" layoutY="459.0" prefHeight="27.0" prefWidth="158.0" promptText="Company info" style="-fx-background-color: transparent;">
+      <TextField fx:id="newCompanyInfo" layoutX="39.0" layoutY="459.0" prefHeight="27.0" prefWidth="158.0" promptText="Company info" style="-fx-background-color: transparent;">
          <font>
             <Font size="16.0" />
          </font>
@@ -98,5 +98,10 @@
             <Font size="20.0" />
          </font>
       </Button>
+      <TextField fx:id="newPhoneNumber" layoutX="242.0" layoutY="459.0" prefHeight="27.0" prefWidth="158.0" promptText="PhoneNumber" style="-fx-background-color: transparent;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
     </children>
 </Pane>

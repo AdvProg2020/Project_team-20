@@ -7,6 +7,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
+import view.graphic.alert.AlertController;
+import view.graphic.alert.AlertType;
 
 import javax.swing.text.html.ImageView;
 
@@ -30,8 +32,9 @@ public class FxmlMainMenu {
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
-    public void handleSales() {
-        ProgramApplication.setMenu(MenuNames.SALEMENU);
+    public void handleSales() throws Exception {
+        new AlertController().create(window, AlertType.ERROR);
+        //Thread.currentThread().wait();
     }
 
     public void handleExit() {
