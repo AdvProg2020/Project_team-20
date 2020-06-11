@@ -14,12 +14,12 @@ public class FxmlMainMenu {
     private static Stage window;
 
     public void enterMouse(MouseEvent event) {
-        ((Button)event.getSource()).setStyle("-fx-background-color: #DCDF87; -fx-background-radius: 20");
+        ((Button)event.getSource()).setStyle("-fx-background-color: #DCDF87; -fx-background-radius: 20; -fx-border-color: #27304f; -fx-border-radius: 20; -fx-border-width: 5");
 
     }
 
     public void exitMouse(MouseEvent event) {
-        ((Button)event.getSource()).setStyle("-fx-background-color: #F0F2BD; -fx-background-radius: 20");;
+        ((Button)event.getSource()).setStyle("-fx-background-color: #F0F2BD; -fx-background-radius: 20; -fx-border-color: #27304f; -fx-border-radius: 20; -fx-border-width: 5");;
     }
 
     public void handleRegistrationLogin() {

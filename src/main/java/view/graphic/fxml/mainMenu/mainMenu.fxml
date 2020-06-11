@@ -15,41 +15,41 @@
             <Image url="@../../../../../resources/Images/MainMenu.png" />
          </image>
       </ImageView>
-      <VBox layoutX="298.0" layoutY="322.0" opacity="0.85" prefHeight="231.0" prefWidth="402.0" style="-fx-background-color: #2eaeb7; -fx-background-radius: 20;">
+      <VBox layoutX="303.0" layoutY="283.0" opacity="0.85" prefHeight="170.0" prefWidth="397.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-border-color: #abf3edabf3ed;">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <children>
-            <Button mnemonicParsing="false" onAction="#handleRegistrationLogin" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="364.0" style="-fx-background-radius: 20; -fx-background-color: #F0F2BD #F0F2BD;" text="Registration and Login" textFill="#028090">
+            <Button mnemonicParsing="false" onAction="#handleRegistrationLogin" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" opacity="0.85" prefHeight="49.0" prefWidth="357.0" style="-fx-background-radius: 20; -fx-background-color: #f2f3dd; -fx-border-color: #27304f; -fx-border-radius: 20; -fx-border-width: 5;" text="Registration and Login" textFill="#27304f">
                <VBox.margin>
-                  <Insets left="30.0" right="30.0" top="20.0" />
+                  <Insets left="20.0" right="20.0" top="15.0" />
                </VBox.margin>
                <font>
-                  <Font name="Helvetica" size="20.0" />
+                  <Font name="Helvetica" size="22.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleAllProducts" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="404.0" style="-fx-background-radius: 20; -fx-background-color: #F0F2BD #F0F2BD;" text="All products" textFill="#028090">
+            <Button mnemonicParsing="false" onAction="#handleAllProducts" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" opacity="0.85" prefHeight="49.0" prefWidth="357.0" style="-fx-background-radius: 20; -fx-background-color: #f2f3dd; -fx-border-color: #27304f; -fx-border-radius: 20; -fx-border-width: 5;" text="All products" textFill="#27304f">
                <font>
-                  <Font name="Helvetica" size="20.0" />
+                  <Font name="Helvetica" size="22.0" />
                </font>
                <VBox.margin>
-                  <Insets left="30.0" right="30.0" top="10.0" />
+                  <Insets left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleSales" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="359.0" style="-fx-background-radius: 20; -fx-background-color: #F0F2BD #F0F2BD;" text="Sales" textFill="#028090">
+            <Button mnemonicParsing="false" onAction="#handleSales" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" opacity="0.85" prefHeight="49.0" prefWidth="357.0" style="-fx-background-radius: 20; -fx-background-color: #f2f3dd; -fx-border-color: #27304f; -fx-border-radius: 20; -fx-border-width: 5;" text="Sales" textFill="#27304f">
                <font>
-                  <Font name="Helvetica" size="20.0" />
+                  <Font name="Helvetica" size="22.0" />
                </font>
                <VBox.margin>
-                  <Insets left="30.0" right="30.0" top="10.0" />
+                  <Insets left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleExit" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="357.0" style="-fx-background-radius: 20; -fx-background-color: #F0F2BD #F0F2BD;" text="Exit" textFill="#028090">
+            <Button mnemonicParsing="false" onAction="#handleExit" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" opacity="0.85" prefHeight="49.0" prefWidth="357.0" style="-fx-background-radius: 20; -fx-background-color: #f2f3dd; -fx-border-color: #27304f; -fx-border-radius: 20; -fx-border-width: 5;" text="Exit" textFill="#27304f">
                <font>
-                  <Font name="Helvetica" size="20.0" />
+                  <Font name="Helvetica" size="22.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="20.0" left="30.0" right="30.0" top="10.0" />
+                  <Insets bottom="15.0" left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
             </Button>
          </children>
