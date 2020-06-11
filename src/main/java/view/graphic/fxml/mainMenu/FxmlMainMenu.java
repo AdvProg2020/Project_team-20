@@ -32,9 +32,8 @@ public class FxmlMainMenu {
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
-    public void handleSales() throws Exception {
-        new AlertController().create(window, AlertType.ERROR);
-        //Thread.currentThread().wait();
+    public void handleSales() {
+        ProgramApplication.setMenu(MenuNames.SALEMENU);
     }
 
     public void handleExit() {
