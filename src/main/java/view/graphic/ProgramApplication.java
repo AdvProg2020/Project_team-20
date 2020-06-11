@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.graphic.fxml.mainMenu.FxmlMainMenu;
+import view.graphic.fxml.registerAndLoginMenu.FxmlRegisterAndLoginMenu;
 import view.graphic.fxml.saleMenu.FxmlSaleMenu;
 
 import java.io.File;
@@ -66,6 +67,7 @@ public class ProgramApplication extends Application {
                 break;
             case REGISTERANDLOGINMENU:
                 mainStage.setTitle("register and login menu");
+                FxmlRegisterAndLoginMenu.setWindow(mainStage);
                 mainStage.setScene(registerAndLoginMenu);
                 mainStage.show();
                 break;
