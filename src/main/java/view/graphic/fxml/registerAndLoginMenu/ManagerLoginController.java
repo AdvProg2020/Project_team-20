@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
+import view.graphic.alert.AlertController;
+import view.graphic.alert.AlertType;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,8 @@ public class ManagerLoginController {
     public TextField newCredit;
     public TextField newPhoneNumber;
 
+
+
     public void handleSignUp() {
         LoginController loginController = LoginController.getInstance();
         String username = newUsername.getText(), name = newName.getText(), password = newPassword.getText(),
@@ -25,7 +29,11 @@ public class ManagerLoginController {
                 phoneNumber = newPhoneNumber.getText();
         if (username.isEmpty() || name.isEmpty() || password.isEmpty() || lastName.isEmpty() ||
                 email.isEmpty() || creditString.isEmpty() || phoneNumber.isEmpty()) {
-          //  new AlertController().create(window, AlertType.ERROR);
+            try {
+                new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return;
         }
         ArrayList<String> details = new ArrayList<>();
@@ -38,7 +46,12 @@ public class ManagerLoginController {
         try {
             loginController.createAccount(username, "manager", details, "");
         } catch (Exception e) {
-           // new AlertController().create(window, AlertType.ERROR);
+            try {
+                new AlertController().create(AlertType.ERROR, e.getMessage());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return;
         }
         ProgramApplication.setMenu(MenuNames.MAINMENU);
     }
