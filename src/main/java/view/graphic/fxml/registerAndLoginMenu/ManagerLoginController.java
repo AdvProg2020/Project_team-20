@@ -22,10 +22,10 @@ public class ManagerLoginController {
         LoginController loginController = LoginController.getInstance();
         String username = newUsername.getText(), name = newName.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
-                phoneNumber = " ";
+                phoneNumber = newPhoneNumber.getText();
         if (username.isEmpty() || name.isEmpty() || password.isEmpty() || lastName.isEmpty() ||
                 email.isEmpty() || creditString.isEmpty() || phoneNumber.isEmpty()) {
-            //Todo show error
+          //  new AlertController().create(window, AlertType.ERROR);
             return;
         }
         ArrayList<String> details = new ArrayList<>();
@@ -38,7 +38,7 @@ public class ManagerLoginController {
         try {
             loginController.createAccount(username, "manager", details, "");
         } catch (Exception e) {
-            //Todo show error
+           // new AlertController().create(window, AlertType.ERROR);
         }
         ProgramApplication.setMenu(MenuNames.MAINMENU);
     }
