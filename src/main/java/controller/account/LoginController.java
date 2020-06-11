@@ -38,7 +38,12 @@ public class LoginController {
     private void createManagerAccount(String username, ArrayList<String> details) throws Exception {
         String name = details.get(0), lastName = details.get(1), email = details.get(2), phoneNumber = details.get(3),
                 password = details.get(4);
-        double credit = Double.parseDouble(details.get(5));
+        double credit;
+        try {
+            credit = Double.parseDouble(details.get(5));
+        } catch (Exception e) {
+            throw new CreditIsNotNumber();
+        }
         if (Manager.isHasFirstManger()) {
             throw new ThereIsFirstManagerException();
         }
@@ -46,17 +51,27 @@ public class LoginController {
         Manager.setHasFirstManger(true);
     }
 
-    private void createBuyerAccount(String username, ArrayList<String> details) {
+    private void createBuyerAccount(String username, ArrayList<String> details) throws CreditIsNotNumber {
         String name = details.get(0), lastName = details.get(1), email = details.get(2), phoneNumber = details.get(3),
                 password = details.get(4);
-        double credit = Double.parseDouble(details.get(5));
+        double credit;
+        try {
+            credit = Double.parseDouble(details.get(5));
+        } catch (Exception e) {
+            throw new CreditIsNotNumber();
+        }
         Manager.addRequest(new Buyer(name, lastName, email, phoneNumber, username, password, credit));
     }
 
-    private void createSellerAccount(String username, ArrayList<String> details, String detail) {
+    private void createSellerAccount(String username, ArrayList<String> details, String detail) throws CreditIsNotNumber {
         String name = details.get(0), lastName = details.get(1), email = details.get(2), phoneNumber = details.get(3),
                 password = details.get(4);
-        double credit = Double.parseDouble(details.get(5));
+        double credit;
+        try {
+            credit = Double.parseDouble(details.get(5));
+        } catch (Exception e) {
+            throw new CreditIsNotNumber();
+        }
         Manager.addRequest(new Seller(name, lastName, email, phoneNumber, username, password, credit, detail));
     }
 
@@ -106,6 +121,12 @@ public class LoginController {
     public static class ThereIsFirstManagerException extends Exception {
         public ThereIsFirstManagerException() {
             super("there is a first manager");
+        }
+    }
+
+    public static class CreditIsNotNumber extends Exception {
+        public CreditIsNotNumber() {
+            super("credit is number");
         }
     }
 }
