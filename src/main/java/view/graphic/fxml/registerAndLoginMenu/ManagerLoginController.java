@@ -22,7 +22,7 @@ public class ManagerLoginController {
 
 
 
-    public void handleSignUp() {
+    public void handleSignUp() throws Exception {
         LoginController loginController = LoginController.getInstance();
         String username = newUsername.getText(), name = newName.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
@@ -53,6 +53,7 @@ public class ManagerLoginController {
             }
             return;
         }
+        new AlertController().create(AlertType.CONFIRMATION, "sign up was successful");
         ProgramApplication.setMenu(MenuNames.MAINMENU);
     }
 

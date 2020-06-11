@@ -125,6 +125,7 @@ public class FxmlRegisterAndLoginMenu {
         try {
             loginController.createAccount(username, "buyer", details, "");
             new AlertController().create(AlertType.CONFIRMATION, "sign up was successful");
+            ProgramApplication.back();
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -150,6 +151,7 @@ public class FxmlRegisterAndLoginMenu {
         try {
             loginController.createAccount(username, "seller", details, detail);
             new AlertController().create(AlertType.CONFIRMATION, "sign up was successful");
+            ProgramApplication.back();
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
