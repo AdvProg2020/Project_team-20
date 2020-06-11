@@ -1,11 +1,19 @@
 package view.graphic.fxml.registerAndLoginMenu;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 
 public class ManagerLoginController {
+    public TextField newUsername;
+    public TextField newName;
+    public TextField newPassword;
+    public TextField newLastName;
+    public TextField newEmail;
+    public TextField newCredit;
+
     public void handleSignIn() {
         //Controller To DO
 
