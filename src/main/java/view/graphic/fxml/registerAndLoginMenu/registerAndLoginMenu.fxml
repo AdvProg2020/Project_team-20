@@ -22,22 +22,22 @@
             <Image url="@../../../../../resources/Images/login2.png" />
          </image>
       </ImageView>
-      <TextField layoutX="105.0" layoutY="325.0" prefHeight="28.0" prefWidth="250.0" promptText="Username" style="-fx-background-color: 525973525973; -fx-font-style: -fx-text-fill: green;;">
+      <TextField fx:id="usernameText" layoutX="105.0" layoutY="325.0" prefHeight="28.0" prefWidth="250.0" promptText="Username" style="-fx-background-color: 525973525973; -fx-font-style: -fx-text-fill: green;;">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <TextField layoutX="105.0" layoutY="398.0" prefHeight="28.0" prefWidth="250.0" promptText="Password" style="-fx-background-color: 525973525973;">
+      <TextField fx:id="passwordText" layoutX="105.0" layoutY="398.0" prefHeight="28.0" prefWidth="250.0" promptText="Password" style="-fx-background-color: 525973525973;">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <Button layoutX="108.0" layoutY="461.0" mnemonicParsing="false" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="209.0" style="-fx-background-color: #02f5e1; -fx-background-radius: 10;" text="login" textFill="#048a96">
+      <Button layoutX="108.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleLogin" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="209.0" style="-fx-background-color: #02f5e1; -fx-background-radius: 10;" text="login" textFill="#048a96">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button layoutX="180.0" layoutY="512.0" mnemonicParsing="false" onMouseEntered="#enterMouseSign" onMouseExited="#exitMouseSign" style="-fx-background-color: transparenttransparent;" text="Sign up" textFill="#02f5e1" />
+      <Button layoutX="180.0" layoutY="512.0" mnemonicParsing="false" onAction="#handleSignUp" onMouseEntered="#enterMouseSign" onMouseExited="#exitMouseSign" style="-fx-background-color: transparenttransparent;" text="Sign up" textFill="#02f5e1" />
       <VBox layoutX="425.0" layoutY="174.0" prefHeight="301.0" prefWidth="571.0">
          <children>
             <HBox opacity="0.84" prefHeight="60.0" prefWidth="471.0" style="-fx-background-radius: 10;">
@@ -64,5 +64,10 @@
                </font>
             </Button>
          </children></VBox>
+      <Button layoutX="3.0" layoutY="89.0" mnemonicParsing="false" onAction="#handleBack" onMouseEntered="#enterMouseSign" onMouseExited="#exitMouseSign" style="-fx-background-color: transparenttransparent;" text="back" textFill="#02f5e1">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

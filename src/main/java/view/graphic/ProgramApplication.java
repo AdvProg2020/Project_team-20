@@ -44,8 +44,9 @@ public class ProgramApplication extends Application {
     public static void back() {
         if (history.size() == 0)
             return;
-        MenuNames currentScene = history.get(history.size() - 1);
-        history.remove(currentScene);
+        MenuNames currentScene = history.get(history.size() - 2);
+        history.remove(history.size() - 1);
+        System.out.println(currentScene);
         setMenu(currentScene);
     }
 
