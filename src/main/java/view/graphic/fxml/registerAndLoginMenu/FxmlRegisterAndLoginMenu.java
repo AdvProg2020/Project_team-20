@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.account.AccountType;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
@@ -36,17 +37,14 @@ public class FxmlRegisterAndLoginMenu {
 
     public void exitMouse(MouseEvent event) {
         ((Button) event.getSource()).setStyle("-fx-background-color: #02f5e1; -fx-background-radius: 10");
-        ;
     }
 
     public void enterMouseSign(MouseEvent event) {
         ((Button) event.getSource()).setStyle("-fx-text-fill: #14b5a8; -fx-background-color: transparent;");
-
     }
 
     public void exitMouseSign(MouseEvent event) {
         ((Button) event.getSource()).setStyle("-fx-background-color: #02f5e1; -fx-background-color: transparent;");
-        ;
     }
 
     public void handleLogin() throws Exception {
@@ -57,7 +55,26 @@ public class FxmlRegisterAndLoginMenu {
             return;
         }
         try {
-            loginController.login(username, password);
+            AccountType accountType = loginController.login(username, password);
+            switch (accountType) {
+                case BUYER:
+                    Parent root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/BuyerMenuFxml.fxml").toURI().toURL());
+                    window.setTitle("Sign up menu");
+                    window.setScene(new Scene(root, 994, 666));
+                    window.show();
+                    break;
+                case MANAGER:
+                    root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/ManagerMenuFxml.fxml").toURI().toURL());
+                    window.setTitle("Sign up menu");
+                    window.setScene(new Scene(root, 994, 666));
+                    window.show();
+                    break;
+                case SELLER:
+                    root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/SellerMenuFxml.fxml").toURI().toURL());
+                    window.setTitle("Sign up menu");
+                    window.setScene(new Scene(root, 994, 666));
+                    window.show();
+            }
             new AlertController().create(AlertType.CONFIRMATION, "login was successful");
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
