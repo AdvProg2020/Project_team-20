@@ -18,7 +18,10 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="message" layoutX="50.0" layoutY="186.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="120.0" style="-fx-background-color: transparent;" textFill="#f44336" />
+      <Button fx:id="message" layoutX="32.0" layoutY="190.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="156.0" style="-fx-background-color: transparent;" textFill="#f44336">
+         <font>
+            <Font size="11.0" />
+         </font></Button>
       <Button layoutX="90.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleWhy" onMouseEntered="#enterMouseWhy" onMouseExited="#exitMouseWhy" style="-fx-background-color: transparent;" text="Why?" textFill="#f44336">
          <font>
             <Font size="10.0" />
