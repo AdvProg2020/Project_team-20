@@ -83,7 +83,7 @@
                                 <Font size="16.0" />
                         </font>
                 </TextField>
-                <Button layoutX="110.0" layoutY="504.0" mnemonicParsing="false" onAction="#handleSignIn" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="209.0" style="-fx-background-color: #02f5e1; -fx-background-radius: 10;" text="Sign up" textFill="#048a96">
+                <Button layoutX="110.0" layoutY="504.0" mnemonicParsing="false" onAction="#handleSignUp" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="209.0" style="-fx-background-color: #02f5e1; -fx-background-radius: 10;" text="Sign up" textFill="#048a96">
                         <font>
                                 <Font size="20.0" />
                         </font>
