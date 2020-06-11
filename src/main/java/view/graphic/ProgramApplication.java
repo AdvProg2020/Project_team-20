@@ -16,14 +16,18 @@ public class ProgramApplication extends Application {
 
     private static ArrayList<MenuNames> history = new ArrayList<>();
 
-    private static Scene mainMenu, buyerMenu, managerMenu, registerAndLoginMenu, sellerMenu, allProductsMenu, saleMenu;
+    private static Scene mainMenu, buyerMenu, managerMenu, registerAndLoginMenu, sellerMenu, allProductsMenu, saleMenu, loginManager;
     private static Stage mainStage;
+    private static boolean firstManager;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         initializeScenes();
         mainStage = primaryStage;
-        setMenu(MenuNames.MAINMENU);
+        if (firstManager)
+            setMenu(MenuNames.MAINMENU);
+        else
+            setMenu(MenuNames.LOGIN_MANAGER);
     }
 
     private void initializeScenes() throws Exception {
@@ -36,6 +40,8 @@ public class ProgramApplication extends Application {
         registerAndLoginMenu = new Scene(root, 994, 666);
         root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/saleMenu/saleMenu.fxml").toURI().toURL());
         saleMenu = new Scene(root, 994, 666);
+        root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/registerAndLoginMenu/FxmlManagerLogin.fxml").toURI().toURL());
+        loginManager = new Scene(root, 994, 666);
     }
 
     public static Stage getMainStage() {
@@ -76,7 +82,16 @@ public class ProgramApplication extends Application {
                 mainStage.setScene(allProductsMenu);
                 mainStage.show();
                 break;
+            case LOGIN_MANAGER:
+                mainStage.setTitle("Sign up manager");
+                mainStage.setScene(loginManager);
+                mainStage.show();
+                break;
         }
+    }
+
+    public static void setFirstManager(boolean firstManager) {
+        ProgramApplication.firstManager = firstManager;
     }
 
     public static void startApp(String[] args) {

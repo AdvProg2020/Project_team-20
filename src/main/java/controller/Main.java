@@ -25,6 +25,7 @@ public class Main {
         PreProcess.AddPeriod();
 
         // for graphic view
+        ProgramApplication.setFirstManager(Manager.isHasFirstManger());
         ProgramApplication.startApp(args);
 
         // for console view

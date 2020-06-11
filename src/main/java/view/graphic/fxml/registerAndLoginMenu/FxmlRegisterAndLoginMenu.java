@@ -56,14 +56,14 @@ public class FxmlRegisterAndLoginMenu {
     public void changeSignUpMode () throws Exception{
         if (signUpMode.equals("b")) {
             signUpMode = "s";
-            handleSignUpSeller();
+            showSignUpSeller();
         } else {
             signUpMode = "b";
             handleSignUp();
         }
     }
 
-    public void handleSignUpSeller() throws Exception{
+    public void showSignUpSeller() throws Exception{
         Parent root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/registerAndLoginMenu/SignUpSeller.fxml").toURI().toURL());
         window.setTitle("Sign up menu");
         window.setScene(new Scene(root, 994, 666));
@@ -84,6 +84,14 @@ public class FxmlRegisterAndLoginMenu {
 
     public void exitMouseChangeSign(MouseEvent event) {
         ((Button)event.getSource()).setStyle("-fx-background-color: #02f5e1; -fx-background-radius: 0");;
+    }
+    
+    public void handleSignUpBuyer() {
+        
+    }
+    
+    public void handleSignUpSeller() {
+        
     }
 
 }
