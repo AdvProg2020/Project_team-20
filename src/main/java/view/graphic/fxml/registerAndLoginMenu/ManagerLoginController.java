@@ -53,8 +53,8 @@ public class ManagerLoginController {
             }
             return;
         }
-        new AlertController().create(AlertType.CONFIRMATION, "sign up was successful");
         ProgramApplication.setMenu(MenuNames.MAINMENU);
+        new AlertController().create(AlertType.CONFIRMATION, "sign up was successful");
     }
 
     public void enterMouse(MouseEvent event) {
