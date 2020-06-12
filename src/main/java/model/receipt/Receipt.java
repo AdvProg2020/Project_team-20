@@ -1,5 +1,6 @@
 package model.receipt;
 
+import model.GraphicPackage;
 import model.product.Product;
 
 import java.time.LocalDateTime;
@@ -11,13 +12,15 @@ public abstract class Receipt {
     protected HashMap<String, Integer> productsWithIds;
     protected Boolean hasItSent;
     protected LocalDateTime dateAndTime;
+    protected GraphicPackage graphicPackage;
 
     Receipt(String id, double discountPercentage, HashMap<Product, Integer> products, Boolean hasItSent) {
         this.id = id;
         this.discountPercentage = discountPercentage;
         addToProducts(products);
         this.hasItSent = hasItSent;
-        dateAndTime = LocalDateTime.now();
+        this.dateAndTime = LocalDateTime.now();
+        this.graphicPackage = new GraphicPackage();
     }
 
     public void addToProducts(HashMap<Product, Integer> products) {

@@ -1,5 +1,6 @@
 package model.product;
 
+import model.GraphicPackage;
 import model.account.Seller;
 
 import java.util.ArrayList;
@@ -7,9 +8,11 @@ import java.util.HashMap;
 
 public class Cart {
     public ArrayList<SelectedProduct> selectedProducts;
+    private GraphicPackage graphicPackage;
 
     public Cart() {
         this.selectedProducts = new ArrayList<>();
+        this.graphicPackage = new GraphicPackage();
     }
 
     public void addProduct(Product product, Seller seller) {
@@ -101,5 +104,9 @@ public class Cart {
         public notEnoughProductCountException() {
             super("Not enough Product count");
         }
+    }
+
+    public GraphicPackage getGraphicPackage() {
+        return graphicPackage;
     }
 }

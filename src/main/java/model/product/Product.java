@@ -1,6 +1,7 @@
 package model.product;
 
 import com.gilecode.yagson.YaGson;
+import model.GraphicPackage;
 import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
@@ -36,6 +37,7 @@ public class Product implements Requestable {
     private double numberVisited;
     private Product editedProduct;
     private LocalDateTime addingDate;
+    private GraphicPackage graphicPackage;
 
     public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
                    double price) {
@@ -58,6 +60,7 @@ public class Product implements Requestable {
         this.priceWithName.put(seller.getUsername(), price);
         this.addingDate = LocalDateTime.now();
         productCount++;
+        this.graphicPackage = new GraphicPackage();
     }
 
     public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) {
@@ -480,5 +483,9 @@ public class Product implements Requestable {
 
     public RequestType getRequestType() {
         return RequestType.Product;
+    }
+
+    public GraphicPackage getGraphicPackage() {
+        return graphicPackage;
     }
 }
