@@ -8,6 +8,8 @@ import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
+import model.product.comment.Comment;
+import model.product.comment.Score;
 import view.console.Menu;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class ProductMenu extends Menu {
         this.methods.add("comments");
         this.methods.add("addComment");
         this.methods.add("addScore");
+        this.methods.add("addReply");
         this.regex.add("digest");
         this.regex.add("add to cart");
         this.regex.add("select seller (\\S+)");
@@ -36,6 +39,7 @@ public class ProductMenu extends Menu {
         this.regex.add("comments");
         this.regex.add("Add comment");
         this.regex.add("addScore");
+        this.regex.add("addReply");
         this.product = product;
         preProcess();
     }
@@ -93,7 +97,7 @@ public class ProductMenu extends Menu {
         }
     }
 
-    public void comments() {
+    public void comments() throws Exception {
         ArrayList<Score> scores = product.getScores();
         ArrayList<Comment> comments = product.getComments();
         Buyer buyer;
