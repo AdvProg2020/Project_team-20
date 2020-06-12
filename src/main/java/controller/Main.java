@@ -1,5 +1,6 @@
 package controller;
 
+import controller.account.user.BuyerController;
 import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
@@ -25,11 +26,11 @@ public class Main {
         PreProcess.AddPeriod();
 
         // for graphic view
-        ProgramApplication.setFirstManager(Manager.isHasFirstManger());
-        ProgramApplication.startApp(args);
+        //ProgramApplication.setFirstManager(Manager.isHasFirstManger());
+        //ProgramApplication.startApp(args);
 
         // for console view
-       /*
+
        initialMenus();
        while (true) {
             if (PreProcess.getPeriod() >= 3)
@@ -39,7 +40,7 @@ public class Main {
                 } catch (Exception ignored) {
                 }
             currentMenu.getCommand();
-        }*/
+        }
 
     }
 
