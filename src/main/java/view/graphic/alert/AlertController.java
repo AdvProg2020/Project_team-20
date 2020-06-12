@@ -1,6 +1,7 @@
 package view.graphic.alert;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,8 +10,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AlertController {
+public class AlertController implements Initializable {
     public Button message;
     static Stage mainStage;
     static AlertType alertType;
@@ -59,5 +62,10 @@ public class AlertController {
 
     public void handleClose() {
         mainStage.close();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        message.setText(text);
     }
 }
