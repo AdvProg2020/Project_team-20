@@ -38,7 +38,7 @@
             </VBox>
             <VBox prefHeight="14.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                <children>
-                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleManageCategories" prefHeight="40.0" prefWidth="367.0" text="Log out" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Log out" textFill="#d8f9ff" />
                </children>
             </VBox>
          </children>

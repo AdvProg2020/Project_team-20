@@ -16,13 +16,12 @@ public class ManagerMenuController {
     private static Stage window;
     public TextArea text;
     public BorderPane borderPane;
-    HBox h;
 
 
     public static void start(Stage stage) throws Exception {
         window = stage;
         Parent root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/manager/managerMenuFxml.fxml").toURI().toURL());
-        stage.setTitle("Sign up menu");
+        stage.setTitle("Manager menu");
         stage.setScene(new Scene(root, 994, 666));
         stage.show();
     }
@@ -65,4 +64,7 @@ public class ManagerMenuController {
         }
     }
 
+    public void handleLogout(ActionEvent actionEvent) {
+    }
 }
+
