@@ -12,9 +12,9 @@ import model.account.AccountType;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
-import view.graphic.fxml.accountMenus.BuyerMenuController;
-import view.graphic.fxml.accountMenus.ManagerMenuController;
-import view.graphic.fxml.accountMenus.SellerMenuController;
+import view.graphic.fxml.accountMenus.buyer.BuyerMenuController;
+import view.graphic.fxml.accountMenus.manager.ManagerMenuController;
+import view.graphic.fxml.accountMenus.seller.SellerMenuController;
 
 import java.io.File;
 import java.util.ArrayList;

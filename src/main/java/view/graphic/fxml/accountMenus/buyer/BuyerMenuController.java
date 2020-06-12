@@ -1,4 +1,4 @@
-package view.graphic.fxml.accountMenus;
+package view.graphic.fxml.accountMenus.buyer;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
