@@ -22,10 +22,5 @@
          <font>
             <Font size="11.0" />
          </font></Button>
-      <Button layoutX="90.0" layoutY="169.0" mnemonicParsing="false" onAction="#handleWhy" onMouseEntered="#enterMouseWhy" onMouseExited="#exitMouseWhy" style="-fx-background-color: transparent;" text="Why?" textFill="#f44336">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>

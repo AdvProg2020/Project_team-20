@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.DragEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -93,5 +94,11 @@ public class ManagerMenuController {
     }
 
     public void handleOffs(ActionEvent actionEvent) {
+    }
+
+    public void handleDragDropped(DragEvent event) {
+    }
+
+    public void handleDragOver(DragEvent event) {
     }
 }

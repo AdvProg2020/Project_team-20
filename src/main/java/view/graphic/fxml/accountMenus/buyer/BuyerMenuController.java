@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.DragEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -38,5 +39,27 @@ public class BuyerMenuController {
     }
 
     public void handleOffs(ActionEvent actionEvent) {
+    }
+
+
+    public void handleDragDropped(DragEvent event) {
+    }
+
+    public void handleDragOver(DragEvent event) {
+    }
+
+    public void handlePersonalInfo(ActionEvent actionEvent) {
+    }
+
+    public void handleViewSales(ActionEvent actionEvent) {
+    }
+
+    public void handlePurchase(ActionEvent actionEvent) {
+    }
+
+    public void handleViewOrders(ActionEvent actionEvent) {
+    }
+
+    public void handleViewDiscountCodes(ActionEvent actionEvent) {
     }
 }
