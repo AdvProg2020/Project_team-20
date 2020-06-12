@@ -1,6 +1,7 @@
 package controller.account.user;
 
 import controller.MainController;
+import javafx.scene.image.Image;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
@@ -336,6 +337,11 @@ public class SellerController implements AccountController {
         public discountPercentageNotValidException() {
             super("Discount percentage must be lower than 100!");
         }
+    }
+
+    @Override
+    public void changeMainImage(Image image) {
+        seller.getGraphicPackage().setMainImage(image);
     }
 
     @Override

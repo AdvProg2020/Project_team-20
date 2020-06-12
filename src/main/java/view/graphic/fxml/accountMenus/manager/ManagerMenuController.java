@@ -1,6 +1,6 @@
 package view.graphic.fxml.accountMenus.manager;
 
-import com.jfoenix.controls.JFXButton;
+import controller.account.user.ManagerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,13 +9,23 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.Requestable;
+import model.account.Manager;
+import view.graphic.MenuNames;
+import view.graphic.ProgramApplication;
+import view.graphic.alert.AlertController;
+import view.graphic.alert.AlertType;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class ManagerMenuController {
     private static Stage window;
     public TextArea text;
     public BorderPane borderPane;
+    HBox h;
+    private ManagerController managerController = ManagerController.getInstance();
+    private Manager manager = (Manager) managerController.getAccountInfo();
 
 
     public static void start(Stage stage) throws Exception {
@@ -27,30 +37,38 @@ public class ManagerMenuController {
     }
 
     public void handlePersonalInfo(ActionEvent actionEvent) {
+
         loadUI("personalInfo");
     }
 
     public void handleRequests(ActionEvent actionEvent) {
+        ArrayList<Requestable> requests = Manager.getRequests();
+
         loadUI("requests");
     }
 
     public void handleManageUsers(ActionEvent actionEvent) {
+
         loadUI("manageUsers");
     }
 
     public void handleProducts(ActionEvent actionEvent) {
+
         loadUI("products");
     }
 
     public void handleDiscounts(ActionEvent actionEvent) {
+
         loadUI("discounts");
     }
 
     public void handleCreateDiscounts(ActionEvent actionEvent) {
+
         loadUI("createDiscounts");
     }
 
     public void handleManageCategories(ActionEvent actionEvent) {
+
         loadUI("manageCategories");
     }
 
@@ -64,7 +82,10 @@ public class ManagerMenuController {
         }
     }
 
-    public void handleLogout(ActionEvent actionEvent) {
+    public void handleLogout(ActionEvent actionEvent) throws Exception {
+        System.out.println("click on logout");
+        managerController.logout();
+        ProgramApplication.setMenu(MenuNames.MAINMENU);
+        new AlertController().create(AlertType.CONFIRMATION, "log out was successful");
     }
 }
-
