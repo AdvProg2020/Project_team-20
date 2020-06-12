@@ -1,23 +1,32 @@
 package view.graphic.fxml.accountMenus.seller;
 
+import controller.account.user.SellerController;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import model.account.Seller;
+import view.graphic.fxml.accountMenus.MotherPersonalInfo;
 
-public class PersonalInfoController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PersonalInfoController extends MotherPersonalInfo implements Initializable {
     public TextField gmail;
     public TextField phone;
     public TextField username;
     public TextField password;
     public TextField name;
     public TextField lastname;
+
     public Button gmailOk;
     public Button phoneOk;
     public Button nameOk;
     public Button lastNameOk;
     public Button usernameOk;
     public Button passwordOk;
+
     public TextField gmailEdit;
     public TextField phoneNumberEdit;
     public TextField nameEdit;
@@ -28,6 +37,20 @@ public class PersonalInfoController {
     public TextField companyInfoEdit;
     public Button companyInfoOk;
     static boolean leave = false;
+
+    SellerController sellerController = SellerController.getInstance();
+    Seller seller = (Seller) sellerController.getAccountInfo();
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        name.appendText(seller.getName());
+        lastname.appendText(seller.getLastName());
+        gmail.appendText(seller.getEmail());
+        phone.appendText(seller.getPhoneNumber());
+        username.appendText(seller.getUsername());
+        password.appendText(seller.getPassword());
+    }
 
     public void handleEdit(ActionEvent actionEvent) {
         Button button = ((Button) actionEvent.getSource());
@@ -107,7 +130,8 @@ public class PersonalInfoController {
         ((Button) event.getSource()).setStyle("-fx-background-color: #60d520;");
     }
 
-    public void handleOk(ActionEvent actionEvent) {
+    @Override
+    public void handleOk(ActionEvent actionEvent) throws Exception {
+        super.handleOk(actionEvent);
     }
-
 }

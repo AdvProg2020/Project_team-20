@@ -1,11 +1,18 @@
 package view.graphic.fxml.accountMenus.buyer;
 
+import controller.account.user.BuyerController;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import model.account.Buyer;
+import view.graphic.fxml.accountMenus.MotherPersonalInfo;
 
-public class PersonalInfoController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PersonalInfoController extends MotherPersonalInfo implements Initializable {
     public TextField name;
     public TextField lastname;
     public TextField gmail;
@@ -25,6 +32,19 @@ public class PersonalInfoController {
     public Button usernameOk;
     public Button passwordOk;
     public TextField gmailEdit;
+
+    BuyerController buyerController = BuyerController.getInstance();
+    Buyer buyer = buyerController.getCurrentBuyer();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        name.appendText(buyer.getName());
+        lastname.appendText(buyer.getLastName());
+        gmail.appendText(buyer.getEmail());
+        phone.appendText(buyer.getPhoneNumber());
+        username.appendText(buyer.getUsername());
+        password.appendText(buyer.getPassword());
+    }
 
     public void handleEdit(ActionEvent actionEvent) {
         Button button = ((Button) actionEvent.getSource());
@@ -100,6 +120,8 @@ public class PersonalInfoController {
     }
 
 
-    public void handleOk(ActionEvent actionEvent) {
+    @Override
+    public void handleOk(ActionEvent actionEvent) throws Exception {
+        super.handleOk(actionEvent);
     }
 }
