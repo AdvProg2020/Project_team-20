@@ -36,7 +36,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
             <groupId>com.gilecode.yagson</groupId>
             <artifactId>yagson</artifactId>
