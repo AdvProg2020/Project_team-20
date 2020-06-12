@@ -88,4 +88,10 @@ public class ManagerMenuController {
         ProgramApplication.setMenu(MenuNames.MAINMENU);
         new AlertController().create(AlertType.CONFIRMATION, "log out was successful");
     }
+
+    public void handleAllProducts(ActionEvent actionEvent) {
+    }
+
+    public void handleOffs(ActionEvent actionEvent) {
+    }
 }

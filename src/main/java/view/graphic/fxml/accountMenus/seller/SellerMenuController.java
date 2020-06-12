@@ -54,4 +54,9 @@ public class SellerMenuController {
         }
     }
 
+    public void handleAllProducts(ActionEvent actionEvent) {
+    }
+
+    public void handleOffs(ActionEvent actionEvent) {
+    }
 }
