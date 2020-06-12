@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -24,8 +23,6 @@ public class ManagerMenuController {
     private static Stage window;
     public TextArea text;
     public BorderPane borderPane;
-
-
     HBox h;
     private ManagerController managerController = ManagerController.getInstance();
     private Manager manager = (Manager) managerController.getAccountInfo();
@@ -40,6 +37,7 @@ public class ManagerMenuController {
     }
 
     public void handlePersonalInfo(ActionEvent actionEvent) {
+
         loadUI("personalInfo");
     }
 
@@ -91,4 +89,9 @@ public class ManagerMenuController {
         new AlertController().create(AlertType.CONFIRMATION, "log out was successful");
     }
 
+    public void handleAllProducts(ActionEvent actionEvent) {
+    }
+
+    public void handleOffs(ActionEvent actionEvent) {
+    }
 }

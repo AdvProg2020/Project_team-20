@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.manager.PersonalInfoController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.manager.ManagerMenuController">
    <children>
       <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal information" wrappingWidth="207.58889770507812">
          <font>
@@ -17,41 +14,51 @@
          </font>
       </Text>
       <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
-      <Text fill="#393434" layoutX="21.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+      <Text fill="#575957" layoutX="24.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gmail:">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="name" editable="false" layoutX="166.0" layoutY="36.0" style="-fx-background-color: transparent;" />
-      <Text fill="#393434" layoutX="22.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname:">
+      <TextField fx:id="gmail" editable="false" layoutX="168.0" layoutY="76.0" style="-fx-background-color: transparent;" />
+      <Text fill="#575957" layoutX="24.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="lastname" editable="false" layoutX="166.0" layoutY="81.0" style="-fx-background-color: transparent;" />
-      <Text fill="#393434" layoutX="22.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gmail:">
+      <TextField fx:id="phone" editable="false" layoutX="169.0" layoutY="110.0" style="-fx-background-color: transparent;" />
+      <Text fill="#575957" layoutX="22.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="gmail" editable="false" layoutX="166.0" layoutY="121.0" style="-fx-background-color: transparent;" />
-      <Text fill="#393434" layoutX="21.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:">
+      <TextField fx:id="username" editable="false" layoutX="167.0" layoutY="270.0" style="-fx-background-color: transparent;" />
+      <Text fill="#575957" layoutX="23.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="phone" editable="false" layoutX="166.0" layoutY="168.0" style="-fx-background-color: transparent;" />
-      <Text fill="#393434" layoutX="20.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+      <TextField fx:id="password" editable="false" layoutX="167.0" layoutY="305.0" style="-fx-background-color: transparent;" />
+      <Text fill="#5dabaa" layoutX="21.0" layoutY="73.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Conatct inforamation">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="21.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="username" editable="false" layoutX="166.0" layoutY="215.0" style="-fx-background-color: transparent;" />
-      <Text fill="#393434" layoutX="22.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
+      <TextField fx:id="name" editable="false" layoutX="166.0" layoutY="202.0" style="-fx-background-color: transparent;" />
+      <Text fill="#575957" layoutX="22.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname:">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="password" editable="false" layoutX="166.0" layoutY="261.0" style="-fx-background-color: transparent;" />
+      <TextField fx:id="lastname" editable="false" layoutX="166.0" layoutY="235.0" style="-fx-background-color: transparent;" />
+      <Text fill="#5dabaa" layoutX="21.0" layoutY="199.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Basic Information">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
