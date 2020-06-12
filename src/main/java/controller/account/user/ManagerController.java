@@ -1,6 +1,7 @@
 package controller.account.user;
 
 import controller.MainController;
+import javafx.scene.image.Image;
 import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
@@ -257,6 +258,11 @@ public class ManagerController implements controller.account.user.AccountControl
             default:
                 throw new fieldIsInvalidException();
         }
+    }
+
+    @Override
+    public void changeMainImage(Image image) {
+        currentManager.getGraphicPackage().setMainImage(image);
     }
 
     @Override

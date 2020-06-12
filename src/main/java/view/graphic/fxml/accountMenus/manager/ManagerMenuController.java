@@ -1,6 +1,6 @@
 package view.graphic.fxml.accountMenus.manager;
 
-import com.jfoenix.controls.JFXButton;
+import controller.account.user.ManagerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +17,7 @@ public class ManagerMenuController {
     public TextArea text;
     public BorderPane borderPane;
     HBox h;
+    private ManagerController managerController = ManagerController.getInstance();
 
 
     public static void start(Stage stage) throws Exception {

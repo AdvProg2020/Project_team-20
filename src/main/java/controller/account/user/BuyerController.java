@@ -2,6 +2,7 @@ package controller.account.user;
 
 import controller.MainController;
 import controller.PreProcess;
+import javafx.scene.image.Image;
 import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
@@ -236,6 +237,11 @@ public class BuyerController implements AccountController {
                 throw new ManagerController.fieldIsInvalidException();
         }
         Manager.addRequest(currentBuyer);
+    }
+
+    @Override
+    public void changeMainImage(Image image) {
+       currentBuyer.getGraphicPackage().setMainImage(image);
     }
 
     @Override
