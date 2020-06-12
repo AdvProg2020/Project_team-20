@@ -9,6 +9,7 @@ import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
 import model.product.comment.Comment;
+import model.product.comment.Reply;
 import model.product.comment.Score;
 import view.console.Menu;
 
@@ -31,6 +32,7 @@ public class ProductMenu extends Menu {
         this.methods.add("addComment");
         this.methods.add("addScore");
         this.methods.add("addReply");
+        this.methods.add("replies");
         this.regex.add("digest");
         this.regex.add("add to cart");
         this.regex.add("select seller (\\S+)");
@@ -40,6 +42,7 @@ public class ProductMenu extends Menu {
         this.regex.add("Add comment");
         this.regex.add("addScore");
         this.regex.add("addReply");
+        this.regex.add("replies");
         this.product = product;
         preProcess();
     }
@@ -131,6 +134,36 @@ public class ProductMenu extends Menu {
         score = scanner.nextDouble();
         try {
             productController.addScore(score, product);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addReply() {
+        System.out.println("please enter comment id");
+        String id = scanner.nextLine();
+        System.out.println("please enter title of reply");
+        String title = scanner.nextLine();
+        System.out.println("please enter your content");
+        String content = scanner.nextLine();
+        try {
+            Comment comment = product.getCommentWithId(id);
+            productController.addReplyToComment(comment, title, content);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void replies() {
+        System.out.println("please enter comment id");
+        String id = scanner.nextLine();
+        try {
+            Comment comment = product.getCommentWithId(id);
+            for (Reply reply : comment.getReplies()) {
+                System.out.println("buyer: " + reply.getBuyer().getUsername());
+                System.out.println("title: " + reply.getTitle());
+                System.out.println("content: " + reply.getContent());
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
