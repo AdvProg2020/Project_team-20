@@ -71,27 +71,27 @@
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="phoneOk" layoutX="618.0" layoutY="141.0" mnemonicParsing="false" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+      <Button fx:id="phoneOk" layoutX="618.0" layoutY="141.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="nameOk" layoutX="618.0" layoutY="232.0" mnemonicParsing="false" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+      <Button fx:id="nameOk" layoutX="618.0" layoutY="232.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="lastNameOk" layoutX="618.0" layoutY="266.0" mnemonicParsing="false" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+      <Button fx:id="lastNameOk" layoutX="618.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="usernameOk" layoutX="618.0" layoutY="301.0" mnemonicParsing="false" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+      <Button fx:id="usernameOk" layoutX="618.0" layoutY="301.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="passwordOk" layoutX="618.0" layoutY="336.0" mnemonicParsing="false" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+      <Button fx:id="passwordOk" layoutX="618.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>

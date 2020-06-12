@@ -111,8 +111,14 @@ public class PersonalInfoController implements Initializable {
     public void handleExit(MouseEvent event) {
         if (!leave)
             ((Button) event.getSource()).setStyle("-fx-background-color: #009f9c;");
-        else
+        else {
+            passwordEdit.setText("");
+            nameEdit.setText("");
+            lastNameEdit.setText("");
+            phoneNumberEdit.setText("");
+            gmailEdit.setText("");
             ((Button) event.getSource()).setStyle("-fx-background-color: #ff826f;");
+        }
     }
 
     public void handleEnterOk(MouseEvent event) {
