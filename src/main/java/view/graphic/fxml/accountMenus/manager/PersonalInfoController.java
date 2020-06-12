@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.account.Manager;
+import view.graphic.alert.AlertController;
+import view.graphic.alert.AlertType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,11 +37,11 @@ public class PersonalInfoController implements Initializable {
     public Button passwordOk;
     public TextField gmailEdit;
 
+    ManagerController managerController = ManagerController.getInstance();
+    Manager manager = (Manager) managerController.getAccountInfo();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ManagerController managerController = ManagerController.getInstance();
-        Manager manager = (Manager) managerController.getAccountInfo();
         name.appendText(manager.getName());
         lastname.appendText(manager.getLastName());
         gmail.appendText(manager.getEmail());
@@ -122,6 +124,83 @@ public class PersonalInfoController implements Initializable {
     }
 
 
-    public void handleOk(ActionEvent actionEvent) {
+    public void handleOk(ActionEvent actionEvent) throws Exception {
+        Object source = actionEvent.getSource();
+        if (gmailOk.equals(source)) {
+            editGmail();
+        } else if (phoneOk.equals(source)) {
+            editPhoneNumber();
+        } else if (nameOk.equals(source)) {
+            editName();
+        } else if (lastNameOk.equals(source)) {
+            editLastName();
+        } else if (passwordOk.equals(source)) {
+            editPassword();
+        }
+    }
+
+    private void editPassword() throws Exception {
+        if (passwordEdit.getText().isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.editField("password", passwordEdit.getText());
+            password.setText(passwordEdit.getText());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    private void editLastName() throws Exception {
+        if (lastNameEdit.getText().isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.editField("lastName", lastNameEdit.getText());
+            lastname.setText(lastNameEdit.getText());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    private void editName() throws Exception {
+        if (nameEdit.getText().isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.editField("name", nameEdit.getText());
+            name.setText(nameEdit.getText());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    private void editPhoneNumber() throws Exception {
+        if (phoneNumberEdit.getText().isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.editField("phoneNumber", phoneNumberEdit.getText());
+            phone.setText(phoneNumberEdit.getText());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    private void editGmail() throws Exception {
+        if (gmailEdit.getText().isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.editField("email", gmailEdit.getText());
+            gmail.setText(gmailEdit.getText());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 }

@@ -3,9 +3,11 @@ package view.graphic.fxml.accountMenus.manager;
 import controller.account.user.ManagerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -18,12 +20,15 @@ import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class ManagerMenuController {
+public class ManagerMenuController implements Initializable {
     private static Stage window;
     public TextArea text;
     public BorderPane borderPane;
+    public ImageView imageView;
     HBox h;
     private ManagerController managerController = ManagerController.getInstance();
     private Manager manager = (Manager) managerController.getAccountInfo();
@@ -35,6 +40,12 @@ public class ManagerMenuController {
         stage.setTitle("Manager menu");
         stage.setScene(new Scene(root, 994, 666));
         stage.show();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //TODO do this
+        //imageView.setImage(manager.getGraphicPackage().getMainImage());
     }
 
     public void handlePersonalInfo(ActionEvent actionEvent) {
@@ -73,7 +84,7 @@ public class ManagerMenuController {
         loadUI("manageCategories");
     }
 
-    private void loadUI(String ui){
+    private void loadUI(String ui) {
         Parent root;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/manager/" + ui + "Fxml" + ".fxml").toURI().toURL());
