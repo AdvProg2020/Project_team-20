@@ -4,25 +4,33 @@ import model.Requestable;
 import model.account.Seller;
 
 public class AddSellerRequest implements Requestable {
-    private Product product;
-    private Seller seller;
+    private String productId;
+    private String productName;
+    private String sellerUsername;
     private int count;
     private double price;
     private RequestableState state;
 
     public AddSellerRequest(Product product, Seller seller, int count, double price) {
-        this.product = product;
-        this.seller = seller;
+        this.productId = product.getId();
+        this.productName = product.getName();
+        this.sellerUsername = seller.getUsername();
         this.count = count;
         this.price = price;
         this.state = RequestableState.CREATED;
     }
 
     @Override
-    public void changeStateAccepted() {
-        product.addSeller(seller, count, price);
-        seller.addToProductsToSell(product, count);
-        state = RequestableState.ACCEPTED;
+    public void changeStateAccepted(){
+        try {
+            Product product = Product.getProductById(productId);
+            Seller seller = Seller.getSellerWithUsername(sellerUsername);
+            product.addSeller(seller, count, price);
+            seller.addToProductsToSell(product, count);
+            state = RequestableState.ACCEPTED;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -40,19 +48,29 @@ public class AddSellerRequest implements Requestable {
     }
 
     public Product getProduct() {
-        return product;
+        try {
+            return Product.getProductById(productId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void setProduct(Product product) {
-        this.product = product;
+        this.productId = product.getId();
     }
 
     public Seller getSeller() {
-        return seller;
+        try {
+            return Seller.getSellerWithUsername(sellerUsername);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void setSeller(Seller seller) {
-        this.seller = seller;
+        this.sellerUsername = seller.getUsername();
     }
 
     public int getCount() {
@@ -78,9 +96,9 @@ public class AddSellerRequest implements Requestable {
     @Override
     public String toString() {
         String temp = "Seller wants to be added to this product: \n";
-        temp += "Seller username     : " + seller.getUsername() + "\n";
-        temp += "Product Id          : " + product.getId() + "\n";
-        temp += "Name                : " + product.getName() + "\n";
+        temp += "Seller username     : " + sellerUsername + "\n";
+        temp += "Product Id          : " + productId + "\n";
+        temp += "Name                : " + productName + "\n";
         temp += "Count               : " + count + "\n";
         temp += "Price               : " + price;
         return temp;

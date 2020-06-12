@@ -6,6 +6,8 @@ import model.account.Account;
 import model.account.Buyer;
 import model.account.Seller;
 import model.product.Field.Field;
+import model.product.comment.Comment;
+import model.product.comment.Score;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -337,6 +339,14 @@ public class Product implements Requestable {
         return comments;
     }
 
+    public Comment getCommentWithId(String id) throws Exception {
+        for (Comment comment : comments) {
+            if (comment.getCommentId().equals(id))
+                return comment;
+        }
+        throw new CommentDidNotExist();
+    }
+
     public double getNumberVisited() {
         return numberVisited;
     }
@@ -352,6 +362,12 @@ public class Product implements Requestable {
     public static class productNotFoundException extends Exception {
         public productNotFoundException() {
             super("product doesn't exist");
+        }
+    }
+
+    public static class CommentDidNotExist extends Exception {
+        public CommentDidNotExist() {
+            super("comment doesn't exist");
         }
     }
 

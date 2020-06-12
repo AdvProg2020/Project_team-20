@@ -7,6 +7,7 @@ import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
 import model.product.*;
+import model.product.comment.Score;
 import model.receipt.BuyerReceipt;
 import model.receipt.SellerReceipt;
 

@@ -8,7 +8,7 @@ import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
 import model.product.Product;
-import model.product.Score;
+import model.product.comment.Score;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

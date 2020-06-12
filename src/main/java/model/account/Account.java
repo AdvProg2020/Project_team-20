@@ -137,6 +137,14 @@ public abstract class Account extends GeneralAccount {
         throw new AccountIsNotBuyerException();
     }
 
+    public static Seller getSellerWithUsername(String username) throws Exception {
+        Account account = getAccountWithUsername(username);
+        if (account instanceof Seller) {
+            return (Seller) account;
+        }
+        throw new AccountIsNotBuyerException();
+    }
+
     public static class notEnoughMoneyException extends Exception {
         public notEnoughMoneyException() {
             super("not Enough Money");
