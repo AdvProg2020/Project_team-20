@@ -79,12 +79,12 @@ public class PersonalInfoController implements Initializable {
     }
 
     public void showEditPanel() {
-        gmailEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #296294;");
-        phoneNumberEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #296294;");
-        nameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #296294;");
-        lastNameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #296294;");
-        usernameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #296294;");
-        passwordEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #296294;");
+        gmailEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        phoneNumberEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        nameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        lastNameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        usernameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        passwordEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         gmailEdit.setOpacity(0.71);
         phoneNumberEdit.setOpacity(0.71);
         nameEdit.setOpacity(0.71);
