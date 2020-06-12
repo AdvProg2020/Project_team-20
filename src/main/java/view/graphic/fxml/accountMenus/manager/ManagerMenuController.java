@@ -101,4 +101,8 @@ public class ManagerMenuController {
 
     public void handleDragOver(DragEvent event) {
     }
+
+    public void handleViewRequest(ActionEvent actionEvent) {
+        loadUI("viewRequest");
+    }
 }
