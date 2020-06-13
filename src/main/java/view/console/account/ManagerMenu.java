@@ -172,7 +172,7 @@ public class ManagerMenu extends Menu {
     }
 
     //manage discounts
-    public void createDiscountCode() {
+    public void createDiscountCode() throws Exception {
         LocalDateTime startDate = getStartDate();
         LocalDateTime endDate;
         do {
@@ -192,9 +192,11 @@ public class ManagerMenu extends Menu {
         scanner.nextLine();
         int i = 0;
         ArrayList<Buyer> buyersWithDiscount = new ArrayList<>();
+        ArrayList<String> buyers = new ArrayList<>();
         System.out.println("please write the username of those who can use this discount:");
         while (i < n) {
             String userName = Menu.scanner.nextLine();
+            buyers.add(userName);
             try {
                 Buyer buyer = managerController.checkUsername(userName);
                 buyersWithDiscount.add(buyer);
@@ -203,7 +205,7 @@ public class ManagerMenu extends Menu {
                 System.out.println(e.getMessage());
             }
         }
-        managerController.createDiscountCode(startDate, endDate, percentage, maxNumberOfUsage, buyersWithDiscount);
+        managerController.createDiscountCode(startDate, endDate, percentage, maxNumberOfUsage, buyers);
         System.out.println("discountCode was successfully created.");
     }
 

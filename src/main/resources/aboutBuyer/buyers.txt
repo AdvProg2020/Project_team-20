@@ -1,0 +1,2 @@
+{"@type":"model.account.Buyer","@val":{"purchaseHistory":[],"state":"ACCEPTED","name":"e","lastName":"e","email":"e","phoneNumber":"3456","username":"e","password":"e","accountType":"BUYER","credit":123.0,"generalAccountType":"ACCOUNT","graphicPackage":{}}}
+{"@type":"model.account.Buyer","@val":{"purchaseHistory":[],"state":"ACCEPTED","name":"reza","lastName":"123","email":"123","phoneNumber":"123","username":"reza","password":"123","accountType":"BUYER","credit":123.0,"generalAccountType":"ACCOUNT","graphicPackage":{}}}
