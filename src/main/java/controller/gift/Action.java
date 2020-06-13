@@ -1,5 +1,5 @@
 package controller.gift;
 
 public interface Action {
-    public void perform();
+    public void perform() throws Exception;
 }

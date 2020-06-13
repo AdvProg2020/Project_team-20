@@ -12,8 +12,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.account.Account;
 import model.account.Buyer;
+import view.graphic.alert.AlertController;
+import view.graphic.alert.AlertType;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -30,11 +35,12 @@ public class CreateDiscountController implements Initializable {
     public JFXDatePicker endDatePicker;
     public JFXTimePicker endTimePicker;
     ManagerController managerController = ManagerController.getInstance();
-    ArrayList<Buyer> buyers = new ArrayList<>();
+    public ArrayList<Buyer> buyers;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        buyers = new ArrayList<>();
         table.getItems().setAll(Account.getAllBuyers());
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
     }
@@ -48,7 +54,48 @@ public class CreateDiscountController implements Initializable {
         chosenUsers.setCellValueFactory(new PropertyValueFactory<>("username"));
     }
 
-    public void create(ActionEvent actionEvent) {
-        //managerController.createDiscountCode();
+    public void create(ActionEvent actionEvent) throws Exception {
+        LocalTime startTime = startTimePicker.getValue();
+        LocalDate startDate = startDatePicker.getValue();
+        LocalTime endTime = endTimePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
+        String percentString = percent.getText(), maxNumberOfUsageString = maxNumberOfUsage.getText();
+        if (startDate == null || startTime == null || endDate == null || endTime == null || percentString.isEmpty() ||
+                maxNumberOfUsageString.isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
+            return;
+        }
+        double percentageDouble;
+        int numberOfUsages;
+        try {
+            percentageDouble = Double.parseDouble(percentString);
+            numberOfUsages = Integer.parseInt(maxNumberOfUsageString);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, "percentage and maxUsages are number!");
+            return;
+        }
+        LocalDateTime startLocalDateTime = LocalDateTime.of(startDate, startTime);
+        LocalDateTime endLocalDateTime = LocalDateTime.of(endDate, endTime);
+        ArrayList<String> userNames = new ArrayList<>();
+        for (Buyer buyer : buyers) {
+            userNames.add(buyer.getUsername());
+        }
+        try {
+            managerController.createDiscountCode(startLocalDateTime, endLocalDateTime, percentageDouble, numberOfUsages, userNames);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+            return;
+        }
+        new AlertController().create(AlertType.CONFIRMATION,"discount created!");
+        clear();
+    }
+
+    private void clear() {
+        maxNumberOfUsage.setText("");
+        percent.setText("");
+        startDatePicker.setValue(null);
+        startTimePicker.setValue(null);
+        endDatePicker.setValue(null);
+        endTimePicker.setValue(null);
     }
 }
