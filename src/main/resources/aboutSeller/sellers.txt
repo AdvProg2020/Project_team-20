@@ -1,1 +1,0 @@
-{"@type":"model.account.Seller","@val":{"saleHistory":[],"productIDsToSell":{},"productIDs":[],"sales":[],"details":"paniz","state":"ACCEPTED","name":"paniz","lastName":"halvachi","email":"panizhalvachi@gmail.com","phoneNumber":"090000000","username":"pani","password":"paniz","accountType":"SELLER","credit":200000.0,"generalAccountType":"ACCOUNT","graphicPackage":{}}}

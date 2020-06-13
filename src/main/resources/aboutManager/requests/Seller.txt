@@ -1,2 +1,0 @@
-{"@type":"java.lang.Integer","@val":2}
-{"@type":"model.account.Seller","@val":{"saleHistory":[],"productIDsToSell":{},"productIDs":[],"sales":[],"details":"tehran","state":"CREATED","name":"erfan","lastName":"erfan","email":"erfan","phoneNumber":"55","username":"erfan","password":"erfan","accountType":"SELLER","credit":6565.0,"generalAccountType":"ACCOUNT"}}
