@@ -79,6 +79,12 @@ public abstract class MotherPersonalInfo {
             return;
         }
         try {
+            Double.parseDouble(creditEdit.getText());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, "credit is number");
+            return;
+        }
+        try {
             switch (account.getAccountType()) {
                 case SELLER:
                     SellerController.getInstance().editField("credit", creditEdit.getText());
