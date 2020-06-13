@@ -17,10 +17,10 @@
          </font>
       </Text>
       <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
-      <TableView fx:id="table" layoutX="25.0" layoutY="44.0" prefHeight="325.0" prefWidth="537.0">
+      <TableView fx:id="table" layoutX="25.0" layoutY="44.0" prefHeight="325.0" prefWidth="236.0">
         <columns>
-          <TableColumn fx:id="requestId" prefWidth="133.0" text="RequestID" />
-          <TableColumn fx:id="details" prefWidth="403.0" text="Details" />
+          <TableColumn fx:id="requestId" prefWidth="124.0" text="RequestID" />
+          <TableColumn fx:id="details" prefWidth="112.0" text="Type" />
         </columns>
       </TableView>
    </children>

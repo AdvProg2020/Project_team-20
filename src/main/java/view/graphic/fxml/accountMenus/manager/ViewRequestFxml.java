@@ -1,9 +1,13 @@
 package view.graphic.fxml.accountMenus.manager;
 
 import com.jfoenix.controls.JFXTextField;
+import controller.account.user.ManagerController;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import model.Requestable;
+
+import java.util.HashMap;
 
 public class ViewRequestFxml {
     public JFXTextField requestId;
@@ -18,7 +22,9 @@ public class ViewRequestFxml {
     }
 
     public void handleShow() {
-
+        ManagerController managerController = ManagerController.getInstance();
+       // String requestDetail = managerController.requestDetails();
+        // message.appendText();
     }
 
 
