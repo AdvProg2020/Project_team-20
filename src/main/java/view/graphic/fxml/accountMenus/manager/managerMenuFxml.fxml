@@ -29,7 +29,7 @@
                <children>
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handlePersonalInfo" prefHeight="40.0" prefWidth="296.0" text="Personal Info." textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleRequests" prefHeight="40.0" prefWidth="458.0" text="Requests" textFill="#d8f9ff" />
-                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewRequest" prefHeight="40.0" prefWidth="458.0" text="View request" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="458.0" text="View request" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleManageUsers" prefHeight="40.0" prefWidth="396.0" text="Manage users" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleProducts" prefHeight="40.0" prefWidth="379.0" text="Manage products" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleDiscounts" prefHeight="40.0" prefWidth="459.0" text="Manage discounts" textFill="#d8f9ff" />

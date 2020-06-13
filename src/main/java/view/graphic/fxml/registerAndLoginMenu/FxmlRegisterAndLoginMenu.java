@@ -72,6 +72,7 @@ public class FxmlRegisterAndLoginMenu {
             }
             new AlertController().create(AlertType.CONFIRMATION, "login was successful");
         } catch (Exception e) {
+            e.printStackTrace();
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
