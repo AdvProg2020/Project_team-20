@@ -114,10 +114,6 @@ public class ManagerMenuController implements Initializable {
     public void handleDragOver(DragEvent event) {
     }
 
-    public void handleViewRequest(ActionEvent actionEvent) {
-        loadUI("viewRequest");
-    }
-
     public void handleExit() {
         Main.storeData();
         window.close();
