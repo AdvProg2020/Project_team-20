@@ -17,7 +17,7 @@ public class BuyerMenuController {
 
     public static void start(Stage stage) throws Exception{
         window = stage;
-        Parent root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/BuyerMenuFxml.fxml").toURI().toURL());
+        Parent root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/buyer/BuyerMenuFxml.fxml").toURI().toURL());
         stage.setTitle("Sign up menu");
         stage.setScene(new Scene(root, 994, 666));
         stage.show();
@@ -29,7 +29,7 @@ public class BuyerMenuController {
     private void loadUI(String ui){
         Parent root;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/manager/" + ui + "Fxml" + ".fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/buyer/" + ui + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
             System.out.println(e.getMessage());

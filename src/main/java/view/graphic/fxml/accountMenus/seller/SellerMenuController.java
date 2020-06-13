@@ -49,7 +49,7 @@ public class SellerMenuController {
     private void loadUI(String ui){
         Parent root;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/manager/" + ui + "Fxml" + ".fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/seller/" + ui + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
             System.out.println(e.getMessage());
