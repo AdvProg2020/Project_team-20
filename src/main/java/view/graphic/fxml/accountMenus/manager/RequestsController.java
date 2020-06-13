@@ -102,7 +102,7 @@ public class RequestsController implements Initializable {
         id = table.getSelectionModel().getSelectedItem().getId();
         //Requestable requestable = Manager.getRequests().get(Integer.parseInt(id) - 1);
         System.out.println(managerController.requestDetails(Integer.parseInt(id)));
-        message.appendText(managerController.requestDetails(Integer.parseInt(id)));
+        message.setText(managerController.requestDetails(Integer.parseInt(id)));
         title.setOpacity(1);
         message.setOpacity(0.7);
         tickButton.setOpacity(1);
