@@ -1,0 +1,1 @@
+{"@type":"model.account.Seller","@val":{"saleHistory":[],"productIDsToSell":{},"productIDs":[],"sales":[],"details":"shayanCompany","state":"ACCEPTED","name":"shayan","lastName":"talaee","email":"shayan@gmail.com","phoneNumber":"0910000","username":"shayan","password":"shayan","accountType":"SELLER","credit":100000.0,"generalAccountType":"ACCOUNT","graphicPackage":{}}}
