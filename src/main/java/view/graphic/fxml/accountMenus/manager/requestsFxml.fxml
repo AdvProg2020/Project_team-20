@@ -32,7 +32,7 @@
          <font>
             <Font size="11.0" />
          </font></Button>
-      <Button fx:id="crossButton" layoutX="506.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleCross" onMouseEntered="#handleEnterRemove" onMouseExited="#handleExitRemove" prefHeight="8.0" prefWidth="49.0" style="-fx-background-color: #ff826f;" text="Reject" textFill="WHITE">
+      <Button fx:id="crossButton" layoutX="502.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleCross" onMouseEntered="#handleEnterRemove" onMouseExited="#handleExitRemove" prefHeight="22.0" prefWidth="56.0" style="-fx-background-color: #ff826f;" text="Reject" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font></Button>
