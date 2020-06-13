@@ -50,7 +50,7 @@ public class SellerMenu extends Menu {
         try {
             System.out.println("Please insert the new field");
             String context = scanner.nextLine().trim();
-            sellerController.editField(field, context);
+            //sellerController.editField(field, context);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
