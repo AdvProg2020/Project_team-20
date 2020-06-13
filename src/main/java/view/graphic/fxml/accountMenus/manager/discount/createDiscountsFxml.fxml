@@ -32,7 +32,9 @@
       </TableView>
       <JFXTextField fx:id="maxNumberOfUsage" focusColor="#009f9c" layoutX="104.0" layoutY="85.0" promptText="Number of usage" unFocusColor="#575957" />
       <JFXTextField fx:id="percent" focusColor="#009f9c" layoutX="104.0" layoutY="127.0" promptText="Persentage" unFocusColor="#575957" />
-      <JFXDatePicker fx:id="datePicker" defaultColor="#5fccd0" layoutX="327.0" layoutY="82.0" opacity="0.9" promptText="Start date" />
-      <JFXTimePicker fx:id="timePicker" defaultColor="#5fccd0" layoutX="327.0" layoutY="126.0" opacity="0.9" promptText="Start time" />
+      <JFXDatePicker fx:id="startDatePicker" defaultColor="#5fccd0" layoutX="324.0" layoutY="82.0" opacity="0.9" promptText="Start date" />
+      <JFXTimePicker fx:id="startTimePicker" defaultColor="#5fccd0" layoutX="324.0" layoutY="126.0" opacity="0.9" promptText="Start time" />
+      <JFXDatePicker fx:id="endDatePicker" defaultColor="#5fccd0" layoutX="565.0" layoutY="82.0" opacity="0.9" promptText="End date" />
+      <JFXTimePicker fx:id="endTimePicker" defaultColor="#5fccd0" layoutX="565.0" layoutY="126.0" opacity="0.9" promptText="Start time" />
    </children>
 </AnchorPane>

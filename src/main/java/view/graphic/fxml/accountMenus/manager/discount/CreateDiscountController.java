@@ -25,8 +25,10 @@ public class CreateDiscountController implements Initializable {
     public TextField percent;
     public TableView<Buyer> chosenTable;
     public TableColumn<String, Buyer> chosenUsers;
-    public JFXDatePicker datePicker;
-    public JFXTimePicker timePicker;
+    public JFXDatePicker startDatePicker;
+    public JFXTimePicker startTimePicker;
+    public JFXDatePicker endDatePicker;
+    public JFXTimePicker endTimePicker;
     ManagerController managerController = ManagerController.getInstance();
     ArrayList<Buyer> buyers = new ArrayList<>();
 
