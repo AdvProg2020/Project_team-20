@@ -1,6 +1,7 @@
 package view.graphic.fxml.accountMenus.manager.discount;
 
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import controller.account.user.ManagerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -25,6 +26,7 @@ public class CreateDiscountController implements Initializable {
     public TableView<Buyer> chosenTable;
     public TableColumn<String, Buyer> chosenUsers;
     public JFXDatePicker datePicker;
+    public JFXTimePicker timePicker;
     ManagerController managerController = ManagerController.getInstance();
     ArrayList<Buyer> buyers = new ArrayList<>();
 
