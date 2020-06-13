@@ -26,11 +26,13 @@ public class Main {
         PreProcess.AddPeriod();
 
         // for graphic view
-        //ProgramApplication.setFirstManager(Manager.isHasFirstManger());
-        //ProgramApplication.startApp(args);
+        ProgramApplication.setFirstManager(Manager.isHasFirstManger());
+        ProgramApplication.startApp(args);
+    }
+
 
         // for console view
-
+/*
        initialMenus();
        while (true) {
             if (PreProcess.getPeriod() >= 3)
@@ -43,6 +45,8 @@ public class Main {
         }
 
     }
+
+ */
 
     public static void setCurrentMenu(Menu currentMenu) {
         Main.currentMenu = currentMenu;
@@ -76,4 +80,5 @@ public class Main {
         Product.store();
         Sale.store();
     }
-}
+   }
+

@@ -26,25 +26,24 @@ import java.util.ResourceBundle;
 
 public class RequestsController implements Initializable {
 
-
     public TableView<RequestTable> table;
-
-    public TableColumn<RequestTable,Integer> details;
     public TableColumn<RequestTable,String> requestId;
+    public TableColumn<RequestTable,String> details;
 
-    public ArrayList<RequestTable> convertToRequestTable() throws Exception {
+    private ArrayList<RequestTable> convertToRequestTable() throws Exception {
         ManagerController managerController = ManagerController.getInstance();
         HashMap<Integer, Requestable> requestArrayList = managerController.manageRequests();
         ArrayList<RequestTable> requestTables = new ArrayList<>();
         for(int number : requestArrayList.keySet()){
-            RequestTable requestTable = new RequestTable(managerController.requestDetails(number), number);
+            String strings = managerController.requestDetails(number);
+            String[] strings1 = strings.split("\n");
+            RequestTable requestTable = new RequestTable(strings1[1], number);
             requestTables.add(requestTable);
         }
         return requestTables;
     }
 
-
-    public ObservableList<RequestTable> getRequests() {
+    private ObservableList<RequestTable> getRequests() {
         try {
             ObservableList<RequestTable> requestTables1 = FXCollections.observableArrayList();
             ArrayList<RequestTable> requestTables = convertToRequestTable();
@@ -61,7 +60,7 @@ public class RequestsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         requestId.setCellValueFactory(new PropertyValueFactory<RequestTable,String>("id"));
-        details.setCellValueFactory(new PropertyValueFactory<RequestTable,Integer>("detail"));
+        details.setCellValueFactory(new PropertyValueFactory<RequestTable,String>("detail"));
         table.setItems(getRequests());
     }
 
@@ -76,11 +75,16 @@ class RequestTable {
         this.id = new SimpleStringProperty(Integer.toString(id));
     }
 
-    public SimpleStringProperty detailProperty() {
+    public SimpleStringProperty getDetail() {
         return detail;
     }
 
-    public SimpleStringProperty idProperty() {
+    public SimpleStringProperty getId() {
         return id;
     }
 }
+
+
+
+
+
