@@ -1,0 +1,1 @@
+{"@type":"model.account.Seller","@val":{"saleHistory":[],"productIDsToSell":{},"productIDs":[],"sales":[],"details":"w","state":"ACCEPTED","name":"paniz","lastName":"w","email":"w","phoneNumber":"w","username":"w","password":"w","accountType":"SELLER","credit":123.0,"generalAccountType":"ACCOUNT","graphicPackage":{}}}

@@ -59,12 +59,12 @@
                                 <Image url="@../../../../../../resources/Images/ProfileImg.png" />
                             </image>
                         </ImageView>
-                        <Text fill="#ff826f" layoutX="204.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Seller!" wrappingWidth="287.2060546875">
+                        <Text fill="#ff826f" layoutX="204.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Buyer!" wrappingWidth="287.2060546875">
                             <font>
                                 <Font size="30.0" />
                             </font>
                         </Text>
-                        <Text fill="#ee6755" layoutX="210.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Have a greate selling &amp; enjoy your life." />
+                        <Text fill="#ee6755" layoutX="210.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Have a greate shopping &amp; enjoy your life." />
                     </children>
                 </Pane>
             </children>

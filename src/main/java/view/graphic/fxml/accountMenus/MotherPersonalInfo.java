@@ -170,6 +170,7 @@ public abstract class MotherPersonalInfo {
                 case BUYER:
                     BuyerController.getInstance().editField("name", nameEdit.getText());
                     new AlertController().create(AlertType.CONFIRMATION, "request sent");
+                    break;
             }
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
