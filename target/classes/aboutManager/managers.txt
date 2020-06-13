@@ -1,0 +1,1 @@
+{"@type":"model.account.Manager","@val":{"firstManager":true,"name":"e","lastName":"e","email":"e","phoneNumber":"e","username":"e","password":"e","accountType":"MANAGER","credit":121.0,"generalAccountType":"ACCOUNT","graphicPackage":{}}}

@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.account.Account;
+import model.account.AccountType;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -18,21 +19,21 @@ public abstract class MotherPersonalInfo {
     public TextField username;
     public TextField password;
     public TextField credit;
-    public TextField companyInfo;
     static boolean leave = false;
+
+    public TextField companyInfoEdit;
+    public Button companyInfoOk;
 
 
     public TextField phoneNumberEdit;
     public TextField nameEdit;
     public TextField lastNameEdit;
-    public TextField usernameEdit;
     public TextField passwordEdit;
     public Button gmailOk;
     public Button phoneOk;
     public Button nameOk;
     public Button lastNameOk;
     public Button passwordOk;
-    public Button companyInfoOk;
     public Button creditOk;
     public TextField gmailEdit;
     public TextField creditEdit;
@@ -53,12 +54,23 @@ public abstract class MotherPersonalInfo {
         } else if (creditOk.equals(source)) {
             editCredit(account);
         } else if (companyInfoOk.equals(source)) {
-
+            editCompanyInfo(account);
         }
     }
 
-    private void editCompanyInfo(Account account) {
-
+    private void editCompanyInfo(Account account) throws Exception {
+        if (companyInfoEdit.getText().isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            if (account.getAccountType() == AccountType.SELLER) {
+                SellerController.getInstance().editField("companyInfo", companyInfoEdit.getText());
+                new AlertController().create(AlertType.CONFIRMATION, "request sent");
+            }
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
     private void editCredit(Account account) throws Exception {
