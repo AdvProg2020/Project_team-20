@@ -9,7 +9,6 @@ import javafx.stage.StageStyle;
 import view.graphic.fxml.mainMenu.FxmlMainMenu;
 import view.graphic.fxml.registerAndLoginMenu.FxmlRegisterAndLoginMenu;
 import view.graphic.fxml.registerAndLoginMenu.ManagerLoginController;
-import view.graphic.fxml.saleMenu.FxmlSaleMenu;
 
 import java.io.File;
 import java.util.ArrayList;

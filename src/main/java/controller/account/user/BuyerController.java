@@ -231,7 +231,7 @@ public class BuyerController implements AccountController {
             case "credit":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
                         currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(),
-                        Integer.parseInt(context));
+                        Double.parseDouble(context));
                 break;
             default:
                 throw new ManagerController.fieldIsInvalidException();

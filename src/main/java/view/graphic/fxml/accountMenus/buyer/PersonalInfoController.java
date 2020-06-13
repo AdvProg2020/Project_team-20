@@ -57,8 +57,17 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
             button.setStyle("-fx-background-color: #009f9c;");
             button.setText("Edit");
             leave = false;
+            clear();
             removeEditPanel();
         }
+    }
+
+    private void clear() {
+        passwordEdit.setText("");
+        nameEdit.setText("");
+        lastNameEdit.setText("");
+        phoneNumberEdit.setText("");
+        gmailEdit.setText("");
     }
 
     public void removeEditPanel() {
@@ -107,14 +116,8 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
     public void handleExit(MouseEvent event) {
         if (!leave)
             ((Button) event.getSource()).setStyle("-fx-background-color: #009f9c;");
-        else {
-            passwordEdit.setText("");
-            nameEdit.setText("");
-            lastNameEdit.setText("");
-            phoneNumberEdit.setText("");
-            gmailEdit.setText("");
+        else
             ((Button) event.getSource()).setStyle("-fx-background-color: #ff826f;");
-        }
     }
 
     public void handleEnterOk(MouseEvent event) {

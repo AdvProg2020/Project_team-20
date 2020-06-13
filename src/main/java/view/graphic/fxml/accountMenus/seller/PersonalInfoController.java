@@ -25,18 +25,19 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
     public Button nameOk;
     public Button lastNameOk;
     public Button usernameOk;
-    public Button passwordOk;
+    public Button creditOk;
 
     public TextField gmailEdit;
     public TextField phoneNumberEdit;
     public TextField nameEdit;
     public TextField lastNameEdit;
-    public TextField usernameEdit;
     public TextField passwordEdit;
     public TextField companyInfo;
     public TextField companyInfoEdit;
     public Button companyInfoOk;
     static boolean leave = false;
+    public TextField credit;
+    public TextField creditEdit;
 
     SellerController sellerController = SellerController.getInstance();
     Seller seller = (Seller) sellerController.getAccountInfo();
@@ -50,6 +51,8 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
         phone.appendText(seller.getPhoneNumber());
         username.appendText(seller.getUsername());
         password.appendText(seller.getPassword());
+        companyInfo.appendText(seller.getDetails());
+        credit.appendText(String.valueOf(seller.getCredit()));
     }
 
     public void handleEdit(ActionEvent actionEvent) {
@@ -63,8 +66,19 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
             button.setStyle("-fx-background-color: #009f9c;");
             button.setText("Edit");
             leave = false;
+            clear();
             removeEditPanel();
         }
+    }
+
+    private void clear() {
+        passwordEdit.setText("");
+        nameEdit.setText("");
+        lastNameEdit.setText("");
+        phoneNumberEdit.setText("");
+        gmailEdit.setText("");
+        creditEdit.setText("");
+        companyInfoEdit.setText("");
     }
 
     public void removeEditPanel() {
@@ -118,14 +132,8 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
     public void handleExit(MouseEvent event) {
         if (!leave)
             ((Button) event.getSource()).setStyle("-fx-background-color: #009f9c;");
-        else {
-            passwordEdit.setText("");
-            nameEdit.setText("");
-            lastNameEdit.setText("");
-            phoneNumberEdit.setText("");
-            gmailEdit.setText("");
+        else
             ((Button) event.getSource()).setStyle("-fx-background-color: #ff826f;");
-        }
     }
 
     public void handleEnterOk(MouseEvent event) {

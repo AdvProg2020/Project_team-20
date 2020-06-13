@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -7,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="471.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.manager.PersonalInfoController">
+<AnchorPane prefHeight="471.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.manager.PersonalInfoController">
    <children>
       <Text fill="#575957" layoutX="104.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Personal information" wrappingWidth="207.58889770507812">
          <font>
@@ -27,12 +31,12 @@
          </font>
       </Text>
       <TextField fx:id="phone" editable="false" layoutX="252.0" layoutY="141.0" style="-fx-background-color: transparent;" />
-      <Text fill="#575957" layoutX="105.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+      <Text fill="#575957" layoutX="105.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Credit:">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="username" editable="false" layoutX="250.0" layoutY="301.0" style="-fx-background-color: transparent;" />
+      <TextField fx:id="credit" editable="false" layoutX="250.0" layoutY="301.0" style="-fx-background-color: transparent;" />
       <Text fill="#575957" layoutX="106.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
          <font>
             <Font size="14.0" />
@@ -86,7 +90,7 @@
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="usernameOk" layoutX="618.0" layoutY="301.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+      <Button fx:id="creditOk" layoutX="618.0" layoutY="301.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
@@ -100,7 +104,13 @@
       <TextField fx:id="phoneNumberEdit" layoutX="427.0" layoutY="141.0" opacity="0.0" promptText="Edited phone number" style="-fx-background-color: #296294;" />
       <TextField fx:id="nameEdit" layoutX="427.0" layoutY="233.0" opacity="0.0" promptText="Edited name" style="-fx-background-color: #296294;" />
       <TextField fx:id="lastNameEdit" layoutX="427.0" layoutY="266.0" opacity="0.0" promptText="Edited lastname" style="-fx-background-color: #296294;" />
-      <TextField fx:id="usernameEdit" layoutX="427.0" layoutY="301.0" opacity="0.0" promptText="Edited username" style="-fx-background-color: #296294;" />
+      <TextField fx:id="creditEdit" layoutX="427.0" layoutY="301.0" opacity="0.0" promptText="Edited credit" style="-fx-background-color: #296294;" />
       <TextField fx:id="passwordEdit" layoutX="427.0" layoutY="336.0" opacity="0.0" promptText="Edited password" style="-fx-background-color: #296294;" />
+      <Text fill="#575957" layoutX="104.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="username" editable="false" layoutX="252.0" layoutY="372.0" style="-fx-background-color: transparent;" />
    </children>
 </AnchorPane>

@@ -325,8 +325,11 @@ public class SellerController implements AccountController {
                 break;
             case "credit":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), seller.getPassword(), Integer.parseInt(context), seller.getDetails());
+                        seller.getPhoneNumber(), seller.getPassword(), Double.parseDouble(context), seller.getDetails());
                 break;
+            case "companyInfo":
+                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
+                        seller.getPhoneNumber(), seller.getPassword(), seller.getCredit(), context);
             default:
                 throw new ManagerController.fieldIsInvalidException();
         }

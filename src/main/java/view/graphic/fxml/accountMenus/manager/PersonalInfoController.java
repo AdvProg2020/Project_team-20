@@ -26,15 +26,17 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
     public TextField phoneNumberEdit;
     public TextField nameEdit;
     public TextField lastNameEdit;
-    public TextField usernameEdit;
     public TextField passwordEdit;
     public Button gmailOk;
     public Button phoneOk;
     public Button nameOk;
     public Button lastNameOk;
-    public Button usernameOk;
     public Button passwordOk;
+    public Button creditOk;
     public TextField gmailEdit;
+    public TextField creditEdit;
+    public TextField credit;
+
 
     ManagerController managerController = ManagerController.getInstance();
     Manager manager = (Manager) managerController.getAccountInfo();
@@ -47,6 +49,7 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
         phone.appendText(manager.getPhoneNumber());
         username.appendText(manager.getUsername());
         password.appendText(manager.getPassword());
+        credit.appendText(String.valueOf(manager.getCredit()));
     }
 
     public void handleEdit(ActionEvent actionEvent) {
@@ -60,8 +63,18 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
             button.setStyle("-fx-background-color: #009f9c;");
             button.setText("Edit");
             leave = false;
+            clear();
             removeEditPanel();
         }
+    }
+
+    private void clear() {
+        passwordEdit.setText("");
+        nameEdit.setText("");
+        lastNameEdit.setText("");
+        phoneNumberEdit.setText("");
+        gmailEdit.setText("");
+        creditEdit.setText("");
     }
 
     public void removeEditPanel() {
@@ -69,14 +82,14 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
         phoneNumberEdit.setOpacity(0);
         nameEdit.setOpacity(0);
         lastNameEdit.setOpacity(0);
-        usernameEdit.setOpacity(0);
+        creditEdit.setOpacity(0);
         passwordEdit.setOpacity(0);
         gmailOk.setOpacity(0);
         lastNameOk.setOpacity(0);
         nameOk.setOpacity(0);
         passwordOk.setOpacity(0);
         phoneOk.setOpacity(0);
-        usernameOk.setOpacity(0);
+        creditOk.setOpacity(0);
     }
 
     public void showEditPanel() {
@@ -84,20 +97,20 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
         phoneNumberEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         nameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         lastNameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
-        usernameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        creditEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         passwordEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         gmailEdit.setOpacity(0.71);
         phoneNumberEdit.setOpacity(0.71);
         nameEdit.setOpacity(0.71);
         lastNameEdit.setOpacity(0.71);
-        usernameEdit.setOpacity(0.71);
+        creditEdit.setOpacity(0.71);
         passwordEdit.setOpacity(0.71);
         gmailOk.setOpacity(0.71);
         lastNameOk.setOpacity(0.71);
         nameOk.setOpacity(0.71);
         passwordOk.setOpacity(0.71);
         phoneOk.setOpacity(0.71);
-        usernameOk.setOpacity(0.71);
+        creditOk.setOpacity(0.71);
     }
 
     public void handleEnter(MouseEvent event) {
@@ -110,14 +123,8 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
     public void handleExit(MouseEvent event) {
         if (!leave)
             ((Button) event.getSource()).setStyle("-fx-background-color: #009f9c;");
-        else {
-            passwordEdit.setText("");
-            nameEdit.setText("");
-            lastNameEdit.setText("");
-            phoneNumberEdit.setText("");
-            gmailEdit.setText("");
+        else
             ((Button) event.getSource()).setStyle("-fx-background-color: #ff826f;");
-        }
     }
 
     public void handleEnterOk(MouseEvent event) {

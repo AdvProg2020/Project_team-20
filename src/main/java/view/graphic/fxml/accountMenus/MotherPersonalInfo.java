@@ -17,6 +17,8 @@ public abstract class MotherPersonalInfo {
     public TextField phone;
     public TextField username;
     public TextField password;
+    public TextField credit;
+    public TextField companyInfo;
     static boolean leave = false;
 
 
@@ -29,10 +31,11 @@ public abstract class MotherPersonalInfo {
     public Button phoneOk;
     public Button nameOk;
     public Button lastNameOk;
-    public Button usernameOk;
     public Button passwordOk;
+    public Button companyInfoOk;
+    public Button creditOk;
     public TextField gmailEdit;
-
+    public TextField creditEdit;
 
 
     public void handleOk(ActionEvent actionEvent, Account account) throws Exception {
@@ -47,6 +50,38 @@ public abstract class MotherPersonalInfo {
             editLastName(account);
         } else if (passwordOk.equals(source)) {
             editPassword(account);
+        } else if (creditOk.equals(source)) {
+            editCredit(account);
+        } else if (companyInfoOk.equals(source)) {
+
+        }
+    }
+
+    private void editCompanyInfo(Account account) {
+
+    }
+
+    private void editCredit(Account account) throws Exception {
+        if (creditEdit.getText().isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            switch (account.getAccountType()) {
+                case SELLER:
+                    SellerController.getInstance().editField("credit", creditEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+                    break;
+                case MANAGER:
+                    ManagerController.getInstance().editField("credit", creditEdit.getText());
+                    credit.setText(creditEdit.getText());
+                    break;
+                case BUYER:
+                    BuyerController.getInstance().editField("credit", creditEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+            }
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
