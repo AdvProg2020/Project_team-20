@@ -1,10 +1,12 @@
 package view.graphic.fxml.accountMenus;
 
+import controller.account.user.BuyerController;
 import controller.account.user.ManagerController;
+import controller.account.user.SellerController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import model.account.Manager;
+import model.account.Account;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -31,85 +33,141 @@ public abstract class MotherPersonalInfo {
     public Button passwordOk;
     public TextField gmailEdit;
 
-    ManagerController managerController = ManagerController.getInstance();
-    Manager manager = (Manager) managerController.getAccountInfo();
 
 
-    public void handleOk(ActionEvent actionEvent) throws Exception {
+    public void handleOk(ActionEvent actionEvent, Account account) throws Exception {
         Object source = actionEvent.getSource();
         if (gmailOk.equals(source)) {
-            editGmail();
+            editGmail(account);
         } else if (phoneOk.equals(source)) {
-            editPhoneNumber();
+            editPhoneNumber(account);
         } else if (nameOk.equals(source)) {
-            editName();
+            editName(account);
         } else if (lastNameOk.equals(source)) {
-            editLastName();
+            editLastName(account);
         } else if (passwordOk.equals(source)) {
-            editPassword();
+            editPassword(account);
         }
     }
 
-    private void editPassword() throws Exception {
+    private void editPassword(Account account) throws Exception {
         if (passwordEdit.getText().isEmpty()) {
             new AlertController().create(AlertType.ERROR, "field is empty");
             return;
         }
         try {
-            managerController.editField("password", passwordEdit.getText());
-            password.setText(passwordEdit.getText());
+            switch (account.getAccountType()) {
+                case SELLER:
+                    SellerController.getInstance().editField("password", passwordEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+                    break;
+                case MANAGER:
+                    ManagerController.getInstance().editField("password", passwordEdit.getText());
+                    password.setText(passwordEdit.getText());
+                    break;
+                case BUYER:
+                    BuyerController.getInstance().editField("password", passwordEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+            }
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
-    private void editLastName() throws Exception {
+    private void editLastName(Account account) throws Exception {
         if (lastNameEdit.getText().isEmpty()) {
             new AlertController().create(AlertType.ERROR, "field is empty");
             return;
         }
         try {
-            managerController.editField("lastName", lastNameEdit.getText());
-            lastname.setText(lastNameEdit.getText());
+            switch (account.getAccountType()) {
+                case BUYER:
+                    BuyerController.getInstance().editField("lastName", lastNameEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+                    break;
+                case MANAGER:
+                    ManagerController.getInstance().editField("lastName", lastNameEdit.getText());
+                    lastname.setText(lastNameEdit.getText());
+                    break;
+                case SELLER:
+                    SellerController.getInstance().editField("lastName", lastNameEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+            }
+
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
-    private void editName() throws Exception {
+    private void editName(Account account) throws Exception {
         if (nameEdit.getText().isEmpty()) {
             new AlertController().create(AlertType.ERROR, "field is empty");
             return;
         }
         try {
-            managerController.editField("name", nameEdit.getText());
-            name.setText(nameEdit.getText());
+            switch (account.getAccountType()) {
+                case SELLER:
+                    SellerController.getInstance().editField("name", nameEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+                    break;
+                case MANAGER:
+                    ManagerController.getInstance().editField("name", nameEdit.getText());
+                    name.setText(nameEdit.getText());
+                    break;
+                case BUYER:
+                    BuyerController.getInstance().editField("name", nameEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+            }
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
-    private void editPhoneNumber() throws Exception {
+    private void editPhoneNumber(Account account) throws Exception {
         if (phoneNumberEdit.getText().isEmpty()) {
             new AlertController().create(AlertType.ERROR, "field is empty");
             return;
         }
         try {
-            managerController.editField("phoneNumber", phoneNumberEdit.getText());
-            phone.setText(phoneNumberEdit.getText());
+            switch (account.getAccountType()) {
+                case BUYER:
+                    BuyerController.getInstance().editField("phoneNumber", phoneNumberEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+                    break;
+                case MANAGER:
+                    ManagerController.getInstance().editField("phoneNumber", phoneNumberEdit.getText());
+                    phone.setText(phoneNumberEdit.getText());
+                    break;
+                case SELLER:
+                    SellerController.getInstance().editField("phoneNumber", phoneNumberEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+            }
+
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
-    private void editGmail() throws Exception {
+    private void editGmail(Account account) throws Exception {
         if (gmailEdit.getText().isEmpty()) {
             new AlertController().create(AlertType.ERROR, "field is empty");
             return;
         }
         try {
-            managerController.editField("email", gmailEdit.getText());
-            gmail.setText(gmailEdit.getText());
+            switch (account.getAccountType()) {
+                case SELLER:
+                    SellerController.getInstance().editField("email", gmailEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+                    break;
+                case MANAGER:
+                    ManagerController.getInstance().editField("email", gmailEdit.getText());
+                    gmail.setText(gmailEdit.getText());
+                    break;
+                case BUYER:
+                    BuyerController.getInstance().editField("email", gmailEdit.getText());
+                    new AlertController().create(AlertType.CONFIRMATION, "request sent");
+            }
+
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }

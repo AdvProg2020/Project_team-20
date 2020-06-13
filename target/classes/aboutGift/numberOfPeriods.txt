@@ -1,1 +1,1 @@
-{"@type":"java.lang.Integer","@val":5}
+{"@type":"java.lang.Integer","@val":0}

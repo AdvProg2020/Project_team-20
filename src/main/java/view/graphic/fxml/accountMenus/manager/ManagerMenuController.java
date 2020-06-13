@@ -50,7 +50,6 @@ public class ManagerMenuController implements Initializable {
     }
 
     public void handlePersonalInfo(ActionEvent actionEvent) {
-
         loadUI("personalInfo");
     }
 
@@ -91,7 +90,8 @@ public class ManagerMenuController implements Initializable {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/manager/" + ui + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+           // System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 

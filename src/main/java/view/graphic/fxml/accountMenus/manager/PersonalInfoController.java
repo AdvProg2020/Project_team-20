@@ -128,8 +128,7 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
         ((Button) event.getSource()).setStyle("-fx-background-color: #60d520;");
     }
 
-    @Override
     public void handleOk(ActionEvent actionEvent) throws Exception {
-        super.handleOk(actionEvent);
+        super.handleOk(actionEvent, manager);
     }
 }
