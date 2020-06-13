@@ -1,24 +1,16 @@
 package view.graphic.fxml.accountMenus.manager;
 
 import controller.account.user.ManagerController;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 import model.Requestable;
 import model.account.Manager;
-import model.product.RequestType;
-import model.product.RequestableState;
-import oracle.jrockit.jfr.events.RequestableEventEnvironment;
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +21,10 @@ public class RequestsController implements Initializable {
     public TableView<RequestTable> table;
     public TableColumn<RequestTable,String> requestId;
     public TableColumn<RequestTable,String> details;
+
+    ManagerController managerController = ManagerController.getInstance();
+    Manager manager = (Manager) managerController.getAccountInfo();
+
 
     private ArrayList<RequestTable> convertToRequestTable() throws Exception {
         ManagerController managerController = ManagerController.getInstance();
@@ -64,6 +60,10 @@ public class RequestsController implements Initializable {
         }
     }
 
+    public void selectRequest(MouseEvent mouseEvent) {
+        String id = table.getSelectionModel().getSelectedItem().getId();
+        Requestable requestable = Manager.getRequests().get(Integer.parseInt(id) - 1);
+    }
 }
 
 
