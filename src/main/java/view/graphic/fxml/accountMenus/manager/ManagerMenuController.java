@@ -84,7 +84,7 @@ public class ManagerMenuController implements Initializable {
         loadUI("manageCategories");
     }
 
-    private void loadUI(String ui) {
+    public void loadUI(String ui) {
         Parent root;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/manager/" + ui + "Fxml" + ".fxml").toURI().toURL());

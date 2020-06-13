@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -23,5 +24,19 @@
           <TableColumn fx:id="details" prefWidth="112.0" text="Type" />
         </columns>
       </TableView>
+      <TextArea fx:id="message" editable="false" layoutX="331.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" />
+      <Text fx:id="title" layoutX="402.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details:" />
+      <Button fx:id="tickButton" layoutX="396.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleTick" prefHeight="39.0" prefWidth="36.0" style="-fx-background-color: transparent;" />
+      <ImageView fx:id="cross" fitHeight="24.0" fitWidth="24.0" layoutX="460.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/Xpicture.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="crossButton" layoutX="454.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleCross" prefHeight="24.0" prefWidth="36.0" style="-fx-background-color: transparent;" />
+      <ImageView fx:id="tick" fitHeight="22.0" fitWidth="24.0" layoutX="402.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@pictures/tickPicture.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
