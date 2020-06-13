@@ -21,7 +21,14 @@ public class Discount {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
-    public Discount(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage, int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
+    public Discount(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage, int maxNumberOfUsage,
+                    ArrayList<Buyer> buyersWithDiscount) throws Exception {
+        if (discountPercentage > 100) {
+            throw new IncorrectPercentage();
+        }
+        if (startDate.isAfter(endDate)) {
+            throw new StartDateIsAfterEndDate();
+        }
         numberOfDiscounts++;
         this.discountCode = numberOfDiscounts;
         this.discountPercentage = discountPercentage;
@@ -41,7 +48,13 @@ public class Discount {
     }
 
     public void editDiscount(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage,
-                             int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
+                             int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) throws Exception {
+        if (discountPercentage > 100) {
+            throw new IncorrectPercentage();
+        }
+        if (startDate.isAfter(endDate)) {
+            throw new StartDateIsAfterEndDate();
+        }
         this.discountPercentage = discountPercentage;
         this.maxNumberOfUsage = maxNumberOfUsage;
         addTOBuyersWithDiscount(buyersWithDiscount);
@@ -246,6 +259,18 @@ public class Discount {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    public static class IncorrectPercentage extends Exception {
+        public IncorrectPercentage() {
+            super("your percentage is over 100!!");
+        }
+    }
+
+    public static class StartDateIsAfterEndDate extends Exception {
+        public StartDateIsAfterEndDate() {
+            super("start date is after end date!!!");
+        }
     }
 
 

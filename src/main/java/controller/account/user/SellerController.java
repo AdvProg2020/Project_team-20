@@ -311,6 +311,7 @@ public class SellerController implements AccountController {
             case "lastName":
                 seller.changeStateEdited(seller.getName(), context, seller.getEmail(), seller.getPhoneNumber(),
                         seller.getPassword(), seller.getCredit(), seller.getDetails());
+                break;
             case "email":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), context, seller.getPhoneNumber(),
                         seller.getPassword(), seller.getCredit(), seller.getDetails());
@@ -330,6 +331,7 @@ public class SellerController implements AccountController {
             case "companyInfo":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
                         seller.getPhoneNumber(), seller.getPassword(), seller.getCredit(), context);
+                break;
             default:
                 throw new ManagerController.fieldIsInvalidException();
         }

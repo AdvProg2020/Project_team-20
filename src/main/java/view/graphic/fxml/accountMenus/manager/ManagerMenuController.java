@@ -95,7 +95,6 @@ public class ManagerMenuController implements Initializable {
     }
 
     public void handleLogout(ActionEvent actionEvent) throws Exception {
-        System.out.println("click on logout");
         managerController.logout();
         ProgramApplication.setMenu(MenuNames.MAINMENU);
         new AlertController().create(AlertType.CONFIRMATION, "log out was successful");

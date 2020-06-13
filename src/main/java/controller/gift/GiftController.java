@@ -10,7 +10,12 @@ public class GiftController {
     }
 
     public void perform() {
-        if (event.isEvent())
-            action.perform();
+        if (event.isEvent()) {
+            try {
+                action.perform();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

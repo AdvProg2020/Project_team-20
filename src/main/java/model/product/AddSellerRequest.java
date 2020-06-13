@@ -95,11 +95,11 @@ public class AddSellerRequest implements Requestable {
 
     @Override
     public String toString() {
-        String temp = "Seller wants to be added to this product: \n";
-        temp += "Seller username     : " + sellerUsername + "\n";
-        temp += "Product Id          : " + productId + "\n";
-        temp += "Name                : " + productName + "\n";
-        temp += "Count               : " + count + "\n";
+        String temp = "Seller wants to be added to this product: \n" + "\n" ;
+        temp += "Seller username     : " + sellerUsername + "\n" + "\n" ;
+        temp += "Product Id          : " + productId + "\n" + "\n" ;
+        temp += "Name                : " + productName + "\n" + "\n" ;
+        temp += "Count               : " + count + "\n" + "\n" ;
         temp += "Price               : " + price;
         return temp;
     }

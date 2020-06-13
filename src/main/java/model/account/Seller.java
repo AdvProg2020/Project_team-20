@@ -168,20 +168,20 @@ public class Seller extends Account implements Requestable {
 
     @Override
     public String toString() {
-        String sellerString = "Name                : " + name + "\n" +
-                "RequestType         : Seller" + "\n" +
-                "Username            : " + username + "\n" +
-                "Email               : " + email + "\n" +
-                "Credit              : " + credit + "\n" +
-                "Phone number        : " + phoneNumber + "\n";
+        String sellerString = "Name: " + name + "\n" + "\n" +
+                "RequestType: Seller" + "\n" + "\n" +
+                "Username: " + username + "\n" + "\n" +
+                "Email: " + email + "\n" + "\n" +
+                "Credit: " + credit + "\n" + "\n" +
+                "Phone number: " + phoneNumber + "\n" + "\n";
         if (state.equals(RequestableState.EDITED)) {
-            sellerString = "<Edited>\n" + sellerString;
-            sellerString += "Edited Fields:\n";
-            sellerString += "Name                : " + editedSeller.getName() + "\n" +
-                    "RequestType         : Seller" + "\n" +
-                    "Email               : " + editedSeller.getEmail() + "\n" +
-                    "Credit              : " + editedSeller.getCredit() + "\n" +
-                    "Phone number        : " + editedSeller.getPhoneNumber();
+            sellerString = "<Edited>\n"+ "\n" + sellerString;
+            sellerString += "Edited Fields:\n" + "\n" ;
+            sellerString += "Name: " + editedSeller.getName() + "\n" +  "\n" +
+                    "RequestType: Seller" + "\n" + "\n" +
+                    "Email: " + editedSeller.getEmail() + "\n" + "\n" +
+                    "Credit: " + editedSeller.getCredit() + "\n" + "\n" +
+                    "Phone number: " + editedSeller.getPhoneNumber();
         }
         return sellerString;
     }

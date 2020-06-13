@@ -378,10 +378,10 @@ public class Product implements Requestable {
     public String toString() {
         try {
             Seller seller = (Seller) Account.getAccountWithUsername(sellersUsername.get(0));
-            String productString = "Name                : " + name + "\n" +
-                    "RequestType         : Product" + "\n" +
-                    "Seller              : " + seller.getName() + "\n" +
-                    "Price               : " + priceWithName.get(seller.getUsername()) + "\n" +
+            String productString = "Name                : " + name + "\n" + "\n" +
+                    "RequestType         : Product" + "\n" + "\n" +
+                    "Seller              : " + seller.getName() + "\n" + "\n" +
+                    "Price               : " + priceWithName.get(seller.getUsername()) + "\n" + "\n" +
                     "Count               : " + countWithName.get(seller.getUsername());
             if (state.equals(RequestableState.EDITED))
                 productString = "<Edited>\n" + productString;
