@@ -70,11 +70,25 @@ public class FxmlRegisterAndLoginMenu {
                 case SELLER:
                     SellerMenuController.start(window);
             }
+            clear();
             new AlertController().create(AlertType.CONFIRMATION, "login was successful");
         } catch (Exception e) {
             e.printStackTrace();
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
+    }
+
+    private void clear() {
+        usernameText.setText("");
+        passwordText.setText("");
+/*        newCredit.setText("");
+        newEmail.setText("");
+        newLastName.setText("");
+        newName.setText("");
+        newPassword.setText("");
+        newPhoneNumber.setText("");
+        newUsername.setText("");
+        newCompanyInfo.setText("");*/
     }
 
     public void handleSignUp() throws Exception {

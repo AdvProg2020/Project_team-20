@@ -30,6 +30,15 @@ public abstract class Account extends GeneralAccount {
         return allAccounts;
     }
 
+    public static ArrayList<Buyer> getAllBuyers() {
+        ArrayList<Buyer> buyers = new ArrayList<>();
+        for (Account account : allAccounts) {
+            if (account.getAccountType().equals(AccountType.BUYER))
+                buyers.add((Buyer) account);
+        }
+        return buyers;
+    }
+
     public void edit(Account account) {
         this.name = account.getName();
         this.lastName = account.getLastName();

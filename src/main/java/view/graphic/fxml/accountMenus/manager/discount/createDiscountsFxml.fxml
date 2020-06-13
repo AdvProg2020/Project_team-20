@@ -19,6 +19,20 @@
          </font>
       </Text>
       <Separator layoutX="14.0" layoutY="23.0" prefHeight="8.0" prefWidth="289.0" />
-      <DatePicker layoutX="280.0" layoutY="161.0" />
+      <TableView fx:id="table" layoutX="385.0" layoutY="101.0" onMouseClicked="#selectRequest" prefHeight="200.0" prefWidth="76.0">
+        <columns>
+          <TableColumn fx:id="username" prefWidth="75.0" text="username" />
+        </columns>
+      </TableView>
+      <TextField fx:id="maxNumberOfUsage" layoutX="174.0" layoutY="132.0" />
+      <TextField fx:id="percent" layoutX="174.0" layoutY="185.0" />
+      <Label layoutX="21.0" layoutY="137.0" text="many times to use" />
+      <Label layoutX="47.0" layoutY="190.0" text="percent" />
+      <JFXButton onAction="#create" layoutX="237.0" layoutY="239.0" text="create" />
+      <TableView fx:id="chosenTable" layoutX="471.0" layoutY="101.0" prefHeight="200.0" prefWidth="108.0">
+        <columns>
+          <TableColumn fx:id="chosenUsers" prefWidth="109.0" text="chosen buyers" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

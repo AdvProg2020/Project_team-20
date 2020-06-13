@@ -69,9 +69,19 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     //discount codes
-    public void createDiscountCode(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage,
+   /* public void createDiscountCode(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage,
                                    int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
         new Discount(startDate, endDate, discountPercentage, maxNumberOfUsage, buyersWithDiscount);
+    }*/
+
+    public void createDiscountCode(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage,
+                                   int maxNumberOfUsage, ArrayList<String> buyersWithDiscount) throws Exception {
+        ArrayList<Buyer> buyers = new ArrayList<>();
+        for (String username : buyersWithDiscount) {
+            checkUsername(username);
+            buyers.add(Buyer.getBuyerWithUsername(username));
+        }
+        new Discount(startDate, endDate, discountPercentage, maxNumberOfUsage, buyers);
     }
 
     public ArrayList<Discount> viewDiscountCodes() {

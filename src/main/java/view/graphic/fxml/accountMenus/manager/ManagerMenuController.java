@@ -71,11 +71,11 @@ public class ManagerMenuController implements Initializable {
 
     public void handleDiscounts(ActionEvent actionEvent) {
 
-        loadUI("discounts");
+        loadUI("discount/discounts");
     }
 
     public void handleCreateDiscounts(ActionEvent actionEvent) {
-        loadUI("createDiscounts");
+        loadUI("discount/createDiscounts");
     }
 
     public void handleManageCategories(ActionEvent actionEvent) {
