@@ -5,8 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import view.graphic.fxml.mainMenu.FxmlMainMenu;
 import view.graphic.fxml.registerAndLoginMenu.FxmlRegisterAndLoginMenu;
+import view.graphic.fxml.registerAndLoginMenu.ManagerLoginController;
 import view.graphic.fxml.saleMenu.FxmlSaleMenu;
 
 import java.io.File;
@@ -24,6 +26,7 @@ public class ProgramApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         initializeScenes();
         mainStage = primaryStage;
+        mainStage.initStyle(StageStyle.UNDECORATED);
         if (firstManager)
             setMenu(MenuNames.MAINMENU);
         else
@@ -85,6 +88,7 @@ public class ProgramApplication extends Application {
             case LOGIN_MANAGER:
                 mainStage.setTitle("Sign up manager");
                 mainStage.setScene(loginManager);
+                ManagerLoginController.setWindow(mainStage);
                 mainStage.show();
                 break;
         }

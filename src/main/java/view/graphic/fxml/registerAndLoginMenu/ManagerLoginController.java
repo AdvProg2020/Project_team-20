@@ -1,9 +1,11 @@
 package view.graphic.fxml.registerAndLoginMenu;
 
+import controller.Main;
 import controller.account.LoginController;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
@@ -19,7 +21,7 @@ public class ManagerLoginController {
     public TextField newEmail;
     public TextField newCredit;
     public TextField newPhoneNumber;
-
+    private static Stage window;
 
 
     public void handleSignUp() throws Exception {
@@ -66,4 +68,21 @@ public class ManagerLoginController {
         ;
     }
 
+    public void handleExit() {
+        Main.storeData();
+        window.close();
+    }
+
+    public void enterMouseExit(MouseEvent event) {
+        ((Button)event.getSource()).setStyle("-fx-background-color: #d94141;");
+
+    }
+
+    public void exitMouseExit(MouseEvent event) {
+        ((Button)event.getSource()).setStyle("-fx-background-color: #ff4c4c;");;
+    }
+
+    public static void setWindow(Stage window) {
+        ManagerLoginController.window = window;
+    }
 }

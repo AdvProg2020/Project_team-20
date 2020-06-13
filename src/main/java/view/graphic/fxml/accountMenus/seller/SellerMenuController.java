@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.seller;
 
+import controller.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -66,5 +67,10 @@ public class SellerMenuController {
     }
 
     public void handleDragOver(DragEvent event) {
+    }
+
+    public void handleExit() {
+        Main.storeData();
+        window.close();
     }
 }

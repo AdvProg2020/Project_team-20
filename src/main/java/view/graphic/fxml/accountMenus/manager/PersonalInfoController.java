@@ -7,11 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.account.Manager;
+import view.graphic.fxml.accountMenus.MotherPersonalInfo;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PersonalInfoController implements Initializable {
+public class PersonalInfoController extends MotherPersonalInfo implements Initializable {
 
     public TextField name;
     public TextField lastname;
@@ -35,11 +36,11 @@ public class PersonalInfoController implements Initializable {
     public Button passwordOk;
     public TextField gmailEdit;
 
+    ManagerController managerController = ManagerController.getInstance();
+    Manager manager = (Manager) managerController.getAccountInfo();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ManagerController managerController = ManagerController.getInstance();
-        Manager manager = (Manager) managerController.getAccountInfo();
         name.appendText(manager.getName());
         lastname.appendText(manager.getLastName());
         gmail.appendText(manager.getEmail());
@@ -109,8 +110,14 @@ public class PersonalInfoController implements Initializable {
     public void handleExit(MouseEvent event) {
         if (!leave)
             ((Button) event.getSource()).setStyle("-fx-background-color: #009f9c;");
-        else
+        else {
+            passwordEdit.setText("");
+            nameEdit.setText("");
+            lastNameEdit.setText("");
+            phoneNumberEdit.setText("");
+            gmailEdit.setText("");
             ((Button) event.getSource()).setStyle("-fx-background-color: #ff826f;");
+        }
     }
 
     public void handleEnterOk(MouseEvent event) {
@@ -121,7 +128,8 @@ public class PersonalInfoController implements Initializable {
         ((Button) event.getSource()).setStyle("-fx-background-color: #60d520;");
     }
 
-
-    public void handleOk(ActionEvent actionEvent) {
+    @Override
+    public void handleOk(ActionEvent actionEvent) throws Exception {
+        super.handleOk(actionEvent);
     }
 }

@@ -93,5 +93,17 @@
             <Font size="16.0" />
          </font>
       </TextField>
+      <HBox opacity="0.75" prefHeight="29.0" prefWidth="994.0" style="-fx-background-color: #4cf1e3;">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleExit" onMouseEntered="#enterMouseExit" onMouseExited="#exitMouseExit" prefHeight="23.0" prefWidth="33.0" style="-fx-background-color: #ff4c4c;" text="Exit" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="10.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="2.0" top="2.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
         </children>
 </Pane>
