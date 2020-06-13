@@ -22,12 +22,12 @@
             <Image url="@../../../../../resources/Images/login2.png" />
          </image>
       </ImageView>
-      <TextField fx:id="usernameText" layoutX="105.0" layoutY="325.0" prefHeight="28.0" prefWidth="250.0" promptText="Username" style="-fx-background-color: 525973525973; -fx-font-style: -fx-text-fill: green;;">
+      <TextField fx:id="usernameText" layoutX="105.0" layoutY="325.0" prefHeight="28.0" prefWidth="250.0" promptText="Username" style="-fx-background-color: 525973525973; -fx-text-inner-color: white;">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <TextField fx:id="passwordText" layoutX="105.0" layoutY="398.0" prefHeight="28.0" prefWidth="250.0" promptText="Password" style="-fx-background-color: 525973525973;">
+      <TextField fx:id="passwordText" layoutX="105.0" layoutY="398.0" prefHeight="28.0" prefWidth="250.0" promptText="Password" style="-fx-background-color: 525973525973; -fx-text-inner-color: white;">
          <font>
             <Font size="20.0" />
          </font>

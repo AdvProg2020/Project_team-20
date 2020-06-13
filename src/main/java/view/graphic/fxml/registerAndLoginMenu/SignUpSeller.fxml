@@ -58,37 +58,37 @@
                 <Font name="Bangla Sangam MN" size="23.0" />
             </font>
         </Button>
-      <TextField fx:id="newUsername" layoutX="39.0" layoutY="322.0" prefHeight="27.0" prefWidth="158.0" promptText="Username" style="-fx-background-color: transparent;">
+      <TextField fx:id="newUsername" layoutX="39.0" layoutY="322.0" prefHeight="27.0" prefWidth="158.0" promptText="Username" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="newPassword" layoutX="39.0" layoutY="368.0" prefHeight="27.0" prefWidth="158.0" promptText="Password" style="-fx-background-color: transparent;">
+      <TextField fx:id="newPassword" layoutX="39.0" layoutY="368.0" prefHeight="27.0" prefWidth="158.0" promptText="Password" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="newEmail" layoutX="39.0" layoutY="415.0" prefHeight="27.0" prefWidth="158.0" promptText="Email" style="-fx-background-color: transparent;">
+      <TextField fx:id="newEmail" layoutX="39.0" layoutY="415.0" prefHeight="27.0" prefWidth="158.0" promptText="Email" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="newName" layoutX="242.0" layoutY="322.0" prefHeight="27.0" prefWidth="158.0" promptText="Name" style="-fx-background-color: transparent;">
+      <TextField fx:id="newName" layoutX="242.0" layoutY="322.0" prefHeight="27.0" prefWidth="158.0" promptText="Name" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="newLastName" layoutX="242.0" layoutY="368.0" prefHeight="27.0" prefWidth="158.0" promptText="Last name" style="-fx-background-color: transparent;">
+      <TextField fx:id="newLastName" layoutX="242.0" layoutY="368.0" prefHeight="27.0" prefWidth="158.0" promptText="Last name" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="newCredit" layoutX="242.0" layoutY="415.0" prefHeight="27.0" prefWidth="158.0" promptText="Credit" style="-fx-background-color: transparent;">
+      <TextField fx:id="newCredit" layoutX="242.0" layoutY="415.0" prefHeight="27.0" prefWidth="158.0" promptText="Credit" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="newCompanyInfo" layoutX="39.0" layoutY="459.0" prefHeight="27.0" prefWidth="158.0" promptText="Company info" style="-fx-background-color: transparent;">
+      <TextField fx:id="newCompanyInfo" layoutX="39.0" layoutY="459.0" prefHeight="27.0" prefWidth="158.0" promptText="Company info" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
          <font>
             <Font size="16.0" />
          </font>
@@ -98,7 +98,7 @@
             <Font size="20.0" />
          </font>
       </Button>
-      <TextField fx:id="newPhoneNumber" layoutX="242.0" layoutY="459.0" prefHeight="27.0" prefWidth="158.0" promptText="PhoneNumber" style="-fx-background-color: transparent;">
+      <TextField fx:id="newPhoneNumber" layoutX="242.0" layoutY="459.0" prefHeight="27.0" prefWidth="158.0" promptText="PhoneNumber" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
          <font>
             <Font size="16.0" />
          </font>
