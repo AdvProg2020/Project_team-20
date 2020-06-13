@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.validation.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.manager.discount.CreateDiscountController">
+<AnchorPane prefHeight="502.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.manager.discount.CreateDiscountController">
    <children>
-      <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create discount codes" wrappingWidth="207.58889770507812">
+      <Text fill="#575957" layoutX="104.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create discount codes" wrappingWidth="207.58889770507812">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Separator layoutX="14.0" layoutY="23.0" prefHeight="8.0" prefWidth="289.0" />
-      <TableView fx:id="table" layoutX="385.0" layoutY="101.0" onMouseClicked="#selectRequest" prefHeight="200.0" prefWidth="76.0">
+      <Separator layoutX="104.0" layoutY="52.0" prefHeight="8.0" prefWidth="289.0" />
+      <TableView fx:id="table" layoutX="278.0" layoutY="171.0" onMouseClicked="#selectRequest" opacity="0.7" prefHeight="200.0" prefWidth="151.0" style="-fx-border-color: #009f9c;">
         <columns>
-          <TableColumn fx:id="username" prefWidth="75.0" text="username" />
+          <TableColumn fx:id="username" prefWidth="150.0" text="Username" />
         </columns>
       </TableView>
-      <TextField fx:id="maxNumberOfUsage" layoutX="174.0" layoutY="132.0" />
-      <TextField fx:id="percent" layoutX="174.0" layoutY="185.0" />
-      <Label layoutX="21.0" layoutY="137.0" text="many times to use" />
-      <Label layoutX="47.0" layoutY="190.0" text="percent" />
-      <JFXButton onAction="#create" layoutX="237.0" layoutY="239.0" text="create" />
-      <TableView fx:id="chosenTable" layoutX="471.0" layoutY="101.0" prefHeight="200.0" prefWidth="108.0">
+      <TextField fx:id="maxNumberOfUsage" layoutX="262.0" layoutY="93.0" />
+      <TextField fx:id="percent" layoutX="262.0" layoutY="127.0" />
+      <Label layoutX="109.0" layoutY="98.0" text="Number of usage" textFill="#575957" />
+      <Label layoutX="109.0" layoutY="132.0" text="Persentage" textFill="#575957" />
+      <JFXButton layoutX="104.0" layoutY="383.0" onAction="#create" opacity="0.71" style="-fx-background-color: #009f9c;" text="create" textFill="WHITE" />
+      <TableView fx:id="chosenTable" layoutX="104.0" layoutY="171.0" opacity="0.7" prefHeight="200.0" prefWidth="151.0" style="-fx-border-color: #009f9c;">
         <columns>
-          <TableColumn fx:id="chosenUsers" prefWidth="109.0" text="chosen buyers" />
+          <TableColumn fx:id="chosenUsers" prefWidth="150.0" text="Chosen buyers" />
         </columns>
       </TableView>
    </children>
