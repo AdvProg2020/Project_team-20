@@ -1,1 +1,1 @@
-{"@type":"model.account.Manager","@val":{"firstManager":true,"name":"e","lastName":"e","email":"e","phoneNumber":"e","username":"e","password":"e","accountType":"MANAGER","credit":1222.0,"generalAccountType":"ACCOUNT","graphicPackage":{}}}
+{"@type":"model.account.Manager","@val":{"firstManager":true,"name":"Rasouli","lastName":"Rasouli","email":"rastin1379","phoneNumber":"09128178166","username":"Rastin","password":"123","accountType":"MANAGER","credit":19000.0,"generalAccountType":"ACCOUNT","graphicPackage":{}}}
