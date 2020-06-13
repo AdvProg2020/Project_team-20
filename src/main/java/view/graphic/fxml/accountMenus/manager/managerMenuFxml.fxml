@@ -42,6 +42,7 @@
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Log out" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleAllProducts" prefHeight="40.0" prefWidth="367.0" text="All products " textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleOffs" prefHeight="40.0" prefWidth="367.0" text="Offs" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleExit" prefHeight="40.0" prefWidth="367.0" text="Exit" textFill="#d8f9ff" />
                </children>
             </VBox>
          </children>
@@ -53,7 +54,7 @@
    <top>
       <HBox prefHeight="170.0" prefWidth="994.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="115.0" prefWidth="1004.0" style="-fx-background-color: #B2FCFF;">
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" opacity="0.91" prefHeight="115.0" prefWidth="1004.0" style="-fx-background-color: #B2FCFF;">
                <children>
                   <Pane layoutY="114.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="57.0" prefWidth="204.0" style="-fx-background-color: #2a3030;" />
                   <Circle fill="#ffbf71" layoutX="102.0" layoutY="86.0" radius="72.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />

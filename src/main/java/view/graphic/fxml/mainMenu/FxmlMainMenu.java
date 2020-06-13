@@ -38,6 +38,15 @@ public class FxmlMainMenu {
         window.close();
     }
 
+    public void enterMouseExit(MouseEvent event) {
+        ((Button)event.getSource()).setStyle("-fx-background-color: #d94141;");
+
+    }
+
+    public void exitMouseExit(MouseEvent event) {
+        ((Button)event.getSource()).setStyle("-fx-background-color: #ff4c4c;");;
+    }
+
     public static void setWindow(Stage window) {
         FxmlMainMenu.window = window;
     }

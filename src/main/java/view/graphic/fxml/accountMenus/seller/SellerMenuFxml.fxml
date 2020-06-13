@@ -39,6 +39,7 @@
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Log out" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleAllProducts" prefHeight="40.0" prefWidth="367.0" text="All products" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleOffs" prefHeight="40.0" prefWidth="367.0" text="Offs" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleExit" prefHeight="40.0" prefWidth="367.0" text="Exit" textFill="#d8f9ff" />
                     </children>
                 </VBox>
             </children>

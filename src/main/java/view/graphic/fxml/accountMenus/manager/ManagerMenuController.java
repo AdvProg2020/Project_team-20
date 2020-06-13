@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.manager;
 
+import controller.Main;
 import controller.account.user.ManagerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -115,5 +116,10 @@ public class ManagerMenuController implements Initializable {
 
     public void handleViewRequest(ActionEvent actionEvent) {
         loadUI("viewRequest");
+    }
+
+    public void handleExit() {
+        Main.storeData();
+        window.close();
     }
 }

@@ -1,5 +1,6 @@
 package view.graphic.fxml.registerAndLoginMenu;
 
+import controller.Main;
 import controller.account.LoginController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -166,5 +167,19 @@ public class FxmlRegisterAndLoginMenu {
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
+    }
+
+    public void handleExit() {
+        Main.storeData();
+        window.close();
+    }
+
+    public void enterMouseExit(MouseEvent event) {
+        ((Button)event.getSource()).setStyle("-fx-background-color: #d94141;");
+
+    }
+
+    public void exitMouseExit(MouseEvent event) {
+        ((Button)event.getSource()).setStyle("-fx-background-color: #ff4c4c;");;
     }
 }

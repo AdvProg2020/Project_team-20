@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.buyer;
 
+import controller.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -61,5 +62,10 @@ public class BuyerMenuController {
     }
 
     public void handleViewDiscountCodes(ActionEvent actionEvent) {
+    }
+
+    public void handleExit() {
+        Main.storeData();
+        window.close();
     }
 }
