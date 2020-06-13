@@ -37,51 +37,33 @@ public class RequestsController implements Initializable {
         for(int number : requestArrayList.keySet()){
             String strings = managerController.requestDetails(number);
             String[] strings1 = strings.split("\n");
-            RequestTable requestTable = new RequestTable(strings1[1], number);
+            String[] strings2 = strings1[1].split(":");
+            RequestTable requestTable = new RequestTable(strings2[1], number);
             requestTables.add(requestTable);
         }
         return requestTables;
     }
 
-    private ObservableList<RequestTable> getRequests() {
-        try {
+    private ObservableList<RequestTable> getRequests() throws Exception {
             ObservableList<RequestTable> requestTables1 = FXCollections.observableArrayList();
             ArrayList<RequestTable> requestTables = convertToRequestTable();
             for (RequestTable request : requestTables) {
                 requestTables1.add(request);
             }
             return requestTables1;
-        }
-        catch (Exception e){
-        }
-        return null;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         requestId.setCellValueFactory(new PropertyValueFactory<RequestTable,String>("id"));
         details.setCellValueFactory(new PropertyValueFactory<RequestTable,String>("detail"));
-        table.setItems(getRequests());
+        try {
+            table.setItems(getRequests());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-}
-
-class RequestTable {
-    private SimpleStringProperty detail;
-    private SimpleStringProperty id;
-
-    public RequestTable(String detail , int id){
-        this.detail = new SimpleStringProperty(detail);
-        this.id = new SimpleStringProperty(Integer.toString(id));
-    }
-
-    public SimpleStringProperty getDetail() {
-        return detail;
-    }
-
-    public SimpleStringProperty getId() {
-        return id;
-    }
 }
 
 
