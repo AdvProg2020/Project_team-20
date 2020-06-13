@@ -4,6 +4,7 @@ import controller.account.user.ManagerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -49,8 +50,8 @@ public class RequestsController implements Initializable {
     public TableColumn<RequestTable, String> details;
     public TextArea message;
     public Text title;
-    public ImageView tick;
-    public ImageView cross;
+    public Button tickButton;
+    public Button crossButton;
     private String id;
 
 
@@ -65,7 +66,7 @@ public class RequestsController implements Initializable {
         ArrayList<RequestTable> requestTables = new ArrayList<>();
         for (int number : requestArrayList.keySet()) {
             String strings = managerController.requestDetails(number);
-            String[] strings1 = strings.split("\n");
+            String[] strings1 = strings.split("\n\n");
             String[] strings2 = strings1[1].split(":");
             RequestTable requestTable = new RequestTable(strings2[1], number);
             requestTables.add(requestTable);
@@ -86,8 +87,8 @@ public class RequestsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         message.setOpacity(0);
         title.setOpacity(0);
-        tick.setOpacity(0);
-        cross.setOpacity(0);
+        tickButton.setOpacity(0);
+        crossButton.setOpacity(0);
         requestId.setCellValueFactory(new PropertyValueFactory<RequestTable, String>("id"));
         details.setCellValueFactory(new PropertyValueFactory<RequestTable, String>("detail"));
         try {
@@ -103,17 +104,17 @@ public class RequestsController implements Initializable {
         System.out.println(managerController.requestDetails(Integer.parseInt(id)));
         message.appendText(managerController.requestDetails(Integer.parseInt(id)));
         title.setOpacity(1);
-        message.setOpacity(1);
-        tick.setOpacity(1);
-        cross.setOpacity(1);
+        message.setOpacity(0.7);
+        tickButton.setOpacity(1);
+        crossButton.setOpacity(1);
     }
 
     public void handleCross() throws Exception {
         managerController.declineRequest(Integer.parseInt(id));
         title.setOpacity(0);
         message.setOpacity(0);
-        tick.setOpacity(0);
-        cross.setOpacity(0);
+        tickButton.setOpacity(0);
+        crossButton.setOpacity(0);
         requestId.setCellValueFactory(new PropertyValueFactory<RequestTable, String>("id"));
         details.setCellValueFactory(new PropertyValueFactory<RequestTable, String>("detail"));
         try {
@@ -127,8 +128,8 @@ public class RequestsController implements Initializable {
         managerController.acceptRequest(Integer.parseInt(id));
         title.setOpacity(0);
         message.setOpacity(0);
-        tick.setOpacity(0);
-        cross.setOpacity(0);
+        tickButton.setOpacity(0);
+        crossButton.setOpacity(0);
         requestId.setCellValueFactory(new PropertyValueFactory<RequestTable, String>("id"));
         details.setCellValueFactory(new PropertyValueFactory<RequestTable, String>("detail"));
         try {
@@ -136,6 +137,22 @@ public class RequestsController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void handleEnterAccept(MouseEvent event) {
+        ((Button) event.getSource()).setStyle("-fx-background-color: #4caf50;");
+    }
+
+    public void handleExitAccept(MouseEvent event) {
+       ((Button) event.getSource()).setStyle("-fx-background-color: #60d520;");
+    }
+
+    public void handleEnterRemove(MouseEvent event) {
+      ((Button) event.getSource()).setStyle("-fx-background-color: #fb5f48;");
+    }
+
+    public void handleExitRemove(MouseEvent event) {
+        ((Button) event.getSource()).setStyle("-fx-background-color: #ff826f;");
     }
 }
 

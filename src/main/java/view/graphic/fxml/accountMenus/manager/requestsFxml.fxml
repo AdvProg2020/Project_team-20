@@ -5,8 +5,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -19,28 +17,24 @@
          </font>
       </Text>
       <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
-      <TableView fx:id="table" layoutX="25.0" layoutY="44.0" onMouseClicked="#selectRequest" prefHeight="325.0" prefWidth="236.0">
+      <TableView fx:id="table" layoutX="25.0" layoutY="44.0" onMouseClicked="#selectRequest" opacity="0.7" prefHeight="325.0" prefWidth="280.0" style="-fx-border-color: #009f9c;">
         <columns>
-          <TableColumn fx:id="requestId" prefWidth="124.0" text="RequestID" />
-          <TableColumn fx:id="details" prefWidth="112.0" text="Type" />
+          <TableColumn fx:id="requestId" prefWidth="140.0" text="RequestID" />
+          <TableColumn fx:id="details" prefWidth="140.0" text="Type" />
         </columns>
       </TableView>
-      <TextArea fx:id="message" editable="false" layoutX="331.0" layoutY="86.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #009f9c;" />
+      <TextArea fx:id="message" editable="false" layoutX="331.0" layoutY="86.0" opacity="0.7" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #009f9c;" />
       <Text fx:id="title" fill="#009f9c" layoutX="406.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details:">
          <font>
             <Font size="14.0" />
          </font></Text>
-      <Button fx:id="tickButton" layoutX="396.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleTick" prefHeight="39.0" prefWidth="36.0" style="-fx-background-color: transparent;" />
-      <ImageView fx:id="cross" fitHeight="24.0" fitWidth="24.0" layoutX="460.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@pictures/Xpicture.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="crossButton" layoutX="454.0" layoutY="304.0" mnemonicParsing="false" onAction="#handleCross" prefHeight="24.0" prefWidth="36.0" style="-fx-background-color: transparent;" />
-      <ImageView fx:id="tick" fitHeight="22.0" fitWidth="24.0" layoutX="402.0" layoutY="312.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@pictures/tickPicture.png" />
-         </image>
-      </ImageView>
+      <Button fx:id="tickButton" layoutX="403.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleTick" onMouseEntered="#handleEnterAccept" onMouseExited="#handleExitAccept" prefHeight="22.0" prefWidth="56.0" style="-fx-background-color: #60d520;" text="Accept" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font></Button>
+      <Button fx:id="crossButton" layoutX="407.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleCross" onMouseEntered="#handleEnterRemove" onMouseExited="#handleExitRemove" prefHeight="8.0" prefWidth="49.0" style="-fx-background-color: #ff826f;" text="Reject" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font></Button>
    </children>
 </AnchorPane>

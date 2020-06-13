@@ -106,13 +106,13 @@ public class Buyer extends Account implements Requestable {
 
     @Override
     public String toString() {
-        String buyerString = "Name                : " + name + "\n" +
-                             "RequestType         : Buyer" + "\n" +
-                             "Username            : " + username + "\n" +
-                             "Email               : " + email + "\n" +
-                             "Address             : " + address + "\n" +
-                             "Credit              : " + credit + "\n" +
-                             "Phone number        : " + phoneNumber;
+        String buyerString = "Name: " + name + "\n" + "\n" +
+                             "RequestType: Buyer" + "\n" + "\n" +
+                             "Username: " + username + "\n" + "\n" +
+                             "Email: " + email + "\n" + "\n" +
+                             "Address: " + address + "\n" + "\n" +
+                             "Credit: " + credit + "\n" + "\n" +
+                             "Phone numbers: " + phoneNumber;
         if (state.equals(RequestableState.EDITED))
             buyerString = "<Edited>\n" + buyerString;
         return buyerString;
