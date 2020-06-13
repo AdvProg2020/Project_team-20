@@ -75,7 +75,6 @@ public class ManagerMenuController implements Initializable {
     }
 
     public void handleCreateDiscounts(ActionEvent actionEvent) {
-
         loadUI("createDiscounts");
     }
 

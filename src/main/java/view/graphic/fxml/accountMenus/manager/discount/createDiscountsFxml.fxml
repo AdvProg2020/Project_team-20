@@ -5,7 +5,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.manager.ManagerMenuController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="view.graphic.fxml.accountMenus.manager.discount.CreateDiscountController">
    <children>
       <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create discount codes" wrappingWidth="207.58889770507812">
          <font>
