@@ -50,6 +50,7 @@ public class BuyerMenuController {
     }
 
     public void handlePersonalInfo(ActionEvent actionEvent) {
+        loadUI("personalInfoFxml");
     }
 
     public void handleViewSales(ActionEvent actionEvent) {
