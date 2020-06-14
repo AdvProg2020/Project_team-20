@@ -77,6 +77,9 @@ public class ManageUsersController implements Initializable {
 
     private void showManageUsersPanel() {
         table.setOpacity(1);
+        table.getItems().setAll(Account.getAllAccounts());
+        username.setCellValueFactory(new PropertyValueFactory<>("username"));
+        type.setCellValueFactory(new PropertyValueFactory<>("accountType"));
     }
 
     private void removeManageUsersPanel() {

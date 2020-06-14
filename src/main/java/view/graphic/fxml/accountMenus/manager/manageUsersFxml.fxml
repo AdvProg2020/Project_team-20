@@ -21,7 +21,7 @@
          </font>
       </Text>
       <Separator layoutX="21.0" layoutY="24.0" prefHeight="8.0" prefWidth="289.0" />
-      <JFXButton fx:id="createManager" layoutX="424.0" layoutY="32.0" onAction="#createManager" text="create manager progile" />
+      <JFXButton fx:id="createManager" layoutX="424.0" layoutY="32.0" onAction="#createManager" text="create manager profile" />
       <Button fx:id="deleteUser" layoutX="263.0" layoutY="269.0" mnemonicParsing="false" onAction="#deleteUser" style="-fx-background-color: #ff826f;" text="delete user" textFill="WHITE" />
       <Separator layoutX="402.0" layoutY="100.0" orientation="VERTICAL" prefHeight="200.0" />
       <Text fx:id="title" fill="#009f9c" layoutX="288.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details:">
