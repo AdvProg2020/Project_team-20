@@ -62,8 +62,8 @@ public class ManagerController implements controller.account.user.AccountControl
         } catch (Exception e) {
             throw new LoginController.CreditIsNotNumber();
         }
-        new Manager(name, lastName, email, phoneNumber, userName, password, credit,
-                false);
+        Account.addAccount(new Manager(name, lastName, email, phoneNumber, userName, password, credit,
+                false));
     }
 
     //products
