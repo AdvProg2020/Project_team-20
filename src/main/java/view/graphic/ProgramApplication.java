@@ -11,6 +11,7 @@ import view.graphic.fxml.registerAndLoginMenu.FxmlRegisterAndLoginMenu;
 import view.graphic.fxml.registerAndLoginMenu.ManagerLoginController;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProgramApplication extends Application {
@@ -81,8 +82,15 @@ public class ProgramApplication extends Application {
                 break;
             case ALLPRODUCTSMENU:
                 mainStage.setTitle("all products menu");
-                mainStage.setScene(allProductsMenu);
-                mainStage.show();
+                Parent root;
+                try {
+                    root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/allProducts.fxml").toURI().toURL());
+                    allProductsMenu = new Scene(root, 994, 666);
+                    mainStage.setScene(allProductsMenu);
+                    mainStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case LOGIN_MANAGER:
                 mainStage.setTitle("Sign up manager");

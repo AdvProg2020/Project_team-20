@@ -1,13 +1,26 @@
 package view.graphic.fxml.accountMenus.seller;
 
 import controller.account.user.SellerController;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
+import model.account.Manager;
+import view.graphic.alert.AlertController;
+import view.graphic.alert.AlertType;
 
-import javax.rmi.ssl.SslRMIClientSocketFactory;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CreateProductsFxml {
     public TextField productName;
@@ -18,8 +31,9 @@ public class CreateProductsFxml {
     public Button create;
     public TextField count;
     public String path;
+    public ImageView productImg;
 
-    public void createProductButton() {
+    public void createProductButton() throws Exception{
         String name = productName.getText();
         String price = productPrice.getText();
         String company = productCompany.getText();
@@ -28,7 +42,8 @@ public class CreateProductsFxml {
         String numericalF = numerical.getText();
         HashMap<String, Double> hashMapNF = new HashMap<>();
         String[] nf = numericalF.split("\\n");
-        if (nf[0] != " ") {
+        System.out.println("nf" + nf[0]);
+        if (!nf[0].equals("")) {
             for (int i = 0; i < nf.length; i++) {
                 String[] nFields = nf[i].split("\\s+");
                 hashMapNF.put(nFields[0], Double.parseDouble(nFields[2]));
@@ -38,7 +53,7 @@ public class CreateProductsFxml {
         String optionalF = optional.getText();
         HashMap<String, ArrayList<String>> hashMapOF = new HashMap<>();
         String[] of = optionalF.split("\\n");
-        if(of[0] != " ") {
+        if(!of[0].equals("")) {
             for (int i = 0; i < of.length; i++) {
                 String[] oFields = of[i].split("\\s+");
                 ArrayList<String> options = new ArrayList<>();
@@ -55,6 +70,42 @@ public class CreateProductsFxml {
         details.add(countP);
         details.add(price);
         //create product
+        if (name.equals("") || price.equals("") || countP.equals("") || company.equals("")) {
+            new AlertController().create(AlertType.ERROR, "Please fill the blanks");
+            return;
+        }
         SellerController.getInstance().createProduct(details,hashMapNF,hashMapOF,path);
+        resetMenu();
+    }
+
+    private void resetMenu() {
+        productName.setText("");
+        productPrice.setText("");
+        productCompany.setText("");
+        numerical.setText("");
+        optional.setText("");
+        productImg.setImage(null);
+        count.setText("");
+        path = null;
+    }
+
+    public void handleDragOver(DragEvent event) {
+        if (event.getDragboard().hasFiles()) {
+            event.acceptTransferModes(TransferMode.ANY);
+        }
+    }
+
+    public void handleDrop(DragEvent event) throws Exception{
+        List<File> files = event.getDragboard().getFiles();
+        Image img = new Image(new FileInputStream((files.get(0))));
+        productImg.setImage(img);
+        File outputFile = new File("src/main/resources/Images/product" + Manager.getNumberOfRequests() + ".png");
+        path = "product" + Manager.getNumberOfRequests() + ".png";
+        BufferedImage bImage = SwingFXUtils.fromFXImage(img, null);
+        try {
+            ImageIO.write(bImage, "png", outputFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

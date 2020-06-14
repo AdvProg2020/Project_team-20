@@ -335,4 +335,8 @@ public class Manager extends Account {
         } catch (Exception ignored) {
         }
     }
+
+    public static int getNumberOfRequests() {
+        return numberOfRequests;
+    }
 }
