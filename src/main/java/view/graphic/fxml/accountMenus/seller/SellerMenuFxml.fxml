@@ -32,7 +32,7 @@
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleManageProducts" prefHeight="40.0" prefWidth="396.0" text="Manage products" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleShowCategories" prefHeight="40.0" prefWidth="444.0" text="Show categories" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleManageOffs" prefHeight="40.0" prefWidth="367.0" text="Manage offs" textFill="#d8f9ff" />
-                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateProducts" prefHeight="40.0" prefWidth="396.0" text="Create products" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateProduct" prefHeight="40.0" prefWidth="396.0" text="Create product" textFill="#d8f9ff" />
                     </children>
                 </VBox>
                 <VBox prefHeight="14.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">

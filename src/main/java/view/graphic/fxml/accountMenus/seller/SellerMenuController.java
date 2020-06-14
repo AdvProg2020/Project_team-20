@@ -91,4 +91,8 @@ public class SellerMenuController {
         Main.storeData();
         window.close();
     }
+
+    public void handleCreateProducts(ActionEvent actionEvent) {
+        loadUI("createProduct");
+    }
 }
