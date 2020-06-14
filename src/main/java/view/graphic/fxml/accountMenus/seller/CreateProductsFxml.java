@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,23 +26,27 @@ public class CreateProductsFxml {
         String countP = count.getText();
         //numerical fields
         String numericalF = numerical.getText();
-        String[] nf = numericalF.split("\\n");
         HashMap<String, Double> hashMapNF = new HashMap<>();
-        for (int i = 0; i < nf.length; i++) {
-            String[] nFields = nf[i].split("\\s+");
-            hashMapNF.put(nFields[0], Double.parseDouble(nFields[2]));
+        String[] nf = numericalF.split("\\n");
+        if (nf[0] != " ") {
+            for (int i = 0; i < nf.length; i++) {
+                String[] nFields = nf[i].split("\\s+");
+                hashMapNF.put(nFields[0], Double.parseDouble(nFields[2]));
+            }
         }
         //optional fields
         String optionalF = optional.getText();
-        String[] of = optionalF.split("\\n");
         HashMap<String, ArrayList<String>> hashMapOF = new HashMap<>();
-        for (int i = 0; i < of.length; i++) {
-            String[] oFields = of[i].split("\\s+");
-            ArrayList<String> options = new ArrayList<>();
-            for (int j = 2; j < oFields.length; j++) {
-                options.add(oFields[j]);
+        String[] of = optionalF.split("\\n");
+        if(of[0] != " ") {
+            for (int i = 0; i < of.length; i++) {
+                String[] oFields = of[i].split("\\s+");
+                ArrayList<String> options = new ArrayList<>();
+                for (int j = 2; j < oFields.length; j++) {
+                    options.add(oFields[j]);
+                }
+                hashMapOF.put(oFields[0], options);
             }
-            hashMapOF.put(oFields[0], options);
         }
         //create details array list
         ArrayList<String> details = new ArrayList<>();
