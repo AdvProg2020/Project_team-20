@@ -92,7 +92,7 @@ public class SellerMenuController {
         window.close();
     }
 
-    public void handleCreateProducts(ActionEvent actionEvent) {
+    public void handleCreateProduct(ActionEvent actionEvent) {
         loadUI("createProduct");
     }
 }
