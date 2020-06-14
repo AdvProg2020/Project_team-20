@@ -35,6 +35,7 @@ public class Product implements Requestable {
     private ArrayList<Score> scores;
     private ArrayList<Comment> comments;
     private double numberVisited;
+    private String imagePath;
     private Product editedProduct;
     private LocalDateTime addingDate;
     private GraphicPackage graphicPackage;
@@ -72,6 +73,12 @@ public class Product implements Requestable {
         this.countWithName.put(seller.getUsername(), count);
         this.priceWithName.put(seller.getUsername(), price);
     }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath(){ return this.imagePath; }
 
     public void increaseProductViews() {
         this.views++;

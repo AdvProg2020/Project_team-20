@@ -144,7 +144,7 @@ public class SellerMenu extends Menu {
         input = scanner.nextLine();
         if (input.equalsIgnoreCase("yes"))
             getOptionalField(optionalFields);
-        sellerController.createProduct(details, numericalFields, optionalFields);
+        sellerController.createProduct(details, numericalFields, optionalFields,null);
         System.out.println("Thanks for adding product! :)");
         System.out.println("Your addingProduct request was sent to manager. Manager will accept or reject your request.");
     }

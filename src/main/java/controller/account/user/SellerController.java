@@ -104,7 +104,7 @@ public class SellerController implements AccountController {
 
 
     public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
-                              HashMap<String, ArrayList<String>> optionalFields) {
+                              HashMap<String, ArrayList<String>> optionalFields,String path) {
         String name = details.get(0), description = details.get(1);
         int count = Integer.parseInt(details.get(2));
         double price = Double.parseDouble(details.get(3));
@@ -112,6 +112,7 @@ public class SellerController implements AccountController {
         fields.addAll(createNumericalFields(numericalFields));
         fields.addAll(createOptionalFields(optionalFields));
         Product product = new Product(fields, seller, name, description, count, price);
+        product.setImagePath(path);
         Manager.addRequest(product);
     }
 

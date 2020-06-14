@@ -6,15 +6,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.product.Product;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
-
 import java.io.File;
+import java.util.ArrayList;
 
 public class SellerMenuController {
     private static Stage window;
@@ -39,6 +42,12 @@ public class SellerMenuController {
 
     public void handleManageProducts(ActionEvent actionEvent) {
         loadUI("manageProducts");
+        ArrayList<Product> products = SellerController.getInstance().getAllProducts();
+        for (Product product:products){
+            ImageView imageView = new ImageView();
+            Image image = new Image(product.getImagePath());
+            imageView.setImage(image);
+        }
     }
 
     public void handleShowCategories(ActionEvent actionEvent) {
