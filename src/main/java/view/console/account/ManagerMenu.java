@@ -136,7 +136,7 @@ public class ManagerMenu extends Menu {
     }
 
     //create manager profile
-    public void createManagerProfile() {
+    public void createManagerProfile() throws Exception {
         System.out.println("please enter new manager's name:");
         String name = Menu.scanner.nextLine();
         System.out.println("please enter new manager's lastName:");
@@ -149,7 +149,7 @@ public class ManagerMenu extends Menu {
         String userName = Menu.scanner.nextLine();
         System.out.println("please enter new manager's password:");
         String password = Menu.scanner.nextLine();
-        managerController.createManagerProfile(name, lastName, email, phoneNumber, userName, password, 0.0);
+        managerController.createManagerProfile(name, lastName, email, phoneNumber, userName, password, "0.0");
         System.out.println("The new manager was successfully added.");
     }
 

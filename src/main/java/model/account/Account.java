@@ -98,7 +98,11 @@ public abstract class Account extends GeneralAccount {
         allAccounts.add(account);
     }
 
-    public static void deleteAccount(Account account) {
+    public static void deleteAccount(Account account) throws AccountIsForFirstManager {
+        if (account.getAccountType().equals(AccountType.MANAGER)){
+            if (((Manager)account).isFirstManager())
+                throw new AccountIsForFirstManager();
+        }
         allAccounts.remove(account);
     }
 
@@ -174,6 +178,12 @@ public abstract class Account extends GeneralAccount {
     public static class AccountIsNotBuyerException extends Exception {
         public AccountIsNotBuyerException() {
             super("Account Is Not Buyer!");
+        }
+    }
+
+    public static class AccountIsForFirstManager extends Exception {
+        public AccountIsForFirstManager() {
+            super("Account Is for first manager!");
         }
     }
 

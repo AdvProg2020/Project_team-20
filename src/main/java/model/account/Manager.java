@@ -33,8 +33,6 @@ public class Manager extends Account {
         Account account = getAccountWithUsername(username);
         try {
             Manager manager = (Manager) account;
-            if (manager.isFirstManager())
-                return;
             Account.deleteAccount(account);
         } catch (Exception e) {
             Account.deleteAccount(account);

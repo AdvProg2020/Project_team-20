@@ -1,6 +1,7 @@
 package controller.account.user;
 
 import controller.MainController;
+import controller.account.LoginController;
 import javafx.scene.image.Image;
 import model.Requestable;
 import model.account.Account;
@@ -54,8 +55,14 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     public void createManagerProfile(String name, String lastName, String email, String phoneNumber,
-                                     String userName, String password, double credit) {
-        Manager manager = new Manager(name, lastName, email, phoneNumber, userName, password, credit,
+                                     String userName, String password, String creditString) throws Exception {
+        double credit;
+        try {
+            credit = Double.parseDouble(creditString);
+        } catch (Exception e) {
+            throw new LoginController.CreditIsNotNumber();
+        }
+        new Manager(name, lastName, email, phoneNumber, userName, password, credit,
                 false);
     }
 

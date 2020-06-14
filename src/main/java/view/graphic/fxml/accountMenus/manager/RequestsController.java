@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -16,31 +17,6 @@ import model.account.Manager;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ResourceBundle;
-
-import controller.Main;
-import controller.account.user.ManagerController;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import model.Requestable;
-import model.account.Manager;
-import view.graphic.MenuNames;
-import view.graphic.ProgramApplication;
-import view.graphic.alert.AlertController;
-import view.graphic.alert.AlertType;
-
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class RequestsController implements Initializable {
@@ -101,7 +77,7 @@ public class RequestsController implements Initializable {
     public void selectRequest(MouseEvent mouseEvent) throws Exception {
         id = table.getSelectionModel().getSelectedItem().getId();
         //Requestable requestable = Manager.getRequests().get(Integer.parseInt(id) - 1);
-        System.out.println(managerController.requestDetails(Integer.parseInt(id)));
+        //System.out.println(managerController.requestDetails(Integer.parseInt(id)));
         message.setText(managerController.requestDetails(Integer.parseInt(id)));
         title.setOpacity(1);
         message.setOpacity(0.7);
