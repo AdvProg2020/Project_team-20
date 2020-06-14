@@ -102,7 +102,6 @@ public class SellerController implements AccountController {
         }
     }
 
-
     public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
                               HashMap<String, ArrayList<String>> optionalFields,String path) {
         String name = details.get(0), description = details.get(1);

@@ -50,6 +50,7 @@ public class SellerMenuController {
         }
     }
 
+
     public void handleShowCategories(ActionEvent actionEvent) {
         loadUI("showCategories");
     }
@@ -91,4 +92,5 @@ public class SellerMenuController {
         Main.storeData();
         window.close();
     }
+
 }
