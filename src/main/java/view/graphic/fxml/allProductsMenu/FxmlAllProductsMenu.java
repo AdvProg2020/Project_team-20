@@ -1,26 +1,17 @@
 package view.graphic.fxml.allProductsMenu;
 
 import controller.product.filter.AllProductsController;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.text.Text;
 import model.product.Product;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class FxmlAllProductsMenu implements Initializable {
@@ -62,33 +53,50 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     private void initializeProducts(int from) {
+        System.out.println(products.get(from).getImagePath());
         Image img1 = new Image(new File("src/main/resources/Images/" + products.get(from).getImagePath()).toURI().toString());
         productImg1.setImage(img1);
         product1.setText(products.get(from).getName());
-        Image img2 = new Image(new File("src/main/resources/Images/" + products.get(1 + from).getImagePath()).toURI().toString());
-        productImg2.setImage(img2);
-        product2.setText(products.get(1 + from).getName());
-        Image img3 = new Image(new File("src/main/resources/Images/" + products.get(2 + from).getImagePath()).toURI().toString());
-        productImg3.setImage(img3);
-        product3.setText(products.get(2+ from).getName());
-        Image img4 = new Image(new File("src/main/resources/Images/" + products.get(3 + from).getImagePath()).toURI().toString());
-        productImg4.setImage(img4);
-        product4.setText(products.get(3+ from).getName());
-        Image img5 = new Image(new File("src/main/resources/Images/" + products.get(4 + from).getImagePath()).toURI().toString());
-        productImg5.setImage(img5);
-        product5.setText(products.get(4+ from).getName());
-        Image img6 = new Image(new File("src/main/resources/Images/" + products.get(5 + from).getImagePath()).toURI().toString());
-        productImg6.setImage(img6);
-        product6.setText(products.get(5+ from).getName());
-        Image img7 = new Image(new File("src/main/resources/Images/" + products.get(6 + from).getImagePath()).toURI().toString());
-        productImg7.setImage(img7);
-        product7.setText(products.get(6+ from).getName());
-        Image img8 = new Image(new File("src/main/resources/Images/" + products.get(7 + from).getImagePath()).toURI().toString());
-        productImg8.setImage(img8);
-        product8.setText(products.get(7+ from).getName());
-        Image img9 = new Image(new File("src/main/resources/Images/" + products.get(8 + from).getImagePath()).toURI().toString());
-        productImg9.setImage(img9);
-        product9.setText(products.get(8+ from).getName());
+        if (products.size()>(1+from)) {
+            Image img2 = new Image(new File("src/main/resources/Images/" + products.get(1 + from).getImagePath()).toURI().toString());
+            productImg2.setImage(img2);
+            product2.setText(products.get(1 + from).getName());
+        }
+        if (products.size()>(2+from)) {
+            Image img3 = new Image(new File("src/main/resources/Images/" + products.get(2 + from).getImagePath()).toURI().toString());
+            productImg3.setImage(img3);
+            product3.setText(products.get(2 + from).getName());
+        }
+        if (products.size()>(3+from)) {
+            Image img4 = new Image(new File("src/main/resources/Images/" + products.get(3 + from).getImagePath()).toURI().toString());
+            productImg4.setImage(img4);
+            product4.setText(products.get(3 + from).getName());
+        }
+        if (products.size()>(4+from)) {
+            Image img5 = new Image(new File("src/main/resources/Images/" + products.get(4 + from).getImagePath()).toURI().toString());
+            productImg5.setImage(img5);
+            product5.setText(products.get(4 + from).getName());
+        }
+        if (products.size()>(5+from)) {
+            Image img6 = new Image(new File("src/main/resources/Images/" + products.get(5 + from).getImagePath()).toURI().toString());
+            productImg6.setImage(img6);
+            product6.setText(products.get(5 + from).getName());
+        }
+        if (products.size()>(6+from)) {
+            Image img7 = new Image(new File("src/main/resources/Images/" + products.get(6 + from).getImagePath()).toURI().toString());
+            productImg7.setImage(img7);
+            product7.setText(products.get(6 + from).getName());
+        }
+        if (products.size()>(7+from)) {
+            Image img8 = new Image(new File("src/main/resources/Images/" + products.get(7 + from).getImagePath()).toURI().toString());
+            productImg8.setImage(img8);
+            product8.setText(products.get(7 + from).getName());
+        }
+        if (products.size()>(8+from)) {
+            Image img9 = new Image(new File("src/main/resources/Images/" + products.get(8 + from).getImagePath()).toURI().toString());
+            productImg9.setImage(img9);
+            product9.setText(products.get(8 + from).getName());
+        }
     }
 
 /*
