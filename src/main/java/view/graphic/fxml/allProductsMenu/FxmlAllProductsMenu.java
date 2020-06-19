@@ -1,9 +1,12 @@
 package view.graphic.fxml.allProductsMenu;
 
 import controller.product.filter.AllProductsController;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import model.product.Product;
 import view.graphic.alert.AlertController;
@@ -99,31 +102,20 @@ public class FxmlAllProductsMenu implements Initializable {
         }
     }
 
-/*
-    public void show(ActionEvent actionEvent) throws Exception{
-        Image img = new Image(new File("src/main/resources/Images/" + name).toURI().toString());
-        show.setImage(img);
+    public void mainTabBtnEnter(MouseEvent event) {
+        ((Button) event.getSource()).setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-border-radius: 3;");
     }
 
-    public void handleDragOver(DragEvent event) {
-        if (event.getDragboard().hasFiles()) {
-            event.acceptTransferModes(TransferMode.ANY);
-        }
+    public void mainTabBtnExit(MouseEvent event) {
+        ((Button) event.getSource()).setStyle("-fx-background-color: transparent;");
     }
 
-    public void handleDrop(DragEvent event) throws Exception{
-        List<File> files = event.getDragboard().getFiles();
-        Image img = new Image(new FileInputStream((files.get(0))));
-        get.setImage(img);
-        File outputFile = new File("src/main/resources/Images/hi.png");
-        name = "hi.png";
-        BufferedImage bImage = SwingFXUtils.fromFXImage(img, null);
-        try {
-            ImageIO.write(bImage, "png", outputFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void handleLogin(ActionEvent actionEvent) {
     }
-     */
 
+    public void handleViewCart(ActionEvent actionEvent) {
+    }
+
+    public void handleExit(ActionEvent actionEvent) {
+    }
 }
