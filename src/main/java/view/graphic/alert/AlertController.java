@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,19 +20,29 @@ public class AlertController implements Initializable {
     static AlertType alertType;
     static String text;
 
-    public void create(AlertType alertType, String text) throws Exception {
+    public void create(AlertType alertType, String text) {
         mainStage = new Stage();
         AlertController.alertType = alertType;
         AlertController.text = text;
         Parent root;
-        if (alertType.equals(AlertType.CONFIRMATION))
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/alert/alertSuccessFxml.fxml").toURI().toURL());
-        else
-            root =  FXMLLoader.load(new File("src/main/java/view/graphic/alert/alertErrorFxml.fxml").toURI().toURL());
-        Scene alertScene = new Scene(root, 219, 358);
-        mainStage.setScene(alertScene);
-        mainStage.initStyle(StageStyle.UNDECORATED);
-        mainStage.show();
+        if (alertType.equals(AlertType.CONFIRMATION)) {
+            try {
+                root = FXMLLoader.load(new File("src/main/java/view/graphic/alert/alertSuccessFxml.fxml").toURI().toURL());
+                Scene alertScene = new Scene(root, 219, 358);
+                mainStage.setScene(alertScene);
+                mainStage.initStyle(StageStyle.UNDECORATED);
+                mainStage.show();
+            } catch (IOException e) {e.printStackTrace();}
+        }
+        else {
+            try {
+                root = FXMLLoader.load(new File("src/main/java/view/graphic/alert/alertErrorFxml.fxml").toURI().toURL());
+                Scene alertScene = new Scene(root, 219, 358);
+                mainStage.setScene(alertScene);
+                mainStage.initStyle(StageStyle.UNDECORATED);
+                mainStage.show();
+            } catch (IOException e) {e.printStackTrace();}
+        }
     }
 
     public void enterMouse(MouseEvent event) {

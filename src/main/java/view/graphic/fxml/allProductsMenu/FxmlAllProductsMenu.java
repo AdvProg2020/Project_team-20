@@ -1,5 +1,6 @@
 package view.graphic.fxml.allProductsMenu;
 
+import com.jfoenix.controls.JFXCheckBox;
 import controller.product.filter.AllProductsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -7,8 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import model.product.Category;
 import model.product.Product;
+import view.graphic.MenuNames;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -18,6 +23,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class FxmlAllProductsMenu implements Initializable {
+    public Pane categories;
     private AllProductsController allProductsController = AllProductsController.getInstance();
     private static ArrayList<Product> products;
 
@@ -44,6 +50,7 @@ public class FxmlAllProductsMenu implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             products = allProductsController.showProducts();
+            initializeCategories();
         } catch (Exception e) {
             try {
                 new AlertController().create(AlertType.ERROR, e.getMessage());
@@ -53,6 +60,27 @@ public class FxmlAllProductsMenu implements Initializable {
         }
         if (products.size()!=0)
             initializeProducts(0);
+    }
+
+    private void initializeCategories() {
+        ArrayList<Category> allCategories = allProductsController.getAllCategories();
+        for (Category category:allCategories) {
+            JFXCheckBox jfxCheckBox = new JFXCheckBox();
+            jfxCheckBox.setText(category.getName());
+            jfxCheckBox.setOnMouseClicked( this::handleAddCategory );
+            categories.getChildren().add(jfxCheckBox);
+        }
+    }
+
+    private void handleAddCategory(MouseEvent event) {
+        String name = ((JFXCheckBox)event.getSource()).getText();
+        ArrayList<String> details = new ArrayList<>();
+        details.add(name);
+        try {
+            allProductsController.filter("category", details);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
     private void initializeProducts(int from) {
@@ -118,4 +146,9 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void handleExit(ActionEvent actionEvent) {
     }
+
+    public void handleMainMenu(ActionEvent actionEvent) {
+        ProgramApplication.setMenu(MenuNames.MAINMENU);
+    }
+
 }
