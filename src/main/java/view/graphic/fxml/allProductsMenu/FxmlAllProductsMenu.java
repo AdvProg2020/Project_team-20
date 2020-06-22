@@ -7,7 +7,10 @@ import controller.product.filter.AllProductsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -17,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.product.Category;
 import model.product.Product;
 import view.graphic.MenuNames;
@@ -27,6 +31,7 @@ import view.graphic.fxml.mainMenu.FxmlMainMenu;
 import view.graphic.score.Score;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -100,6 +105,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     private String categoryName;
     private int fromForBack;
+    private static Stage mainWindow;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -439,29 +445,123 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void showProduct1(ActionEvent actionEvent) {
+        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            mainWindow.setScene(new Scene(root, 994, 666));
+            mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showProduct2(ActionEvent actionEvent) {
+        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+1));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            mainWindow.setScene(new Scene(root, 994, 666));
+            mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showProduct3(ActionEvent actionEvent) {
+        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+2));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            mainWindow.setScene(new Scene(root, 994, 666));
+            mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showProduct4(ActionEvent actionEvent) {
+        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+3));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            mainWindow.setScene(new Scene(root, 994, 666));
+            mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showProduct5(ActionEvent actionEvent) {
+        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+4));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            mainWindow.setScene(new Scene(root, 994, 666));
+            mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showProduct6(ActionEvent actionEvent) {
+        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+5));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            mainWindow.setScene(new Scene(root, 994, 666));
+            mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showProduct7(ActionEvent actionEvent) {
+        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+6));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            mainWindow.setScene(new Scene(root, 994, 666));
+            mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showProduct8(ActionEvent actionEvent) {
+        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+7));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            mainWindow.setScene(new Scene(root, 994, 666));
+            mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showProduct9(ActionEvent actionEvent) {
+        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+8));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            mainWindow.setScene(new Scene(root, 994, 666));
+            mainWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setMainWindow(Stage window) {
+        mainWindow = window;
     }
 }
