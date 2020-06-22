@@ -1,118 +1,264 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="994.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu">
    <children>
-      <GridPane layoutX="158.0" layoutY="69.0" prefHeight="529.0" prefWidth="679.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <Pane layoutX="24.0" layoutY="45.0" prefHeight="612.0" prefWidth="946.0">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #d1cfcf;">
+            <ImageView fitHeight="556.0" fitWidth="975.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../resources/Images/AllProductsBack2.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="688.0" layoutY="150.0" prefHeight="458.0" prefWidth="238.0">
                <children>
-                  <ImageView fx:id="productImg1" fitHeight="136.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="product1" fill="#575957" layoutX="14.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                  <Text fill="#b6b5b5" layoutX="20.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtering" wrappingWidth="49.79931640625">
                      <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
+                        <Font size="11.0" />
+                     </font></Text>
+                  <Text fill="#b6b5b5" layoutX="19.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorting" wrappingWidth="49.79931640625">
+                     <font>
+                        <Font size="11.0" />
+                     </font></Text>
+                  <VBox layoutX="20.0" layoutY="30.0" prefHeight="226.0" prefWidth="200.0" style="-fx-border-color: #9aeee7;">
+                     <children>
+                        <Text fill="#252e3b" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories" wrappingWidth="82.2060546875">
+                           <VBox.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Pane fx:id="categories" prefHeight="70.0" prefWidth="191.0">
+                           <VBox.margin>
+                              <Insets left="2.0" right="2.0" top="4.0" />
+                           </VBox.margin>
+                           <children>
+                              <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
+                           </children>
+                        </Pane>
+                     </children></VBox>
+                  <VBox layoutX="19.0" layoutY="288.0" prefHeight="162.0" prefWidth="200.0" style="-fx-border-color: #9aeee7;" />
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #d1cfcf;" GridPane.columnIndex="1">
+            <Text fill="#252f3d" layoutX="236.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We ship over 45 milion products around the world" textAlignment="CENTER" wrappingWidth="299.2060546875">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="175.0" fitWidth="186.0" layoutX="536.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../resources/Images/AllProductsImg.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="19.0" layoutY="150.0" prefHeight="424.0" prefWidth="669.0" style="-fx-background-color: white;">
                <children>
-                  <ImageView fx:id="productImg2" fitHeight="136.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="product2" fill="#575957" layoutX="14.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
+                  <ScrollPane layoutX="1.0" prefHeight="424.0" prefWidth="669.0">
+                     <content>
+                        <GridPane prefHeight="700.0" prefWidth="650.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;">
+                                 <children>
+                                    <ImageView fx:id="productImg1" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text fx:id="product1" fill="#575957" layoutX="16.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="product1Price" fill="#575957" layoutX="16.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product1Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1">
+                                 <children>
+                                    <ImageView fx:id="productImg2" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text fx:id="product2" fill="#575957" layoutX="16.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="product2Price" fill="#575957" layoutX="16.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product2Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2">
+                                 <children>
+                                    <ImageView fx:id="productImg3" fitHeight="121.0" fitWidth="181.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text fx:id="product3" fill="#575957" layoutX="18.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="product3Price" fill="#575957" layoutX="18.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product3Score" fitHeight="25.0" fitWidth="99.0" layoutX="15.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="productImg4" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text fx:id="product4" fill="#575957" layoutX="16.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="product4Price" fill="#575957" layoutX="16.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product4Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="productImg5" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text fx:id="product5" fill="#575957" layoutX="16.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="product5Price" fill="#575957" layoutX="16.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product5Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <children>
+                                    <ImageView fx:id="productImg6" fitHeight="121.0" fitWidth="186.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text fx:id="product6" fill="#575957" layoutX="15.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="product6Price" fill="#575957" layoutX="15.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product6Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="productImg7" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text fx:id="product7" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="product7Price" fill="#575957" layoutX="16.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product7Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="productImg8" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text fx:id="product8" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="product8Price" fill="#575957" layoutX="16.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product8Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <children>
+                                    <ImageView fx:id="productImg9" fitHeight="121.0" fitWidth="186.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text fx:id="product9" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text fx:id="product9Price" fill="#575957" layoutX="15.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product9Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
                </children>
             </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #d1cfcf;" GridPane.columnIndex="2">
-               <children>
-                  <ImageView fx:id="productImg3" fitHeight="136.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="product3" fill="#575957" layoutX="14.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #d1cfcf;" GridPane.rowIndex="1">
-               <children>
-                  <ImageView fx:id="productImg4" fitHeight="136.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="product4" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #d1cfcf;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <ImageView fx:id="productImg5" fitHeight="136.0" fitWidth="227.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="product5" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #d1cfcf;" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <children>
-                  <ImageView fx:id="productImg6" fitHeight="136.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="product6" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #d1cfcf;" GridPane.rowIndex="2">
-               <children>
-                  <ImageView fx:id="productImg7" fitHeight="136.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="product7" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #d1cfcf;" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                  <ImageView fx:id="productImg8" fitHeight="136.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="product8" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #d1cfcf;" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <children>
-                  <ImageView fx:id="productImg9" fitHeight="136.0" fitWidth="227.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="product9" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
+            <JFXButton layoutX="74.0" layoutY="577.0" prefHeight="13.0" prefWidth="49.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Next" textFill="#252e3b" />
+            <JFXButton layoutX="20.0" layoutY="577.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Back" textFill="#252e3b" />
          </children>
-      </GridPane>
+      </Pane>
+      <Pane prefHeight="47.0" prefWidth="994.0">
+         <children>
+            <Pane layoutY="-2.0" prefHeight="48.0" prefWidth="994.0" style="-fx-background-color: #252e3b;">
+               <children>
+                  <Button layoutX="834.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleLogin" onMouseEntered="#mainTabBtnEnter" onMouseExited="#mainTabBtnExit" prefHeight="18.0" prefWidth="73.0" style="-fx-background-color: transparent;" text="Login" textFill="#b6b5b5">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="907.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleViewCart" onMouseEntered="#mainTabBtnEnter" onMouseExited="#mainTabBtnExit" prefHeight="18.0" prefWidth="73.0" style="-fx-background-color: transparent;" text="Cart" textFill="#b6b5b5">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="661.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleExit" onMouseEntered="#mainTabBtnEnter" onMouseExited="#mainTabBtnExit" prefHeight="18.0" prefWidth="73.0" style="-fx-background-color: transparent;" text="Exit" textFill="#b6b5b5">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="728.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleMainMenu" onMouseEntered="#mainTabBtnEnter" onMouseExited="#mainTabBtnExit" prefHeight="32.0" prefWidth="106.0" style="-fx-background-color: transparent;" text="MainMenu" textFill="#b6b5b5">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children></Pane>
+         </children>
+      </Pane>
    </children>
 </Pane>

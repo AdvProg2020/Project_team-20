@@ -495,4 +495,8 @@ public class Product implements Requestable {
     public GraphicPackage getGraphicPackage() {
         return graphicPackage;
     }
+
+    public double getFirstPrice() {
+        return getPrice(getSellerByUsername(sellersUsername.get(0)));
+    }
 }
