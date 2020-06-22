@@ -6,6 +6,7 @@ import controller.product.filter.AllProductsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,14 +51,14 @@ public class FxmlAllProductsMenu implements Initializable {
     public Pane filters;
     public Pane sortingPart;
     public TextField productName;
-    public Button filterByNameButton;
     public Pane filters1;
-    public Button numericalFilterButton;
     public TextField min;
     public TextField max;
     public TextField numericalFieldName;
     public TextField optionalField;
-    public Button optionalFilterButton;
+    public CheckBox optionalFilterBox;
+    public CheckBox numericalFilterBox;
+    public CheckBox filterByNameBox;
     private AllProductsController allProductsController = AllProductsController.getInstance();
     private static ArrayList<Product> products;
 
@@ -207,38 +208,55 @@ public class FxmlAllProductsMenu implements Initializable {
         ProgramApplication.setMenu(MenuNames.MAINMENU);
     }
 
-    public void handleFilterByName(ActionEvent actionEvent) {
+    public void handleNameFilter(ActionEvent actionEvent) throws Exception {
         String name = productName.getText();
-        ArrayList<String> details = new ArrayList<>();
-        details.add(name);
-        allProductsController.filterByProductName(details);
-        //not sure
-        initializeProducts(0);
-    }
-
-    public void handleNumericalFilter(ActionEvent actionEvent) {
-        String name = numericalFieldName.getText();
-        String MIN = min.getText();
-        String MAX = max.getText();
-        ArrayList<String> details = new ArrayList<>();
-        details.add(name);
-        details.add(MIN);
-        details.add(MAX);
-        allProductsController.filterByNumericalFilter(details);
-        //not sure
-        initializeProducts(0);
-    }
-
-    public void handleOptionalFilter(ActionEvent actionEvent) {
-        String all = optionalField.getText();
-        String[] strings = all.split("\\s+");
-        ArrayList<String> details = new ArrayList<>();
-        details.add(strings[0]);
-        for(int i = 1 ; i<strings.length ; i++){
-            details.add(strings[i]);
+        if(filterByNameBox.isSelected()){
+            ArrayList<String> details = new ArrayList<>();
+            details.add(name);
+            allProductsController.filterByProductName(details);
+            //not sure
+            initializeProducts(0);
         }
-        allProductsController.filterByOptionalFilter(details);
-        //not sure
-        initializeProducts(0);
+        else {
+            allProductsController.disAbleFilter(name);
+        }
+    }
+
+    public void handleNumericalFieldFilter(ActionEvent actionEvent) throws Exception {
+        String name = numericalFieldName.getText();
+        if(numericalFilterBox.isSelected()){
+            String MIN = min.getText();
+            String MAX = max.getText();
+            ArrayList<String> details = new ArrayList<>();
+            details.add(name);
+            details.add(MIN);
+            details.add(MAX);
+            allProductsController.filterByNumericalFilter(details);
+            //not sure
+            initializeProducts(0);
+        }
+        else{
+            allProductsController.disAbleFilter(name);
+        }
+    }
+
+    public void handleOptionalFieldFilter(ActionEvent actionEvent) throws Exception {
+        if(optionalFilterBox.isSelected()){
+            String all = optionalField.getText();
+            String[] strings = all.split("\\s+");
+            ArrayList<String> details = new ArrayList<>();
+            details.add(strings[0]);
+            for(int i = 1 ; i<strings.length ; i++){
+                details.add(strings[i]);
+            }
+            allProductsController.filterByOptionalFilter(details);
+            //not sure
+            initializeProducts(0);
+        }
+        else {
+            String all = optionalField.getText();
+            String[] strings = all.split("\\s+");
+            allProductsController.disAbleFilter(strings[0]);
+        }
     }
 }
