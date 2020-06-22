@@ -180,8 +180,8 @@ public class ManagerController implements controller.account.user.AccountControl
         return getAllCategories();
     }
 
-    public void editCategoryName(String name, String newName) throws Exception {
-        Category category = getCategoryByName(name);
+    public void editCategoryName(String categoryName, String newName) throws Exception {
+        Category category = getCategoryByName(categoryName);
         category.setName(newName);
     }
 
@@ -215,8 +215,8 @@ public class ManagerController implements controller.account.user.AccountControl
         removeCategory(categoryName);
     }
 
-    public void addProductToCategory(String categoryName, String productId) throws Exception {
-        Product product = getProductById(productId);
+    public void addProductToCategory(String categoryName, String productName) throws Exception {
+        Product product = Product.getProductWithItsName(productName);
         Category category = getCategoryByName(categoryName);
         category.addProduct(product);
     }
