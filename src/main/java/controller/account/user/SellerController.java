@@ -17,8 +17,10 @@ import model.product.Sale;
 import model.receipt.SellerReceipt;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class SellerController implements AccountController {
     private static SellerController sellerController = null;
@@ -173,32 +175,22 @@ public class SellerController implements AccountController {
         return getSaleWithId(offId);
     }
 
-    public void editOff(String offId, ArrayList<String> details, ArrayList<String> productIdsToRemove,
+    public void editOff(String offId, LocalDateTime startDate, LocalDateTime endDate, String salePercentageStr, ArrayList<String> productIdsToRemove,
                         ArrayList<String> productIdsToAdd) throws Exception {
         Sale sale = getSaleWithId(offId);
-        LocalDateTime startDate, endDate;
-        double salePercentage;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
         ArrayList<Product> productsToRemove = Product.getProductsWithIds(productIdsToRemove),
                 productsToAdd = Product.getProductsWithIds(productIdsToAdd), newProducts = getSaleProducts(offId);
-        if (!details.get(0).isEmpty()) {
-            try {
-                startDate = LocalDateTime.parse(details.get(0), formatter);
-            } catch (Exception e) {
-                throw new FormatInvalidException();
-            }
-        } else startDate = sale.getStartDate();
-        if (!details.get(1).isEmpty()) {
-            try {
-                endDate = LocalDateTime.parse(details.get(1), formatter);
-            } catch (Exception e) {
-                throw new FormatInvalidException();
-            }
-        } else endDate = sale.getEndDate();
-        if (!details.get(2).isEmpty()) {
-            salePercentage = Double.parseDouble(details.get(2)) / 100;
+        double salePercentage;
+        if (startDate==null) {
+            startDate = sale.getStartDate();
+        }
+        if (endDate==null) {
+            endDate = sale.getEndDate();
+        }
+        if (salePercentageStr!=null) {
+            salePercentage = Double.parseDouble(salePercentageStr) / 100;
         } else salePercentage = sale.getSalePercentage();
-        //momkene hamchin producty tosh nabashe onvaght chi(in ro throw mikone hala baiad check she
+
         for (Product product : productsToRemove) {
             if (seller.hasProduct(product.getId()))
                 newProducts.remove(product);
@@ -206,6 +198,7 @@ public class SellerController implements AccountController {
                 throw new HaveNotThisProductException(product);
         }
         newProducts.addAll(productsToAdd);
+        System.out.println(newProducts.size());
         sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
         Manager.addRequest(sale);
     }

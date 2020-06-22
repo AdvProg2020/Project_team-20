@@ -97,5 +97,6 @@ public class CreateDiscountController implements Initializable {
         startTimePicker.setValue(null);
         endDatePicker.setValue(null);
         endTimePicker.setValue(null);
+        chosenTable.getItems().clear();
     }
 }
