@@ -192,17 +192,21 @@ public class Category {
         }
         for (String sub : subCategoriesName) {
             try {
-                subCategoriesString += (j++) + ": \n" + getCategoryByName(sub).toString() + "\n";
+                subCategoriesString += "\n" + (j++) + ": \n" + getCategoryByName(sub).toString() + "\n";
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         for (String productID : productIDs) {
-            productIDsString += (k++) + ": " + productID + "\n";
+            try {
+                productIDsString += "\n" + (k++) + ": " + Product.getProductById(productID).getName() + "\n";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return "name:       " + name + '\n' +
                 "fieldNames:     " + fieldNamesString +
                 "subCategories:    " + subCategoriesString +
-                "productIDs:     " + productIDsString;
+                "product names:     " + productIDsString;
     }
 }

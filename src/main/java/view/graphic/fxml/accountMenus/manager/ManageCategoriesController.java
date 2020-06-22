@@ -109,33 +109,121 @@ public class ManageCategoriesController implements Initializable {
     }
 
     private void removeSub() {
-
+        String name = removeSubEdit.getText();
+        if (name.isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.removeSubCategoryFromAllSubCategories(category.getName(), name);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(category.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
     private void removeProduct() {
-
+        String name = removeProductEdit.getText();
+        if (name.isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.removeProductFromCategory(category.getName(), name);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(category.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
     private void addField() {
+        String name = addFieldPartEdit.getText();
+        if (name.isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.addNewFieldToCategory(category.getName(), name);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(category.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
     private void removeField() {
+        String name = removeFieldEdit.getText();
+        if (name.isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.removeFieldFromCategory(category.getName(), name);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(category.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
     private void editName() {
-
+        String name = nameEdit.getText();
+        if (name.isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.editCategoryName(category.getName(), name);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(category.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
     private void addSub() {
-
+        String name = addSubEdit.getText();
+        if (name.isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.addSubCategoryToCategory(category.getName(), name);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(category.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
     private void addProduct() {
+        String name = addProductEdit.getText();
+        if (name.isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.addProductToCategory(category.getName(), name);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(category.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
 
-
     public void handleRemove(ActionEvent actionEvent) {
+        try {
+            managerController.managerRemoveCategory(category.getName());
+            ArrayList<Category> categories = managerController.manageCategories();
+            table.getItems().setAll(categories);
+            categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            new AlertController().create(AlertType.ERROR, "remove was successful");
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
     public void handleEnterRemove(MouseEvent mouseEvent) {
