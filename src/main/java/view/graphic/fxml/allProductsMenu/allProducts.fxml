@@ -93,6 +93,11 @@
                                        </font>
                                     </Text>
                                     <ImageView fx:id="product1Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Button layoutX="16.0" layoutY="209.0" mnemonicParsing="false" text="Button">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1">
