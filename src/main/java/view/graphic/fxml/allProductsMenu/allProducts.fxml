@@ -29,69 +29,86 @@
             </ImageView>
             <Pane layoutX="688.0" layoutY="150.0" prefHeight="458.0" prefWidth="238.0">
                <children>
-                  <Text fill="#b6b5b5" layoutX="20.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtering" wrappingWidth="49.79931640625">
+                  <Text fill="#b6b5b5" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtering" wrappingWidth="49.79931640625">
                      <font>
                         <Font size="11.0" />
                      </font></Text>
-                  <Text fill="#b6b5b5" layoutX="20.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorting" wrappingWidth="49.79931640625">
+                  <Text fill="#b6b5b5" layoutX="14.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorting" wrappingWidth="49.79931640625">
                      <font>
                         <Font size="11.0" />
                      </font></Text>
-                  <VBox layoutX="20.0" layoutY="30.0" prefHeight="330.0" prefWidth="200.0" style="-fx-border-color: #9aeee7;">
+                  <VBox layoutX="16.0" layoutY="373.0" prefHeight="76.0" prefWidth="204.0" style="-fx-border-color: #9aeee7;">
                      <children>
-                        <Text fill="#252e3b" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories" wrappingWidth="82.2060546875">
-                           <VBox.margin>
-                              <Insets left="5.0" top="5.0" />
-                           </VBox.margin>
-                        </Text>
-                        <Pane fx:id="categories" prefHeight="57.0" prefWidth="193.0">
-                           <VBox.margin>
-                              <Insets left="2.0" right="2.0" top="4.0" />
-                           </VBox.margin>
+                        <Pane fx:id="sortingPart" prefHeight="69.0" prefWidth="198.0">
                            <children>
                               <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
-                              <ChoiceBox fx:id="choiceBox" layoutX="2.0" layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" />
-                              <CheckBox fx:id="categoryBox" layoutX="72.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleCategoryFilter" text="Filter" />
-                           </children>
-                        </Pane>
-                        <Text fill="#252e3b" layoutX="17.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name" wrappingWidth="82.2060546875" />
-                        <Pane fx:id="filters" layoutX="13.0" layoutY="38.0" prefHeight="65.0" prefWidth="197.0">
-                           <children>
-                              <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
-                              <TextField fx:id="productName" layoutX="4.0" layoutY="3.0" prefHeight="25.0" prefWidth="175.0" promptText="product name" />
-                              <CheckBox fx:id="filterByNameBox" layoutX="74.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleNameFilter" text="Filter" />
-                           </children>
-                        </Pane>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Numerical Field" />
-                        <Pane fx:id="filters1" layoutX="11.0" layoutY="123.0" prefHeight="83.0" prefWidth="197.0">
-                           <children>
-                              <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
-                              <TextField fx:id="min" layoutX="14.0" layoutY="29.0" prefHeight="25.0" prefWidth="59.0" promptText="Min" />
-                              <TextField fx:id="max" layoutX="116.0" layoutY="29.0" prefHeight="25.0" prefWidth="59.0" promptText="Max" />
-                              <TextField fx:id="numericalFieldName" layoutX="4.0" layoutY="2.0" prefHeight="25.0" prefWidth="181.0" promptText="Field's Name" />
-                              <CheckBox fx:id="numericalFilterBox" layoutX="74.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleNumericalFieldFilter" text="Filter" />
-                           </children>
-                        </Pane>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Optional Field" />
-                        <Separator prefHeight="3.0" prefWidth="165.0" />
-                        <Pane prefHeight="59.0" prefWidth="197.0">
-                           <children>
-                              <TextField fx:id="optionalField" layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="181.0" promptText="Field's Name : Type1 type2 .." />
-                              <CheckBox fx:id="optionalFilterBox" layoutX="74.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleOptionalFieldFilter" text="Filter" />
-                           </children>
-                        </Pane>
-                     </children></VBox>
-                  <VBox layoutX="19.0" layoutY="375.0" prefHeight="76.0" prefWidth="200.0" style="-fx-border-color: #9aeee7;">
-                     <children>
-                        <Pane fx:id="sortingPart" prefHeight="96.0" prefWidth="197.0">
-                           <children>
-                              <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
-                              <CheckBox fx:id="sortByDate" layoutX="13.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleDateSort" text="By Dates" />
-                              <CheckBox fx:id="sortByScores" layoutX="11.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleScoresSort" text="By Scores" />
+                              <CheckBox fx:id="sortByDate" layoutX="11.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleDateSort" text="By Dates" />
+                              <CheckBox fx:id="sortByScores" layoutX="11.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleScoresSort" text="By Scores" />
                               <CheckBox fx:id="sortByNumberOfViews" layoutX="11.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleNumberOfViewsSort" text="By Number Of Views" />
                            </children>
                         </Pane>
                      </children></VBox>
+                  <ScrollPane layoutX="14.0" layoutY="27.0" prefHeight="314.0" prefWidth="204.0" style="-fx-border-color: #9aeee7;">
+                     <content>
+                        <VBox prefHeight="386.0" prefWidth="184.0">
+                           <children>
+                              <Text fill="#252e3b" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories" wrappingWidth="82.2060546875">
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Pane fx:id="categories" prefHeight="52.0" prefWidth="194.0">
+                                 <VBox.margin>
+                                    <Insets left="2.0" right="2.0" top="4.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
+                                    <ChoiceBox fx:id="choiceBox" layoutX="2.0" layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" />
+                                    <CheckBox fx:id="categoryBox" layoutX="72.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleCategoryFilter" text="Filter" />
+                                 </children>
+                              </Pane>
+                              <Text fill="#252e3b" layoutX="17.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name" wrappingWidth="125.2060546875">
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" left="5.0" top="15.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Pane fx:id="filters" layoutX="13.0" layoutY="38.0" prefHeight="55.0" prefWidth="198.0">
+                                 <children>
+                                    <Separator layoutX="4.0" prefHeight="3.0" prefWidth="165.0" />
+                                    <TextField fx:id="productName" layoutX="4.0" layoutY="3.0" prefHeight="25.0" prefWidth="175.0" promptText="product name" />
+                                    <CheckBox fx:id="filterByNameBox" layoutX="74.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleNameFilter" text="Filter" />
+                                 </children>
+                              </Pane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Numerical Field">
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" left="5.0" top="15.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Pane fx:id="filters1" layoutX="11.0" layoutY="123.0" prefHeight="83.0" prefWidth="197.0">
+                                 <children>
+                                    <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
+                                    <TextField fx:id="min" layoutX="14.0" layoutY="33.0" prefHeight="25.0" prefWidth="59.0" promptText="Min" />
+                                    <TextField fx:id="max" layoutX="116.0" layoutY="33.0" prefHeight="25.0" prefWidth="59.0" promptText="Max" />
+                                    <TextField fx:id="numericalFieldName" layoutX="4.0" layoutY="2.0" prefHeight="27.0" prefWidth="175.0" promptText="Field's Name" />
+                                    <CheckBox fx:id="numericalFilterBox" layoutX="74.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleNumericalFieldFilter" text="Filter" />
+                                 </children>
+                              </Pane>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Optional Field">
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" left="5.0" top="15.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Pane prefHeight="59.0" prefWidth="197.0">
+                                 <children>
+                                    <TextField fx:id="optionalField" layoutX="7.0" layoutY="3.0" prefHeight="27.0" prefWidth="175.0" promptText="Field's Name : Type1 type2 .." />
+                                    <CheckBox fx:id="optionalFilterBox" layoutX="74.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleOptionalFieldFilter" text="Filter" />
+                                    <Separator layoutX="4.0" prefHeight="3.0" prefWidth="165.0" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </children>
             </Pane>
             <Text fill="#252f3d" layoutX="236.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We ship over 45 milion products around the world" textAlignment="CENTER" wrappingWidth="299.2060546875">
@@ -134,11 +151,11 @@
                                        </font>
                                     </Text>
                                     <ImageView fx:id="product1Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Button layoutX="16.0" layoutY="209.0" mnemonicParsing="false" text="Button">
+                                    <JFXButton fx:id="showProduct1" layoutX="17.0" layoutY="205.0" onAction="#showProduct1" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Show" textFill="#252e3b">
                                        <font>
                                           <Font size="11.0" />
                                        </font>
-                                    </Button>
+                                    </JFXButton>
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1">
@@ -155,6 +172,11 @@
                                        </font>
                                     </Text>
                                     <ImageView fx:id="product2Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXButton fx:id="showProduct2" layoutX="17.0" layoutY="205.0" onAction="#showProduct2" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Show" textFill="#252e3b">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </JFXButton>
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2">
@@ -171,6 +193,11 @@
                                        </font>
                                     </Text>
                                     <ImageView fx:id="product3Score" fitHeight="25.0" fitWidth="99.0" layoutX="15.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXButton fx:id="showProduct3" layoutX="17.0" layoutY="205.0" onAction="#showProduct3" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Show" textFill="#252e3b">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </JFXButton>
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.rowIndex="1">
@@ -187,6 +214,11 @@
                                        </font>
                                     </Text>
                                     <ImageView fx:id="product4Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXButton fx:id="showProduct4" layoutX="17.0" layoutY="205.0" onAction="#showProduct4" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Show" textFill="#252e3b">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </JFXButton>
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -203,6 +235,11 @@
                                        </font>
                                     </Text>
                                     <ImageView fx:id="product5Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXButton fx:id="showProduct5" layoutX="17.0" layoutY="205.0" onAction="#showProduct5" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Show" textFill="#252e3b">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </JFXButton>
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -219,6 +256,11 @@
                                        </font>
                                     </Text>
                                     <ImageView fx:id="product6Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXButton fx:id="showProduct6" layoutX="17.0" layoutY="205.0" onAction="#showProduct6" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Show" textFill="#252e3b">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </JFXButton>
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.rowIndex="2">
@@ -235,6 +277,11 @@
                                        </font>
                                     </Text>
                                     <ImageView fx:id="product7Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXButton fx:id="showProduct7" layoutX="17.0" layoutY="205.0" onAction="#showProduct7" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Show" textFill="#252e3b">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </JFXButton>
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -251,6 +298,11 @@
                                        </font>
                                     </Text>
                                     <ImageView fx:id="product8Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXButton fx:id="showProduct8" layoutX="17.0" layoutY="205.0" onAction="#showProduct8" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Show" textFill="#252e3b">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </JFXButton>
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -267,6 +319,11 @@
                                        </font>
                                     </Text>
                                     <ImageView fx:id="product9Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                    <JFXButton fx:id="showProduct9" layoutX="17.0" layoutY="205.0" onAction="#showProduct9" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Show" textFill="#252e3b">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </JFXButton>
                                  </children>
                               </Pane>
                            </children>

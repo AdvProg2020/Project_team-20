@@ -1,5 +1,6 @@
 package view.graphic.fxml.allProductsMenu;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import controller.Main;
 import controller.product.filter.AllProductsController;
@@ -7,13 +8,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.product.Category;
 import model.product.Product;
 import view.graphic.MenuNames;
@@ -64,6 +67,15 @@ public class FxmlAllProductsMenu implements Initializable {
     public CheckBox sortByDate;
     public CheckBox sortByScores;
     public CheckBox sortByNumberOfViews;
+    public JFXButton showProduct1;
+    public JFXButton showProduct2;
+    public JFXButton showProduct3;
+    public JFXButton showProduct4;
+    public JFXButton showProduct5;
+    public JFXButton showProduct6;
+    public JFXButton showProduct7;
+    public JFXButton showProduct8;
+    public JFXButton showProduct9;
     private AllProductsController allProductsController = AllProductsController.getInstance();
     private static ArrayList<Product> products;
 
@@ -138,13 +150,14 @@ public class FxmlAllProductsMenu implements Initializable {
         product1.setText(products.get(from).getName());
         product1Price.setText(Double.toString(products.get(from).getFirstPrice()));
         product1Score.setImage(new Score(products.get(from).getAverage()).getScoreImg());
-
+        showProduct1.setOpacity(1);
         if (products.size() > (1 + from)) {
             Image img2 = new Image(new File("src/main/resources/Images/" + products.get(1 + from).getImagePath()).toURI().toString());
             productImg2.setImage(img2);
             product2.setText(products.get(1 + from).getName());
             product2Price.setText(Double.toString(products.get(1 + from).getFirstPrice()));
             product2Score.setImage(new Score(products.get(1 + from).getAverage()).getScoreImg());
+            showProduct2.setOpacity(1);
         }
         if (products.size() > (2 + from)) {
             Image img3 = new Image(new File("src/main/resources/Images/" + products.get(2 + from).getImagePath()).toURI().toString());
@@ -152,6 +165,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product3.setText(products.get(2 + from).getName());
             product3Price.setText(Double.toString(products.get(2 + from).getFirstPrice()));
             product3Score.setImage(new Score(products.get(2 + from).getAverage()).getScoreImg());
+            showProduct3.setOpacity(1);
         }
         if (products.size() > (3 + from)) {
             Image img4 = new Image(new File("src/main/resources/Images/" + products.get(3 + from).getImagePath()).toURI().toString());
@@ -159,6 +173,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product4.setText(products.get(3 + from).getName());
             product4Price.setText(Double.toString(products.get(3 + from).getFirstPrice()));
             product4Score.setImage(new Score(products.get(3 + from).getAverage()).getScoreImg());
+            showProduct4.setOpacity(1);
         }
         if (products.size() > (4 + from)) {
             Image img5 = new Image(new File("src/main/resources/Images/" + products.get(4 + from).getImagePath()).toURI().toString());
@@ -166,6 +181,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product5.setText(products.get(4 + from).getName());
             product5Price.setText(Double.toString(products.get(4 + from).getFirstPrice()));
             product5Score.setImage(new Score(products.get(4 + from).getAverage()).getScoreImg());
+            showProduct5.setOpacity(1);
         }
         if (products.size() > (5 + from)) {
             Image img6 = new Image(new File("src/main/resources/Images/" + products.get(5 + from).getImagePath()).toURI().toString());
@@ -173,6 +189,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product6.setText(products.get(5 + from).getName());
             product6Price.setText(Double.toString(products.get(5 + from).getFirstPrice()));
             product6Score.setImage(new Score(products.get(5 + from).getAverage()).getScoreImg());
+            showProduct6.setOpacity(1);
         }
         if (products.size() > (6 + from)) {
             Image img7 = new Image(new File("src/main/resources/Images/" + products.get(6 + from).getImagePath()).toURI().toString());
@@ -180,6 +197,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product7.setText(products.get(6 + from).getName());
             product7Price.setText(Double.toString(products.get(6 + from).getFirstPrice()));
             product7Score.setImage(new Score(products.get(6 + from).getAverage()).getScoreImg());
+            showProduct7.setOpacity(1);
         }
         if (products.size() > (7 + from)) {
             Image img8 = new Image(new File("src/main/resources/Images/" + products.get(7 + from).getImagePath()).toURI().toString());
@@ -187,6 +205,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product8.setText(products.get(7 + from).getName());
             product8Price.setText(Double.toString(products.get(7 + from).getFirstPrice()));
             product8Score.setImage(new Score(products.get(7 + from).getAverage()).getScoreImg());
+            showProduct8.setOpacity(1);
         }
         if (products.size() > (8 + from)) {
             Image img9 = new Image(new File("src/main/resources/Images/" + products.get(8 + from).getImagePath()).toURI().toString());
@@ -194,6 +213,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product9.setText(products.get(8 + from).getName());
             product9Price.setText(Double.toString(products.get(8 + from).getFirstPrice()));
             product9Score.setImage(new Score(products.get(8 + from).getAverage()).getScoreImg());
+            showProduct9.setOpacity(1);
         }
     }
 
@@ -314,38 +334,47 @@ public class FxmlAllProductsMenu implements Initializable {
         product1.setText("");
         product1Price.setText("");
         product1Score.setImage(null);
+        showProduct1.setOpacity(0);
         productImg2.setImage(null);
         product2.setText("");
         product2Price.setText("");
         product2Score.setImage(null);
+        showProduct2.setOpacity(0);
         productImg3.setImage(null);
         product3.setText("");
         product3Price.setText("");
         product3Score.setImage(null);
+        showProduct3.setOpacity(0);
         productImg4.setImage(null);
         product4.setText("");
         product4Price.setText("");
         product4Score.setImage(null);
+        showProduct4.setOpacity(0);
         productImg5.setImage(null);
         product5.setText("");
         product5Price.setText("");
         product5Score.setImage(null);
+        showProduct5.setOpacity(0);
         productImg6.setImage(null);
         product6.setText("");
         product6Price.setText("");
         product6Score.setImage(null);
+        showProduct6.setOpacity(0);
         productImg7.setImage(null);
         product7.setText("");
         product7Price.setText("");
         product7Score.setImage(null);
+        showProduct7.setOpacity(0);
         productImg8.setImage(null);
         product8.setText("");
         product8Price.setText("");
         product8Score.setImage(null);
+        showProduct8.setOpacity(0);
         productImg9.setImage(null);
         product9.setText("");
         product9Price.setText("");
         product9Score.setImage(null);
+        showProduct9.setOpacity(0);
     }
 
     private void disableCategoryFields(Category category) throws Exception {
@@ -407,5 +436,32 @@ public class FxmlAllProductsMenu implements Initializable {
         fromForBack = fromForBack - 9;
         if (fromForBack >= 0)
             initializeProducts(fromForBack);
+    }
+
+    public void showProduct1(ActionEvent actionEvent) {
+    }
+
+    public void showProduct2(ActionEvent actionEvent) {
+    }
+
+    public void showProduct3(ActionEvent actionEvent) {
+    }
+
+    public void showProduct4(ActionEvent actionEvent) {
+    }
+
+    public void showProduct5(ActionEvent actionEvent) {
+    }
+
+    public void showProduct6(ActionEvent actionEvent) {
+    }
+
+    public void showProduct7(ActionEvent actionEvent) {
+    }
+
+    public void showProduct8(ActionEvent actionEvent) {
+    }
+
+    public void showProduct9(ActionEvent actionEvent) {
     }
 }
