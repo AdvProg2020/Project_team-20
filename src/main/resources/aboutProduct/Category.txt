@@ -1,0 +1,5 @@
+{"@type":"model.product.Category","@val":{"name":"dasd","fieldNames":[],"subCategoriesName":[],"productIDs":[]}}
+{"@type":"model.product.Category","@val":{"name":"wq","fieldNames":[],"subCategoriesName":[],"productIDs":[]}}
+{"@type":"model.product.Category","@val":{"name":"ew","fieldNames":[],"subCategoriesName":[],"productIDs":[]}}
+{"@type":"model.product.Category","@val":{"name":"asdasd","fieldNames":[],"subCategoriesName":[],"productIDs":[]}}
+{"@type":"model.product.Category","@val":{"name":"asd","fieldNames":[],"subCategoriesName":[],"productIDs":[]}}
