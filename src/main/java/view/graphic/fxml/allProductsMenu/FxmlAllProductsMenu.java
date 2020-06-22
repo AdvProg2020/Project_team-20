@@ -3,11 +3,11 @@ package view.graphic.fxml.allProductsMenu;
 import com.jfoenix.controls.JFXCheckBox;
 import controller.Main;
 import controller.product.filter.AllProductsController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -59,6 +59,9 @@ public class FxmlAllProductsMenu implements Initializable {
     public CheckBox optionalFilterBox;
     public CheckBox numericalFilterBox;
     public CheckBox filterByNameBox;
+    public ListView list;
+    public ChoiceBox choiceBox;
+    public CheckBox categoryBox;
     private AllProductsController allProductsController = AllProductsController.getInstance();
     private static ArrayList<Product> products;
 
@@ -81,6 +84,8 @@ public class FxmlAllProductsMenu implements Initializable {
     public ImageView productImg9;
     public Text product9;
 
+    private String categoryName;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -99,12 +104,16 @@ public class FxmlAllProductsMenu implements Initializable {
 
     private void initializeCategories() {
         ArrayList<Category> allCategories = allProductsController.getAllCategories();
+        ObservableList<String> categories = FXCollections.observableArrayList();
         for (Category category : allCategories) {
-            JFXCheckBox jfxCheckBox = new JFXCheckBox();
-            jfxCheckBox.setText(category.getName());
-            jfxCheckBox.setOnMouseClicked(this::handleAddCategory);
-            categories.getChildren().add(jfxCheckBox);
+            categories.add(category.getName());
+            //JFXCheckBox jfxCheckBox = new JFXCheckBox();
+            //jfxCheckBox.setText(category.getName());
+            //jfxCheckBox.setOnMouseClicked(this::handleAddCategory);
+            //list.setPlaceholder(jfxCheckBox);
+            //categories.getChildren().add(jfxCheckBox);
         }
+        choiceBox.setItems(categories);
     }
 
     private void handleAddCategory(MouseEvent event) {
@@ -214,12 +223,13 @@ public class FxmlAllProductsMenu implements Initializable {
             ArrayList<String> details = new ArrayList<>();
             details.add(name);
             allProductsController.filterByProductName(details);
-            //not sure
-            initializeProducts(0);
         }
         else {
             allProductsController.disAbleFilter(name);
+            productName.clear();
         }
+        //not sure
+        initializeProducts(0);
     }
 
     public void handleNumericalFieldFilter(ActionEvent actionEvent) throws Exception {
@@ -232,12 +242,15 @@ public class FxmlAllProductsMenu implements Initializable {
             details.add(MIN);
             details.add(MAX);
             allProductsController.filterByNumericalFilter(details);
-            //not sure
-            initializeProducts(0);
         }
         else{
             allProductsController.disAbleFilter(name);
+            numericalFieldName.clear();
+            min.clear();
+            max.clear();
         }
+        //not sure
+        initializeProducts(0);
     }
 
     public void handleOptionalFieldFilter(ActionEvent actionEvent) throws Exception {
@@ -246,17 +259,33 @@ public class FxmlAllProductsMenu implements Initializable {
             String[] strings = all.split("\\s+");
             ArrayList<String> details = new ArrayList<>();
             details.add(strings[0]);
-            for(int i = 1 ; i<strings.length ; i++){
+            for(int i = 2 ; i<strings.length ; i++){
                 details.add(strings[i]);
             }
             allProductsController.filterByOptionalFilter(details);
-            //not sure
-            initializeProducts(0);
         }
         else {
             String all = optionalField.getText();
             String[] strings = all.split("\\s+");
             allProductsController.disAbleFilter(strings[0]);
+            optionalField.clear();
         }
+        //not sure
+        initializeProducts(0);
+    }
+
+    public void handleCategoryFilter(ActionEvent actionEvent) throws Exception {
+        ArrayList<String> details = new ArrayList<>();
+        if(categoryBox.isSelected()){
+            categoryName = choiceBox.getSelectionModel().getSelectedItem().toString();
+            details.add(categoryName);
+            allProductsController.filterByCategory(details);
+        }
+        else {
+            System.out.println(categoryName);
+            allProductsController.disAbleFilter(categoryName);
+        }
+        //not sure
+        initializeProducts(0);
     }
 }
