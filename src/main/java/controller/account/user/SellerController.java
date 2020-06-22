@@ -215,14 +215,10 @@ public class SellerController implements AccountController {
         return new ArrayList<>(sale.getProducts());
     }
 
-    public void addOff(ArrayList<String> details, ArrayList<String> productIds) throws Exception {
+    public void addOff(LocalDateTime startDate, LocalDateTime endDate, double percentage, ArrayList<String> productIds) throws Exception {
         String id = Integer.toString(Sale.allSalesCount);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy 'at' hh:mm a");
-        LocalDateTime startDate, endDate;
         try {
-            startDate = LocalDateTime.parse(details.get(0), formatter);
-            endDate = LocalDateTime.parse(details.get(1), formatter);
-            double salePercentage = Double.parseDouble(details.get(2)) / 100;
+            double salePercentage = percentage / 100;
             if (salePercentage > 1)
                 throw new discountPercentageNotValidException();
             ArrayList<Product> products = Product.getProductsWithIds(productIds);

@@ -182,4 +182,31 @@ public class Category {
         } catch (Exception ignored) {
         }
     }
+
+    @Override
+    public String toString() {
+        String fieldNamesString = "", subCategoriesString = "", productIDsString = "";
+        int i = 1, j = 1, k = 1;
+        for (String fieldName : fieldNames) {
+            fieldNamesString += (i++) + ": " + fieldName + "\n";
+        }
+        for (String sub : subCategoriesName) {
+            try {
+                subCategoriesString += "\n" + (j++) + ": \n" + getCategoryByName(sub).toString() + "\n";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        for (String productID : productIDs) {
+            try {
+                productIDsString += "\n" + (k++) + ": " + Product.getProductById(productID).getName() + "\n";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "name:       " + name + '\n' +
+                "fieldNames:     " + fieldNamesString +
+                "subCategories:    " + subCategoriesString +
+                "product names:     " + productIDsString;
+    }
 }

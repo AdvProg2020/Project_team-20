@@ -146,20 +146,20 @@ public class Sale implements Requestable {
 
             }
         }
-        String buyerString = "RequestType         : Sale" + "\n" +
-                "Products            : " + productStr + "\n" +
-                "Sale Percentage     : " + salePercentage + "\n";
+        String buyerString = "Sale Percentage: " + salePercentage*100 + "\n" + "\n" +
+                "RequestType: Sale" + "\n" + "\n" +
+                "Products: " + productStr + "\n" + "\n";
         if (state.equals(RequestableState.EDITED)) {
             StringBuilder productEditStr = new StringBuilder();
             for (Product product : editedSale.getProducts()) {
                 productEditStr.append(product.getName());
                 productEditStr.append(' ');
             }
-            buyerString = "<Edited>\n" + buyerString;
-            buyerString += "Edited Fields:\n";
-            buyerString += "RequestType         : Sale" + "\n" +
-                    "Products            : " + productEditStr + "\n" +
-                    "Sale Percentage     : " + editedSale.getSalePercentage() + "\n";
+            buyerString = "<Edited>\n" + "\n" + buyerString;
+            buyerString += "Edited Fields:\n" + "\n";
+            buyerString += "RequestType: Sale" + "\n" + "\n" +
+                    "Products " + productEditStr + "\n" + "\n" +
+                    "Sale Percentage: " + editedSale.getSalePercentage()  + "\n";
         }
         return buyerString;
     }
