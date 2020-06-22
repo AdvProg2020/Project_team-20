@@ -10,7 +10,7 @@ import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
 public class FxmlMainMenu {
-    private static Stage window;
+    public static Stage window;
 
     public void enterMouse(MouseEvent event) {
         ((Button)event.getSource()).setStyle("-fx-background-color: #DCDF87; -fx-background-radius: 20; -fx-border-color: #27304f; -fx-border-radius: 20; -fx-border-width: 5");

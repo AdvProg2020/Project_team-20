@@ -1,21 +1,26 @@
 package view.graphic.fxml.allProductsMenu;
 
 import com.jfoenix.controls.JFXCheckBox;
+import controller.Main;
 import controller.product.filter.AllProductsController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.product.Category;
 import model.product.Product;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
+import view.graphic.fxml.mainMenu.FxmlMainMenu;
 import view.graphic.score.Score;
 
 import java.io.File;
@@ -43,6 +48,22 @@ public class FxmlAllProductsMenu implements Initializable {
     public ImageView product8Score;
     public Text product9Price;
     public ImageView product9Score;
+    public Pane filters;
+    public Pane sortingPart;
+    public TextField productName;
+    public Pane filters1;
+    public TextField min;
+    public TextField max;
+    public TextField numericalFieldName;
+    public TextField optionalField;
+    public CheckBox optionalFilterBox;
+    public CheckBox numericalFilterBox;
+    public CheckBox filterByNameBox;
+    public ChoiceBox choiceBox;
+    public CheckBox categoryBox;
+    public CheckBox sortByDate;
+    public CheckBox sortByScores;
+    public CheckBox sortByNumberOfViews;
     private AllProductsController allProductsController = AllProductsController.getInstance();
     private static ArrayList<Product> products;
 
@@ -65,6 +86,9 @@ public class FxmlAllProductsMenu implements Initializable {
     public ImageView productImg9;
     public Text product9;
 
+    private String categoryName;
+    private int fromForBack;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -77,22 +101,26 @@ public class FxmlAllProductsMenu implements Initializable {
                 ex.printStackTrace();
             }
         }
-        if (products.size()!=0)
+        if (products.size() != 0)
             initializeProducts(0);
     }
 
     private void initializeCategories() {
         ArrayList<Category> allCategories = allProductsController.getAllCategories();
-        for (Category category:allCategories) {
-            JFXCheckBox jfxCheckBox = new JFXCheckBox();
-            jfxCheckBox.setText(category.getName());
-            jfxCheckBox.setOnMouseClicked( this::handleAddCategory );
-            categories.getChildren().add(jfxCheckBox);
+        ObservableList<String> categories = FXCollections.observableArrayList();
+        for (Category category : allCategories) {
+            categories.add(category.getName());
+            //JFXCheckBox jfxCheckBox = new JFXCheckBox();
+            //jfxCheckBox.setText(category.getName());
+            //jfxCheckBox.setOnMouseClicked(this::handleAddCategory);
+            //list.setPlaceholder(jfxCheckBox);
+            //categories.getChildren().add(jfxCheckBox);
         }
+        choiceBox.setItems(categories);
     }
 
     private void handleAddCategory(MouseEvent event) {
-        String name = ((JFXCheckBox)event.getSource()).getText();
+        String name = ((JFXCheckBox) event.getSource()).getText();
         ArrayList<String> details = new ArrayList<>();
         details.add(name);
         try {
@@ -102,63 +130,65 @@ public class FxmlAllProductsMenu implements Initializable {
         }
     }
 
+
     private void initializeProducts(int from) {
+        fromForBack = from;
         Image img1 = new Image(new File("src/main/resources/Images/" + products.get(from).getImagePath()).toURI().toString());
         productImg1.setImage(img1);
         product1.setText(products.get(from).getName());
         product1Price.setText(Double.toString(products.get(from).getFirstPrice()));
         product1Score.setImage(new Score(products.get(from).getAverage()).getScoreImg());
 
-        if (products.size()>(1+from)) {
+        if (products.size() > (1 + from)) {
             Image img2 = new Image(new File("src/main/resources/Images/" + products.get(1 + from).getImagePath()).toURI().toString());
             productImg2.setImage(img2);
             product2.setText(products.get(1 + from).getName());
             product2Price.setText(Double.toString(products.get(1 + from).getFirstPrice()));
             product2Score.setImage(new Score(products.get(1 + from).getAverage()).getScoreImg());
         }
-        if (products.size()>(2+from)) {
+        if (products.size() > (2 + from)) {
             Image img3 = new Image(new File("src/main/resources/Images/" + products.get(2 + from).getImagePath()).toURI().toString());
             productImg3.setImage(img3);
             product3.setText(products.get(2 + from).getName());
             product3Price.setText(Double.toString(products.get(2 + from).getFirstPrice()));
             product3Score.setImage(new Score(products.get(2 + from).getAverage()).getScoreImg());
         }
-        if (products.size()>(3+from)) {
+        if (products.size() > (3 + from)) {
             Image img4 = new Image(new File("src/main/resources/Images/" + products.get(3 + from).getImagePath()).toURI().toString());
             productImg4.setImage(img4);
             product4.setText(products.get(3 + from).getName());
             product4Price.setText(Double.toString(products.get(3 + from).getFirstPrice()));
             product4Score.setImage(new Score(products.get(3 + from).getAverage()).getScoreImg());
         }
-        if (products.size()>(4+from)) {
+        if (products.size() > (4 + from)) {
             Image img5 = new Image(new File("src/main/resources/Images/" + products.get(4 + from).getImagePath()).toURI().toString());
             productImg5.setImage(img5);
             product5.setText(products.get(4 + from).getName());
             product5Price.setText(Double.toString(products.get(4 + from).getFirstPrice()));
             product5Score.setImage(new Score(products.get(4 + from).getAverage()).getScoreImg());
         }
-        if (products.size()>(5+from)) {
+        if (products.size() > (5 + from)) {
             Image img6 = new Image(new File("src/main/resources/Images/" + products.get(5 + from).getImagePath()).toURI().toString());
             productImg6.setImage(img6);
             product6.setText(products.get(5 + from).getName());
             product6Price.setText(Double.toString(products.get(5 + from).getFirstPrice()));
             product6Score.setImage(new Score(products.get(5 + from).getAverage()).getScoreImg());
         }
-        if (products.size()>(6+from)) {
+        if (products.size() > (6 + from)) {
             Image img7 = new Image(new File("src/main/resources/Images/" + products.get(6 + from).getImagePath()).toURI().toString());
             productImg7.setImage(img7);
             product7.setText(products.get(6 + from).getName());
             product7Price.setText(Double.toString(products.get(6 + from).getFirstPrice()));
             product7Score.setImage(new Score(products.get(6 + from).getAverage()).getScoreImg());
         }
-        if (products.size()>(7+from)) {
+        if (products.size() > (7 + from)) {
             Image img8 = new Image(new File("src/main/resources/Images/" + products.get(7 + from).getImagePath()).toURI().toString());
             productImg8.setImage(img8);
             product8.setText(products.get(7 + from).getName());
             product8Price.setText(Double.toString(products.get(7 + from).getFirstPrice()));
             product8Score.setImage(new Score(products.get(7 + from).getAverage()).getScoreImg());
         }
-        if (products.size()>(8+from)) {
+        if (products.size() > (8 + from)) {
             Image img9 = new Image(new File("src/main/resources/Images/" + products.get(8 + from).getImagePath()).toURI().toString());
             productImg9.setImage(img9);
             product9.setText(products.get(8 + from).getName());
@@ -176,16 +206,206 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleLogin(ActionEvent actionEvent) {
+        ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
     }
 
     public void handleViewCart(ActionEvent actionEvent) {
     }
 
     public void handleExit(ActionEvent actionEvent) {
+        Main.storeData();
+        FxmlMainMenu.window.close();
     }
 
     public void handleMainMenu(ActionEvent actionEvent) {
         ProgramApplication.setMenu(MenuNames.MAINMENU);
     }
 
+    public void handleNameFilter(ActionEvent actionEvent) throws Exception {
+        String name = productName.getText();
+        if (filterByNameBox.isSelected()) {
+            ArrayList<String> details = new ArrayList<>();
+            details.add(name);
+            allProductsController.filterByProductName(details);
+        } else {
+            allProductsController.disAbleFilter(name);
+            productName.clear();
+        }
+        products = allProductsController.getProducts();
+        for (Product product : products) {
+            System.out.println(product.getName());
+        }
+        //not sure
+        deleteProducts();
+        initializeProducts(0);
+    }
+
+    public void handleNumericalFieldFilter(ActionEvent actionEvent) throws Exception {
+        String name = numericalFieldName.getText();
+        if (numericalFilterBox.isSelected()) {
+            String MIN = min.getText();
+            String MAX = max.getText();
+            ArrayList<String> details = new ArrayList<>();
+            details.add(name);
+            details.add(MIN);
+            details.add(MAX);
+            allProductsController.filterByNumericalFilter(details);
+        } else {
+            allProductsController.disAbleFilter(name);
+            numericalFieldName.clear();
+            min.clear();
+            max.clear();
+        }
+        products = allProductsController.getProducts();
+        for (Product product : products) {
+            System.out.println(product.getName());
+        }
+        //not sure
+        deleteProducts();
+        initializeProducts(0);
+    }
+
+    public void handleOptionalFieldFilter(ActionEvent actionEvent) throws Exception {
+        if (optionalFilterBox.isSelected()) {
+            String all = optionalField.getText();
+            String[] strings = all.split("\\s+");
+            ArrayList<String> details = new ArrayList<>();
+            details.add(strings[0]);
+            for (int i = 2; i < strings.length; i++) {
+                details.add(strings[i]);
+            }
+            allProductsController.filterByOptionalFilter(details);
+        } else {
+            String all = optionalField.getText();
+            String[] strings = all.split("\\s+");
+            allProductsController.disAbleFilter(strings[0]);
+            optionalField.clear();
+        }
+        products = allProductsController.getProducts();
+        for (Product product : products) {
+            System.out.println(product.getName());
+        }
+        //not sure
+        deleteProducts();
+        initializeProducts(0);
+    }
+
+    public void handleCategoryFilter(ActionEvent actionEvent) throws Exception {
+        ArrayList<String> details = new ArrayList<>();
+        if (categoryBox.isSelected()) {
+            categoryName = choiceBox.getSelectionModel().getSelectedItem().toString();
+            details.add(categoryName);
+            allProductsController.filterByCategory(details);
+        } else {
+            Category category = Category.getCategoryByName(categoryName);
+            disableCategoryFields(category);
+        }
+        products = allProductsController.getProducts();
+        for (Product product : products) {
+            System.out.println(product.getName());
+        }
+        //not sure
+        deleteProducts();
+        initializeProducts(0);
+    }
+
+    private void deleteProducts() {
+        productImg1.setImage(null);
+        product1.setText("");
+        product1Price.setText("");
+        product1Score.setImage(null);
+        productImg2.setImage(null);
+        product2.setText("");
+        product2Price.setText("");
+        product2Score.setImage(null);
+        productImg3.setImage(null);
+        product3.setText("");
+        product3Price.setText("");
+        product3Score.setImage(null);
+        productImg4.setImage(null);
+        product4.setText("");
+        product4Price.setText("");
+        product4Score.setImage(null);
+        productImg5.setImage(null);
+        product5.setText("");
+        product5Price.setText("");
+        product5Score.setImage(null);
+        productImg6.setImage(null);
+        product6.setText("");
+        product6Price.setText("");
+        product6Score.setImage(null);
+        productImg7.setImage(null);
+        product7.setText("");
+        product7Price.setText("");
+        product7Score.setImage(null);
+        productImg8.setImage(null);
+        product8.setText("");
+        product8Price.setText("");
+        product8Score.setImage(null);
+        productImg9.setImage(null);
+        product9.setText("");
+        product9Price.setText("");
+        product9Score.setImage(null);
+    }
+
+    private void disableCategoryFields(Category category) throws Exception {
+        for (String fieldName : category.getFields()) {
+            allProductsController.disAbleFilter(fieldName);
+        }
+        for (Category subCategory : category.getSubCategories()) {
+            disableCategoryFields(subCategory);
+        }
+    }
+
+    public void handleDateSort(ActionEvent actionEvent) throws Exception {
+        if (sortByDate.isSelected()) {
+            allProductsController.changeSort("ByDates");
+            products = allProductsController.showProducts();
+        } else {
+            allProductsController.disableSort();
+            products = allProductsController.getProducts();
+        }
+        //not sure
+        deleteProducts();
+        initializeProducts(0);
+    }
+
+    public void handleScoresSort(ActionEvent actionEvent) throws Exception {
+        if (sortByScores.isSelected()) {
+            allProductsController.changeSort("ByScores");
+            products = allProductsController.showProducts();
+        } else {
+            allProductsController.disableSort();
+            products = allProductsController.getProducts();
+        }
+        //not sure
+        deleteProducts();
+        initializeProducts(0);
+    }
+
+    public void handleNumberOfViewsSort(ActionEvent actionEvent) throws Exception {
+        if (sortByNumberOfViews.isSelected()) {
+            allProductsController.changeSort("ByNumberOfViews");
+            products = allProductsController.showProducts();
+        } else {
+            allProductsController.disableSort();
+            products = allProductsController.getProducts();
+        }
+        //not sure
+        deleteProducts();
+        initializeProducts(0);
+    }
+
+    public void handleNextButton(ActionEvent actionEvent) {
+        if (allProductsController.getProducts().size() > fromForBack + 9) {
+            fromForBack = fromForBack + 9;
+            initializeProducts(fromForBack);
+        }
+    }
+
+    public void handleBackButton(ActionEvent actionEvent) {
+        fromForBack = fromForBack - 9;
+        if (fromForBack >= 0)
+            initializeProducts(fromForBack);
+    }
 }

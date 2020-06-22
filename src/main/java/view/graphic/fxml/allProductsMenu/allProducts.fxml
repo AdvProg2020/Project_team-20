@@ -3,8 +3,11 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -30,27 +33,65 @@
                      <font>
                         <Font size="11.0" />
                      </font></Text>
-                  <Text fill="#b6b5b5" layoutX="19.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorting" wrappingWidth="49.79931640625">
+                  <Text fill="#b6b5b5" layoutX="20.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sorting" wrappingWidth="49.79931640625">
                      <font>
                         <Font size="11.0" />
                      </font></Text>
-                  <VBox layoutX="20.0" layoutY="30.0" prefHeight="226.0" prefWidth="200.0" style="-fx-border-color: #9aeee7;">
+                  <VBox layoutX="20.0" layoutY="30.0" prefHeight="330.0" prefWidth="200.0" style="-fx-border-color: #9aeee7;">
                      <children>
                         <Text fill="#252e3b" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories" wrappingWidth="82.2060546875">
                            <VBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </VBox.margin>
                         </Text>
-                        <Pane fx:id="categories" prefHeight="70.0" prefWidth="191.0">
+                        <Pane fx:id="categories" prefHeight="57.0" prefWidth="193.0">
                            <VBox.margin>
                               <Insets left="2.0" right="2.0" top="4.0" />
                            </VBox.margin>
                            <children>
                               <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
+                              <ChoiceBox fx:id="choiceBox" layoutX="2.0" layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" />
+                              <CheckBox fx:id="categoryBox" layoutX="72.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleCategoryFilter" text="Filter" />
+                           </children>
+                        </Pane>
+                        <Text fill="#252e3b" layoutX="17.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name" wrappingWidth="82.2060546875" />
+                        <Pane fx:id="filters" layoutX="13.0" layoutY="38.0" prefHeight="65.0" prefWidth="197.0">
+                           <children>
+                              <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
+                              <TextField fx:id="productName" layoutX="4.0" layoutY="3.0" prefHeight="25.0" prefWidth="175.0" promptText="product name" />
+                              <CheckBox fx:id="filterByNameBox" layoutX="74.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleNameFilter" text="Filter" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Numerical Field" />
+                        <Pane fx:id="filters1" layoutX="11.0" layoutY="123.0" prefHeight="83.0" prefWidth="197.0">
+                           <children>
+                              <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
+                              <TextField fx:id="min" layoutX="14.0" layoutY="29.0" prefHeight="25.0" prefWidth="59.0" promptText="Min" />
+                              <TextField fx:id="max" layoutX="116.0" layoutY="29.0" prefHeight="25.0" prefWidth="59.0" promptText="Max" />
+                              <TextField fx:id="numericalFieldName" layoutX="4.0" layoutY="2.0" prefHeight="25.0" prefWidth="181.0" promptText="Field's Name" />
+                              <CheckBox fx:id="numericalFilterBox" layoutX="74.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleNumericalFieldFilter" text="Filter" />
+                           </children>
+                        </Pane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Optional Field" />
+                        <Separator prefHeight="3.0" prefWidth="165.0" />
+                        <Pane prefHeight="59.0" prefWidth="197.0">
+                           <children>
+                              <TextField fx:id="optionalField" layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="181.0" promptText="Field's Name : Type1 type2 .." />
+                              <CheckBox fx:id="optionalFilterBox" layoutX="74.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleOptionalFieldFilter" text="Filter" />
                            </children>
                         </Pane>
                      </children></VBox>
-                  <VBox layoutX="19.0" layoutY="288.0" prefHeight="162.0" prefWidth="200.0" style="-fx-border-color: #9aeee7;" />
+                  <VBox layoutX="19.0" layoutY="375.0" prefHeight="76.0" prefWidth="200.0" style="-fx-border-color: #9aeee7;">
+                     <children>
+                        <Pane fx:id="sortingPart" prefHeight="96.0" prefWidth="197.0">
+                           <children>
+                              <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
+                              <CheckBox fx:id="sortByDate" layoutX="13.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleDateSort" text="By Dates" />
+                              <CheckBox fx:id="sortByScores" layoutX="11.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleScoresSort" text="By Scores" />
+                              <CheckBox fx:id="sortByNumberOfViews" layoutX="11.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleNumberOfViewsSort" text="By Number Of Views" />
+                           </children>
+                        </Pane>
+                     </children></VBox>
                </children>
             </Pane>
             <Text fill="#252f3d" layoutX="236.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We ship over 45 milion products around the world" textAlignment="CENTER" wrappingWidth="299.2060546875">
@@ -234,8 +275,8 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <JFXButton layoutX="74.0" layoutY="577.0" prefHeight="13.0" prefWidth="49.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Next" textFill="#252e3b" />
-            <JFXButton layoutX="20.0" layoutY="577.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Back" textFill="#252e3b" />
+            <JFXButton layoutX="74.0" layoutY="577.0" onAction="#handleNextButton" prefHeight="13.0" prefWidth="49.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Next" textFill="#252e3b" />
+            <JFXButton layoutX="20.0" layoutY="577.0" onAction="#handleBackButton" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Back" textFill="#252e3b" />
          </children>
       </Pane>
       <Pane prefHeight="47.0" prefWidth="994.0">
