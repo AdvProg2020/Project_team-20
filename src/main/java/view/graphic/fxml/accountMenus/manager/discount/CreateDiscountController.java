@@ -45,7 +45,7 @@ public class CreateDiscountController implements Initializable {
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
     }
 
-    public void selectRequest(MouseEvent mouseEvent) throws Exception {
+    public void selectBuyer(MouseEvent mouseEvent) throws Exception {
         Buyer buyer = table.getSelectionModel().getSelectedItem();
         if (!buyers.contains(buyer))
             buyers.add(buyer);

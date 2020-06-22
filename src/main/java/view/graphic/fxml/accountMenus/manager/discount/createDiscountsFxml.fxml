@@ -19,7 +19,7 @@
          </font>
       </Text>
       <Separator layoutX="104.0" layoutY="52.0" prefHeight="8.0" prefWidth="289.0" />
-      <TableView fx:id="table" layoutX="278.0" layoutY="200.0" onMouseClicked="#selectRequest" opacity="0.7" prefHeight="200.0" prefWidth="151.0" style="-fx-border-color: #009f9c;">
+      <TableView fx:id="table" layoutX="278.0" layoutY="200.0" onMouseClicked="#selectBuyer" opacity="0.7" prefHeight="200.0" prefWidth="151.0" style="-fx-border-color: #009f9c;">
         <columns>
           <TableColumn fx:id="username" prefWidth="150.0" text="Username" />
         </columns>
@@ -35,6 +35,6 @@
       <JFXDatePicker fx:id="startDatePicker" defaultColor="#5fccd0" layoutX="324.0" layoutY="82.0" opacity="0.9" promptText="Start date" />
       <JFXTimePicker fx:id="startTimePicker" defaultColor="#5fccd0" layoutX="324.0" layoutY="126.0" opacity="0.9" promptText="Start time" />
       <JFXDatePicker fx:id="endDatePicker" defaultColor="#5fccd0" layoutX="565.0" layoutY="82.0" opacity="0.9" promptText="End date" />
-      <JFXTimePicker fx:id="endTimePicker" defaultColor="#5fccd0" layoutX="565.0" layoutY="126.0" opacity="0.9" promptText="Start time" />
+      <JFXTimePicker fx:id="endTimePicker" defaultColor="#5fccd0" layoutX="565.0" layoutY="126.0" opacity="0.9" promptText="End time" />
    </children>
 </AnchorPane>
