@@ -254,7 +254,7 @@ public class SellerMenu extends Menu {
             System.out.println("Please insert the percentage of your sale.");
             details.add(scanner.nextLine());
             addProductOff(products);
-            sellerController.addOff(details, products);
+            //sellerController.addOff(details, products);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

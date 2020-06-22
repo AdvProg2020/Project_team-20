@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
@@ -62,9 +63,9 @@
                   <Image url="@../../../../../resources/Images/AllProductsImg.png" />
                </image>
             </ImageView>
-            <Pane layoutX="19.0" layoutY="150.0" prefHeight="451.0" prefWidth="669.0" style="-fx-background-color: white;">
+            <Pane layoutX="19.0" layoutY="150.0" prefHeight="424.0" prefWidth="669.0" style="-fx-background-color: white;">
                <children>
-                  <ScrollPane layoutX="1.0" prefHeight="451.0" prefWidth="669.0">
+                  <ScrollPane layoutX="1.0" prefHeight="424.0" prefWidth="669.0">
                      <content>
                         <GridPane prefHeight="700.0" prefWidth="650.0">
                            <columnConstraints>
@@ -86,6 +87,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
+                                    <Text fx:id="product1Price" fill="#575957" layoutX="16.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product1Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1">
@@ -96,6 +103,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
+                                    <Text fx:id="product2Price" fill="#575957" layoutX="16.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product2Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2">
@@ -106,6 +119,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
+                                    <Text fx:id="product3Price" fill="#575957" layoutX="18.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product3Score" fitHeight="25.0" fitWidth="99.0" layoutX="15.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.rowIndex="1">
@@ -116,6 +135,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
+                                    <Text fx:id="product4Price" fill="#575957" layoutX="16.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product4Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -126,6 +151,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
+                                    <Text fx:id="product5Price" fill="#575957" layoutX="16.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product5Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -136,6 +167,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
+                                    <Text fx:id="product6Price" fill="#575957" layoutX="15.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product6Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.rowIndex="2">
@@ -146,6 +183,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
+                                    <Text fx:id="product7Price" fill="#575957" layoutX="16.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product7Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -156,6 +199,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
+                                    <Text fx:id="product8Price" fill="#575957" layoutX="16.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product8Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -166,6 +215,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Text>
+                                    <Text fx:id="product9Price" fill="#575957" layoutX="15.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <ImageView fx:id="product9Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                            </children>
@@ -174,6 +229,8 @@
                   </ScrollPane>
                </children>
             </Pane>
+            <JFXButton layoutX="74.0" layoutY="577.0" prefHeight="13.0" prefWidth="49.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Next" textFill="#252e3b" />
+            <JFXButton layoutX="20.0" layoutY="577.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Back" textFill="#252e3b" />
          </children>
       </Pane>
       <Pane prefHeight="47.0" prefWidth="994.0">
