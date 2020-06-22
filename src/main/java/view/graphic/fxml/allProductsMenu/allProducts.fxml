@@ -50,7 +50,7 @@
                            </VBox.margin>
                            <children>
                               <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
-                              <ChoiceBox fx:id="choiceBox" layoutX="12.0" layoutY="2.0" prefWidth="150.0" />
+                              <ChoiceBox fx:id="choiceBox" layoutX="2.0" layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="175.0" />
                               <CheckBox fx:id="categoryBox" layoutX="72.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleCategoryFilter" text="Filter" />
                            </children>
                         </Pane>
@@ -86,6 +86,9 @@
                         <Pane fx:id="sortingPart" prefHeight="96.0" prefWidth="197.0">
                            <children>
                               <Separator layoutX="4.0" layoutY="-1.0" prefHeight="3.0" prefWidth="165.0" />
+                              <CheckBox fx:id="sortByDate" layoutX="13.0" layoutY="5.0" mnemonicParsing="false" onAction="#handleDateSort" text="By Dates" />
+                              <CheckBox fx:id="sortByScores" layoutX="11.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleScoresSort" text="By Scores" />
+                              <CheckBox fx:id="sortByNumberOfViews" layoutX="11.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleNumberOfViewsSort" text="By Number Of Views" />
                            </children>
                         </Pane>
                      </children></VBox>
@@ -267,8 +270,8 @@
                   </ScrollPane>
                </children>
             </Pane>
-            <JFXButton layoutX="74.0" layoutY="577.0" prefHeight="13.0" prefWidth="49.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Next" textFill="#252e3b" />
-            <JFXButton layoutX="20.0" layoutY="577.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Back" textFill="#252e3b" />
+            <JFXButton layoutX="74.0" layoutY="577.0" onAction="#handleNextButton" prefHeight="13.0" prefWidth="49.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Next" textFill="#252e3b" />
+            <JFXButton layoutX="20.0" layoutY="577.0" onAction="#handleBackButton" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Back" textFill="#252e3b" />
          </children>
       </Pane>
       <Pane prefHeight="47.0" prefWidth="994.0">

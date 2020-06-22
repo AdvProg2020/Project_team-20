@@ -59,9 +59,11 @@ public class FxmlAllProductsMenu implements Initializable {
     public CheckBox optionalFilterBox;
     public CheckBox numericalFilterBox;
     public CheckBox filterByNameBox;
-    public ListView list;
     public ChoiceBox choiceBox;
     public CheckBox categoryBox;
+    public CheckBox sortByDate;
+    public CheckBox sortByScores;
+    public CheckBox sortByNumberOfViews;
     private AllProductsController allProductsController = AllProductsController.getInstance();
     private static ArrayList<Product> products;
 
@@ -85,6 +87,7 @@ public class FxmlAllProductsMenu implements Initializable {
     public Text product9;
 
     private String categoryName;
+    private int fromForBack;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -129,6 +132,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
 
     private void initializeProducts(int from) {
+        fromForBack = from;
         Image img1 = new Image(new File("src/main/resources/Images/" + products.get(from).getImagePath()).toURI().toString());
         productImg1.setImage(img1);
         product1.setText(products.get(from).getName());
@@ -219,12 +223,11 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void handleNameFilter(ActionEvent actionEvent) throws Exception {
         String name = productName.getText();
-        if(filterByNameBox.isSelected()){
+        if (filterByNameBox.isSelected()) {
             ArrayList<String> details = new ArrayList<>();
             details.add(name);
             allProductsController.filterByProductName(details);
-        }
-        else {
+        } else {
             allProductsController.disAbleFilter(name);
             productName.clear();
         }
@@ -234,7 +237,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void handleNumericalFieldFilter(ActionEvent actionEvent) throws Exception {
         String name = numericalFieldName.getText();
-        if(numericalFilterBox.isSelected()){
+        if (numericalFilterBox.isSelected()) {
             String MIN = min.getText();
             String MAX = max.getText();
             ArrayList<String> details = new ArrayList<>();
@@ -242,8 +245,7 @@ public class FxmlAllProductsMenu implements Initializable {
             details.add(MIN);
             details.add(MAX);
             allProductsController.filterByNumericalFilter(details);
-        }
-        else{
+        } else {
             allProductsController.disAbleFilter(name);
             numericalFieldName.clear();
             min.clear();
@@ -254,17 +256,16 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleOptionalFieldFilter(ActionEvent actionEvent) throws Exception {
-        if(optionalFilterBox.isSelected()){
+        if (optionalFilterBox.isSelected()) {
             String all = optionalField.getText();
             String[] strings = all.split("\\s+");
             ArrayList<String> details = new ArrayList<>();
             details.add(strings[0]);
-            for(int i = 2 ; i<strings.length ; i++){
+            for (int i = 2; i < strings.length; i++) {
                 details.add(strings[i]);
             }
             allProductsController.filterByOptionalFilter(details);
-        }
-        else {
+        } else {
             String all = optionalField.getText();
             String[] strings = all.split("\\s+");
             allProductsController.disAbleFilter(strings[0]);
@@ -276,16 +277,67 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void handleCategoryFilter(ActionEvent actionEvent) throws Exception {
         ArrayList<String> details = new ArrayList<>();
-        if(categoryBox.isSelected()){
+        if (categoryBox.isSelected()) {
             categoryName = choiceBox.getSelectionModel().getSelectedItem().toString();
             details.add(categoryName);
             allProductsController.filterByCategory(details);
-        }
-        else {
-            System.out.println(categoryName);
-            allProductsController.disAbleFilter(categoryName);
+        } else {
+            Category category = Category.getCategoryByName(categoryName);
+            disableCategoryFields(category);
         }
         //not sure
         initializeProducts(0);
+    }
+
+    private void disableCategoryFields(Category category) throws Exception {
+        for (String fieldName : category.getFields()) {
+            allProductsController.disAbleFilter(fieldName);
+        }
+        for (Category subCategory : category.getSubCategories()) {
+            disableCategoryFields(subCategory);
+        }
+    }
+
+    public void handleDateSort(ActionEvent actionEvent) throws Exception {
+        if (sortByDate.isSelected()) {
+            allProductsController.changeSort("ByDates");
+        } else {
+            allProductsController.disableSort();
+        }
+        //not sure
+        initializeProducts(0);
+    }
+
+    public void handleScoresSort(ActionEvent actionEvent) throws Exception {
+        if (sortByScores.isSelected()) {
+            allProductsController.changeSort("ByScores");
+        } else {
+            allProductsController.disableSort();
+        }
+        //not sure
+        initializeProducts(0);
+    }
+
+    public void handleNumberOfViewsSort(ActionEvent actionEvent) throws Exception {
+        if (sortByNumberOfViews.isSelected()) {
+            allProductsController.changeSort("ByNumberOfViews");
+        } else {
+            allProductsController.disableSort();
+        }
+        //not sure
+        initializeProducts(0);
+    }
+
+    public void handleNextButton(ActionEvent actionEvent) {
+        if (allProductsController.getProducts().size() > fromForBack + 9){
+            fromForBack = fromForBack + 9;
+            initializeProducts(fromForBack);
+        }
+    }
+
+    public void handleBackButton(ActionEvent actionEvent) {
+        fromForBack = fromForBack - 9;
+        if (fromForBack >= 0)
+            initializeProducts(fromForBack);
     }
 }
