@@ -255,6 +255,7 @@ public class SellerMenu extends Menu {
             details.add(scanner.nextLine());
             addProductOff(products);
             //sellerController.addOff(details, products);
+            //sellerController.addOff(details, products);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -378,7 +379,7 @@ public class SellerMenu extends Menu {
             }
         }
         try {
-            sellerController.editOff(Integer.toString((int) idDouble), details, productIdsToRemove, productIdsToAdd);
+            //sellerController.editOff(Integer.toString((int) idDouble), details, productIdsToRemove, productIdsToAdd);
             System.out.println("Your edit request was sent to manager successfully. I hope they will accept that:)");
         } catch (Exception e) {
             System.out.println(e.getMessage());

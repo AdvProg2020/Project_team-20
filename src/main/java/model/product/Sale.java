@@ -63,9 +63,10 @@ public class Sale implements Requestable {
     }
 
     public void edit() {
-        addToProducts(editedSale.getProducts());
+        products = editedSale.getProductsStr();
         startDate = editedSale.getStartDate();
         endDate = editedSale.getEndDate();
+        salePercentage = editedSale.getSalePercentage();
         editedSale = null;
         state = RequestableState.ACCEPTED;
     }
@@ -141,25 +142,28 @@ public class Sale implements Requestable {
         for (String productID : products) {
             try {
                 productStr.append(Product.getProductById(productID).getName());
-                productStr.append(' ');
+                productStr.append('\n');
             } catch (Exception e) {
-
             }
         }
         String buyerString = "Sale Percentage: " + salePercentage*100 + "\n" + "\n" +
                 "RequestType: Sale" + "\n" + "\n" +
+                "Start date: " + startDate + "\n" + "\n" +
+                "End date: " + endDate + "\n" + "\n" +
                 "Products: " + productStr + "\n" + "\n";
         if (state.equals(RequestableState.EDITED)) {
             StringBuilder productEditStr = new StringBuilder();
+            System.out.println(editedSale.getProducts().size());
             for (Product product : editedSale.getProducts()) {
                 productEditStr.append(product.getName());
                 productEditStr.append(' ');
             }
-            buyerString = "<Edited>\n" + "\n" + buyerString;
             buyerString += "Edited Fields:\n" + "\n";
-            buyerString += "RequestType: Sale" + "\n" + "\n" +
-                    "Products " + productEditStr + "\n" + "\n" +
-                    "Sale Percentage: " + editedSale.getSalePercentage()  + "\n";
+            buyerString += "RequestType: Edit" + "\n" + "\n" +
+                    "Sale Percentage: " + editedSale.getSalePercentage() *100  + "\n" + "\n" +
+                    "Start date: " + editedSale.getStartDate() + "\n" + "\n" +
+                    "End date: " + editedSale.getEndDate() + "\n" + "\n" +
+                    "Products: \n" + productEditStr;
         }
         return buyerString;
     }
@@ -188,5 +192,9 @@ public class Sale implements Requestable {
 
     public RequestType getRequestType() {
         return RequestType.Sale;
+    }
+
+    public ArrayList<String> getProductsStr() {
+        return products;
     }
 }

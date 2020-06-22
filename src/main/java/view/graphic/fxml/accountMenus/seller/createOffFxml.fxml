@@ -22,7 +22,7 @@
       <JFXDatePicker fx:id="startDatePicker" defaultColor="#5fccd0" layoutX="104.0" layoutY="85.0" opacity="0.9" promptText="Start date" />
       <JFXTimePicker fx:id="startTimePicker" defaultColor="#5fccd0" layoutX="104.0" layoutY="129.0" opacity="0.9" promptText="Start time" />
       <JFXDatePicker fx:id="endDatePicker" defaultColor="#5fccd0" layoutX="345.0" layoutY="85.0" opacity="0.9" promptText="End date" />
-      <JFXTimePicker fx:id="endTimePicker" defaultColor="#5fccd0" layoutX="345.0" layoutY="129.0" opacity="0.9" promptText="Start time" />
+      <JFXTimePicker fx:id="endTimePicker" defaultColor="#5fccd0" layoutX="345.0" layoutY="129.0" opacity="0.9" promptText="End time" />
       <JFXTextField fx:id="percent" focusColor="#009f9c" layoutX="589.0" layoutY="86.0" promptText="Persentage (%)" unFocusColor="#575957" />
       <JFXButton layoutX="114.0" layoutY="422.0" onAction="#create" opacity="0.71" style="-fx-background-color: #009f9c;" text="create" textFill="WHITE" />
       <TableView fx:id="chosenTable" layoutX="114.0" layoutY="210.0" opacity="0.7" prefHeight="200.0" prefWidth="151.0" style="-fx-border-color: #009f9c;">
