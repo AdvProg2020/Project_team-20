@@ -2,9 +2,12 @@ package view.graphic.fxml.allProductsMenu;
 
 import com.jfoenix.controls.JFXTextArea;
 import controller.product.ProductController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -29,7 +32,11 @@ public class ProductMenuFxml implements Initializable {
     public ImageView score;
     public Text description;
     public JFXTextArea fields;
-    public JFXTextArea sellers;
+    public ListView<String> sellers;
+    public ObservableList<String> sellerUserNames =
+            FXCollections.observableArrayList();
+    public Text price;
+    private Seller seller;
 
     public void handleLogin(ActionEvent actionEvent) {
     }
@@ -60,8 +67,7 @@ public class ProductMenuFxml implements Initializable {
         productName.setText(currentProduct.getName());
         description.setText(currentProduct.getDescription());
         score.setImage(new Score(currentProduct.getAverage()).getScoreImg());
-        for (Seller seller:currentProduct.getSellers())
-            sellers.appendText(seller.getUsername());
+
         for (Field field:currentProduct.getGeneralFields()) {
             if (field instanceof NumericalField) {
                 fields.appendText(field.getName() + ": " + ((NumericalField)field).getNumericalField());
@@ -72,10 +78,22 @@ public class ProductMenuFxml implements Initializable {
                 fields.appendText(field.getName() + ": " + optionalFields);
             }
         }
+        fields.setEditable(false);
+
+        for (Seller seller:currentProduct.getSellers())
+            sellerUserNames.add(seller.getUsername());
+        sellers.setItems(sellerUserNames);
     }
 
     public static void setCurrentProduct(Product currentProduct) {
         ProductMenuFxml.currentProduct = currentProduct;
         productController = new ProductController(currentProduct);
+    }
+
+
+    public void selectSeller(MouseEvent event) {
+        String selected = sellers.getSelectionModel().getSelectedItem();
+        seller = currentProduct.getSellerByUsername(selected);
+        price.setText(Double.toString(currentProduct.getPrice(seller)));
     }
 }
