@@ -96,4 +96,7 @@ public class ProductMenuFxml implements Initializable {
         seller = currentProduct.getSellerByUsername(selected);
         price.setText(Double.toString(currentProduct.getPrice(seller)));
     }
+
+    public void handleAddToCart(ActionEvent actionEvent) {
+    }
 }
