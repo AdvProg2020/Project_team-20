@@ -19,7 +19,7 @@ public class DiscountCodesFxml implements Initializable {
         BuyerController buyerController = BuyerController.getInstance();
         ArrayList<Discount> discounts = buyerController.getAllDiscounts();
         for(Discount discount : discounts){
-            String line = "discount code: "+discount.getDiscountCode()+"\n"+"discount percentage: "+discount.getDiscountPercentage()+"\n";
+            String line = "discount code: "+discount.getDiscountCode()+"\n"+"discount percentage: "+discount.getDiscountPercentage()+"\n" + "\n";
             textArea.appendText(line);
         }
     }
