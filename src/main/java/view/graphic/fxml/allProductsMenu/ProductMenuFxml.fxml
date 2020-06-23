@@ -90,5 +90,15 @@
             <Font size="11.0" />
          </font>
       </JFXButton>
+      <Button fx:id="rate1" layoutX="803.0" layoutY="511.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRateProduct" onMouseEntered="#handleRateEnter" onMouseExited="#handleRateExit" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: transparent; -fx-border-color: #5fccd0#5fccd0; -fx-border-radius: 30; -fx-border-width: 1;" text="1" textFill="#5fccd0" />
+      <Text fill="#575957" layoutX="758.0" layoutY="531.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate:" wrappingWidth="45.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Button fx:id="rate2" layoutX="834.0" layoutY="511.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRateProduct" onMouseEntered="#handleRateEnter" onMouseExited="#handleRateExit" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: transparent; -fx-border-color: #5fccd0#5fccd0; -fx-border-radius: 30; -fx-border-width: 1;" text="2" textFill="#5fccd0" />
+      <Button fx:id="rate3" layoutX="865.0" layoutY="511.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRateProduct" onMouseEntered="#handleRateEnter" onMouseExited="#handleRateExit" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: transparent; -fx-border-color: #5fccd0#5fccd0; -fx-border-radius: 30; -fx-border-width: 1;" text="3" textFill="#5fccd0" />
+      <Button fx:id="rate4" layoutX="896.0" layoutY="511.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRateProduct" onMouseEntered="#handleRateEnter" onMouseExited="#handleRateExit" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: transparent; -fx-border-color: #5fccd0#5fccd0; -fx-border-radius: 30; -fx-border-width: 1;" text="4" textFill="#5fccd0" />
+      <Button fx:id="rate5" layoutX="927.0" layoutY="511.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRateProduct" onMouseEntered="#handleRateEnter" onMouseExited="#handleRateExit" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: transparent; -fx-border-color: #5fccd0#5fccd0; -fx-border-radius: 30; -fx-border-width: 1;" text="5" textFill="#5fccd0" />
    </children>
 </AnchorPane>

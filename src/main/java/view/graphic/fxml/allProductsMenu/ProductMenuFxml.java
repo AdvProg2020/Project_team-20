@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import model.account.Seller;
 import model.product.Field.Field;
@@ -51,6 +52,11 @@ public class ProductMenuFxml implements Initializable {
     public JFXTextField newReply;
     public VBox allRepliesBox;
     public JFXButton sendReply;
+    public Button rate1;
+    public Button rate2;
+    public Button rate3;
+    public Button rate4;
+    public Button rate5;
     private Seller seller;
     private Comment comment;
 
@@ -236,5 +242,28 @@ public class ProductMenuFxml implements Initializable {
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
+    }
+
+    public void handleRateProduct(ActionEvent actionEvent) {
+        double score = Double.parseDouble(((Button)actionEvent.getSource()).getId().substring(((Button)actionEvent.getSource()).getId().length()-1));
+        try {
+            productController.addScore(score, currentProduct);
+            new AlertController().create(AlertType.CONFIRMATION, "Thanks for rating");
+            Image img = new Image(new File("src/main/resources/Images/" + currentProduct.getImagePath()).toURI().toString());
+            productImg.setImage(null);
+            productImg.setImage(img);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    public void handleRateEnter(MouseEvent event) {
+        ((Button)event.getSource()).setStyle("-fx-background-radius:30; -fx-background-color:#5fccd0; -fx-border-color:#5fccd0; -fx-border-radius:30; -fx-border-width:1");
+        ((Button)event.getSource()).setTextFill(Color.WHITE);
+    }
+
+    public void handleRateExit(MouseEvent event) {
+        ((Button)event.getSource()).setStyle("-fx-background-radius:30; -fx-background-color:transparent; -fx-border-color:#5fccd0; -fx-border-radius:30; -fx-border-width:1");
+        ((Button)event.getSource()).setTextFill(Color.valueOf("#5fccd0"));
     }
 }

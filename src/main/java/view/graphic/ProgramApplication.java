@@ -57,7 +57,6 @@ public class ProgramApplication extends Application {
             return;
         MenuNames currentScene = history.get(history.size() - 2);
         history.remove(history.size() - 1);
-        System.out.println(currentScene);
         setMenu(currentScene);
     }
 

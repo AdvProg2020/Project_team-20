@@ -1,11 +1,11 @@
 package controller.product;
 
 import controller.MainController;
+import controller.account.user.BuyerController;
 import model.account.*;
-import model.product.comment.Comment;
 import model.product.Product;
+import model.product.comment.Comment;
 import model.product.comment.Reply;
-import model.product.comment.Score;
 
 import java.util.ArrayList;
 
@@ -48,9 +48,10 @@ public class ProductController {
     public void addScore(double score, Product product) throws Exception {
         GeneralAccount currentAccount = mainController.getAccount();
         if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
-                !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)))
+                !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)) ||
+                currentAccount.getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT))
             throw new AccountNotBuyerException();
-        product.addScore(new Score((Buyer) currentAccount, score, product));
+        BuyerController.getInstance().rate(product.getId(), score);
     }
 
     public void addReplyToComment(Comment comment, String title, String content) throws Exception {
