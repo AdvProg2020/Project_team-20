@@ -3,6 +3,8 @@ package view.graphic.fxml.allProductsMenu;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import controller.Main;
+import controller.MainController;
+import controller.account.user.BuyerController;
 import controller.product.filter.AllProductsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +23,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.account.GeneralAccountType;
+import model.account.TempAccount;
 import model.product.Category;
 import model.product.Product;
 import view.graphic.MenuNames;
@@ -236,6 +240,10 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleViewCart(ActionEvent actionEvent) {
+        if (MainController.getInstance().getAccount().getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT)) {
+            new AlertController().create(AlertType.ERROR, "please first sign in");
+            ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
+        }
     }
 
     public void handleExit(ActionEvent actionEvent) {
@@ -462,7 +470,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void showProduct2(ActionEvent actionEvent) {
         ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+1));
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 1));
         Parent root = null;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
@@ -475,7 +483,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void showProduct3(ActionEvent actionEvent) {
         ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+2));
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 2));
         Parent root = null;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
@@ -488,7 +496,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void showProduct4(ActionEvent actionEvent) {
         ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+3));
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 3));
         Parent root = null;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
@@ -501,7 +509,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void showProduct5(ActionEvent actionEvent) {
         ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+4));
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 4));
         Parent root = null;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
@@ -514,7 +522,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void showProduct6(ActionEvent actionEvent) {
         ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+5));
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 5));
         Parent root = null;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
@@ -527,7 +535,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void showProduct7(ActionEvent actionEvent) {
         ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+6));
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 6));
         Parent root = null;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
@@ -540,7 +548,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void showProduct8(ActionEvent actionEvent) {
         ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+7));
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 7));
         Parent root = null;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
@@ -553,7 +561,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void showProduct9(ActionEvent actionEvent) {
         ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+8));
+        ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 8));
         Parent root = null;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
@@ -566,5 +574,9 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public static void setMainWindow(Stage window) {
         mainWindow = window;
+    }
+
+    public void handleBack(ActionEvent actionEvent) {
+        ProgramApplication.back();
     }
 }

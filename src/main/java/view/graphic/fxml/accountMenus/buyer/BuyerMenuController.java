@@ -1,6 +1,9 @@
 package view.graphic.fxml.accountMenus.buyer;
 
 import controller.Main;
+import controller.account.user.BuyerController;
+import controller.account.user.SellerController;
+import controller.product.ProductController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,12 +11,18 @@ import javafx.scene.Scene;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.account.Buyer;
+import view.graphic.MenuNames;
+import view.graphic.ProgramApplication;
+import view.graphic.alert.AlertController;
+import view.graphic.alert.AlertType;
 
 import java.io.File;
 
 public class BuyerMenuController {
     private static Stage window;
     public BorderPane borderPane;
+    private BuyerController buyerController = BuyerController.getInstance();
 
     public static void start(Stage stage) throws Exception{
         window = stage;
@@ -24,6 +33,9 @@ public class BuyerMenuController {
     }
 
     public void handleLogout(ActionEvent actionEvent) {
+        buyerController.logout();
+        ProgramApplication.setMenu(MenuNames.MAINMENU);
+        new AlertController().create(AlertType.CONFIRMATION, "log out was successful");
     }
 
     private void loadUI(String ui){
@@ -37,6 +49,7 @@ public class BuyerMenuController {
     }
 
     public void handleAllProducts(ActionEvent actionEvent) {
+        ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
     public void handleOffs(ActionEvent actionEvent) {
