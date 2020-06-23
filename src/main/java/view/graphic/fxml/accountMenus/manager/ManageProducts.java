@@ -1,28 +1,21 @@
 package view.graphic.fxml.accountMenus.manager;
 
 import com.jfoenix.controls.JFXButton;
+import controller.account.user.ManagerController;
 import controller.product.filter.AllProductsController;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.product.Product;
-import view.graphic.MenuNames;
-import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
-import view.graphic.fxml.allProductsMenu.ProductMenuFxml;
 import view.graphic.score.Score;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -79,9 +72,8 @@ public class ManageProducts implements Initializable {
     public ImageView productImg9;
     public Text product9;
 
-    private String categoryName;
     private int fromForBack;
-    private static Stage mainWindow;
+    ManagerController managerController = ManagerController.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -106,6 +98,17 @@ public class ManageProducts implements Initializable {
         product1Price.setText(Double.toString(products.get(from).getFirstPrice()));
         product1Score.setImage(new Score(products.get(from).getAverage()).getScoreImg());
         removeProduct1.setOpacity(1);
+        setProduct2(from);
+        setProduct3(from);
+        setProduct4(from);
+        setProduct5(from);
+        setProduct6(from);
+        setProduct7(from);
+        setProduct8(from);
+        setProduct9(from);
+    }
+
+    private void setProduct2(int from) {
         if (products.size() > (1 + from)) {
             Image img2 = new Image(new File("src/main/resources/Images/" + products.get(1 + from).getImagePath()).toURI().toString());
             productImg2.setImage(img2);
@@ -113,7 +116,16 @@ public class ManageProducts implements Initializable {
             product2Price.setText(Double.toString(products.get(1 + from).getFirstPrice()));
             product2Score.setImage(new Score(products.get(1 + from).getAverage()).getScoreImg());
             removeProduct2.setOpacity(1);
+        } else {
+            productImg2.setImage(null);
+            product2.setText("");
+            product2Price.setText("");
+            product2Score.setImage(null);
+            removeProduct2.setOpacity(0);
         }
+    }
+
+    private void setProduct3(int from) {
         if (products.size() > (2 + from)) {
             Image img3 = new Image(new File("src/main/resources/Images/" + products.get(2 + from).getImagePath()).toURI().toString());
             productImg3.setImage(img3);
@@ -121,7 +133,16 @@ public class ManageProducts implements Initializable {
             product3Price.setText(Double.toString(products.get(2 + from).getFirstPrice()));
             product3Score.setImage(new Score(products.get(2 + from).getAverage()).getScoreImg());
             removeProduct3.setOpacity(1);
+        } else {
+            productImg3.setImage(null);
+            product3.setText("");
+            product3Price.setText("");
+            product3Score.setImage(null);
+            removeProduct3.setOpacity(0);
         }
+    }
+
+    private void setProduct4(int from) {
         if (products.size() > (3 + from)) {
             Image img4 = new Image(new File("src/main/resources/Images/" + products.get(3 + from).getImagePath()).toURI().toString());
             productImg4.setImage(img4);
@@ -129,7 +150,16 @@ public class ManageProducts implements Initializable {
             product4Price.setText(Double.toString(products.get(3 + from).getFirstPrice()));
             product4Score.setImage(new Score(products.get(3 + from).getAverage()).getScoreImg());
             removeProduct4.setOpacity(1);
+        } else {
+            productImg4.setImage(null);
+            product4.setText("");
+            product4Price.setText("");
+            product4Score.setImage(null);
+            removeProduct4.setOpacity(0);
         }
+    }
+
+    private void setProduct5(int from) {
         if (products.size() > (4 + from)) {
             Image img5 = new Image(new File("src/main/resources/Images/" + products.get(4 + from).getImagePath()).toURI().toString());
             productImg5.setImage(img5);
@@ -137,7 +167,16 @@ public class ManageProducts implements Initializable {
             product5Price.setText(Double.toString(products.get(4 + from).getFirstPrice()));
             product5Score.setImage(new Score(products.get(4 + from).getAverage()).getScoreImg());
             removeProduct5.setOpacity(1);
+        } else {
+            productImg5.setImage(null);
+            product5.setText("");
+            product5Price.setText("");
+            product5Score.setImage(null);
+            removeProduct5.setOpacity(0);
         }
+    }
+
+    private void setProduct6(int from) {
         if (products.size() > (5 + from)) {
             Image img6 = new Image(new File("src/main/resources/Images/" + products.get(5 + from).getImagePath()).toURI().toString());
             productImg6.setImage(img6);
@@ -145,7 +184,16 @@ public class ManageProducts implements Initializable {
             product6Price.setText(Double.toString(products.get(5 + from).getFirstPrice()));
             product6Score.setImage(new Score(products.get(5 + from).getAverage()).getScoreImg());
             removeProduct6.setOpacity(1);
+        } else {
+            productImg6.setImage(null);
+            product6.setText("");
+            product6Price.setText("");
+            product6Score.setImage(null);
+            removeProduct6.setOpacity(0);
         }
+    }
+
+    private void setProduct7(int from) {
         if (products.size() > (6 + from)) {
             Image img7 = new Image(new File("src/main/resources/Images/" + products.get(6 + from).getImagePath()).toURI().toString());
             productImg7.setImage(img7);
@@ -153,7 +201,16 @@ public class ManageProducts implements Initializable {
             product7Price.setText(Double.toString(products.get(6 + from).getFirstPrice()));
             product7Score.setImage(new Score(products.get(6 + from).getAverage()).getScoreImg());
             removeProduct7.setOpacity(1);
+        } else {
+            productImg7.setImage(null);
+            product7.setText("");
+            product7Price.setText("");
+            product7Score.setImage(null);
+            removeProduct7.setOpacity(0);
         }
+    }
+
+    private void setProduct8(int from) {
         if (products.size() > (7 + from)) {
             Image img8 = new Image(new File("src/main/resources/Images/" + products.get(7 + from).getImagePath()).toURI().toString());
             productImg8.setImage(img8);
@@ -161,7 +218,16 @@ public class ManageProducts implements Initializable {
             product8Price.setText(Double.toString(products.get(7 + from).getFirstPrice()));
             product8Score.setImage(new Score(products.get(7 + from).getAverage()).getScoreImg());
             removeProduct8.setOpacity(1);
+        } else {
+            productImg8.setImage(null);
+            product8.setText("");
+            product8Price.setText("");
+            product8Score.setImage(null);
+            removeProduct8.setOpacity(0);
         }
+    }
+
+    private void setProduct9(int from) {
         if (products.size() > (8 + from)) {
             Image img9 = new Image(new File("src/main/resources/Images/" + products.get(8 + from).getImagePath()).toURI().toString());
             productImg9.setImage(img9);
@@ -169,6 +235,12 @@ public class ManageProducts implements Initializable {
             product9Price.setText(Double.toString(products.get(8 + from).getFirstPrice()));
             product9Score.setImage(new Score(products.get(8 + from).getAverage()).getScoreImg());
             removeProduct9.setOpacity(1);
+        } else {
+            productImg9.setImage(null);
+            product9.setText("");
+            product9Price.setText("");
+            product9Score.setImage(null);
+            removeProduct9.setOpacity(0);
         }
     }
 
@@ -221,119 +293,83 @@ public class ManageProducts implements Initializable {
     }
 
     public void removeProduct1(ActionEvent actionEvent) {
-        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack));
-        Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
-            mainWindow.setScene(new Scene(root, 994, 666));
-            mainWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            managerController.mangerRemoveProduct(products.get(fromForBack).getId());
+            showProducts(fromForBack);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
     public void removeProduct2(ActionEvent actionEvent) {
-        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+1));
-        Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
-            mainWindow.setScene(new Scene(root, 994, 666));
-            mainWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            managerController.mangerRemoveProduct(products.get(fromForBack + 1).getId());
+            showProducts(fromForBack);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
     public void removeProduct3(ActionEvent actionEvent) {
-        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+2));
-        Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
-            mainWindow.setScene(new Scene(root, 994, 666));
-            mainWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            managerController.mangerRemoveProduct(products.get(fromForBack + 2).getId());
+            showProducts(fromForBack);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
     public void removeProduct4(ActionEvent actionEvent) {
-        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+3));
-        Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
-            mainWindow.setScene(new Scene(root, 994, 666));
-            mainWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            managerController.mangerRemoveProduct(products.get(fromForBack + 3).getId());
+            showProducts(fromForBack);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
     public void removeProduct5(ActionEvent actionEvent) {
-        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+4));
-        Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
-            mainWindow.setScene(new Scene(root, 994, 666));
-            mainWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            managerController.mangerRemoveProduct(products.get(fromForBack + 4).getId());
+            showProducts(fromForBack);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
     public void removeProduct6(ActionEvent actionEvent) {
-        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+5));
-        Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
-            mainWindow.setScene(new Scene(root, 994, 666));
-            mainWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            managerController.mangerRemoveProduct(products.get(fromForBack + 5).getId());
+            showProducts(fromForBack);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
     public void removeProduct7(ActionEvent actionEvent) {
-        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+6));
-        Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
-            mainWindow.setScene(new Scene(root, 994, 666));
-            mainWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            managerController.mangerRemoveProduct(products.get(fromForBack + 6).getId());
+            showProducts(fromForBack);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
     public void removeProduct8(ActionEvent actionEvent) {
-        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+7));
-        Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
-            mainWindow.setScene(new Scene(root, 994, 666));
-            mainWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            managerController.mangerRemoveProduct(products.get(fromForBack + 7).getId());
+            showProducts(fromForBack);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
     public void removeProduct9(ActionEvent actionEvent) {
-        ProgramApplication.addToHistory(MenuNames.ALLPRODUCTSMENU);
-        ProductMenuFxml.setCurrentProduct(products.get(fromForBack+8));
-        Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
-            mainWindow.setScene(new Scene(root, 994, 666));
-            mainWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+            managerController.mangerRemoveProduct(products.get(fromForBack + 8).getId());
+            showProducts(fromForBack);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
@@ -350,6 +386,27 @@ public class ManageProducts implements Initializable {
         if (fromForBack >= 0) {
             deleteProducts();
             initializeProducts(fromForBack);
+        }
+    }
+
+    private void showProducts(int from) {
+        try {
+            products = allProductsController.showProducts();
+        } catch (Exception e) {
+            try {
+                new AlertController().create(AlertType.ERROR, e.getMessage());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        if (products.size() != 0)
+            initializeProducts(from);
+        else {
+            productImg1.setImage(null);
+            product1.setText("");
+            product1Price.setText("");
+            product1Score.setImage(null);
+            removeProduct1.setOpacity(0);
         }
     }
 }
