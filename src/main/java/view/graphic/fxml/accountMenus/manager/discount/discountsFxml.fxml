@@ -34,7 +34,7 @@
                 <Font size="14.0"/>
             </font>
         </Text>
-        <TableView fx:id="table" layoutX="40.0" layoutY="117.0" onMouseClicked="#selectCategory" opacity="0.7"
+        <TableView fx:id="table" layoutX="40.0" layoutY="117.0" onMouseClicked="#selectDiscount" opacity="0.7"
                    prefHeight="200.0" prefWidth="142.0" style="-fx-border-color: #009f9c;">
             <columns>
                 <TableColumn fx:id="discountCode" prefWidth="140.0" text="Code"/>
@@ -50,7 +50,7 @@
         </Text>
         <JFXTextField fx:id="maxNumberOfUsage" focusColor="#009f9c" layoutX="565.0" layoutY="302.0" opacity="0.0"
                       promptText="Number of usage" unFocusColor="#575957"/>
-        <Button fx:id="maxNumberOfUsageOk" layoutX="618.0" layoutY="302.0" mnemonicParsing="false" onAction="#handleOk"
+        <Button fx:id="maxNumberOfUsageOk" layoutX="530.0" layoutY="302.0" mnemonicParsing="false" onAction="#handleOk"
                 onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0"
                 prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
             <font>
@@ -60,7 +60,7 @@
         <JFXTextField fx:id="percent" focusColor="#009f9c" layoutX="565.0" layoutY="258.0" promptText="Persentage"
                       opacity="0.0"
                       unFocusColor="#575957"/>
-        <Button fx:id="percentOk" layoutX="618.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleOk"
+        <Button fx:id="percentOk" layoutX="530.0" layoutY="258.0" mnemonicParsing="false" onAction="#handleOk"
                 onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0"
                 prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
             <font>
@@ -70,7 +70,7 @@
         <JFXDatePicker fx:id="startDatePicker" defaultColor="#5fccd0" layoutX="565.0" layoutY="170.0"
                        opacity="0.0"
                        promptText="Start date"/>
-        <Button fx:id="startDatePickerOk" layoutX="618.0" layoutY="170.0" mnemonicParsing="false" onAction="#handleOk"
+        <Button fx:id="startDatePickerOk" layoutX="530.0" layoutY="170.0" mnemonicParsing="false" onAction="#handleOk"
                 onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0"
                 prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
             <font>
@@ -80,7 +80,7 @@
         <JFXTimePicker fx:id="startTimePicker" defaultColor="#5fccd0" layoutX="565.0" layoutY="214.0"
                        opacity="0.0"
                        promptText="Start time"/>
-        <Button fx:id="startTimePickerOk" layoutX="618.0" layoutY="214.0" mnemonicParsing="false" onAction="#handleOk"
+        <Button fx:id="startTimePickerOk" layoutX="530.0" layoutY="214.0" mnemonicParsing="false" onAction="#handleOk"
                 onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0"
                 prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
             <font>
@@ -90,7 +90,7 @@
         <JFXDatePicker fx:id="endDatePicker" defaultColor="#5fccd0" layoutX="565.0" layoutY="82.0"
                        opacity="0.0"
                        promptText="End date"/>
-        <Button fx:id="endDatePickerOk" layoutX="618.0" layoutY="565.0" mnemonicParsing="false" onAction="#handleOk"
+        <Button fx:id="endDatePickerOk" layoutX="530.0" layoutY="82.0" mnemonicParsing="false" onAction="#handleOk"
                 onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0"
                 prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
             <font>
@@ -100,7 +100,7 @@
         <JFXTimePicker fx:id="endTimePicker" defaultColor="#5fccd0" layoutX="565.0" layoutY="126.0"
                        opacity="0.0"
                        promptText="End time"/>
-        <Button fx:id="endTimePickerOk" layoutX="618.0" layoutY="301.0" mnemonicParsing="false" onAction="#handleOk"
+        <Button fx:id="endTimePickerOk" layoutX="530.0" layoutY="126.0" mnemonicParsing="false" onAction="#handleOk"
                 onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0"
                 prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
             <font>

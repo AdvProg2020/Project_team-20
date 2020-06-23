@@ -109,8 +109,30 @@ public class ManagerController implements controller.account.user.AccountControl
         discount.setDiscountPercentage(newOne);
     }
 
+    public void editDiscountPercentage(int discountCode, String newOneString) throws Exception {
+        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+        double newOne;
+        try {
+            newOne = Double.parseDouble(newOneString);
+        } catch (Exception e) {
+            throw new LoginController.CreditIsNotNumber();
+        }
+        discount.setDiscountPercentage(newOne);
+    }
+
     public void editMaxDiscountUsage(int discountCode, int newOne) throws Exception {
         Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+        discount.setMaxNumberOfUsage(newOne);
+    }
+
+    public void editMaxDiscountUsage(int discountCode, String newOneString) throws Exception {
+        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
+        int newOne;
+        try {
+            newOne = Integer.parseInt(newOneString);
+        } catch (Exception e) {
+            throw new LoginController.CreditIsNotNumber();
+        }
         discount.setMaxNumberOfUsage(newOne);
     }
 
