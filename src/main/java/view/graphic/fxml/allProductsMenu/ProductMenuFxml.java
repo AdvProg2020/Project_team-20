@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -122,7 +123,6 @@ public class ProductMenuFxml implements Initializable {
         textId.setStyle("-fx-background-color: transparent; -fx-text-inner-color: #f4f4f4;");
         textId.setText(commentId);
         textId.setOpacity(0);
-        textId.setId("id");
         usernameBox.getChildren().add(text);
         usernameBox.getChildren().add(textId);
         mainBox.getChildren().add(usernameBox);
@@ -172,11 +172,26 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void showReplies(ActionEvent actionEvent) {
+        allRepliesBox.getChildren().clear();
         JFXButton jfxButton = (JFXButton) actionEvent.getSource();
-        TextField idText = (TextField) ((jfxButton.getParent()).getParent()).lookup("#id");
+        TextField idText = null;
+        for (Node node:(jfxButton.getParent()).getParent().getChildrenUnmodifiable()) {
+            if (node instanceof HBox) {
+                for (Node node1:((HBox) node).getChildrenUnmodifiable()) {
+                    if (node1 instanceof TextField)
+                        idText = (TextField)node1;
+                }
+                break;
+            }
+        }
+        System.out.println(idText);
+        if (idText==null) {
+            return;
+        }
         String id = idText.getText();
         try {
             comment = currentProduct.getCommentWithId(id);
+            System.out.println(id);
             ArrayList<Reply> replies = comment.getReplies();
             for (Reply reply:replies) {
                 createComment(reply.getBuyer().getUsername(), reply.getContent(), null, allRepliesBox, 1);
@@ -205,7 +220,9 @@ public class ProductMenuFxml implements Initializable {
         allCommentsBox.getChildren().clear();
         for (Comment comment:currentProduct.getComments()) {
             try {
-                createComment(comment.getBuyer().getUsername(), comment.getContent(), comment.getCommentId(), allCommentsBox, 0);
+                VBox commentVBox = new VBox();
+                createComment(comment.getBuyer().getUsername(), comment.getContent(), comment.getCommentId(), commentVBox, 0);
+                allCommentsBox.getChildren().add(commentVBox);
             } catch (Exception e) {
                 e.printStackTrace();
             }
