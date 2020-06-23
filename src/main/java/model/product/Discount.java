@@ -196,7 +196,10 @@ public class Discount {
         return endDate;
     }
 
-    public void setDiscountPercentage(double discountPercentage) {
+    public void setDiscountPercentage(double discountPercentage) throws IncorrectPercentage {
+        if (discountPercentage > 100) {
+            throw new IncorrectPercentage();
+        }
         this.discountPercentage = discountPercentage;
     }
 

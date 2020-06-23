@@ -107,5 +107,25 @@
                 <Font size="11.0"/>
             </font>
         </Button>
+        <JFXTextField fx:id="removeBuyerText" focusColor="#009f9c" layoutX="565.0" layoutY="346.0" promptText="buyer username to remove"
+                      opacity="0.0"
+                      unFocusColor="#575957"/>
+        <Button fx:id="addBuyerOk" layoutX="530.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleOk"
+                onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0"
+                prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+            <font>
+                <Font size="11.0"/>
+            </font>
+        </Button>
+        <JFXTextField fx:id="addBuyerText" focusColor="#009f9c" layoutX="565.0" layoutY="390.0" promptText="buyer username to add"
+                      opacity="0.0"
+                      unFocusColor="#575957"/>
+        <Button fx:id="removeBuyerOk" layoutX="530.0" layoutY="346.0" mnemonicParsing="false" onAction="#handleOk"
+                onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0"
+                prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+            <font>
+                <Font size="11.0"/>
+            </font>
+        </Button>
     </children>
 </AnchorPane>

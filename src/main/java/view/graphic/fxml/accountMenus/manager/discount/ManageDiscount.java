@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import controller.account.user.ManagerController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -41,6 +42,10 @@ public class ManageDiscount implements Initializable {
     public Button maxNumberOfUsageOk;
     public Button removeButton;
     public Button editButton;
+    public Button addBuyerOk;
+    public Button removeBuyerOk;
+    public JFXTextField removeBuyerText;
+    public JFXTextField addBuyerText;
 
     ManagerController managerController = ManagerController.getInstance();
     Discount discount;
@@ -74,6 +79,10 @@ public class ManageDiscount implements Initializable {
         try {
             managerController.removeDiscountCodes(discount.getDiscountCode());
             new AlertController().create(AlertType.CONFIRMATION, "delete was successful");
+            table.getItems().setAll(managerController.viewDiscountCodes());
+            discountCode.setCellValueFactory(new PropertyValueFactory<>("discountCode"));
+            clear();
+            removeEditPanel();
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -96,6 +105,43 @@ public class ManageDiscount implements Initializable {
             editEndDate();
         } else if (endDatePickerOk.equals(source)) {
             editEndTime();
+        } else if (addBuyerOk.equals(source)) {
+            addBuyer();
+        } else if(removeBuyerOk.equals(source)) {
+            removeBuyer();
+        }
+        clear();
+    }
+
+    @FXML
+    private void removeBuyer() {
+        String username = removeBuyerText.getText();
+        if (username.isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.removeBuyerFromBuyersWithDiscount(discount.getDiscountCode(), username);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(discount.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    @FXML
+    private void addBuyer() {
+        String username = addBuyerText.getText();
+        if (username.isEmpty()) {
+            new AlertController().create(AlertType.ERROR, "field is empty");
+            return;
+        }
+        try {
+            managerController.addBuyerToBuyersWithDiscount(discount.getDiscountCode(), username);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(discount.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 
@@ -200,6 +246,8 @@ public class ManageDiscount implements Initializable {
     private void clear() {
         maxNumberOfUsage.setText("");
         percent.setText("");
+        addBuyerText.setText("");
+        removeBuyerText.setText("");
         startDatePicker.setValue(null);
         startTimePicker.setValue(null);
         endDatePicker.setValue(null);
@@ -229,12 +277,16 @@ public class ManageDiscount implements Initializable {
         startDatePicker.setOpacity(0);
         endTimePicker.setOpacity(0);
         endDatePicker.setOpacity(0);
+        removeBuyerText.setOpacity(0);
+        addBuyerText.setOpacity(0);
         percentOk.setOpacity(0);
         maxNumberOfUsageOk.setOpacity(0);
         startTimePickerOk.setOpacity(0);
         startDatePickerOk.setOpacity(0);
         endTimePickerOk.setOpacity(0);
         endDatePickerOk.setOpacity(0);
+        addBuyerOk.setOpacity(0);
+        removeBuyerOk.setOpacity(0);
     }
 
     private void showEditPanel() {
@@ -244,18 +296,24 @@ public class ManageDiscount implements Initializable {
         endDatePicker.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         startTimePicker.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         startDatePicker.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        removeBuyerText.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        addBuyerText.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         percent.setOpacity(0.71);
         maxNumberOfUsage.setOpacity(0.71);
         endDatePicker.setOpacity(0.71);
         endTimePicker.setOpacity(0.71);
         startDatePicker.setOpacity(0.71);
         startTimePicker.setOpacity(0.71);
+        removeBuyerText.setOpacity(0.71);
+        addBuyerText.setOpacity(0.71);
         startTimePickerOk.setOpacity(0.71);
         startDatePickerOk.setOpacity(0.71);
         percentOk.setOpacity(0.71);
         maxNumberOfUsageOk.setOpacity(0.71);
         endTimePickerOk.setOpacity(0.71);
         endDatePickerOk.setOpacity(0.71);
+        addBuyerOk.setOpacity(0.71);
+        removeBuyerOk.setOpacity(0.71);
     }
 
 
