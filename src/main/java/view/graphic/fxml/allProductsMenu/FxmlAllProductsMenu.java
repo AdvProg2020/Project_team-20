@@ -434,14 +434,17 @@ public class FxmlAllProductsMenu implements Initializable {
     public void handleNextButton(ActionEvent actionEvent) {
         if (allProductsController.getProducts().size() > fromForBack + 9) {
             fromForBack = fromForBack + 9;
+            deleteProducts();
             initializeProducts(fromForBack);
         }
     }
 
     public void handleBackButton(ActionEvent actionEvent) {
         fromForBack = fromForBack - 9;
-        if (fromForBack >= 0)
+        if (fromForBack >= 0) {
+            deleteProducts();
             initializeProducts(fromForBack);
+        }
     }
 
     public void showProduct1(ActionEvent actionEvent) {

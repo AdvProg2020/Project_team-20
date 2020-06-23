@@ -140,7 +140,7 @@
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;">
                                  <children>
                                     <ImageView fx:id="productImg1" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text fx:id="product1" fill="#575957" layoutX="16.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                    <Text fx:id="product1" fill="#575957" layoutX="16.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -161,7 +161,7 @@
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1">
                                  <children>
                                     <ImageView fx:id="productImg2" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text fx:id="product2" fill="#575957" layoutX="16.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                    <Text fx:id="product2" fill="#575957" layoutX="16.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -182,7 +182,7 @@
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2">
                                  <children>
                                     <ImageView fx:id="productImg3" fitHeight="121.0" fitWidth="181.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text fx:id="product3" fill="#575957" layoutX="18.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                    <Text fx:id="product3" fill="#575957" layoutX="18.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -203,7 +203,7 @@
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.rowIndex="1">
                                  <children>
                                     <ImageView fx:id="productImg4" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text fx:id="product4" fill="#575957" layoutX="16.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                    <Text fx:id="product4" fill="#575957" layoutX="16.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -224,7 +224,7 @@
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
                                     <ImageView fx:id="productImg5" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text fx:id="product5" fill="#575957" layoutX="16.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                    <Text fx:id="product5" fill="#575957" layoutX="16.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -245,7 +245,7 @@
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                  <children>
                                     <ImageView fx:id="productImg6" fitHeight="121.0" fitWidth="186.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text fx:id="product6" fill="#575957" layoutX="15.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                    <Text fx:id="product6" fill="#575957" layoutX="15.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -266,7 +266,7 @@
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.rowIndex="2">
                                  <children>
                                     <ImageView fx:id="productImg7" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text fx:id="product7" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                    <Text fx:id="product7" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -287,7 +287,7 @@
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <children>
                                     <ImageView fx:id="productImg8" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text fx:id="product8" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                    <Text fx:id="product8" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -308,7 +308,7 @@
                               <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                  <children>
                                     <ImageView fx:id="productImg9" fitHeight="121.0" fitWidth="186.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text fx:id="product9" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="117.2060546875">
+                                    <Text fx:id="product9" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
