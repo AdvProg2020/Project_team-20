@@ -70,12 +70,12 @@ public class ProductMenuFxml implements Initializable {
 
         for (Field field:currentProduct.getGeneralFields()) {
             if (field instanceof NumericalField) {
-                fields.appendText(field.getName() + ": " + ((NumericalField)field).getNumericalField());
+                fields.appendText(field.getName() + ": " + ((NumericalField)field).getNumericalField() + "\n");
             } else {
                 StringBuilder optionalFields = new StringBuilder();
                 for (String str: ((OptionalField)field).getOptionalFiled())
                     optionalFields.append(str).append(", ");
-                fields.appendText(field.getName() + ": " + optionalFields);
+                fields.appendText(field.getName() + ": " + optionalFields + "\n");
             }
         }
         fields.setEditable(false);
