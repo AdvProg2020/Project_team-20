@@ -179,7 +179,7 @@ public class ProductMenuFxml implements Initializable {
             new AlertController().create(AlertType.ERROR, "please fill the comment!");
         try {
             productController.addComment(currentProduct, null, commentStr);
-            new AlertController().create(AlertType.ERROR, "comment added successfully");
+            new AlertController().create(AlertType.CONFIRMATION, "comment added successfully");
             showComments();
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
