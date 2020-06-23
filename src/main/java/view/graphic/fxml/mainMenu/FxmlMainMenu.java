@@ -6,8 +6,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
-import view.graphic.alert.AlertController;
-import view.graphic.alert.AlertType;
 
 public class FxmlMainMenu {
     public static Stage window;
