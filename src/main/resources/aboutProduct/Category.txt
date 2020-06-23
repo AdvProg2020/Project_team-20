@@ -1,2 +1,1 @@
-{"@type":"model.product.Category","@val":{"name":"wq","fieldNames":[],"subCategoriesName":[],"productIDs":[],"parent":{"name":"qw","fieldNames":["as"],"subCategoriesName":["wq","wq","wq","wq","wq","wq"],"productIDs":[]}}}
-{"@type":"model.product.Category","@val":{"name":"asdasd","fieldNames":[],"subCategoriesName":[],"productIDs":[]}}
+{"@type":"model.product.Category","@val":{"name":"books","fieldNames":["book"],"subCategoriesName":[],"productIDs":["1"]}}

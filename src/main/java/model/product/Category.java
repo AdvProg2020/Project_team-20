@@ -138,8 +138,8 @@ public class Category {
     }
 
     public static Category getCategoryByName(String categoryName) throws Exception {
-        for (Category category : allCategories) {
-            if (category.name.equals(categoryName))
+        for (Category category : Category.allCategories) {
+            if (category.getName().equals(categoryName))
                 return category;
         }
         throw new CategoryDoesNotFoundException();

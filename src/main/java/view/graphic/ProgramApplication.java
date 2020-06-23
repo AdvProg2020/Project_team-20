@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 import view.graphic.fxml.mainMenu.FxmlMainMenu;
 import view.graphic.fxml.registerAndLoginMenu.FxmlRegisterAndLoginMenu;
 import view.graphic.fxml.registerAndLoginMenu.ManagerLoginController;
@@ -86,6 +87,7 @@ public class ProgramApplication extends Application {
                 try {
                     root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/allProducts.fxml").toURI().toURL());
                     allProductsMenu = new Scene(root, 994, 666);
+                    FxmlAllProductsMenu.setMainWindow(mainStage);
                     mainStage.setScene(allProductsMenu);
                     mainStage.show();
                 } catch (IOException e) {
@@ -107,6 +109,10 @@ public class ProgramApplication extends Application {
 
     public static void startApp(String[] args) {
         launch(args);
+    }
+
+    public static void addToHistory(MenuNames name) {
+        history.add(name);
     }
 
 }

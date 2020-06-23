@@ -63,6 +63,7 @@ public class BuyerMenuController {
     }
 
     public void handleViewDiscountCodes(ActionEvent actionEvent) {
+        loadUI("discountCodes");
     }
 
     public void handleExit() {
