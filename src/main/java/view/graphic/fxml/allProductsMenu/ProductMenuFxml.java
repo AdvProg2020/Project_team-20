@@ -1,18 +1,22 @@
 package view.graphic.fxml.allProductsMenu;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
-import controller.account.user.ManagerController;
+import com.jfoenix.controls.JFXTextField;
 import controller.product.ProductController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import model.Requestable;
 import model.account.Seller;
 import model.product.Field.Field;
 import model.product.Field.NumericalField;
@@ -20,13 +24,12 @@ import model.product.Field.OptionalField;
 import model.product.Product;
 import model.product.comment.Comment;
 import view.graphic.ProgramApplication;
-import view.graphic.fxml.accountMenus.manager.RequestTable;
+import view.graphic.alert.AlertController;
+import view.graphic.alert.AlertType;
 import view.graphic.score.Score;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ProductMenuFxml implements Initializable {
@@ -41,11 +44,8 @@ public class ProductMenuFxml implements Initializable {
     public ObservableList<String> sellerUserNames =
             FXCollections.observableArrayList();
     public Text price;
-    public TableView commentTable;
-    public TableColumn usernameColumn;
-    public TableColumn commentColumn;
-    public TextField comment;
-    public TextField replyToComment;
+    public VBox allCommentsBox;
+    public JFXTextField newComment;
     private Seller seller;
 
     public void handleLogin(ActionEvent actionEvent) {
@@ -70,7 +70,6 @@ public class ProductMenuFxml implements Initializable {
 
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Image img = new Image(new File("src/main/resources/Images/" + currentProduct.getImagePath()).toURI().toString());
@@ -94,8 +93,41 @@ public class ProductMenuFxml implements Initializable {
         for (Seller seller:currentProduct.getSellers())
             sellerUserNames.add(seller.getUsername());
         sellers.setItems(sellerUserNames);
+        showComments();
+    }
 
+    public void createComment(String username, String comment, String commentId, VBox mainBox) {
+        HBox commentBox = new HBox();
+        commentBox.setStyle("-fx-background-color: #f4f4f4;");
 
+        HBox usernameBox = new HBox();
+
+        usernameBox.setStyle("-fx-background-color: transparent;");
+        TextField text = new TextField();
+        text.setText(username + ":");
+        text.setStyle("-fx-background-color: transparent; -fx-text-inner-color: #5fccd0;");
+        TextField textId = new TextField();
+        textId.setStyle("-fx-background-color: transparent; -fx-text-inner-color: #f4f4f4;");
+        textId.setText(commentId);
+        textId.setOpacity(0);
+        textId.setId("id");
+        usernameBox.getChildren().add(text);
+        usernameBox.getChildren().add(textId);
+        mainBox.getChildren().add(usernameBox);
+
+        HBox commentReplyBox = new HBox();
+        commentReplyBox.setStyle("-fx-background-color: #e6e7e9; -fx-background-radius:20;");
+        commentReplyBox.setLayoutX(20);
+        TextField text2 = new TextField();
+        text2.setStyle("-fx-background-color: transparent; -fx-text-inner-color: #575957;");
+        text2.setText(comment);
+        commentReplyBox.getChildren().add(text2);
+        JFXButton button = new JFXButton();
+        button.setText("...");
+        button.setStyle("-fx-background-color:  #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius:60; -fx-border-radius:60;");
+        button.setOnAction(this::showReplies);
+        commentReplyBox.getChildren().add(button);
+        mainBox.getChildren().add(commentReplyBox);
     }
 
     public static void setCurrentProduct(Product currentProduct) {
@@ -111,11 +143,46 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void handleAddToCart(ActionEvent actionEvent) {
+        if (seller==null) {
+            new AlertController().create(AlertType.ERROR, "please select a seller");
+            return;
+        }
+        try {
+            productController.addProductToCart(seller.getUsername());
+            handleBack(null);
+            new AlertController().create(AlertType.CONFIRMATION, "addition was successful");
+        } catch (Exception e) {
+            e.printStackTrace();
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
-    public void handleComment(ActionEvent actionEvent) {
+    public void showReplies(ActionEvent actionEvent) {
+        JFXButton jfxButton = (JFXButton) actionEvent.getSource();
+        TextField idText = (TextField) ((jfxButton.getParent()).getParent()).lookup("#id");
+        String id = idText.getId();
     }
 
-    public void handleReply(ActionEvent actionEvent) {
+    public void showComments() {
+        for (Comment comment:currentProduct.getComments()) {
+            try {
+                createComment(comment.getBuyer().getUsername(), comment.getContent(), comment.getCommentId(), allCommentsBox);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void addComment(ActionEvent actionEvent) {
+        String commentStr = newComment.getText();
+        if (commentStr==null)
+            new AlertController().create(AlertType.ERROR, "please fill the comment!");
+        try {
+            productController.addComment(currentProduct, null, commentStr);
+            new AlertController().create(AlertType.ERROR, "comment added successfully");
+            showComments();
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 }

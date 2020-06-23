@@ -196,7 +196,10 @@ public class Discount {
         return endDate;
     }
 
-    public void setDiscountPercentage(double discountPercentage) {
+    public void setDiscountPercentage(double discountPercentage) throws IncorrectPercentage {
+        if (discountPercentage > 100) {
+            throw new IncorrectPercentage();
+        }
         this.discountPercentage = discountPercentage;
     }
 
@@ -208,11 +211,17 @@ public class Discount {
         addTOBuyersWithDiscount(buyersWithDiscount);
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDateTime startDate) throws StartDateIsAfterEndDate {
+        if (startDate.isAfter(endDate)) {
+            throw new StartDateIsAfterEndDate();
+        }
         this.startDate = startDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDateTime endDate) throws StartDateIsAfterEndDate {
+        if (startDate.isAfter(endDate)) {
+            throw new StartDateIsAfterEndDate();
+        }
         this.endDate = endDate;
     }
 
@@ -256,9 +265,20 @@ public class Discount {
         return this.numberOfUsageForEachBuyerUserName.get(buyer.getUsername());
     }
 
+
     @Override
     public String toString() {
-        return super.toString();
+        String users = "";
+        int i = 1;
+        for (String buyersWithDiscountID : buyersWithDiscountIDs) {
+            users += (i++) + ": " + buyersWithDiscountID + "\n";
+        }
+        return "discountCode:     " + discountCode + "\n" +
+                "discountPercentage:    " + discountPercentage + "\n" +
+                "maxNumberOfUsage:    " + maxNumberOfUsage + "\n" +
+                "buyersWithDiscountIDs:    " + users +
+                "startDate:    " + startDate + "\n" +
+                "endDate:    " + endDate;
     }
 
     public static class IncorrectPercentage extends Exception {

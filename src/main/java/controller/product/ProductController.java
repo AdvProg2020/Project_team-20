@@ -38,8 +38,9 @@ public class ProductController {
 
     public void addComment(Product product, String title, String content) throws Exception {
         GeneralAccount currentAccount = mainController.getAccount();
-        if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
-                !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)))
+        if ( (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
+                !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER))) ||
+            currentAccount.getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT))
             throw new AccountNotBuyerException();
         product.addComment(new Comment((Buyer) currentAccount, product, title, content));
     }
