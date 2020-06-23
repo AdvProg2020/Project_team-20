@@ -31,6 +31,7 @@ import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
+import view.graphic.fxml.accountMenus.buyer.BuyerMenuController;
 import view.graphic.fxml.mainMenu.FxmlMainMenu;
 import view.graphic.score.Score;
 
@@ -243,6 +244,10 @@ public class FxmlAllProductsMenu implements Initializable {
         if (MainController.getInstance().getAccount().getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT)) {
             new AlertController().create(AlertType.ERROR, "please first sign in");
             ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
+        }
+        else{
+            System.out.println("hi");
+            ProgramApplication.setMenu(MenuNames.BUYERMENU);
         }
     }
 
