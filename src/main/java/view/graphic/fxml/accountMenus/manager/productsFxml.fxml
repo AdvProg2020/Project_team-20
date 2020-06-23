@@ -1,18 +1,233 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.manager.ManagerMenuController">
-   <children>
-      <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Products" wrappingWidth="207.58889770507812">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.manager.ManageProducts">
+    <children>
+        <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Products" wrappingWidth="207.58889770507812">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Text>
+        <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
+        <ScrollPane layoutX="47.0" layoutY="29.0" prefHeight="424.0" prefWidth="669.0">
+            <content>
+                <GridPane prefHeight="700.0" prefWidth="650.0">
+                    <children>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;">
+                            <children>
+                                <ImageView fx:id="productImg1" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fx:id="product1" fill="#575957" layoutX="16.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="product1Price" fill="#575957" layoutX="16.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="product1Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
+                                <JFXButton fx:id="removeProduct1" layoutX="17.0" layoutY="205.0" onAction="#removeProduct1" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Remove" textFill="#252e3b">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1">
+                            <children>
+                                <ImageView fx:id="productImg2" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fx:id="product2" fill="#575957" layoutX="16.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="product2Price" fill="#575957" layoutX="16.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="product2Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
+                                <JFXButton fx:id="removeProduct2" layoutX="17.0" layoutY="205.0" onAction="#removeProduct2" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Remove" textFill="#252e3b">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2">
+                            <children>
+                                <ImageView fx:id="productImg3" fitHeight="121.0" fitWidth="181.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fx:id="product3" fill="#575957" layoutX="18.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="product3Price" fill="#575957" layoutX="18.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="product3Score" fitHeight="25.0" fitWidth="99.0" layoutX="15.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
+                                <JFXButton fx:id="removeProduct3" layoutX="17.0" layoutY="205.0" onAction="#removeProduct3" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Remove" textFill="#252e3b">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.rowIndex="1">
+                            <children>
+                                <ImageView fx:id="productImg4" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fx:id="product4" fill="#575957" layoutX="16.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="product4Price" fill="#575957" layoutX="16.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="product4Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
+                                <JFXButton fx:id="removeProduct4" layoutX="17.0" layoutY="205.0" onAction="#removeProduct4" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Remove" textFill="#252e3b">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <children>
+                                <ImageView fx:id="productImg5" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fx:id="product5" fill="#575957" layoutX="16.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="product5Price" fill="#575957" layoutX="16.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="product5Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
+                                <JFXButton fx:id="removeProduct5" layoutX="17.0" layoutY="205.0" onAction="#removeProduct5" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Remove" textFill="#252e3b">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <children>
+                                <ImageView fx:id="productImg6" fitHeight="121.0" fitWidth="186.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fx:id="product6" fill="#575957" layoutX="15.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="product6Price" fill="#575957" layoutX="15.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="product6Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                <JFXButton fx:id="removeProduct6" layoutX="17.0" layoutY="205.0" onAction="#removeProduct6" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Remove" textFill="#252e3b">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.rowIndex="2">
+                            <children>
+                                <ImageView fx:id="productImg7" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fx:id="product7" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="product7Price" fill="#575957" layoutX="16.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="product7Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                <JFXButton fx:id="removeProduct7" layoutX="17.0" layoutY="205.0" onAction="#removeProduct7" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Remove" textFill="#252e3b">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <children>
+                                <ImageView fx:id="productImg8" fitHeight="121.0" fitWidth="186.0" layoutX="16.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fx:id="product8" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="product8Price" fill="#575957" layoutX="16.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="product8Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                <JFXButton fx:id="removeProduct8" layoutX="17.0" layoutY="205.0" onAction="#removeProduct8" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Remove" textFill="#252e3b">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #e7e7e7; -fx-background-color: white;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                            <children>
+                                <ImageView fx:id="productImg9" fitHeight="121.0" fitWidth="186.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+                                <Text fx:id="product9" fill="#575957" layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <Text fx:id="product9Price" fill="#575957" layoutX="15.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.2060546875">
+                                    <font>
+                                        <Font size="15.0" />
+                                    </font>
+                                </Text>
+                                <ImageView fx:id="product9Score" fitHeight="25.0" fitWidth="99.0" layoutX="13.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true" />
+                                <JFXButton fx:id="removeProduct9" layoutX="17.0" layoutY="205.0" onAction="#removeProduct9" opacity="0.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Remove" textFill="#252e3b">
+                                    <font>
+                                        <Font size="11.0" />
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </Pane>
+                    </children>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                </GridPane>
+            </content>
+        </ScrollPane>
+      <JFXButton layoutX="105.0" layoutY="458.0" onAction="#handleNextButton" prefHeight="33.0" prefWidth="60.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Next" textFill="#252e3b" />
+      <JFXButton layoutX="50.0" layoutY="458.0" onAction="#handleBackButton" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Back" textFill="#252e3b" />
+    </children>
 </AnchorPane>
