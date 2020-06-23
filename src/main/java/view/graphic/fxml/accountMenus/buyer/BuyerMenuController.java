@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.DragEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import view.graphic.MenuNames;
+import view.graphic.ProgramApplication;
 
 import java.io.File;
 
@@ -37,6 +39,7 @@ public class BuyerMenuController {
     }
 
     public void handleAllProducts(ActionEvent actionEvent) {
+        ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
     public void handleOffs(ActionEvent actionEvent) {

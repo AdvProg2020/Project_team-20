@@ -72,12 +72,23 @@
             <VBox fx:id="allCommentsBox" prefHeight="104.0" prefWidth="158.0" />
          </content>
       </ScrollPane>
-      <JFXTextField fx:id="newComment" focusColor="#5fccd0" layoutX="567.0" layoutY="504.0" prefHeight="27.0" prefWidth="134.0" promptText="Comment..." unFocusColor="#575957" />
-      <JFXButton layoutX="703.0" layoutY="506.0" onAction="#addComment" prefHeight="15.0" prefWidth="45.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Send" textFill="#252e3b">
+      <JFXTextField fx:id="newComment" focusColor="#5fccd0" layoutX="567.0" layoutY="512.0" prefHeight="27.0" prefWidth="134.0" promptText="Comment..." unFocusColor="#575957" />
+      <JFXButton layoutX="703.0" layoutY="514.0" onAction="#addComment" prefHeight="15.0" prefWidth="45.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Send" textFill="#252e3b">
          <font>
             <Font size="11.0" />
          </font>
       </JFXButton>
       <JFXTextField focusColor="#5fccd0" layoutX="566.0" layoutY="363.0" text="Comments" unFocusColor="#575957" />
+      <ScrollPane layoutX="758.0" layoutY="390.0" prefHeight="81.0" prefWidth="180.0" style="-fx-background-color: transparent;">
+         <content>
+            <VBox fx:id="allRepliesBox" opacity="0.0" prefHeight="78.0" prefWidth="158.0" />
+         </content>
+      </ScrollPane>
+      <JFXTextField fx:id="newReply" focusColor="#5fccd0" layoutX="758.0" layoutY="475.0" opacity="0.0" prefHeight="27.0" prefWidth="134.0" promptText="Reply..." unFocusColor="#575957" />
+      <JFXButton fx:id="sendReply" layoutX="894.0" layoutY="477.0" onAction="#addReply" opacity="0.0" prefHeight="15.0" prefWidth="45.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Send" textFill="#252e3b">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

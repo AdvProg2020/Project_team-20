@@ -23,6 +23,7 @@ import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
 import model.product.Product;
 import model.product.comment.Comment;
+import model.product.comment.Reply;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
@@ -30,6 +31,7 @@ import view.graphic.score.Score;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ProductMenuFxml implements Initializable {
@@ -46,7 +48,11 @@ public class ProductMenuFxml implements Initializable {
     public Text price;
     public VBox allCommentsBox;
     public JFXTextField newComment;
+    public JFXTextField newReply;
+    public VBox allRepliesBox;
+    public JFXButton sendReply;
     private Seller seller;
+    private Comment comment;
 
     public void handleLogin(ActionEvent actionEvent) {
     }
@@ -96,7 +102,7 @@ public class ProductMenuFxml implements Initializable {
         showComments();
     }
 
-    public void createComment(String username, String comment, String commentId, VBox mainBox) {
+    public void createComment(String username, String comment, String commentId, VBox mainBox, int type) {
         HBox commentBox = new HBox();
         commentBox.setStyle("-fx-background-color: #f4f4f4;");
 
@@ -122,11 +128,13 @@ public class ProductMenuFxml implements Initializable {
         text2.setStyle("-fx-background-color: transparent; -fx-text-inner-color: #575957;");
         text2.setText(comment);
         commentReplyBox.getChildren().add(text2);
-        JFXButton button = new JFXButton();
-        button.setText("...");
-        button.setStyle("-fx-background-color:  #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius:60; -fx-border-radius:60;");
-        button.setOnAction(this::showReplies);
-        commentReplyBox.getChildren().add(button);
+        if (type==0) {
+            JFXButton button = new JFXButton();
+            button.setText("...");
+            button.setStyle("-fx-background-color:  #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius:60; -fx-border-radius:60;");
+            button.setOnAction(this::showReplies);
+            commentReplyBox.getChildren().add(button);
+        }
         mainBox.getChildren().add(commentReplyBox);
     }
 
@@ -160,13 +168,38 @@ public class ProductMenuFxml implements Initializable {
     public void showReplies(ActionEvent actionEvent) {
         JFXButton jfxButton = (JFXButton) actionEvent.getSource();
         TextField idText = (TextField) ((jfxButton.getParent()).getParent()).lookup("#id");
-        String id = idText.getId();
+        String id = idText.getText();
+        try {
+            comment = currentProduct.getCommentWithId(id);
+            ArrayList<Reply> replies = comment.getReplies();
+            for (Reply reply:replies) {
+                createComment(reply.getBuyer().getUsername(), reply.getContent(), null, allRepliesBox, 1);
+            }
+            allRepliesBox.setOpacity(1);
+            sendReply.setOpacity(1);
+            newReply.setOpacity(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showRepliesComment(Comment commentToShow) {
+        allRepliesBox.getChildren().clear();
+        ArrayList<Reply> replies = comment.getReplies();
+        for (Reply reply:replies) {
+            try {
+                createComment(reply.getBuyer().getUsername(), reply.getContent(), null, allRepliesBox, 1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void showComments() {
+        allCommentsBox.getChildren().clear();
         for (Comment comment:currentProduct.getComments()) {
             try {
-                createComment(comment.getBuyer().getUsername(), comment.getContent(), comment.getCommentId(), allCommentsBox);
+                createComment(comment.getBuyer().getUsername(), comment.getContent(), comment.getCommentId(), allCommentsBox, 0);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -175,12 +208,31 @@ public class ProductMenuFxml implements Initializable {
 
     public void addComment(ActionEvent actionEvent) {
         String commentStr = newComment.getText();
-        if (commentStr==null)
+        if (commentStr.equals("")) {
             new AlertController().create(AlertType.ERROR, "please fill the comment!");
+            return;
+        }
         try {
             productController.addComment(currentProduct, null, commentStr);
-            new AlertController().create(AlertType.ERROR, "comment added successfully");
+            new AlertController().create(AlertType.CONFIRMATION, "comment added successfully");
+            newComment.setText("");
             showComments();
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    public void addReply(ActionEvent actionEvent) {
+        String replyStr = newReply.getText();
+        if (replyStr.equals("")) {
+            new AlertController().create(AlertType.ERROR, "please fill the reply!");
+            return;
+        }
+        try {
+            productController.addReplyToComment(comment, null, replyStr);
+            new AlertController().create(AlertType.CONFIRMATION, "comment added successfully");
+            newReply.setText("");
+            showRepliesComment(comment);
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
