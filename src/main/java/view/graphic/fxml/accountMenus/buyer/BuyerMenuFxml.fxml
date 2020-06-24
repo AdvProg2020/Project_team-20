@@ -22,7 +22,7 @@
                         <Insets left="5.0" right="5.0" />
                     </VBox.margin>
                 </JFXTextField>
-                <VBox prefHeight="242.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
+                <VBox prefHeight="208.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                     <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
                     </VBox.margin>
@@ -32,13 +32,12 @@
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handlePurchase" prefHeight="40.0" prefWidth="396.0" text="Purchase" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewOrders" prefHeight="40.0" prefWidth="444.0" text="View orders" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewDiscountCodes" prefHeight="40.0" prefWidth="367.0" text="View discount codes" textFill="#d8f9ff" />
-                  <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="130.0" onAction="#handleAllProducts" prefHeight="39.0" prefWidth="204.0" text="All Products" textFill="#d8f9ff" />
                     </children>
                 </VBox>
                 <VBox prefHeight="108.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                     <children>
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Log out" textFill="#d8f9ff" />
-                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleAllProducts" prefHeight="40.0" prefWidth="367.0" text="All products" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleAllProducts" prefHeight="39.0" prefWidth="204.0" text="All Products" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleOffs" prefHeight="40.0" prefWidth="367.0" text="Offs" textFill="#d8f9ff" />
                     </children>
                 </VBox>
