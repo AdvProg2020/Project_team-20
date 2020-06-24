@@ -44,14 +44,21 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Text fx:id="discountText" fill="#575957" layoutX="109.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount Percentage:">
+      <Text fx:id="discountText" fill="#575957" layoutX="109.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sale Amount:">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
       <TextField fx:id="totalPrice" layoutX="252.0" layoutY="223.0" style="-fx-background-color: transparent;" />
       <TextField fx:id="discount" layoutX="251.0" layoutY="263.0" style="-fx-background-color: transparent;" />
-      <Button fx:id="payButton" layoutX="107.0" layoutY="322.0" mnemonicParsing="false" onAction="#handlePay" text="pay" />
-      <Button layoutX="165.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleReject" text="reject" />
+      <Button fx:id="payButton" layoutX="104.0" layoutY="348.0" mnemonicParsing="false" onAction="#handlePay" text="pay" />
+      <Button layoutX="160.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleReject" text="reject" />
+      <Text fx:id="discountCodeText" fill="#575957" layoutX="104.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount Code:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="discountCode" layoutX="252.0" layoutY="177.0" />
+      <Button fx:id="submitDiscount" layoutX="438.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleDiscountCode" text="submit" />
     </children>
 </AnchorPane>

@@ -74,6 +74,7 @@ public class BuyerMenuController {
     }
 
     public void handlePurchase(ActionEvent actionEvent) {
+        PurchaseMenu.setBorderPane(borderPane);
         loadUI("purchaseMenu");
     }
 
