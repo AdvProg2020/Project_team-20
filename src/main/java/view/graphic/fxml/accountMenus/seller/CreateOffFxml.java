@@ -29,7 +29,7 @@ public class CreateOffFxml implements Initializable {
     public JFXTimePicker endTimePicker;
     public JFXTextField percent;
     public TableView<Product> chosenTable;
-    public TableColumn<String, Product> chosenUsers;
+    public TableColumn<String, Product> chosenProducts;
     public TableView<Product> table;
     public TableColumn<String, Product> productNames;
     public ArrayList<Product> products;
@@ -82,8 +82,8 @@ public class CreateOffFxml implements Initializable {
         if (!products.contains(product))
             products.add(product);
         chosenTable.getItems().removeAll();
-        chosenTable.getItems().setAll(product);
-        chosenUsers.setCellValueFactory(new PropertyValueFactory<>("name"));
+        chosenTable.getItems().setAll(products);
+        chosenProducts.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 
     private void clear() {
