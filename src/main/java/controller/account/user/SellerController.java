@@ -333,6 +333,14 @@ public class SellerController implements AccountController {
         }
     }
 
+    public void setProfileImage(String path) {
+        seller.setImagePath(path);
+    }
+
+    public static Seller getSeller() {
+        return seller;
+    }
+
     @Override
     public void changeMainImage(Image image) {
         seller.getGraphicPackage().setMainImage(image);

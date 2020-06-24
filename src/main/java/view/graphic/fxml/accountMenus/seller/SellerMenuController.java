@@ -2,11 +2,16 @@ package view.graphic.fxml.accountMenus.seller;
 
 import controller.Main;
 import controller.account.user.SellerController;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.account.Seller;
@@ -15,11 +20,20 @@ import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class SellerMenuController {
+public class SellerMenuController implements Initializable {
     private static Stage window;
     public BorderPane borderPane;
+    public ImageView profileImg;
     private SellerController sellerController = SellerController.getInstance();
     private Seller seller = (Seller) sellerController.getAccountInfo();
 
@@ -76,9 +90,29 @@ public class SellerMenuController {
 
 
     public void handleDragDropped(DragEvent event) {
+        List<File> files = event.getDragboard().getFiles();
+        Image img;
+        try {
+            img = new Image(new FileInputStream((files.get(0))));
+            profileImg.setImage(img);
+            File outputFile = new File("src/main/resources/Images/profile" + SellerController.getSeller().getUsername() + ".png");
+            String path = "profile" + SellerController.getSeller().getUsername() + ".png";
+            sellerController.setProfileImage(path);
+            BufferedImage bImage = SwingFXUtils.fromFXImage(img, null);
+            try {
+                ImageIO.write(bImage, "png", outputFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleDragOver(DragEvent event) {
+        if (event.getDragboard().hasFiles()) {
+            event.acceptTransferModes(TransferMode.ANY);
+        }
     }
 
     public void handleExit() {
@@ -92,5 +126,15 @@ public class SellerMenuController {
 
     public void handleCreateOff(ActionEvent actionEvent) {
         loadUI("createOff");
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Seller seller = SellerController.getSeller();
+        if (seller.getImagePath()!=null) {
+            Image img1 = new Image(new File("src/main/resources/Images/" + seller.getImagePath()).toURI().toString());
+            profileImg.setImage(img1);
+        }
     }
 }

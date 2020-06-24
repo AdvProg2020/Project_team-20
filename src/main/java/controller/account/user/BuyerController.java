@@ -239,6 +239,10 @@ public class BuyerController implements AccountController {
         Manager.addRequest(currentBuyer);
     }
 
+    public void setProfileImage(String path) {
+        currentBuyer.setImagePath(path);
+    }
+
     @Override
     public void changeMainImage(Image image) {
        currentBuyer.getGraphicPackage().setMainImage(image);

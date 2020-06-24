@@ -299,6 +299,14 @@ public class ManagerController implements controller.account.user.AccountControl
         }
     }
 
+    public void setProfileImage(String path) {
+        currentManager.setImagePath(path);
+    }
+
+    public static Manager getCurrentManager() {
+        return currentManager;
+    }
+
     @Override
     public void changeMainImage(Image image) {
         currentManager.getGraphicPackage().setMainImage(image);

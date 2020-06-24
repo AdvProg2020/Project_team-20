@@ -12,6 +12,7 @@ public abstract class Account extends GeneralAccount {
     protected String password;
     protected AccountType accountType;
     protected double credit;
+    private String imagePath;
 
     public Account(String name, String lastName, String email, String phoneNumber, String username, String password,
                    double credit, AccountType accountType) {
@@ -203,4 +204,10 @@ public abstract class Account extends GeneralAccount {
         }
         return false;
     }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath(){ return this.imagePath; }
 }
