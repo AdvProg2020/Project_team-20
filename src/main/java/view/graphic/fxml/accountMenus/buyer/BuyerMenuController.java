@@ -69,6 +69,7 @@ public class BuyerMenuController {
     }
 
     public void handleViewSales(ActionEvent actionEvent) {
+        loadUI("viewCart");
     }
 
     public void handlePurchase(ActionEvent actionEvent) {
