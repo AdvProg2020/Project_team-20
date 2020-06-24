@@ -19,7 +19,7 @@ public class ProgramApplication extends Application {
 
     private static ArrayList<MenuNames> history = new ArrayList<>();
 
-    private static Scene mainMenu, buyerMenu, managerMenu, registerAndLoginMenu, sellerMenu, allProductsMenu, saleMenu, loginManager;
+    private static Scene mainMenu, buyerMenu, managerMenu, registerAndLoginMenu, sellerMenu, allProductsMenu, loginManager;
     private static Stage mainStage;
     private static boolean firstManager;
 
@@ -42,8 +42,6 @@ public class ProgramApplication extends Application {
         allProductsMenu = new Scene(root, 994, 666);
         root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/registerAndLoginMenu/registerAndLoginMenu.fxml").toURI().toURL());
         registerAndLoginMenu = new Scene(root, 994, 666);
-        root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/saleMenu/saleMenu.fxml").toURI().toURL());
-        saleMenu = new Scene(root, 994, 666);
         root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/registerAndLoginMenu/FxmlManagerLogin.fxml").toURI().toURL());
         loginManager = new Scene(root, 994, 666);
     }
@@ -67,11 +65,6 @@ public class ProgramApplication extends Application {
                 mainStage.setTitle("main menu");
                 FxmlMainMenu.setWindow(mainStage);
                 mainStage.setScene(mainMenu);
-                mainStage.show();
-                break;
-            case SALEMENU:
-                mainStage.setTitle("sale menu");
-                mainStage.setScene(saleMenu);
                 mainStage.show();
                 break;
             case REGISTERANDLOGINMENU:

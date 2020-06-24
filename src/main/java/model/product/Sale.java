@@ -190,6 +190,13 @@ public class Sale implements Requestable {
         }
     }
 
+    public static Sale getProductSale(Product product) {
+        for (Sale sale:getAllSales())
+            if (sale.hasProduct(product))
+                return sale;
+         return null;
+    }
+
     public RequestType getRequestType() {
         return RequestType.Sale;
     }
