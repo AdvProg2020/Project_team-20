@@ -27,8 +27,8 @@
             <TableColumn fx:id="totalColumn" prefWidth="120.66665649414062" text="total" />
         </columns>
       </TableView>
-      <Text layoutX="104.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Price:" />
-      <TextField fx:id="totalPrice" editable="false" layoutX="104.0" layoutY="344.0" visible="false" />
+      <Text fill="#838181" layoutX="104.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Price:" />
+      <TextField fx:id="totalPrice" disable="true" editable="false" layoutX="104.0" layoutY="344.0" style="-fx-background-color: transparent;" />
       <Button layoutX="490.0" layoutY="322.0" mnemonicParsing="false" onAction="#handlePay" text="checkout and pay" />
       <ImageView fx:id="plusIcon" fitHeight="25.0" fitWidth="25.0" layoutX="319.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -73,13 +73,14 @@ public class ViewCartFxml implements Initializable {
         minusIcon.setOpacity(0);
         recycleBinIcon.setOpacity(0);
         plusIcon.setOpacity(0);
-        totalPrice.appendText(Double.toString(totalPrice2));
         productColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("productName"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("price"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("quantity"));
         totalColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("total"));
         try {
             mainTable.setItems(getCartTmpS());
+            totalPrice.clear();
+            totalPrice.appendText(Double.toString(totalPrice2));
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -111,6 +112,8 @@ public class ViewCartFxml implements Initializable {
         totalColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("total"));
         try {
             mainTable.setItems(getCartTmpS());
+            totalPrice.clear();
+            totalPrice.appendText(Double.toString(totalPrice2));
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -130,6 +133,8 @@ public class ViewCartFxml implements Initializable {
         totalColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("total"));
         try {
             mainTable.setItems(getCartTmpS());
+            totalPrice.clear();
+            totalPrice.appendText(Double.toString(totalPrice2));
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -151,6 +156,8 @@ public class ViewCartFxml implements Initializable {
         totalColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("total"));
         try {
             mainTable.setItems(getCartTmpS());
+            totalPrice.clear();
+            totalPrice.appendText(Double.toString(totalPrice2));
         }
         catch (Exception e){
             System.out.println(e.getMessage());
