@@ -564,6 +564,11 @@
             </Pane>
             <JFXButton layoutX="74.0" layoutY="577.0" onAction="#handleNextButton" prefHeight="13.0" prefWidth="49.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Next" textFill="#252e3b" />
             <JFXButton layoutX="20.0" layoutY="577.0" onAction="#handleBackButton" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Back" textFill="#252e3b" />
+            <ImageView fitHeight="110.0" fitWidth="98.0" layoutX="829.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../resources/Images/erpShop.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Pane prefHeight="47.0" prefWidth="994.0">

@@ -16,7 +16,7 @@
             <Image url="@../../../../../resources/Images/MainMenu.png" />
          </image>
       </ImageView>
-      <VBox layoutX="303.0" layoutY="314.0" opacity="0.85" prefHeight="170.0" prefWidth="397.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-border-color: #abf3edabf3ed;">
+      <VBox layoutX="303.0" layoutY="332.0" opacity="0.85" prefHeight="170.0" prefWidth="397.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-border-color: #abf3edabf3ed;">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -59,5 +59,10 @@
             </Button>
          </children>
       </HBox>
+      <ImageView fitHeight="243.0" fitWidth="297.0" layoutX="387.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../resources/Images/erpShop.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
