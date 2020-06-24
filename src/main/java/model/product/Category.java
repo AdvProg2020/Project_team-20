@@ -185,28 +185,30 @@ public class Category {
 
     @Override
     public String toString() {
-        String fieldNamesString = "", subCategoriesString = "", productIDsString = "";
+        StringBuilder fieldNamesString = new StringBuilder();
+        StringBuilder subCategoriesString = new StringBuilder();
+        StringBuilder productIDsString = new StringBuilder();
         int i = 1, j = 1, k = 1;
         for (String fieldName : fieldNames) {
-            fieldNamesString += (i++) + ": " + fieldName + "\n";
+            fieldNamesString.append(i++).append(": ").append(fieldName).append("\n");
         }
         for (String sub : subCategoriesName) {
             try {
-                subCategoriesString += "\n" + (j++) + ": \n" + getCategoryByName(sub).toString() + "\n";
+                subCategoriesString.append(j++).append(": ").append(getCategoryByName(sub).toString()).append("\n");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         for (String productID : productIDs) {
             try {
-                productIDsString += "\n" + (k++) + ": " + Product.getProductById(productID).getName() + "\n";
+                productIDsString.append(k++).append(": ").append(Product.getProductById(productID).getName()).append("\n");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return "name:       " + name + '\n' +
-                "fieldNames:     " + fieldNamesString +
-                "subCategories:    " + subCategoriesString +
-                "product names:     " + productIDsString;
+        return "name: " + name + '\n' +
+                "fieldNames: \n" + fieldNamesString +
+                "subCategories: \n" + subCategoriesString +
+                "product names: \n " + productIDsString;
     }
 }
