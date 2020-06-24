@@ -3,10 +3,7 @@ package controller.account.user;
 import controller.MainController;
 import controller.PreProcess;
 import javafx.scene.image.Image;
-import model.account.Account;
-import model.account.Buyer;
-import model.account.Manager;
-import model.account.Seller;
+import model.account.*;
 import model.product.*;
 import model.product.comment.Score;
 import model.receipt.BuyerReceipt;
@@ -276,6 +273,21 @@ public class BuyerController implements AccountController {
     @Override
     public void logout() {
         mainController.logout();
+    }
+
+    //todo complete connect to supporter
+    public void connectToSupporter(String supporterUsername) throws Exception {
+        Supporter supporter = (Supporter) Account.getAccountWithUsername(supporterUsername);
+
+    }
+
+    public void sendMessageToSupporter(String message) {
+
+    }
+
+    public String showSupporterMessage() {
+
+        return "";
     }
 
 }

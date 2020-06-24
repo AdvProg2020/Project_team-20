@@ -3,8 +3,11 @@ package controller.account.user;
 import controller.MainController;
 import javafx.scene.image.Image;
 import model.account.Account;
+import model.account.Buyer;
 import model.account.Manager;
 import model.account.Supporter;
+
+import java.util.ArrayList;
 
 public class SupporterController implements AccountController {
 
@@ -12,8 +15,11 @@ public class SupporterController implements AccountController {
     private static Supporter currentSupporter;
     private MainController mainController;
 
+    private ArrayList<Buyer> buyers;
+
     private SupporterController() {
         this.mainController = MainController.getInstance();
+        this.buyers = new ArrayList<>();
     }
 
     public SupporterController getInstance() {
@@ -64,5 +70,19 @@ public class SupporterController implements AccountController {
     @Override
     public void logout() {
         mainController.logout();
+    }
+
+    //todo complete these
+    public void connectToChat() {
+
+    }
+
+    public void answerToBuyer(String buyerUserName) {
+
+    }
+
+    public String showMessagesFromBuyer(String buyerUserName) {
+
+        return "";
     }
 }
