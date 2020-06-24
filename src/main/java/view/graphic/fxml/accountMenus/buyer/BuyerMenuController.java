@@ -40,7 +40,7 @@ public class BuyerMenuController {
         new AlertController().create(AlertType.CONFIRMATION, "log out was successful");
     }
 
-    private void loadUI(String ui){
+    public void loadUI(String ui){
         Parent root;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/buyer/" + ui + "Fxml" + ".fxml").toURI().toURL());
@@ -69,10 +69,12 @@ public class BuyerMenuController {
     }
 
     public void handleViewSales(ActionEvent actionEvent) {
+        ViewCartFxml.setBorderPane(borderPane);
         loadUI("viewCart");
     }
 
     public void handlePurchase(ActionEvent actionEvent) {
+        loadUI("purchaseMenu");
     }
 
     public void handleViewOrders(ActionEvent actionEvent) {
