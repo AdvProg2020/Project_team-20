@@ -3,5 +3,6 @@ package model.account;
 public enum AccountType {
     MANAGER,
     SELLER,
-    BUYER
+    BUYER,
+    SUPPORTER
 }
