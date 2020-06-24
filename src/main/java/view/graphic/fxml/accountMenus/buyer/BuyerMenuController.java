@@ -108,6 +108,7 @@ public class BuyerMenuController implements Initializable {
     }
 
     public void handleViewOrders(ActionEvent actionEvent) {
+        loadUI("viewOrder");
     }
 
     public void handleViewDiscountCodes(ActionEvent actionEvent) {

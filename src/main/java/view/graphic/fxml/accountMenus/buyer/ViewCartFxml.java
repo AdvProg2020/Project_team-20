@@ -63,9 +63,7 @@ public class ViewCartFxml implements Initializable {
     private ObservableList<CartTmp> getCartTmpS() throws Exception {
         ObservableList<CartTmp> cartTmpS = FXCollections.observableArrayList();
         ArrayList<CartTmp> cartTmpS2 = convertToCartTmp();
-        for (CartTmp cartTmp : cartTmpS2) {
-            cartTmpS.add(cartTmp);
-        }
+        cartTmpS.addAll(cartTmpS2);
         return cartTmpS;
     }
 
