@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import model.account.Buyer;
 import model.product.Cart;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
@@ -46,6 +45,17 @@ public class PurchaseMenu implements Initializable {
             BuyerController buyerController = BuyerController.getInstance();
             try {
                 buyerController.purchase(address2,phone2,discountCode2);
+                new AlertController().create(AlertType.CONFIRMATION, "Thanks for buying");
+                phoneText.setOpacity(0);
+                phone.setOpacity(0);
+                submitPhone.setOpacity(0);
+                discountCodeText.setOpacity(0);
+                discountCode.setOpacity(0);
+                submitDiscount.setOpacity(0);
+                totalPrice.setText("");
+                discount.setText("");
+                address.setText("");
+                submit = false;
             }
             catch (Exception e){
                 new AlertController().create(AlertType.ERROR, e.getMessage());
