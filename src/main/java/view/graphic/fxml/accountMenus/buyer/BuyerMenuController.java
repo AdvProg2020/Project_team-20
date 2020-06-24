@@ -35,6 +35,7 @@ public class BuyerMenuController implements Initializable {
     public BorderPane borderPane;
     public ImageView profileImg;
     private BuyerController buyerController = BuyerController.getInstance();
+    private static boolean loadFromViewCart = false;
 
     public static void start(Stage stage) throws Exception{
         window = stage;
@@ -127,5 +128,13 @@ public class BuyerMenuController implements Initializable {
             Image img1 = new Image(new File("src/main/resources/Images/" + buyer.getImagePath()).toURI().toString());
             profileImg.setImage(img1);
         }
+        if (loadFromViewCart) {
+            loadFromViewCart = false;
+            loadUI("viewCart");
+        }
+    }
+
+    public static void setLoadFromViewCart(boolean newLoadFromViewCart) {
+        loadFromViewCart = newLoadFromViewCart;
     }
 }

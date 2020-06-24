@@ -312,6 +312,7 @@ public class FxmlAllProductsMenu implements Initializable {
             new AlertController().create(AlertType.ERROR, "you are not a buyer!");
         else {
             try {
+                BuyerMenuController.setLoadFromViewCart(true);
                 BuyerMenuController.start(mainWindow);
             } catch (Exception e) {
                 e.printStackTrace();
