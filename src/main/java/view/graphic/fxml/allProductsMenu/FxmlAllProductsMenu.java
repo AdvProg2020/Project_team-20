@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import controller.Main;
 import controller.MainController;
-import controller.account.user.BuyerController;
 import controller.product.filter.AllProductsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,8 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.account.GeneralAccountType;
-import model.account.TempAccount;
+import model.account.*;
 import model.product.Category;
 import model.product.Product;
 import view.graphic.MenuNames;
@@ -32,6 +30,8 @@ import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 import view.graphic.fxml.accountMenus.buyer.BuyerMenuController;
+import view.graphic.fxml.accountMenus.manager.ManagerMenuController;
+import view.graphic.fxml.accountMenus.seller.SellerMenuController;
 import view.graphic.fxml.mainMenu.FxmlMainMenu;
 import view.graphic.score.Score;
 
@@ -244,10 +244,6 @@ public class FxmlAllProductsMenu implements Initializable {
         if (MainController.getInstance().getAccount().getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT)) {
             new AlertController().create(AlertType.ERROR, "please first sign in");
             ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
-        }
-        else{
-            System.out.println("hi");
-            ProgramApplication.setMenu(MenuNames.BUYERMENU);
         }
     }
 
@@ -581,7 +577,28 @@ public class FxmlAllProductsMenu implements Initializable {
         mainWindow = window;
     }
 
-    public void handleBack(ActionEvent actionEvent) {
-        ProgramApplication.back();
+    public void handleAccountMenu(ActionEvent actionEvent) {
+        GeneralAccount generalAccount = MainController.getInstance().getAccount();
+        if (generalAccount instanceof TempAccount) {
+            new AlertController().create(AlertType.ERROR, "please login first");
+        } else if (generalAccount instanceof Seller) {
+            try {
+                SellerMenuController.start(mainWindow);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (generalAccount instanceof Buyer) {
+            try {
+                BuyerMenuController.start(mainWindow);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                ManagerMenuController.start(mainWindow);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
