@@ -8,6 +8,8 @@ import model.product.Category;
 import model.product.Discount;
 import model.product.Product;
 import model.product.Sale;
+import model.receipt.BuyerReceipt;
+import model.receipt.SellerReceipt;
 import view.console.MainMenu;
 import view.console.Menu;
 import view.console.account.RegisterAndLoginMenu;
@@ -68,6 +70,8 @@ public class Main {
         Discount.load();
         Product.load();
         Sale.load();
+        SellerReceipt.load();
+        BuyerReceipt.load();
     }
 
     public static void storeData() {
@@ -79,6 +83,8 @@ public class Main {
         Discount.store();
         Product.store();
         Sale.store();
+        SellerReceipt.store();
+        BuyerReceipt.store();
     }
    }
 

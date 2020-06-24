@@ -1,12 +1,15 @@
 package model.receipt;
 
+import com.gilecode.yagson.YaGson;
 import model.account.Account;
 import model.account.Seller;
 import model.product.Product;
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class BuyerReceipt extends Receipt {
     static int buyerReceiptCount = 1;
@@ -58,4 +61,33 @@ public class BuyerReceipt extends Receipt {
         return sellers;
     }
 
+    public static void store() {
+        storeNumber();
+    }
+
+    public static void load() {
+        loadNumber();
+    }
+
+    public static void storeNumber() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutReceipt/numberOfBuyerReceipt.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(buyerReceiptCount) + "\n");
+            fileWriter.close();
+        } catch (IOException ignored) {
+        }
+    }
+
+    public static void loadNumber() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutReceipt/numberOfBuyerReceipt.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            buyerReceiptCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            fileScanner.close();
+        } catch (IOException ignored) {
+        }
+    }
 }
