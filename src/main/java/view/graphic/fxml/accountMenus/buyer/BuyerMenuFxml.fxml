@@ -22,7 +22,7 @@
                         <Insets left="5.0" right="5.0" />
                     </VBox.margin>
                 </JFXTextField>
-                <VBox prefHeight="242.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
+                <VBox prefHeight="208.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                     <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
                     </VBox.margin>
@@ -32,13 +32,12 @@
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handlePurchase" prefHeight="40.0" prefWidth="396.0" text="Purchase" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewOrders" prefHeight="40.0" prefWidth="444.0" text="View orders" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewDiscountCodes" prefHeight="40.0" prefWidth="367.0" text="View discount codes" textFill="#d8f9ff" />
-                  <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="130.0" onAction="#handleAllProducts" prefHeight="39.0" prefWidth="204.0" text="All Products" textFill="#d8f9ff" />
                     </children>
                 </VBox>
                 <VBox prefHeight="108.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                     <children>
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Log out" textFill="#d8f9ff" />
-                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleAllProducts" prefHeight="40.0" prefWidth="367.0" text="All products" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleAllProducts" prefHeight="39.0" prefWidth="204.0" text="All Products" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleOffs" prefHeight="40.0" prefWidth="367.0" text="Offs" textFill="#d8f9ff" />
                     </children>
                 </VBox>
@@ -55,7 +54,7 @@
                     <children>
                         <Pane layoutY="114.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="57.0" prefWidth="204.0" style="-fx-background-color: #2a3030;" />
                         <Circle fill="#ffbf71" layoutX="102.0" layoutY="86.0" radius="72.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-                        <ImageView fitHeight="144.0" fitWidth="144.0" layoutX="30.0" layoutY="14.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="profileImg" fitHeight="144.0" fitWidth="144.0" layoutX="30.0" layoutY="14.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../../../../../resources/Images/ProfileImg.png" />
                             </image>
@@ -66,6 +65,11 @@
                             </font>
                         </Text>
                         <Text fill="#ee6755" layoutX="210.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Have a greate shopping &amp; enjoy your life." />
+                  <ImageView fitHeight="27.0" fitWidth="121.0" layoutX="859.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../resources/Images/erpShopTxt.png" />
+                     </image>
+                  </ImageView>
                     </children>
                 </Pane>
             </children>

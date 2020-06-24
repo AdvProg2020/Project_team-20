@@ -27,10 +27,6 @@ public class FxmlMainMenu {
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
-    public void handleSales() {
-        ProgramApplication.setMenu(MenuNames.SALEMENU);
-    }
-
     public void handleExit() {
         Main.storeData();
         window.close();

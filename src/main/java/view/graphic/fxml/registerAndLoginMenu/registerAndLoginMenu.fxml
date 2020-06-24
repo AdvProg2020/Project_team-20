@@ -38,7 +38,7 @@
          </font>
       </Button>
       <Button layoutX="180.0" layoutY="512.0" mnemonicParsing="false" onAction="#handleSignUp" onMouseEntered="#enterMouseSign" onMouseExited="#exitMouseSign" style="-fx-background-color: transparenttransparent;" text="Sign up" textFill="#02f5e1" />
-      <VBox layoutX="425.0" layoutY="174.0" prefHeight="301.0" prefWidth="571.0">
+      <VBox layoutX="425.0" layoutY="273.0" prefHeight="202.0" prefWidth="571.0">
          <children>
             <HBox opacity="0.84" prefHeight="60.0" prefWidth="471.0" style="-fx-background-radius: 10;">
                <VBox.margin>
@@ -63,6 +63,14 @@
                   <Font size="15.0" />
                </font>
             </Button>
+            <ImageView fitHeight="33.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../resources/Images/erpShopTxt.png" />
+               </image>
+               <VBox.margin>
+                  <Insets left="207.0" />
+               </VBox.margin>
+            </ImageView>
          </children></VBox>
       <Button layoutX="3.0" layoutY="89.0" mnemonicParsing="false" onAction="#handleBack" onMouseEntered="#enterMouseSign" onMouseExited="#exitMouseSign" style="-fx-background-color: transparenttransparent;" text="back" textFill="#02f5e1">
          <font>

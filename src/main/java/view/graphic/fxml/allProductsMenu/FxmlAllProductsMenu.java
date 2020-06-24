@@ -4,13 +4,13 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import controller.Main;
 import controller.MainController;
-import controller.account.user.BuyerController;
 import controller.product.filter.AllProductsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,17 +20,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.account.GeneralAccountType;
-import model.account.TempAccount;
+import model.account.*;
 import model.product.Category;
 import model.product.Product;
+import model.product.Sale;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
+import view.graphic.fxml.accountMenus.buyer.BuyerMenuController;
+import view.graphic.fxml.accountMenus.manager.ManagerMenuController;
+import view.graphic.fxml.accountMenus.seller.SellerMenuController;
 import view.graphic.fxml.mainMenu.FxmlMainMenu;
 import view.graphic.score.Score;
 
@@ -85,6 +90,16 @@ public class FxmlAllProductsMenu implements Initializable {
     public JFXButton showProduct7;
     public JFXButton showProduct8;
     public JFXButton showProduct9;
+    public CheckBox showOffs;
+    public VBox productBox1;
+    public VBox productBox2;
+    public VBox productBox3;
+    public VBox productBox4;
+    public VBox productBox5;
+    public VBox productBox6;
+    public VBox productBox7;
+    public VBox productBox8;
+    public VBox productBox9;
     private AllProductsController allProductsController = AllProductsController.getInstance();
     private static ArrayList<Product> products;
 
@@ -110,6 +125,7 @@ public class FxmlAllProductsMenu implements Initializable {
     private String categoryName;
     private int fromForBack;
     private static Stage mainWindow;
+    private boolean offMode = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -161,6 +177,8 @@ public class FxmlAllProductsMenu implements Initializable {
         product1Price.setText(Double.toString(products.get(from).getFirstPrice()));
         product1Score.setImage(new Score(products.get(from).getAverage()).getScoreImg());
         showProduct1.setOpacity(1);
+        if (offMode)
+            getOffHBox(productBox1, products.get(from));
         if (products.size() > (1 + from)) {
             Image img2 = new Image(new File("src/main/resources/Images/" + products.get(1 + from).getImagePath()).toURI().toString());
             productImg2.setImage(img2);
@@ -168,6 +186,8 @@ public class FxmlAllProductsMenu implements Initializable {
             product2Price.setText(Double.toString(products.get(1 + from).getFirstPrice()));
             product2Score.setImage(new Score(products.get(1 + from).getAverage()).getScoreImg());
             showProduct2.setOpacity(1);
+            if (offMode)
+                getOffHBox(productBox2, products.get(from+1));
         }
         if (products.size() > (2 + from)) {
             Image img3 = new Image(new File("src/main/resources/Images/" + products.get(2 + from).getImagePath()).toURI().toString());
@@ -176,6 +196,8 @@ public class FxmlAllProductsMenu implements Initializable {
             product3Price.setText(Double.toString(products.get(2 + from).getFirstPrice()));
             product3Score.setImage(new Score(products.get(2 + from).getAverage()).getScoreImg());
             showProduct3.setOpacity(1);
+            if (offMode)
+                getOffHBox(productBox3, products.get(from+2));
         }
         if (products.size() > (3 + from)) {
             Image img4 = new Image(new File("src/main/resources/Images/" + products.get(3 + from).getImagePath()).toURI().toString());
@@ -184,6 +206,8 @@ public class FxmlAllProductsMenu implements Initializable {
             product4Price.setText(Double.toString(products.get(3 + from).getFirstPrice()));
             product4Score.setImage(new Score(products.get(3 + from).getAverage()).getScoreImg());
             showProduct4.setOpacity(1);
+            if (offMode)
+                getOffHBox(productBox4, products.get(from+3));
         }
         if (products.size() > (4 + from)) {
             Image img5 = new Image(new File("src/main/resources/Images/" + products.get(4 + from).getImagePath()).toURI().toString());
@@ -192,6 +216,8 @@ public class FxmlAllProductsMenu implements Initializable {
             product5Price.setText(Double.toString(products.get(4 + from).getFirstPrice()));
             product5Score.setImage(new Score(products.get(4 + from).getAverage()).getScoreImg());
             showProduct5.setOpacity(1);
+            if (offMode)
+                getOffHBox(productBox5, products.get(from+4));
         }
         if (products.size() > (5 + from)) {
             Image img6 = new Image(new File("src/main/resources/Images/" + products.get(5 + from).getImagePath()).toURI().toString());
@@ -200,6 +226,8 @@ public class FxmlAllProductsMenu implements Initializable {
             product6Price.setText(Double.toString(products.get(5 + from).getFirstPrice()));
             product6Score.setImage(new Score(products.get(5 + from).getAverage()).getScoreImg());
             showProduct6.setOpacity(1);
+            if (offMode)
+                getOffHBox(productBox6, products.get(from+5));
         }
         if (products.size() > (6 + from)) {
             Image img7 = new Image(new File("src/main/resources/Images/" + products.get(6 + from).getImagePath()).toURI().toString());
@@ -208,6 +236,8 @@ public class FxmlAllProductsMenu implements Initializable {
             product7Price.setText(Double.toString(products.get(6 + from).getFirstPrice()));
             product7Score.setImage(new Score(products.get(6 + from).getAverage()).getScoreImg());
             showProduct7.setOpacity(1);
+            if (offMode)
+                getOffHBox(productBox7, products.get(from+6));
         }
         if (products.size() > (7 + from)) {
             Image img8 = new Image(new File("src/main/resources/Images/" + products.get(7 + from).getImagePath()).toURI().toString());
@@ -216,6 +246,8 @@ public class FxmlAllProductsMenu implements Initializable {
             product8Price.setText(Double.toString(products.get(7 + from).getFirstPrice()));
             product8Score.setImage(new Score(products.get(7 + from).getAverage()).getScoreImg());
             showProduct8.setOpacity(1);
+            if (offMode)
+                getOffHBox(productBox8, products.get(from+7));
         }
         if (products.size() > (8 + from)) {
             Image img9 = new Image(new File("src/main/resources/Images/" + products.get(8 + from).getImagePath()).toURI().toString());
@@ -224,7 +256,37 @@ public class FxmlAllProductsMenu implements Initializable {
             product9Price.setText(Double.toString(products.get(8 + from).getFirstPrice()));
             product9Score.setImage(new Score(products.get(8 + from).getAverage()).getScoreImg());
             showProduct9.setOpacity(1);
+            if (offMode)
+                getOffHBox(productBox9, products.get(from+8));
         }
+    }
+
+    public void getOffHBox(VBox offHBox, Product product) {
+        HBox startDate = new HBox();
+        HBox endDate = new HBox();
+        HBox percentage = new HBox();
+        Sale sale = Sale.getProductSale(product);
+        TextField startDateTxt = new TextField();
+        startDateTxt.setStyle("-fx-background-color: transparent; -fx-text-inner-color:#575957;");
+        if (sale==null) {
+            System.out.println("Sale is null");
+            return;
+        }
+        startDateTxt.setText(" From: " + sale.getStartDate().getMonth() + "/" + sale.getStartDate().getDayOfMonth() + "/" + sale.getStartDate().getYear());
+        startDate.getChildren().add(startDateTxt);
+
+        offHBox.getChildren().add(startDate);
+        TextField endDateTxt = new TextField();
+        endDateTxt.setStyle("-fx-background-color: transparent; -fx-text-inner-color:#575957;");
+        endDateTxt.setText(" To: " + sale.getEndDate().getMonth() + "/" + sale.getEndDate().getDayOfMonth() + "/" + sale.getEndDate().getYear());
+        endDate.getChildren().add(endDateTxt);
+        offHBox.getChildren().add(endDate);
+
+        TextField percentageTxt = new TextField();
+        percentageTxt.setStyle("-fx-background-color: transparent; -fx-text-inner-color:#575957;");
+        percentageTxt.setText(" percentage: " + sale.getSalePercentage()*100 + "%");
+        percentage.getChildren().add(percentageTxt);
+        offHBox.getChildren().add(percentage);
     }
 
     public void mainTabBtnEnter(MouseEvent event) {
@@ -240,9 +302,20 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleViewCart(ActionEvent actionEvent) {
-        if (MainController.getInstance().getAccount().getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT)) {
+        GeneralAccount currentGeneralAccount = MainController.getInstance().getAccount();
+        if (currentGeneralAccount.getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT)) {
             new AlertController().create(AlertType.ERROR, "please first sign in");
             ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
+        }
+        Account currentAccount = (Account) currentGeneralAccount;
+        if (currentAccount instanceof Seller || currentAccount instanceof Manager)
+            new AlertController().create(AlertType.ERROR, "you are not a buyer!");
+        else {
+            try {
+                BuyerMenuController.start(mainWindow);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -576,7 +649,75 @@ public class FxmlAllProductsMenu implements Initializable {
         mainWindow = window;
     }
 
-    public void handleBack(ActionEvent actionEvent) {
-        ProgramApplication.back();
+    public void handleAccountMenu(ActionEvent actionEvent) {
+        GeneralAccount generalAccount = MainController.getInstance().getAccount();
+        if (generalAccount instanceof TempAccount) {
+            new AlertController().create(AlertType.ERROR, "please login first");
+        } else if (generalAccount instanceof Seller) {
+            try {
+                SellerMenuController.start(mainWindow);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (generalAccount instanceof Buyer) {
+            try {
+                BuyerMenuController.start(mainWindow);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                ManagerMenuController.start(mainWindow);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void handleShowOffs(ActionEvent actionEvent) {
+        if (!offMode) {
+            offMode = true;
+            ArrayList<Sale> sales = Sale.getAllSales();
+            ArrayList<Product> productsSale = new ArrayList<>();
+            for (Sale sale : sales)
+                productsSale.addAll(sale.getProducts());
+            products = productsSale;
+            deleteProducts();
+            if (products.size() != 0)
+                initializeProducts(0);
+        } else {
+            offMode = false;
+            try {
+                products = allProductsController.showProducts();
+                deleteProducts();
+                deleteOffBoxes();
+                if (products.size() != 0)
+                    initializeProducts(0);
+            } catch (Exception e) {
+                new AlertController().create(AlertType.ERROR, e.getMessage());
+            }
+        }
+    }
+
+    public void deleteOffBoxes() {
+        deleteOffBox(productBox1);
+        deleteOffBox(productBox2);
+        deleteOffBox(productBox3);
+        deleteOffBox(productBox4);
+        deleteOffBox(productBox5);
+        deleteOffBox(productBox6);
+        deleteOffBox(productBox7);
+        deleteOffBox(productBox8);
+        deleteOffBox(productBox9);
+    }
+
+    public void deleteOffBox(VBox vBox) {
+        ArrayList<Node> deleteNodes = new ArrayList<>();
+        for (Node node:vBox.getChildren()) {
+            System.out.println(node);
+            if (node instanceof HBox)
+                deleteNodes.add(node);
+        }
+        vBox.getChildren().removeAll(deleteNodes);
     }
 }

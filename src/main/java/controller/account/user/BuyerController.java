@@ -154,6 +154,25 @@ public class BuyerController implements AccountController {
         return totalPrice;
     }
 
+    public double getDiscount(){
+        double totalPrice = 0;
+        double priceWithoutDiscount = 0;
+        for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
+            Sale saleForProduct = getSaleForProduct(selectedProduct);
+            Seller seller = selectedProduct.getSeller();
+            if (saleForProduct != null && saleForProduct.validSaleTime()){
+                totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount() *
+                        (1 - saleForProduct.getSalePercentage());
+                priceWithoutDiscount += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
+            }
+            else{
+                totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
+                priceWithoutDiscount += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
+            }
+        }
+        return priceWithoutDiscount-totalPrice;
+    }
+
     private Sale getSaleForProductOfSeller(Product product, Seller seller) {
         for (Sale sale : seller.getSales()) {
             if (sale.hasProduct(product))
@@ -237,6 +256,10 @@ public class BuyerController implements AccountController {
                 throw new ManagerController.fieldIsInvalidException();
         }
         Manager.addRequest(currentBuyer);
+    }
+
+    public void setProfileImage(String path) {
+        currentBuyer.setImagePath(path);
     }
 
     @Override
