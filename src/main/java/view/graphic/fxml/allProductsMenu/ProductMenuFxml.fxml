@@ -6,10 +6,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -67,7 +69,7 @@
             <Font size="15.0" />
          </font>
       </JFXButton>
-      <ScrollPane layoutX="567.0" layoutY="390.0" prefHeight="106.0" prefWidth="180.0" style="-fx-background-color: transparent;">
+      <ScrollPane layoutX="567.0" layoutY="405.0" prefHeight="106.0" prefWidth="180.0" style="-fx-background-color: transparent;">
          <content>
             <VBox fx:id="allCommentsBox" prefHeight="104.0" prefWidth="158.0" />
          </content>
@@ -78,7 +80,7 @@
             <Font size="11.0" />
          </font>
       </JFXButton>
-      <JFXTextField focusColor="#5fccd0" layoutX="566.0" layoutY="363.0" text="Comments" unFocusColor="#575957" />
+      <JFXTextField focusColor="#5fccd0" layoutX="566.0" layoutY="378.0" text="Comments" unFocusColor="#575957" />
       <ScrollPane layoutX="758.0" layoutY="390.0" prefHeight="81.0" prefWidth="180.0" style="-fx-background-color: transparent;">
          <content>
             <VBox fx:id="allRepliesBox" opacity="0.0" prefHeight="78.0" prefWidth="158.0" />
@@ -100,5 +102,16 @@
       <Button fx:id="rate3" layoutX="865.0" layoutY="511.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRateProduct" onMouseEntered="#handleRateEnter" onMouseExited="#handleRateExit" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: transparent; -fx-border-color: #5fccd0#5fccd0; -fx-border-radius: 30; -fx-border-width: 1;" text="3" textFill="#5fccd0" />
       <Button fx:id="rate4" layoutX="896.0" layoutY="511.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRateProduct" onMouseEntered="#handleRateEnter" onMouseExited="#handleRateExit" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: transparent; -fx-border-color: #5fccd0#5fccd0; -fx-border-radius: 30; -fx-border-width: 1;" text="4" textFill="#5fccd0" />
       <Button fx:id="rate5" layoutX="927.0" layoutY="511.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleRateProduct" onMouseEntered="#handleRateEnter" onMouseExited="#handleRateExit" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 30; -fx-background-color: transparent; -fx-border-color: #5fccd0#5fccd0; -fx-border-radius: 30; -fx-border-width: 1;" text="5" textFill="#5fccd0" />
+      <Text fx:id="realPrice" fill="#5fccd0" layoutX="627.0" layoutY="364.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="112.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Line fx:id="Offline" endX="10.0" layoutX="717.0" layoutY="357.0" opacity="0.0" startX="-97.0" stroke="#ff826f" strokeWidth="2.0" />
+      <ImageView fx:id="saleImg" fitHeight="150.0" fitWidth="200.0" layoutY="48.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../resources/Images/Sale.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

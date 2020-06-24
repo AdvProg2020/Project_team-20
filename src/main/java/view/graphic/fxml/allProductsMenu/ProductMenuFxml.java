@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import model.account.Seller;
 import model.product.Field.Field;
@@ -58,6 +59,9 @@ public class ProductMenuFxml implements Initializable {
     public Button rate3;
     public Button rate4;
     public Button rate5;
+    public Text realPrice;
+    public Line Offline;
+    public ImageView saleImg;
     private Seller seller;
     private Comment comment;
 
@@ -102,6 +106,9 @@ public class ProductMenuFxml implements Initializable {
             }
         }
         fields.setEditable(false);
+
+        if (currentProduct.isInSale())
+            saleImg.setOpacity(1);
 
         for (Seller seller:currentProduct.getSellers())
             sellerUserNames.add(seller.getUsername());
@@ -151,9 +158,17 @@ public class ProductMenuFxml implements Initializable {
 
 
     public void selectSeller(MouseEvent event) {
+        Offline.setOpacity(0);
+        realPrice.setOpacity(0);
         String selected = sellers.getSelectionModel().getSelectedItem();
         seller = currentProduct.getSellerByUsername(selected);
         price.setText(Double.toString(currentProduct.getPrice(seller)));
+        if (currentProduct.isInSale(seller)) {
+            Offline.setOpacity(1);
+            realPrice.setOpacity(1);
+            realPrice.setText(Double.toString(currentProduct.getPrice(seller)));
+            price.setText(Double.toString(currentProduct.getPriceWithOff(seller)));
+        }
     }
 
     public void handleAddToCart(ActionEvent actionEvent) {

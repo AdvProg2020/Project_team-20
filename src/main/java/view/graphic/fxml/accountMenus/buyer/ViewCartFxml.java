@@ -1,7 +1,6 @@
 package view.graphic.fxml.accountMenus.buyer;
 
 import controller.account.user.BuyerController;
-import controller.account.user.ManagerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,14 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import model.Requestable;
+import javafx.scene.text.Text;
 import model.product.Cart;
 import model.product.Product;
-import view.graphic.fxml.accountMenus.manager.RequestTable;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,7 +33,7 @@ public class ViewCartFxml implements Initializable {
     public Button minusButton;
     public Button plusButton;
     public Button recycleBinButton;
-    public TextField totalPrice;
+    public Text totalPrice;
     private String id;
     private Cart cart;
     private Double totalPrice2;
@@ -79,8 +76,8 @@ public class ViewCartFxml implements Initializable {
         totalColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("total"));
         try {
             mainTable.setItems(getCartTmpS());
-            totalPrice.clear();
-            totalPrice.appendText(Double.toString(totalPrice2));
+            totalPrice.setText("");
+            totalPrice.setText(Double.toString(totalPrice2));
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -112,8 +109,8 @@ public class ViewCartFxml implements Initializable {
         totalColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("total"));
         try {
             mainTable.setItems(getCartTmpS());
-            totalPrice.clear();
-            totalPrice.appendText(Double.toString(totalPrice2));
+            totalPrice.setText("");
+            totalPrice.setText(Double.toString(totalPrice2));
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -133,8 +130,8 @@ public class ViewCartFxml implements Initializable {
         totalColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("total"));
         try {
             mainTable.setItems(getCartTmpS());
-            totalPrice.clear();
-            totalPrice.appendText(Double.toString(totalPrice2));
+            totalPrice.setText("");
+            totalPrice.setText(Double.toString(totalPrice2));
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -156,8 +153,8 @@ public class ViewCartFxml implements Initializable {
         totalColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("total"));
         try {
             mainTable.setItems(getCartTmpS());
-            totalPrice.clear();
-            totalPrice.appendText(Double.toString(totalPrice2));
+            totalPrice.setText("");
+            totalPrice.setText(Double.toString(totalPrice2));
         }
         catch (Exception e){
             System.out.println(e.getMessage());

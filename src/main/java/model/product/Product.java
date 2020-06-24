@@ -268,6 +268,30 @@ public class Product implements Requestable {
         return priceWithName.get(seller.getUsername());
     }
 
+    public double getPriceWithOff(Seller seller) {
+        Sale sale = Sale.getProductSale(this);
+        double price = getPrice(seller);
+        if (sale==null)
+            return price;
+        else {
+            if (sale.getSeller().equals(seller)) {
+                return price*(1-sale.getSalePercentage());
+            }
+            else
+                return price;
+        }
+    }
+
+    public boolean isInSale(){
+        Sale sale = Sale.getProductSale(this);
+        return sale!=null;
+    }
+
+    public boolean isInSale(Seller seller) {
+        Sale sale = Sale.getProductSale(this);
+        return sale != null && sale.getSeller().equals(seller);
+    }
+
     public Product getEditedProduct() {
         return editedProduct;
     }
