@@ -1,15 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.graphic.fxml.accountMenus.seller.SellerMenuController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="484.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.seller.ViewSalesFxml">
+   <children>
+      <TableView fx:id="table" layoutX="104.0" layoutY="97.0" onMouseClicked="#selectOrder" opacity="0.7" prefHeight="338.0" prefWidth="178.0" style="-fx-border-color: #009f9c;">
+         <columns>
+            <TableColumn fx:id="orderId" prefWidth="176.0" text="OrderID" />
+         </columns>
+      </TableView>
+      <Text fill="#575957" layoutX="104.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View orders" wrappingWidth="207.58889770507812">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Separator layoutX="104.0" layoutY="52.0" prefHeight="8.0" prefWidth="289.0" />
+      <Text fill="#5dabaa" layoutX="312.0" layoutY="109.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Details">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="312.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Received money:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="312.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount percentage:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="312.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date&amp;time:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="313.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="id:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="312.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Off amount:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="receivedMoneyTxt" fill="#575957" layoutX="517.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="121.2060546875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="discountPercentageTxt" fill="#575957" layoutX="517.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="121.2060546875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="timeTxt" fill="#575957" layoutX="517.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="121.2060546875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="idTxt" fill="#575957" layoutX="517.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="121.2060546875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="offTxt" fill="#575957" layoutX="517.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="121.2060546875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="312.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buyer:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="buyerTxt" fill="#575957" layoutX="517.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="121.2060546875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TableView fx:id="productsTable" layoutX="313.0" layoutY="296.0" onMouseClicked="#selectOrder" opacity="0.7" prefHeight="139.0" prefWidth="178.0" style="-fx-border-color: #009f9c;">
+         <columns>
+            <TableColumn fx:id="productsColumn" prefWidth="89.0" text="Products" />
+            <TableColumn fx:id="quantityColumn" prefWidth="89.0" text="Quantity" />
+         </columns>
+      </TableView>
+   </children>
 </AnchorPane>
-

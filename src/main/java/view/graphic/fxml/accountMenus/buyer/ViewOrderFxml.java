@@ -42,9 +42,15 @@ public class ViewOrderFxml implements Initializable {
         timeTxt.setText(buyerReceipt.getDateAndTime().getDayOfMonth() + "/" + buyerReceipt.getDateAndTime().getMonth() + "/" + buyerReceipt.getDateAndTime().getYear());
         idTxt.setText(buyerReceipt.getId());
         showProducts(buyerReceipt);
+        showSellers(buyerReceipt);
     }
 
-    public void showProducts(BuyerReceipt buyerReceipt) {
+    private void showSellers(BuyerReceipt buyerReceipt) {
+        sellersTable.getItems().setAll(buyerReceipt.getSellers());
+        sellersColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+    }
+
+    private void showProducts(BuyerReceipt buyerReceipt) {
         HashMap<Product, Integer> productsCount = buyerReceipt.getProducts();
         ArrayList<ProductQuantity> productQuantities = new ArrayList<>();
         for (Product product:productsCount.keySet()) {
@@ -57,8 +63,6 @@ public class ViewOrderFxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        for (BuyerReceipt buyerReceipt:buyerController.viewOrders())
-            System.out.println(buyerReceipt.getId());
         table.getItems().setAll(buyerController.viewOrders());
         orderId.setCellValueFactory(new PropertyValueFactory<>("id"));
     }
