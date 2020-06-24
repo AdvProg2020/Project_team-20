@@ -19,7 +19,7 @@
             </font>
         </Text>
         <Separator layoutX="104.0" layoutY="52.0" prefHeight="8.0" prefWidth="289.0" />
-      <TableView fx:id="mainTable" layoutX="104.0" layoutY="78.0" onMouseClicked="#selectProduct" prefHeight="224.0" prefWidth="496.0">
+      <TableView fx:id="mainTable" layoutX="104.0" layoutY="78.0" onMouseClicked="#selectProduct" prefHeight="224.0" prefWidth="496.0" style="-fx-border-color: #5fccd0;">
         <columns>
           <TableColumn fx:id="productColumn" prefWidth="139.33338165283203" text="product" />
           <TableColumn fx:id="priceColumn" prefWidth="111.99998474121094" text="price" />
@@ -27,26 +27,29 @@
             <TableColumn fx:id="totalColumn" prefWidth="120.66665649414062" text="total" />
         </columns>
       </TableView>
-      <Text fill="#838181" layoutX="104.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Price:" />
-      <TextField fx:id="totalPrice" disable="true" editable="false" layoutX="104.0" layoutY="344.0" style="-fx-background-color: transparent;" />
-      <Button layoutX="490.0" layoutY="322.0" mnemonicParsing="false" onAction="#handlePay" text="checkout and pay" />
-      <ImageView fx:id="plusIcon" fitHeight="25.0" fitWidth="25.0" layoutX="319.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
+      <Text fill="#838181" layoutX="104.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Price:" />
+      <TextField fx:id="totalPrice" disable="true" editable="false" layoutX="93.0" layoutY="335.0" prefHeight="27.0" prefWidth="152.0" style="-fx-background-color: transparent; -fx-text-inner-color: #5fccd0#5fccd0;">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Button layoutX="473.0" layoutY="314.0" mnemonicParsing="false" onAction="#handlePay" text="checkout and pay" />
+      <ImageView fx:id="plusIcon" fitHeight="25.0" fitWidth="25.0" layoutX="334.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../resources/Images/plus.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="recycleBinIcon" fitHeight="25.0" fitWidth="26.0" layoutX="352.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="recycleBinIcon" fitHeight="25.0" fitWidth="26.0" layoutX="367.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../resources/Images/recycleBin.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="minusIcon" fitHeight="25.0" fitWidth="25.0" layoutX="285.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="minusIcon" fitHeight="25.0" fitWidth="25.0" layoutX="300.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../resources/Images/minus2.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="minusButton" layoutX="283.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleMinus" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent;" />
-      <Button fx:id="plusButton" layoutX="320.0" layoutY="307.0" mnemonicParsing="false" onAction="#handlePlus" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent;" />
-      <Button fx:id="recycleBinButton" layoutX="352.0" layoutY="307.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent;" />
+      <Button fx:id="minusButton" layoutX="298.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleMinus" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent;" />
+      <Button fx:id="plusButton" layoutX="335.0" layoutY="314.0" mnemonicParsing="false" onAction="#handlePlus" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent;" />
+      <Button fx:id="recycleBinButton" layoutX="367.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent;" />
     </children>
 </AnchorPane>
