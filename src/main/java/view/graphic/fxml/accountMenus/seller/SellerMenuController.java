@@ -68,6 +68,7 @@ public class SellerMenuController {
     }
 
     public void handleAllProducts(ActionEvent actionEvent) {
+        ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
     public void handleOffs(ActionEvent actionEvent) {

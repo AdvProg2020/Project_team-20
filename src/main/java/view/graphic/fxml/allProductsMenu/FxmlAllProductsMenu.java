@@ -302,9 +302,20 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleViewCart(ActionEvent actionEvent) {
-        if (MainController.getInstance().getAccount().getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT)) {
+        GeneralAccount currentGeneralAccount = MainController.getInstance().getAccount();
+        if (currentGeneralAccount.getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT)) {
             new AlertController().create(AlertType.ERROR, "please first sign in");
             ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
+        }
+        Account currentAccount = (Account) currentGeneralAccount;
+        if (currentAccount instanceof Seller || currentAccount instanceof Manager)
+            new AlertController().create(AlertType.ERROR, "you are not a buyer!");
+        else {
+            try {
+                BuyerMenuController.start(mainWindow);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

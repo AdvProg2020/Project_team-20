@@ -101,6 +101,7 @@ public class ManagerMenuController implements Initializable {
     }
 
     public void handleAllProducts(ActionEvent actionEvent) {
+        ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
     public void handleOffs(ActionEvent actionEvent) {
