@@ -31,7 +31,7 @@ public class MainController {
         return account;
     }
 
-    public void setAccount(Account account) {
+    public void setAccount(GeneralAccount account) {
         this.account = account;
     }
 

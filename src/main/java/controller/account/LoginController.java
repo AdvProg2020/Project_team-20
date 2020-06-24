@@ -76,6 +76,7 @@ public class LoginController {
     }
 
     public AccountType login(String username, String password) throws Exception {
+        logout();
         if (!Account.hasThisAccount(username)) {
             throw new AccountUnavailableException();
         }
@@ -97,7 +98,7 @@ public class LoginController {
 
     //hosele nadaram check konam ke in baiad inja bashe ya na
     public void logout() {
-        MainController.getInstance().setAccount(null);
+        MainController.getInstance().setAccount(new TempAccount());
     }
 
     public static class AccountIsAvailableException extends Exception {
