@@ -30,6 +30,7 @@ import model.product.Field.OptionalField;
 import model.product.Product;
 import model.product.comment.Comment;
 import model.product.comment.Reply;
+import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
@@ -73,6 +74,7 @@ public class ProductMenuFxml implements Initializable {
     private Comment comment;
 
     public void handleLogin(ActionEvent actionEvent) {
+        ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
     }
 
     public void mainTabBtnEnter(MouseEvent event) {
@@ -94,7 +96,7 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void handleMainMenu(ActionEvent actionEvent) {
-
+        ProgramApplication.setMenu(MenuNames.MAINMENU);
     }
 
     @Override
