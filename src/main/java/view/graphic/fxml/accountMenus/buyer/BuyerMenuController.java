@@ -20,6 +20,7 @@ import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 import view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
+import view.graphic.popUp.PopUpControllerFxml;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -30,6 +31,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class BuyerMenuController implements Initializable {
     private static Stage window;
@@ -44,6 +46,10 @@ public class BuyerMenuController implements Initializable {
         stage.setTitle("Sign up menu");
         stage.setScene(new Scene(root, 994, 666));
         stage.show();
+        int randInt = ThreadLocalRandom.current().nextInt(0, 10);
+        if (randInt%2==0) {
+            new PopUpControllerFxml().create();
+        }
     }
 
     public void handleLogout(ActionEvent actionEvent) {

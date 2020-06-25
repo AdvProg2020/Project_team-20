@@ -18,30 +18,34 @@
             </font>
         </Text>
         <Separator layoutX="104.0" layoutY="52.0" prefHeight="8.0" prefWidth="289.0" />
-      <TableView fx:id="mainTable" layoutX="104.0" layoutY="77.0" onMouseClicked="#handleClicked" prefHeight="342.0" prefWidth="231.0">
+      <TableView fx:id="mainTable" layoutX="104.0" layoutY="77.0" onMouseClicked="#handleClicked" opacity="0.7" prefHeight="342.0" prefWidth="231.0" style="-fx-border-color: #009f9c;">
         <columns>
           <TableColumn fx:id="idColumn" prefWidth="75.0" text="Product Id" />
           <TableColumn fx:id="nameColumn" prefWidth="154.66666158040366" text="Product Name" />
         </columns>
       </TableView>
-      <TextArea fx:id="buyersField" editable="false" layoutX="362.0" layoutY="106.0" prefHeight="139.0" prefWidth="142.0" style="-fx-background-color: transparent;" />
-      <Text fx:id="buyersText" layoutX="362.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buyers" />
+      <TextArea fx:id="buyersField" editable="false" layoutX="362.0" layoutY="106.0" prefHeight="139.0" prefWidth="142.0" style="-fx-background-color: transparent; -fx-border-color: #009f9c;" />
+      <Text fx:id="buyersText" fill="#575957" layoutX="362.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buyers" />
       <Separator fx:id="separator1" layoutX="362.0" layoutY="94.0" prefHeight="8.0" prefWidth="142.0" />
-      <Text fx:id="editText" layoutX="559.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" />
+      <Text fx:id="editText" fill="#575957" layoutX="559.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit" />
       <Separator fx:id="separator2" layoutX="559.0" layoutY="94.0" prefHeight="8.0" prefWidth="142.0" />
-      <TextField fx:id="description" layoutX="559.0" layoutY="325.0" promptText="Description" />
-      <TextField fx:id="price" layoutX="559.0" layoutY="358.0" promptText="Price" />
-      <TextField fx:id="count" layoutX="559.0" layoutY="393.0" promptText="Count" />
-      <Button fx:id="editButton" layoutX="593.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleEdit" text="edit" />
-      <TextArea fx:id="optionalAddArea" layoutX="559.0" layoutY="102.0" prefHeight="43.0" prefWidth="149.0" promptText="Optional Fields To Add" />
-      <TextArea fx:id="numericalAddArea" layoutX="559.0" layoutY="154.0" prefHeight="43.0" prefWidth="149.0" promptText="Numerical Fields To Add" />
-      <TextArea fx:id="numericalRemoveArea" layoutX="559.0" layoutY="205.0" prefHeight="43.0" prefWidth="149.0" promptText="Numerical Fields To Remove" />
-      <TextArea fx:id="optionalRemoveArea" layoutX="559.0" layoutY="259.0" prefHeight="43.0" prefWidth="149.0" promptText="Optional Fields To Remove" />
-      <Text fx:id="fieldsText" layoutX="364.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fields" />
+      <TextField fx:id="description" layoutX="559.0" layoutY="325.0" promptText="Description" style="-fx-border-color: #009f9c #009f9c;" />
+      <TextField fx:id="price" layoutX="559.0" layoutY="358.0" promptText="Price" style="-fx-border-color: #009f9c #009f9c;" />
+      <TextField fx:id="count" layoutX="559.0" layoutY="393.0" promptText="Count" style="-fx-border-color: #009f9c #009f9c;" />
+      <TextArea fx:id="optionalAddArea" layoutX="559.0" layoutY="102.0" prefHeight="43.0" prefWidth="149.0" promptText="Optional Fields To Add" style="-fx-border-color: #009f9c #009f9c;" />
+      <TextArea fx:id="numericalAddArea" layoutX="559.0" layoutY="154.0" prefHeight="43.0" prefWidth="149.0" promptText="Numerical Fields To Add" style="-fx-border-color: #009f9c #009f9c;" />
+      <TextArea fx:id="numericalRemoveArea" layoutX="559.0" layoutY="205.0" prefHeight="43.0" prefWidth="149.0" promptText="Numerical Fields To Remove" style="-fx-border-color: #009f9c #009f9c;" />
+      <TextArea fx:id="optionalRemoveArea" layoutX="559.0" layoutY="259.0" prefHeight="43.0" prefWidth="149.0" promptText="Optional Fields To Remove" style="-fx-border-color: #009f9c #009f9c;" />
+      <Text fx:id="fieldsText" fill="#575957" layoutX="364.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fields" />
       <Separator fx:id="separator3" layoutX="362.0" layoutY="271.0" prefHeight="8.0" prefWidth="142.0" />
-      <TextArea fx:id="fieldsArea" editable="false" layoutX="362.0" layoutY="281.0" prefHeight="139.0" prefWidth="142.0" style="-fx-background-color: transparent;" />
+      <TextArea fx:id="fieldsArea" editable="false" layoutX="362.0" layoutY="281.0" prefHeight="139.0" prefWidth="142.0" style="-fx-background-color: transparent; -fx-border-color: #009f9c;" />
       <Separator fx:id="separator" layoutX="559.0" layoutY="311.0" prefHeight="8.0" prefWidth="149.0" />
-      <Text fx:id="priceText" layoutX="524.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" />
-      <Text fx:id="countText" layoutX="521.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Count:" />
+      <Text fx:id="priceText" fill="#575957" layoutX="516.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Price:" />
+      <Text fx:id="countText" fill="#575957" layoutX="516.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Count:" />
+      <Button fx:id="editButton" layoutX="609.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleEdit" onMouseEntered="#handleEnter" onMouseExited="#handleExit" opacity="0.71" style="-fx-background-color: #009f9c;" text="Edit" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

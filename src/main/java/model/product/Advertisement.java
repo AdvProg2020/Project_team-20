@@ -2,9 +2,6 @@ package model.product;
 
 import com.gilecode.yagson.YaGson;
 import model.Requestable;
-import model.account.Account;
-import model.account.AccountType;
-import model.account.Buyer;
 import model.account.Seller;
 
 import java.io.*;
@@ -52,12 +49,12 @@ public class Advertisement implements Requestable {
     public void addAdvertisement() {
         try {
             Advertisement add = getAddBySeller((Seller) Seller.getAccountWithUsername(sellerId));
+            if (add!=null)
+                allAdds.remove(add);
+            allAdds.add(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //if (add!=null)
-        //allAdds.remove(add);
-        allAdds.add(this);
     }
 
     public static void removeAdvertisement(Advertisement advertisement) {
