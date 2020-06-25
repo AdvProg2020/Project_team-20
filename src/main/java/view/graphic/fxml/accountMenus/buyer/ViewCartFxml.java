@@ -86,7 +86,7 @@ public class ViewCartFxml implements Initializable {
             totalPrice.setText(Double.toString(totalPrice2));
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -116,7 +116,7 @@ public class ViewCartFxml implements Initializable {
             totalPrice.setText(Double.toString(totalPrice2));
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -137,7 +137,7 @@ public class ViewCartFxml implements Initializable {
             totalPrice.setText(Double.toString(totalPrice2));
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -160,7 +160,7 @@ public class ViewCartFxml implements Initializable {
             totalPrice.setText(Double.toString(totalPrice2));
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -171,7 +171,7 @@ public class ViewCartFxml implements Initializable {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/buyer/" + "purchaseMenu" + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 }

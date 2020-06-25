@@ -216,14 +216,12 @@ public class ProductMenuFxml implements Initializable {
                 break;
             }
         }
-        System.out.println(idText);
         if (idText==null) {
             return;
         }
         String id = idText.getText();
         try {
             comment = currentProduct.getCommentWithId(id);
-            System.out.println(id);
             ArrayList<Reply> replies = comment.getReplies();
             for (Reply reply:replies) {
                 createComment(reply.getBuyer().getUsername(), reply.getContent(), null, allRepliesBox, 1);

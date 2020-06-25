@@ -97,10 +97,6 @@ public class ManageProductsFxml implements Initializable {
         details.add(finalDescription);
         details.add(finalCount);
         details.add(finalPrice);
-        System.out.println(finalPrice);
-        System.out.println(finalDescription);
-        System.out.println(finalCount);
-        System.out.println(product.getName());
         try {
             sellerController.editProduct(productId, details, removeNF, hashMapAddNF, removeOF, hashMapAddOF);
         } catch (Exception e) {
@@ -129,9 +125,6 @@ public class ManageProductsFxml implements Initializable {
                 for (int j = 2; j < oFields.length; j++) {
                     options.add(oFields[j]);
                 }
-                System.out.println(oFields[0]);
-                for(String string : options)
-                    System.out.println(string);
                 hashMapAddOF.put(oFields[0], options);
             }
         }

@@ -105,9 +105,6 @@ public class PurchaseMenu implements Initializable {
 
     public void handleDiscount(ActionEvent actionEvent) {
         discountCode2 = discountCode.getText();
-        if(discountCode2 == null){
-            System.out.println("hi");
-        }
         submit = true;
     }
 
@@ -119,7 +116,7 @@ public class PurchaseMenu implements Initializable {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/buyer/" + "purchaseMenu" + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();;
         }
     }
 }

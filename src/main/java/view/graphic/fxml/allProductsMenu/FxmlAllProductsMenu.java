@@ -184,11 +184,6 @@ public class FxmlAllProductsMenu implements Initializable {
         ObservableList<String> categories = FXCollections.observableArrayList();
         for (Category category : allCategories) {
             categories.add(category.getName());
-            //JFXCheckBox jfxCheckBox = new JFXCheckBox();
-            //jfxCheckBox.setText(category.getName());
-            //jfxCheckBox.setOnMouseClicked(this::handleAddCategory);
-            //list.setPlaceholder(jfxCheckBox);
-            //categories.getChildren().add(jfxCheckBox);
         }
         choiceBox.setItems(categories);
     }
@@ -305,7 +300,6 @@ public class FxmlAllProductsMenu implements Initializable {
         TextField startDateTxt = new TextField();
         startDateTxt.setStyle("-fx-background-color: transparent; -fx-text-inner-color:#575957;");
         if (sale==null) {
-            System.out.println("Sale is null");
             return;
         }
         startDateTxt.setText(" From: " + sale.getStartDate().getMonth() + "/" + sale.getStartDate().getDayOfMonth() + "/" + sale.getStartDate().getYear());
@@ -377,7 +371,6 @@ public class FxmlAllProductsMenu implements Initializable {
             productName.clear();
         }
         products = allProductsController.getProducts();
-        //not sure
         deleteProducts();
         initializeProducts(0);
     }
@@ -399,7 +392,6 @@ public class FxmlAllProductsMenu implements Initializable {
             max.clear();
         }
         products = allProductsController.getProducts();
-        //not sure
         deleteProducts();
         initializeProducts(0);
     }
@@ -421,7 +413,6 @@ public class FxmlAllProductsMenu implements Initializable {
             optionalField.clear();
         }
         products = allProductsController.getProducts();
-        //not sure
         deleteProducts();
         initializeProducts(0);
     }
@@ -437,7 +428,6 @@ public class FxmlAllProductsMenu implements Initializable {
             disableCategoryFields(category);
         }
         products = allProductsController.getProducts();
-        //not sure
         deleteProducts();
         initializeProducts(0);
     }
@@ -507,7 +497,6 @@ public class FxmlAllProductsMenu implements Initializable {
             allProductsController.disableSort();
             products = allProductsController.getProducts();
         }
-        //not sure
         deleteProducts();
         initializeProducts(0);
     }
@@ -520,7 +509,6 @@ public class FxmlAllProductsMenu implements Initializable {
             allProductsController.disableSort();
             products = allProductsController.getProducts();
         }
-        //not sure
         deleteProducts();
         initializeProducts(0);
     }
@@ -533,7 +521,6 @@ public class FxmlAllProductsMenu implements Initializable {
             allProductsController.disableSort();
             products = allProductsController.getProducts();
         }
-        //not sure
         deleteProducts();
         initializeProducts(0);
     }
@@ -777,9 +764,7 @@ public class FxmlAllProductsMenu implements Initializable {
                     sleep(5000);
                     try {
                         handleNextAdd(null);
-                    } catch (Exception e) {
-                        System.out.println("");
-                    }
+                    } catch (Exception e) {}
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
