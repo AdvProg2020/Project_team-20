@@ -4,9 +4,7 @@ import controller.MainController;
 import controller.account.LoginController;
 import javafx.scene.image.Image;
 import model.Requestable;
-import model.account.Account;
-import model.account.Buyer;
-import model.account.Manager;
+import model.account.*;
 import model.product.Category;
 import model.product.Discount;
 import model.product.Product;
@@ -56,6 +54,8 @@ public class ManagerController implements controller.account.user.AccountControl
 
     public void createManagerProfile(String name, String lastName, String email, String phoneNumber,
                                      String userName, String password, String creditString) throws Exception {
+        if (Account.hasThisAccount(userName))
+            throw new LoginController.AccountIsAvailableException();
         double credit;
         try {
             credit = Double.parseDouble(creditString);

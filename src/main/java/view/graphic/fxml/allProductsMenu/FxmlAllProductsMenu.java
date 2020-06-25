@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.account.*;
+import model.product.Advertisement;
 import model.product.Category;
 import model.product.Product;
 import model.product.Sale;
@@ -100,6 +101,12 @@ public class FxmlAllProductsMenu implements Initializable {
     public VBox productBox7;
     public VBox productBox8;
     public VBox productBox9;
+    public ImageView productAddImg;
+    public Text addTxt;
+    public Text missTxt;
+    public ImageView productAddImg2;
+    public Text addTxt2;
+    public Text missTxt2;
     private AllProductsController allProductsController = AllProductsController.getInstance();
     private static ArrayList<Product> products;
 
@@ -126,6 +133,8 @@ public class FxmlAllProductsMenu implements Initializable {
     private int fromForBack;
     private static Stage mainWindow;
     private boolean offMode = false;
+    private int currentAdd = 0;
+    private ArrayList<Advertisement> adds;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -139,8 +148,30 @@ public class FxmlAllProductsMenu implements Initializable {
                 ex.printStackTrace();
             }
         }
+        adds = allProductsController.getAdvertisement();
         if (products.size() != 0)
             initializeProducts(0);
+        showAdds();
+    }
+
+    private void showAdds() {
+        if (adds.size()>1) {
+            Product product = adds.get(1).getProduct();
+            Image img1 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
+            productAddImg.setImage(img1);
+            addTxt.setText(adds.get(1).getText());
+            missTxt.setOpacity(1);
+        }
+        if (adds.size()>0) {
+            Advertisement add2 = adds.get(0);
+            Product product = add2.getProduct();
+            Image img1 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
+            productAddImg2.setImage(img1);
+            productAddImg2.setImage(img1);
+            addTxt2.setText(add2.getText());
+            missTxt2.setOpacity(1);
+            adds.remove(0);
+        }
     }
 
     private void initializeCategories() {
@@ -312,6 +343,7 @@ public class FxmlAllProductsMenu implements Initializable {
             new AlertController().create(AlertType.ERROR, "you are not a buyer!");
         else {
             try {
+                BuyerMenuController.setLoadFromViewCart(true);
                 BuyerMenuController.start(mainWindow);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -339,9 +371,6 @@ public class FxmlAllProductsMenu implements Initializable {
             productName.clear();
         }
         products = allProductsController.getProducts();
-        for (Product product : products) {
-            System.out.println(product.getName());
-        }
         //not sure
         deleteProducts();
         initializeProducts(0);
@@ -364,9 +393,6 @@ public class FxmlAllProductsMenu implements Initializable {
             max.clear();
         }
         products = allProductsController.getProducts();
-        for (Product product : products) {
-            System.out.println(product.getName());
-        }
         //not sure
         deleteProducts();
         initializeProducts(0);
@@ -389,9 +415,6 @@ public class FxmlAllProductsMenu implements Initializable {
             optionalField.clear();
         }
         products = allProductsController.getProducts();
-        for (Product product : products) {
-            System.out.println(product.getName());
-        }
         //not sure
         deleteProducts();
         initializeProducts(0);
@@ -408,9 +431,6 @@ public class FxmlAllProductsMenu implements Initializable {
             disableCategoryFields(category);
         }
         products = allProductsController.getProducts();
-        for (Product product : products) {
-            System.out.println(product.getName());
-        }
         //not sure
         deleteProducts();
         initializeProducts(0);
@@ -714,10 +734,20 @@ public class FxmlAllProductsMenu implements Initializable {
     public void deleteOffBox(VBox vBox) {
         ArrayList<Node> deleteNodes = new ArrayList<>();
         for (Node node:vBox.getChildren()) {
-            System.out.println(node);
             if (node instanceof HBox)
                 deleteNodes.add(node);
         }
         vBox.getChildren().removeAll(deleteNodes);
+    }
+
+    public void handleNextAdd(ActionEvent actionEvent) {
+        currentAdd++;
+        if (adds.size()-1<currentAdd) {
+            currentAdd = 0;
+        }
+        Product product = adds.get(currentAdd).getProduct();
+        Image img1 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
+        productAddImg.setImage(img1);
+        addTxt.setText(adds.get(currentAdd).getText());
     }
 }

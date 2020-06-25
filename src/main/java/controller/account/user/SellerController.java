@@ -6,14 +6,11 @@ import model.account.Account;
 import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
-import model.product.AddSellerRequest;
-import model.product.Category;
+import model.product.*;
 import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
-import model.product.Product;
-import model.product.Sale;
 import model.receipt.SellerReceipt;
 
 import java.time.LocalDateTime;
@@ -35,6 +32,13 @@ public class SellerController implements AccountController {
             sellerController = new SellerController();
         seller = (Seller) MainController.getInstance().getAccount();
         return sellerController;
+    }
+
+    public void addAdvertisement (Product product, Seller seller, String text) throws Exception{
+        if (seller.getCredit()<500000)
+            throw new Account.notEnoughMoneyException();
+        Advertisement adv = new Advertisement(seller, product, LocalDateTime.now().plusDays(5), text);
+        Manager.addRequest(adv);
     }
 
     public String viewCompanyInformation() {
@@ -200,7 +204,6 @@ public class SellerController implements AccountController {
                 throw new HaveNotThisProductException(product);
         }
         newProducts.addAll(productsToAdd);
-        System.out.println(newProducts.size());
         sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
         Manager.addRequest(sale);
     }

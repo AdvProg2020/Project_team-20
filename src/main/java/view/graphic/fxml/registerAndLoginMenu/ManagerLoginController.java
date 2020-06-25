@@ -3,6 +3,7 @@ package view.graphic.fxml.registerAndLoginMenu;
 import controller.Main;
 import controller.account.LoginController;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class ManagerLoginController {
     public TextField newUsername;
     public TextField newName;
-    public TextField newPassword;
+    public PasswordField newPassword;
     public TextField newLastName;
     public TextField newEmail;
     public TextField newCredit;
