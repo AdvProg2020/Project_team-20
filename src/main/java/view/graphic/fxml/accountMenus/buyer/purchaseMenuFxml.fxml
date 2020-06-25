@@ -9,12 +9,12 @@
 
 <AnchorPane prefHeight="471.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.buyer.PurchaseMenu">
     <children>
-        <Text fill="#575957" layoutX="104.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Menu" wrappingWidth="207.58889770507812">
+        <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Menu" wrappingWidth="207.58889770507812">
             <font>
                 <Font size="16.0" />
             </font>
         </Text>
-        <Separator layoutX="104.0" layoutY="52.0" prefHeight="8.0" prefWidth="289.0" />
+        <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
         <Text fx:id="addressText" fill="#575957" layoutX="107.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:">
             <font>
                 <Font size="14.0" />

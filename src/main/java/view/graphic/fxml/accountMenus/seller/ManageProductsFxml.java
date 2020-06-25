@@ -1,6 +1,5 @@
 package view.graphic.fxml.accountMenus.seller;
 
-import controller.account.user.ManagerController;
 import controller.account.user.SellerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,14 +9,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import model.Requestable;
 import model.account.Buyer;
-import model.account.Seller;
 import model.product.Field.Field;
 import model.product.Product;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
-import view.graphic.fxml.accountMenus.manager.RequestTable;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -220,5 +216,13 @@ public class ManageProductsFxml implements Initializable {
         price.appendText(Double.toString(product.getPrice(SellerController.getSeller())));
         count.appendText(Integer.toString(product.getCount(SellerController.getSeller())));
         description.appendText(product.getDescription());
+    }
+
+    public void handleEnter(MouseEvent event) {
+        ((Button) event.getSource()).setStyle("-fx-background-color: #009f9c;");
+    }
+
+    public void handleExit(MouseEvent event) {
+        ((Button) event.getSource()).setStyle("-fx-background-color: #00bfbc;");
     }
 }
