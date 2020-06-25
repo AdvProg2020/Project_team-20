@@ -138,6 +138,7 @@ public class FxmlAllProductsMenu implements Initializable {
     private boolean offMode = false;
     private int currentAdd = 0;
     private ArrayList<Advertisement> adds;
+    public static boolean key = true;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -356,6 +357,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleExit(ActionEvent actionEvent) {
+        FxmlAllProductsMenu.key = false;
         Main.storeData();
         FxmlMainMenu.window.close();
     }
@@ -770,9 +772,9 @@ public class FxmlAllProductsMenu implements Initializable {
     public class changeAdd extends Thread {
         @Override
         public void run() {
-            while (true) {
+            while (key) {
                 try {
-                    sleep(10000);
+                    sleep(5000);
                     try {
                         handleNextAdd(null);
                     } catch (Exception e) {
