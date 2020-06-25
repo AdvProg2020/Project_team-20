@@ -1,5 +1,6 @@
 package view.graphic;
 
+import controller.MediaController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +23,7 @@ public class ProgramApplication extends Application {
     private static Scene mainMenu, buyerMenu, managerMenu, registerAndLoginMenu, sellerMenu, allProductsMenu, loginManager;
     private static Stage mainStage;
     private static boolean firstManager;
+    private static MediaController mediaController = new MediaController();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -59,6 +61,7 @@ public class ProgramApplication extends Application {
     }
 
     public static void setMenu(MenuNames name) {
+        mediaController.stop();
         history.add(name);
         switch (name) {
             case MAINMENU:
@@ -66,6 +69,7 @@ public class ProgramApplication extends Application {
                 FxmlMainMenu.setWindow(mainStage);
                 mainStage.setScene(mainMenu);
                 mainStage.show();
+                new Thread(() -> mediaController.mainTheme()).start();
                 break;
             case REGISTERANDLOGINMENU:
                 mainStage.setTitle("register and login menu");

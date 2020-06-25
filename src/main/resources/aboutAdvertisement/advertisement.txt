@@ -1,4 +1,0 @@
-{"@type":"model.product.Advertisement","@val":{"sellerId":"w","productId":"8","endDate":{"date":{"year":2020,"month":6,"day":30},"time":{"hour":14,"minute":59,"second":50,"nano":508000000}},"state":"ACCEPTED","text":"Beauty with us!"}}
-{"@type":"model.product.Advertisement","@val":{"sellerId":"w","productId":"9","endDate":{"date":{"year":2020,"month":6,"day":30},"time":{"hour":15,"minute":1,"second":41,"nano":346000000}},"state":"ACCEPTED","text":"How can play?!"}}
-{"@type":"model.product.Advertisement","@val":{"sellerId":"w","productId":"4","endDate":{"date":{"year":2020,"month":6,"day":30},"time":{"hour":15,"minute":1,"second":50,"nano":816000000}},"state":"ACCEPTED","text":"YYYYUUMMYY!!"}}
-{"@type":"model.product.Advertisement","@val":{"sellerId":"w","productId":"6","endDate":{"date":{"year":2020,"month":6,"day":30},"time":{"hour":15,"minute":1,"second":59,"nano":762000000}},"state":"ACCEPTED","text":"What's next?!"}}
