@@ -3,6 +3,7 @@ package controller.product.filter;
 import controller.MainController;
 import model.account.GeneralAccount;
 import model.account.TempAccount;
+import model.product.Advertisement;
 import model.product.Category;
 import model.product.Product;
 
@@ -57,5 +58,9 @@ public class AllProductsController extends Filterable {
         Product product = Product.getProductById(id);
         product.addToNumberOfViews();
         return product;
+    }
+
+    public ArrayList<Advertisement> getAdvertisement() {
+        return Advertisement.getAdds();
     }
 }

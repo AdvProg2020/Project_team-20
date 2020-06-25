@@ -137,4 +137,8 @@ public class SellerMenuController implements Initializable {
             profileImg.setImage(img1);
         }
     }
+
+    public void handleAdvertisement(ActionEvent actionEvent) {
+        loadUI("createAdvertisement");
+    }
 }

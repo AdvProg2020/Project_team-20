@@ -5,5 +5,6 @@ public enum RequestType {
     Product,
     Sale,
     Buyer,
-    Seller
+    Seller,
+    Advertisement
 }
