@@ -61,7 +61,7 @@ public class ManageProductsFxml implements Initializable {
 
     private ArrayList<ProductTmp> convertToProductTmp() throws Exception {
         SellerController sellerController = SellerController.getInstance();
-        ArrayList<Product> products = sellerController.getAllProducts();
+        ArrayList<Product> products = sellerController.getSellerProducts();
         ArrayList<ProductTmp> productTmpS = new ArrayList<>();
         for (Product product : products) {
             ProductTmp productTmp = new ProductTmp(product.getName(), Integer.parseInt(product.getId()));

@@ -53,6 +53,10 @@ public class SellerController implements AccountController {
         return Product.getAllProducts();
     }
 
+    public ArrayList<Product> getSellerProducts(){
+        return seller.getProducts();
+    }
+
     public Product viewProduct(String productId) throws Exception {
         return Product.getProductById(productId);
     }
@@ -353,6 +357,9 @@ public class SellerController implements AccountController {
 
     @Override
     public void logout() {
+        //I change it
+        seller = null;
+        //
         mainController.logout();
     }
 }
