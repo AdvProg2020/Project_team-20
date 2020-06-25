@@ -566,7 +566,7 @@
                            <children>
                               <ImageView fitHeight="127.0" fitWidth="451.0" layoutY="-1.0" opacity="0.57" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../../../Desktop/adv.png" />
+                                    <Image url="@../../../../../resources/Images/adv.png" />
                                  </image>
                               </ImageView>
                               <ImageView fx:id="productAddImg" fitHeight="85.0" fitWidth="85.0" layoutX="64.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
@@ -574,7 +574,7 @@
                                  <children>
                                     <ImageView fitHeight="29.0" fitWidth="14.0" layoutX="3.0" layoutY="52.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../../../Desktop/next.png" />
+                                          <Image url="@../../../../../resources/Images/next.png" />
                                        </image>
                                     </ImageView>
                                     <JFXButton layoutX="-2.0" layoutY="5.0" onAction="#handleNextAdd" prefHeight="125.0" prefWidth="5.0" style="-fx-background-radius: 5;" text=" ">

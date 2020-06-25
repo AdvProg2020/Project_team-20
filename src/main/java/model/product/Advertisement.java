@@ -1,11 +1,17 @@
 package model.product;
 
+import com.gilecode.yagson.YaGson;
 import model.Requestable;
+import model.account.Account;
+import model.account.AccountType;
+import model.account.Buyer;
 import model.account.Seller;
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Advertisement implements Requestable {
@@ -25,36 +31,36 @@ public class Advertisement implements Requestable {
         this.text = text;
     }
 
-    public static ArrayList<Advertisement> getAdds(){
+    public static ArrayList<Advertisement> getAdds() {
         ArrayList<Advertisement> selectedAdds = new ArrayList<>();
         ArrayList<Integer> list = new ArrayList<>();
         int max = allAdds.size();
         int min = 0;
-        if(allAdds.size()>5) {
+        if (allAdds.size() > 5) {
             max = ThreadLocalRandom.current().nextInt(5, allAdds.size());
-            min = max-5;
+            min = max - 5;
         }
-        for (int i=min; i<max; i++) {
+        for (int i = min; i < max; i++) {
             list.add(i);
         }
         Collections.shuffle(list);
-        for (int i=min; i<max; i++)
+        for (int i = min; i < max; i++)
             selectedAdds.add(allAdds.get(list.get(i)));
         return selectedAdds;
     }
 
-    public void addAdvertisement () {
+    public void addAdvertisement() {
         try {
             Advertisement add = getAddBySeller((Seller) Seller.getAccountWithUsername(sellerId));
         } catch (Exception e) {
             e.printStackTrace();
         }
         //if (add!=null)
-            //allAdds.remove(add);
+        //allAdds.remove(add);
         allAdds.add(this);
     }
 
-    public static void removeAdvertisement (Advertisement advertisement) {
+    public static void removeAdvertisement(Advertisement advertisement) {
         allAdds.remove(advertisement);
     }
 
@@ -68,7 +74,7 @@ public class Advertisement implements Requestable {
     }
 
     public static Advertisement getAddBySeller(Seller seller) {
-        for (Advertisement add:allAdds) {
+        for (Advertisement add : allAdds) {
             if (add.getSeller().equals(seller))
                 return add;
         }
@@ -86,7 +92,7 @@ public class Advertisement implements Requestable {
             seller = Seller.getSellerWithUsername(sellerId);
             state = RequestableState.ACCEPTED;
             addAdvertisement();
-            seller.setCredit(seller.getCredit()-500000);
+            seller.setCredit(seller.getCredit() - 500000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,6 +143,32 @@ public class Advertisement implements Requestable {
         return endDate;
     }
 
+    public static void store() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutAdvertisement/advertisement.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Advertisement advertisement : allAdds)
+                fileWriter.write(yaGson.toJson(advertisement) + "\n");
+            fileWriter.close();
+        } catch (IOException ignored) {
+        }
+
+    }
+
+    public static void load() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutAdvertisement/advertisement.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                Advertisement advertisement = yaGson.fromJson(fileScanner.nextLine(), Advertisement.class);
+                allAdds.add(advertisement);
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
     @Override
     public String toString() {
         try {
@@ -145,7 +177,7 @@ public class Advertisement implements Requestable {
             return "Product: " + product.getName() + "\n\n" +
                     "RequestType: Advertisement" + "\n\n" +
                     "Seller: " + seller.getUsername() + "\n\n" +
-                    "endDate: " + endDate +"\n\n" +
+                    "endDate: " + endDate + "\n\n" +
                     "Text: " + text;
         } catch (Exception e) {
             e.printStackTrace();

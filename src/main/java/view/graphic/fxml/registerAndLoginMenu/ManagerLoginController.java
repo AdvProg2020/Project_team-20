@@ -11,6 +11,7 @@ import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
+import view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 
 import java.util.ArrayList;
 
@@ -70,6 +71,7 @@ public class ManagerLoginController {
     }
 
     public void handleExit() {
+        FxmlAllProductsMenu.key = false;
         Main.storeData();
         window.close();
     }

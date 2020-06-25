@@ -17,6 +17,7 @@ import view.graphic.alert.AlertType;
 import view.graphic.fxml.accountMenus.buyer.BuyerMenuController;
 import view.graphic.fxml.accountMenus.manager.ManagerMenuController;
 import view.graphic.fxml.accountMenus.seller.SellerMenuController;
+import view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -186,6 +187,7 @@ public class FxmlRegisterAndLoginMenu {
     }
 
     public void handleExit() {
+        FxmlAllProductsMenu.key = false;
         Main.storeData();
         window.close();
     }

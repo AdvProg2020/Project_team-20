@@ -6,6 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
+import view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 
 public class FxmlMainMenu {
     public static Stage window;
@@ -28,6 +29,7 @@ public class FxmlMainMenu {
     }
 
     public void handleExit() {
+        FxmlAllProductsMenu.key = false;
         Main.storeData();
         window.close();
     }

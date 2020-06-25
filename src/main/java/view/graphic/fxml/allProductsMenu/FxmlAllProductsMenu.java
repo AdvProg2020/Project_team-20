@@ -5,9 +5,11 @@ import com.jfoenix.controls.JFXCheckBox;
 import controller.Main;
 import controller.MainController;
 import controller.product.filter.AllProductsController;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -25,6 +27,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.account.*;
 import model.product.Advertisement;
 import model.product.Category;
@@ -135,6 +138,7 @@ public class FxmlAllProductsMenu implements Initializable {
     private boolean offMode = false;
     private int currentAdd = 0;
     private ArrayList<Advertisement> adds;
+    public static boolean key = true;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -152,6 +156,7 @@ public class FxmlAllProductsMenu implements Initializable {
         if (products.size() != 0)
             initializeProducts(0);
         showAdds();
+        new changeAdd().start();
     }
 
     private void showAdds() {
@@ -352,6 +357,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleExit(ActionEvent actionEvent) {
+        FxmlAllProductsMenu.key = false;
         Main.storeData();
         FxmlMainMenu.window.close();
     }
@@ -746,8 +752,38 @@ public class FxmlAllProductsMenu implements Initializable {
             currentAdd = 0;
         }
         Product product = adds.get(currentAdd).getProduct();
-        Image img1 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
-        productAddImg.setImage(img1);
-        addTxt.setText(adds.get(currentAdd).getText());
+        FadeTransition transition = new FadeTransition(Duration.seconds(1), productAddImg);
+        transition.setToValue(0);
+        transition.play();
+        transition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Image img1 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
+                productAddImg.setOpacity(0);
+                productAddImg.setImage(img1);
+                addTxt.setText(adds.get(currentAdd).getText());
+                FadeTransition transition = new FadeTransition(Duration.seconds(1), productAddImg);
+                transition.setToValue(1);
+                transition.play();
+            }
+        });
+    }
+
+    public class changeAdd extends Thread {
+        @Override
+        public void run() {
+            while (key) {
+                try {
+                    sleep(5000);
+                    try {
+                        handleNextAdd(null);
+                    } catch (Exception e) {
+                        System.out.println("");
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

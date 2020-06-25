@@ -19,6 +19,7 @@ import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
+import view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -117,6 +118,7 @@ public class BuyerMenuController implements Initializable {
     }
 
     public void handleExit() {
+        FxmlAllProductsMenu.key = false;
         Main.storeData();
         window.close();
     }

@@ -3,6 +3,7 @@ package view.graphic.fxml.allProductsMenu;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import controller.Main;
 import controller.account.user.SellerController;
 import controller.product.ProductController;
 import javafx.collections.FXCollections;
@@ -31,6 +32,7 @@ import model.product.comment.Reply;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
+import view.graphic.fxml.mainMenu.FxmlMainMenu;
 import view.graphic.score.Score;
 
 import java.io.File;
@@ -84,6 +86,9 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void handleExit(ActionEvent actionEvent) {
+        FxmlAllProductsMenu.key = false;
+        Main.storeData();
+        FxmlMainMenu.window.close();
     }
 
     public void handleMainMenu(ActionEvent actionEvent) {
