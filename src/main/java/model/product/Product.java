@@ -256,6 +256,10 @@ public class Product implements Requestable {
         }
     }
 
+    public void addBuyerToBuyers(Buyer buyer){
+        buyersUsername.add(buyer.getUsername());
+    }
+
     public void addScore(Score score) {
         scores.add(score);
     }

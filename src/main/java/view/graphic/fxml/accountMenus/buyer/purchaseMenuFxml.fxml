@@ -42,7 +42,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Text fx:id="discountText" fill="#575957" layoutX="107.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sale Percentage:">
+      <Text fx:id="discountText" fill="#575957" layoutX="107.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sale Amount:">
          <font>
             <Font size="14.0" />
          </font>

@@ -208,11 +208,9 @@ public class ManageProductsFxml implements Initializable {
         ArrayList<Product> products = sellerController.getAllProducts();
         ArrayList<Field> fields = product.getGeneralFields();
 
-        for (Product product : products) {
-            ArrayList<Buyer> buyers = new ArrayList<>();
-            for (Buyer buyer : buyers) {
-                buyersField.appendText(buyer.getUsername() + "\n");
-            }
+        ArrayList<Buyer> buyers = product.getBuyers();
+        for(Buyer buyer : buyers){
+            buyersField.appendText(buyer.getUsername()+"\n");
         }
 
         for (Field field : fields) {
