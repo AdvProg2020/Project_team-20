@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import controller.Main;
+import controller.account.user.SellerController;
 import controller.product.ProductController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,6 +65,8 @@ public class ProductMenuFxml implements Initializable {
     public Text realPrice;
     public Line Offline;
     public ImageView saleImg;
+    public TextField newPrice;
+    public TextField newCount;
     private Seller seller;
     private Comment comment;
 
@@ -302,5 +305,24 @@ public class ProductMenuFxml implements Initializable {
     public void handleRateExit(MouseEvent event) {
         ((Button)event.getSource()).setStyle("-fx-background-radius:30; -fx-background-color:transparent; -fx-border-color:#5fccd0; -fx-border-radius:30; -fx-border-width:1");
         ((Button)event.getSource()).setTextFill(Color.valueOf("#5fccd0"));
+    }
+
+    public void handleAnotherSeller(ActionEvent actionEvent) {
+        if(SellerController.getSeller()==null){
+            new AlertController().create(AlertType.ERROR, "you are not a seller!");
+        }
+        else{
+            int count = Integer.parseInt(newCount.getText());
+            double price = Double.parseDouble(newPrice.getText());
+            SellerController sellerController = SellerController.getInstance();
+            try {
+                sellerController.addToProduct(currentProduct.getId(),count,price);
+            }
+           catch (Exception e){
+               new AlertController().create(AlertType.ERROR, e.getMessage());
+           }
+        }
+        newCount.clear();
+        newPrice.clear();
     }
 }
