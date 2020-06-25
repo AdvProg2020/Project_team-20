@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import controller.Main;
+import controller.MainController;
 import controller.account.user.SellerController;
 import controller.product.ProductController;
 import javafx.collections.FXCollections;
@@ -67,6 +68,7 @@ public class ProductMenuFxml implements Initializable {
     public ImageView saleImg;
     public TextField newPrice;
     public TextField newCount;
+    public JFXButton addSellerBtn;
     private Seller seller;
     private Comment comment;
 
@@ -114,6 +116,11 @@ public class ProductMenuFxml implements Initializable {
             }
         }
         fields.setEditable(false);
+        if (MainController.getInstance().getAccount() instanceof Seller) {
+            newPrice.setOpacity(1);
+            newCount.setOpacity(1);
+            addSellerBtn.setOpacity(1);
+        }
 
         if (currentProduct.isInSale())
             saleImg.setOpacity(1);

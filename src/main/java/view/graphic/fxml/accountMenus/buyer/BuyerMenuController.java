@@ -51,7 +51,6 @@ public class BuyerMenuController implements Initializable {
             new PopUpControllerFxml().create();
         }
     }
-    
 
     public void handleLogout(ActionEvent actionEvent) {
         buyerController.logout();
