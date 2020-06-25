@@ -4,10 +4,7 @@ import controller.account.user.BuyerController;
 import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
-import model.product.Category;
-import model.product.Discount;
-import model.product.Product;
-import model.product.Sale;
+import model.product.*;
 import model.receipt.BuyerReceipt;
 import model.receipt.SellerReceipt;
 import view.console.MainMenu;
@@ -33,7 +30,7 @@ public class Main {
     }
 
 
-        // for console view
+    // for console view
 /*
        initialMenus();
        while (true) {
@@ -72,6 +69,7 @@ public class Main {
         Sale.load();
         SellerReceipt.load();
         BuyerReceipt.load();
+        Advertisement.load();
     }
 
     public static void storeData() {
@@ -85,6 +83,7 @@ public class Main {
         Sale.store();
         SellerReceipt.store();
         BuyerReceipt.store();
+        Advertisement.store();
     }
-   }
+}
 

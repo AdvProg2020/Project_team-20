@@ -54,7 +54,7 @@ public class SellerMenuController implements Initializable {
     }
 
     public void handleManageProducts(ActionEvent actionEvent) {
-
+        loadUI("manageProducts");
     }
 
     public void handleShowCategories(ActionEvent actionEvent) {

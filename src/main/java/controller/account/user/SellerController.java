@@ -65,7 +65,7 @@ public class SellerController implements AccountController {
     public void editProduct(String productId, ArrayList<String> details, ArrayList<String> numericalFieldsToRemove,
                             HashMap<String, Double> numericalFieldsToAdd,
                             ArrayList<String> optionalFieldsTORemove,
-                            HashMap<String, ArrayList<String>> optionalFieldsToAdd) throws Exception {
+                            HashMap<String, ArrayList<String>> optionalFieldsToAdd)throws Exception {
         Product product = Product.getProductById(productId);
         ArrayList<Field> fields = new ArrayList<>(product.getGeneralFields());
         editFields(fields, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsTORemove,
@@ -78,10 +78,12 @@ public class SellerController implements AccountController {
         }
         //increase or decrease product (manfi bashe ya mosbat(addad vorodi))
         if (!details.get(1).isEmpty()) {
-            count += Integer.parseInt(details.get(1));
+            //I change it
+            count = Integer.parseInt(details.get(1));
         }
         if (!details.get(2).isEmpty()) {
-            price += Double.parseDouble(details.get(2));
+            //I change it
+            price = Double.parseDouble(details.get(2));
         }
         product.changeStateEdited(fields, description, count, price, seller);
         Manager.addRequest(product);
