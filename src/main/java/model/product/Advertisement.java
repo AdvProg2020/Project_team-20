@@ -11,15 +11,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Advertisement implements Requestable {
     private static ArrayList<Advertisement> allAdds = new ArrayList<>();
 
-    private Seller seller;
-    private Product product;
+    private String sellerId;
+    private String productId;
     private LocalDateTime endDate;
     private RequestableState state;
     private String text;
 
     public Advertisement(Seller seller, Product product, LocalDateTime endDate, String text) {
-        this.seller = seller;
-        this.product = product;
+        this.sellerId = seller.getUsername();
+        this.productId = product.getId();
         this.endDate = endDate;
         state = RequestableState.CREATED;
         this.text = text;
@@ -44,7 +44,11 @@ public class Advertisement implements Requestable {
     }
 
     public void addAdvertisement () {
-        Advertisement add = getAddBySeller(seller);
+        try {
+            Advertisement add = getAddBySeller((Seller) Seller.getAccountWithUsername(sellerId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //if (add!=null)
             //allAdds.remove(add);
         allAdds.add(this);
@@ -77,9 +81,15 @@ public class Advertisement implements Requestable {
 
     @Override
     public void changeStateAccepted() {
-        state = RequestableState.ACCEPTED;
-        addAdvertisement();
-        seller.setCredit(seller.getCredit()-500000);
+        Seller seller = null;
+        try {
+            seller = Seller.getSellerWithUsername(sellerId);
+            state = RequestableState.ACCEPTED;
+            addAdvertisement();
+            seller.setCredit(seller.getCredit()-500000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -107,11 +117,20 @@ public class Advertisement implements Requestable {
     }
 
     public Seller getSeller() {
-        return seller;
+        try {
+            return Seller.getSellerWithUsername(sellerId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public Product getProduct() {
-        return product;
+        try {
+            return Product.getProductById(productId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public LocalDateTime getEndDate() {
@@ -120,10 +139,17 @@ public class Advertisement implements Requestable {
 
     @Override
     public String toString() {
-        return "Product: " + product.getName() + "\n\n" +
-                "RequestType: Advertisement" + "\n\n" +
-                "Seller: " + seller.getUsername() + "\n\n" +
-                "endDate: " + endDate +"\n\n" +
-                "Text: " + text;
+        try {
+            Product product = Product.getProductById(productId);
+            Seller seller = Seller.getSellerWithUsername(sellerId);
+            return "Product: " + product.getName() + "\n\n" +
+                    "RequestType: Advertisement" + "\n\n" +
+                    "Seller: " + seller.getUsername() + "\n\n" +
+                    "endDate: " + endDate +"\n\n" +
+                    "Text: " + text;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
