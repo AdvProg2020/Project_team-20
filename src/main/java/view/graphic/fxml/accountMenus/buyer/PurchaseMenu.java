@@ -41,10 +41,10 @@ public class PurchaseMenu implements Initializable {
     private String discountCode2;
 
     public void handlePay(ActionEvent actionEvent) {
-        if(submit){
+        if (submit) {
             BuyerController buyerController = BuyerController.getInstance();
             try {
-                buyerController.purchase(address2,phone2,discountCode2);
+                buyerController.purchase(address2, phone2, discountCode2);
                 new AlertController().create(AlertType.CONFIRMATION, "Thanks for buying");
                 phoneText.setOpacity(0);
                 phone.setOpacity(0);
@@ -56,12 +56,10 @@ public class PurchaseMenu implements Initializable {
                 discount.setText("");
                 address.setText("");
                 submit = false;
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 new AlertController().create(AlertType.ERROR, e.getMessage());
             }
-        }
-        else{
+        } else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
     }
@@ -83,7 +81,6 @@ public class PurchaseMenu implements Initializable {
         submit = false;
 
         BuyerController buyerController = BuyerController.getInstance();
-        Cart cart = buyerController.viewCart();
         discount.appendText(Double.toString(buyerController.getDiscount()));
         totalPrice.appendText(Double.toString(buyerController.getTotalPrice()));
     }
@@ -116,7 +113,8 @@ public class PurchaseMenu implements Initializable {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/buyer/" + "purchaseMenu" + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
-            e.printStackTrace();;
+            e.printStackTrace();
+            ;
         }
     }
 }

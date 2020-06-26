@@ -42,7 +42,6 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
 
-    //manage users
     public ArrayList<Account> manageUsers() {
         return getAllAccounts();
     }
@@ -70,7 +69,6 @@ public class ManagerController implements controller.account.user.AccountControl
                 false));
     }
 
-    //products
     public ArrayList<Product> manageAllProducts() {
         return getAllProducts();
     }
@@ -78,12 +76,6 @@ public class ManagerController implements controller.account.user.AccountControl
     public void mangerRemoveProduct(String productId) throws Exception {
         removeProduct(productId);
     }
-
-    //discount codes
-   /* public void createDiscountCode(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage,
-                                   int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
-        new Discount(startDate, endDate, discountPercentage, maxNumberOfUsage, buyersWithDiscount);
-    }*/
 
     public void createDiscountCode(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage,
                                    int maxNumberOfUsage, ArrayList<String> buyersWithDiscount) throws Exception {
@@ -171,7 +163,6 @@ public class ManagerController implements controller.account.user.AccountControl
         discount.removeBuyerFromBuyersList(buyer);
     }
 
-    //requests
     public HashMap<Integer, Requestable> manageRequests() {
         return getRequestWithIds();
     }
@@ -201,7 +192,6 @@ public class ManagerController implements controller.account.user.AccountControl
         deleteRequest(request, requestId);
     }
 
-    //category
     public ArrayList<SubCategory> manageSubCategories() {
         return getAllSubCategories();
     }

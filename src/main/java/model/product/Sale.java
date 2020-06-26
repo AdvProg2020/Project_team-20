@@ -146,7 +146,7 @@ public class Sale implements Requestable {
             } catch (Exception e) {
             }
         }
-        String buyerString = "Sale Percentage: " + salePercentage*100 + "\n" + "\n" +
+        String buyerString = "Sale Percentage: " + salePercentage * 100 + "\n" + "\n" +
                 "RequestType: Sale" + "\n" + "\n" +
                 "Start date: " + startDate + "\n" + "\n" +
                 "End date: " + endDate + "\n" + "\n" +
@@ -160,7 +160,7 @@ public class Sale implements Requestable {
             }
             buyerString += "Edited Fields:\n" + "\n";
             buyerString += "RequestType: Edit" + "\n" + "\n" +
-                    "Sale Percentage: " + editedSale.getSalePercentage() *100  + "\n" + "\n" +
+                    "Sale Percentage: " + editedSale.getSalePercentage() * 100 + "\n" + "\n" +
                     "Start date: " + editedSale.getStartDate() + "\n" + "\n" +
                     "End date: " + editedSale.getEndDate() + "\n" + "\n" +
                     "Products: \n" + productEditStr;
@@ -191,10 +191,10 @@ public class Sale implements Requestable {
     }
 
     public static Sale getProductSale(Product product) {
-        for (Sale sale:getAllSales())
+        for (Sale sale : getAllSales())
             if (sale.hasProduct(product))
                 return sale;
-         return null;
+        return null;
     }
 
     public RequestType getRequestType() {

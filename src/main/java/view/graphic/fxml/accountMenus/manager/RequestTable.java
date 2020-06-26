@@ -6,7 +6,7 @@ public class RequestTable {
     private SimpleStringProperty detail;
     private SimpleStringProperty id;
 
-    public RequestTable(String detail , int id){
+    public RequestTable(String detail, int id) {
         this.detail = new SimpleStringProperty(detail);
         this.id = new SimpleStringProperty(Integer.toString(id));
     }
@@ -15,7 +15,7 @@ public class RequestTable {
         return detail.get();
     }
 
-    public String getId(){
+    public String getId() {
         return id.get();
     }
 }

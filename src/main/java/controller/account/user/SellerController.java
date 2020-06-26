@@ -81,13 +81,11 @@ public class SellerController implements AccountController {
         if (!details.get(0).isEmpty()) {
             description = details.get(0);
         }
-        //increase or decrease product (manfi bashe ya mosbat(addad vorodi))
+
         if (!details.get(1).isEmpty()) {
-            //I change it
             count = Integer.parseInt(details.get(1));
         }
         if (!details.get(2).isEmpty()) {
-            //I change it
             price = Double.parseDouble(details.get(2));
         }
         product.changeStateEdited(fields, description, count, price, seller);
@@ -280,7 +278,6 @@ public class SellerController implements AccountController {
             super("seller have not this product with this id: " + product.getId());
         }
 
-        //check shavad che qalati bokonim
         private String generateString(Product product) {
             return "";
         }
@@ -291,7 +288,6 @@ public class SellerController implements AccountController {
             super("Your input format is invalid!");
         }
 
-        //check shavad che qalati bokonim
         private String generateString(Product product) {
             return "";
         }
@@ -368,9 +364,7 @@ public class SellerController implements AccountController {
 
     @Override
     public void logout() {
-        //I change it
         seller = null;
-        //
         mainController.logout();
     }
 }

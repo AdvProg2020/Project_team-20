@@ -12,8 +12,6 @@ public abstract class GeneralAccount {
     public GeneralAccount(GeneralAccountType generalAccountType) {
         this.generalAccountType = generalAccountType;
         this.graphicPackage = new GraphicPackage();
-        // check this
-        //graphicPackage.setMainImage(new Image(new File("src/main/resources/Images/ProfileImg.png").toURI().toString()));
     }
 
     public GeneralAccountType getGeneralAccountType() {

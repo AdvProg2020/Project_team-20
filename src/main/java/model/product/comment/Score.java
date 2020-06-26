@@ -18,8 +18,7 @@ public class Score {
     public Buyer getBuyer() {
         try {
             return (Buyer) Account.getAccountWithUsername(buyerUsername);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
@@ -31,8 +30,7 @@ public class Score {
     public Product getProduct() {
         try {
             return Product.getProductById(productID);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }

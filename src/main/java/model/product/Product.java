@@ -76,7 +76,7 @@ public class Product implements Requestable {
     }
 
     public boolean isSold() {
-        for (String sellerId:countWithName.keySet()) {
+        for (String sellerId : countWithName.keySet()) {
             if (countWithName.get(sellerId) != 0)
                 return false;
         }
@@ -87,7 +87,9 @@ public class Product implements Requestable {
         this.imagePath = imagePath;
     }
 
-    public String getImagePath(){ return this.imagePath; }
+    public String getImagePath() {
+        return this.imagePath;
+    }
 
     public void increaseProductViews() {
         this.views++;
@@ -265,7 +267,7 @@ public class Product implements Requestable {
         }
     }
 
-    public void addBuyerToBuyers(Buyer buyer){
+    public void addBuyerToBuyers(Buyer buyer) {
         buyersUsername.add(buyer.getUsername());
     }
 
@@ -284,20 +286,19 @@ public class Product implements Requestable {
     public double getPriceWithOff(Seller seller) {
         Sale sale = Sale.getProductSale(this);
         double price = getPrice(seller);
-        if (sale==null)
+        if (sale == null)
             return price;
         else {
             if (sale.getSeller().equals(seller)) {
-                return price*(1-sale.getSalePercentage());
-            }
-            else
+                return price * (1 - sale.getSalePercentage());
+            } else
                 return price;
         }
     }
 
-    public boolean isInSale(){
+    public boolean isInSale() {
         Sale sale = Sale.getProductSale(this);
-        return sale!=null;
+        return sale != null;
     }
 
     public boolean isInSale(Seller seller) {

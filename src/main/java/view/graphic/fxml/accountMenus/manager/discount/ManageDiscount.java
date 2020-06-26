@@ -107,7 +107,7 @@ public class ManageDiscount implements Initializable {
             editEndTime();
         } else if (addBuyerOk.equals(source)) {
             addBuyer();
-        } else if(removeBuyerOk.equals(source)) {
+        } else if (removeBuyerOk.equals(source)) {
             removeBuyer();
         }
         clear();

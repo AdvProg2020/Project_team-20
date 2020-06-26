@@ -32,9 +32,6 @@ public class RequestsController implements Initializable {
 
 
     ManagerController managerController = ManagerController.getInstance();
-    Manager manager = (Manager) managerController.getAccountInfo();
-    private TextArea message1;
-
 
     private ArrayList<RequestTable> convertToRequestTable() throws Exception {
         ManagerController managerController = ManagerController.getInstance();
@@ -118,11 +115,11 @@ public class RequestsController implements Initializable {
     }
 
     public void handleExitAccept(MouseEvent event) {
-       ((Button) event.getSource()).setStyle("-fx-background-color: #60d520;");
+        ((Button) event.getSource()).setStyle("-fx-background-color: #60d520;");
     }
 
     public void handleEnterRemove(MouseEvent event) {
-      ((Button) event.getSource()).setStyle("-fx-background-color: #fb5f48;");
+        ((Button) event.getSource()).setStyle("-fx-background-color: #fb5f48;");
     }
 
     public void handleExitRemove(MouseEvent event) {

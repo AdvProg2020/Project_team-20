@@ -87,7 +87,8 @@ public class ManageCategoriesController implements Initializable {
             addProduct();
         } else if (addSubOk.equals(source)) {
             addSub();
-        }*/ if (nameOk.equals(source)) {
+        }*/
+        if (nameOk.equals(source)) {
             editName();
         } else if (removeFieldOk.equals(source)) {
             removeField();

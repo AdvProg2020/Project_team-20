@@ -96,7 +96,6 @@ public class LoginController {
         return AccountType.SELLER;
     }
 
-    //hosele nadaram check konam ke in baiad inja bashe ya na
     public void logout() {
         MainController.getInstance().setAccount(new TempAccount());
     }

@@ -84,8 +84,7 @@ public class ViewCartFxml implements Initializable {
             mainTable.setItems(getCartTmpS());
             totalPrice.setText("");
             totalPrice.setText(Double.toString(totalPrice2));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -100,7 +99,7 @@ public class ViewCartFxml implements Initializable {
     }
 
     public void handlePlus(ActionEvent actionEvent) throws Exception {
-        cart.increaseProduct(id , 1);
+        cart.increaseProduct(id, 1);
         minusIcon.setOpacity(0);
         recycleBinIcon.setOpacity(0);
         plusIcon.setOpacity(0);
@@ -114,14 +113,13 @@ public class ViewCartFxml implements Initializable {
             mainTable.setItems(getCartTmpS());
             totalPrice.setText("");
             totalPrice.setText(Double.toString(totalPrice2));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void handleMinus(ActionEvent actionEvent) throws Exception {
-        cart.decreaseProduct(id , 1);
+        cart.decreaseProduct(id, 1);
         minusIcon.setOpacity(0);
         recycleBinIcon.setOpacity(0);
         plusIcon.setOpacity(0);
@@ -135,8 +133,7 @@ public class ViewCartFxml implements Initializable {
             mainTable.setItems(getCartTmpS());
             totalPrice.setText("");
             totalPrice.setText(Double.toString(totalPrice2));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -144,7 +141,7 @@ public class ViewCartFxml implements Initializable {
     public void handleDelete(ActionEvent actionEvent) throws Exception {
         HashMap<Product, Integer> products = cart.getAllProducts();
         int quantity = products.get(Product.getProductById(id));
-        cart.decreaseProduct(id , quantity);
+        cart.decreaseProduct(id, quantity);
         minusIcon.setOpacity(0);
         recycleBinIcon.setOpacity(0);
         plusIcon.setOpacity(0);
@@ -158,8 +155,7 @@ public class ViewCartFxml implements Initializable {
             mainTable.setItems(getCartTmpS());
             totalPrice.setText("");
             totalPrice.setText(Double.toString(totalPrice2));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

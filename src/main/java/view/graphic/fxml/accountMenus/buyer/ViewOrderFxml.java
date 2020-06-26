@@ -22,7 +22,7 @@ public class ViewOrderFxml implements Initializable {
     public TableView<BuyerReceipt> table;
     public TextArea message;
     public Text title;
-    public TableColumn<String, BuyerReceipt>  orderId;
+    public TableColumn<String, BuyerReceipt> orderId;
     public Text paidMoneyTxt;
     public Text discountTxt;
     public Text timeTxt;
@@ -53,7 +53,7 @@ public class ViewOrderFxml implements Initializable {
     private void showProducts(BuyerReceipt buyerReceipt) {
         HashMap<Product, Integer> productsCount = buyerReceipt.getProducts();
         ArrayList<ProductQuantity> productQuantities = new ArrayList<>();
-        for (Product product:productsCount.keySet()) {
+        for (Product product : productsCount.keySet()) {
             productQuantities.add(new ProductQuantity(product.getName(), productsCount.get(product)));
         }
         productsTable.getItems().setAll(productQuantities);

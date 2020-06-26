@@ -86,7 +86,7 @@ public class CreateDiscountController implements Initializable {
             new AlertController().create(AlertType.ERROR, e.getMessage());
             return;
         }
-        new AlertController().create(AlertType.CONFIRMATION,"discount created!");
+        new AlertController().create(AlertType.CONFIRMATION, "discount created!");
         clear();
     }
 

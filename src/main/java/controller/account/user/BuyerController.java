@@ -58,13 +58,11 @@ public class BuyerController implements AccountController {
         return currentBuyer.getReceiptById(id);
     }
 
-    //I wrote it
-    private void addBuyerToProductsBuyers(){
-        for(Product product : currentBuyer.getCart().getAllProducts().keySet()){
+    private void addBuyerToProductsBuyers() {
+        for (Product product : currentBuyer.getCart().getAllProducts().keySet()) {
             product.addBuyer(currentBuyer);
         }
     }
-    //
 
     public void purchase(String address, String phoneNumber, String discountCode) throws Exception {
         receiveInformation(address, phoneNumber);
@@ -79,9 +77,7 @@ public class BuyerController implements AccountController {
         pay(totalPrice);
         decreaseAllProductBought();
         makeReceipt(totalPrice, discountPercentage);
-        //I change it
         addBuyerToProductsBuyers();
-        //
         currentBuyer.getCart().resetCart();
     }
 
@@ -165,23 +161,22 @@ public class BuyerController implements AccountController {
         return totalPrice;
     }
 
-    public double getDiscount(){
+    public double getDiscount() {
         double totalPrice = 0;
         double priceWithoutDiscount = 0;
         for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
             Sale saleForProduct = getSaleForProduct(selectedProduct);
             Seller seller = selectedProduct.getSeller();
-            if (saleForProduct != null && saleForProduct.validSaleTime()){
+            if (saleForProduct != null && saleForProduct.validSaleTime()) {
                 totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount() *
                         (1 - saleForProduct.getSalePercentage());
                 priceWithoutDiscount += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
-            }
-            else{
+            } else {
                 totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
                 priceWithoutDiscount += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
             }
         }
-        return priceWithoutDiscount-totalPrice;
+        return priceWithoutDiscount - totalPrice;
     }
 
     private Sale getSaleForProductOfSeller(Product product, Seller seller) {
@@ -275,7 +270,7 @@ public class BuyerController implements AccountController {
 
     @Override
     public void changeMainImage(Image image) {
-       currentBuyer.getGraphicPackage().setMainImage(image);
+        currentBuyer.getGraphicPackage().setMainImage(image);
     }
 
     @Override

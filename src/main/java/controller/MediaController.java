@@ -29,10 +29,6 @@ public class MediaController {
         }
     }
 
-    public void clickOnButton() {
-
-    }
-
     public void stop() {
         if (mediaPlayer != null)
             mediaPlayer.stop();

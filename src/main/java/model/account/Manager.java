@@ -28,7 +28,6 @@ public class Manager extends Account {
         this.firstManager = firstManager;
     }
 
-    //TODO check this rustin ;)
     public void deleteAccount(String username) throws Exception {
         Account account = getAccountWithUsername(username);
         try {
