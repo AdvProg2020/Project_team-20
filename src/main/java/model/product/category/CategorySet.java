@@ -7,7 +7,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static model.product.category.SubCategory.getCategoryByName;
 
 public class CategorySet extends Category {
     private static ArrayList<CategorySet> allCategorySets = new ArrayList<>();
@@ -94,12 +93,6 @@ public class CategorySet extends Category {
 
     public void removeSubCategorySet(CategorySet categorySet) {
         categorySets.remove(categorySet.getName());
-    }
-
-    public static class CategoryDoesNotFoundException extends Exception {
-        public CategoryDoesNotFoundException() {
-            super("category doesn't exist");
-        }
     }
 
     public static void store() {
