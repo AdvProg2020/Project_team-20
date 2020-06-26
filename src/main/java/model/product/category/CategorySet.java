@@ -11,7 +11,6 @@ public class CategorySet extends Category {
     private static ArrayList<CategorySet> allCategorySets = new ArrayList<>();
     private ArrayList<CategorySet> categorySets;
     private ArrayList<SubCategory> categories;
-    private String name;
 
     public CategorySet(String name) throws CategoryNameException {
         super(name);
@@ -87,6 +86,35 @@ public class CategorySet extends Category {
         }
     }
 
+   /* @Override
+    public String toString() {
+        StringBuilder subCategoriesString = new StringBuilder();
+        StringBuilder productIDsString = new StringBuilder();
+        int i = 1, j = 1, k = 1;
+        for (String fieldName : fieldNames) {
+            fieldNamesString.append(i++).append(": ").append(fieldName).append("\n");
+        }
+        for (String sub : subCategoriesName) {
+            try {
+                subCategoriesString.append(j++).append(": ").append(getCategoryByName(sub).toString()).append("\n");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        for (String productID : productIDs) {
+            try {
+                productIDsString.append(k++).append(": ").append(Product.getProductById(productID).getName()).append("\n");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "name: " + name + '\n' +
+                "fieldNames: \n" + fieldNamesString +
+                "subCategories: \n" + subCategoriesString +
+                "product names: \n " + productIDsString;
+    }
+
+    */
 
     public static void store() {
         YaGson yaGson = new YaGson();

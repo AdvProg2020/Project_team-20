@@ -84,9 +84,9 @@ public abstract class Filterable {
                 return;
             }
         }
-        for (SubCategory subCategory : category.getSubCategories()) {
-            addAllFieldsCategory(subCategory);
-        }
+      //  for (SubCategory subCategory : category.getSubCategories()) {
+        //    addAllFieldsCategory(subCategory);
+       // }
     }
 
     public void filterByProductName(ArrayList<String> details) {

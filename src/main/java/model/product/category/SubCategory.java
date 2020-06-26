@@ -14,10 +14,8 @@ import java.util.stream.Collectors;
 
 public class SubCategory extends Category {
     private static ArrayList<SubCategory> allSubCategories = new ArrayList<>();
-    private String name;
     private ArrayList<Filter> filters = new ArrayList<>();
     private ArrayList<String> fieldNames;
-    private ArrayList<String> subCategoriesName;
     private ArrayList<String> productIDs;
     private CategorySet parent;
 
@@ -25,7 +23,6 @@ public class SubCategory extends Category {
         super(name);
         this.parent = parent;
         this.fieldNames = new ArrayList<>();
-        this.subCategoriesName = new ArrayList<>();
         this.productIDs = new ArrayList<>();
         allSubCategories.add(this);
         Category.addToAllCategories(this);
@@ -35,7 +32,6 @@ public class SubCategory extends Category {
         super(name);
         this.parent = null;
         this.fieldNames = new ArrayList<>();
-        this.subCategoriesName = new ArrayList<>();
         this.productIDs = new ArrayList<>();
         allSubCategories.add(this);
         Category.addToAllCategories(this);
@@ -43,10 +39,6 @@ public class SubCategory extends Category {
 
     public static ArrayList<SubCategory> getAllSubCategories() {
         return allSubCategories;
-    }
-
-    public static void AddToCategories(SubCategory subCategory) {
-        allSubCategories.add(subCategory);
     }
 
     public static void removeCategory(String categoryName) throws Exception {
@@ -78,6 +70,7 @@ public class SubCategory extends Category {
         filters.remove(filter);
         fieldNames.remove(field);
         fieldNames.remove(field);
+        setProductIDs();
     }
 
     private Filter getFilterByName(String name) {
@@ -92,27 +85,6 @@ public class SubCategory extends Category {
         this.productIDs.remove(product.getId());
     }
 
-    public void removeSubCategory(SubCategory subCategory) {
-        this.subCategoriesName.remove(subCategory.getName());
-    }
-
-    public ArrayList<SubCategory> getSubCategories() {
-        ArrayList<SubCategory> subCategories = new ArrayList<>();
-        for (String categoryName : subCategoriesName) {
-            try {
-                SubCategory subCategory = getCategoryByName(categoryName);
-                subCategories.add(subCategory);
-            } catch (Exception e) {
-            }
-        }
-        return subCategories;
-    }
-
-    public void addSubCategory(SubCategory subCategory) {
-        this.subCategoriesName.add(subCategory.getName());
-        for (Product product : subCategory.getProducts())
-            this.productIDs.add(product.getId());
-    }
 
     public ArrayList<Product> getProducts() {
         return Product.getAllProducts().stream()
@@ -126,8 +98,16 @@ public class SubCategory extends Category {
                         .toCollection(ArrayList::new));
     }
 
+    private void setProductIDs() {
+        productIDs = new ArrayList<>();
+        for (Product product : getProducts()) {
+            productIDs.add(product.getId());
+        }
+    }
+
     public void addField(Product product) {
         this.productIDs.add(product.getId());
+        setProductIDs();
     }
 
     public CategorySet getParent() {
@@ -149,12 +129,6 @@ public class SubCategory extends Category {
     public static class CategoryDoesNotFoundException extends Exception {
         public CategoryDoesNotFoundException() {
             super("category doesn't exist");
-        }
-    }
-
-    public static class CategoryNameException extends Exception {
-        public CategoryNameException() {
-            super("we have another category with this name!");
         }
     }
 
@@ -188,18 +162,10 @@ public class SubCategory extends Category {
     @Override
     public String toString() {
         StringBuilder fieldNamesString = new StringBuilder();
-        StringBuilder subCategoriesString = new StringBuilder();
         StringBuilder productIDsString = new StringBuilder();
         int i = 1, j = 1, k = 1;
         for (String fieldName : fieldNames) {
             fieldNamesString.append(i++).append(": ").append(fieldName).append("\n");
-        }
-        for (String sub : subCategoriesName) {
-            try {
-                subCategoriesString.append(j++).append(": ").append(getCategoryByName(sub).toString()).append("\n");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
         for (String productID : productIDs) {
             try {
@@ -210,7 +176,6 @@ public class SubCategory extends Category {
         }
         return "name: " + name + '\n' +
                 "fieldNames: \n" + fieldNamesString +
-                "subCategories: \n" + subCategoriesString +
                 "product names: \n " + productIDsString;
     }
 }
