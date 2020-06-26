@@ -50,7 +50,7 @@ public class ManageCategoriesController implements Initializable {
         title.setOpacity(0);
         removeButton.setOpacity(0);
         editButton.setOpacity(0);
-        ArrayList<SubCategory> categories = managerController.manageCategories();
+        ArrayList<SubCategory> categories = managerController.manageSubCategories();
         table.getItems().setAll(categories);
         categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
@@ -73,7 +73,7 @@ public class ManageCategoriesController implements Initializable {
         }
         try {
             managerController.addCategory(name);
-            ArrayList<SubCategory> categories = managerController.manageCategories();
+            ArrayList<SubCategory> categories = managerController.manageSubCategories();
             table.getItems().setAll(categories);
             categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
             new AlertController().create(AlertType.CONFIRMATION, "successful");
@@ -206,7 +206,7 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
-            managerController.addProductToCategory(subCategory.getName(), name);
+            managerController.addFieldToCategory(subCategory.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
             message.setText(subCategory.toString());
         } catch (Exception e) {
@@ -218,7 +218,7 @@ public class ManageCategoriesController implements Initializable {
     public void handleRemove(ActionEvent actionEvent) {
         try {
             managerController.managerRemoveCategory(subCategory.getName());
-            ArrayList<SubCategory> categories = managerController.manageCategories();
+            ArrayList<SubCategory> categories = managerController.manageSubCategories();
             table.getItems().setAll(categories);
             categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
             new AlertController().create(AlertType.ERROR, "remove was successful");

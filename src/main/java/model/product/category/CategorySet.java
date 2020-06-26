@@ -7,21 +7,18 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CategorySet extends Category{
+public class CategorySet extends Category {
     private static ArrayList<CategorySet> allCategorySets = new ArrayList<>();
     private ArrayList<CategorySet> categorySets;
     private ArrayList<SubCategory> categories;
-    private String name;
 
     public CategorySet(String name) throws CategoryNameException {
-        if (checkName(name)) {
-            this.name = name;
-            this.categories = new ArrayList<>();
-            this.categorySets = new ArrayList<>();
-            allCategorySets.add(this);
-        } else {
-            throw new CategoryNameException();
-        }
+        super(name);
+        this.name = name;
+        this.categories = new ArrayList<>();
+        this.categorySets = new ArrayList<>();
+        allCategorySets.add(this);
+        Category.addToAllCategories(this);
     }
 
     public static CategorySet getCategorySetByName(String categorySetName) throws CategoryDoesNotFoundException {
@@ -36,23 +33,11 @@ public class CategorySet extends Category{
         for (CategorySet categorySet : allCategorySets) {
             if (categorySet.name.equals(categorySetName)) {
                 allCategorySets.remove(categorySet);
+                Category.removeFromAllCategories(categorySet);
                 return;
             }
         }
         throw new CategoryDoesNotFoundException();
-    }
-
-
-    private boolean checkName(String name) {
-        for (SubCategory subCategory : SubCategory.getAllCategories()) {
-            if (subCategory.getName().equals(name))
-                return false;
-        }
-        for (CategorySet categorySet : allCategorySets) {
-            if (categorySet.getName().equals(name))
-                return false;
-        }
-        return true;
     }
 
 
@@ -83,14 +68,6 @@ public class CategorySet extends Category{
         this.categories.add(subCategory);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public static ArrayList<CategorySet> getAllCategorySets() {
         return allCategorySets;
     }
@@ -109,11 +86,35 @@ public class CategorySet extends Category{
         }
     }
 
-    public static class CategoryNameException extends Exception {
-        public CategoryNameException() {
-            super("we have another category with this name!");
+   /* @Override
+    public String toString() {
+        StringBuilder subCategoriesString = new StringBuilder();
+        StringBuilder productIDsString = new StringBuilder();
+        int i = 1, j = 1, k = 1;
+        for (String fieldName : fieldNames) {
+            fieldNamesString.append(i++).append(": ").append(fieldName).append("\n");
         }
+        for (String sub : subCategoriesName) {
+            try {
+                subCategoriesString.append(j++).append(": ").append(getCategoryByName(sub).toString()).append("\n");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        for (String productID : productIDs) {
+            try {
+                productIDsString.append(k++).append(": ").append(Product.getProductById(productID).getName()).append("\n");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "name: " + name + '\n' +
+                "fieldNames: \n" + fieldNamesString +
+                "subCategories: \n" + subCategoriesString +
+                "product names: \n " + productIDsString;
     }
+
+    */
 
     public static void store() {
         YaGson yaGson = new YaGson();
@@ -136,6 +137,7 @@ public class CategorySet extends Category{
             while (fileScanner.hasNextLine()) {
                 CategorySet categorySet = yaGson.fromJson(fileScanner.nextLine(), CategorySet.class);
                 allCategorySets.add(categorySet);
+                Category.addToAllCategories(categorySet);
             }
         } catch (Exception ignored) {
         }

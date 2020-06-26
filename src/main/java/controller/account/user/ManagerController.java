@@ -5,6 +5,7 @@ import controller.account.LoginController;
 import javafx.scene.image.Image;
 import model.Requestable;
 import model.account.*;
+import model.product.category.Category;
 import model.product.category.SubCategory;
 import model.product.Discount;
 import model.product.Product;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static model.account.Manager.*;
+import static model.product.category.CategorySet.getAllCategorySets;
 import static model.product.category.SubCategory.*;
 import static model.product.Discount.removeDiscountCode;
 import static model.product.Product.*;
@@ -200,8 +202,16 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     //category
-    public ArrayList<SubCategory> manageCategories() {
-        return getAllCategories();
+    public ArrayList<SubCategory> manageSubCategories() {
+        return getAllSubCategories();
+    }
+
+    public ArrayList<CategorySet> manageCategorySets() {
+        return getAllCategorySets();
+    }
+
+    public ArrayList<Category> manageAllCategories() {
+        return Category.getAllCategories();
     }
 
     public void editCategoryName(String categoryName, String newName) throws Exception {
@@ -249,10 +259,9 @@ public class ManagerController implements controller.account.user.AccountControl
         CategorySet.removeCategorySet(categorySetName);
     }
 
-    public void addProductToCategory(String categoryName, String productName) throws Exception {
-        Product product = Product.getProductWithItsName(productName);
+    public void addFieldToCategory(String categoryName, String fieldName) throws Exception {
         SubCategory subCategory = getCategoryByName(categoryName);
-        subCategory.addProduct(product);
+        subCategory.addField(fieldName);
     }
 
     public void addSubCategoryToCategorySet(String categoryName, String subCategoryName) throws Exception {
