@@ -66,13 +66,13 @@ public class SellerMenuController implements Initializable {
         loadUI("manageOffs");
     }
 
-    public void handleLogout(ActionEvent actionEvent) throws Exception{
+    public void handleLogout(ActionEvent actionEvent) throws Exception {
         sellerController.logout();
         ProgramApplication.setMenu(MenuNames.MAINMENU);
         new AlertController().create(AlertType.CONFIRMATION, "log out was successful");
     }
 
-    private void loadUI(String ui){
+    private void loadUI(String ui) {
         Parent root;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/seller/" + ui + "Fxml" + ".fxml").toURI().toURL());
@@ -85,10 +85,6 @@ public class SellerMenuController implements Initializable {
     public void handleAllProducts(ActionEvent actionEvent) {
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
-
-    public void handleOffs(ActionEvent actionEvent) {
-    }
-
 
     public void handleDragDropped(DragEvent event) {
         List<File> files = event.getDragboard().getFiles();
@@ -134,7 +130,7 @@ public class SellerMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Seller seller = SellerController.getSeller();
-        if (seller.getImagePath()!=null) {
+        if (seller.getImagePath() != null) {
             Image img1 = new Image(new File("src/main/resources/Images/" + seller.getImagePath()).toURI().toString());
             profileImg.setImage(img1);
         }
