@@ -1,1 +1,4 @@
-{"@type":"model.product.category.Category","@val":{"name":"books","fieldNames":["book"],"subCategoriesName":[],"productIDs":["1"]}}
+{"@type":"model.product.Category","@val":{"name":"books","fieldNames":["book"],"subCategoriesName":[],"productIDs":["1"],"parent":{"name":"Reading","fieldNames":[],"subCategoriesName":["Magazine","books"],"productIDs":["1"]}}}
+{"@type":"model.product.Category","@val":{"name":"Juice","fieldNames":["Juice"],"subCategoriesName":[],"productIDs":[]}}
+{"@type":"model.product.Category","@val":{"name":"Magazine","fieldNames":["Magazine"],"subCategoriesName":[],"productIDs":[],"parent":{"name":"Reading","fieldNames":[],"subCategoriesName":["Magazine","books"],"productIDs":["1"]}}}
+{"@type":"model.product.Category","@val":{"name":"Reading","fieldNames":[],"subCategoriesName":["Magazine","books"],"productIDs":["1"]}}
