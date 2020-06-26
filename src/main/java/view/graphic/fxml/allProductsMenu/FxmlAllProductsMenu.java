@@ -30,10 +30,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.account.*;
 import model.product.Advertisement;
-import model.product.category.Category;
-import model.product.category.SubCategory;
 import model.product.Product;
 import model.product.Sale;
+import model.product.category.Category;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
@@ -527,6 +526,9 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleBackButton(ActionEvent actionEvent) {
+        if (fromForBack==0) {
+            return;
+        }
         fromForBack = fromForBack - 9;
         if (fromForBack >= 0) {
             deleteProducts();
