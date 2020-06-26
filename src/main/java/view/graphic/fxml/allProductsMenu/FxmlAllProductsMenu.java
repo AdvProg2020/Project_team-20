@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.account.*;
 import model.product.Advertisement;
-import model.product.Category;
+import model.product.category.Category;
 import model.product.Product;
 import model.product.Sale;
 import view.graphic.MenuNames;

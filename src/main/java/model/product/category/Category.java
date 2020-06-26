@@ -1,7 +1,8 @@
-package model.product;
+package model.product.category;
 
 
 import com.gilecode.yagson.YaGson;
+import model.product.Product;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -119,7 +120,7 @@ public class Category {
             try {
                 Product product = Product.getProductById(productID);
                 allProducts.add(product);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
         return allProducts;

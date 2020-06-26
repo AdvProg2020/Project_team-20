@@ -11,6 +11,7 @@ import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
+import model.product.category.Category;
 import model.receipt.SellerReceipt;
 
 import java.time.LocalDateTime;

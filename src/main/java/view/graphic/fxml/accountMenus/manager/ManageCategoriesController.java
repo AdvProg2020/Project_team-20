@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import model.product.Category;
+import model.product.category.Category;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 

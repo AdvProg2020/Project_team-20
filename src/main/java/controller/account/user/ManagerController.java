@@ -5,7 +5,7 @@ import controller.account.LoginController;
 import javafx.scene.image.Image;
 import model.Requestable;
 import model.account.*;
-import model.product.Category;
+import model.product.category.Category;
 import model.product.Discount;
 import model.product.Product;
 import model.product.RequestableState;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static model.account.Manager.*;
-import static model.product.Category.*;
+import static model.product.category.Category.*;
 import static model.product.Discount.removeDiscountCode;
 import static model.product.Product.*;
 

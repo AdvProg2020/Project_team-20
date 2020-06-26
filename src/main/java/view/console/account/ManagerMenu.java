@@ -4,7 +4,7 @@ import controller.account.user.ManagerController;
 import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
-import model.product.Category;
+import model.product.category.Category;
 import model.product.Discount;
 import model.product.Product;
 import view.console.Menu;

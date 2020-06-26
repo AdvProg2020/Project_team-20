@@ -1,10 +1,10 @@
 package controller;
 
-import controller.account.user.BuyerController;
 import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
 import model.product.*;
+import model.product.category.Category;
 import model.receipt.BuyerReceipt;
 import model.receipt.SellerReceipt;
 import view.console.MainMenu;
