@@ -7,15 +7,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static model.product.category.SubCategory.getCategoryByName;
+
 public class CategorySet extends Category {
     private static ArrayList<CategorySet> allCategorySets = new ArrayList<>();
-    private ArrayList<CategorySet> categorySets;
-    private ArrayList<SubCategory> categories;
+    private ArrayList<String> categorySets;
+    private ArrayList<String> subCategories;
 
     public CategorySet(String name) throws CategoryNameException {
         super(name);
         this.name = name;
-        this.categories = new ArrayList<>();
+        this.subCategories = new ArrayList<>();
         this.categorySets = new ArrayList<>();
         allCategorySets.add(this);
         Category.addToAllCategories(this);
@@ -43,29 +45,43 @@ public class CategorySet extends Category {
 
     public ArrayList<Product> getProducts() {
         ArrayList<Product> products = new ArrayList<>();
-        for (CategorySet categorySet : categorySets) {
+        for (CategorySet categorySet : getCategorySets()) {
             products.addAll(categorySet.getProducts());
         }
-        for (SubCategory subCategory : categories) {
+        for (SubCategory subCategory : getSubCategories()) {
             products.addAll(subCategory.getProducts());
         }
         return products;
     }
 
-    public ArrayList<CategorySet> getCategorySets() {
-        return categorySets;
+    public ArrayList<CategorySet> getCategorySets(){
+        ArrayList<CategorySet> categorySetArrayList = new ArrayList<>();
+        for (String categorySet : categorySets) {
+            try {
+                categorySetArrayList.add(CategorySet.getCategorySetByName(categorySet));
+            } catch (CategoryDoesNotFoundException ignored) {
+            }
+        }
+        return categorySetArrayList;
     }
 
     public void addToCategorySets(CategorySet categorySet) {
-        this.categorySets.add(categorySet);
+        this.categorySets.add(categorySet.getName());
     }
 
-    public ArrayList<SubCategory> getCategories() {
-        return categories;
+    public ArrayList<SubCategory> getSubCategories() {
+        ArrayList<SubCategory> subCategoryArrayList = new ArrayList<>();
+        for (String subCategory : subCategories) {
+            try {
+                subCategoryArrayList.add(SubCategory.getCategoryByName(subCategory));
+            } catch (Exception ignored) {
+            }
+        }
+        return subCategoryArrayList;
     }
 
     public void addToCategories(SubCategory subCategory) {
-        this.categories.add(subCategory);
+        this.subCategories.add(subCategory.getName());
     }
 
     public static ArrayList<CategorySet> getAllCategorySets() {
@@ -73,7 +89,7 @@ public class CategorySet extends Category {
     }
 
     public void removeSubCategory(SubCategory subCategory) {
-        categories.remove(subCategory);
+        subCategories.remove(subCategory);
     }
 
     public void removeSubCategorySet(CategorySet categorySet) {
@@ -85,36 +101,6 @@ public class CategorySet extends Category {
             super("category doesn't exist");
         }
     }
-
-   /* @Override
-    public String toString() {
-        StringBuilder subCategoriesString = new StringBuilder();
-        StringBuilder productIDsString = new StringBuilder();
-        int i = 1, j = 1, k = 1;
-        for (String fieldName : fieldNames) {
-            fieldNamesString.append(i++).append(": ").append(fieldName).append("\n");
-        }
-        for (String sub : subCategoriesName) {
-            try {
-                subCategoriesString.append(j++).append(": ").append(getCategoryByName(sub).toString()).append("\n");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        for (String productID : productIDs) {
-            try {
-                productIDsString.append(k++).append(": ").append(Product.getProductById(productID).getName()).append("\n");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return "name: " + name + '\n' +
-                "fieldNames: \n" + fieldNamesString +
-                "subCategories: \n" + subCategoriesString +
-                "product names: \n " + productIDsString;
-    }
-
-    */
 
     public static void store() {
         YaGson yaGson = new YaGson();
