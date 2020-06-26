@@ -8,6 +8,7 @@ import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
+import model.product.category.Category;
 import model.product.comment.Comment;
 import model.product.comment.Reply;
 import model.product.comment.Score;

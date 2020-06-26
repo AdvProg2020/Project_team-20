@@ -2,7 +2,7 @@ import controller.product.filter.AllProductsController;
 import mockit.Tested;
 import model.account.Buyer;
 import model.account.Seller;
-import model.product.Category;
+import model.product.category.Category;
 import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;

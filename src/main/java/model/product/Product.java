@@ -7,6 +7,7 @@ import model.account.Account;
 import model.account.Buyer;
 import model.account.Seller;
 import model.product.Field.Field;
+import model.product.category.Category;
 import model.product.comment.Comment;
 import model.product.comment.Score;
 
