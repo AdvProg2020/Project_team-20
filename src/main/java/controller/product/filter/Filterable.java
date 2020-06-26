@@ -49,6 +49,10 @@ public abstract class Filterable {
                         .toCollection(ArrayList::new));
     }
 
+    public ArrayList<Product> getProductFilterByCategory(){
+        return productsToShow;
+    }
+
     public ArrayList<Product> showProducts() throws Exception {
         switch (currentSort) {
             case "ByScores":
@@ -70,22 +74,10 @@ public abstract class Filterable {
         currentSort = null;
     }
 
-    public void filterByCategory(ArrayList<String> details) throws Exception {
-        String categoryName = details.get(0);
-        Category category = Category.getCategoryByName(categoryName);
-        addAllFieldsCategory(category);
-    }
 
-    public void addAllFieldsCategory(Category category) {
-        for (String fieldName : category.getFields()) {
-            if (!filterNames.contains(fieldName)) {
-                filterNames.add(fieldName);
-                filters.add(new OptionalFilter(fieldName));
-            }
-        }
-        for (Category subCategory : category.getSubCategories()) {
-            addAllFieldsCategory(subCategory);
-        }
+
+    public void filterByCategory(Category category) throws Exception {
+
     }
 
     public void filterByProductName(ArrayList<String> details) {
