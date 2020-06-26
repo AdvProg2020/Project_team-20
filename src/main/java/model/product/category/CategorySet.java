@@ -116,6 +116,19 @@ public class CategorySet extends Category {
 
     */
 
+    @Override
+    public String toString() {
+        String string = "Name: "+name+"\n"+"Category sets name: "+"\n";
+        for (CategorySet categorySet : allCategorySets){
+            string = string + categorySet.getName()+"\n";
+        }
+        string = string + "Categories name: "+"\n";
+        for (Category category : allCategories){
+            string = string + category.getName()+"\n";
+        }
+        return string;
+    }
+
     public static void store() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutProduct/CategorySet.txt");

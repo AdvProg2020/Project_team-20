@@ -69,12 +69,7 @@ public class AllProductsController extends Filterable {
         return Advertisement.getAdds();
     }
 
-    public void disableCategoryFields(SubCategory category) throws Exception {
-        for (String fieldName : category.getFields()) {
-            allProductsController.disAbleFilter(fieldName);
-        }
-        for (SubCategory subCategory : category.getSubCategories()) {
-            disableCategoryFields(subCategory);
-        }
+    public void disableCategoryFields() throws Exception {
+        disableFilterByCategory();
     }
 }

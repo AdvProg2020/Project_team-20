@@ -16,6 +16,7 @@ public abstract class Filterable {
     protected ArrayList<String> filterNames = new ArrayList<>();
     protected String currentSort = "ByNumberOfViews";
     protected ArrayList<Product> productsToShow;
+    protected ArrayList<Product> productsBeforeFiltering;
 
     public void filter(String filterType, ArrayList<String> details) throws Exception {
         if (filterType.equalsIgnoreCase("category")) {
@@ -74,11 +75,22 @@ public abstract class Filterable {
         currentSort = null;
     }
 
-
+    public void disableFilterByCategory(){
+        productsToShow = productsBeforeFiltering;
+    }
 
     public void filterByCategory(ArrayList<String> details) throws Exception {
         String name = details.get(0);
-        Category category = Category
+        productsBeforeFiltering = productsToShow;
+        ArrayList<Category> categories = Category.getAllCategories();
+        Category category1;
+        for (Category category : categories){
+            if(category.getName().equals(name)){
+                category1 = category;
+                productsToShow = category1.getProducts();
+                break;
+            }
+        }
     }
 
     public void filterByProductName(ArrayList<String> details) {

@@ -424,8 +424,7 @@ public class FxmlAllProductsMenu implements Initializable {
             details.add(categoryName);
             allProductsController.filterByCategory(details);
         } else {
-            SubCategory subCategory = SubCategory.getCategoryByName(categoryName);
-            disableCategoryFields(subCategory);
+            allProductsController.disableFilterByCategory();
         }
         products = allProductsController.getProducts();
         deleteProducts();
@@ -478,10 +477,6 @@ public class FxmlAllProductsMenu implements Initializable {
         product9Price.setText("");
         product9Score.setImage(null);
         showProduct9.setOpacity(0);
-    }
-
-    private void disableCategoryFields(SubCategory subCategory) throws Exception {
-        allProductsController.disableCategoryFields(subCategory);
     }
 
     public void handleDateSort(ActionEvent actionEvent) throws Exception {
