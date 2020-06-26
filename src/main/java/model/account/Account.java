@@ -196,7 +196,6 @@ public abstract class Account extends GeneralAccount {
         }
     }
 
-    //ehtiaj darim ????
     public static boolean hasThisAccount(String username) {
         for (Account account : allAccounts) {
             if (account.getUsername().equals(username))
@@ -209,5 +208,7 @@ public abstract class Account extends GeneralAccount {
         this.imagePath = imagePath;
     }
 
-    public String getImagePath(){ return this.imagePath; }
+    public String getImagePath() {
+        return this.imagePath;
+    }
 }

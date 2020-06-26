@@ -5,7 +5,7 @@ import model.product.Product;
 
 import java.util.ArrayList;
 
-public class Comment{
+public class Comment {
     private String commentId;
     private String buyersUsername;
     private String productId;
@@ -15,8 +15,6 @@ public class Comment{
 
 
     public Comment(Buyer buyer, Product product, String title, String content) {
-
-        //TODO check this
         this.commentId = String.valueOf(product.getComments().size());
         this.buyersUsername = buyer.getUsername();
         this.productId = product.getId();
@@ -26,7 +24,7 @@ public class Comment{
     }
 
     public Buyer getBuyer() throws Exception {
-       return Buyer.getBuyerWithUsername(buyersUsername);
+        return Buyer.getBuyerWithUsername(buyersUsername);
     }
 
     public Product getProduct() throws Exception {

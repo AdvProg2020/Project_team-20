@@ -3,7 +3,7 @@ package model.product.comment;
 import model.account.Buyer;
 
 public class Reply {
-    private String  buyerUsername;
+    private String buyerUsername;
     private String title;
     private String content;
 

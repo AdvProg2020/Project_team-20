@@ -9,7 +9,7 @@ public class CartTmp {
     private SimpleStringProperty quantity;
     private SimpleStringProperty total;
 
-    public CartTmp(String productName, double price , int quantity , double total) {
+    public CartTmp(String productName, double price, int quantity, double total) {
         this.productName = new SimpleStringProperty(productName);
         this.price = new SimpleStringProperty(Double.toString(price));
         this.quantity = new SimpleStringProperty(Integer.toString(quantity));
@@ -24,11 +24,11 @@ public class CartTmp {
         return price.get();
     }
 
-    public String getQuantity(){
+    public String getQuantity() {
         return quantity.get();
     }
 
-    public String getTotal(){
+    public String getTotal() {
         return total.get();
     }
 }

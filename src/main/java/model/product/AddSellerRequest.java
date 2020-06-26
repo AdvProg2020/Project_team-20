@@ -21,7 +21,7 @@ public class AddSellerRequest implements Requestable {
     }
 
     @Override
-    public void changeStateAccepted(){
+    public void changeStateAccepted() {
         try {
             Product product = Product.getProductById(productId);
             Seller seller = Seller.getSellerWithUsername(sellerUsername);
@@ -95,11 +95,11 @@ public class AddSellerRequest implements Requestable {
 
     @Override
     public String toString() {
-        String temp = "Seller wants to be added to this product: \n" + "\n" ;
-        temp += "Seller username     : " + sellerUsername + "\n" + "\n" ;
-        temp += "Product Id          : " + productId + "\n" + "\n" ;
-        temp += "Name                : " + productName + "\n" + "\n" ;
-        temp += "Count               : " + count + "\n" + "\n" ;
+        String temp = "Seller wants to be added to this product: \n" + "\n";
+        temp += "Seller username     : " + sellerUsername + "\n" + "\n";
+        temp += "Product Id          : " + productId + "\n" + "\n";
+        temp += "Name                : " + productName + "\n" + "\n";
+        temp += "Count               : " + count + "\n" + "\n";
         temp += "Price               : " + price;
         return temp;
     }

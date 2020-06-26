@@ -49,7 +49,7 @@ public class Advertisement implements Requestable {
     public void addAdvertisement() {
         try {
             Advertisement add = getAddBySeller((Seller) Seller.getAccountWithUsername(sellerId));
-            if (add!=null)
+            if (add != null)
                 allAdds.remove(add);
             allAdds.add(this);
         } catch (Exception e) {

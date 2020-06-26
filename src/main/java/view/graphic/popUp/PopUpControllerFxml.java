@@ -31,7 +31,9 @@ public class PopUpControllerFxml implements Initializable {
             mainStage.setScene(alertScene);
             mainStage.initStyle(StageStyle.UNDECORATED);
             mainStage.show();
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleClose(ActionEvent actionEvent) {
@@ -43,11 +45,11 @@ public class PopUpControllerFxml implements Initializable {
         ArrayList<Sale> sales = Sale.getAllSales();
         int rand = ThreadLocalRandom.current().nextInt(0, sales.size());
         Sale sale = sales.get(rand);
-        offPercentageTxt.setText(sale.getSalePercentage()*100 + "%");
+        offPercentageTxt.setText(sale.getSalePercentage() * 100 + "%");
         StringBuilder products = new StringBuilder();
         int size = sale.getProducts().size();
-        for (int i=0; i<size; i++) {
-            if (i!=size-1)
+        for (int i = 0; i < size; i++) {
+            if (i != size - 1)
                 products.append(sale.getProducts().get(i).getName()).append(", ");
             else
                 products.append(sale.getProducts().get(i).getName());

@@ -46,8 +46,8 @@ public class Buyer extends Account implements Requestable {
         this.cart = cart;
     }
 
-    public BuyerReceipt getReceiptById(String id) throws Exception{
-        for (BuyerReceipt buyerReceipt:purchaseHistory) {
+    public BuyerReceipt getReceiptById(String id) throws Exception {
+        for (BuyerReceipt buyerReceipt : purchaseHistory) {
             if (buyerReceipt.getId().equals(id))
                 return buyerReceipt;
         }
@@ -85,8 +85,8 @@ public class Buyer extends Account implements Requestable {
     }
 
     public boolean hasBoughtProduct(String productId) {
-        for (BuyerReceipt buyerReceipt:purchaseHistory) {
-            for (Product product:buyerReceipt.getProducts().keySet())
+        for (BuyerReceipt buyerReceipt : purchaseHistory) {
+            for (Product product : buyerReceipt.getProducts().keySet())
                 if (product.getId().equals(productId))
                     return true;
         }
@@ -108,15 +108,15 @@ public class Buyer extends Account implements Requestable {
     public String toString() {
         String buyerString = "Name: " + name + "\n" + "\n";
         if (state.equals(RequestableState.EDITED))
-            buyerString +=  "RequestType: Edited" + "\n" + "\n";
+            buyerString += "RequestType: Edited" + "\n" + "\n";
         else
-            buyerString +=  "RequestType: Buyer" + "\n" + "\n";
+            buyerString += "RequestType: Buyer" + "\n" + "\n";
 
-        buyerString +=       "Username: " + username + "\n" + "\n" +
-                             "Email: " + email + "\n" + "\n" +
-                             "Address: " + address + "\n" + "\n" +
-                             "Credit: " + credit + "\n" + "\n" +
-                             "Phone numbers: " + phoneNumber  + "\n" + "\n";
+        buyerString += "Username: " + username + "\n" + "\n" +
+                "Email: " + email + "\n" + "\n" +
+                "Address: " + address + "\n" + "\n" +
+                "Credit: " + credit + "\n" + "\n" +
+                "Phone numbers: " + phoneNumber + "\n" + "\n";
         return buyerString;
     }
 
