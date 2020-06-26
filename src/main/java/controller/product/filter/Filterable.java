@@ -4,7 +4,7 @@ import model.filter.Filter;
 import model.filter.NameFilter;
 import model.filter.OptionalFilter;
 import model.filter.RangeFilter;
-import model.product.category.SubCategory;
+import model.product.category.Category;
 import model.product.Product;
 
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ public abstract class Filterable {
     protected ArrayList<String> filterNames = new ArrayList<>();
     protected String currentSort = "ByNumberOfViews";
     protected ArrayList<Product> productsToShow;
+    protected ArrayList<Product> productsBeforeFiltering;
 
     public void filter(String filterType, ArrayList<String> details) throws Exception {
         if (filterType.equalsIgnoreCase("category")) {
@@ -49,6 +50,10 @@ public abstract class Filterable {
                         .toCollection(ArrayList::new));
     }
 
+    public ArrayList<Product> getProductFilterByCategory(){
+        return productsToShow;
+    }
+
     public ArrayList<Product> showProducts() throws Exception {
         switch (currentSort) {
             case "ByScores":
@@ -70,23 +75,22 @@ public abstract class Filterable {
         currentSort = null;
     }
 
-    public void filterByCategory(ArrayList<String> details) throws Exception {
-        String categoryName = details.get(0);
-        SubCategory subCategory = SubCategory.getCategoryByName(categoryName);
-        addAllFieldsCategory(subCategory);
+    public void disableFilterByCategory(){
+        productsToShow = productsBeforeFiltering;
     }
 
-    public void addAllFieldsCategory(SubCategory category) {
-        for (String fieldName : category.getFields()) {
-            if (!filterNames.contains(fieldName)) {
-                filterNames.add(fieldName);
-                filters.add(new OptionalFilter(fieldName));
-                return;
+    public void filterByCategory(ArrayList<String> details) throws Exception {
+        String name = details.get(0);
+        productsBeforeFiltering = productsToShow;
+        ArrayList<Category> categories = Category.getAllCategories();
+        Category category1;
+        for (Category category : categories){
+            if(category.getName().equals(name)){
+                category1 = category;
+                productsToShow = category1.getProducts();
+                break;
             }
         }
-      //  for (SubCategory subCategory : category.getSubCategories()) {
-        //    addAllFieldsCategory(subCategory);
-       // }
     }
 
     public void filterByProductName(ArrayList<String> details) {
