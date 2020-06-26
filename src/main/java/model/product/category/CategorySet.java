@@ -7,7 +7,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static model.product.category.SubCategory.getCategoryByName;
 
 public class CategorySet extends Category {
     private static ArrayList<CategorySet> allCategorySets = new ArrayList<>();

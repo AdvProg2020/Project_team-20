@@ -24,22 +24,14 @@ public class ManageCategoriesController implements Initializable {
     public TableColumn<Object, Object> categoryName;
     public TextField addFieldPartEdit;
     public TextField removeFieldEdit;
-    public TextField addSubEdit;
     public TextField nameEdit;
-    public TextField removeSubEdit;
-    public TextField addProductEdit;
-    public TextField removeProductEdit;
     public TextField newCategory;
     public Button createCategory;
-    public Button addProductOk;
-    public Button removeProductOk;
     public Button removeButton;
     public Button editButton;
     public Button addFieldPartOk;
     public Button removeFieldOk;
-    public Button addSubOk;
     public Button nameOk;
-    public Button removeSubOk;
 
     ManagerController managerController = ManagerController.getInstance();
     SubCategory subCategory;
@@ -91,23 +83,23 @@ public class ManageCategoriesController implements Initializable {
 
     public void handleOk(ActionEvent actionEvent) {
         Object source = actionEvent.getSource();
-        if (addProductOk.equals(source)) {
+        /*if (addProductOk.equals(source)) {
             addProduct();
         } else if (addSubOk.equals(source)) {
             addSub();
-        } else if (nameOk.equals(source)) {
+        }*/ if (nameOk.equals(source)) {
             editName();
         } else if (removeFieldOk.equals(source)) {
             removeField();
         } else if (addFieldPartOk.equals(source)) {
             addField();
-        } else if (removeProductOk.equals(source)) {
+        } /* else if (removeProductOk.equals(source)) {
             removeProduct();
         } else if (removeSubOk.equals(source)) {
             removeSub();
-        }
+        } */
     }
-
+/*
     private void removeSub() {
         String name = removeSubEdit.getText();
         if (name.isEmpty()) {
@@ -123,7 +115,9 @@ public class ManageCategoriesController implements Initializable {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
+*/
 
+/*
     private void removeProduct() {
         String name = removeProductEdit.getText();
         if (name.isEmpty()) {
@@ -138,6 +132,7 @@ public class ManageCategoriesController implements Initializable {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
+ */
 
     private void addField() {
         String name = addFieldPartEdit.getText();
@@ -183,7 +178,7 @@ public class ManageCategoriesController implements Initializable {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
-
+    /*
     private void addSub() {
         String name = addSubEdit.getText();
         if (name.isEmpty()) {
@@ -197,8 +192,8 @@ public class ManageCategoriesController implements Initializable {
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
-    }
-
+    } */
+    /*
     private void addProduct() {
         String name = addProductEdit.getText();
         if (name.isEmpty()) {
@@ -212,7 +207,7 @@ public class ManageCategoriesController implements Initializable {
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
-    }
+    }*/
 
 
     public void handleRemove(ActionEvent actionEvent) {
@@ -253,52 +248,27 @@ public class ManageCategoriesController implements Initializable {
     private void clear() {
         addFieldPartEdit.setText("");
         nameEdit.setText("");
-        addSubEdit.setText("");
-        removeSubEdit.setText("");
-        addProductEdit.setText("");
         removeFieldEdit.setText("");
-        removeProductEdit.setText("");
     }
 
     public void removeEditPanel() {
-        addProductEdit.setOpacity(0);
-        removeSubEdit.setOpacity(0);
         nameEdit.setOpacity(0);
-        addSubEdit.setOpacity(0);
         removeFieldEdit.setOpacity(0);
         addFieldPartEdit.setOpacity(0);
-        removeProductEdit.setOpacity(0);
-        addProductOk.setOpacity(0);
-        addSubOk.setOpacity(0);
         nameOk.setOpacity(0);
         addFieldPartOk.setOpacity(0);
-        removeSubOk.setOpacity(0);
         removeFieldOk.setOpacity(0);
-        removeProductOk.setOpacity(0);
     }
 
     public void showEditPanel() {
-        addProductEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
-        removeSubEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         nameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
-        addSubEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         removeFieldEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         addFieldPartEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
-        removeProductEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
-        removeProductEdit.setOpacity(0.71);
-        addProductEdit.setOpacity(0.71);
-        removeSubEdit.setOpacity(0.71);
-        nameEdit.setOpacity(0.71);
-        addSubEdit.setOpacity(0.71);
         removeFieldEdit.setOpacity(0.71);
         addFieldPartEdit.setOpacity(0.71);
-        addProductOk.setOpacity(0.71);
-        addSubOk.setOpacity(0.71);
         nameOk.setOpacity(0.71);
         addFieldPartOk.setOpacity(0.71);
-        removeSubOk.setOpacity(0.71);
         removeFieldOk.setOpacity(0.71);
-        removeProductOk.setOpacity(0.71);
     }
 
 

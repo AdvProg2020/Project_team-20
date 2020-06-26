@@ -126,11 +126,6 @@ public class SubCategory extends Category {
         throw new CategoryDoesNotFoundException();
     }
 
-    public static class CategoryDoesNotFoundException extends Exception {
-        public CategoryDoesNotFoundException() {
-            super("category doesn't exist");
-        }
-    }
 
     public static void store() {
         YaGson yaGson = new YaGson();

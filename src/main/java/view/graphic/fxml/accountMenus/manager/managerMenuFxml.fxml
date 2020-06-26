@@ -22,7 +22,7 @@
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </JFXTextField>
-            <VBox prefHeight="280.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
+            <VBox prefHeight="319.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                <VBox.margin>
                   <Insets bottom="10.0" top="20.0" />
                </VBox.margin>
@@ -33,7 +33,8 @@
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleProducts" prefHeight="40.0" prefWidth="379.0" text="Manage products" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleDiscounts" prefHeight="40.0" prefWidth="459.0" text="Manage discounts" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateDiscounts" prefHeight="40.0" prefWidth="444.0" text="Create disocount" textFill="#d8f9ff" />
-                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleManageCategories" prefHeight="40.0" prefWidth="204.0" text="Manage categories" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleManageCategories" prefHeight="40.0" prefWidth="204.0" text="Manage sub categories" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleManageCategorySets" prefHeight="40.0" prefWidth="204.0" text="Manage category sets" textFill="#d8f9ff" />
                </children>
             </VBox>
             <VBox prefHeight="14.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">

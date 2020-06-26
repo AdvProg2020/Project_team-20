@@ -201,13 +201,15 @@ public class FxmlAllProductsMenu implements Initializable {
 
 
     private void initializeProducts(int from) {
-        fromForBack = from;
-        Image img1 = new Image(new File("src/main/resources/Images/" + products.get(from).getImagePath()).toURI().toString());
-        productImg1.setImage(img1);
-        product1.setText(products.get(from).getName());
-        product1Price.setText(Double.toString(products.get(from).getFirstPrice()));
-        product1Score.setImage(new Score(products.get(from).getAverage()).getScoreImg());
-        showProduct1.setOpacity(1);
+        if (products.size()>0) {
+            fromForBack = from;
+            Image img1 = new Image(new File("src/main/resources/Images/" + products.get(from).getImagePath()).toURI().toString());
+            productImg1.setImage(img1);
+            product1.setText(products.get(from).getName());
+            product1Price.setText(Double.toString(products.get(from).getFirstPrice()));
+            product1Score.setImage(new Score(products.get(from).getAverage()).getScoreImg());
+            showProduct1.setOpacity(1);
+        }
         if (offMode)
             getOffHBox(productBox1, products.get(from));
         if (products.size() > (1 + from)) {
