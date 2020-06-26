@@ -5,6 +5,7 @@ import model.account.Manager;
 import model.account.Seller;
 import model.product.*;
 import model.product.category.Category;
+import model.product.category.CategorySet;
 import model.receipt.BuyerReceipt;
 import model.receipt.SellerReceipt;
 import view.console.MainMenu;
@@ -64,6 +65,7 @@ public class Main {
         Buyer.load();
         Seller.load();
         Category.load();
+        CategorySet.load();
         Discount.load();
         Product.load();
         Sale.load();
@@ -78,6 +80,7 @@ public class Main {
         Buyer.store();
         Seller.store();
         Category.store();
+        CategorySet.store();
         Discount.store();
         Product.store();
         Sale.store();
