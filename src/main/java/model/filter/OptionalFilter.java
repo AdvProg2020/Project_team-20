@@ -23,7 +23,7 @@ public class OptionalFilter extends Filter {
     @Override
     public boolean validFilter(Product product) {
         for (Field field : product.getGeneralFields()) {
-            if (field.getName().equals(name) && field.getType().equals(FieldType.OPTIONAL)) {
+            if (field.getName().equalsIgnoreCase(name) && field.getType().equals(FieldType.OPTIONAL)) {
                 if (options == null)
                     return true;
                 return validOptionalFilter(((OptionalField) field).getOptionalFiled());
@@ -34,8 +34,10 @@ public class OptionalFilter extends Filter {
 
     public boolean validOptionalFilter(ArrayList<String> allFields) {
         for (String option : options) {
-            if (!allFields.contains(option))
-                return false;
+            for (String field : allFields) {
+                if (field.equalsIgnoreCase(option))
+                    return false;
+            }
         }
         return true;
     }

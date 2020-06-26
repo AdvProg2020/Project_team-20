@@ -9,6 +9,6 @@ public class NameFilter extends Filter {
 
     @Override
     public boolean validFilter(Product product) {
-        return product.getName().equals(name);
+        return product.getName().equalsIgnoreCase(name);
     }
 }
