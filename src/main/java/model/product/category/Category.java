@@ -5,7 +5,7 @@ import model.product.Product;
 import java.util.ArrayList;
 
 public abstract class Category {
-    protected static ArrayList<Category> allCategories;
+    protected static ArrayList<Category> allCategories = new ArrayList<>();
     protected String name;
 
     public Category(String name) throws CategoryNameException {
