@@ -34,6 +34,10 @@ public class ManageCategorySetsFxml implements Initializable {
     public TextField removeCategoryTxt;
     public TextField nameEditTxt;
     public Button removeCategoryOk;
+    public TextField addSubCategoryTxt;
+    public Button addSubCatOk;
+    public TextField removeSubCategoryTxt;
+    public Button removeSubCatOk;
     private ManagerController managerController = ManagerController.getInstance();
     private CategorySet categorySet;
 
@@ -183,8 +187,28 @@ public class ManageCategorySetsFxml implements Initializable {
         }
         try {
             managerController.editCategoryName(categorySet.getName(), newName);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(categorySet.toString());
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
+    }
+
+    public void handleAddSubCat(ActionEvent actionEvent) {
+        String subCatToAdd = addSubCategoryTxt.getText();
+        if (subCatToAdd.equals("")) {
+            new AlertController().create(AlertType.ERROR, "Fill the field");
+            return;
+        }
+        try {
+            managerController.addSubCategoryToCategorySet(categorySet.getName(), subCatToAdd);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(categorySet.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    public void handleRemoveSubCat(ActionEvent actionEvent) {
     }
 }
