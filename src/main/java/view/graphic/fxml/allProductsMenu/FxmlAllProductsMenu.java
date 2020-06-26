@@ -561,6 +561,15 @@ public class FxmlAllProductsMenu implements Initializable {
         product9Price.setText("");
         product9Score.setImage(null);
         showProduct9.setOpacity(0);
+        noticeImg1.setOpacity(0);
+        noticeImg2.setOpacity(0);
+        noticeImg3.setOpacity(0);
+        noticeImg4.setOpacity(0);
+        noticeImg5.setOpacity(0);
+        noticeImg6.setOpacity(0);
+        noticeImg7.setOpacity(0);
+        noticeImg8.setOpacity(0);
+        noticeImg9.setOpacity(0);
     }
 
     public void handleDateSort(ActionEvent actionEvent) throws Exception {
