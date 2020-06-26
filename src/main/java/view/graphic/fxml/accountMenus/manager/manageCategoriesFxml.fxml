@@ -34,12 +34,12 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Button fx:id="removeButton" layoutX="215.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleRemove" onMouseEntered="#handleEnterRemove" onMouseExited="#handleExitRemove" prefHeight="22.0" prefWidth="56.0" style="-fx-background-color: #ff826f;" text="remove" textFill="WHITE">
+      <Button fx:id="removeButton" layoutX="224.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleRemove" onMouseEntered="#handleEnterRemove" onMouseExited="#handleExitRemove" prefHeight="22.0" prefWidth="56.0" style="-fx-background-color: #ff826f;" text="remove" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="editButton" layoutX="285.0" layoutY="274.0" mnemonicParsing="false" onAction="#handleEdit" onMouseEntered="#handleEnterAccept" onMouseExited="#handleExitAccept" prefHeight="22.0" prefWidth="56.0" style="-fx-background-color: #60d520;" text="edit" textFill="WHITE">
+      <Button fx:id="editButton" layoutX="294.0" layoutY="275.0" mnemonicParsing="false" onAction="#handleEdit" onMouseEntered="#handleEnterAccept" onMouseExited="#handleExitAccept" prefHeight="22.0" prefWidth="56.0" style="-fx-background-color: #60d520;" text="edit" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
@@ -47,42 +47,22 @@
       <TextField fx:id="addFieldPartEdit" layoutX="442.0" layoutY="177.0" opacity="0.0" promptText="add field" style="-fx-background-color: #296294;" />
       <TextField fx:id="removeFieldEdit" layoutX="442.0" layoutY="142.0" opacity="0.0" promptText="remove field" style="-fx-background-color: #296294;" />
       <TextField fx:id="nameEdit" layoutX="442.0" layoutY="107.0" opacity="0.0" promptText="Edited name" style="-fx-background-color: #296294;" />
-      <Button fx:id="addFieldPartOk" layoutX="633.0" layoutY="312.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+      <Button fx:id="addFieldPartOk" layoutX="619.0" layoutY="177.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="removeFieldOk" layoutX="633.0" layoutY="277.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+      <Button fx:id="removeFieldOk" layoutX="619.0" layoutY="142.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="addSubOk" layoutX="633.0" layoutY="242.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+      <Button fx:id="nameOk" layoutX="619.0" layoutY="107.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Button fx:id="nameOk" layoutX="633.0" layoutY="208.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Button>
-      <Button fx:id="removeSubOk" layoutX="633.0" layoutY="134.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Button>
-      <Button fx:id="addProductOk" layoutX="633.0" layoutY="100.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Button>
-      <Button fx:id="removeProductOk" layoutX="633.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Button>
-      <Button fx:id="createCategory" layoutX="357.0" layoutY="357.0" mnemonicParsing="false" onAction="#createCategory" onMouseEntered="#handleEnterAccept" onMouseExited="#handleExitAccept" prefHeight="22.0" prefWidth="56.0" style="-fx-background-color: #60d520;" text="create" textFill="WHITE">
+      <Button fx:id="createCategory" layoutX="351.0" layoutY="356.0" mnemonicParsing="false" onAction="#createCategory" onMouseEntered="#handleEnterAccept" onMouseExited="#handleExitAccept" prefHeight="22.0" prefWidth="56.0" style="-fx-background-color: #60d520;" text="create" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
