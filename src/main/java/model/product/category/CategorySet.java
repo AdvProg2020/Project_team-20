@@ -53,7 +53,7 @@ public class CategorySet extends Category {
         return products;
     }
 
-    public ArrayList<CategorySet> getCategorySets(){
+    public ArrayList<CategorySet> getCategorySets() {
         ArrayList<CategorySet> categorySetArrayList = new ArrayList<>();
         for (String categorySet : categorySets) {
             try {
@@ -103,13 +103,14 @@ public class CategorySet extends Category {
 
     @Override
     public String toString() {
-        String string = "Name: "+name+"\n"+"Category sets name: "+"\n";
-        for (CategorySet categorySet : allCategorySets){
-            string = string + categorySet.getName()+"\n";
+        String string = "Name: " + name + "\n" + "Category sets name: " + "\n";
+        int i = 1, j = 1;
+        for (CategorySet categorySet : getCategorySets()) {
+            string += (i++) + ": " + categorySet.getName() + "\n";
         }
-        string = string + "Categories name: "+"\n";
-        for (Category category : allCategories){
-            string = string + category.getName()+"\n";
+        string = string + "Categories name: " + "\n";
+        for (SubCategory subCategory : getSubCategories()) {
+            string += (j++) + ": " + subCategory.getName() + "\n";
         }
         return string;
     }
