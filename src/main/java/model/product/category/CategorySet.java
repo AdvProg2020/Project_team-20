@@ -89,11 +89,11 @@ public class CategorySet extends Category {
     }
 
     public void removeSubCategory(SubCategory subCategory) {
-        subCategories.remove(subCategory);
+        subCategories.remove(subCategory.getName());
     }
 
     public void removeSubCategorySet(CategorySet categorySet) {
-        categorySets.remove(categorySet);
+        categorySets.remove(categorySet.getName());
     }
 
     public static class CategoryDoesNotFoundException extends Exception {
