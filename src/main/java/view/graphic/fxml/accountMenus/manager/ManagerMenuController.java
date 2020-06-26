@@ -153,6 +153,6 @@ public class ManagerMenuController implements Initializable {
     }
 
     public void handleManageCategorySets(ActionEvent actionEvent) {
-        loadUI("manageCategorySet");
+        loadUI("manageCategorySets");
     }
 }
