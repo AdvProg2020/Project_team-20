@@ -45,6 +45,11 @@ public class ManageCategorySetsFxml implements Initializable {
         if (categorySet!=null) {
             try {
                 managerController.managerRemoveCategorySet(categorySet.getName());
+                ArrayList<CategorySet> categories = managerController.manageCategorySets();
+                table.getItems().setAll(categories);
+                categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
+                message.setText("");
+                new AlertController().create(AlertType.CONFIRMATION, "remove was successful");
             } catch (CategorySet.CategoryDoesNotFoundException e) {
                 new AlertController().create(AlertType.ERROR, e.getMessage());
             }

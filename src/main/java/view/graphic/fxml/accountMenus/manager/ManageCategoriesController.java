@@ -216,7 +216,8 @@ public class ManageCategoriesController implements Initializable {
             ArrayList<SubCategory> categories = managerController.manageSubCategories();
             table.getItems().setAll(categories);
             categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            new AlertController().create(AlertType.ERROR, "remove was successful");
+            message.setText("");
+            new AlertController().create(AlertType.CONFIRMATION, "remove was successful");
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
