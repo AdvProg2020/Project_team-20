@@ -8,6 +8,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import model.product.category.CategorySet;
+import view.graphic.alert.AlertController;
+import view.graphic.alert.AlertType;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,6 +38,13 @@ public class ManageCategorySetsFxml implements Initializable {
     private CategorySet categorySet;
 
     public void handleRemove(ActionEvent actionEvent) {
+        if (categorySet!=null) {
+            try {
+                managerController.managerRemoveCategorySet(categorySet.getName());
+            } catch (CategorySet.CategoryDoesNotFoundException e) {
+                new AlertController().create(AlertType.ERROR, e.getMessage());
+            }
+        }
     }
 
     public void handleEnterRemove(MouseEvent event) {
@@ -45,15 +54,49 @@ public class ManageCategorySetsFxml implements Initializable {
     }
 
     public void handleEdit(ActionEvent actionEvent) {
+        Button button = ((Button) actionEvent.getSource());
+        if (!leave) {
+            button.setStyle("-fx-background-color: #ff826f;");
+            button.setText("Leave");
+            leave = true;
+            showEditPanel();
+        } else {
+            button.setStyle("-fx-background-color: #009f9c;");
+            button.setText("Edit");
+            leave = false;
+            clear();
+            removeEditPanel();
+        }
+    }
+
+    public void showEditPanel() {
+        nameEditTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        addCategoryTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        removeCategoryTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        nameOk.setOpacity(0.71);
+        addCategoryOk.setOpacity(0.71);
+        removeCategoryOk.setOpacity(0.71);
+    }
+
+    public void removeEditPanel() {
+        nameEditTxt.setOpacity(0);
+        addCategoryTxt.setOpacity(0);
+        removeCategoryTxt.setOpacity(0);
+        nameOk.setOpacity(0);
+        addCategoryOk.setOpacity(0);
+        removeCategoryOk.setOpacity(0);
+    }
+
+    private void clear() {
+        nameEditTxt.setText("");
+        addCategoryTxt.setText("");
+        removeCategoryTxt.setText("");
     }
 
     public void handleEnterAccept(MouseEvent event) {
     }
 
     public void handleExitAccept(MouseEvent event) {
-    }
-
-    public void createCategory(ActionEvent actionEvent) {
     }
 
     public void selectCategory(MouseEvent mouseEvent) throws Exception {
@@ -76,9 +119,6 @@ public class ManageCategorySetsFxml implements Initializable {
         categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 
-    public void handleAddCategory(ActionEvent actionEvent) {
-    }
-
     public void handleEnterOk(MouseEvent event) {
         ((Button) event.getSource()).setStyle("-fx-background-color: #4caf50;");
     }
@@ -87,9 +127,64 @@ public class ManageCategorySetsFxml implements Initializable {
         ((Button) event.getSource()).setStyle("-fx-background-color: #60d520;");
     }
 
+    public void createCategory(ActionEvent actionEvent) {
+        String newCategoryStr = newCategory.getText();
+        if (newCategoryStr.equals("")) {
+            new AlertController().create(AlertType.ERROR, "Fill the fields");
+            return;
+        }
+        try {
+            managerController.addCategorySet(newCategoryStr);
+            ArrayList<CategorySet> categories = managerController.manageCategorySets();
+            table.getItems().setAll(categories);
+            categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            newCategory.setText("");
+        } catch (CategorySet.CategoryNameException e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    public void handleAddCategory(ActionEvent actionEvent) {
+        String toAddCategory = addCategoryTxt.getText();
+        if (toAddCategory.equals("")) {
+            new AlertController().create(AlertType.ERROR, "Fill the field");
+            return;
+        }
+        try {
+            managerController.addCategorySetToCategorySet(categorySet.getName(), toAddCategory);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(categorySet.toString());
+        } catch (CategorySet.CategoryDoesNotFoundException e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
     public void handleRemoveCategory(ActionEvent actionEvent) {
+        String toRemoveCategory = removeCategoryTxt.getText();
+        if (toRemoveCategory.equals("")) {
+            new AlertController().create(AlertType.ERROR, "Fill the field");
+            return;
+        }
+        try {
+            managerController.removeCategorySetFromCategorySet(categorySet.getName(), toRemoveCategory);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(categorySet.toString());
+        } catch (CategorySet.CategoryDoesNotFoundException e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
     public void handleOk(ActionEvent actionEvent) {
+        String newName = nameEditTxt.getText();
+        if (newName.equals("")) {
+            new AlertController().create(AlertType.ERROR, "Fill the field");
+            return;
+        }
+        try {
+            managerController.editCategoryName(categorySet.getName(), newName);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 }

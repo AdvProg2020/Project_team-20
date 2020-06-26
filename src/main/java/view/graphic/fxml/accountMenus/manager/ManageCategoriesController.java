@@ -27,15 +27,11 @@ public class ManageCategoriesController implements Initializable {
     public TextField nameEdit;
     public TextField newCategory;
     public Button createCategory;
-    public Button addProductOk;
-    public Button removeProductOk;
     public Button removeButton;
     public Button editButton;
     public Button addFieldPartOk;
     public Button removeFieldOk;
-    public Button addSubOk;
     public Button nameOk;
-    public Button removeSubOk;
 
     ManagerController managerController = ManagerController.getInstance();
     SubCategory subCategory;
@@ -259,13 +255,9 @@ public class ManageCategoriesController implements Initializable {
         nameEdit.setOpacity(0);
         removeFieldEdit.setOpacity(0);
         addFieldPartEdit.setOpacity(0);
-        addProductOk.setOpacity(0);
-        addSubOk.setOpacity(0);
         nameOk.setOpacity(0);
         addFieldPartOk.setOpacity(0);
-        removeSubOk.setOpacity(0);
         removeFieldOk.setOpacity(0);
-        removeProductOk.setOpacity(0);
     }
 
     public void showEditPanel() {
@@ -274,13 +266,9 @@ public class ManageCategoriesController implements Initializable {
         addFieldPartEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         removeFieldEdit.setOpacity(0.71);
         addFieldPartEdit.setOpacity(0.71);
-        addProductOk.setOpacity(0.71);
-        addSubOk.setOpacity(0.71);
         nameOk.setOpacity(0.71);
         addFieldPartOk.setOpacity(0.71);
-        removeSubOk.setOpacity(0.71);
         removeFieldOk.setOpacity(0.71);
-        removeProductOk.setOpacity(0.71);
     }
 
 
