@@ -12,12 +12,12 @@
 
 <AnchorPane prefHeight="468.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.manager.ManageCategorySetsFxml">
    <children>
-      <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage sub categories" wrappingWidth="207.58889770507812">
+      <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage category sets" wrappingWidth="207.58889770507812">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
+      <Separator layoutX="21.0" layoutY="24.0" prefHeight="8.0" prefWidth="289.0" />
       <Text fx:id="title" fill="#009f9c" layoutX="262.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details:">
          <font>
             <Font size="14.0" />
@@ -69,6 +69,18 @@
          </font>
       </Button>
       <Button fx:id="nameOk" layoutX="629.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <TextField fx:id="addSubCategoryTxt" layoutX="441.0" layoutY="235.0" opacity="0.0" promptText="add sub category" style="-fx-background-color: #2c5a67;" />
+      <Button fx:id="addSubCatOk" layoutX="629.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleAddSubCat" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <TextField fx:id="removeSubCategoryTxt" layoutX="441.0" layoutY="276.0" opacity="0.0" promptText="remove sub category" style="-fx-background-color: #2c5a67;" />
+      <Button fx:id="removeSubCatOk" layoutX="629.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleRemoveSubCat" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>

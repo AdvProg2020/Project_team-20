@@ -34,6 +34,10 @@ public class ManageCategorySetsFxml implements Initializable {
     public TextField removeCategoryTxt;
     public TextField nameEditTxt;
     public Button removeCategoryOk;
+    public TextField addSubCategoryTxt;
+    public Button addSubCatOk;
+    public TextField removeSubCategoryTxt;
+    public Button removeSubCatOk;
     private ManagerController managerController = ManagerController.getInstance();
     private CategorySet categorySet;
 
@@ -41,6 +45,11 @@ public class ManageCategorySetsFxml implements Initializable {
         if (categorySet!=null) {
             try {
                 managerController.managerRemoveCategorySet(categorySet.getName());
+                ArrayList<CategorySet> categories = managerController.manageCategorySets();
+                table.getItems().setAll(categories);
+                categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
+                message.setText("");
+                new AlertController().create(AlertType.CONFIRMATION, "remove was successful");
             } catch (CategorySet.CategoryDoesNotFoundException e) {
                 new AlertController().create(AlertType.ERROR, e.getMessage());
             }
@@ -73,6 +82,15 @@ public class ManageCategorySetsFxml implements Initializable {
         nameEditTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         addCategoryTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         removeCategoryTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        addSubCategoryTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        addSubCategoryTxt.setOpacity(0.71);
+        removeSubCategoryTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        addSubCatOk.setOpacity(0.71);
+        removeSubCatOk.setOpacity(0.71);
+        removeSubCategoryTxt.setOpacity(0.71);
+        nameEditTxt.setOpacity(0.71);
+        addCategoryTxt.setOpacity(0.71);
+        removeCategoryTxt.setOpacity(0.71);
         nameOk.setOpacity(0.71);
         addCategoryOk.setOpacity(0.71);
         removeCategoryOk.setOpacity(0.71);
@@ -183,8 +201,28 @@ public class ManageCategorySetsFxml implements Initializable {
         }
         try {
             managerController.editCategoryName(categorySet.getName(), newName);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(categorySet.toString());
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
+    }
+
+    public void handleAddSubCat(ActionEvent actionEvent) {
+        String subCatToAdd = addSubCategoryTxt.getText();
+        if (subCatToAdd.equals("")) {
+            new AlertController().create(AlertType.ERROR, "Fill the field");
+            return;
+        }
+        try {
+            managerController.addSubCategoryToCategorySet(categorySet.getName(), subCatToAdd);
+            new AlertController().create(AlertType.CONFIRMATION, "successful");
+            message.setText(categorySet.toString());
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    public void handleRemoveSubCat(ActionEvent actionEvent) {
     }
 }

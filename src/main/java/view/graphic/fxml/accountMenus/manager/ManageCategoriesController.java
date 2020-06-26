@@ -216,7 +216,8 @@ public class ManageCategoriesController implements Initializable {
             ArrayList<SubCategory> categories = managerController.manageSubCategories();
             table.getItems().setAll(categories);
             categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            new AlertController().create(AlertType.ERROR, "remove was successful");
+            message.setText("");
+            new AlertController().create(AlertType.CONFIRMATION, "remove was successful");
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -266,6 +267,7 @@ public class ManageCategoriesController implements Initializable {
         addFieldPartEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         removeFieldEdit.setOpacity(0.71);
         addFieldPartEdit.setOpacity(0.71);
+        nameEdit.setOpacity(0.71);
         nameOk.setOpacity(0.71);
         addFieldPartOk.setOpacity(0.71);
         removeFieldOk.setOpacity(0.71);

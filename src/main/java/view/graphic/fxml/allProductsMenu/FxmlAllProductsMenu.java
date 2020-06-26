@@ -30,9 +30,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.account.*;
 import model.product.Advertisement;
-import model.product.category.SubCategory;
 import model.product.Product;
 import model.product.Sale;
+import model.product.category.Category;
 import view.graphic.MenuNames;
 import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
@@ -110,6 +110,15 @@ public class FxmlAllProductsMenu implements Initializable {
     public ImageView productAddImg2;
     public Text addTxt2;
     public Text missTxt2;
+    public ImageView noticeImg1;
+    public ImageView noticeImg2;
+    public ImageView noticeImg3;
+    public ImageView noticeImg4;
+    public ImageView noticeImg5;
+    public ImageView noticeImg6;
+    public ImageView noticeImg7;
+    public ImageView noticeImg8;
+    public ImageView noticeImg9;
     private AllProductsController allProductsController = AllProductsController.getInstance();
     private static ArrayList<Product> products;
 
@@ -180,10 +189,10 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     private void initializeCategories() {
-        ArrayList<SubCategory> allCategories = allProductsController.getAllCategories();
+        ArrayList<Category> allCategories = allProductsController.getAllCategories();
         ObservableList<String> categories = FXCollections.observableArrayList();
-        for (SubCategory subCategory : allCategories) {
-            categories.add(subCategory.getName());
+        for (Category category : allCategories) {
+            categories.add(category.getName());
         }
         choiceBox.setItems(categories);
     }
@@ -201,96 +210,169 @@ public class FxmlAllProductsMenu implements Initializable {
 
 
     private void initializeProducts(int from) {
+        Product product;
         if (products.size()>0) {
+            product = products.get(from);
             fromForBack = from;
-            Image img1 = new Image(new File("src/main/resources/Images/" + products.get(from).getImagePath()).toURI().toString());
+            Image img1 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productImg1.setImage(img1);
-            product1.setText(products.get(from).getName());
-            product1Price.setText(Double.toString(products.get(from).getFirstPrice()));
-            product1Score.setImage(new Score(products.get(from).getAverage()).getScoreImg());
+            product1.setText(product.getName());
+            product1Price.setText(Double.toString(product.getFirstPrice()));
+            product1Score.setImage(new Score(product.getAverage()).getScoreImg());
             showProduct1.setOpacity(1);
+            if (product.isSold()) {
+                Image img = new Image(new File("src/main/resources/Images/soldOut.png").toURI().toString());
+                noticeImg1.setImage(img);
+            }
+            else if (product.isInSale())
+                noticeImg1.setOpacity(1);
+            if (offMode) {
+                getOffHBox(productBox1, product);
+            }
         }
-        if (offMode)
-            getOffHBox(productBox1, products.get(from));
         if (products.size() > (1 + from)) {
-            Image img2 = new Image(new File("src/main/resources/Images/" + products.get(1 + from).getImagePath()).toURI().toString());
+            product = products.get(from+1);
+            Image img2 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productImg2.setImage(img2);
-            product2.setText(products.get(1 + from).getName());
-            product2Price.setText(Double.toString(products.get(1 + from).getFirstPrice()));
-            product2Score.setImage(new Score(products.get(1 + from).getAverage()).getScoreImg());
+            product2.setText(product.getName());
+            product2Price.setText(Double.toString(product.getFirstPrice()));
+            product2Score.setImage(new Score(product.getAverage()).getScoreImg());
             showProduct2.setOpacity(1);
-            if (offMode)
-                getOffHBox(productBox2, products.get(from + 1));
+            if (product.isSold()) {
+                Image img = new Image(new File("src/main/resources/Images/soldOut.png").toURI().toString());
+                noticeImg2.setImage(img);
+            }
+            else if (product.isInSale())
+                noticeImg2.setOpacity(1);
+            if (offMode) {
+                getOffHBox(productBox2, product);
+            }
         }
         if (products.size() > (2 + from)) {
-            Image img3 = new Image(new File("src/main/resources/Images/" + products.get(2 + from).getImagePath()).toURI().toString());
+            product = products.get(from+2);
+            Image img3 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productImg3.setImage(img3);
-            product3.setText(products.get(2 + from).getName());
-            product3Price.setText(Double.toString(products.get(2 + from).getFirstPrice()));
-            product3Score.setImage(new Score(products.get(2 + from).getAverage()).getScoreImg());
+            product3.setText(product.getName());
+            product3Price.setText(Double.toString(product.getFirstPrice()));
+            product3Score.setImage(new Score(product.getAverage()).getScoreImg());
             showProduct3.setOpacity(1);
-            if (offMode)
-                getOffHBox(productBox3, products.get(from + 2));
+            if (product.isSold()) {
+                Image img = new Image(new File("src/main/resources/Images/soldOut.png").toURI().toString());
+                noticeImg3.setImage(img);
+            }
+            else if (product.isInSale())
+                noticeImg3.setOpacity(1);
+            if (offMode) {
+                getOffHBox(productBox3, product);
+            }
         }
         if (products.size() > (3 + from)) {
-            Image img4 = new Image(new File("src/main/resources/Images/" + products.get(3 + from).getImagePath()).toURI().toString());
+            product = products.get(from+3);
+            Image img4 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productImg4.setImage(img4);
-            product4.setText(products.get(3 + from).getName());
-            product4Price.setText(Double.toString(products.get(3 + from).getFirstPrice()));
-            product4Score.setImage(new Score(products.get(3 + from).getAverage()).getScoreImg());
+            product4.setText(product.getName());
+            product4Price.setText(Double.toString(product.getFirstPrice()));
+            product4Score.setImage(new Score(product.getAverage()).getScoreImg());
             showProduct4.setOpacity(1);
-            if (offMode)
-                getOffHBox(productBox4, products.get(from + 3));
+            if (product.isSold()) {
+                Image img = new Image(new File("src/main/resources/Images/soldOut.png").toURI().toString());
+                noticeImg4.setImage(img);
+            }
+            else if (product.isInSale())
+                noticeImg4.setOpacity(1);
+            if (offMode) {
+                getOffHBox(productBox4, product);
+            }
         }
         if (products.size() > (4 + from)) {
-            Image img5 = new Image(new File("src/main/resources/Images/" + products.get(4 + from).getImagePath()).toURI().toString());
+            product = products.get(from+4);
+            Image img5 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productImg5.setImage(img5);
-            product5.setText(products.get(4 + from).getName());
-            product5Price.setText(Double.toString(products.get(4 + from).getFirstPrice()));
-            product5Score.setImage(new Score(products.get(4 + from).getAverage()).getScoreImg());
+            product5.setText(product.getName());
+            product5Price.setText(Double.toString(product.getFirstPrice()));
+            product5Score.setImage(new Score(product.getAverage()).getScoreImg());
             showProduct5.setOpacity(1);
-            if (offMode)
-                getOffHBox(productBox5, products.get(from + 4));
+            if (product.isSold()) {
+                Image img = new Image(new File("src/main/resources/Images/soldOut.png").toURI().toString());
+                noticeImg5.setImage(img);
+            }
+            else if (product.isInSale())
+                noticeImg5.setOpacity(1);
+            if (offMode) {
+                getOffHBox(productBox5, product);
+            }
         }
         if (products.size() > (5 + from)) {
-            Image img6 = new Image(new File("src/main/resources/Images/" + products.get(5 + from).getImagePath()).toURI().toString());
+            product = products.get(from+5);
+            Image img6 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productImg6.setImage(img6);
-            product6.setText(products.get(5 + from).getName());
-            product6Price.setText(Double.toString(products.get(5 + from).getFirstPrice()));
-            product6Score.setImage(new Score(products.get(5 + from).getAverage()).getScoreImg());
+            product6.setText(product.getName());
+            product6Price.setText(Double.toString(product.getFirstPrice()));
+            product6Score.setImage(new Score(product.getAverage()).getScoreImg());
             showProduct6.setOpacity(1);
-            if (offMode)
-                getOffHBox(productBox6, products.get(from + 5));
+            if (product.isSold()) {
+                Image img = new Image(new File("src/main/resources/Images/soldOut.png").toURI().toString());
+                noticeImg6.setImage(img);
+            }
+            else if (product.isInSale())
+                noticeImg6.setOpacity(1);
+            if (offMode) {
+                getOffHBox(productBox6, product);
+            }
         }
         if (products.size() > (6 + from)) {
-            Image img7 = new Image(new File("src/main/resources/Images/" + products.get(6 + from).getImagePath()).toURI().toString());
+            product = products.get(from+6);
+            Image img7 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productImg7.setImage(img7);
-            product7.setText(products.get(6 + from).getName());
-            product7Price.setText(Double.toString(products.get(6 + from).getFirstPrice()));
-            product7Score.setImage(new Score(products.get(6 + from).getAverage()).getScoreImg());
+            product7.setText(product.getName());
+            product7Price.setText(Double.toString(product.getFirstPrice()));
+            product7Score.setImage(new Score(product.getAverage()).getScoreImg());
             showProduct7.setOpacity(1);
-            if (offMode)
-                getOffHBox(productBox7, products.get(from + 6));
+            if (product.isSold()) {
+                Image img = new Image(new File("src/main/resources/Images/soldOut.png").toURI().toString());
+                noticeImg7.setImage(img);
+            }
+            else if (product.isInSale())
+                noticeImg7.setOpacity(1);
+            if (offMode) {
+                getOffHBox(productBox7, product);
+            }
         }
         if (products.size() > (7 + from)) {
-            Image img8 = new Image(new File("src/main/resources/Images/" + products.get(7 + from).getImagePath()).toURI().toString());
+            product = products.get(from+7);
+            Image img8 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productImg8.setImage(img8);
-            product8.setText(products.get(7 + from).getName());
-            product8Price.setText(Double.toString(products.get(7 + from).getFirstPrice()));
-            product8Score.setImage(new Score(products.get(7 + from).getAverage()).getScoreImg());
+            product8.setText(product.getName());
+            product8Price.setText(Double.toString(product.getFirstPrice()));
+            product8Score.setImage(new Score(product.getAverage()).getScoreImg());
             showProduct8.setOpacity(1);
-            if (offMode)
-                getOffHBox(productBox8, products.get(from + 7));
+            if (product.isSold()) {
+                Image img = new Image(new File("src/main/resources/Images/soldOut.png").toURI().toString());
+                noticeImg8.setImage(img);
+            }
+            else if (product.isInSale())
+                noticeImg8.setOpacity(1);
+            if (offMode) {
+                getOffHBox(productBox8, product);
+            }
         }
         if (products.size() > (8 + from)) {
-            Image img9 = new Image(new File("src/main/resources/Images/" + products.get(8 + from).getImagePath()).toURI().toString());
+            product = products.get(from+8);
+            Image img9 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productImg9.setImage(img9);
-            product9.setText(products.get(8 + from).getName());
-            product9Price.setText(Double.toString(products.get(8 + from).getFirstPrice()));
-            product9Score.setImage(new Score(products.get(8 + from).getAverage()).getScoreImg());
+            product9.setText(product.getName());
+            product9Price.setText(Double.toString(product.getFirstPrice()));
+            product9Score.setImage(new Score(product.getAverage()).getScoreImg());
             showProduct9.setOpacity(1);
-            if (offMode)
-                getOffHBox(productBox9, products.get(from + 8));
+            if (product.isSold()) {
+                Image img = new Image(new File("src/main/resources/Images/soldOut.png").toURI().toString());
+                noticeImg9.setImage(img);
+            }
+            else if (product.isInSale())
+                noticeImg9.setOpacity(1);
+            if (offMode) {
+                getOffHBox(productBox9, product);
+            }
         }
     }
 
@@ -526,6 +608,9 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleBackButton(ActionEvent actionEvent) {
+        if (fromForBack==0) {
+            return;
+        }
         fromForBack = fromForBack - 9;
         if (fromForBack >= 0) {
             deleteProducts();

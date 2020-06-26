@@ -30,7 +30,7 @@ public class AllProductsMenu extends Menu {
 
     //NOT SURE!!!!!!!!!!
     public void viewCategories() {
-        ArrayList<SubCategory> categories = allProductsController.getAllCategories();
+        ArrayList<SubCategory> categories = allProductsController.getAllSubCategories();
         System.out.println("All categories:");
         for (SubCategory subCategory : categories)
             System.out.println(subCategory.getName());

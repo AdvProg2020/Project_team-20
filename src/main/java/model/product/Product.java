@@ -75,6 +75,14 @@ public class Product implements Requestable {
         this.priceWithName.put(seller.getUsername(), price);
     }
 
+    public boolean isSold() {
+        for (String sellerId:countWithName.keySet()) {
+            if (countWithName.get(sellerId) != 0)
+                return false;
+        }
+        return true;
+    }
+
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
