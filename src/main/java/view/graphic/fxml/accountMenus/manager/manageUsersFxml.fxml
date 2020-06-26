@@ -21,7 +21,7 @@
          </font>
       </Text>
       <Separator layoutX="21.0" layoutY="24.0" prefHeight="8.0" prefWidth="289.0" />
-      <JFXButton fx:id="createManager" layoutX="438.0" layoutY="32.0" onAction="#createManager" text="create manager profile" />
+      <JFXButton fx:id="createManager" layoutX="442.0" layoutY="60.0" onAction="#createManager" text="create manager profile" textFill="#009f9c" />
       <Button fx:id="deleteUser" layoutX="264.0" layoutY="269.0" mnemonicParsing="false" onAction="#deleteUser" style="-fx-background-color: #ff826f;" text="delete user" textFill="WHITE" />
       <Separator layoutX="425.0" layoutY="100.0" orientation="VERTICAL" prefHeight="200.0" />
       <Text fx:id="title" fill="#009f9c" layoutX="289.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details:">
@@ -36,54 +36,26 @@
          </columns>
       </TableView>
       <TextArea fx:id="message" editable="false" layoutX="211.0" layoutY="92.0" opacity="0.7" prefHeight="166.0" prefWidth="200.0" style="-fx-background-color: #009f9c;" />
-      <ImageView fx:id="imageView" fitHeight="486.0" fitWidth="350.0" layoutX="448.0" layoutY="63.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageView" fitHeight="486.0" fitWidth="310.0" layoutX="450.0" layoutY="94.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../resources/Images/Buyer.png" />
+            <Image url="@../../../../../../resources/Images/ManagerAdd.png" />
          </image>
       </ImageView>
-      <TextField fx:id="newPhoneNumber" layoutX="538.0" layoutY="392.0" prefHeight="19.0" prefWidth="121.0" promptText="Phone number" style="-fx-background-color: transparent;">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <Button fx:id="signUpButton" layoutX="494.0" layoutY="438.0" mnemonicParsing="false" onAction="#handleSignUp" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="39.0" prefWidth="209.0" style="-fx-background-color: #02f5e1; -fx-background-radius: 10;" text="Sign up" textFill="#048a96">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Button>
-      <TextField fx:id="newCredit" layoutX="611.0" layoutY="361.0" prefHeight="31.0" prefWidth="104.0" promptText="Credit" style="-fx-background-color: transparent;">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="newEmail" layoutX="464.0" layoutY="361.0" prefHeight="19.0" prefWidth="94.0" promptText="Email" style="-fx-background-color: transparent;">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="newLastName" layoutX="616.0" layoutY="328.0" prefHeight="19.0" prefWidth="104.0" promptText="Last name" style="-fx-background-color: transparent;">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="newPassword" layoutX="464.0" layoutY="328.0" prefHeight="31.0" prefWidth="94.0" promptText="Password" style="-fx-background-color: transparent;">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="newName" layoutX="616.0" layoutY="288.0" prefHeight="31.0" prefWidth="94.0" promptText="Name" style="-fx-background-color: transparent;">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="newUsername" layoutX="464.0" layoutY="288.0" prefHeight="37.0" prefWidth="94.0" promptText="Username" style="-fx-background-color: transparent;">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </TextField>
-      <Button fx:id="managerText" layoutX="473.0" layoutY="104.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="231.0" style="-fx-background-color: transparent;" text="Manager" textFill="#07a49d">
+      <TextField fx:id="newPhoneNumber" layoutX="553.0" layoutY="369.0" prefHeight="32.0" prefWidth="117.0" promptText="Phone number" style="-fx-background-color: transparent;" />
+      <TextField fx:id="newCredit" layoutX="626.0" layoutY="337.0" prefHeight="31.0" prefWidth="104.0" promptText="Credit" style="-fx-background-color: transparent;" />
+      <TextField fx:id="newEmail" layoutX="478.0" layoutY="339.0" prefHeight="19.0" prefWidth="94.0" promptText="Email" style="-fx-background-color: transparent;" />
+      <TextField fx:id="newLastName" layoutX="626.0" layoutY="306.0" prefHeight="19.0" prefWidth="104.0" promptText="Last name" style="-fx-background-color: transparent;" />
+      <TextField fx:id="newPassword" layoutX="478.0" layoutY="304.0" prefHeight="31.0" prefWidth="94.0" promptText="Password" style="-fx-background-color: transparent;" />
+      <TextField fx:id="newName" layoutX="627.0" layoutY="270.0" prefHeight="31.0" prefWidth="94.0" promptText="Name" style="-fx-background-color: transparent;" />
+      <TextField fx:id="newUsername" layoutX="477.0" layoutY="267.0" prefHeight="37.0" prefWidth="104.0" promptText="Username" style="-fx-background-color: transparent;" />
+      <Button fx:id="managerText" layoutX="489.0" layoutY="82.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="231.0" style="-fx-background-color: transparent;" text="Manager" textFill="#07a49d">
          <font>
             <Font name="Bangla Sangam MN" size="23.0" />
+         </font>
+      </Button>
+      <Button fx:id="signUpButton" layoutX="558.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleSignUp" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" prefHeight="32.0" prefWidth="94.0" style="-fx-background-color: #02f5e1; -fx-background-radius: 10;" text="Sign up" textFill="#048a96">
+         <font>
+            <Font size="15.0" />
          </font>
       </Button>
    </children>

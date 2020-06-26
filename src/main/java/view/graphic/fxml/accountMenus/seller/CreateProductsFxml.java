@@ -42,7 +42,6 @@ public class CreateProductsFxml {
         String numericalF = numerical.getText();
         HashMap<String, Double> hashMapNF = new HashMap<>();
         String[] nf = numericalF.split("\\n");
-        System.out.println("nf" + nf[0]);
         if (!nf[0].equals("")) {
             for (int i = 0; i < nf.length; i++) {
                 String[] nFields = nf[i].split("\\s+");

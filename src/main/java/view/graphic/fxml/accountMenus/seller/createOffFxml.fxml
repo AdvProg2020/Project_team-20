@@ -13,12 +13,12 @@
 
 <AnchorPane prefHeight="486.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.seller.CreateOffFxml">
    <children>
-      <Text fill="#575957" layoutX="104.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create discount codes" wrappingWidth="207.58889770507812">
+      <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create discount codes" wrappingWidth="207.58889770507812">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Separator layoutX="104.0" layoutY="52.0" prefHeight="8.0" prefWidth="289.0" />
+      <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
       <JFXDatePicker fx:id="startDatePicker" defaultColor="#5fccd0" layoutX="104.0" layoutY="85.0" opacity="0.9" promptText="Start date" />
       <JFXTimePicker fx:id="startTimePicker" defaultColor="#5fccd0" layoutX="104.0" layoutY="129.0" opacity="0.9" promptText="Start time" />
       <JFXDatePicker fx:id="endDatePicker" defaultColor="#5fccd0" layoutX="345.0" layoutY="85.0" opacity="0.9" promptText="End date" />

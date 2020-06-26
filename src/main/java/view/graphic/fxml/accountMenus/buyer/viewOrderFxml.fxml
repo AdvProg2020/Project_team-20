@@ -9,12 +9,12 @@
 
 <AnchorPane prefHeight="511.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.graphic.fxml.accountMenus.buyer.ViewOrderFxml">
    <children>
-      <Text fill="#575957" layoutX="104.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View orders" wrappingWidth="207.58889770507812">
+      <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View orders" wrappingWidth="207.58889770507812">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <Separator layoutX="104.0" layoutY="52.0" prefHeight="8.0" prefWidth="289.0" />
+      <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
       <TableView fx:id="table" layoutX="109.0" layoutY="102.0" onMouseClicked="#selectOrder" opacity="0.7" prefHeight="261.0" prefWidth="178.0" style="-fx-border-color: #009f9c;">
          <columns>
             <TableColumn fx:id="orderId" prefWidth="176.0" text="OrderID" />

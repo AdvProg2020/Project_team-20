@@ -64,7 +64,7 @@ public class BuyerMenuController implements Initializable {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/buyer/" + ui + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 

@@ -41,6 +41,7 @@ public class Seller extends Account implements Requestable {
 
     public void edit() {
         edit(editedSeller);
+        details = editedSeller.getDetails();
         editedSeller = null;
         state = RequestableState.ACCEPTED;
     }
@@ -184,7 +185,8 @@ public class Seller extends Account implements Requestable {
                     "RequestType: Seller" + "\n" + "\n" +
                     "Email: " + editedSeller.getEmail() + "\n" + "\n" +
                     "Credit: " + editedSeller.getCredit() + "\n" + "\n" +
-                    "Phone number: " + editedSeller.getPhoneNumber();
+                    "Phone number: " + editedSeller.getPhoneNumber() + "\n" + "\n" +
+                    "Company info: " + editedSeller.getDetails();
         }
         return sellerString;
     }

@@ -76,8 +76,6 @@ public class RequestsController implements Initializable {
 
     public void selectRequest(MouseEvent mouseEvent) throws Exception {
         id = table.getSelectionModel().getSelectedItem().getId();
-        //Requestable requestable = Manager.getRequests().get(Integer.parseInt(id) - 1);
-        //System.out.println(managerController.requestDetails(Integer.parseInt(id)));
         message.setText(managerController.requestDetails(Integer.parseInt(id)));
         title.setOpacity(1);
         message.setOpacity(0.7);
