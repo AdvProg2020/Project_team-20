@@ -2,7 +2,7 @@ import controller.product.filter.AllProductsController;
 import mockit.Tested;
 import model.account.Buyer;
 import model.account.Seller;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
@@ -31,7 +31,7 @@ public class FilterableTest {
             , "aaa", "ehsan", 5000, "aaa");
     Buyer buyer = new Buyer("sadegh", "amoo", "amoo@", "1"
             , "biJohar", "sadegh", 500000);
-    Category category = new Category("option");
+    SubCategory subCategory = new SubCategory("option");
 
     public FilterableTest() throws Exception {
     }
@@ -73,9 +73,9 @@ public class FilterableTest {
         products.add(product1);
         products.add(product2);
         products.add(product4);
-        category.addProduct(product);
-        category.addProduct(product1);
-        category.addProduct(product2);
+        subCategory.addProduct(product);
+        subCategory.addProduct(product1);
+        subCategory.addProduct(product2);
         //category.addProduct(product4);
     }
 
@@ -213,7 +213,7 @@ public class FilterableTest {
     public void filterByCategory() {
         ArrayList<String> stringArrayList = new ArrayList<>();
         stringArrayList.add("option");
-        category.addField("optional1");
+        subCategory.addField("optional1");
         try {
             ArrayList<Product> arrayList1 = new ArrayList<>();
             allProductsController.filter("category", stringArrayList);

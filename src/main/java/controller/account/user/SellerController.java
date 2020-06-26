@@ -11,7 +11,7 @@ import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.receipt.SellerReceipt;
 
 import java.time.LocalDateTime;
@@ -174,8 +174,8 @@ public class SellerController implements AccountController {
         Product.removeProduct(productId);
     }
 
-    public ArrayList<Category> showCategories() {
-        return Category.getAllCategories();
+    public ArrayList<SubCategory> showCategories() {
+        return SubCategory.getAllCategories();
     }
 
     public ArrayList<Sale> viewOffs() {

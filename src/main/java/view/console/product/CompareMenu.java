@@ -1,7 +1,7 @@
 package view.console.product;
 
 import controller.product.ProductController;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
@@ -54,9 +54,9 @@ public class CompareMenu extends Menu {
     }
 
     private void categoryDetails(Product otherProduct) {
-        for (Category category : otherProduct.getCategories()) {
-            System.out.println("category name : " + category.getName());
-            for (String field : category.getFields()) {
+        for (SubCategory subCategory : otherProduct.getCategories()) {
+            System.out.println("category name : " + subCategory.getName());
+            for (String field : subCategory.getFields()) {
                 System.out.print("field name : " + field);
             }
         }

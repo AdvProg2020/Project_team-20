@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.account.*;
 import model.product.Advertisement;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.Product;
 import model.product.Sale;
 import view.graphic.MenuNames;
@@ -180,10 +180,10 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     private void initializeCategories() {
-        ArrayList<Category> allCategories = allProductsController.getAllCategories();
+        ArrayList<SubCategory> allCategories = allProductsController.getAllCategories();
         ObservableList<String> categories = FXCollections.observableArrayList();
-        for (Category category : allCategories) {
-            categories.add(category.getName());
+        for (SubCategory subCategory : allCategories) {
+            categories.add(subCategory.getName());
         }
         choiceBox.setItems(categories);
     }
@@ -424,8 +424,8 @@ public class FxmlAllProductsMenu implements Initializable {
             details.add(categoryName);
             allProductsController.filterByCategory(details);
         } else {
-            Category category = Category.getCategoryByName(categoryName);
-            disableCategoryFields(category);
+            SubCategory subCategory = SubCategory.getCategoryByName(categoryName);
+            disableCategoryFields(subCategory);
         }
         products = allProductsController.getProducts();
         deleteProducts();
@@ -480,8 +480,8 @@ public class FxmlAllProductsMenu implements Initializable {
         showProduct9.setOpacity(0);
     }
 
-    private void disableCategoryFields(Category category) throws Exception {
-        allProductsController.disableCategoryFields(category);
+    private void disableCategoryFields(SubCategory subCategory) throws Exception {
+        allProductsController.disableCategoryFields(subCategory);
     }
 
     public void handleDateSort(ActionEvent actionEvent) throws Exception {
