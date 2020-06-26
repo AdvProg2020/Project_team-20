@@ -64,7 +64,7 @@ public class ManagerMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (manager.getImagePath()!=null) {
+        if (manager.getImagePath() != null) {
             Image img1 = new Image(new File("src/main/resources/Images/" + manager.getImagePath()).toURI().toString());
             profileImg.setImage(img1);
         }
@@ -119,9 +119,6 @@ public class ManagerMenuController implements Initializable {
     public void handleAllProducts(ActionEvent actionEvent) {
         new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
-    }
-
-    public void handleOffs(ActionEvent actionEvent) {
     }
 
     public void handleDragDropped(DragEvent event) {

@@ -419,26 +419,6 @@ public class FxmlAllProductsMenu implements Initializable {
         ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
     }
 
-    public void handleViewCart(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
-        GeneralAccount currentGeneralAccount = MainController.getInstance().getAccount();
-        if (currentGeneralAccount.getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT)) {
-            new AlertController().create(AlertType.ERROR, "please first sign in");
-            ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
-        }
-        Account currentAccount = (Account) currentGeneralAccount;
-        if (currentAccount instanceof Seller || currentAccount instanceof Manager)
-            new AlertController().create(AlertType.ERROR, "you are not a buyer!");
-        else {
-            try {
-                BuyerMenuController.setLoadFromViewCart(true);
-                BuyerMenuController.start(mainWindow);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void handleExit(ActionEvent actionEvent) {
         new Thread(() -> mediaController.clickOnButton()).start();
         FxmlAllProductsMenu.key = false;
@@ -572,6 +552,15 @@ public class FxmlAllProductsMenu implements Initializable {
         product9Price.setText("");
         product9Score.setImage(null);
         showProduct9.setOpacity(0);
+        noticeImg1.setOpacity(0);
+        noticeImg2.setOpacity(0);
+        noticeImg3.setOpacity(0);
+        noticeImg4.setOpacity(0);
+        noticeImg5.setOpacity(0);
+        noticeImg6.setOpacity(0);
+        noticeImg7.setOpacity(0);
+        noticeImg8.setOpacity(0);
+        noticeImg9.setOpacity(0);
     }
 
     public void handleDateSort(ActionEvent actionEvent) throws Exception {

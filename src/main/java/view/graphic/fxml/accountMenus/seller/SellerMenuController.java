@@ -74,13 +74,13 @@ public class SellerMenuController implements Initializable {
         loadUI("manageOffs");
     }
 
-    public void handleLogout(ActionEvent actionEvent) throws Exception{
+    public void handleLogout(ActionEvent actionEvent) throws Exception {
         sellerController.logout();
         ProgramApplication.setMenu(MenuNames.MAINMENU);
         new AlertController().create(AlertType.CONFIRMATION, "log out was successful");
     }
 
-    private void loadUI(String ui){
+    private void loadUI(String ui) {
         Parent root;
         try {
             new Thread(() -> mediaController.clickOnButton()).start();
@@ -95,10 +95,6 @@ public class SellerMenuController implements Initializable {
         new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
-
-    public void handleOffs(ActionEvent actionEvent) {
-    }
-
 
     public void handleDragDropped(DragEvent event) {
         List<File> files = event.getDragboard().getFiles();
@@ -145,7 +141,7 @@ public class SellerMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Seller seller = SellerController.getSeller();
-        if (seller.getImagePath()!=null) {
+        if (seller.getImagePath() != null) {
             Image img1 = new Image(new File("src/main/resources/Images/" + seller.getImagePath()).toURI().toString());
             profileImg.setImage(img1);
         }
