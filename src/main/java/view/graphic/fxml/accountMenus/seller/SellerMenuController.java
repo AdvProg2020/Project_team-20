@@ -1,6 +1,7 @@
 package view.graphic.fxml.accountMenus.seller;
 
 import controller.Main;
+import controller.MediaController;
 import controller.account.user.SellerController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -37,6 +38,13 @@ public class SellerMenuController implements Initializable {
     public ImageView profileImg;
     private SellerController sellerController = SellerController.getInstance();
     private Seller seller = (Seller) sellerController.getAccountInfo();
+
+    MediaController mediaController = ProgramApplication.getMediaController();
+
+    {
+        mediaController.stop();
+        mediaController.sellerMenu();
+    }
 
     public static void start(Stage stage) throws Exception {
         window = stage;

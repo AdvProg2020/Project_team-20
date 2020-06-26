@@ -1,6 +1,7 @@
 package view.graphic.fxml.accountMenus.buyer;
 
 import controller.Main;
+import controller.MediaController;
 import controller.account.user.BuyerController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -40,14 +41,21 @@ public class BuyerMenuController implements Initializable {
     private BuyerController buyerController = BuyerController.getInstance();
     private static boolean loadFromViewCart = false;
 
-    public static void start(Stage stage) throws Exception {
+    MediaController mediaController = ProgramApplication.getMediaController();
+
+    {
+        mediaController.stop();
+        mediaController.buyerMenu();
+    }
+
+    public static void start(Stage stage) throws Exception{
         window = stage;
         Parent root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/buyer/BuyerMenuFxml.fxml").toURI().toURL());
         stage.setTitle("Sign up menu");
         stage.setScene(new Scene(root, 994, 666));
         stage.show();
         int randInt = ThreadLocalRandom.current().nextInt(0, 10);
-        if (randInt % 2 == 0) {
+        if (randInt%2==0) {
             new PopUpControllerFxml().create();
         }
     }
@@ -58,7 +66,7 @@ public class BuyerMenuController implements Initializable {
         new AlertController().create(AlertType.CONFIRMATION, "log out was successful");
     }
 
-    public void loadUI(String ui) {
+    public void loadUI(String ui){
         Parent root;
         try {
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/buyer/" + ui + "Fxml" + ".fxml").toURI().toURL());
@@ -70,6 +78,9 @@ public class BuyerMenuController implements Initializable {
 
     public void handleAllProducts(ActionEvent actionEvent) {
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
+    }
+
+    public void handleOffs(ActionEvent actionEvent) {
     }
 
     public void handleDragDropped(DragEvent event) {
@@ -129,7 +140,7 @@ public class BuyerMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Buyer buyer = buyerController.getCurrentBuyer();
-        if (buyer.getImagePath() != null) {
+        if (buyer.getImagePath()!=null) {
             Image img1 = new Image(new File("src/main/resources/Images/" + buyer.getImagePath()).toURI().toString());
             profileImg.setImage(img1);
         }
