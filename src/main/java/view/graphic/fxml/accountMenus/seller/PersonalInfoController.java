@@ -58,7 +58,6 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
     }
 
     public void handleEdit(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         Button button = ((Button) actionEvent.getSource());
         if (!leave) {
             button.setStyle("-fx-background-color: #ff826f;");

@@ -49,7 +49,6 @@ public class CreateOffFxml implements Initializable {
     }
 
     public void create(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         LocalTime startTime = startTimePicker.getValue();
         LocalDate startDate = startDatePicker.getValue();
         LocalTime endTime = endTimePicker.getValue();
@@ -83,7 +82,6 @@ public class CreateOffFxml implements Initializable {
     }
 
     public void selectRequest(MouseEvent event) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         Product product = table.getSelectionModel().getSelectedItem();
         if (!products.contains(product))
             products.add(product);

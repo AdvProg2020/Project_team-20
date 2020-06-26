@@ -83,7 +83,6 @@ public class SellerMenuController implements Initializable {
     private void loadUI(String ui) {
         Parent root;
         try {
-            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/seller/" + ui + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
@@ -92,7 +91,6 @@ public class SellerMenuController implements Initializable {
     }
 
     public void handleAllProducts(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
@@ -123,7 +121,6 @@ public class SellerMenuController implements Initializable {
     }
 
     public void handleExit() {
-        new Thread(() -> mediaController.clickOnButton()).start();
         FxmlAllProductsMenu.key = false;
         Main.storeData();
         window.close();

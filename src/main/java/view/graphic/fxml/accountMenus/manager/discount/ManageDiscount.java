@@ -60,7 +60,6 @@ public class ManageDiscount implements Initializable {
     }
 
     public void selectDiscount(MouseEvent mouseEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         discount = table.getSelectionModel().getSelectedItem();
         message.setOpacity(0.7);
         title.setOpacity(1);
@@ -80,7 +79,6 @@ public class ManageDiscount implements Initializable {
     }
 
     public void handleRemove(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.removeDiscountCodes(discount.getDiscountCode());
             new AlertController().create(AlertType.CONFIRMATION, "delete was successful");
@@ -97,7 +95,6 @@ public class ManageDiscount implements Initializable {
     }
 
     public void handleOk(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         Object source = actionEvent.getSource();
         if (maxNumberOfUsageOk.equals(source)) {
             editMaxNumber();
@@ -261,7 +258,6 @@ public class ManageDiscount implements Initializable {
     }
 
     public void handleEdit(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         Button button = ((Button) actionEvent.getSource());
         if (!leave) {
             button.setStyle("-fx-background-color: #ff826f;");

@@ -99,7 +99,6 @@ public class ManageUsersController implements Initializable {
     }
 
     public void handleSignUp(ActionEvent actionEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         String username = newUsername.getText(), name = newName.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
                 phoneNumber = newPhoneNumber.getText();
@@ -123,7 +122,6 @@ public class ManageUsersController implements Initializable {
     }
 
     public void selectUser(MouseEvent mouseEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         account = table.getSelectionModel().getSelectedItem();
         message.setText(account.toString());
         title.setOpacity(1);
@@ -133,13 +131,11 @@ public class ManageUsersController implements Initializable {
 
 
     public void createManager(ActionEvent actionEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         removeManageUsersPanel();
         showCreatePanel();
     }
 
     public void deleteUser(ActionEvent actionEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.deleteUser(account.getUsername());
             title.setOpacity(0);

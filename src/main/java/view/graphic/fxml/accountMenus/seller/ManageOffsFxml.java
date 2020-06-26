@@ -59,7 +59,6 @@ public class ManageOffsFxml implements Initializable {
     MediaController mediaController = ProgramApplication.getMediaController();
 
     public void selectOff(MouseEvent event) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         sale = table.getSelectionModel().getSelectedItem();
         saleId.setText(sale.getId());
         salePercentage.setText(Double.toString(sale.getSalePercentage()*100));
@@ -80,7 +79,6 @@ public class ManageOffsFxml implements Initializable {
     }
 
     public void handleEdit(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         if (sale!=null) {
             Button button = ((Button) actionEvent.getSource());
             if (!leave) {
@@ -146,7 +144,6 @@ public class ManageOffsFxml implements Initializable {
     }
 
     public void handleOk(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         if (sale!=null) {
             LocalTime startTime = startTimePicker.getValue();
             LocalDate startDate = startDatePicker.getValue();
@@ -197,7 +194,6 @@ public class ManageOffsFxml implements Initializable {
     }
 
     public void selectRequest(MouseEvent event) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         Product product = table1.getSelectionModel().getSelectedItem();
         if (!productsToAdd.contains(product) && !sale.getProducts().contains(product))
             productsToAdd.add(product);
@@ -207,7 +203,6 @@ public class ManageOffsFxml implements Initializable {
     }
 
     public void selectRequestProducts(MouseEvent event) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         Product product = saleProductNamesTable.getSelectionModel().getSelectedItem();
         if (!productsToRemove.contains(product))
             productsToRemove.add(product);

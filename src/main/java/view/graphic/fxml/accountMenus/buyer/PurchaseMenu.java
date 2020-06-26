@@ -44,7 +44,6 @@ public class PurchaseMenu implements Initializable {
     MediaController mediaController = ProgramApplication.getMediaController();
 
     public void handlePay(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         if (submit) {
             BuyerController buyerController = BuyerController.getInstance();
             try {
@@ -89,7 +88,6 @@ public class PurchaseMenu implements Initializable {
 
 
     public void handlePhone(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         phone2 = phone.getText();
         discountCodeText.setOpacity(1);
         discountCode.setOpacity(1);
@@ -97,7 +95,6 @@ public class PurchaseMenu implements Initializable {
     }
 
     public void handleAddress(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         address2 = address.getText();
         phoneText.setOpacity(1);
         phone.setOpacity(1);
@@ -105,13 +102,11 @@ public class PurchaseMenu implements Initializable {
     }
 
     public void handleDiscount(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         discountCode2 = discountCode.getText();
         submit = true;
     }
 
     public void handleReject(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         BuyerController buyerController = BuyerController.getInstance();
         buyerController.viewCart().resetCart();
         Parent root;

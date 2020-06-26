@@ -34,7 +34,6 @@ public class ViewSalesFxml implements Initializable {
     MediaController mediaController = ProgramApplication.getMediaController();
 
     public void selectOrder(MouseEvent event) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         SellerReceipt sellerReceipt = table.getSelectionModel().getSelectedItem();
         receivedMoneyTxt.setText(Double.toString(sellerReceipt.getReceivedMoney()));
         discountPercentageTxt.setText(sellerReceipt.getDiscountPercentage() * 100 + "%");
