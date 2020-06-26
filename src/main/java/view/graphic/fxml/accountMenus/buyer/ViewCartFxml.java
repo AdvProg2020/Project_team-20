@@ -95,7 +95,6 @@ public class ViewCartFxml implements Initializable {
 
 
     public void selectProduct(MouseEvent mouseEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         String name = mainTable.getSelectionModel().getSelectedItem().getProductName();
         id = Product.getProductWithItsName(name).getId();
         minusIcon.setOpacity(1);
@@ -104,7 +103,6 @@ public class ViewCartFxml implements Initializable {
     }
 
     public void handlePlus(ActionEvent actionEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         cart.increaseProduct(id , 1);
         minusIcon.setOpacity(0);
         recycleBinIcon.setOpacity(0);
@@ -126,7 +124,6 @@ public class ViewCartFxml implements Initializable {
     }
 
     public void handleMinus(ActionEvent actionEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         cart.decreaseProduct(id , 1);
         minusIcon.setOpacity(0);
         recycleBinIcon.setOpacity(0);
@@ -148,7 +145,6 @@ public class ViewCartFxml implements Initializable {
     }
 
     public void handleDelete(ActionEvent actionEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         HashMap<Product, Integer> products = cart.getAllProducts();
         int quantity = products.get(Product.getProductById(id));
         cart.decreaseProduct(id , quantity);
@@ -171,7 +167,6 @@ public class ViewCartFxml implements Initializable {
     }
 
     public void handlePay(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         Parent root;
         try {
             PurchaseMenu.setBorderPane(borderPane);

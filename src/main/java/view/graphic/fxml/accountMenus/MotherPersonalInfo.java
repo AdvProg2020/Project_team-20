@@ -43,7 +43,6 @@ public abstract class MotherPersonalInfo {
 
 
     public void handleOk(ActionEvent actionEvent, Account account) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         Object source = actionEvent.getSource();
         if (gmailOk.equals(source)) {
             editGmail(account);

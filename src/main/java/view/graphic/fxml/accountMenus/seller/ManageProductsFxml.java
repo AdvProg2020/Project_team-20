@@ -92,7 +92,6 @@ public class ManageProductsFxml implements Initializable {
     }
 
     public void handleEdit(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         editField();
         String finalDescription = description.getText();
         String finalPrice = price.getText();
@@ -111,8 +110,6 @@ public class ManageProductsFxml implements Initializable {
     }
 
     private void editField() {
-        new Thread(() -> mediaController.clickOnButton()).start();
-        //add numerical fields
         String numericalF = numericalAddArea.getText();
         String[] nf = numericalF.split("\\n");
         if (!nf[0].equals("")) {

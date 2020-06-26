@@ -49,8 +49,6 @@ public class CreateDiscountController implements Initializable {
     }
 
     public void selectBuyer(MouseEvent mouseEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
-        new Thread(() -> mediaController.clickOnButton()).start();
         Buyer buyer = table.getSelectionModel().getSelectedItem();
         if (!buyers.contains(buyer))
             buyers.add(buyer);
@@ -60,7 +58,6 @@ public class CreateDiscountController implements Initializable {
     }
 
     public void create(ActionEvent actionEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         LocalTime startTime = startTimePicker.getValue();
         LocalDate startDate = startDatePicker.getValue();
         LocalTime endTime = endTimePicker.getValue();

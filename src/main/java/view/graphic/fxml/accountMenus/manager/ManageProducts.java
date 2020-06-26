@@ -297,7 +297,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void removeProduct1(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.mangerRemoveProduct(products.get(fromForBack).getId());
             showProducts(fromForBack);
@@ -307,7 +306,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void removeProduct2(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.mangerRemoveProduct(products.get(fromForBack + 1).getId());
             showProducts(fromForBack);
@@ -317,7 +315,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void removeProduct3(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.mangerRemoveProduct(products.get(fromForBack + 2).getId());
             showProducts(fromForBack);
@@ -327,7 +324,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void removeProduct4(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.mangerRemoveProduct(products.get(fromForBack + 3).getId());
             showProducts(fromForBack);
@@ -337,7 +333,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void removeProduct5(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.mangerRemoveProduct(products.get(fromForBack + 4).getId());
             showProducts(fromForBack);
@@ -347,7 +342,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void removeProduct6(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.mangerRemoveProduct(products.get(fromForBack + 5).getId());
             showProducts(fromForBack);
@@ -357,7 +351,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void removeProduct7(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.mangerRemoveProduct(products.get(fromForBack + 6).getId());
             showProducts(fromForBack);
@@ -367,7 +360,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void removeProduct8(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.mangerRemoveProduct(products.get(fromForBack + 7).getId());
             showProducts(fromForBack);
@@ -377,7 +369,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void removeProduct9(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.mangerRemoveProduct(products.get(fromForBack + 8).getId());
             showProducts(fromForBack);
@@ -387,7 +378,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void handleNextButton(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         if (allProductsController.getProducts().size() > fromForBack + 9) {
             fromForBack = fromForBack + 9;
             deleteProducts();
@@ -396,7 +386,6 @@ public class ManageProducts implements Initializable {
     }
 
     public void handleBackButton(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         fromForBack = fromForBack - 9;
         if (fromForBack >= 0) {
             deleteProducts();
