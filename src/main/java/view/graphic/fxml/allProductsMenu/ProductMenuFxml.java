@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import controller.Main;
 import controller.MainController;
+import controller.MediaController;
 import controller.account.user.SellerController;
 import controller.product.ProductController;
 import javafx.collections.FXCollections;
@@ -72,6 +73,13 @@ public class ProductMenuFxml implements Initializable {
     public JFXButton addSellerBtn;
     private Seller seller;
     private Comment comment;
+
+    MediaController mediaController = ProgramApplication.getMediaController();
+
+    {
+        mediaController.stop();
+        mediaController.productMenu();
+    }
 
     public void handleLogin(ActionEvent actionEvent) {
         ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
