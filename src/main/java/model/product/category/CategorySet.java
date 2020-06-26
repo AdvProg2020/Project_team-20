@@ -32,6 +32,17 @@ public class CategorySet {
         throw new CategoryDoesNotFoundException();
     }
 
+    public static void removeCategorySet(String categorySetName) throws CategoryDoesNotFoundException {
+        for (CategorySet categorySet : allCategorySets) {
+            if (categorySet.name.equals(categorySetName)) {
+                allCategorySets.remove(categorySet);
+                return;
+            }
+        }
+        throw new CategoryDoesNotFoundException();
+    }
+
+
     private boolean checkName(String name) {
         for (Category category : Category.getAllCategories()) {
             if (category.getName().equals(name))
@@ -82,6 +93,14 @@ public class CategorySet {
 
     public static ArrayList<CategorySet> getAllCategorySets() {
         return allCategorySets;
+    }
+
+    public void removeSubCategory(Category subCategory) {
+        categories.remove(subCategory);
+    }
+
+    public void removeSubCategorySet(CategorySet categorySet) {
+        categorySets.remove(categorySet);
     }
 
     public static class CategoryDoesNotFoundException extends Exception {

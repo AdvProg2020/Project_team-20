@@ -215,10 +215,16 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     public void removeSubCategoryFromAllSubCategories(String categoryName, String subCategoryName) throws Exception {
-        Category category = getCategoryByName(categoryName);
+        CategorySet categorySet = getCategorySetByName(categoryName);
         Category subCategory = getCategoryByName(subCategoryName);
         subCategory.setParent(null);
-        category.removeSubCategory(subCategory);
+        categorySet.removeSubCategory(subCategory);
+    }
+
+    public void removeCategorySetFromCategorySet(String parentName, String subName) throws CategorySet.CategoryDoesNotFoundException {
+        CategorySet parentCategorySet = getCategorySetByName(parentName);
+        CategorySet categorySet = getCategorySetByName(subName);
+        parentCategorySet.removeSubCategorySet(categorySet);
     }
 
     public void removeProductFromCategory(String categoryName, String productName) throws Exception {
@@ -227,16 +233,20 @@ public class ManagerController implements controller.account.user.AccountControl
         category.removeProduct(product);
     }
 
-    public void addCategory(String categoryName, CategorySet parent) throws Exception {
-        Category category = new Category(categoryName, parent);
-    }
-
     public void addCategory(String categoryName) throws Exception {
         Category category = new Category(categoryName);
     }
 
+    public void addCategorySet(String categorySetName) throws CategorySet.CategoryNameException {
+        CategorySet categorySet = new CategorySet(categorySetName);
+    }
+
     public void managerRemoveCategory(String categoryName) throws Exception {
         removeCategory(categoryName);
+    }
+
+    public void managerRemoveCategorySet(String categorySetName) throws CategorySet.CategoryDoesNotFoundException {
+        CategorySet.removeCategorySet(categorySetName);
     }
 
     public void addProductToCategory(String categoryName, String productName) throws Exception {
@@ -250,6 +260,12 @@ public class ManagerController implements controller.account.user.AccountControl
         Category subCategory = getCategoryByName(subCategoryName);
         subCategory.setParent(categorySet);
         categorySet.addToCategories(subCategory);
+    }
+
+    public void addCategorySetToCategorySet(String parentName, String subName) throws CategorySet.CategoryDoesNotFoundException {
+        CategorySet parentCategorySet = getCategorySetByName(parentName);
+        CategorySet categorySet = getCategorySetByName(subName);
+        parentCategorySet.addToCategorySets(categorySet);
     }
 
     public void addNewFieldToCategory(String categoryName, String name) throws Exception {

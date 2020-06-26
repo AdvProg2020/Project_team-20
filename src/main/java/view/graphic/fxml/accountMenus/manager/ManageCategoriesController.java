@@ -115,6 +115,7 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
+            //TODO check this after all category set
             managerController.removeSubCategoryFromAllSubCategories(category.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
             message.setText(category.toString());
