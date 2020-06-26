@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.buyer;
 
+import controller.MediaController;
 import controller.account.user.BuyerController;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -11,6 +12,7 @@ import javafx.scene.text.Text;
 import model.account.Seller;
 import model.product.Product;
 import model.receipt.BuyerReceipt;
+import view.graphic.ProgramApplication;
 import view.graphic.fxml.accountMenus.seller.ProductQuantity;
 
 import java.net.URL;
@@ -34,8 +36,10 @@ public class ViewOrderFxml implements Initializable {
     public TableColumn<String, Integer> quantityColumn;
     private BuyerController buyerController = BuyerController.getInstance();
 
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     public void selectOrder(MouseEvent event) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         BuyerReceipt buyerReceipt = table.getSelectionModel().getSelectedItem();
         paidMoneyTxt.setText(Double.toString(buyerReceipt.getPaidMoney()));
         discountTxt.setText(buyerReceipt.getDiscountPercentage() * 100 + "%");

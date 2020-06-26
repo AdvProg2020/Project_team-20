@@ -2,6 +2,7 @@ package view.graphic.fxml.accountMenus.manager.discount;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
+import controller.MediaController;
 import controller.account.user.ManagerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -12,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.account.Account;
 import model.account.Buyer;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -37,6 +39,7 @@ public class CreateDiscountController implements Initializable {
     ManagerController managerController = ManagerController.getInstance();
     public ArrayList<Buyer> buyers;
 
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,6 +49,8 @@ public class CreateDiscountController implements Initializable {
     }
 
     public void selectBuyer(MouseEvent mouseEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
+        new Thread(() -> mediaController.clickOnButton()).start();
         Buyer buyer = table.getSelectionModel().getSelectedItem();
         if (!buyers.contains(buyer))
             buyers.add(buyer);
@@ -55,6 +60,7 @@ public class CreateDiscountController implements Initializable {
     }
 
     public void create(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         LocalTime startTime = startTimePicker.getValue();
         LocalDate startDate = startDatePicker.getValue();
         LocalTime endTime = endTimePicker.getValue();
@@ -86,7 +92,7 @@ public class CreateDiscountController implements Initializable {
             new AlertController().create(AlertType.ERROR, e.getMessage());
             return;
         }
-        new AlertController().create(AlertType.CONFIRMATION,"discount created!");
+        new AlertController().create(AlertType.CONFIRMATION, "discount created!");
         clear();
     }
 

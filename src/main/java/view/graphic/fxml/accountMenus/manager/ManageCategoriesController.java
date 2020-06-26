@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.manager;
 
+import controller.MediaController;
 import controller.account.user.ManagerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import model.product.category.SubCategory;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -34,6 +36,7 @@ public class ManageCategoriesController implements Initializable {
     public Button nameOk;
 
     ManagerController managerController = ManagerController.getInstance();
+    MediaController mediaController = ProgramApplication.getMediaController();
     SubCategory subCategory;
 
     @Override
@@ -49,6 +52,7 @@ public class ManageCategoriesController implements Initializable {
 
 
     public void selectCategory(MouseEvent mouseEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         subCategory = table.getSelectionModel().getSelectedItem();
         message.setOpacity(0.7);
         title.setOpacity(1);
@@ -58,6 +62,7 @@ public class ManageCategoriesController implements Initializable {
     }
 
     public void createCategory(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         String name = newCategory.getText();
         if (name.isEmpty()) {
             new AlertController().create(AlertType.ERROR, "field is empty");
@@ -82,6 +87,7 @@ public class ManageCategoriesController implements Initializable {
     }
 
     public void handleOk(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Object source = actionEvent.getSource();
         /*if (addProductOk.equals(source)) {
             addProduct();
@@ -211,6 +217,7 @@ public class ManageCategoriesController implements Initializable {
 
 
     public void handleRemove(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.managerRemoveCategory(subCategory.getName());
             ArrayList<SubCategory> categories = managerController.manageSubCategories();
@@ -231,6 +238,7 @@ public class ManageCategoriesController implements Initializable {
 
 
     public void handleEdit(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Button button = ((Button) actionEvent.getSource());
         if (!leave) {
             button.setStyle("-fx-background-color: #ff826f;");

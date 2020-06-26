@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus;
 
+import controller.MediaController;
 import controller.account.user.BuyerController;
 import controller.account.user.ManagerController;
 import controller.account.user.SellerController;
@@ -8,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.account.Account;
 import model.account.AccountType;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -37,9 +39,11 @@ public abstract class MotherPersonalInfo {
     public Button creditOk;
     public TextField gmailEdit;
     public TextField creditEdit;
+    MediaController mediaController = ProgramApplication.getMediaController();
 
 
     public void handleOk(ActionEvent actionEvent, Account account) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Object source = actionEvent.getSource();
         if (gmailOk.equals(source)) {
             editGmail(account);

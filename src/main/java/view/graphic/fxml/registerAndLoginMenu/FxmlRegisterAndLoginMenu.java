@@ -1,6 +1,7 @@
 package view.graphic.fxml.registerAndLoginMenu;
 
 import controller.Main;
+import controller.MediaController;
 import controller.account.LoginController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,6 +37,7 @@ public class FxmlRegisterAndLoginMenu {
     public TextField newCredit;
     public TextField newCompanyInfo;
     public TextField newPhoneNumber;
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     public void enterMouse(MouseEvent event) {
         ((Button) event.getSource()).setStyle("-fx-background-color: #14b5a8; -fx-background-radius: 10");
@@ -54,6 +56,7 @@ public class FxmlRegisterAndLoginMenu {
     }
 
     public void handleLogin() throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         LoginController loginController = LoginController.getInstance();
         String username = usernameText.getText(), password = passwordText.getText();
         if (username.isEmpty() || password.isEmpty()) {
@@ -86,6 +89,7 @@ public class FxmlRegisterAndLoginMenu {
     }
 
     public void handleSignUp() throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Parent root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/registerAndLoginMenu/SignUpFxml.fxml").toURI().toURL());
         window.setTitle("Sign up menu");
         window.setScene(new Scene(root, 994, 666));
@@ -93,6 +97,7 @@ public class FxmlRegisterAndLoginMenu {
     }
 
     public void changeSignUpMode() throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (signUpMode.equals("b")) {
             signUpMode = "s";
             showSignUpSeller();
@@ -127,6 +132,7 @@ public class FxmlRegisterAndLoginMenu {
     }
 
     public void handleSignUpBuyer() throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         LoginController loginController = LoginController.getInstance();
         String name = newName.getText(), username = newUsername.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
@@ -153,6 +159,7 @@ public class FxmlRegisterAndLoginMenu {
     }
 
     public void handleSignUpSeller() throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         LoginController loginController = LoginController.getInstance();
         String name = newName.getText(), username = newUsername.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),

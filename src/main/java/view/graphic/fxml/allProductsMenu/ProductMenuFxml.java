@@ -82,6 +82,7 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void handleLogin(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
     }
 
@@ -98,12 +99,14 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void handleExit(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         FxmlAllProductsMenu.key = false;
         Main.storeData();
         FxmlMainMenu.window.close();
     }
 
     public void handleMainMenu(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.MAINMENU);
     }
 
@@ -183,6 +186,7 @@ public class ProductMenuFxml implements Initializable {
 
 
     public void selectSeller(MouseEvent event) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Offline.setOpacity(0);
         realPrice.setOpacity(0);
         String selected = sellers.getSelectionModel().getSelectedItem();
@@ -197,6 +201,7 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void handleAddToCart(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (seller==null) {
             new AlertController().create(AlertType.ERROR, "please select a seller");
             return;
@@ -212,6 +217,7 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void showReplies(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         allRepliesBox.getChildren().clear();
         JFXButton jfxButton = (JFXButton) actionEvent.getSource();
         TextField idText = null;
@@ -268,6 +274,7 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void addComment(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         String commentStr = newComment.getText();
         if (commentStr.equals("")) {
             new AlertController().create(AlertType.ERROR, "please fill the comment!");
@@ -284,6 +291,7 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void addReply(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         String replyStr = newReply.getText();
         if (replyStr.equals("")) {
             new AlertController().create(AlertType.ERROR, "please fill the reply!");
@@ -300,6 +308,7 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void handleRateProduct(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         double score = Double.parseDouble(((Button)actionEvent.getSource()).getId().substring(((Button)actionEvent.getSource()).getId().length()-1));
         try {
             productController.addScore(score, currentProduct);
@@ -323,6 +332,7 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void handleAnotherSeller(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if(SellerController.getSeller()==null){
             new AlertController().create(AlertType.ERROR, "you are not a seller!");
         }

@@ -3,6 +3,7 @@ package view.graphic.fxml.accountMenus.manager.discount;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
+import controller.MediaController;
 import controller.account.user.ManagerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import model.product.Discount;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -48,6 +50,7 @@ public class ManageDiscount implements Initializable {
     public JFXTextField addBuyerText;
 
     ManagerController managerController = ManagerController.getInstance();
+    MediaController mediaController = ProgramApplication.getMediaController();
     Discount discount;
 
     @Override
@@ -57,6 +60,7 @@ public class ManageDiscount implements Initializable {
     }
 
     public void selectDiscount(MouseEvent mouseEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         discount = table.getSelectionModel().getSelectedItem();
         message.setOpacity(0.7);
         title.setOpacity(1);
@@ -76,6 +80,7 @@ public class ManageDiscount implements Initializable {
     }
 
     public void handleRemove(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.removeDiscountCodes(discount.getDiscountCode());
             new AlertController().create(AlertType.CONFIRMATION, "delete was successful");
@@ -92,6 +97,7 @@ public class ManageDiscount implements Initializable {
     }
 
     public void handleOk(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Object source = actionEvent.getSource();
         if (maxNumberOfUsageOk.equals(source)) {
             editMaxNumber();
@@ -255,6 +261,7 @@ public class ManageDiscount implements Initializable {
     }
 
     public void handleEdit(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Button button = ((Button) actionEvent.getSource());
         if (!leave) {
             button.setStyle("-fx-background-color: #ff826f;");

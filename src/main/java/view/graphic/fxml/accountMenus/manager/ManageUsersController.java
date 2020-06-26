@@ -1,6 +1,7 @@
 package view.graphic.fxml.accountMenus.manager;
 
 import com.jfoenix.controls.JFXButton;
+import controller.MediaController;
 import controller.account.user.ManagerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import model.account.Account;
 import model.account.AccountType;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -38,6 +40,7 @@ public class ManageUsersController implements Initializable {
 
     private Account account;
     ManagerController managerController = ManagerController.getInstance();
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -96,6 +99,7 @@ public class ManageUsersController implements Initializable {
     }
 
     public void handleSignUp(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         String username = newUsername.getText(), name = newName.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
                 phoneNumber = newPhoneNumber.getText();
@@ -119,6 +123,7 @@ public class ManageUsersController implements Initializable {
     }
 
     public void selectUser(MouseEvent mouseEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         account = table.getSelectionModel().getSelectedItem();
         message.setText(account.toString());
         title.setOpacity(1);
@@ -128,11 +133,13 @@ public class ManageUsersController implements Initializable {
 
 
     public void createManager(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         removeManageUsersPanel();
         showCreatePanel();
     }
 
     public void deleteUser(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         try {
             managerController.deleteUser(account.getUsername());
             title.setOpacity(0);

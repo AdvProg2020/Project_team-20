@@ -3,6 +3,7 @@ package view.graphic.fxml.accountMenus.seller;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
+import controller.MediaController;
 import controller.account.user.SellerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -12,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.account.Seller;
 import model.product.Product;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -37,6 +39,8 @@ public class CreateOffFxml implements Initializable {
     private SellerController sellerController = SellerController.getInstance();
     private Seller seller = (Seller) sellerController.getAccountInfo();
 
+    MediaController mediaController = ProgramApplication.getMediaController();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         products = new ArrayList<>();
@@ -45,6 +49,7 @@ public class CreateOffFxml implements Initializable {
     }
 
     public void create(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         LocalTime startTime = startTimePicker.getValue();
         LocalDate startDate = startDatePicker.getValue();
         LocalTime endTime = endTimePicker.getValue();
@@ -78,6 +83,7 @@ public class CreateOffFxml implements Initializable {
     }
 
     public void selectRequest(MouseEvent event) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Product product = table.getSelectionModel().getSelectedItem();
         if (!products.contains(product))
             products.add(product);

@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.manager;
 
+import controller.MediaController;
 import controller.account.user.ManagerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import model.Requestable;
 import model.account.Manager;
+import view.graphic.ProgramApplication;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class RequestsController implements Initializable {
 
 
     ManagerController managerController = ManagerController.getInstance();
+    MediaController mediaController = ProgramApplication.getMediaController();
     Manager manager = (Manager) managerController.getAccountInfo();
     private TextArea message1;
 
@@ -75,6 +78,7 @@ public class RequestsController implements Initializable {
     }
 
     public void selectRequest(MouseEvent mouseEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         id = table.getSelectionModel().getSelectedItem().getId();
         message.setText(managerController.requestDetails(Integer.parseInt(id)));
         title.setOpacity(1);

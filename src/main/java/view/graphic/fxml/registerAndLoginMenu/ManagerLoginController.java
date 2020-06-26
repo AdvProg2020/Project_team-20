@@ -1,6 +1,7 @@
 package view.graphic.fxml.registerAndLoginMenu;
 
 import controller.Main;
+import controller.MediaController;
 import controller.account.LoginController;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -25,8 +26,10 @@ public class ManagerLoginController {
     public TextField newPhoneNumber;
     private static Stage window;
 
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     public void handleSignUp() throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         LoginController loginController = LoginController.getInstance();
         String username = newUsername.getText(), name = newName.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),

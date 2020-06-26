@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.seller;
 
+import controller.MediaController;
 import controller.account.user.SellerController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Button;
@@ -10,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import model.account.Manager;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -33,7 +35,10 @@ public class CreateProductsFxml {
     public String path;
     public ImageView productImg;
 
+    MediaController mediaController = ProgramApplication.getMediaController();
+
     public void createProductButton() throws Exception{
+        new Thread(() -> mediaController.clickOnButton()).start();
         String name = productName.getText();
         String price = productPrice.getText();
         String company = productCompany.getText();

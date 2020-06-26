@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.buyer;
 
+import controller.MediaController;
 import controller.account.user.BuyerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -7,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.account.Buyer;
+import view.graphic.ProgramApplication;
 import view.graphic.fxml.accountMenus.MotherPersonalInfo;
 
 import java.net.URL;
@@ -37,6 +39,8 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
     BuyerController buyerController = BuyerController.getInstance();
     Buyer buyer = buyerController.getCurrentBuyer();
 
+    MediaController mediaController = ProgramApplication.getMediaController();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         name.appendText(buyer.getName());
@@ -49,6 +53,7 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
     }
 
     public void handleEdit(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Button button = ((Button) actionEvent.getSource());
         if (!leave) {
             button.setStyle("-fx-background-color: #ff826f;");
