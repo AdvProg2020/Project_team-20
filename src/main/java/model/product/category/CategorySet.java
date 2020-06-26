@@ -13,11 +13,35 @@ public class CategorySet {
     private ArrayList<Category> categories;
     private String name;
 
-    public CategorySet(String name) {
-        this.name = name;
-        this.categories = new ArrayList<>();
-        this.categorySets = new ArrayList<>();
-        allCategorySets.add(this);
+    public CategorySet(String name) throws CategoryNameException {
+        if (checkName(name)) {
+            this.name = name;
+            this.categories = new ArrayList<>();
+            this.categorySets = new ArrayList<>();
+            allCategorySets.add(this);
+        } else {
+            throw new CategoryNameException();
+        }
+    }
+
+    public static CategorySet getCategorySetByName(String categorySetName) throws CategoryDoesNotFoundException {
+        for (CategorySet categorySet : allCategorySets) {
+            if (categorySet.getName().equals(categorySetName))
+                return categorySet;
+        }
+        throw new CategoryDoesNotFoundException();
+    }
+
+    private boolean checkName(String name) {
+        for (Category category : Category.getAllCategories()) {
+            if (category.getName().equals(name))
+                return false;
+        }
+        for (CategorySet categorySet : allCategorySets) {
+            if (categorySet.getName().equals(name))
+                return false;
+        }
+        return true;
     }
 
 
@@ -58,6 +82,18 @@ public class CategorySet {
 
     public static ArrayList<CategorySet> getAllCategorySets() {
         return allCategorySets;
+    }
+
+    public static class CategoryDoesNotFoundException extends Exception {
+        public CategoryDoesNotFoundException() {
+            super("category doesn't exist");
+        }
+    }
+
+    public static class CategoryNameException extends Exception {
+        public CategoryNameException() {
+            super("we have another category with this name!");
+        }
     }
 
     public static void store() {

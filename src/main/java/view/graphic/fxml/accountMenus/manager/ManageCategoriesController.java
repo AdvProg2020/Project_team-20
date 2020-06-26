@@ -190,7 +190,7 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
-            managerController.addSubCategoryToCategory(category.getName(), name);
+            managerController.addSubCategoryToCategorySet(category.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
             message.setText(category.toString());
         } catch (Exception e) {

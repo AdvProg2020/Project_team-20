@@ -9,6 +9,7 @@ import model.product.category.Category;
 import model.product.Discount;
 import model.product.Product;
 import model.product.RequestableState;
+import model.product.category.CategorySet;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import static model.account.Manager.*;
 import static model.product.category.Category.*;
 import static model.product.Discount.removeDiscountCode;
 import static model.product.Product.*;
+import static model.product.category.CategorySet.getCategorySetByName;
 
 public class ManagerController implements controller.account.user.AccountController {
 
@@ -225,7 +227,7 @@ public class ManagerController implements controller.account.user.AccountControl
         category.removeProduct(product);
     }
 
-    public void addCategory(String categoryName, Category parent) throws Exception {
+    public void addCategory(String categoryName, CategorySet parent) throws Exception {
         Category category = new Category(categoryName, parent);
     }
 
@@ -243,11 +245,11 @@ public class ManagerController implements controller.account.user.AccountControl
         category.addProduct(product);
     }
 
-    public void addSubCategoryToCategory(String categoryName, String subCategoryName) throws Exception {
-        Category category = getCategoryByName(categoryName);
+    public void addSubCategoryToCategorySet(String categoryName, String subCategoryName) throws Exception {
+        CategorySet categorySet = getCategorySetByName(categoryName);
         Category subCategory = getCategoryByName(subCategoryName);
-        subCategory.setParent(category);
-        category.addSubCategory(subCategory);
+        subCategory.setParent(categorySet);
+        categorySet.addToCategories(subCategory);
     }
 
     public void addNewFieldToCategory(String categoryName, String name) throws Exception {
@@ -257,9 +259,9 @@ public class ManagerController implements controller.account.user.AccountControl
 
     public void addParentToCategory(String categoryName, String parentName) throws Exception {
         Category category = getCategoryByName(categoryName);
-        Category parentCategory = getCategoryByName(parentName);
+        CategorySet parentCategory = getCategorySetByName(parentName);
         category.setParent(parentCategory);
-        parentCategory.addSubCategory(category);
+        parentCategory.addToCategories(category);
     }
 
     public static class fieldIsInvalidException extends Exception {

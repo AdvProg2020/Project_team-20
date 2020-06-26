@@ -518,7 +518,7 @@ public class ManagerMenu extends Menu {
         String subcategoryName = Menu.scanner.nextLine();
         while (!subcategoryName.equals("end")) {
             try {
-                managerController.addSubCategoryToCategory(name, subcategoryName);
+                managerController.addSubCategoryToCategorySet(name, subcategoryName);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

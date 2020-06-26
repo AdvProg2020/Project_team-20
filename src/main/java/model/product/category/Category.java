@@ -14,9 +14,9 @@ public class Category {
     private ArrayList<String> fieldNames;
     private ArrayList<String> subCategoriesName;
     private ArrayList<String> productIDs;
-    private Category parent;
+    private CategorySet parent;
 
-    public Category(String name, Category parent) throws Exception {
+    public Category(String name, CategorySet parent) throws Exception {
         if (checkName(name)) {
             this.name = name;
             this.parent = parent;
@@ -45,6 +45,10 @@ public class Category {
     public Boolean checkName(String name) {
         for (Category category : allCategories) {
             if (category.getName().equals(name))
+                return false;
+        }
+        for (CategorySet categorySet : CategorySet.getAllCategorySets()) {
+            if (categorySet.getName().equals(name))
                 return false;
         }
         return true;
@@ -130,11 +134,11 @@ public class Category {
         this.productIDs.add(product.getId());
     }
 
-    public Category getParent() {
+    public CategorySet getParent() {
         return parent;
     }
 
-    public void setParent(Category parent) {
+    public void setParent(CategorySet parent) {
         this.parent = parent;
     }
 
