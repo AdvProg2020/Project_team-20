@@ -114,4 +114,7 @@ public class ProgramApplication extends Application {
         history.add(name);
     }
 
+    public static MediaController getMediaController() {
+        return mediaController;
+    }
 }

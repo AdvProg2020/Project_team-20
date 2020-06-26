@@ -1,6 +1,7 @@
 package view.graphic.fxml.accountMenus.manager;
 
 import controller.Main;
+import controller.MediaController;
 import controller.account.user.ManagerController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -46,6 +47,12 @@ public class ManagerMenuController implements Initializable {
     private ManagerController managerController = ManagerController.getInstance();
     private Manager manager = (Manager) managerController.getAccountInfo();
 
+    MediaController mediaController = ProgramApplication.getMediaController();
+
+    {
+        mediaController.stop();
+        mediaController.managerMenu();
+    }
 
     public static void start(Stage stage) throws Exception {
         window = stage;

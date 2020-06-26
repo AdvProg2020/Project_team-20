@@ -1,6 +1,7 @@
 package view.graphic.fxml.accountMenus.buyer;
 
 import controller.Main;
+import controller.MediaController;
 import controller.account.user.BuyerController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -39,6 +40,13 @@ public class BuyerMenuController implements Initializable {
     public ImageView profileImg;
     private BuyerController buyerController = BuyerController.getInstance();
     private static boolean loadFromViewCart = false;
+
+    MediaController mediaController = ProgramApplication.getMediaController();
+
+    {
+        mediaController.stop();
+        mediaController.buyerMenu();
+    }
 
     public static void start(Stage stage) throws Exception{
         window = stage;

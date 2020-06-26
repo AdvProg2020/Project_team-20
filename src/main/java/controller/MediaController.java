@@ -46,11 +46,27 @@ public class MediaController {
         play("src/main/resources/sound/Ludovico-Einaudi-Una-Mattina-128.mp3");
     }
 
+    public void productMenu() {
+        play("src/main/resources/sound/81276965.mp3");
+    }
+
     private void play(String path) {
         this.media = new Media(new File(path).toURI().toString());
         this.mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
         mediaPlayer.setVolume(0.6);
         mediaPlayer.setAutoPlay(true);
+    }
+
+    public void buyerMenu() {
+        play("src/main/resources/sound/Iday Vals (320).mp3");
+    }
+
+    public void managerMenu() {
+        play("src/main/resources/sound/Lobster Soup.mp3");
+    }
+
+    public void sellerMenu() {
+        play("src/main/resources/sound/04 Porz Goret.mp3");
     }
 }
