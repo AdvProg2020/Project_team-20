@@ -77,6 +77,15 @@ public class ManageCategorySetsFxml implements Initializable {
         nameEditTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         addCategoryTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         removeCategoryTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        addSubCategoryTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        addSubCategoryTxt.setOpacity(0.71);
+        removeSubCategoryTxt.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
+        addSubCatOk.setOpacity(0.71);
+        removeSubCatOk.setOpacity(0.71);
+        removeSubCategoryTxt.setOpacity(0.71);
+        nameEditTxt.setOpacity(0.71);
+        addCategoryTxt.setOpacity(0.71);
+        removeCategoryTxt.setOpacity(0.71);
         nameOk.setOpacity(0.71);
         addCategoryOk.setOpacity(0.71);
         removeCategoryOk.setOpacity(0.71);

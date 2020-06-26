@@ -266,6 +266,7 @@ public class ManageCategoriesController implements Initializable {
         addFieldPartEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         removeFieldEdit.setOpacity(0.71);
         addFieldPartEdit.setOpacity(0.71);
+        nameEdit.setOpacity(0.71);
         nameOk.setOpacity(0.71);
         addFieldPartOk.setOpacity(0.71);
         removeFieldOk.setOpacity(0.71);
