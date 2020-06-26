@@ -2,7 +2,9 @@ package model.product.category;
 
 
 import com.gilecode.yagson.YaGson;
+import controller.product.filter.Filterable;
 import model.filter.Filter;
+import model.filter.OptionalFilter;
 import model.product.Product;
 
 import java.io.*;
@@ -13,7 +15,7 @@ import java.util.stream.Collectors;
 public class SubCategory extends Category{
     private static ArrayList<SubCategory> allCategories = new ArrayList<>();
     private String name;
-    protected ArrayList<Filter> filters = new ArrayList<>();
+    private ArrayList<Filter> filters = new ArrayList<>();
     private ArrayList<String> fieldNames;
     private ArrayList<String> subCategoriesName;
     private ArrayList<String> productIDs;
@@ -88,11 +90,26 @@ public class SubCategory extends Category{
     }
 
     public void addField(String field) {
-        this.fieldNames.add(field);
+        if (!fieldNames.contains(field)) {
+            this.fieldNames.add(field);
+            filters.add(new OptionalFilter(field));
+        }
     }
 
-    public void removeField(String field) {
-        this.fieldNames.remove(field);
+    public void removeField(String field) throws Filterable.FilterNotFoundException {
+        Filter filter = getFilterByName(field);
+        if (filter == null)
+            throw new Filterable.FilterNotFoundException();
+        filters.remove(filter);fieldNames.remove(field);
+        fieldNames.remove(field);
+    }
+
+    private Filter getFilterByName(String name) {
+        for (Filter filter : filters) {
+            if (filter.getName().equals(name))
+                return filter;
+        }
+        return null;
     }
 
     public void removeProduct(Product product) {
@@ -133,7 +150,7 @@ public class SubCategory extends Category{
                         .toCollection(ArrayList::new));
     }
 
-    public void addProduct(Product product) {
+    public void addField(Product product) {
         this.productIDs.add(product.getId());
     }
 

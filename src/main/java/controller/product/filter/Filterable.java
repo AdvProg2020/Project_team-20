@@ -81,6 +81,7 @@ public abstract class Filterable {
             if (!filterNames.contains(fieldName)) {
                 filterNames.add(fieldName);
                 filters.add(new OptionalFilter(fieldName));
+                return;
             }
         }
         for (SubCategory subCategory : category.getSubCategories()) {

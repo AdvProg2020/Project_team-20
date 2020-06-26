@@ -73,9 +73,9 @@ public class FilterableTest {
         products.add(product1);
         products.add(product2);
         products.add(product4);
-        subCategory.addProduct(product);
-        subCategory.addProduct(product1);
-        subCategory.addProduct(product2);
+        subCategory.addField(product);
+        subCategory.addField(product1);
+        subCategory.addField(product2);
         //category.addProduct(product4);
     }
 

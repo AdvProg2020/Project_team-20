@@ -505,7 +505,7 @@ public class ManagerMenu extends Menu {
         String productName = Menu.scanner.nextLine();
         while (!productName.equals("end")) {
             try {
-                managerController.addProductToCategory(name, productName);
+                managerController.addFieldToCategory(name, productName);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

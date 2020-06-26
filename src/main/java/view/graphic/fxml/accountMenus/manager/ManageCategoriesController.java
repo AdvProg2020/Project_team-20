@@ -206,7 +206,7 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
-            managerController.addProductToCategory(subCategory.getName(), name);
+            managerController.addFieldToCategory(subCategory.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
             message.setText(subCategory.toString());
         } catch (Exception e) {

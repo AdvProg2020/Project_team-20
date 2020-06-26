@@ -249,10 +249,9 @@ public class ManagerController implements controller.account.user.AccountControl
         CategorySet.removeCategorySet(categorySetName);
     }
 
-    public void addProductToCategory(String categoryName, String productName) throws Exception {
-        Product product = Product.getProductWithItsName(productName);
+    public void addFieldToCategory(String categoryName, String fieldName) throws Exception {
         SubCategory subCategory = getCategoryByName(categoryName);
-        subCategory.addProduct(product);
+        subCategory.addField(fieldName);
     }
 
     public void addSubCategoryToCategorySet(String categoryName, String subCategoryName) throws Exception {
