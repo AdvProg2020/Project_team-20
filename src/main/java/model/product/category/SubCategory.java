@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class SubCategory extends Category{
-    private static ArrayList<SubCategory> allCategories = new ArrayList<>();
+public class SubCategory extends Category {
+    private static ArrayList<SubCategory> allSubCategories = new ArrayList<>();
     private String name;
     private ArrayList<Filter> filters = new ArrayList<>();
     private ArrayList<String> fieldNames;
@@ -22,67 +22,42 @@ public class SubCategory extends Category{
     private CategorySet parent;
 
     public SubCategory(String name, CategorySet parent) throws Exception {
-        if (checkName(name)) {
-            this.name = name;
-            this.parent = parent;
-            this.fieldNames = new ArrayList<>();
-            this.subCategoriesName = new ArrayList<>();
-            this.productIDs = new ArrayList<>();
-            allCategories.add(this);
-        } else {
-            throw new CategoryNameException();
-        }
+        super(name);
+        this.parent = parent;
+        this.fieldNames = new ArrayList<>();
+        this.subCategoriesName = new ArrayList<>();
+        this.productIDs = new ArrayList<>();
+        allSubCategories.add(this);
+        Category.addToAllCategories(this);
     }
 
     public SubCategory(String name) throws Exception {
-        if (checkName(name)) {
-            this.name = name;
-            this.parent = null;
-            this.fieldNames = new ArrayList<>();
-            this.subCategoriesName = new ArrayList<>();
-            this.productIDs = new ArrayList<>();
-            allCategories.add(this);
-        } else {
-            throw new CategoryNameException();
-        }
+        super(name);
+        this.parent = null;
+        this.fieldNames = new ArrayList<>();
+        this.subCategoriesName = new ArrayList<>();
+        this.productIDs = new ArrayList<>();
+        allSubCategories.add(this);
+        Category.addToAllCategories(this);
     }
 
-    public Boolean checkName(String name) {
-        for (SubCategory subCategory : allCategories) {
-            if (subCategory.getName().equals(name))
-                return false;
-        }
-        for (CategorySet categorySet : CategorySet.getAllCategorySets()) {
-            if (categorySet.getName().equals(name))
-                return false;
-        }
-        return true;
-    }
-
-    public static ArrayList<SubCategory> getAllCategories() {
-        return allCategories;
+    public static ArrayList<SubCategory> getAllSubCategories() {
+        return allSubCategories;
     }
 
     public static void AddToCategories(SubCategory subCategory) {
-        allCategories.add(subCategory);
+        allSubCategories.add(subCategory);
     }
 
     public static void removeCategory(String categoryName) throws Exception {
-        for (SubCategory subCategory : allCategories) {
+        for (SubCategory subCategory : allSubCategories) {
             if (subCategory.name.equals(categoryName)) {
-                allCategories.remove(subCategory);
+                allSubCategories.remove(subCategory);
+                Category.removeFromAllCategories(subCategory);
                 return;
             }
         }
         throw new CategoryDoesNotFoundException();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public ArrayList<String> getFields() {
@@ -100,7 +75,8 @@ public class SubCategory extends Category{
         Filter filter = getFilterByName(field);
         if (filter == null)
             throw new Filterable.FilterNotFoundException();
-        filters.remove(filter);fieldNames.remove(field);
+        filters.remove(filter);
+        fieldNames.remove(field);
         fieldNames.remove(field);
     }
 
@@ -163,7 +139,7 @@ public class SubCategory extends Category{
     }
 
     public static SubCategory getCategoryByName(String categoryName) throws Exception {
-        for (SubCategory subCategory : SubCategory.allCategories) {
+        for (SubCategory subCategory : SubCategory.allSubCategories) {
             if (subCategory.getName().equals(categoryName))
                 return subCategory;
         }
@@ -187,7 +163,7 @@ public class SubCategory extends Category{
         File file = new File("src/main/resources/aboutProduct/Category.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, false);
-            for (SubCategory subCategory : allCategories) {
+            for (SubCategory subCategory : allSubCategories) {
                 fileWriter.write(yaGson.toJson(subCategory) + "\n");
             }
             fileWriter.close();
@@ -202,7 +178,8 @@ public class SubCategory extends Category{
             Scanner fileScanner = new Scanner(inputStream);
             while (fileScanner.hasNextLine()) {
                 SubCategory subCategory = yaGson.fromJson(fileScanner.nextLine(), SubCategory.class);
-                allCategories.add(subCategory);
+                allSubCategories.add(subCategory);
+                Category.addToAllCategories(subCategory);
             }
         } catch (Exception ignored) {
         }
