@@ -175,7 +175,7 @@ public class SellerController implements AccountController {
     }
 
     public ArrayList<SubCategory> showCategories() {
-        return SubCategory.getAllCategories();
+        return SubCategory.getAllSubCategories();
     }
 
     public ArrayList<Sale> viewOffs() {

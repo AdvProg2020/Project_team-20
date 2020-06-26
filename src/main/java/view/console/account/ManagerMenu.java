@@ -401,7 +401,7 @@ public class ManagerMenu extends Menu {
 
     //manage category
     public void manageCategory() {
-        ArrayList<SubCategory> categories = managerController.manageCategories();
+        ArrayList<SubCategory> categories = managerController.manageSubCategories();
         for (SubCategory subCategory : categories) {
             System.out.println("Name : " + subCategory.getName());
         }

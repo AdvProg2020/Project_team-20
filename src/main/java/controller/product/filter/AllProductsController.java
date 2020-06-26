@@ -36,7 +36,7 @@ public class AllProductsController extends Filterable {
     }
 
     public ArrayList<SubCategory> getAllCategories() {
-        return SubCategory.getAllCategories();
+        return SubCategory.getAllSubCategories();
     }
 
     public ArrayList<CategorySet> getAllCategorySets() {
