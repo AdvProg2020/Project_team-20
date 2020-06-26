@@ -3,7 +3,7 @@ package view.console.account;
 import controller.account.user.SellerController;
 import model.account.Account;
 import model.account.Buyer;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.Field.Field;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
@@ -205,10 +205,10 @@ public class SellerMenu extends Menu {
     }
 
     public void showCategories() {
-        ArrayList<Category> categories = sellerController.showCategories();
+        ArrayList<SubCategory> categories = sellerController.showCategories();
         System.out.println("All categories:");
-        for (Category category : categories)
-            System.out.println(category.getName());
+        for (SubCategory subCategory : categories)
+            System.out.println(subCategory.getName());
     }
 
     public void viewOffs() {

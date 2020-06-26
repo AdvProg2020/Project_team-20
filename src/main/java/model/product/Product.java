@@ -7,7 +7,7 @@ import model.account.Account;
 import model.account.Buyer;
 import model.account.Seller;
 import model.product.Field.Field;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.comment.Comment;
 import model.product.comment.Score;
 
@@ -168,8 +168,8 @@ public class Product implements Requestable {
         this.priceWithName.put(seller.getUsername(), price);
     }
 
-    public void addCategory(Category category) {
-        categoriesName.add(category.getName());
+    public void addCategory(SubCategory subCategory) {
+        categoriesName.add(subCategory.getName());
     }
 
     public void addBuyer(Buyer buyer) {
@@ -333,12 +333,12 @@ public class Product implements Requestable {
         throw new productNotFoundException();
     }
 
-    public ArrayList<Category> getCategories() {
-        ArrayList<Category> categories = new ArrayList<>();
+    public ArrayList<SubCategory> getCategories() {
+        ArrayList<SubCategory> categories = new ArrayList<>();
         for (String categoryName : categoriesName) {
             try {
-                Category category = Category.getCategoryByName(categoryName);
-                categories.add(category);
+                SubCategory subCategory = SubCategory.getCategoryByName(categoryName);
+                categories.add(subCategory);
             } catch (Exception e) {
             }
         }
