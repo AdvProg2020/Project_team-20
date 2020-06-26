@@ -8,7 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import model.product.Category;
+import model.product.category.Category;
 
 import java.net.URL;
 import java.util.ArrayList;

@@ -3,7 +3,7 @@ package view.console.account;
 import controller.account.user.SellerController;
 import model.account.Account;
 import model.account.Buyer;
-import model.product.Category;
+import model.product.category.Category;
 import model.product.Field.Field;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;

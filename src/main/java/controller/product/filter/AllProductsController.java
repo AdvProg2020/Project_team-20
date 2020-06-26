@@ -4,8 +4,9 @@ import controller.MainController;
 import model.account.GeneralAccount;
 import model.account.TempAccount;
 import model.product.Advertisement;
-import model.product.Category;
+import model.product.category.Category;
 import model.product.Product;
+import model.product.category.CategorySet;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,10 @@ public class AllProductsController extends Filterable {
         return Category.getAllCategories();
     }
 
+    public ArrayList<CategorySet> getAllCategorySets() {
+        return CategorySet.getAllCategorySets();
+    }
+
     public ArrayList<Product> getProductsToShow() {
         return productsToShow;
     }
@@ -62,5 +67,14 @@ public class AllProductsController extends Filterable {
 
     public ArrayList<Advertisement> getAdvertisement() {
         return Advertisement.getAdds();
+    }
+
+    public void disableCategoryFields(Category category) throws Exception {
+        for (String fieldName : category.getFields()) {
+            allProductsController.disAbleFilter(fieldName);
+        }
+        for (Category subCategory : category.getSubCategories()) {
+            disableCategoryFields(subCategory);
+        }
     }
 }

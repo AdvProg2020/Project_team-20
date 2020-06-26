@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import model.product.Category;
+import model.product.category.Category;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -115,6 +115,7 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
+            //TODO check this after all category set
             managerController.removeSubCategoryFromAllSubCategories(category.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
             message.setText(category.toString());
@@ -190,7 +191,7 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
-            managerController.addSubCategoryToCategory(category.getName(), name);
+            managerController.addSubCategoryToCategorySet(category.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
             message.setText(category.toString());
         } catch (Exception e) {

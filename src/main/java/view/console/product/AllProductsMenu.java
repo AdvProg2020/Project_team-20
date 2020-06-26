@@ -2,7 +2,7 @@ package view.console.product;
 
 import controller.product.filter.AllProductsController;
 import model.filter.Filter;
-import model.product.Category;
+import model.product.category.Category;
 import model.product.Product;
 import view.console.Menu;
 

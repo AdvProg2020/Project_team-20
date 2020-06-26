@@ -30,7 +30,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.account.*;
 import model.product.Advertisement;
-import model.product.Category;
+import model.product.category.Category;
 import model.product.Product;
 import model.product.Sale;
 import view.graphic.MenuNames;
@@ -160,14 +160,14 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     private void showAdds() {
-        if (adds.size()>1) {
+        if (adds.size() > 1) {
             Product product = adds.get(1).getProduct();
             Image img1 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productAddImg.setImage(img1);
             addTxt.setText(adds.get(1).getText());
             missTxt.setOpacity(1);
         }
-        if (adds.size()>0) {
+        if (adds.size() > 0) {
             Advertisement add2 = adds.get(0);
             Product product = add2.getProduct();
             Image img1 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
@@ -218,7 +218,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product2Score.setImage(new Score(products.get(1 + from).getAverage()).getScoreImg());
             showProduct2.setOpacity(1);
             if (offMode)
-                getOffHBox(productBox2, products.get(from+1));
+                getOffHBox(productBox2, products.get(from + 1));
         }
         if (products.size() > (2 + from)) {
             Image img3 = new Image(new File("src/main/resources/Images/" + products.get(2 + from).getImagePath()).toURI().toString());
@@ -228,7 +228,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product3Score.setImage(new Score(products.get(2 + from).getAverage()).getScoreImg());
             showProduct3.setOpacity(1);
             if (offMode)
-                getOffHBox(productBox3, products.get(from+2));
+                getOffHBox(productBox3, products.get(from + 2));
         }
         if (products.size() > (3 + from)) {
             Image img4 = new Image(new File("src/main/resources/Images/" + products.get(3 + from).getImagePath()).toURI().toString());
@@ -238,7 +238,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product4Score.setImage(new Score(products.get(3 + from).getAverage()).getScoreImg());
             showProduct4.setOpacity(1);
             if (offMode)
-                getOffHBox(productBox4, products.get(from+3));
+                getOffHBox(productBox4, products.get(from + 3));
         }
         if (products.size() > (4 + from)) {
             Image img5 = new Image(new File("src/main/resources/Images/" + products.get(4 + from).getImagePath()).toURI().toString());
@@ -248,7 +248,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product5Score.setImage(new Score(products.get(4 + from).getAverage()).getScoreImg());
             showProduct5.setOpacity(1);
             if (offMode)
-                getOffHBox(productBox5, products.get(from+4));
+                getOffHBox(productBox5, products.get(from + 4));
         }
         if (products.size() > (5 + from)) {
             Image img6 = new Image(new File("src/main/resources/Images/" + products.get(5 + from).getImagePath()).toURI().toString());
@@ -258,7 +258,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product6Score.setImage(new Score(products.get(5 + from).getAverage()).getScoreImg());
             showProduct6.setOpacity(1);
             if (offMode)
-                getOffHBox(productBox6, products.get(from+5));
+                getOffHBox(productBox6, products.get(from + 5));
         }
         if (products.size() > (6 + from)) {
             Image img7 = new Image(new File("src/main/resources/Images/" + products.get(6 + from).getImagePath()).toURI().toString());
@@ -268,7 +268,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product7Score.setImage(new Score(products.get(6 + from).getAverage()).getScoreImg());
             showProduct7.setOpacity(1);
             if (offMode)
-                getOffHBox(productBox7, products.get(from+6));
+                getOffHBox(productBox7, products.get(from + 6));
         }
         if (products.size() > (7 + from)) {
             Image img8 = new Image(new File("src/main/resources/Images/" + products.get(7 + from).getImagePath()).toURI().toString());
@@ -278,7 +278,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product8Score.setImage(new Score(products.get(7 + from).getAverage()).getScoreImg());
             showProduct8.setOpacity(1);
             if (offMode)
-                getOffHBox(productBox8, products.get(from+7));
+                getOffHBox(productBox8, products.get(from + 7));
         }
         if (products.size() > (8 + from)) {
             Image img9 = new Image(new File("src/main/resources/Images/" + products.get(8 + from).getImagePath()).toURI().toString());
@@ -288,7 +288,7 @@ public class FxmlAllProductsMenu implements Initializable {
             product9Score.setImage(new Score(products.get(8 + from).getAverage()).getScoreImg());
             showProduct9.setOpacity(1);
             if (offMode)
-                getOffHBox(productBox9, products.get(from+8));
+                getOffHBox(productBox9, products.get(from + 8));
         }
     }
 
@@ -299,7 +299,7 @@ public class FxmlAllProductsMenu implements Initializable {
         Sale sale = Sale.getProductSale(product);
         TextField startDateTxt = new TextField();
         startDateTxt.setStyle("-fx-background-color: transparent; -fx-text-inner-color:#575957;");
-        if (sale==null) {
+        if (sale == null) {
             return;
         }
         startDateTxt.setText(" From: " + sale.getStartDate().getMonth() + "/" + sale.getStartDate().getDayOfMonth() + "/" + sale.getStartDate().getYear());
@@ -314,7 +314,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
         TextField percentageTxt = new TextField();
         percentageTxt.setStyle("-fx-background-color: transparent; -fx-text-inner-color:#575957;");
-        percentageTxt.setText(" percentage: " + sale.getSalePercentage()*100 + "%");
+        percentageTxt.setText(" percentage: " + sale.getSalePercentage() * 100 + "%");
         percentage.getChildren().add(percentageTxt);
         offHBox.getChildren().add(percentage);
     }
@@ -481,12 +481,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     private void disableCategoryFields(Category category) throws Exception {
-        for (String fieldName : category.getFields()) {
-            allProductsController.disAbleFilter(fieldName);
-        }
-        for (Category subCategory : category.getSubCategories()) {
-            disableCategoryFields(subCategory);
-        }
+        allProductsController.disableCategoryFields(category);
     }
 
     public void handleDateSort(ActionEvent actionEvent) throws Exception {
@@ -726,7 +721,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void deleteOffBox(VBox vBox) {
         ArrayList<Node> deleteNodes = new ArrayList<>();
-        for (Node node:vBox.getChildren()) {
+        for (Node node : vBox.getChildren()) {
             if (node instanceof HBox)
                 deleteNodes.add(node);
         }
@@ -735,7 +730,7 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void handleNextAdd(ActionEvent actionEvent) {
         currentAdd++;
-        if (adds.size()-1<currentAdd) {
+        if (adds.size() - 1 < currentAdd) {
             currentAdd = 0;
         }
         Product product = adds.get(currentAdd).getProduct();
@@ -764,7 +759,8 @@ public class FxmlAllProductsMenu implements Initializable {
                     sleep(5000);
                     try {
                         handleNextAdd(null);
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

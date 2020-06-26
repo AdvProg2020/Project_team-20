@@ -4,7 +4,7 @@ import model.filter.Filter;
 import model.filter.NameFilter;
 import model.filter.OptionalFilter;
 import model.filter.RangeFilter;
-import model.product.Category;
+import model.product.category.Category;
 import model.product.Product;
 
 import java.util.ArrayList;
