@@ -151,4 +151,8 @@ public class ManagerMenuController implements Initializable {
         Main.storeData();
         window.close();
     }
+
+    public void handleManageCategorySets(ActionEvent actionEvent) {
+        loadUI("manageCategorySet");
+    }
 }
