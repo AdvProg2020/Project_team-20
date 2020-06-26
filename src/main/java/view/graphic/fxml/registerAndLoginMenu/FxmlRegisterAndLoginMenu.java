@@ -186,11 +186,9 @@ public class FxmlRegisterAndLoginMenu {
 
     public void enterMouseExit(MouseEvent event) {
         ((Button) event.getSource()).setStyle("-fx-background-color: #d94141;");
-
     }
 
     public void exitMouseExit(MouseEvent event) {
         ((Button) event.getSource()).setStyle("-fx-background-color: #ff4c4c;");
-        ;
     }
 }
