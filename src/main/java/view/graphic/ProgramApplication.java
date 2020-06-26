@@ -76,6 +76,7 @@ public class ProgramApplication extends Application {
                 FxmlRegisterAndLoginMenu.setWindow(mainStage);
                 mainStage.setScene(registerAndLoginMenu);
                 mainStage.show();
+                new Thread(() -> mediaController.registerAndLogin()).start();
                 break;
             case ALLPRODUCTSMENU:
                 mainStage.setTitle("all products menu");
@@ -86,6 +87,7 @@ public class ProgramApplication extends Application {
                     FxmlAllProductsMenu.setMainWindow(mainStage);
                     mainStage.setScene(allProductsMenu);
                     mainStage.show();
+                    new Thread(() -> mediaController.allProducts()).start();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -95,6 +97,7 @@ public class ProgramApplication extends Application {
                 mainStage.setScene(loginManager);
                 ManagerLoginController.setWindow(mainStage);
                 mainStage.show();
+                new Thread(() -> mediaController.mainTheme()).start();
                 break;
         }
     }
