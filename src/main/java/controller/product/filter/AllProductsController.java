@@ -4,6 +4,7 @@ import controller.MainController;
 import model.account.GeneralAccount;
 import model.account.TempAccount;
 import model.product.Advertisement;
+import model.product.category.Category;
 import model.product.category.SubCategory;
 import model.product.Product;
 import model.product.category.CategorySet;
@@ -35,8 +36,12 @@ public class AllProductsController extends Filterable {
             throw new InvalidCommandException();
     }
 
-    public ArrayList<SubCategory> getAllCategories() {
+    public ArrayList<SubCategory> getAllSubCategories() {
         return SubCategory.getAllSubCategories();
+    }
+
+    public ArrayList<Category> getAllCategories() {
+        return Category.getAllCategories();
     }
 
     public ArrayList<CategorySet> getAllCategorySets() {

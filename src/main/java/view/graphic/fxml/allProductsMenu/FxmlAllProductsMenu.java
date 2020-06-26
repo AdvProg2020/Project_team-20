@@ -30,6 +30,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.account.*;
 import model.product.Advertisement;
+import model.product.category.Category;
 import model.product.category.SubCategory;
 import model.product.Product;
 import model.product.Sale;
@@ -180,10 +181,10 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     private void initializeCategories() {
-        ArrayList<SubCategory> allCategories = allProductsController.getAllCategories();
+        ArrayList<Category> allCategories = allProductsController.getAllCategories();
         ObservableList<String> categories = FXCollections.observableArrayList();
-        for (SubCategory subCategory : allCategories) {
-            categories.add(subCategory.getName());
+        for (Category category : allCategories) {
+            categories.add(category.getName());
         }
         choiceBox.setItems(categories);
     }
