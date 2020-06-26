@@ -76,8 +76,9 @@ public abstract class Filterable {
 
 
 
-    public void filterByCategory(Category category) throws Exception {
-
+    public void filterByCategory(ArrayList<String> details) throws Exception {
+        String name = details.get(0);
+        Category category = Category
     }
 
     public void filterByProductName(ArrayList<String> details) {
