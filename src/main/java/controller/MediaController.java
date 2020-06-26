@@ -13,7 +13,8 @@ public class MediaController {
 
     public void mainTheme() {
         try {
-            String path = "src/main/resources/sound/spring-weather-1.mp3";
+            // src/main/resources/sound/startup.m4a  src/main/resources/sound/spring-weather-1.mp3
+            String path = "src/main/resources/sound/startup.m4a";
             this.media = new Media(new File(path).toURI().toString());
             this.mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
