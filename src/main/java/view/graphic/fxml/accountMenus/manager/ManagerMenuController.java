@@ -75,23 +75,18 @@ public class ManagerMenuController implements Initializable {
     }
 
     public void handleRequests(ActionEvent actionEvent) {
-        ArrayList<Requestable> requests = Manager.getRequests();
-
         loadUI("requests");
     }
 
     public void handleManageUsers(ActionEvent actionEvent) {
-
         loadUI("manageUsers");
     }
 
     public void handleProducts(ActionEvent actionEvent) {
-
         loadUI("products");
     }
 
     public void handleDiscounts(ActionEvent actionEvent) {
-
         loadUI("discount/discounts");
     }
 
@@ -100,13 +95,13 @@ public class ManagerMenuController implements Initializable {
     }
 
     public void handleManageCategories(ActionEvent actionEvent) {
-
         loadUI("manageCategories");
     }
 
     public void loadUI(String ui) {
         Parent root;
         try {
+            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/accountMenus/manager/" + ui + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
@@ -115,12 +110,14 @@ public class ManagerMenuController implements Initializable {
     }
 
     public void handleLogout(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         managerController.logout();
         ProgramApplication.setMenu(MenuNames.MAINMENU);
         new AlertController().create(AlertType.CONFIRMATION, "log out was successful");
     }
 
     public void handleAllProducts(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
@@ -151,6 +148,7 @@ public class ManagerMenuController implements Initializable {
     }
 
     public void handleExit() {
+        new Thread(() -> mediaController.clickOnButton()).start();
         FxmlAllProductsMenu.key = false;
         Main.storeData();
         window.close();

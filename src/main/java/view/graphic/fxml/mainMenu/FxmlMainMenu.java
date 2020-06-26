@@ -12,7 +12,7 @@ import view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 
 public class FxmlMainMenu {
     public static Stage window;
-
+    MediaController mediaController = ProgramApplication.getMediaController();
     public void enterMouse(MouseEvent event) {
         ((Button) event.getSource()).setStyle("-fx-background-color: #DCDF87; -fx-background-radius: 20; -fx-border-color: #27304f; -fx-border-radius: 20; -fx-border-width: 5");
 
@@ -23,14 +23,17 @@ public class FxmlMainMenu {
     }
 
     public void handleRegistrationLogin() {
+        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
     }
 
     public void handleAllProducts() {
+        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
     public void handleExit() {
+        new Thread(() -> mediaController.clickOnButton()).start();
         FxmlAllProductsMenu.key = false;
         Main.storeData();
         window.close();

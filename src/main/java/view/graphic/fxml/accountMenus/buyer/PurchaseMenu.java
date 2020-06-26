@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.buyer;
 
+import controller.MediaController;
 import controller.account.user.BuyerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import model.product.Cart;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -39,8 +41,10 @@ public class PurchaseMenu implements Initializable {
     private String address2;
     private String phone2;
     private String discountCode2;
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     public void handlePay(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (submit) {
             BuyerController buyerController = BuyerController.getInstance();
             try {
@@ -73,20 +77,19 @@ public class PurchaseMenu implements Initializable {
         phoneText.setOpacity(0);
         phone.setOpacity(0);
         submitPhone.setOpacity(0);
-
         discountCodeText.setOpacity(0);
         discountCode.setOpacity(0);
         submitDiscount.setOpacity(0);
-
         submit = false;
-
         BuyerController buyerController = BuyerController.getInstance();
+        Cart cart = buyerController.viewCart();
         discount.appendText(Double.toString(buyerController.getDiscount()));
         totalPrice.appendText(Double.toString(buyerController.getTotalPrice()));
     }
 
 
     public void handlePhone(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         phone2 = phone.getText();
         discountCodeText.setOpacity(1);
         discountCode.setOpacity(1);
@@ -94,6 +97,7 @@ public class PurchaseMenu implements Initializable {
     }
 
     public void handleAddress(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         address2 = address.getText();
         phoneText.setOpacity(1);
         phone.setOpacity(1);
@@ -101,11 +105,13 @@ public class PurchaseMenu implements Initializable {
     }
 
     public void handleDiscount(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         discountCode2 = discountCode.getText();
         submit = true;
     }
 
     public void handleReject(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         BuyerController buyerController = BuyerController.getInstance();
         buyerController.viewCart().resetCart();
         Parent root;

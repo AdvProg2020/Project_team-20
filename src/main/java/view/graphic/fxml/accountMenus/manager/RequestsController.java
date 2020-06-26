@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.manager;
 
+import controller.MediaController;
 import controller.account.user.ManagerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import model.Requestable;
 import model.account.Manager;
+import view.graphic.ProgramApplication;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,6 +34,10 @@ public class RequestsController implements Initializable {
 
 
     ManagerController managerController = ManagerController.getInstance();
+    MediaController mediaController = ProgramApplication.getMediaController();
+    Manager manager = (Manager) managerController.getAccountInfo();
+    private TextArea message1;
+
 
     private ArrayList<RequestTable> convertToRequestTable() throws Exception {
         ManagerController managerController = ManagerController.getInstance();
@@ -72,6 +78,7 @@ public class RequestsController implements Initializable {
     }
 
     public void selectRequest(MouseEvent mouseEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         id = table.getSelectionModel().getSelectedItem().getId();
         message.setText(managerController.requestDetails(Integer.parseInt(id)));
         title.setOpacity(1);
@@ -115,11 +122,11 @@ public class RequestsController implements Initializable {
     }
 
     public void handleExitAccept(MouseEvent event) {
-        ((Button) event.getSource()).setStyle("-fx-background-color: #60d520;");
+       ((Button) event.getSource()).setStyle("-fx-background-color: #60d520;");
     }
 
     public void handleEnterRemove(MouseEvent event) {
-        ((Button) event.getSource()).setStyle("-fx-background-color: #fb5f48;");
+      ((Button) event.getSource()).setStyle("-fx-background-color: #fb5f48;");
     }
 
     public void handleExitRemove(MouseEvent event) {

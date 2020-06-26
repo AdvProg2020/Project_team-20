@@ -2,6 +2,7 @@ package view.graphic.fxml.accountMenus.seller;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
+import controller.MediaController;
 import controller.account.user.SellerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import javafx.scene.text.Text;
 import model.account.Seller;
 import model.product.Product;
 import model.product.Sale;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -54,8 +56,10 @@ public class ManageOffsFxml implements Initializable {
     private ArrayList<Product> productsToAdd;
     private ArrayList<Product> productsToRemove;
     private Sale sale;
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     public void selectOff(MouseEvent event) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         sale = table.getSelectionModel().getSelectedItem();
         saleId.setText(sale.getId());
         salePercentage.setText(Double.toString(sale.getSalePercentage()*100));
@@ -76,6 +80,7 @@ public class ManageOffsFxml implements Initializable {
     }
 
     public void handleEdit(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (sale!=null) {
             Button button = ((Button) actionEvent.getSource());
             if (!leave) {
@@ -141,6 +146,7 @@ public class ManageOffsFxml implements Initializable {
     }
 
     public void handleOk(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (sale!=null) {
             LocalTime startTime = startTimePicker.getValue();
             LocalDate startDate = startDatePicker.getValue();
@@ -191,6 +197,7 @@ public class ManageOffsFxml implements Initializable {
     }
 
     public void selectRequest(MouseEvent event) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Product product = table1.getSelectionModel().getSelectedItem();
         if (!productsToAdd.contains(product) && !sale.getProducts().contains(product))
             productsToAdd.add(product);
@@ -200,6 +207,7 @@ public class ManageOffsFxml implements Initializable {
     }
 
     public void selectRequestProducts(MouseEvent event) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Product product = saleProductNamesTable.getSelectionModel().getSelectedItem();
         if (!productsToRemove.contains(product))
             productsToRemove.add(product);

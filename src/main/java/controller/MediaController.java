@@ -29,6 +29,13 @@ public class MediaController {
         }
     }
 
+    public void clickOnButton() {
+        this.media = new Media(new File("src/main/resources/sound/button.mp3").toURI().toString());
+        this.mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setVolume(0.6);
+        mediaPlayer.setAutoPlay(true);
+    }
+
     public void stop() {
         if (mediaPlayer != null)
             mediaPlayer.stop();

@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.buyer;
 
+import controller.MediaController;
 import controller.account.user.BuyerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import model.product.Cart;
 import model.product.Product;
+import view.graphic.ProgramApplication;
 
 import java.io.File;
 import java.net.URL;
@@ -42,6 +44,7 @@ public class ViewCartFxml implements Initializable {
     private Cart cart;
     private Double totalPrice2;
     public static BorderPane borderPane;
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     private ArrayList<CartTmp> convertToCartTmp() throws Exception {
         BuyerController buyerController = BuyerController.getInstance();
@@ -84,13 +87,15 @@ public class ViewCartFxml implements Initializable {
             mainTable.setItems(getCartTmpS());
             totalPrice.setText("");
             totalPrice.setText(Double.toString(totalPrice2));
-        } catch (Exception e) {
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
     }
 
 
     public void selectProduct(MouseEvent mouseEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         String name = mainTable.getSelectionModel().getSelectedItem().getProductName();
         id = Product.getProductWithItsName(name).getId();
         minusIcon.setOpacity(1);
@@ -99,7 +104,8 @@ public class ViewCartFxml implements Initializable {
     }
 
     public void handlePlus(ActionEvent actionEvent) throws Exception {
-        cart.increaseProduct(id, 1);
+        new Thread(() -> mediaController.clickOnButton()).start();
+        cart.increaseProduct(id , 1);
         minusIcon.setOpacity(0);
         recycleBinIcon.setOpacity(0);
         plusIcon.setOpacity(0);
@@ -113,13 +119,15 @@ public class ViewCartFxml implements Initializable {
             mainTable.setItems(getCartTmpS());
             totalPrice.setText("");
             totalPrice.setText(Double.toString(totalPrice2));
-        } catch (Exception e) {
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
     }
 
     public void handleMinus(ActionEvent actionEvent) throws Exception {
-        cart.decreaseProduct(id, 1);
+        new Thread(() -> mediaController.clickOnButton()).start();
+        cart.decreaseProduct(id , 1);
         minusIcon.setOpacity(0);
         recycleBinIcon.setOpacity(0);
         plusIcon.setOpacity(0);
@@ -133,20 +141,21 @@ public class ViewCartFxml implements Initializable {
             mainTable.setItems(getCartTmpS());
             totalPrice.setText("");
             totalPrice.setText(Double.toString(totalPrice2));
-        } catch (Exception e) {
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
     }
 
     public void handleDelete(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         HashMap<Product, Integer> products = cart.getAllProducts();
         int quantity = products.get(Product.getProductById(id));
-        cart.decreaseProduct(id, quantity);
+        cart.decreaseProduct(id , quantity);
         minusIcon.setOpacity(0);
         recycleBinIcon.setOpacity(0);
         plusIcon.setOpacity(0);
         id = null;
-
         productColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("productName"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("price"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<CartTmp, String>("quantity"));
@@ -155,12 +164,14 @@ public class ViewCartFxml implements Initializable {
             mainTable.setItems(getCartTmpS());
             totalPrice.setText("");
             totalPrice.setText(Double.toString(totalPrice2));
-        } catch (Exception e) {
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
     }
 
     public void handlePay(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         Parent root;
         try {
             PurchaseMenu.setBorderPane(borderPane);

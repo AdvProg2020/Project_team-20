@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.seller;
 
+import controller.MediaController;
 import controller.account.user.SellerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import javafx.scene.text.Text;
 import model.account.Buyer;
 import model.product.Field.Field;
 import model.product.Product;
+import view.graphic.ProgramApplication;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -47,6 +49,8 @@ public class ManageProductsFxml implements Initializable {
 
     private String productId;
     private Product product;
+
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     //numericalFields
     private HashMap<String, Double> hashMapAddNF = new HashMap<>();
@@ -88,6 +92,7 @@ public class ManageProductsFxml implements Initializable {
     }
 
     public void handleEdit(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         editField();
         String finalDescription = description.getText();
         String finalPrice = price.getText();
@@ -106,6 +111,7 @@ public class ManageProductsFxml implements Initializable {
     }
 
     private void editField() {
+        new Thread(() -> mediaController.clickOnButton()).start();
         //add numerical fields
         String numericalF = numericalAddArea.getText();
         String[] nf = numericalF.split("\\n");

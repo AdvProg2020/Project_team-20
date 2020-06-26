@@ -1,5 +1,6 @@
 package view.graphic.fxml.accountMenus.seller;
 
+import controller.MediaController;
 import controller.account.user.SellerController;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -9,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import model.product.Product;
 import model.receipt.SellerReceipt;
+import view.graphic.ProgramApplication;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,9 +31,10 @@ public class ViewSalesFxml implements Initializable {
     public TableColumn<String, Product> productsColumn;
     public TableColumn<String, Integer> quantityColumn;
     private SellerController sellerController = SellerController.getInstance();
-
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     public void selectOrder(MouseEvent event) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         SellerReceipt sellerReceipt = table.getSelectionModel().getSelectedItem();
         receivedMoneyTxt.setText(Double.toString(sellerReceipt.getReceivedMoney()));
         discountPercentageTxt.setText(sellerReceipt.getDiscountPercentage() * 100 + "%");

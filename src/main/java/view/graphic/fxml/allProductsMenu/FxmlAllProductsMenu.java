@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import controller.Main;
 import controller.MainController;
+import controller.MediaController;
 import controller.product.filter.AllProductsController;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -148,6 +149,7 @@ public class FxmlAllProductsMenu implements Initializable {
     private int currentAdd = 0;
     private ArrayList<Advertisement> adds;
     public static boolean key = true;
+    MediaController mediaController = ProgramApplication.getMediaController();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -198,6 +200,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     private void handleAddCategory(MouseEvent event) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         String name = ((JFXCheckBox) event.getSource()).getText();
         ArrayList<String> details = new ArrayList<>();
         details.add(name);
@@ -412,39 +415,24 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleLogin(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
     }
 
-    public void handleViewCart(ActionEvent actionEvent) {
-        GeneralAccount currentGeneralAccount = MainController.getInstance().getAccount();
-        if (currentGeneralAccount.getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT)) {
-            new AlertController().create(AlertType.ERROR, "please first sign in");
-            ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
-        }
-        Account currentAccount = (Account) currentGeneralAccount;
-        if (currentAccount instanceof Seller || currentAccount instanceof Manager)
-            new AlertController().create(AlertType.ERROR, "you are not a buyer!");
-        else {
-            try {
-                BuyerMenuController.setLoadFromViewCart(true);
-                BuyerMenuController.start(mainWindow);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public void handleExit(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         FxmlAllProductsMenu.key = false;
         Main.storeData();
         FxmlMainMenu.window.close();
     }
 
     public void handleMainMenu(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.MAINMENU);
     }
 
     public void handleNameFilter(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         String name = productName.getText();
         if (filterByNameBox.isSelected()) {
             ArrayList<String> details = new ArrayList<>();
@@ -460,6 +448,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleNumericalFieldFilter(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         String name = numericalFieldName.getText();
         if (numericalFilterBox.isSelected()) {
             String MIN = min.getText();
@@ -481,6 +470,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleOptionalFieldFilter(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (optionalFilterBox.isSelected()) {
             String all = optionalField.getText();
             String[] strings = all.split("\\s+");
@@ -502,6 +492,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleCategoryFilter(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         ArrayList<String> details = new ArrayList<>();
         if (categoryBox.isSelected()) {
             categoryName = choiceBox.getSelectionModel().getSelectedItem().toString();
@@ -573,6 +564,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleDateSort(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (sortByDate.isSelected()) {
             allProductsController.changeSort("ByDates");
             products = allProductsController.showProducts();
@@ -585,6 +577,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleScoresSort(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (sortByScores.isSelected()) {
             allProductsController.changeSort("ByScores");
             products = allProductsController.showProducts();
@@ -597,6 +590,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleNumberOfViewsSort(ActionEvent actionEvent) throws Exception {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (sortByNumberOfViews.isSelected()) {
             allProductsController.changeSort("ByNumberOfViews");
             products = allProductsController.showProducts();
@@ -609,6 +603,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleNextButton(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (allProductsController.getProducts().size() > fromForBack + 9) {
             fromForBack = fromForBack + 9;
             deleteProducts();
@@ -617,6 +612,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleBackButton(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (fromForBack==0) {
             return;
         }
@@ -632,6 +628,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack));
         Parent root = null;
         try {
+            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
@@ -645,6 +642,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 1));
         Parent root = null;
         try {
+            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
@@ -658,6 +656,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 2));
         Parent root = null;
         try {
+            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
@@ -671,6 +670,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 3));
         Parent root = null;
         try {
+            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
@@ -684,6 +684,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 4));
         Parent root = null;
         try {
+            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
@@ -697,6 +698,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 5));
         Parent root = null;
         try {
+            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
@@ -710,6 +712,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 6));
         Parent root = null;
         try {
+            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
@@ -723,6 +726,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 7));
         Parent root = null;
         try {
+            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
@@ -736,6 +740,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 8));
         Parent root = null;
         try {
+            new Thread(() -> mediaController.clickOnButton()).start();
             root = FXMLLoader.load(new File("src/main/java/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
@@ -749,6 +754,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleAccountMenu(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         GeneralAccount generalAccount = MainController.getInstance().getAccount();
         if (generalAccount instanceof TempAccount) {
             new AlertController().create(AlertType.ERROR, "please login first");
@@ -774,6 +780,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleShowOffs(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         if (!offMode) {
             offMode = true;
             ArrayList<Sale> sales = Sale.getAllSales();
@@ -820,6 +827,7 @@ public class FxmlAllProductsMenu implements Initializable {
     }
 
     public void handleNextAdd(ActionEvent actionEvent) {
+        new Thread(() -> mediaController.clickOnButton()).start();
         currentAdd++;
         if (adds.size() - 1 < currentAdd) {
             currentAdd = 0;
