@@ -6,6 +6,7 @@ import model.account.TempAccount;
 import model.product.Advertisement;
 import model.product.category.Category;
 import model.product.Product;
+import model.product.category.CategorySet;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,10 @@ public class AllProductsController extends Filterable {
 
     public ArrayList<Category> getAllCategories() {
         return Category.getAllCategories();
+    }
+
+    public ArrayList<CategorySet> getAllCategorySets() {
+        return CategorySet.getAllCategorySets();
     }
 
     public ArrayList<Product> getProductsToShow() {
