@@ -4,7 +4,7 @@ import model.account.Buyer;
 import model.account.Manager;
 import model.account.Seller;
 import model.product.*;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.category.CategorySet;
 import model.receipt.BuyerReceipt;
 import model.receipt.SellerReceipt;
@@ -64,7 +64,7 @@ public class Main {
         Manager.load();
         Buyer.load();
         Seller.load();
-        Category.load();
+        SubCategory.load();
         CategorySet.load();
         Discount.load();
         Product.load();
@@ -79,7 +79,7 @@ public class Main {
         Manager.store();
         Buyer.store();
         Seller.store();
-        Category.store();
+        SubCategory.store();
         CategorySet.store();
         Discount.store();
         Product.store();

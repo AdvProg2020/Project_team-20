@@ -4,7 +4,7 @@ import controller.account.user.ManagerController;
 import model.Requestable;
 import model.account.Account;
 import model.account.Buyer;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.Discount;
 import model.product.Product;
 import view.console.Menu;
@@ -401,9 +401,9 @@ public class ManagerMenu extends Menu {
 
     //manage category
     public void manageCategory() {
-        ArrayList<Category> categories = managerController.manageCategories();
-        for (Category category : categories) {
-            System.out.println("Name : " + category.getName());
+        ArrayList<SubCategory> categories = managerController.manageCategories();
+        for (SubCategory subCategory : categories) {
+            System.out.println("Name : " + subCategory.getName());
         }
     }
 
@@ -505,7 +505,7 @@ public class ManagerMenu extends Menu {
         String productName = Menu.scanner.nextLine();
         while (!productName.equals("end")) {
             try {
-                managerController.addProductToCategory(name, productName);
+                managerController.addFieldToCategory(name, productName);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

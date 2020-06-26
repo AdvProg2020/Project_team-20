@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import view.graphic.alert.AlertController;
 import view.graphic.alert.AlertType;
 
@@ -20,7 +20,7 @@ public class ManageCategoriesController implements Initializable {
 
     public Text title;
     public TextArea message;
-    public TableView<Category> table;
+    public TableView<SubCategory> table;
     public TableColumn<Object, Object> categoryName;
     public TextField addFieldPartEdit;
     public TextField removeFieldEdit;
@@ -42,7 +42,7 @@ public class ManageCategoriesController implements Initializable {
     public Button removeSubOk;
 
     ManagerController managerController = ManagerController.getInstance();
-    Category category;
+    SubCategory subCategory;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,19 +50,19 @@ public class ManageCategoriesController implements Initializable {
         title.setOpacity(0);
         removeButton.setOpacity(0);
         editButton.setOpacity(0);
-        ArrayList<Category> categories = managerController.manageCategories();
+        ArrayList<SubCategory> categories = managerController.manageCategories();
         table.getItems().setAll(categories);
         categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 
 
     public void selectCategory(MouseEvent mouseEvent) throws Exception {
-        category = table.getSelectionModel().getSelectedItem();
+        subCategory = table.getSelectionModel().getSelectedItem();
         message.setOpacity(0.7);
         title.setOpacity(1);
         removeButton.setOpacity(1);
         editButton.setOpacity(1);
-        message.setText(category.toString());
+        message.setText(subCategory.toString());
     }
 
     public void createCategory(ActionEvent actionEvent) {
@@ -73,7 +73,7 @@ public class ManageCategoriesController implements Initializable {
         }
         try {
             managerController.addCategory(name);
-            ArrayList<Category> categories = managerController.manageCategories();
+            ArrayList<SubCategory> categories = managerController.manageCategories();
             table.getItems().setAll(categories);
             categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
             new AlertController().create(AlertType.CONFIRMATION, "successful");
@@ -116,9 +116,9 @@ public class ManageCategoriesController implements Initializable {
         }
         try {
             //TODO check this after all category set
-            managerController.removeSubCategoryFromAllSubCategories(category.getName(), name);
+            managerController.removeSubCategoryFromAllSubCategories(subCategory.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
-            message.setText(category.toString());
+            message.setText(subCategory.toString());
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -131,9 +131,9 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
-            managerController.removeProductFromCategory(category.getName(), name);
+            managerController.removeProductFromCategory(subCategory.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
-            message.setText(category.toString());
+            message.setText(subCategory.toString());
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -146,9 +146,9 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
-            managerController.addNewFieldToCategory(category.getName(), name);
+            managerController.addNewFieldToCategory(subCategory.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
-            message.setText(category.toString());
+            message.setText(subCategory.toString());
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -161,9 +161,9 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
-            managerController.removeFieldFromCategory(category.getName(), name);
+            managerController.removeFieldFromCategory(subCategory.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
-            message.setText(category.toString());
+            message.setText(subCategory.toString());
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -176,9 +176,9 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
-            managerController.editCategoryName(category.getName(), name);
+            managerController.editCategoryName(subCategory.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
-            message.setText(category.toString());
+            message.setText(subCategory.toString());
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -191,9 +191,9 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
-            managerController.addSubCategoryToCategorySet(category.getName(), name);
+            managerController.addSubCategoryToCategorySet(subCategory.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
-            message.setText(category.toString());
+            message.setText(subCategory.toString());
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -206,9 +206,9 @@ public class ManageCategoriesController implements Initializable {
             return;
         }
         try {
-            managerController.addProductToCategory(category.getName(), name);
+            managerController.addFieldToCategory(subCategory.getName(), name);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
-            message.setText(category.toString());
+            message.setText(subCategory.toString());
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -217,8 +217,8 @@ public class ManageCategoriesController implements Initializable {
 
     public void handleRemove(ActionEvent actionEvent) {
         try {
-            managerController.managerRemoveCategory(category.getName());
-            ArrayList<Category> categories = managerController.manageCategories();
+            managerController.managerRemoveCategory(subCategory.getName());
+            ArrayList<SubCategory> categories = managerController.manageCategories();
             table.getItems().setAll(categories);
             categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
             new AlertController().create(AlertType.ERROR, "remove was successful");

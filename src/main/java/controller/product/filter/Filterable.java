@@ -4,7 +4,7 @@ import model.filter.Filter;
 import model.filter.NameFilter;
 import model.filter.OptionalFilter;
 import model.filter.RangeFilter;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.Product;
 
 import java.util.ArrayList;
@@ -72,18 +72,19 @@ public abstract class Filterable {
 
     public void filterByCategory(ArrayList<String> details) throws Exception {
         String categoryName = details.get(0);
-        Category category = Category.getCategoryByName(categoryName);
-        addAllFieldsCategory(category);
+        SubCategory subCategory = SubCategory.getCategoryByName(categoryName);
+        addAllFieldsCategory(subCategory);
     }
 
-    public void addAllFieldsCategory(Category category) {
+    public void addAllFieldsCategory(SubCategory category) {
         for (String fieldName : category.getFields()) {
             if (!filterNames.contains(fieldName)) {
                 filterNames.add(fieldName);
                 filters.add(new OptionalFilter(fieldName));
+                return;
             }
         }
-        for (Category subCategory : category.getSubCategories()) {
+        for (SubCategory subCategory : category.getSubCategories()) {
             addAllFieldsCategory(subCategory);
         }
     }

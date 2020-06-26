@@ -8,7 +8,7 @@ import model.product.Field.Field;
 import model.product.Field.FieldType;
 import model.product.Field.NumericalField;
 import model.product.Field.OptionalField;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.comment.Comment;
 import model.product.comment.Reply;
 import model.product.comment.Score;
@@ -75,9 +75,9 @@ public class ProductMenu extends Menu {
     }
 
     public void attributes() {
-        for (Category category : product.getCategories()) {
-            System.out.println("category name : " + category.getName());
-            for (String field : category.getFields()) {
+        for (SubCategory subCategory : product.getCategories()) {
+            System.out.println("category name : " + subCategory.getName());
+            for (String field : subCategory.getFields()) {
                 System.out.print("field name : " + field);
             }
         }

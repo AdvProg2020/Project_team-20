@@ -2,7 +2,7 @@ package view.console.product;
 
 import controller.product.filter.AllProductsController;
 import model.filter.Filter;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.Product;
 import view.console.Menu;
 
@@ -30,10 +30,10 @@ public class AllProductsMenu extends Menu {
 
     //NOT SURE!!!!!!!!!!
     public void viewCategories() {
-        ArrayList<Category> categories = allProductsController.getAllCategories();
+        ArrayList<SubCategory> categories = allProductsController.getAllCategories();
         System.out.println("All categories:");
-        for (Category category : categories)
-            System.out.println(category.getName());
+        for (SubCategory subCategory : categories)
+            System.out.println(subCategory.getName());
     }
 
     public void showProducts() {

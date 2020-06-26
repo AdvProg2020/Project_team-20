@@ -4,7 +4,7 @@ import controller.MainController;
 import model.account.GeneralAccount;
 import model.account.TempAccount;
 import model.product.Advertisement;
-import model.product.category.Category;
+import model.product.category.SubCategory;
 import model.product.Product;
 import model.product.category.CategorySet;
 
@@ -35,8 +35,8 @@ public class AllProductsController extends Filterable {
             throw new InvalidCommandException();
     }
 
-    public ArrayList<Category> getAllCategories() {
-        return Category.getAllCategories();
+    public ArrayList<SubCategory> getAllCategories() {
+        return SubCategory.getAllCategories();
     }
 
     public ArrayList<CategorySet> getAllCategorySets() {
@@ -69,11 +69,11 @@ public class AllProductsController extends Filterable {
         return Advertisement.getAdds();
     }
 
-    public void disableCategoryFields(Category category) throws Exception {
+    public void disableCategoryFields(SubCategory category) throws Exception {
         for (String fieldName : category.getFields()) {
             allProductsController.disAbleFilter(fieldName);
         }
-        for (Category subCategory : category.getSubCategories()) {
+        for (SubCategory subCategory : category.getSubCategories()) {
             disableCategoryFields(subCategory);
         }
     }

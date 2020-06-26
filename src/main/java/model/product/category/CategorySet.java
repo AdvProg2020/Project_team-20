@@ -7,10 +7,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CategorySet {
+public class CategorySet extends Category{
     private static ArrayList<CategorySet> allCategorySets = new ArrayList<>();
     private ArrayList<CategorySet> categorySets;
-    private ArrayList<Category> categories;
+    private ArrayList<SubCategory> categories;
     private String name;
 
     public CategorySet(String name) throws CategoryNameException {
@@ -44,8 +44,8 @@ public class CategorySet {
 
 
     private boolean checkName(String name) {
-        for (Category category : Category.getAllCategories()) {
-            if (category.getName().equals(name))
+        for (SubCategory subCategory : SubCategory.getAllCategories()) {
+            if (subCategory.getName().equals(name))
                 return false;
         }
         for (CategorySet categorySet : allCategorySets) {
@@ -61,8 +61,8 @@ public class CategorySet {
         for (CategorySet categorySet : categorySets) {
             products.addAll(categorySet.getProducts());
         }
-        for (Category category : categories) {
-            products.addAll(category.getProducts());
+        for (SubCategory subCategory : categories) {
+            products.addAll(subCategory.getProducts());
         }
         return products;
     }
@@ -75,12 +75,12 @@ public class CategorySet {
         this.categorySets.add(categorySet);
     }
 
-    public ArrayList<Category> getCategories() {
+    public ArrayList<SubCategory> getCategories() {
         return categories;
     }
 
-    public void addToCategories(Category category) {
-        this.categories.add(category);
+    public void addToCategories(SubCategory subCategory) {
+        this.categories.add(subCategory);
     }
 
     public String getName() {
@@ -95,7 +95,7 @@ public class CategorySet {
         return allCategorySets;
     }
 
-    public void removeSubCategory(Category subCategory) {
+    public void removeSubCategory(SubCategory subCategory) {
         categories.remove(subCategory);
     }
 
