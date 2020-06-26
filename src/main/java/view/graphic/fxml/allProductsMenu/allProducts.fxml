@@ -148,11 +148,15 @@
                                        <children>
                                           <VBox prefHeight="441.0" prefWidth="215.0">
                                              <children>
-                                                <ImageView fx:id="productImg1" fitHeight="121.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
-                                                   <VBox.margin>
-                                                      <Insets bottom="3.0" left="14.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </ImageView>
+                                                <Pane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ImageView fx:id="productImg1" fitHeight="121.0" fitWidth="186.0" layoutX="15.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="noticeImg1" fitHeight="39.0" fitWidth="78.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../../../resources/Images/Sale.png" />
+                                                         </image></ImageView>
+                                                   </children>
+                                                </Pane>
                                                 <Text fx:id="product1" fill="#575957" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                                    <font>
                                                       <Font size="15.0" />
@@ -194,11 +198,15 @@
                                        <children>
                                           <VBox prefHeight="441.0" prefWidth="215.0">
                                              <children>
-                                                <ImageView fx:id="productImg2" fitHeight="121.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
-                                                   <VBox.margin>
-                                                      <Insets bottom="3.0" left="14.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </ImageView>
+                                                <Pane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ImageView fx:id="productImg2" fitHeight="121.0" fitWidth="186.0" layoutX="15.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="noticeImg2" fitHeight="39.0" fitWidth="78.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../../../resources/Images/Sale.png" />
+                                                         </image></ImageView>
+                                                   </children>
+                                                </Pane>
                                                 <Text fx:id="product2" fill="#575957" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                                    <font>
                                                       <Font size="15.0" />
@@ -240,11 +248,15 @@
                                        <children>
                                           <VBox prefHeight="441.0" prefWidth="215.0">
                                              <children>
-                                                <ImageView fx:id="productImg3" fitHeight="121.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
-                                                   <VBox.margin>
-                                                      <Insets bottom="3.0" left="14.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </ImageView>
+                                                <Pane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ImageView fx:id="productImg3" fitHeight="121.0" fitWidth="186.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="noticeImg3" fitHeight="39.0" fitWidth="78.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../../../resources/Images/Sale.png" />
+                                                         </image></ImageView>
+                                                   </children>
+                                                </Pane>
                                                 <Text fx:id="product3" fill="#575957" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                                    <font>
                                                       <Font size="15.0" />
@@ -286,11 +298,15 @@
                                        <children>
                                           <VBox prefHeight="441.0" prefWidth="215.0">
                                              <children>
-                                                <ImageView fx:id="productImg4" fitHeight="121.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
-                                                   <VBox.margin>
-                                                      <Insets bottom="3.0" left="14.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </ImageView>
+                                                <Pane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ImageView fx:id="productImg4" fitHeight="121.0" fitWidth="186.0" layoutX="15.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="noticeImg4" fitHeight="39.0" fitWidth="78.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../../../resources/Images/Sale.png" />
+                                                         </image></ImageView>
+                                                   </children>
+                                                </Pane>
                                                 <Text fx:id="product4" fill="#575957" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                                    <font>
                                                       <Font size="15.0" />
@@ -332,11 +348,15 @@
                                        <children>
                                           <VBox prefHeight="441.0" prefWidth="215.0">
                                              <children>
-                                                <ImageView fx:id="productImg5" fitHeight="121.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
-                                                   <VBox.margin>
-                                                      <Insets bottom="3.0" left="14.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </ImageView>
+                                                <Pane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ImageView fx:id="productImg5" fitHeight="121.0" fitWidth="186.0" layoutX="15.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="noticeImg5" fitHeight="39.0" fitWidth="78.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../../../resources/Images/Sale.png" />
+                                                         </image></ImageView>
+                                                   </children>
+                                                </Pane>
                                                 <Text fx:id="product5" fill="#575957" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                                    <font>
                                                       <Font size="15.0" />
@@ -378,11 +398,15 @@
                                        <children>
                                           <VBox prefHeight="441.0" prefWidth="215.0">
                                              <children>
-                                                <ImageView fx:id="productImg6" fitHeight="121.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
-                                                   <VBox.margin>
-                                                      <Insets bottom="3.0" left="14.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </ImageView>
+                                                <Pane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ImageView fx:id="productImg6" fitHeight="121.0" fitWidth="186.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="noticeImg6" fitHeight="39.0" fitWidth="78.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../../../resources/Images/Sale.png" />
+                                                         </image></ImageView>
+                                                   </children>
+                                                </Pane>
                                                 <Text fx:id="product6" fill="#575957" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                                    <font>
                                                       <Font size="15.0" />
@@ -424,11 +448,15 @@
                                        <children>
                                           <VBox prefHeight="441.0" prefWidth="215.0">
                                              <children>
-                                                <ImageView fx:id="productImg7" fitHeight="121.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
-                                                   <VBox.margin>
-                                                      <Insets bottom="3.0" left="14.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </ImageView>
+                                                <Pane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ImageView fx:id="productImg7" fitHeight="121.0" fitWidth="186.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="noticeImg7" fitHeight="39.0" fitWidth="78.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../../../resources/Images/Sale.png" />
+                                                         </image></ImageView>
+                                                   </children>
+                                                </Pane>
                                                 <Text fx:id="product7" fill="#575957" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                                    <font>
                                                       <Font size="15.0" />
@@ -470,11 +498,15 @@
                                        <children>
                                           <VBox prefHeight="441.0" prefWidth="215.0">
                                              <children>
-                                                <ImageView fx:id="productImg8" fitHeight="121.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
-                                                   <VBox.margin>
-                                                      <Insets bottom="3.0" left="14.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </ImageView>
+                                                <Pane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ImageView fx:id="productImg8" fitHeight="121.0" fitWidth="186.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="noticeImg8" fitHeight="39.0" fitWidth="78.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../../../resources/Images/Sale.png" />
+                                                         </image></ImageView>
+                                                   </children>
+                                                </Pane>
                                                 <Text fx:id="product8" fill="#575957" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                                    <font>
                                                       <Font size="15.0" />
@@ -516,11 +548,15 @@
                                        <children>
                                           <VBox prefHeight="441.0" prefWidth="215.0">
                                              <children>
-                                                <ImageView fx:id="productImg9" fitHeight="121.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
-                                                   <VBox.margin>
-                                                      <Insets bottom="3.0" left="14.0" top="5.0" />
-                                                   </VBox.margin>
-                                                </ImageView>
+                                                <Pane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ImageView fx:id="productImg9" fitHeight="121.0" fitWidth="186.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+                                                      <ImageView fx:id="noticeImg9" fitHeight="39.0" fitWidth="78.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../../../../resources/Images/Sale.png" />
+                                                         </image></ImageView>
+                                                   </children>
+                                                </Pane>
                                                 <Text fx:id="product9" fill="#575957" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="190.0">
                                                    <font>
                                                       <Font size="15.0" />
@@ -652,7 +688,8 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-               </children></Pane>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>
