@@ -35,8 +35,8 @@ public class SellerController implements AccountController {
         return sellerController;
     }
 
-    public void addAdvertisement (Product product, Seller seller, String text) throws Exception{
-        if (seller.getCredit()<500000)
+    public void addAdvertisement(Product product, Seller seller, String text) throws Exception {
+        if (seller.getCredit() < 500000)
             throw new Account.notEnoughMoneyException();
         Advertisement adv = new Advertisement(seller, product, LocalDateTime.now().plusDays(5), text);
         Manager.addRequest(adv);
@@ -54,7 +54,7 @@ public class SellerController implements AccountController {
         return Product.getAllProducts();
     }
 
-    public ArrayList<Product> getSellerProducts(){
+    public ArrayList<Product> getSellerProducts() {
         return seller.getProducts();
     }
 
@@ -70,7 +70,7 @@ public class SellerController implements AccountController {
     public void editProduct(String productId, ArrayList<String> details, ArrayList<String> numericalFieldsToRemove,
                             HashMap<String, Double> numericalFieldsToAdd,
                             ArrayList<String> optionalFieldsTORemove,
-                            HashMap<String, ArrayList<String>> optionalFieldsToAdd)throws Exception {
+                            HashMap<String, ArrayList<String>> optionalFieldsToAdd) throws Exception {
         Product product = Product.getProductById(productId);
         ArrayList<Field> fields = new ArrayList<>(product.getGeneralFields());
         editFields(fields, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsTORemove,
@@ -116,7 +116,7 @@ public class SellerController implements AccountController {
     }
 
     public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
-                              HashMap<String, ArrayList<String>> optionalFields,String path) {
+                              HashMap<String, ArrayList<String>> optionalFields, String path) {
         String name = details.get(0), description = details.get(1);
         int count = Integer.parseInt(details.get(2));
         double price = Double.parseDouble(details.get(3));
@@ -143,15 +143,25 @@ public class SellerController implements AccountController {
 
     private ArrayList<Field> createFieldsToRemove(ArrayList<String> fieldsToRemove, ArrayList<Field> fields)
             throws Exception {
-        ArrayList<Field> newFields = new ArrayList<>(fields);
-        for (Field newField : newFields) {
-            for (String field : fieldsToRemove) {
+        ArrayList<Field> newFields = new ArrayList<>();
+        for (String field : fieldsToRemove) {
+            for (Field newField : fields) {
                 if (newField.getName().equals(field))
-                    newFields.remove(newField);
-                else throw new hasNotThisFiledException(newField);
+                    newFields.add(newField);
+                else if (!containsField(fields, field)) {
+                    throw new hasNotThisFiledException(newField);
+                }
             }
         }
         return newFields;
+    }
+
+    private boolean containsField(ArrayList<Field> fields, String name) {
+        for (Field field : fields) {
+            if (field.getName().equals(name))
+                return true;
+        }
+        return false;
     }
 
     private ArrayList<Field> createNumericalFields(HashMap<String, Double> numericalFields) {
@@ -192,13 +202,13 @@ public class SellerController implements AccountController {
         ArrayList<Product> productsToRemove = Product.getProductsWithIds(productIdsToRemove),
                 productsToAdd = Product.getProductsWithIds(productIdsToAdd), newProducts = getSaleProducts(offId);
         double salePercentage;
-        if (startDate==null) {
+        if (startDate == null) {
             startDate = sale.getStartDate();
         }
-        if (endDate==null) {
+        if (endDate == null) {
             endDate = sale.getEndDate();
         }
-        if (salePercentageStr!=null) {
+        if (salePercentageStr != null) {
             salePercentage = Double.parseDouble(salePercentageStr) / 100;
         } else salePercentage = sale.getSalePercentage();
 
