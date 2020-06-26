@@ -24,6 +24,14 @@ public abstract class Category {
         return true;
     }
 
+    public static Category getCategoryByName(String name) throws Exception {
+        for (Category category : allCategories) {
+            if (category.getName().equals(name))
+                return category;
+        }
+        throw new CategoryDoesNotFoundException();
+    }
+
     public static ArrayList<Category> getAllCategories() {
         return allCategories;
     }
@@ -40,6 +48,12 @@ public abstract class Category {
     public static class CategoryNameException extends Exception {
         public CategoryNameException() {
             super("we have another category with this name!");
+        }
+    }
+
+    public static class CategoryDoesNotFoundException extends Exception {
+        public CategoryDoesNotFoundException() {
+            super("category doesn't exist");
         }
     }
 

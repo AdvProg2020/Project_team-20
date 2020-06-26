@@ -215,8 +215,8 @@ public class ManagerController implements controller.account.user.AccountControl
     }
 
     public void editCategoryName(String categoryName, String newName) throws Exception {
-        SubCategory subCategory = getCategoryByName(categoryName);
-        subCategory.setName(newName);
+        Category category = Category.getCategoryByName(categoryName);
+        category.setName(newName);
     }
 
     public void removeFieldFromCategory(String name, String fieldName) throws Exception {

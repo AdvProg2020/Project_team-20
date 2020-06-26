@@ -126,11 +126,6 @@ public class SubCategory extends Category {
         throw new CategoryDoesNotFoundException();
     }
 
-    public static class CategoryDoesNotFoundException extends Exception {
-        public CategoryDoesNotFoundException() {
-            super("category doesn't exist");
-        }
-    }
 
     public static void store() {
         YaGson yaGson = new YaGson();
@@ -163,7 +158,7 @@ public class SubCategory extends Category {
     public String toString() {
         StringBuilder fieldNamesString = new StringBuilder();
         StringBuilder productIDsString = new StringBuilder();
-        int i = 1, j = 1, k = 1;
+        int i = 1, k = 1;
         for (String fieldName : fieldNames) {
             fieldNamesString.append(i++).append(": ").append(fieldName).append("\n");
         }
