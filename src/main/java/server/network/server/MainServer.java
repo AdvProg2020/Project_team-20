@@ -15,5 +15,10 @@ public class MainServer extends Server{
 
         }
     }
+
+    @Override
+    protected void setMethods() {
+
+    }
 }
 
