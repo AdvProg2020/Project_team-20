@@ -88,7 +88,7 @@ public class FxmlRegisterAndLoginMenu {
     }
 
     public void handleSignUp() throws Exception {
-        Parent root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/registerAndLoginMenu/SignUpFxml.fxml").toURI().toURL());
+        Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/registerAndLoginMenu/SignUpFxml.fxml").toURI().toURL());
         window.setTitle("Sign up menu");
         window.setScene(new Scene(root, 994, 666));
         window.show();
@@ -105,7 +105,7 @@ public class FxmlRegisterAndLoginMenu {
     }
 
     public void showSignUpSeller() throws Exception {
-        Parent root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/registerAndLoginMenu/SignUpSeller.fxml").toURI().toURL());
+        Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/registerAndLoginMenu/SignUpSeller.fxml").toURI().toURL());
         window.setTitle("Sign up menu");
         window.setScene(new Scene(root, 994, 666));
         window.show();

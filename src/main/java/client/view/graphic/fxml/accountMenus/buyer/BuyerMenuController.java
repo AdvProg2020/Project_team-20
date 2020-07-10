@@ -50,7 +50,7 @@ public class BuyerMenuController implements Initializable {
 
     public static void start(Stage stage) throws Exception {
         window = stage;
-        Parent root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/accountMenus/buyer/BuyerMenuFxml.fxml").toURI().toURL());
+        Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/buyer/BuyerMenuFxml.fxml").toURI().toURL());
         stage.setTitle("Sign up menu");
         stage.setScene(new Scene(root, 994, 666));
         stage.show();
@@ -69,7 +69,7 @@ public class BuyerMenuController implements Initializable {
     public void loadUI(String ui) {
         Parent root;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/accountMenus/buyer/" + ui + "Fxml" + ".fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/buyer/" + ui + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
             e.printStackTrace();

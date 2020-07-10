@@ -26,7 +26,7 @@ public class PopUpControllerFxml implements Initializable {
         mainStage = new Stage();
         Parent root;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/popUp/popUpFxml.fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/popUp/popUpFxml.fxml").toURI().toURL());
             Scene alertScene = new Scene(root, 600, 400);
             mainStage.setScene(alertScene);
             mainStage.initStyle(StageStyle.UNDECORATED);

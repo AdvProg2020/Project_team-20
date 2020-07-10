@@ -48,7 +48,7 @@ public class SellerMenuController implements Initializable {
 
     public static void start(Stage stage) throws Exception {
         window = stage;
-        Parent root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/accountMenus/seller/SellerMenuFxml.fxml").toURI().toURL());
+        Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/seller/SellerMenuFxml.fxml").toURI().toURL());
         stage.setTitle("Seller menu");
         stage.setScene(new Scene(root, 994, 666));
         stage.show();
@@ -83,7 +83,7 @@ public class SellerMenuController implements Initializable {
     private void loadUI(String ui) {
         Parent root;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/accountMenus/seller/" + ui + "Fxml" + ".fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/seller/" + ui + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
             e.printStackTrace();

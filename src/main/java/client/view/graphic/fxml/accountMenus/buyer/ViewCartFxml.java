@@ -170,7 +170,7 @@ public class ViewCartFxml implements Initializable {
         Parent root;
         try {
             PurchaseMenu.setBorderPane(borderPane);
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/accountMenus/buyer/" + "purchaseMenu" + "Fxml" + ".fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/buyer/" + "purchaseMenu" + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
             e.printStackTrace();

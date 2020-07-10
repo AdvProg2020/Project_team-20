@@ -14,7 +14,7 @@ public class Score {
     public Image getScoreImg() {
         long i = Math.round(score);
         try {
-            return new Image(new File("src/main/java/client.view/graphic/score/Score" + i + ".png").toURI().toString());
+            return new Image(new File("src/main/java/client/view/graphic/score/Score" + i + ".png").toURI().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -38,13 +38,13 @@ public class ProgramApplication extends Application {
 
     private void initializeScenes() throws Exception {
         Parent root;
-        root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/mainMenu/mainMenu.fxml").toURI().toURL());
+        root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/mainMenu/mainMenu.fxml").toURI().toURL());
         mainMenu = new Scene(root, 994, 666);
-        root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/allProducts.fxml").toURI().toURL());
+        root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/allProducts.fxml").toURI().toURL());
         allProductsMenu = new Scene(root, 994, 666);
-        root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/registerAndLoginMenu/registerAndLoginMenu.fxml").toURI().toURL());
+        root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/registerAndLoginMenu/registerAndLoginMenu.fxml").toURI().toURL());
         registerAndLoginMenu = new Scene(root, 994, 666);
-        root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/registerAndLoginMenu/FxmlManagerLogin.fxml").toURI().toURL());
+        root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/registerAndLoginMenu/FxmlManagerLogin.fxml").toURI().toURL());
         loginManager = new Scene(root, 994, 666);
     }
 
@@ -82,7 +82,7 @@ public class ProgramApplication extends Application {
                 mainStage.setTitle("all products menu");
                 Parent root;
                 try {
-                    root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/allProducts.fxml").toURI().toURL());
+                    root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/allProducts.fxml").toURI().toURL());
                     allProductsMenu = new Scene(root, 994, 666);
                     FxmlAllProductsMenu.setMainWindow(mainStage);
                     mainStage.setScene(allProductsMenu);

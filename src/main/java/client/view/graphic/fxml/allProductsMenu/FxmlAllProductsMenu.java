@@ -615,7 +615,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack));
         Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
         } catch (IOException e) {
@@ -628,7 +628,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 1));
         Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
         } catch (IOException e) {
@@ -641,7 +641,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 2));
         Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
         } catch (IOException e) {
@@ -654,7 +654,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 3));
         Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
         } catch (IOException e) {
@@ -667,7 +667,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 4));
         Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
         } catch (IOException e) {
@@ -680,7 +680,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 5));
         Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
         } catch (IOException e) {
@@ -693,7 +693,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 6));
         Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
         } catch (IOException e) {
@@ -706,7 +706,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 7));
         Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
         } catch (IOException e) {
@@ -719,7 +719,7 @@ public class FxmlAllProductsMenu implements Initializable {
         ProductMenuFxml.setCurrentProduct(products.get(fromForBack + 8));
         Parent root = null;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/allProductsMenu/productMenuFxml.fxml").toURI().toURL());
             mainWindow.setScene(new Scene(root, 994, 666));
             mainWindow.show();
         } catch (IOException e) {

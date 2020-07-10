@@ -111,7 +111,7 @@ public class PurchaseMenu implements Initializable {
         buyerController.viewCart().resetCart();
         Parent root;
         try {
-            root = FXMLLoader.load(new File("src/main/java/client.view/graphic/fxml/accountMenus/buyer/" + "purchaseMenu" + "Fxml" + ".fxml").toURI().toURL());
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/buyer/" + "purchaseMenu" + "Fxml" + ".fxml").toURI().toURL());
             borderPane.setCenter(root);
         } catch (Exception e) {
             e.printStackTrace();
