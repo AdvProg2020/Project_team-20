@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="511.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.accountMenus.buyer.ViewOrderFxml">
+   <children>
+      <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="View orders" wrappingWidth="207.58889770507812">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
+      <TableView fx:id="table" layoutX="109.0" layoutY="102.0" onMouseClicked="#selectOrder" opacity="0.7" prefHeight="261.0" prefWidth="178.0" style="-fx-border-color: #009f9c;">
+         <columns>
+            <TableColumn fx:id="orderId" prefWidth="176.0" text="OrderID" />
+         </columns>
+      </TableView>
+      <Text fill="#5dabaa" layoutX="312.0" layoutY="114.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Details">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="312.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paid money:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="312.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Discount percentage:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="312.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date&amp;time:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="312.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="id:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TableView fx:id="productsTable" layoutX="312.0" layoutY="238.0" onMouseClicked="#selectOrder" opacity="0.7" prefHeight="125.0" prefWidth="178.0" style="-fx-border-color: #009f9c;">
+         <columns>
+            <TableColumn fx:id="productsColumn" prefWidth="89.0" text="Products" />
+            <TableColumn fx:id="quantityColumn" prefWidth="89.0" text="Quantity" />
+         </columns>
+      </TableView>
+      <TableView fx:id="sellersTable" layoutX="507.0" layoutY="238.0" onMouseClicked="#selectOrder" opacity="0.7" prefHeight="125.0" prefWidth="178.0" style="-fx-border-color: #009f9c;">
+         <columns>
+            <TableColumn fx:id="sellersColumn" prefWidth="176.0" text="Sellers" />
+         </columns>
+      </TableView>
+      <Text fx:id="paidMoneyTxt" fill="#575957" layoutX="507.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="121.2060546875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="discountTxt" fill="#575957" layoutX="507.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.791015625">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="timeTxt" fill="#575957" layoutX="507.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.791015625">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="idTxt" fill="#575957" layoutX="507.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="141.791015625">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

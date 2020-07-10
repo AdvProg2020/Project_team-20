@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="555.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.accountMenus.seller.ManageOffsFxml">
+   <children>
+      <TableView fx:id="table" layoutX="21.0" layoutY="46.0" onMouseClicked="#selectOff" opacity="0.7" prefHeight="84.0" prefWidth="227.0" style="-fx-border-color: #009f9c;">
+         <columns>
+            <TableColumn fx:id="saleIds" prefWidth="225.0" text="Off Id" />
+         </columns>
+      </TableView>
+      <Text fill="#575957" layoutX="21.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Offs" wrappingWidth="207.58889770507812">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
+      <Text fx:id="title" fill="#5dabaa" layoutX="21.0" layoutY="162.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Details">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="21.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Off Id:" wrappingWidth="56.384765625">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="21.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sale percentage:" wrappingWidth="127.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="saleId" editable="false" layoutX="156.0" layoutY="165.0" prefHeight="27.0" prefWidth="73.0" style="-fx-background-color: transparent; -fx-text-inner-color: #575957;" />
+      <TextField fx:id="salePercentage" editable="false" layoutX="156.0" layoutY="198.0" prefHeight="27.0" prefWidth="73.0" style="-fx-background-color: transparent; -fx-text-inner-color: #575957;" />
+      <Button fx:id="editButton" layoutX="22.0" layoutY="435.0" mnemonicParsing="false" onAction="#handleEdit" onMouseEntered="#handleEnter" onMouseExited="#handleExit" opacity="0.71" style="-fx-background-color: #009f9c;" text="Edit" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Button>
+      <TextField fx:id="percentageEdit" layoutX="291.0" layoutY="198.0" opacity="0.0" prefHeight="27.0" prefWidth="133.0" promptText="Edited percentage" style="-fx-background-color: #2c5a67;" />
+      <Button fx:id="percentageOk" layoutX="95.0" layoutY="435.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+      <Text fill="#575957" layoutX="21.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start date:" wrappingWidth="127.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#575957" layoutX="21.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End date:" wrappingWidth="127.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="startDate" editable="false" layoutX="101.0" layoutY="232.0" prefHeight="27.0" prefWidth="127.0" style="-fx-background-color: transparent; -fx-text-inner-color: #575957;" />
+      <TextField fx:id="endDate" editable="false" layoutX="101.0" layoutY="265.0" prefHeight="27.0" prefWidth="127.0" style="-fx-background-color: transparent; -fx-text-inner-color: #575957;" />
+      <JFXDatePicker fx:id="startDatePicker" defaultColor="#5fccd0" layoutX="293.0" layoutY="231.0" opacity="0.0" promptText="Edited start date" />
+      <JFXTimePicker fx:id="startTimePicker" defaultColor="#5fccd0" layoutX="495.0" layoutY="231.0" opacity="0.0" promptText="Edited start time" />
+      <JFXDatePicker fx:id="endDatePicker" defaultColor="#5fccd0" layoutX="293.0" layoutY="264.0" opacity="0.0" promptText="Edited end date" />
+      <JFXTimePicker fx:id="endTimePicker" defaultColor="#5fccd0" layoutX="495.0" layoutY="264.0" opacity="0.0" promptText="Edited end time" />
+      <TableView fx:id="table1" layoutX="560.0" layoutY="308.0" onMouseClicked="#selectRequest" opacity="0.0" prefHeight="119.0" prefWidth="127.0" style="-fx-border-color: #009f9c;">
+         <columns>
+            <TableColumn fx:id="productNames" prefWidth="127.0" text="Your products" />
+         </columns>
+      </TableView>
+      <TableView fx:id="chosenTable" layoutX="291.0" layoutY="308.0" opacity="0.0" prefHeight="119.0" prefWidth="127.0" style="-fx-border-color: #009f9c;">
+         <columns>
+            <TableColumn fx:id="chosenUsers" prefWidth="127.0" text="Add products" />
+         </columns>
+      </TableView>
+      <TableView fx:id="saleProductNamesTable" layoutX="21.0" layoutY="308.0" onMouseClicked="#selectRequestProducts" prefHeight="119.0" prefWidth="178.0" style="-fx-border-color: #009f9c;">
+         <columns>
+            <TableColumn fx:id="saleProductNames" prefWidth="176.0" text="products" />
+         </columns>
+      </TableView>
+      <TableView fx:id="productsToRemoveTable" layoutX="423.0" layoutY="308.0" onMouseClicked="#selectRequest" opacity="0.0" prefHeight="119.0" prefWidth="133.0" style="-fx-border-color: #009f9c;">
+         <columns>
+            <TableColumn fx:id="removeProducts" prefWidth="130.0" text="Remove products" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

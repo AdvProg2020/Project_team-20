@@ -1,9 +1,9 @@
-import controller.MainController;
-import controller.account.user.BuyerController;
+import client.controller.MainController;
+import client.controller.account.user.BuyerController;
 import mockit.Injectable;
 import mockit.Tested;
-import model.account.Buyer;
-import model.product.Discount;
+import client.model.account.Buyer;
+import client.model.product.Discount;
 
 public class BuyerControllerTest {
 
