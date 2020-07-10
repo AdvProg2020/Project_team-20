@@ -7,10 +7,8 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 
 public abstract class Server {
-    private static final int DEFAULT_PORT = 8000;
-
-    private ServerSocket serverSocket;
-    private ArrayList<Client> clients;
+    protected ServerSocket serverSocket;
+    protected ArrayList<Client> clients;
 
     public Server(int port) {
         try {
