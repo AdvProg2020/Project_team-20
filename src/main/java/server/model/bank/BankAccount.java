@@ -5,6 +5,7 @@ public class BankAccount {
     private String lastName;
     private String username;
     private String password;
+    private String accountNumber;
 
     public BankAccount(String firstName, String lastName, String username, String password) {
         this.firstName = firstName;
@@ -27,5 +28,13 @@ public class BankAccount {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
     }
 }
