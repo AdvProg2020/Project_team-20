@@ -19,6 +19,16 @@ public class Client {
     private Account account;
     private AuthToken authToken;
 
+    public Client(Socket socket) {
+        try {
+            this.socket = socket;
+            this.dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            this.dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Client() {
         try {
             this.socket = new Socket(HOST, DEFAULT_PORT);
@@ -38,9 +48,6 @@ public class Client {
     public void writeMessage(Message massage) {
 
     }
-
-
-
 
 
     public DataOutputStream getDataOutputStream() {
