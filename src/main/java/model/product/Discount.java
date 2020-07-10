@@ -85,13 +85,16 @@ public class Discount {
         throw new discountCodeNotFoundException();
     }
 
-    public static void decreaseDiscountCodeUsageBuyer(Buyer buyer, int discountCode) {
+    public static int decreaseDiscountCodeUsageBuyer(Buyer buyer, int discountCode) {
         for (Discount discount : allDiscounts) {
             if (discount.getDiscountCode() == discountCode && discount.getBuyersWithDiscount().contains(buyer)
-                    && discount.getNumberOfUsageForEachBuyer().get(buyer) > 0)
-                discount.getNumberOfUsageForEachBuyer().put(buyer,
+                    && discount.getNumberOfUsageForEachBuyer().get(buyer) > 0){
+                discount.getNumberOfUsageForEachBuyer().replace(buyer,
                         discount.getNumberOfUsageForEachBuyer().get(buyer) - 1);
+                return 1;
+            }
         }
+        return 0;
     }
 
     private void setNumberOfUsageForBuyers(int maxNumberOfUsage, ArrayList<Buyer> buyersWithDiscount) {
