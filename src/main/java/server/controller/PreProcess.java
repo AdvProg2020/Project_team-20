@@ -33,9 +33,8 @@ public class PreProcess {
     }
 
 
-    public void purchaseGift() {
+    public void purchaseGift(Buyer buyer) {
         Action[] actions = {() -> {
-            Buyer buyer = buyerController.getCurrentBuyer();
             ArrayList<Buyer> buyerArrayList = new ArrayList<>();
             buyerArrayList.add(buyer);
             new Discount(LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS),
@@ -50,13 +49,13 @@ public class PreProcess {
             buyers.clear();
         }};
         Event[] events = {() -> {
-            double totalPrice = buyerController.getTotalPrice();
+            double totalPrice = (double) buyerController.getTotalPrice(buyer).getObjects().get(0);
             return totalPrice >= 1000000;
         }, () -> {
-            double totalPrice = buyerController.getTotalPrice();
+            double totalPrice = (double) buyerController.getTotalPrice(buyer).getObjects().get(0);
             return totalPrice >= 10000000;
         }, () -> {
-            double totalPrice = buyerController.getTotalPrice();
+            double totalPrice = (double) buyerController.getTotalPrice(buyer).getObjects().get(0);
             return totalPrice >= 100000000;
         }};
         GiftController[] giftControllers = {new GiftController(actions[0], events[2]),

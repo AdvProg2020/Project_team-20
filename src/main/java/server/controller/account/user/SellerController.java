@@ -13,6 +13,7 @@ import server.model.product.Field.NumericalField;
 import server.model.product.Field.OptionalField;
 import server.model.product.category.SubCategory;
 import server.model.receipt.SellerReceipt;
+import server.network.Message;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -302,12 +303,20 @@ public class SellerController implements AccountController {
     }
 
     @Override
-    public Account getAccountInfo() {
-        return seller;
+    public Message getAccountInfo(String username) {
+        Message message = new Message("account info");
+        try {
+            message.addToObjects(Account.getAccountWithUsername(username));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
     @Override
-    public void editField(String field, String context) throws Exception {
+    public Message editField(String field, String context, Account account) throws Exception {
+        Seller seller = (Seller) account;
         switch (field) {
             case "name":
                 seller.changeStateEdited(context, seller.getLastName(), seller.getEmail(), seller.getPhoneNumber(),
@@ -338,9 +347,12 @@ public class SellerController implements AccountController {
                         seller.getPhoneNumber(), seller.getPassword(), seller.getCredit(), context);
                 break;
             default:
-                throw new ManagerController.fieldIsInvalidException();
+                Message message = new Message("edit request sent");
+                message.addToObjects(new ManagerController.fieldIsInvalidException());
+                return message;
         }
         Manager.addRequest(seller);
+        return new Message("edit request sent");
     }
 
     public static class discountPercentageNotValidException extends Exception {
@@ -349,22 +361,20 @@ public class SellerController implements AccountController {
         }
     }
 
-    public void setProfileImage(String path) {
-        seller.setImagePath(path);
-    }
-
-    public static Seller getSeller() {
-        return seller;
+    public Message setProfileImage(String path, Account currentSeller) {
+        currentSeller.setImagePath(path);
+        return new Message("set profile image was successful");
     }
 
     @Override
-    public void changeMainImage(Image image) {
-        seller.getGraphicPackage().setMainImage(image);
+    public Message changeMainImage(Image image, Account currentSeller) {
+        currentSeller.getGraphicPackage().setMainImage(image);
+        return new Message("change main image");
     }
 
     @Override
-    public void logout() {
-        seller = null;
-        mainController.logout();
+    public Message logout(Account currentSeller) {
+        //TODO
+        return new Message("logout was successful");
     }
 }

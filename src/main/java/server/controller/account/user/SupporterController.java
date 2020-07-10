@@ -1,36 +1,26 @@
 package server.controller.account.user;
 
-import server.controller.MainController;
 import javafx.scene.image.Image;
 import server.model.account.Account;
-import server.model.account.Buyer;
-import server.model.account.Manager;
 import server.model.account.Supporter;
-
-import java.util.ArrayList;
+import server.network.Message;
 
 public class SupporterController implements AccountController {
 
     private static SupporterController supporterController = null;
-    private static Supporter currentSupporter;
-    private MainController mainController;
-
-    private ArrayList<Buyer> buyers;
 
     private SupporterController() {
-        this.mainController = MainController.getInstance();
-        this.buyers = new ArrayList<>();
     }
 
     public SupporterController getInstance() {
         if (supporterController == null)
             supporterController = new SupporterController();
-        currentSupporter = (Supporter) MainController.getInstance().getAccount();
         return supporterController;
     }
 
     @Override
-    public void editField(String field, String context) throws Exception {
+    public Message editField(String field, String context, Account account) throws Exception {
+        Supporter currentSupporter = (Supporter) account;
         switch (field) {
             case "name":
                 currentSupporter.setName(context);
@@ -48,28 +38,41 @@ public class SupporterController implements AccountController {
                 currentSupporter.setPassword(context);
                 break;
             default:
-                throw new ManagerController.fieldIsInvalidException();
+                Message message = new Message("edit request sent");
+                message.addToObjects(new ManagerController.fieldIsInvalidException());
+                return message;
         }
+        return new Message("edit request sent");
     }
 
 
     @Override
-    public Account getAccountInfo() {
-        return currentSupporter;
+    public Message getAccountInfo(String username) {
+        Message message = new Message("account info");
+        try {
+            message.addToObjects(Account.getAccountWithUsername(username));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void setProfileImage(String path) {
+    public Message setProfileImage(String path, Account currentSupporter) {
         currentSupporter.setImagePath(path);
+        return new Message("set profile image was successful");
     }
 
     @Override
-    public void changeMainImage(Image image) {
+    public Message changeMainImage(Image image, Account currentSupporter) {
         currentSupporter.getGraphicPackage().setMainImage(image);
+        return new Message("change main image");
     }
 
     @Override
-    public void logout() {
-        mainController.logout();
+    public Message logout(Account currentSupporter) {
+        //TODO
+        return new Message("logout was successful");
     }
 
     //todo complete these

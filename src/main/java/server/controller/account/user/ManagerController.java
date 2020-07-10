@@ -1,43 +1,42 @@
 package server.controller.account.user;
 
-import server.controller.MainController;
-import server.controller.account.LoginController;
 import javafx.scene.image.Image;
+import server.controller.account.LoginController;
 import server.model.Requestable;
-import server.model.account.*;
-import server.model.product.category.Category;
-import server.model.product.category.SubCategory;
+import server.model.account.Account;
+import server.model.account.Buyer;
+import server.model.account.Manager;
 import server.model.product.Discount;
 import server.model.product.Product;
 import server.model.product.RequestableState;
+import server.model.product.category.Category;
 import server.model.product.category.CategorySet;
+import server.model.product.category.SubCategory;
+import server.network.Message;
+import server.network.server.Server;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static server.model.account.Manager.*;
-import static server.model.product.category.CategorySet.getAllCategorySets;
-import static server.model.product.category.SubCategory.*;
 import static server.model.product.Discount.removeDiscountCode;
 import static server.model.product.Product.*;
+import static server.model.product.category.CategorySet.getAllCategorySets;
 import static server.model.product.category.CategorySet.getCategorySetByName;
+import static server.model.product.category.SubCategory.*;
 
-public class ManagerController implements server.controller.account.user.AccountController {
-
-    private MainController mainController;
-    private static Manager currentManager;
+public class ManagerController extends Server implements AccountController {
 
     private static ManagerController managerController = null;
 
     private ManagerController() {
-        this.mainController = MainController.getInstance();
+        super(7000);
     }
 
     public static ManagerController getInstance() {
         if (managerController == null)
             managerController = new ManagerController();
-        currentManager = (Manager) MainController.getInstance().getAccount();
         return managerController;
     }
 
@@ -279,19 +278,32 @@ public class ManagerController implements server.controller.account.user.Account
         parentCategory.addToCategories(subCategory);
     }
 
+    @Override
+    protected void setMethods() {
+
+    }
+
     public static class fieldIsInvalidException extends Exception {
         public fieldIsInvalidException() {
             super("field is invalid!");
         }
     }
 
+
     @Override
-    public Account getAccountInfo() {
-        return currentManager;
+    public Message getAccountInfo(String username) {
+        Message message = new Message("account info");
+        try {
+            message.addToObjects(Account.getAccountWithUsername(username));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
     @Override
-    public void editField(String field, String context) throws Exception {
+    public Message editField(String field, String context, Account currentManager) throws Exception {
         switch (field) {
             case "name":
                 currentManager.setName(context);
@@ -312,25 +324,27 @@ public class ManagerController implements server.controller.account.user.Account
                 currentManager.setCredit(Double.parseDouble(context));
                 break;
             default:
-                throw new fieldIsInvalidException();
+                Message message = new Message("edit request sent");
+                message.addToObjects(new ManagerController.fieldIsInvalidException());
+                return message;
         }
+        return new Message("edited");
     }
 
-    public void setProfileImage(String path) {
+    public Message setProfileImage(String path, Account currentManager) {
         currentManager.setImagePath(path);
-    }
-
-    public static Manager getCurrentManager() {
-        return currentManager;
+        return new Message("set profile image was successful");
     }
 
     @Override
-    public void changeMainImage(Image image) {
+    public Message changeMainImage(Image image, Account currentManager) {
         currentManager.getGraphicPackage().setMainImage(image);
+        return new Message("change main image");
     }
 
     @Override
-    public void logout() {
-        mainController.logout();
+    public Message logout(Account currentManager) {
+        // TODO
+        return new Message("logout was successful");
     }
 }

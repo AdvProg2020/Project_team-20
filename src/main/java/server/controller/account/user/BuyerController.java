@@ -1,6 +1,5 @@
 package server.controller.account.user;
 
-import server.controller.MainController;
 import server.controller.PreProcess;
 import javafx.scene.image.Image;
 import server.model.account.*;
@@ -8,79 +7,115 @@ import server.model.product.*;
 import server.model.product.comment.Score;
 import server.model.receipt.BuyerReceipt;
 import server.model.receipt.SellerReceipt;
+import server.network.Message;
 
 import java.util.ArrayList;
 
 public class BuyerController implements AccountController {
-    private MainController mainController;
-    private static Buyer currentBuyer;
+
 
     private static BuyerController buyerController = null;
 
     private BuyerController() {
-        this.mainController = MainController.getInstance();
     }
 
     public static BuyerController getInstance() {
         if (buyerController == null)
             buyerController = new BuyerController();
-        currentBuyer = (Buyer) MainController.getInstance().getAccount();
         return buyerController;
     }
 
-    public ArrayList<Product> getAllProducts() {
-        return Product.getAllProducts();
+    public Message getAllProducts() {
+        Message message = new Message("all products");
+        message.addToObjects(Product.getAllProducts());
+        return message;
     }
 
-    public ArrayList<Discount> getAllDiscounts() {
+    public Message getAllDiscounts(Buyer currentBuyer) {
         PreProcess preProcess = new PreProcess();
         preProcess.setBuyerController(buyerController);
-        preProcess.purchaseGift();
-        return Discount.getAllDiscountsBuyer(currentBuyer);
+        preProcess.purchaseGift(currentBuyer);
+        Message message = new Message("all discounts");
+        message.addToObjects(Discount.getAllDiscountsBuyer(currentBuyer));
+        return message;
     }
 
-    public ArrayList<BuyerReceipt> viewOrders() {
-        return currentBuyer.getPurchaseHistory();
+    public Message viewOrders(Buyer currentBuyer) {
+        Message message = new Message("view orders");
+        message.addToObjects(currentBuyer.getPurchaseHistory());
+        return message;
     }
 
-    public void rate(String productId, double score) throws Exception {
+    public Message rate(String productId, double score, Buyer currentBuyer) {
         if (currentBuyer.hasBoughtProduct(productId)) {
-            Product product = Product.getProductById(productId);
-            product.addScore(new Score(currentBuyer, score, product));
-        } else
-            throw new buyerHasNotBought();
+            try {
+                Product product = Product.getProductById(productId);
+                product.addScore(new Score(currentBuyer, score, product));
+                return new Message("rate succeeded");
+            } catch (Exception e) {
+                Message message = new Message("Error");
+                message.addToObjects(e);
+                return message;
+            }
+        } else {
+            Message message = new Message("Error");
+            message.addToObjects(new buyerHasNotBought());
+            return message;
+        }
     }
 
-    public BuyerReceipt getBuyerReceiptById(String id) throws Exception {
-        return currentBuyer.getReceiptById(id);
+    public Message getBuyerReceiptById(String id, Buyer currentBuyer) {
+        Message message = new Message("buyer receipt");
+        try {
+            message.addToObjects(currentBuyer.getReceiptById(id));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    private void addBuyerToProductsBuyers() {
+    private void addBuyerToProductsBuyers(Buyer currentBuyer) {
         for (Product product : currentBuyer.getCart().getAllProducts().keySet()) {
             product.addBuyer(currentBuyer);
         }
     }
 
-    public void purchase(String address, String phoneNumber, String discountCode) throws Exception {
-        receiveInformation(address, phoneNumber);
+    public Message purchase(String address, String phoneNumber, String discountCode, Buyer currentBuyer) {
+        Message message;
+        receiveInformation(address, phoneNumber, currentBuyer);
         double discountPercentage = 0;
-        double totalPrice = getTotalPrice();
-        if (!discountCode.equals("") && Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
-            discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode))
-                    .getDiscountPercentage();
-            if(Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, Integer.parseInt(discountCode))==0){
-                System.out.println(discountPercentage);
-                totalPrice *= (1 - discountPercentage);
+        double totalPrice = (double) getTotalPrice(currentBuyer).getObjects().get(0);
+        try {
+            if (!discountCode.equals("") && Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
+                discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode))
+                        .getDiscountPercentage();
+                if (Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, Integer.parseInt(discountCode)) == 0) {
+                    System.out.println(discountPercentage);
+                    totalPrice *= (1 - discountPercentage);
+                }
             }
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
         }
-        pay(totalPrice);
-        decreaseAllProductBought();
-        makeReceipt(totalPrice, discountPercentage);
-        addBuyerToProductsBuyers();
+        try {
+            pay(totalPrice, currentBuyer);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+        decreaseAllProductBought(currentBuyer);
+        makeReceipt(totalPrice, discountPercentage, currentBuyer);
+        addBuyerToProductsBuyers(currentBuyer);
         currentBuyer.getCart().resetCart();
+        message = new Message("purchase was successful");
+        return message;
     }
 
-    private void decreaseAllProductBought() {
+    private void decreaseAllProductBought(Buyer currentBuyer) {
         for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
             decreaseProductSeller(selectedProduct.getProduct(), selectedProduct.getCount(), selectedProduct.getSeller());
         }
@@ -91,23 +126,23 @@ public class BuyerController implements AccountController {
         product.decreaseCountSeller(seller, number);
     }
 
-    private void makeReceipt(double totalPrice, double discountPercentage) {
-        makeBuyerReceipt(totalPrice, discountPercentage);
-        makeSellerReceipt(discountPercentage);
+    private void makeReceipt(double totalPrice, double discountPercentage, Buyer currentBuyer) {
+        makeBuyerReceipt(totalPrice, discountPercentage, currentBuyer);
+        makeSellerReceipt(discountPercentage, currentBuyer);
     }
 
-    private void makeSellerReceipt(double discountPercentage) {
+    private void makeSellerReceipt(double discountPercentage, Buyer currentBuyer) {
         Cart cart = currentBuyer.getCart();
         ArrayList<Seller> sellers = cart.getAllSellers();
         for (Seller seller : sellers) {
             seller.addToSaleHistory(new SellerReceipt(Integer.toString(SellerReceipt.getSellerReceiptCount()),
                     discountPercentage, cart.getAllProductsSeller(seller),
-                    false, getTotalPriceTotalDiscountSeller(seller, 0), currentBuyer,
-                    getTotalPriceTotalDiscountSeller(seller, 1)));
+                    false, getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer), currentBuyer,
+                    getTotalPriceTotalDiscountSeller(seller, 1, currentBuyer)));
         }
     }
 
-    private double getTotalPriceTotalDiscountSeller(Seller seller, int type) {
+    private double getTotalPriceTotalDiscountSeller(Seller seller, int type, Buyer currentBuyer) {
         Cart cart = currentBuyer.getCart();
         double totalPriceSeller = 0;
         double totalDiscount = 0;
@@ -128,25 +163,25 @@ public class BuyerController implements AccountController {
             return totalDiscount;
     }
 
-    private void makeBuyerReceipt(double totalPrice, double discountPercentage) {
+    private void makeBuyerReceipt(double totalPrice, double discountPercentage, Buyer currentBuyer) {
         Cart cart = currentBuyer.getCart();
         currentBuyer.addReceipt(new BuyerReceipt(Integer.toString(BuyerReceipt.getBuyerReceiptCount()),
                 discountPercentage, cart.getAllProducts(), false, totalPrice, cart.getAllSellers()));
     }
 
-    private void pay(double totalPrice) throws Exception {
+    private void pay(double totalPrice, Buyer currentBuyer) throws Exception {
         currentBuyer.decreaseCredit(totalPrice);
         for (Seller seller : currentBuyer.getCart().getAllSellers()) {
-            seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0));
+            seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer));
         }
     }
 
-    private void receiveInformation(String address, String phoneNumber) {
+    private void receiveInformation(String address, String phoneNumber, Buyer currentBuyer) {
         currentBuyer.setAddress(address);
         currentBuyer.setPhoneNumber(phoneNumber);
     }
 
-    public double getTotalPrice() {
+    public Message getTotalPrice(Buyer currentBuyer) {
         double totalPrice = 0;
         for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
             Sale saleForProduct = getSaleForProduct(selectedProduct);
@@ -157,10 +192,12 @@ public class BuyerController implements AccountController {
             else
                 totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
         }
-        return totalPrice;
+        Message message = new Message("totalPrice");
+        message.addToObjects(totalPrice);
+        return message;
     }
 
-    public double getDiscount() {
+    public Message getDiscount(Buyer currentBuyer) {
         double totalPrice = 0;
         double priceWithoutDiscount = 0;
         for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
@@ -175,7 +212,9 @@ public class BuyerController implements AccountController {
                 priceWithoutDiscount += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
             }
         }
-        return priceWithoutDiscount - totalPrice;
+        Message message = new Message("discount");
+        message.addToObjects(priceWithoutDiscount - totalPrice);
+        return message;
     }
 
     private Sale getSaleForProductOfSeller(Product product, Seller seller) {
@@ -194,28 +233,49 @@ public class BuyerController implements AccountController {
         return null;
     }
 
-    public Cart viewCart() {
-        return currentBuyer.getCart();
+    public Message viewCart(Buyer currentBuyer) {
+        Message message = new Message("cart");
+        message.addToObjects(currentBuyer.getCart());
+        return message;
     }
 
-    public Product getProductById(String id) throws Exception {
-        return (currentBuyer.getCart()).getProductById(id);
+    public Message getProductById(String id, Buyer currentBuyer) {
+        Message message = new Message("get product");
+        try {
+            message.addToObjects((currentBuyer.getCart()).getProductById(id));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void increaseProduct(String id, int number) throws Exception {
-        currentBuyer.getCart().increaseProduct(id, number);
+    public Message increaseProduct(String id, int number, Buyer currentBuyer) {
+        Message message = new Message("increase product");
+        try {
+            currentBuyer.getCart().increaseProduct(id, number);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void decreaseProduct(String id, int number) throws Exception {
-        currentBuyer.getCart().decreaseProduct(id, number);
+    public Message decreaseProduct(String id, int number, Buyer currentBuyer) {
+        Message message = new Message("decrease product");
+        try {
+            currentBuyer.getCart().decreaseProduct(id, number);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public double getCredit() {
-        return currentBuyer.getCredit();
-    }
-
-    public Buyer getCurrentBuyer() {
-        return currentBuyer;
+    public Message getCredit(Buyer currentBuyer) {
+        Message message = new Message("get credit");
+        message.addToObjects(currentBuyer.getCredit());
+        return message;
     }
 
     public static class buyerHasNotBought extends Exception {
@@ -225,12 +285,20 @@ public class BuyerController implements AccountController {
     }
 
     @Override
-    public Account getAccountInfo() {
-        return currentBuyer;
+    public Message getAccountInfo(String username) {
+        Message message = new Message("account info");
+        try {
+            message.addToObjects(Account.getAccountWithUsername(username));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
     @Override
-    public void editField(String field, String context) throws Exception {
+    public Message editField(String field, String context, Account account) {
+        Buyer currentBuyer = (Buyer) account;
         switch (field) {
             case "name":
                 currentBuyer.changeStateEdited(context, currentBuyer.getLastName(), currentBuyer.getEmail(),
@@ -258,23 +326,29 @@ public class BuyerController implements AccountController {
                         Double.parseDouble(context));
                 break;
             default:
-                throw new ManagerController.fieldIsInvalidException();
+                Message message = new Message("edit request sent");
+                message.addToObjects(new ManagerController.fieldIsInvalidException());
+                return message;
         }
         Manager.addRequest(currentBuyer);
+        return new Message("edit request sent");
     }
 
-    public void setProfileImage(String path) {
+    public Message setProfileImage(String path, Account currentBuyer) {
         currentBuyer.setImagePath(path);
+        return new Message("set profile image was successful");
     }
 
     @Override
-    public void changeMainImage(Image image) {
+    public Message changeMainImage(Image image, Account currentBuyer) {
         currentBuyer.getGraphicPackage().setMainImage(image);
+        return new Message("change main image");
     }
 
     @Override
-    public void logout() {
-        mainController.logout();
+    public Message logout(Account currentBuyer) {
+        //TODO
+        return new Message("logout was successful");
     }
 
     //todo complete connect to supporter

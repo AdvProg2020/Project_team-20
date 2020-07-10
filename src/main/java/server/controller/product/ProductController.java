@@ -45,13 +45,12 @@ public class ProductController {
         product.addComment(new Comment((Buyer) currentAccount, product, title, content));
     }
 
-    public void addScore(double score, Product product) throws Exception {
-        GeneralAccount currentAccount = mainController.getAccount();
+    public void addScore(double score, Product product, GeneralAccount currentAccount) throws Exception {
         if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
                 !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)) ||
                 currentAccount.getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT))
             throw new AccountNotBuyerException();
-        BuyerController.getInstance().rate(product.getId(), score);
+        BuyerController.getInstance().rate(product.getId(), score, (Buyer) currentAccount);
     }
 
     public void addReplyToComment(Comment comment, String title, String content) throws Exception {

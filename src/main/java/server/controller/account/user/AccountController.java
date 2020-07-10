@@ -2,13 +2,14 @@ package server.controller.account.user;
 
 import javafx.scene.image.Image;
 import server.model.account.Account;
+import server.network.Message;
 
 public interface AccountController {
-    public Account getAccountInfo();
+    Message getAccountInfo(String username);
 
-    public void editField(String field, String context) throws Exception;
+    Message editField(String field, String context, Account account) throws Exception;
 
-    public void changeMainImage(Image image);
+    Message changeMainImage(Image image, Account account);
 
-    public void logout();
+    Message logout(Account account);
 }
