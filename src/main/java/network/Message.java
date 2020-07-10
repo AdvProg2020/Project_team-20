@@ -1,10 +1,11 @@
 package network;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Message {
     private String text;
-    private ArrayList<Object> objects = new ArrayList<>();
+    private HashMap<String, Object> objects = new HashMap<>();
     private AuthToken authToken = null;
 
     public Message(String text, AuthToken authToken) {
@@ -24,16 +25,20 @@ public class Message {
         this.authToken = authToken;
     }
 
-    public void addToObjects(Object carry) {
-        this.objects.add(carry);
+    public void addToObjects(String key, Object carry) {
+        this.objects.put(key, carry);
     }
 
     public String getText() {
         return text;
     }
 
-    public ArrayList<Object> getObjects() {
+    public HashMap<String,Object> getObjects() {
         return objects;
+    }
+
+    public Object getObjectWithKey(String key) {
+        return objects.get(key);
     }
 
     public static Message getFailedMessage() {
