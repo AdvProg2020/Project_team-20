@@ -2,11 +2,11 @@ package server.network;
 
 import com.gilecode.yagson.YaGson;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Message {
     private String text;
-    private HashMap<String, Object> objects = new HashMap<>();
+    private ArrayList<Object> objects = new ArrayList<>();
     private AuthToken authToken = null;
 
     public Message(String text, AuthToken authToken) {
@@ -26,20 +26,16 @@ public class Message {
         this.authToken = authToken;
     }
 
-    public void addToObjects(String key, Object carry) {
-        this.objects.put(key, carry);
+    public void addToObjects(Object carry) {
+        this.objects.add(carry);
     }
 
     public String getText() {
         return text;
     }
 
-    public HashMap<String,Object> getObjects() {
+    public ArrayList<Object> getObjects() {
         return objects;
-    }
-
-    public Object getObjectWithKey(String key) {
-        return objects.get(key);
     }
 
     public static Message getFailedMessage() {

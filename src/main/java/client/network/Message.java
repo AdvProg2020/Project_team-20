@@ -1,13 +1,16 @@
 package client.network;
 
-import java.util.HashMap;
+import com.gilecode.yagson.YaGson;
+import server.network.AuthToken;
+
+import java.util.ArrayList;
 
 public class Message {
     private String text;
-    private HashMap<String, Object> objects = new HashMap<>();
-    private AuthToken authToken = null;
+    private ArrayList<Object> objects = new ArrayList<>();
+    private server.network.AuthToken authToken = null;
 
-    public Message(String text, AuthToken authToken) {
+    public Message(String text, server.network.AuthToken authToken) {
         this.text = text;
         this.authToken = authToken;
     }
@@ -16,7 +19,7 @@ public class Message {
         this.text = text;
     }
 
-    public AuthToken getAuthToken() {
+    public server.network.AuthToken getAuthToken() {
         return authToken;
     }
 
@@ -24,28 +27,27 @@ public class Message {
         this.authToken = authToken;
     }
 
-    public void addToObjects(String key, Object carry) {
-        this.objects.put(key, carry);
+    public void addToObjects(Object carry) {
+        this.objects.add(carry);
     }
 
     public String getText() {
         return text;
     }
 
-    public HashMap<String,Object> getObjects() {
+    public ArrayList<Object> getObjects() {
         return objects;
     }
 
-    public Object getObjectWithKey(String key) {
-        return objects.get(key);
+    public static server.network.Message getFailedMessage() {
+        return new server.network.Message("failed!");
     }
 
-    public static Message getFailedMessage() {
-        return new Message("failed!");
+    public static server.network.Message getDoneMessage() {
+        return new server.network.Message("Done!");
     }
 
-    public static Message getDoneMessage() {
-        return new Message("Done!");
+    public String toYaGson() {
+        return (new YaGson()).toJson(this);
     }
-
 }

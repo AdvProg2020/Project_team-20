@@ -1,6 +1,9 @@
 package client.network;
 
-import client.model.account.Account;
+import com.gilecode.yagson.YaGson;
+import server.model.account.Account;
+import server.network.AuthToken;
+import server.network.Message;
 
 import java.io.*;
 import java.net.Socket;
@@ -16,8 +19,8 @@ public class Client {
     private DataOutputStream dataOutputStream;
     private DataInputStream dataInputStream;
     private Socket socket;
-    private Account account;
-    private AuthToken authToken;
+    private server.model.account.Account account;
+    private server.network.AuthToken authToken;
 
     public Client(Socket socket) {
         try {
@@ -39,14 +42,23 @@ public class Client {
         }
     }
 
-    /*public Message readMessage() {
-
+    public Message readMessage() {
+        try {
+            return new YaGson().fromJson(dataInputStream.readUTF(), Message.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Message("read failed");
     }
 
-     */
 
     public void writeMessage(Message massage) {
-
+        try {
+            dataOutputStream.writeUTF(massage.toYaGson());
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -66,7 +78,7 @@ public class Client {
         this.socket = socket;
     }
 
-    public Account getAccount() {
+    public server.model.account.Account getAccount() {
         return account;
     }
 
@@ -74,7 +86,7 @@ public class Client {
         this.account = account;
     }
 
-    public AuthToken getAuthToken() {
+    public server.network.AuthToken getAuthToken() {
         return authToken;
     }
 

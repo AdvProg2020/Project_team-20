@@ -1,5 +1,7 @@
 package client.network;
 
+import java.util.Random;
+
 public class AuthToken {
     private String username;
     private int key;
@@ -10,16 +12,23 @@ public class AuthToken {
     }
 
 
-   /* public static AuthToken generateAuth(String username){
-
+    public static AuthToken generateAuth(String username) {
+        StringBuilder toBeHashed = new StringBuilder();
+        int key = toBeHashed.append(generateRandomInt(username.length())).append(username).toString().hashCode();
+        return new AuthToken(username, key);
     }
+
 
     //is valid
     public boolean authenticate() {
-
+        //TODO edit this field
+        return true;
     }
 
-    */
+    private static int generateRandomInt(int upperbound) {
+        Random rand = new Random();
+        return rand.nextInt(upperbound);
+    }
 
 
     public int getKey() {

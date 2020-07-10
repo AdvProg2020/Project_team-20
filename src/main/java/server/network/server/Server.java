@@ -65,7 +65,7 @@ public abstract class Server {
             if (method.equals(command)) {
                 try {
                     return (Message) (Objects.requireNonNull(getMethodByName(method))).
-                            invoke(this, message.getObjects().values().toArray());
+                            invoke(this, message.getObjects().toArray());
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
