@@ -19,8 +19,13 @@ public class BankServer extends Server {
         methods.add("createAccount");
     }
 
-    public Message createAccount(String username, String password) {
-        return null;
+    public Message createAccount(String firstName, String lastName, String username, String password, String repeatPassword) {
+        Message message;
+        if (!password.equals(repeatPassword)) {
+            message = new Message("Confirmation");
+            message.addToObjects("");
+        }
+
     }
 
     private BankAccount getBankAccountByUsername(String username) {
