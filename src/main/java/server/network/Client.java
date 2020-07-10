@@ -1,5 +1,6 @@
 package server.network;
 
+import com.gilecode.yagson.YaGson;
 import server.model.account.Account;
 
 import java.io.*;
@@ -39,14 +40,23 @@ public class Client {
         }
     }
 
-    /*public Message readMessage() {
-
+    public Message readMessage() {
+        try {
+            return new YaGson().fromJson(dataInputStream.readUTF(), Message.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Message("read failed");
     }
 
-     */
 
     public void writeMessage(Message massage) {
-
+        try {
+            dataOutputStream.writeUTF(massage.toYaGson());
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
