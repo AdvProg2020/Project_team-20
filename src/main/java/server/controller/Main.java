@@ -1,5 +1,8 @@
 package server.controller;
 
+import server.controller.account.user.BuyerController;
+import server.controller.bank.BankServer;
+import server.model.account.Account;
 import server.model.account.Buyer;
 import server.model.account.Manager;
 import server.model.account.Seller;
@@ -8,9 +11,13 @@ import server.model.product.category.SubCategory;
 import server.model.product.category.CategorySet;
 import server.model.receipt.BuyerReceipt;
 import server.model.receipt.SellerReceipt;
+import server.network.AuthToken;
+
+import java.util.HashMap;
 
 public class Main {
     private static PreProcess preProcess = new PreProcess();
+    private static HashMap<AuthToken, Account> authTokenAccountHashMap = new HashMap<>();
 
     public static void main(String[] args) {
         loadData();
@@ -22,6 +29,8 @@ public class Main {
 
 
     private static void runServers() {
+        new BankServer();
+        BuyerController.getInstance();
         //TODO run all requierd servers
     }
 
@@ -53,6 +62,26 @@ public class Main {
         SellerReceipt.store();
         BuyerReceipt.store();
         Advertisement.store();
+    }
+
+    public static HashMap<AuthToken, Account> getAuthTokenAccountHashMap() {
+        return authTokenAccountHashMap;
+    }
+
+    public static void addToTokenHashMap(AuthToken token, Account account) {
+        authTokenAccountHashMap.put(token, account);
+    }
+
+    public static void removeFromTokenHashMap(AuthToken token, Account account) {
+        authTokenAccountHashMap.remove(token, account);
+    }
+
+    public static void removeFromTokenHashMap(AuthToken token) {
+        authTokenAccountHashMap.remove(token);
+    }
+
+    public static Account getAccountWithToken(AuthToken token) {
+        return authTokenAccountHashMap.get(token);
     }
 }
 

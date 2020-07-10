@@ -8,15 +8,17 @@ import server.model.product.comment.Score;
 import server.model.receipt.BuyerReceipt;
 import server.model.receipt.SellerReceipt;
 import server.network.Message;
+import server.network.server.Server;
 
 import java.util.ArrayList;
 
-public class BuyerController implements AccountController {
+public class BuyerController extends Server implements AccountController {
 
 
     private static BuyerController buyerController = null;
 
     private BuyerController() {
+        super(6000);
     }
 
     public static BuyerController getInstance() {
@@ -276,6 +278,11 @@ public class BuyerController implements AccountController {
         Message message = new Message("get credit");
         message.addToObjects(currentBuyer.getCredit());
         return message;
+    }
+
+    @Override
+    protected void setMethods() {
+        // todo add method names
     }
 
     public static class buyerHasNotBought extends Exception {

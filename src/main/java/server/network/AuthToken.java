@@ -1,5 +1,9 @@
 package server.network;
 
+import server.model.account.Account;
+import server.controller.Main;
+
+import java.util.HashMap;
 import java.util.Random;
 
 public class AuthToken {
@@ -21,8 +25,9 @@ public class AuthToken {
 
     //is valid
     public boolean authenticate() {
+        HashMap<AuthToken, Account> hashMap = Main.getAuthTokenAccountHashMap();
         //TODO edit this field
-        return true;
+        return hashMap.containsKey(this);
     }
 
     private static int generateRandomInt(int upperbound) {

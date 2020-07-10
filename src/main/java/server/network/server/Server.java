@@ -10,8 +10,6 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static server.network.AuthToken.generateAuth;
-
 public abstract class Server {
 
 
@@ -43,7 +41,7 @@ public abstract class Server {
 
     protected void handleClient(Client client) {
         clients.add(client);
-        client.writeMessage(new Message("client accepted", generateAuth(client.getAccount().getUsername())));
+        client.writeMessage(new Message("client accepted"));
         while (true) {
             try {
                 Message message = client.readMessage();
@@ -56,6 +54,13 @@ public abstract class Server {
                 }
             } catch (InvalidCommand invalidCommand) {
                 invalidCommand.printStackTrace();
+            } catch (NullPointerException nullPointerException) {
+                Message message = client.readMessage();
+                try {
+                    client.writeMessage(callCommand(message.getText(), message));
+                } catch (InvalidCommand invalidCommand) {
+                    invalidCommand.printStackTrace();
+                }
             }
         }
     }
