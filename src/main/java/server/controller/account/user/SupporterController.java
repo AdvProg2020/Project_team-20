@@ -1,8 +1,10 @@
 package server.controller.account.user;
 
 import javafx.scene.image.Image;
+import server.controller.Main;
 import server.model.account.Account;
 import server.model.account.Supporter;
+import server.network.AuthToken;
 import server.network.Message;
 
 public class SupporterController implements AccountController {
@@ -70,8 +72,8 @@ public class SupporterController implements AccountController {
     }
 
     @Override
-    public Message logout(Account currentSupporter) {
-        //TODO
+    public Message logout(AuthToken authToken, Account currentSupporter) {
+        Main.removeFromTokenHashMap(authToken, currentSupporter);
         return new Message("logout was successful");
     }
 

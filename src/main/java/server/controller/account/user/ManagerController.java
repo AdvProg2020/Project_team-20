@@ -1,6 +1,7 @@
 package server.controller.account.user;
 
 import javafx.scene.image.Image;
+import server.controller.Main;
 import server.controller.account.LoginController;
 import server.model.Requestable;
 import server.model.account.Account;
@@ -12,6 +13,7 @@ import server.model.product.RequestableState;
 import server.model.product.category.Category;
 import server.model.product.category.CategorySet;
 import server.model.product.category.SubCategory;
+import server.network.AuthToken;
 import server.network.Message;
 import server.network.server.Server;
 
@@ -343,8 +345,8 @@ public class ManagerController extends Server implements AccountController {
     }
 
     @Override
-    public Message logout(Account currentManager) {
-        // TODO
+    public Message logout(AuthToken authToken, Account currentManager) {
+        Main.removeFromTokenHashMap(authToken, currentManager);
         return new Message("logout was successful");
     }
 }

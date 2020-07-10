@@ -1,5 +1,6 @@
 package server.controller.account.user;
 
+import server.controller.Main;
 import server.controller.MainController;
 import javafx.scene.image.Image;
 import server.model.account.Account;
@@ -13,6 +14,7 @@ import server.model.product.Field.NumericalField;
 import server.model.product.Field.OptionalField;
 import server.model.product.category.SubCategory;
 import server.model.receipt.SellerReceipt;
+import server.network.AuthToken;
 import server.network.Message;
 
 import java.time.LocalDateTime;
@@ -373,8 +375,8 @@ public class SellerController implements AccountController {
     }
 
     @Override
-    public Message logout(Account currentSeller) {
-        //TODO
+    public Message logout(AuthToken authToken, Account currentSeller) {
+        Main.removeFromTokenHashMap(authToken, currentSeller);
         return new Message("logout was successful");
     }
 }

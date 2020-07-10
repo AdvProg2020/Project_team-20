@@ -1,5 +1,6 @@
 package server.controller.account.user;
 
+import server.controller.Main;
 import server.controller.PreProcess;
 import javafx.scene.image.Image;
 import server.model.account.*;
@@ -7,6 +8,7 @@ import server.model.product.*;
 import server.model.product.comment.Score;
 import server.model.receipt.BuyerReceipt;
 import server.model.receipt.SellerReceipt;
+import server.network.AuthToken;
 import server.network.Message;
 import server.network.server.Server;
 
@@ -353,8 +355,8 @@ public class BuyerController extends Server implements AccountController {
     }
 
     @Override
-    public Message logout(Account currentBuyer) {
-        //TODO
+    public Message logout(AuthToken authToken, Account currentBuyer) {
+        Main.removeFromTokenHashMap(authToken, currentBuyer);
         return new Message("logout was successful");
     }
 

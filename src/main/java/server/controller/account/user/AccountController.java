@@ -2,6 +2,7 @@ package server.controller.account.user;
 
 import javafx.scene.image.Image;
 import server.model.account.Account;
+import server.network.AuthToken;
 import server.network.Message;
 
 public interface AccountController {
@@ -11,5 +12,5 @@ public interface AccountController {
 
     Message changeMainImage(Image image, Account account);
 
-    Message logout(Account account);
+    Message logout(AuthToken authToken, Account account);
 }
