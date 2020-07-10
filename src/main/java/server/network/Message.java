@@ -1,6 +1,7 @@
 package server.network;
 
-import java.util.ArrayList;
+import com.gilecode.yagson.YaGson;
+
 import java.util.HashMap;
 
 public class Message {
@@ -47,6 +48,10 @@ public class Message {
 
     public static Message getDoneMessage() {
         return new Message("Done!");
+    }
+
+    public String toYaGson() {
+        return (new YaGson()).toJson(this);
     }
 
 }
