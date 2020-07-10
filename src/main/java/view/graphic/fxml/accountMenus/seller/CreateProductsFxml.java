@@ -38,7 +38,6 @@ public class CreateProductsFxml {
     MediaController mediaController = ProgramApplication.getMediaController();
 
     public void createProductButton() throws Exception{
-        new Thread(() -> mediaController.clickOnButton()).start();
         String name = productName.getText();
         String price = productPrice.getText();
         String company = productCompany.getText();

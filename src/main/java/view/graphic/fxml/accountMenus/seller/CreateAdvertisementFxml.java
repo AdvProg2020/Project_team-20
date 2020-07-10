@@ -36,13 +36,11 @@ public class CreateAdvertisementFxml implements Initializable {
     }
 
     public void selectRequest(MouseEvent event) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         product = table.getSelectionModel().getSelectedItem();
         productName.setText(product.getName());
     }
 
     public void buy(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         String txt = text.getText();
         if (product==null || txt.equals("")) {
                 new AlertController().create(AlertType.ERROR, "Fill all of the fields");

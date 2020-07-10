@@ -23,17 +23,14 @@ public class FxmlMainMenu {
     }
 
     public void handleRegistrationLogin() {
-        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.REGISTERANDLOGINMENU);
     }
 
     public void handleAllProducts() {
-        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
     public void handleExit() {
-        new Thread(() -> mediaController.clickOnButton()).start();
         FxmlAllProductsMenu.key = false;
         Main.storeData();
         window.close();

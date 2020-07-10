@@ -78,7 +78,6 @@ public class RequestsController implements Initializable {
     }
 
     public void selectRequest(MouseEvent mouseEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         id = table.getSelectionModel().getSelectedItem().getId();
         message.setText(managerController.requestDetails(Integer.parseInt(id)));
         title.setOpacity(1);

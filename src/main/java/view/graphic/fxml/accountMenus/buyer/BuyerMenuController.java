@@ -61,7 +61,6 @@ public class BuyerMenuController implements Initializable {
     }
 
     public void handleLogout(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         buyerController.logout();
         ProgramApplication.setMenu(MenuNames.MAINMENU);
         new AlertController().create(AlertType.CONFIRMATION, "log out was successful");
@@ -78,7 +77,6 @@ public class BuyerMenuController implements Initializable {
     }
 
     public void handleAllProducts(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         ProgramApplication.setMenu(MenuNames.ALLPRODUCTSMENU);
     }
 
@@ -109,34 +107,28 @@ public class BuyerMenuController implements Initializable {
     }
 
     public void handlePersonalInfo(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         loadUI("personalInfo");
     }
 
     public void handleViewSales(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         ViewCartFxml.setBorderPane(borderPane);
         loadUI("viewCart");
     }
 
     public void handlePurchase(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         PurchaseMenu.setBorderPane(borderPane);
         loadUI("purchaseMenu");
     }
 
     public void handleViewOrders(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         loadUI("viewOrder");
     }
 
     public void handleViewDiscountCodes(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         loadUI("discountCodes");
     }
 
     public void handleExit() {
-        new Thread(() -> mediaController.clickOnButton()).start();
         FxmlAllProductsMenu.key = false;
         Main.storeData();
         window.close();

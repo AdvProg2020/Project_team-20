@@ -375,6 +375,8 @@ public class Product implements Requestable {
         for (Score score : getScores()) {
             sum += score.getScore();
         }
+        if (getScores().size()==0)
+            return 0;
         return sum / getScores().size();
     }
 

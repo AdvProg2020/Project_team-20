@@ -46,7 +46,6 @@ public class ManageCategorySetsFxml implements Initializable {
     MediaController mediaController = ProgramApplication.getMediaController();
 
     public void handleRemove(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         if (categorySet!=null) {
             try {
                 managerController.managerRemoveCategorySet(categorySet.getName());
@@ -68,7 +67,6 @@ public class ManageCategorySetsFxml implements Initializable {
     }
 
     public void handleEdit(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         Button button = ((Button) actionEvent.getSource());
         if (!leave) {
             button.setStyle("-fx-background-color: #ff826f;");
@@ -124,7 +122,6 @@ public class ManageCategorySetsFxml implements Initializable {
     }
 
     public void selectCategory(MouseEvent mouseEvent) throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         categorySet = table.getSelectionModel().getSelectedItem();
         message.setOpacity(0.7);
         title.setOpacity(1);
@@ -153,7 +150,6 @@ public class ManageCategorySetsFxml implements Initializable {
     }
 
     public void createCategory(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         String newCategoryStr = newCategory.getText();
         if (newCategoryStr.equals("")) {
             new AlertController().create(AlertType.ERROR, "Fill the fields");
@@ -172,7 +168,6 @@ public class ManageCategorySetsFxml implements Initializable {
     }
 
     public void handleAddCategory(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         String toAddCategory = addCategoryTxt.getText();
         if (toAddCategory.equals("")) {
             new AlertController().create(AlertType.ERROR, "Fill the field");
@@ -188,7 +183,6 @@ public class ManageCategorySetsFxml implements Initializable {
     }
 
     public void handleRemoveCategory(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         String toRemoveCategory = removeCategoryTxt.getText();
         if (toRemoveCategory.equals("")) {
             new AlertController().create(AlertType.ERROR, "Fill the field");
@@ -204,7 +198,6 @@ public class ManageCategorySetsFxml implements Initializable {
     }
 
     public void handleOk(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         String newName = nameEditTxt.getText();
         if (newName.equals("")) {
             new AlertController().create(AlertType.ERROR, "Fill the field");
@@ -220,7 +213,6 @@ public class ManageCategorySetsFxml implements Initializable {
     }
 
     public void handleAddSubCat(ActionEvent actionEvent) {
-        new Thread(() -> mediaController.clickOnButton()).start();
         String subCatToAdd = addSubCategoryTxt.getText();
         if (subCatToAdd.equals("")) {
             new AlertController().create(AlertType.ERROR, "Fill the field");

@@ -29,7 +29,6 @@ public class ManagerLoginController {
     MediaController mediaController = ProgramApplication.getMediaController();
 
     public void handleSignUp() throws Exception {
-        new Thread(() -> mediaController.clickOnButton()).start();
         LoginController loginController = LoginController.getInstance();
         String username = newUsername.getText(), name = newName.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
