@@ -118,6 +118,10 @@ public class BankServer {
         return validPayReceipt(bankAccount, receiptID);
     }
 
+    public void exit(AuthToken authToken) {
+        loggedInAccounts.remove(authToken);
+    }
+
     public Message getBalance(AuthToken authToken) {
         Message message;
         BankAccount bankAccount = loggedInAccounts.get(authToken);
