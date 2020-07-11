@@ -94,6 +94,7 @@ public class BankServer {
         methods.add("createReceipt");
         methods.add("getTransactions");
         methods.add("pay");
+        methods.add("getBalance");
     }
 
     public Message pay(AuthToken authToken, String receiptID) {
@@ -115,6 +116,24 @@ public class BankServer {
             return message;
         }
         return validPayReceipt(bankAccount, receiptID);
+    }
+
+    public Message getBalance(AuthToken authToken) {
+        Message message;
+        BankAccount bankAccount = loggedInAccounts.get(authToken);
+        if (!isTokenExists(authToken)) {
+            message = new Message("Error");
+            message.addToObjects("token is invalid");
+            return message;
+        }
+        if (!validTokenTime(authToken)) {
+            message = new Message("Error");
+            message.addToObjects("token expired");
+            return message;
+        }
+        message = new Message("Confirmation");
+        message.addToObjects(bankAccount.getMoney());
+        return message;
     }
 
     private Message validPayReceipt(BankAccount bankAccount, String receiptID) {
