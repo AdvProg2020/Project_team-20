@@ -29,13 +29,14 @@ public class BuyerController extends Server implements AccountController {
         return buyerController;
     }
 
-    public Message getAllProducts() {
+    public Message getAllProducts(AuthToken authToken) {
         Message message = new Message("all products");
         message.addToObjects(Product.getAllProducts());
         return message;
     }
 
-    public Message getAllDiscounts(Buyer currentBuyer) {
+    public Message getAllDiscounts(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         PreProcess preProcess = new PreProcess();
         preProcess.setBuyerController(buyerController);
         preProcess.purchaseGift(currentBuyer);
@@ -44,13 +45,15 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
-    public Message viewOrders(Buyer currentBuyer) {
+    public Message viewOrders(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message = new Message("view orders");
         message.addToObjects(currentBuyer.getPurchaseHistory());
         return message;
     }
 
-    public Message rate(String productId, double score, Buyer currentBuyer) {
+    public Message rate(String productId, double score, AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         if (currentBuyer.hasBoughtProduct(productId)) {
             try {
                 Product product = Product.getProductById(productId);
@@ -68,7 +71,8 @@ public class BuyerController extends Server implements AccountController {
         }
     }
 
-    public Message getBuyerReceiptById(String id, Buyer currentBuyer) {
+    public Message getBuyerReceiptById(String id, AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message = new Message("buyer receipt");
         try {
             message.addToObjects(currentBuyer.getReceiptById(id));
@@ -79,17 +83,19 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
-    private void addBuyerToProductsBuyers(Buyer currentBuyer) {
+    private void addBuyerToProductsBuyers(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         for (Product product : currentBuyer.getCart().getAllProducts().keySet()) {
             product.addBuyer(currentBuyer);
         }
     }
 
-    public Message purchase(String address, String phoneNumber, String discountCode, Buyer currentBuyer) {
+    public Message purchase(String address, String phoneNumber, String discountCode, AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         receiveInformation(address, phoneNumber, currentBuyer);
         double discountPercentage = 0;
-        double totalPrice = (double) getTotalPrice(currentBuyer).getObjects().get(0);
+        double totalPrice = (double) getTotalPrice(authToken).getObjects().get(0);
         try {
             if (!discountCode.equals("") && Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
                 discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode))
@@ -111,15 +117,16 @@ public class BuyerController extends Server implements AccountController {
             message.addToObjects(e);
             return message;
         }
-        decreaseAllProductBought(currentBuyer);
+        decreaseAllProductBought(authToken);
         makeReceipt(totalPrice, discountPercentage, currentBuyer);
-        addBuyerToProductsBuyers(currentBuyer);
+        addBuyerToProductsBuyers(authToken);
         currentBuyer.getCart().resetCart();
         message = new Message("purchase was successful");
         return message;
     }
 
-    private void decreaseAllProductBought(Buyer currentBuyer) {
+    private void decreaseAllProductBought(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
             decreaseProductSeller(selectedProduct.getProduct(), selectedProduct.getCount(), selectedProduct.getSeller());
         }
@@ -185,7 +192,8 @@ public class BuyerController extends Server implements AccountController {
         currentBuyer.setPhoneNumber(phoneNumber);
     }
 
-    public Message getTotalPrice(Buyer currentBuyer) {
+    public Message getTotalPrice(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         double totalPrice = 0;
         for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
             Sale saleForProduct = getSaleForProduct(selectedProduct);
@@ -201,7 +209,8 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
-    public Message getDiscount(Buyer currentBuyer) {
+    public Message getDiscount(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         double totalPrice = 0;
         double priceWithoutDiscount = 0;
         for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
@@ -237,13 +246,15 @@ public class BuyerController extends Server implements AccountController {
         return null;
     }
 
-    public Message viewCart(Buyer currentBuyer) {
+    public Message viewCart(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message = new Message("cart");
         message.addToObjects(currentBuyer.getCart());
         return message;
     }
 
-    public Message getProductById(String id, Buyer currentBuyer) {
+    public Message getProductById(String id, AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message = new Message("get product");
         try {
             message.addToObjects((currentBuyer.getCart()).getProductById(id));
@@ -254,7 +265,8 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
-    public Message increaseProduct(String id, int number, Buyer currentBuyer) {
+    public Message increaseProduct(String id, int number, AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message = new Message("increase product");
         try {
             currentBuyer.getCart().increaseProduct(id, number);
@@ -265,7 +277,8 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
-    public Message decreaseProduct(String id, int number, Buyer currentBuyer) {
+    public Message decreaseProduct(String id, int number, AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message = new Message("decrease product");
         try {
             currentBuyer.getCart().decreaseProduct(id, number);
@@ -276,7 +289,8 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
-    public Message getCredit(Buyer currentBuyer) {
+    public Message getCredit(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message = new Message("get credit");
         message.addToObjects(currentBuyer.getCredit());
         return message;
@@ -294,10 +308,10 @@ public class BuyerController extends Server implements AccountController {
     }
 
     @Override
-    public Message getAccountInfo(String username) {
+    public Message getAccountInfo(AuthToken authToken) {
         Message message = new Message("account info");
         try {
-            message.addToObjects(Account.getAccountWithUsername(username));
+            message.addToObjects(Account.getAccountWithUsername(authToken.getUsername()));
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -306,8 +320,8 @@ public class BuyerController extends Server implements AccountController {
     }
 
     @Override
-    public Message editField(String field, String context, Account account) {
-        Buyer currentBuyer = (Buyer) account;
+    public Message editField(String field, String context, AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         switch (field) {
             case "name":
                 currentBuyer.changeStateEdited(context, currentBuyer.getLastName(), currentBuyer.getEmail(),
@@ -343,19 +357,22 @@ public class BuyerController extends Server implements AccountController {
         return new Message("edit request sent");
     }
 
-    public Message setProfileImage(String path, Account currentBuyer) {
+    public Message setProfileImage(String path, AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         currentBuyer.setImagePath(path);
         return new Message("set profile image was successful");
     }
 
     @Override
-    public Message changeMainImage(Image image, Account currentBuyer) {
+    public Message changeMainImage(Image image, AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         currentBuyer.getGraphicPackage().setMainImage(image);
         return new Message("change main image");
     }
 
     @Override
-    public Message logout(AuthToken authToken, Account currentBuyer) {
+    public Message logout(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Main.removeFromTokenHashMap(authToken, currentBuyer);
         return new Message("logout was successful");
     }

@@ -1,16 +1,15 @@
 package client.network;
 
 import com.gilecode.yagson.YaGson;
-import server.network.AuthToken;
 
 import java.util.ArrayList;
 
 public class Message {
     private String text;
     private ArrayList<Object> objects = new ArrayList<>();
-    private server.network.AuthToken authToken = null;
+    private AuthToken authToken = null;
 
-    public Message(String text, server.network.AuthToken authToken) {
+    public Message(String text, AuthToken authToken) {
         this.text = text;
         this.authToken = authToken;
     }
@@ -19,7 +18,7 @@ public class Message {
         this.text = text;
     }
 
-    public server.network.AuthToken getAuthToken() {
+    public AuthToken getAuthToken() {
         return authToken;
     }
 

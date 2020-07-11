@@ -7,6 +7,7 @@ import client.model.product.*;
 import client.model.product.comment.Score;
 import client.model.receipt.BuyerReceipt;
 import client.model.receipt.SellerReceipt;
+import client.network.Client;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class BuyerController implements AccountController {
     private MainController mainController;
     private static Buyer currentBuyer;
+    private static Client client;
 
     private static BuyerController buyerController = null;
 
@@ -25,6 +27,8 @@ public class BuyerController implements AccountController {
         if (buyerController == null)
             buyerController = new BuyerController();
         currentBuyer = (Buyer) MainController.getInstance().getAccount();
+        client = new Client(6000);
+        client.setAuthToken(client.readMessage().getAuthToken());
         return buyerController;
     }
 
