@@ -31,7 +31,7 @@ public class Main {
     private static void runServers() {
         new BankServer();
         BuyerController.getInstance();
-        //TODO run all requierd servers
+        //TODO run all required servers
     }
 
     private static void loadData() {

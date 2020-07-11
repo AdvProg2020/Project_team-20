@@ -2,27 +2,167 @@ package server.controller.bank;
 
 import client.model.account.Account;
 import server.model.bank.BankAccount;
+import server.model.bank.BankReceipt;
 import server.model.bank.BankReceiptType;
+import server.network.AuthToken;
+import server.network.Client;
 import server.network.Message;
 import server.network.server.Server;
+import sun.tools.jstat.Token;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.ServerSocket;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class BankServer extends Server {
+public class BankServer {
     ArrayList<BankAccount> bankAccounts;
     private static int bankCount=0;
+    protected ServerSocket serverSocket;
+    protected ArrayList<Client> clients;
+    protected HashMap<AuthToken, BankAccount> loggedInAccounts;
+    protected ArrayList<String> methods;
 
     public BankServer() {
-        super(9000);
         bankAccounts = new ArrayList<>();
+        try {
+            this.serverSocket = new ServerSocket(9000);
+            this.clients = new ArrayList<>();
+            this.methods = new ArrayList<>();
+            this.loggedInAccounts = new HashMap<>();
+            new Thread(this::handleClients).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    @Override
+    protected void handleClients() {
+        while (true) {
+            try {
+                Client client = new Client(serverSocket.accept());
+                new Thread(() -> handleClient(client)).start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected void handleClient(Client client) {
+        clients.add(client);
+        client.writeMessage(new Message("client accepted"));
+        while (true) {
+            Message message = client.readMessage();
+            try {
+                client.writeMessage(callCommand(message.getText(), message));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public Message callCommand(String command, Message message) throws Server.InvalidCommand {
+        for (String method : methods) {
+            if (method.equals(command)) {
+                try {
+                    return (Message) (Objects.requireNonNull(getMethodByName(method))).
+                            invoke(this, message.getObjects().toArray());
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        throw new Server.InvalidCommand();
+    }
+
+    private Method getMethodByName(String name) {
+        Class clazz = this.getClass();
+        for (Method declaredMethod : clazz.getDeclaredMethods())
+            if (declaredMethod.getName().equals(name)) return declaredMethod;
+        return null;
+    }
+
     protected void setMethods() {
         methods.add("createAccount");
+        methods.add("getToken");
         methods.add("createReceipt");
+    }
+
+    public Message getToken(String username, String password) {
+        Message message;
+        BankAccount bankAccount = loginAccount(username, password);
+        if (bankAccount==null) {
+            message = new Message("Error");
+            message.addToObjects("username is not available");
+            return message;
+        }
+        AuthToken authToken = AuthToken.generateAuth(bankAccount.getUsername());
+        loggedInAccounts.put(authToken, bankAccount);
+        message = new Message("Confirmation");
+        message.addToObjects(authToken);
+        return message;
+    }
+
+    private BankAccount loginAccount(String username, String password) {
+        BankAccount bankAccount = getBankAccountByUsername(username);
+        if (bankAccount==null)
+            return null;
+        if (!(password.equals(bankAccount.getPassword())))
+            return null;
+        return bankAccount;
+    }
+
+    public Message getTransactions(AuthToken authToken, BankReceiptType bankReceiptType) {
+        Message message;
+        BankAccount account = loggedInAccounts.get(authToken);
+        if (!isTokenExists(authToken)) {
+            message = new Message("Error");
+            message.addToObjects("token is invalid");
+            return message;
+        }
+        if (!validTokenTime(authToken)) {
+            message = new Message("Error");
+            message.addToObjects("token expired");
+            return message;
+        }
+        switch (bankReceiptType) {
+            case MOVE:
+                return getMoves(account);
+            case DEPOSIT:
+                return getDeposits(account);
+            default:
+                return getWithdraws(account);
+        }
+    }
+
+    public Message getDeposits(BankAccount bankAccount) {
+        Message message;
+        ArrayList<BankReceipt> bankReceipts = bankAccount.getDeposits();
+        message = new Message("Confirmation");
+        message.addToObjects(bankReceipts);
+        return message;
+    }
+
+    public Message getWithdraws(BankAccount bankAccount) {
+        Message message;
+        ArrayList<BankReceipt> bankReceipts = bankAccount.getWithdraws();
+        message = new Message("Confirmation");
+        message.addToObjects(bankReceipts);
+        return message;
+    }
+
+    public Message getMoves(BankAccount bankAccount) {
+        Message message;
+        ArrayList<BankReceipt> bankReceipts = bankAccount.getMoves();
+        message = new Message("Confirmation");
+        message.addToObjects(bankReceipts);
+        return message;
     }
 
     public Message createAccount(String firstName, String lastName, String username, String password, String repeatPassword) {
@@ -49,7 +189,7 @@ public class BankServer extends Server {
         }
     }
 
-    public Message createReceipt(BankReceiptType receiptType, double money, String sourceID, String destID, String description) {
+    public Message createReceipt(AuthToken authToken, BankReceiptType receiptType, double money, String sourceID, String destID, String description) {
         Message message;
         if (receiptType!=BankReceiptType.DEPOSIT && receiptType!=BankReceiptType.MOVE
         && receiptType!=BankReceiptType.WITHDRAW) {
@@ -70,7 +210,48 @@ public class BankServer extends Server {
             message.addToObjects("your input contains invalid characters");
             return message;
         }
-        BankAccount sourceBankAccount = getBankAccountByID(sourceID);
+        if (!isTokenExists(authToken)) {
+            message = new Message("Error");
+            message.addToObjects("token is invalid");
+            return message;
+        }
+        BankAccount account = loggedInAccounts.get(authToken);
+        if (!validAccountMakeReceipt(account, sourceID, destID, receiptType)) {
+            message = new Message("Error");
+            message.addToObjects("token is invalid");
+            return message;
+        }
+        if (!validTokenTime(authToken)) {
+            message = new Message("Error");
+            message.addToObjects("token expired");
+            return message;
+        }
+        BankReceipt bankReceipt = new BankReceipt(receiptType, money, sourceID, destID, description);
+        message = new Message("Confirmation");
+        message.addToObjects(bankReceipt.getID());
+        return message;
+    }
+
+    private boolean isTokenExists(AuthToken authToken) {
+        for (AuthToken authToken1:loggedInAccounts.keySet()) {
+            if (authToken.equals(authToken1))
+                return true;
+        }
+        return false;
+    }
+
+    private boolean validTokenTime(AuthToken authToken) {
+        LocalDateTime time = LocalDateTime.now();
+        long hours = ChronoUnit.HOURS.between(authToken.getTimeCreated(), time);
+        return hours <= 1;
+    }
+
+    private boolean validAccountMakeReceipt(BankAccount account, String sourceID, String destID, BankReceiptType receiptType) {
+        if (receiptType==BankReceiptType.MOVE || receiptType==BankReceiptType.WITHDRAW) {
+            return sourceID.equals(account.getAccountNumber());
+        } else {
+            return destID.equals(account.getAccountNumber());
+        }
     }
 
     private Message checkValidAccounts(String destID, String sourceID) {

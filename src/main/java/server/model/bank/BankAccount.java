@@ -18,6 +18,33 @@ public class BankAccount {
         bankReceipts = new ArrayList<>();
     }
 
+    public ArrayList<BankReceipt> getDeposits() {
+        ArrayList<BankReceipt> deposits = new ArrayList<>();
+        for (BankReceipt bankReceipt:bankReceipts) {
+            if (bankReceipt.getBankReceiptType().equals(BankReceiptType.DEPOSIT))
+                deposits.add(bankReceipt);
+        }
+        return deposits;
+    }
+
+    public ArrayList<BankReceipt> getWithdraws() {
+        ArrayList<BankReceipt> withdraws = new ArrayList<>();
+        for (BankReceipt bankReceipt:bankReceipts) {
+            if (bankReceipt.getBankReceiptType().equals(BankReceiptType.WITHDRAW))
+                withdraws.add(bankReceipt);
+        }
+        return withdraws;
+    }
+
+    public ArrayList<BankReceipt> getMoves() {
+        ArrayList<BankReceipt> moves = new ArrayList<>();
+        for (BankReceipt bankReceipt:bankReceipts) {
+            if (bankReceipt.getBankReceiptType().equals(BankReceiptType.MOVE))
+                moves.add(bankReceipt);
+        }
+        return moves;
+    }
+
     public String getFirstName() {
         return firstName;
     }

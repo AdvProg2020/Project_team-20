@@ -3,16 +3,19 @@ package server.network;
 import server.model.account.Account;
 import server.controller.Main;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Random;
 
 public class AuthToken {
     private String username;
     private int key;
+    private LocalDateTime timeCreated;
 
     private AuthToken(String username, int key) {
         this.username = username;
         this.key = key;
+        timeCreated = LocalDateTime.now();
     }
 
 
@@ -42,6 +45,10 @@ public class AuthToken {
 
     public void setKey(int key) {
         this.key = key;
+    }
+
+    public LocalDateTime getTimeCreated() {
+        return timeCreated;
     }
 
     public String getUsername() {
