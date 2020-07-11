@@ -19,10 +19,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static client.model.product.category.CategorySet.getCategorySetByName;
-import static client.model.product.category.SubCategory.getCategoryByName;
-import static client.model.product.category.SubCategory.removeCategory;
-
 public class ManagerController implements client.controller.account.user.AccountController {
 
     private MainController mainController;
@@ -357,49 +353,98 @@ public class ManagerController implements client.controller.account.user.Account
     }
 
     public void addCategory(String categoryName) throws Exception {
-        SubCategory subCategory = new SubCategory(categoryName);
+        Message message = new Message("addCategory");
+        message.addToObjects(categoryName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
-    public void addCategorySet(String categorySetName) throws CategorySet.CategoryNameException {
-        CategorySet categorySet = new CategorySet(categorySetName);
+    public void addCategorySet(String categorySetName) throws Exception {
+        Message message = new Message("addCategorySet");
+        message.addToObjects(categorySetName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void managerRemoveCategory(String categoryName) throws Exception {
-        removeCategory(categoryName);
+        Message message = new Message("managerRemoveCategory");
+        message.addToObjects(categoryName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
-    public void managerRemoveCategorySet(String categorySetName) throws CategorySet.CategoryDoesNotFoundException {
-        CategorySet.removeCategorySet(categorySetName);
+    public void managerRemoveCategorySet(String categorySetName) throws Exception {
+        Message message = new Message("managerRemoveCategorySet");
+        message.addToObjects(categorySetName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void addFieldToCategory(String categoryName, String fieldName) throws Exception {
-        SubCategory subCategory = getCategoryByName(categoryName);
-        subCategory.addField(fieldName);
+        Message message = new Message("addFieldToCategory");
+        message.addToObjects(categoryName);
+        message.addToObjects(fieldName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void addSubCategoryToCategorySet(String categoryName, String subCategoryName) throws Exception {
-        CategorySet categorySet = getCategorySetByName(categoryName);
-        SubCategory subCategory = getCategoryByName(subCategoryName);
-        subCategory.setParent(categorySet);
-        categorySet.addToCategories(subCategory);
+        Message message = new Message("addSubCategoryToCategorySet");
+        message.addToObjects(categoryName);
+        message.addToObjects(subCategoryName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
-    public void addCategorySetToCategorySet(String parentName, String subName) throws CategorySet.CategoryDoesNotFoundException {
-        CategorySet parentCategorySet = getCategorySetByName(parentName);
-        CategorySet categorySet = getCategorySetByName(subName);
-        parentCategorySet.addToCategorySets(categorySet);
+    public void addCategorySetToCategorySet(String parentName, String subName) throws Exception {
+        Message message = new Message("addCategorySetToCategorySet");
+        message.addToObjects(parentName);
+        message.addToObjects(subName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void addNewFieldToCategory(String categoryName, String name) throws Exception {
-        SubCategory subCategory = SubCategory.getCategoryByName(categoryName);
-        subCategory.addField(name);
+        Message message = new Message("addNewFieldToCategory");
+        message.addToObjects(categoryName);
+        message.addToObjects(name);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void addParentToCategory(String categoryName, String parentName) throws Exception {
-        SubCategory subCategory = getCategoryByName(categoryName);
-        CategorySet parentCategory = getCategorySetByName(parentName);
-        subCategory.setParent(parentCategory);
-        parentCategory.addToCategories(subCategory);
+        Message message = new Message("addParentToCategory");
+        message.addToObjects(categoryName);
+        message.addToObjects(parentName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public static class fieldIsInvalidException extends Exception {
@@ -407,53 +452,49 @@ public class ManagerController implements client.controller.account.user.Account
             super("field is invalid!");
         }
     }
-
     @Override
     public Account getAccountInfo() {
-        return currentManager;
+        client.writeMessage(new Message("getAccountInfo"));
+        return (Account) client.readMessage().getObjects().get(0);
     }
 
     @Override
     public void editField(String field, String context) throws Exception {
-        switch (field) {
-            case "name":
-                currentManager.setName(context);
-                break;
-            case "lastName":
-                currentManager.setLastName(context);
-                break;
-            case "email":
-                currentManager.setEmail(context);
-                break;
-            case "phoneNumber":
-                currentManager.setPhoneNumber(context);
-                break;
-            case "password":
-                currentManager.setPassword(context);
-                break;
-            case "credit":
-                currentManager.setCredit(Double.parseDouble(context));
-                break;
-            default:
-                throw new fieldIsInvalidException();
+        Message message = new Message("editField");
+        message.addToObjects(field);
+        message.addToObjects(context);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public void setProfileImage(String path) {
+        Message message = new Message("setProfileImage");
+        message.addToObjects(path);
+        client.writeMessage(message);
         currentManager.setImagePath(path);
-    }
-
-    public static Manager getCurrentManager() {
-        return currentManager;
+        client.readMessage();
     }
 
     @Override
     public void changeMainImage(Image image) {
+        Message message = new Message("changeMainImage");
+        message.addToObjects(image);
+        client.writeMessage(message);
         currentManager.getGraphicPackage().setMainImage(image);
+        client.readMessage();
     }
 
     @Override
     public void logout() {
+        client.writeMessage(new Message("logout"));
         mainController.logout();
+        client.readMessage();
+    }
+
+    public static Manager getCurrentManager() {
+        return currentManager;
     }
 }

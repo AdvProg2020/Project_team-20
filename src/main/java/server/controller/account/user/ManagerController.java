@@ -364,7 +364,7 @@ public class ManagerController extends Server implements AccountController {
         return message;
     }
 
-    public Message removeProductFromCategory(String categoryName, String productName) {
+    public Message removeProductFromCategory(String categoryName, String productName, AuthToken authToken) {
         Message message = new Message("product removed from category");
         try {
             SubCategory subCategory = getCategoryByName(categoryName);
@@ -377,55 +377,160 @@ public class ManagerController extends Server implements AccountController {
         return message;
     }
 
-    public void addCategory(String categoryName) throws Exception {
-        SubCategory subCategory = new SubCategory(categoryName);
+    public Message addCategory(String categoryName, AuthToken authToken) {
+        Message message = new Message("category added");
+        try {
+            new SubCategory(categoryName);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void addCategorySet(String categorySetName) throws CategorySet.CategoryNameException {
-        CategorySet categorySet = new CategorySet(categorySetName);
+    public Message addCategorySet(String categorySetName, AuthToken authToken) {
+        Message message = new Message("category added");
+        try {
+            new CategorySet(categorySetName);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void managerRemoveCategory(String categoryName) throws Exception {
-        removeCategory(categoryName);
+    public Message managerRemoveCategory(String categoryName, AuthToken authToken) {
+        Message message = new Message("category added");
+        try {
+            removeCategory(categoryName);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void managerRemoveCategorySet(String categorySetName) throws CategorySet.CategoryDoesNotFoundException {
-        CategorySet.removeCategorySet(categorySetName);
+    public Message managerRemoveCategorySet(String categorySetName, AuthToken authToken) {
+        Message message = new Message("category added");
+        try {
+            CategorySet.removeCategorySet(categorySetName);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void addFieldToCategory(String categoryName, String fieldName) throws Exception {
-        SubCategory subCategory = getCategoryByName(categoryName);
-        subCategory.addField(fieldName);
+    public Message addFieldToCategory(String categoryName, String fieldName, AuthToken authToken) {
+        Message message = new Message("category added");
+        try {
+            SubCategory subCategory = getCategoryByName(categoryName);
+            subCategory.addField(fieldName);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void addSubCategoryToCategorySet(String categoryName, String subCategoryName) throws Exception {
-        CategorySet categorySet = getCategorySetByName(categoryName);
-        SubCategory subCategory = getCategoryByName(subCategoryName);
-        subCategory.setParent(categorySet);
-        categorySet.addToCategories(subCategory);
+    public Message addSubCategoryToCategorySet(String categoryName, String subCategoryName, AuthToken authToken) {
+        Message message = new Message("category added");
+        try {
+            CategorySet categorySet = getCategorySetByName(categoryName);
+            SubCategory subCategory = getCategoryByName(subCategoryName);
+            subCategory.setParent(categorySet);
+            categorySet.addToCategories(subCategory);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void addCategorySetToCategorySet(String parentName, String subName) throws CategorySet.CategoryDoesNotFoundException {
-        CategorySet parentCategorySet = getCategorySetByName(parentName);
-        CategorySet categorySet = getCategorySetByName(subName);
-        parentCategorySet.addToCategorySets(categorySet);
+    public Message addCategorySetToCategorySet(String parentName, String subName, AuthToken authToken) {
+        Message message = new Message("category added");
+        try {
+            CategorySet parentCategorySet = getCategorySetByName(parentName);
+            CategorySet categorySet = getCategorySetByName(subName);
+            parentCategorySet.addToCategorySets(categorySet);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void addNewFieldToCategory(String categoryName, String name) throws Exception {
-        SubCategory subCategory = SubCategory.getCategoryByName(categoryName);
-        subCategory.addField(name);
+    public Message addNewFieldToCategory(String categoryName, String name, AuthToken authToken) {
+        Message message = new Message("category added");
+        try {
+            SubCategory subCategory = SubCategory.getCategoryByName(categoryName);
+            subCategory.addField(name);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void addParentToCategory(String categoryName, String parentName) throws Exception {
-        SubCategory subCategory = getCategoryByName(categoryName);
-        CategorySet parentCategory = getCategorySetByName(parentName);
-        subCategory.setParent(parentCategory);
-        parentCategory.addToCategories(subCategory);
+    public Message addParentToCategory(String categoryName, String parentName, AuthToken authToken) {
+        Message message = new Message("category added");
+        try {
+            SubCategory subCategory = getCategoryByName(categoryName);
+            CategorySet parentCategory = getCategorySetByName(parentName);
+            subCategory.setParent(parentCategory);
+            parentCategory.addToCategories(subCategory);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
     @Override
     protected void setMethods() {
-
+        methods.add("manageUsers");
+        methods.add("viewUser");
+        methods.add("deleteUser");
+        methods.add("createManagerProfile");
+        methods.add("manageAllProducts");
+        methods.add("mangerRemoveProduct");
+        methods.add("createDiscountCode");
+        methods.add("viewDiscountCodes");
+        methods.add("viewDiscountCode");
+        methods.add("editDiscountPercentage");
+        methods.add("editMaxDiscountUsage");
+        methods.add("editStartDateOfDiscountCode");
+        methods.add("editEndDateOfDiscount");
+        methods.add("removeDiscountCodes");
+        methods.add("checkUsername");
+        methods.add("addBuyerToBuyersWithDiscount");
+        methods.add("removeBuyerFromBuyersWithDiscount");
+        methods.add("manageRequests");
+        methods.add("requestDetails");
+        methods.add("acceptRequest");
+        methods.add("declineRequest");
+        methods.add("manageSubCategories");
+        methods.add("manageCategorySets");
+        methods.add("manageAllCategories");
+        methods.add("editCategoryName");
+        methods.add("removeFieldFromCategory");
+        methods.add("removeSubCategoryFromAllSubCategories");
+        methods.add("removeCategorySetFromCategorySet");
+        methods.add("removeProductFromCategory");
+        methods.add("addCategory");
+        methods.add("addCategorySet");
+        methods.add("managerRemoveCategory");
+        methods.add("managerRemoveCategorySet");
+        methods.add("addFieldToCategory");
+        methods.add("addSubCategoryToCategorySet");
+        methods.add("addCategorySetToCategorySet");
+        methods.add("addNewFieldToCategory");
+        methods.add("addParentToCategory");
+        methods.add("getAccountInfo");
+        methods.add("editField");
+        methods.add("setProfileImage");
+        methods.add("changeMainImage");
+        methods.add("logout");
     }
 
     public static class fieldIsInvalidException extends Exception {

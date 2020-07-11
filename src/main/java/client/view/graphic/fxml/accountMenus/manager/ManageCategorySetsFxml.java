@@ -54,7 +54,7 @@ public class ManageCategorySetsFxml implements Initializable {
                 categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
                 message.setText("");
                 new AlertController().create(AlertType.CONFIRMATION, "remove was successful");
-            } catch (CategorySet.CategoryDoesNotFoundException e) {
+            } catch (Exception e) {
                 new AlertController().create(AlertType.ERROR, e.getMessage());
             }
         }
@@ -162,7 +162,7 @@ public class ManageCategorySetsFxml implements Initializable {
             categoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
             new AlertController().create(AlertType.CONFIRMATION, "successful");
             newCategory.setText("");
-        } catch (CategorySet.CategoryNameException e) {
+        } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
@@ -177,7 +177,7 @@ public class ManageCategorySetsFxml implements Initializable {
             managerController.addCategorySetToCategorySet(categorySet.getName(), toAddCategory);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
             message.setText(categorySet.toString());
-        } catch (CategorySet.CategoryDoesNotFoundException e) {
+        } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
@@ -192,7 +192,7 @@ public class ManageCategorySetsFxml implements Initializable {
             managerController.removeCategorySetFromCategorySet(categorySet.getName(), toRemoveCategory);
             new AlertController().create(AlertType.CONFIRMATION, "successful");
             message.setText(categorySet.toString());
-        } catch (CategorySet.CategoryDoesNotFoundException e) {
+        } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }

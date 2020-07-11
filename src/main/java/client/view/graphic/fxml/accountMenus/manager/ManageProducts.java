@@ -82,7 +82,7 @@ public class ManageProducts implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            products = allProductsController.showProducts();
+            products = managerController.manageAllProducts();
         } catch (Exception e) {
             try {
                 new AlertController().create(AlertType.ERROR, e.getMessage());
@@ -395,7 +395,7 @@ public class ManageProducts implements Initializable {
 
     private void showProducts(int from) {
         try {
-            products = allProductsController.showProducts();
+            products = managerController.manageAllProducts();;
         } catch (Exception e) {
             try {
                 new AlertController().create(AlertType.ERROR, e.getMessage());
