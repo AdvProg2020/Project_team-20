@@ -92,6 +92,68 @@ public class BankServer {
         methods.add("createAccount");
         methods.add("getToken");
         methods.add("createReceipt");
+        methods.add("getTransactions");
+        methods.add("pay");
+    }
+
+    public Message pay(AuthToken authToken, String receiptID) {
+        Message message;
+        BankAccount bankAccount = loggedInAccounts.get(authToken);
+        if (!isTokenExists(authToken)) {
+            message = new Message("Error");
+            message.addToObjects("token is invalid");
+            return message;
+        }
+        if (!validTokenTime(authToken)) {
+            message = new Message("Error");
+            message.addToObjects("token expired");
+            return message;
+        }
+        if (!bankAccount.hasBankReceipt(receiptID)) {
+            message = new Message("Error");
+            message.addToObjects("invalid receipt id");
+            return message;
+        }
+        return validPayReceipt(bankAccount, receiptID);
+    }
+
+    private Message validPayReceipt(BankAccount bankAccount, String receiptID) {
+        Message message;
+        String result = payReceipt(bankAccount, receiptID);
+        if (result.equals("wasPaid")) {
+            message = new Message("Error");
+            message.addToObjects("receipt is paid before");
+            return message;
+        }
+        if (result.equals("notEnoughMoney")) {
+            message = new Message("Error");
+            message.addToObjects("source account does not have enough money");
+            return message;
+        }
+        if (result.equals("invalidAccount")) {
+            message = new Message("Error");
+            message.addToObjects("invalid account id");
+            return message;
+        }
+        message = new Message("Confirmation");
+        return message;
+    }
+
+    public String payReceipt(BankAccount bankAccount, String receiptId) {
+        BankReceipt bankReceipt = bankAccount.getBankReceiptByID(receiptId);
+        if (bankReceipt.wasPaid())
+            return "wasPaid";
+        BankAccount sourceBankAccount = getBankAccountByID(bankReceipt.getSourceID());
+        BankAccount destBankAccount = getBankAccountByID(bankReceipt.getDestID());
+        if (sourceBankAccount==null || destBankAccount==null) {
+            return "invalidAccount";
+        }
+        if (sourceBankAccount.getMoney()<bankReceipt.getMoney())
+            return "notEnoughMoney";
+        sourceBankAccount.decreaseMoney(bankReceipt.getMoney());
+        destBankAccount.increaseMoney(bankAccount.getMoney());
+        bankReceipt.setReceiptState(true);
+        return "Confirmation";
     }
 
     public Message getToken(String username, String password) {

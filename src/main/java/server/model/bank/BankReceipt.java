@@ -41,7 +41,7 @@ public class BankReceipt {
         return description;
     }
 
-    public boolean getReceiptState() {
+    public boolean wasPaid() {
         return receiptState;
     }
 

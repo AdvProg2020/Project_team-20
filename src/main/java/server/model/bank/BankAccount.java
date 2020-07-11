@@ -9,6 +9,7 @@ public class BankAccount {
     private String password;
     private String accountNumber;
     private ArrayList<BankReceipt> bankReceipts;
+    private double money;
 
     public BankAccount(String firstName, String lastName, String username, String password) {
         this.firstName = firstName;
@@ -16,6 +17,23 @@ public class BankAccount {
         this.username = username;
         this.password = password;
         bankReceipts = new ArrayList<>();
+        money = 0;
+    }
+
+    public boolean hasBankReceipt(String receiptId) {
+        for (BankReceipt bankReceipt1:bankReceipts) {
+            if (bankReceipt1.getID().equals(receiptId))
+                return true;
+        }
+        return false;
+    }
+
+    public BankReceipt getBankReceiptByID(String receiptId) {
+        for (BankReceipt bankReceipt1:bankReceipts) {
+            if (bankReceipt1.getID().equals(receiptId))
+                return bankReceipt1;
+        }
+        return null;
     }
 
     public ArrayList<BankReceipt> getDeposits() {
@@ -75,5 +93,17 @@ public class BankAccount {
 
     public ArrayList<BankReceipt> getBankReceipts() {
         return bankReceipts;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void increaseMoney(double moneyIncrease) {
+        money+=moneyIncrease;
+    }
+
+    public void decreaseMoney(double moneyDecrease) {
+        money-=moneyDecrease;
     }
 }
