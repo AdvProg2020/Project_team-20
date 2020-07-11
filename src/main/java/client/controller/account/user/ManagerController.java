@@ -2,28 +2,29 @@ package client.controller.account.user;
 
 import client.controller.MainController;
 import client.controller.account.LoginController;
-import client.network.Client;
-import client.network.Message;
-import javafx.scene.image.Image;
 import client.model.Requestable;
-import client.model.account.*;
-import client.model.product.category.Category;
-import client.model.product.category.SubCategory;
+import client.model.account.Account;
+import client.model.account.Buyer;
+import client.model.account.Manager;
 import client.model.product.Discount;
 import client.model.product.Product;
 import client.model.product.RequestableState;
+import client.model.product.category.Category;
 import client.model.product.category.CategorySet;
+import client.model.product.category.SubCategory;
+import client.network.Client;
+import client.network.Message;
+import javafx.scene.image.Image;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static client.model.account.Manager.*;
+import static client.model.product.Product.getProductWithItsName;
 import static client.model.product.category.CategorySet.getAllCategorySets;
-import static client.model.product.category.SubCategory.*;
-import static client.model.product.Discount.removeDiscountCode;
-import static client.model.product.Product.*;
 import static client.model.product.category.CategorySet.getCategorySetByName;
+import static client.model.product.category.SubCategory.*;
 
 public class ManagerController implements client.controller.account.user.AccountController {
 
@@ -78,7 +79,7 @@ public class ManagerController implements client.controller.account.user.Account
     public void createManagerProfile(String name, String lastName, String email, String phoneNumber,
                                      String userName, String password, String creditString) throws Exception {
         try {
-             Double.parseDouble(creditString);
+            Double.parseDouble(creditString);
         } catch (Exception e) {
             throw new LoginController.CreditIsNotNumber();
         }
@@ -104,93 +105,152 @@ public class ManagerController implements client.controller.account.user.Account
     }
 
     public void mangerRemoveProduct(String productId) throws Exception {
-        removeProduct(productId);
+        Message message = new Message("mangerRemoveProduct");
+        message.addToObjects(productId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void createDiscountCode(LocalDateTime startDate, LocalDateTime endDate, double discountPercentage,
                                    int maxNumberOfUsage, ArrayList<String> buyersWithDiscount) throws Exception {
-        ArrayList<Buyer> buyers = new ArrayList<>();
-        for (String username : buyersWithDiscount) {
-            checkUsername(username);
-            buyers.add(Buyer.getBuyerWithUsername(username));
+        Message message = new Message("createDiscountCode");
+        message.addToObjects(startDate);
+        message.addToObjects(endDate);
+        message.addToObjects(discountPercentage);
+        message.addToObjects(maxNumberOfUsage);
+        message.addToObjects(buyersWithDiscount);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
-        new Discount(startDate, endDate, discountPercentage, maxNumberOfUsage, buyers);
     }
 
     public ArrayList<Discount> viewDiscountCodes() {
-        return Discount.getAllDiscounts();
-    }
-
-    public void addNewBuyerToBuyersWithDiscount(int discountId) throws Exception {
-        Discount discount = Discount.getDiscountByDiscountCode(discountId);
-
+        client.writeMessage(new Message("viewDiscountCodes"));
+        return (ArrayList<Discount>) client.readMessage().getObjects().get(0);
     }
 
     public Discount viewDiscountCode(int discountCode) throws Exception {
-        return Discount.getDiscountByDiscountCode(discountCode);
+        Message message = new Message("viewDiscountCode");
+        message.addToObjects(discountCode);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        return (Discount) answer.getObjects().get(0);
     }
 
     public void editDiscountPercentage(int discountCode, Double newOne) throws Exception {
-        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
-        discount.setDiscountPercentage(newOne);
+        Message message = new Message("editDiscountPercentage");
+        message.addToObjects(discountCode);
+        message.addToObjects(newOne);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void editDiscountPercentage(int discountCode, String newOneString) throws Exception {
-        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
         double newOne;
         try {
             newOne = Double.parseDouble(newOneString);
+            editDiscountPercentage(discountCode, newOne);
         } catch (Exception e) {
             throw new LoginController.CreditIsNotNumber();
         }
-        discount.setDiscountPercentage(newOne);
     }
 
     public void editMaxDiscountUsage(int discountCode, int newOne) throws Exception {
-        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
-        discount.setMaxNumberOfUsage(newOne);
+        Message message = new Message("editMaxDiscountUsage");
+        message.addToObjects(discountCode);
+        message.addToObjects(newOne);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void editMaxDiscountUsage(int discountCode, String newOneString) throws Exception {
-        Discount discount = Discount.getDiscountByDiscountCode(discountCode);
         int newOne;
         try {
             newOne = Integer.parseInt(newOneString);
+            editMaxDiscountUsage(discountCode, newOne);
         } catch (Exception e) {
             throw new LoginController.CreditIsNotNumber();
         }
-        discount.setMaxNumberOfUsage(newOne);
     }
 
     public void editStartDateOfDiscountCode(int id, LocalDateTime startDate) throws Exception {
-        Discount discount = Discount.getDiscountByDiscountCode(id);
-        discount.setStartDate(startDate);
+        Message message = new Message("editStartDateOfDiscountCode");
+        message.addToObjects(id);
+        message.addToObjects(startDate);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void editEndDateOfDiscount(int id, LocalDateTime endDate) throws Exception {
-        Discount discount = Discount.getDiscountByDiscountCode(id);
-        discount.setEndDate(endDate);
+        Message message = new Message("editEndDateOfDiscount");
+        message.addToObjects(id);
+        message.addToObjects(endDate);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void removeDiscountCodes(int discountCode) throws Exception {
-        removeDiscountCode(discountCode);
+        Message message = new Message("removeDiscountCodes");
+        message.addToObjects(discountCode);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public Buyer checkUsername(String userName) throws Exception {
-        return getBuyerWithUsername(userName);
+        Message message = new Message("checkUsername");
+        message.addToObjects(userName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        return (Buyer) answer.getObjects().get(0);
     }
 
 
     public void addBuyerToBuyersWithDiscount(int discountId, String username) throws Exception {
-        Buyer buyer = getBuyerWithUsername(username);
-        Discount discount = Discount.getDiscountByDiscountCode(discountId);
-        discount.addBuyerToBuyersList(buyer);
+        Message message = new Message("addBuyerToBuyersWithDiscount");
+        message.addToObjects(discountId);
+        message.addToObjects(username);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void removeBuyerFromBuyersWithDiscount(int discountId, String username) throws Exception {
-        Buyer buyer = getBuyerWithUsername(username);
-        Discount discount = Discount.getDiscountByDiscountCode(discountId);
-        discount.removeBuyerFromBuyersList(buyer);
+        Message message = new Message("removeBuyerFromBuyersWithDiscount");
+        message.addToObjects(discountId);
+        message.addToObjects(username);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public HashMap<Integer, Requestable> manageRequests() {
