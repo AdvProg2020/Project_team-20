@@ -27,10 +27,12 @@ public class Client {
 
     public Client(int port) {
         try {
+            System.out.println("in client constructor");
             this.socket = new Socket(HOST, port);
             this.dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             this.dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         } catch (IOException e) {
+            System.out.println("in cacth");
             e.printStackTrace();
         }
     }

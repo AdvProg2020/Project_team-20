@@ -3,11 +3,15 @@ package client.controller.account;
 import client.controller.MainController;
 import client.model.account.*;
 import client.model.product.Cart;
+import client.network.Client;
+import client.network.Message;
 
 import java.util.ArrayList;
 
 public class LoginController {
     private static LoginController loginController = null;
+
+    private static Client client;
 
     private LoginController() {
     }
@@ -15,9 +19,14 @@ public class LoginController {
     public static LoginController getInstance() {
         if (loginController == null)
             loginController = new LoginController();
+        client = new Client(1100);
+        client.readMessage();
         return loginController;
     }
 
+    public static Client getClient() {
+        return client;
+    }
 
     public void createAccount(String username, String type, ArrayList<String> details, String detail) throws Exception {
         if (Account.hasThisAccount(username)) {
@@ -76,21 +85,23 @@ public class LoginController {
     }
 
     public AccountType login(String username, String password) throws Exception {
-        logout();
-        if (!Account.hasThisAccount(username)) {
-            throw new AccountUnavailableException();
+        Message message = new Message("login");
+        message.addToObjects(username);
+        message.addToObjects(password);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
-        Account account = Account.getAccountWithUsername(username);
-        if (!account.getPassword().equals(password)) {
-            throw new IncorrectPasswordException();
-        }
+        client.setAuthToken(answer.getAuthToken());
+        Object object = answer.getObjects().get(0);
+        GeneralAccount account = (GeneralAccount) answer.getObjects().get(1);
         MainController mainController = MainController.getInstance();
         Cart cart = ((TempAccount) mainController.getAccount()).getCart();
         MainController.getInstance().setAccount(account);
-        if (account instanceof Manager)
+        if (object.equals(AccountType.MANAGER))
             return AccountType.MANAGER;
-        else if (account instanceof Buyer) {
-            ((Buyer) account).setCart(cart);
+        else if (object.equals(AccountType.BUYER)) {
             return AccountType.BUYER;
         }
         return AccountType.SELLER;

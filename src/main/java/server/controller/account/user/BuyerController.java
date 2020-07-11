@@ -250,7 +250,9 @@ public class BuyerController extends Server implements AccountController {
     public Message viewCart(AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message = new Message("cart");
-        message.addToObjects(currentBuyer.getCart());
+        if (currentBuyer.getCart() != null)
+            message.addToObjects(currentBuyer.getCart());
+        else message.addToObjects(new Cart());
         return message;
     }
 
@@ -367,7 +369,7 @@ public class BuyerController extends Server implements AccountController {
                         Double.parseDouble(context));
                 break;
             default:
-                Message message = new Message("edit request sent");
+                Message message = new Message("Error");
                 message.addToObjects(new ManagerController.fieldIsInvalidException());
                 return message;
         }

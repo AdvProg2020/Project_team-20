@@ -1,11 +1,13 @@
 package server.controller.product;
 
+import server.controller.Main;
 import server.controller.MainController;
 import server.controller.account.user.BuyerController;
 import server.model.account.*;
 import server.model.product.Product;
 import server.model.product.comment.Comment;
 import server.model.product.comment.Reply;
+import server.network.AuthToken;
 
 import java.util.ArrayList;
 
@@ -45,12 +47,13 @@ public class ProductController {
         product.addComment(new Comment((Buyer) currentAccount, product, title, content));
     }
 
-    public void addScore(double score, Product product, GeneralAccount currentAccount) throws Exception {
+    public void addScore(double score, Product product, AuthToken authToken) throws Exception {
+        GeneralAccount currentAccount = Main.getAccountWithToken(authToken);
         if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
                 !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)) ||
                 currentAccount.getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT))
             throw new AccountNotBuyerException();
-        BuyerController.getInstance().rate(product.getId(), score, (Buyer) currentAccount);
+        BuyerController.getInstance().rate(product.getId(), score, authToken);
     }
 
     public void addReplyToComment(Comment comment, String title, String content) throws Exception {

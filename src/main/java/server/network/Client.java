@@ -50,9 +50,10 @@ public class Client {
     }
 
 
-    public void writeMessage(Message massage) {
+    public void writeMessage(Message message) {
         try {
-            dataOutputStream.writeUTF(massage.toYaGson());
+            message.setAuth(authToken);
+            dataOutputStream.writeUTF(message.toYaGson());
             dataOutputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();

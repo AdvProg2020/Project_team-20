@@ -1,15 +1,22 @@
 package server.controller.account;
 
+import server.controller.Main;
+import server.controller.MainController;
 import server.model.account.*;
 import server.model.product.Cart;
-import server.controller.MainController;
+import server.network.AuthToken;
+import server.network.Message;
+import server.network.server.Server;
 
 import java.util.ArrayList;
 
-public class LoginController {
+public class LoginController extends Server {
     private static LoginController loginController = null;
 
     private LoginController() {
+        super(1100);
+        setMethods();
+        System.out.println("login server run");
     }
 
     public static LoginController getInstance() {
@@ -75,29 +82,53 @@ public class LoginController {
         Manager.addRequest(new Seller(name, lastName, email, phoneNumber, username, password, credit, detail));
     }
 
-    public AccountType login(String username, String password) throws Exception {
+    public Message login(String username, String password) throws Exception {
+        System.out.println("in login");
         logout();
-        if (!Account.hasThisAccount(username)) {
-            throw new AccountUnavailableException();
+        if (!client.model.account.Account.hasThisAccount(username)) {
+            Message message = new Message("Error");
+            message.addToObjects(new LoginController.AccountUnavailableException());
+            return message;
         }
-        Account account = Account.getAccountWithUsername(username);
+       Account account = Account.getAccountWithUsername(username);
         if (!account.getPassword().equals(password)) {
-            throw new IncorrectPasswordException();
+            Message message = new Message("Error");
+            message.addToObjects(new LoginController.IncorrectPasswordException());
+            return message;
         }
         MainController mainController = MainController.getInstance();
         Cart cart = ((TempAccount) mainController.getAccount()).getCart();
         MainController.getInstance().setAccount(account);
-        if (account instanceof Manager)
-            return AccountType.MANAGER;
+        Message message = new Message("AccountType");
+        if (account instanceof Manager) {
+            message.addToObjects(AccountType.MANAGER);
+            message.addToObjects(account);
+            message.setAuth(AuthToken.generateAuth(account.getUsername()));
+            Main.addToTokenHashMap(message.getAuthToken(), account);
+            return message;
+        }
         else if (account instanceof Buyer) {
             ((Buyer) account).setCart(cart);
-            return AccountType.BUYER;
+            message.addToObjects(AccountType.BUYER);
+            message.addToObjects(account);
+            message.setAuth(AuthToken.generateAuth(account.getUsername()));
+            Main.addToTokenHashMap(message.getAuthToken(), account);
+            return message;
         }
-        return AccountType.SELLER;
+        message.addToObjects(AccountType.SELLER);
+        message.addToObjects(account);
+        message.setAuth(AuthToken.generateAuth(account.getUsername()));
+        Main.addToTokenHashMap(message.getAuthToken(), account);
+        return message;
     }
 
     public void logout() {
         MainController.getInstance().setAccount(new TempAccount());
+    }
+
+    @Override
+    protected void setMethods() {
+        methods.add("login");
     }
 
     public static class AccountIsAvailableException extends Exception {

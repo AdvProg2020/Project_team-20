@@ -1,5 +1,6 @@
 package server.controller;
 
+import server.controller.account.LoginController;
 import server.controller.account.user.BuyerController;
 import server.controller.bank.BankServer;
 import server.model.account.Account;
@@ -31,6 +32,7 @@ public class Main {
     private static void runServers() {
         new BankServer();
         BuyerController.getInstance();
+        LoginController.getInstance();
         //TODO run all requierd servers
     }
 

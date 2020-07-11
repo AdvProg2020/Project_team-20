@@ -1,6 +1,7 @@
 package client.controller.account.user;
 
 import client.controller.MainController;
+import client.controller.account.LoginController;
 import client.model.account.*;
 import client.model.product.*;
 import client.model.receipt.BuyerReceipt;
@@ -26,8 +27,13 @@ public class BuyerController implements AccountController {
             buyerController = new BuyerController();
         currentBuyer = (Buyer) MainController.getInstance().getAccount();
         client = new Client(6000);
-        client.setAuthToken(client.readMessage().getAuthToken());
+        client.setAuthToken(LoginController.getClient().getAuthToken());
+        System.out.println(client.getAuthToken());
         return buyerController;
+    }
+
+    public static Client getClient() {
+        return client;
     }
 
     public ArrayList<Product> getAllProducts() {
@@ -43,6 +49,7 @@ public class BuyerController implements AccountController {
     }
 
     public ArrayList<BuyerReceipt> viewOrders() {
+        System.out.println("in view Orders");
         client.writeMessage(new Message("viewOrders"));
         //todo check for arraylist
         return (ArrayList<BuyerReceipt>) client.readMessage().getObjects().get(0);
