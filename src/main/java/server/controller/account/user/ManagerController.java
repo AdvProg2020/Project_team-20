@@ -1,8 +1,5 @@
 package server.controller.account.user;
 
-import javafx.scene.image.Image;
-import server.controller.Main;
-import server.controller.account.LoginController;
 import client.model.Requestable;
 import client.model.account.Account;
 import client.model.account.Buyer;
@@ -15,15 +12,18 @@ import client.model.product.category.CategorySet;
 import client.model.product.category.SubCategory;
 import client.network.AuthToken;
 import client.network.Message;
+import javafx.scene.image.Image;
+import server.controller.Main;
+import server.controller.account.LoginController;
 import server.network.server.Server;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static client.model.account.Manager.*;
 import static client.model.product.Discount.removeDiscountCode;
-import static client.model.product.Product.*;
+import static client.model.product.Product.getProductWithItsName;
+import static client.model.product.Product.removeProduct;
 import static client.model.product.category.CategorySet.getAllCategorySets;
 import static client.model.product.category.CategorySet.getCategorySetByName;
 import static client.model.product.category.SubCategory.*;
@@ -244,33 +244,55 @@ public class ManagerController extends Server implements AccountController {
         return message;
     }
 
-    public HashMap<Integer, Requestable> manageRequests() {
-        return getRequestWithIds();
+    public Message manageRequests(AuthToken authToken) {
+        Message message = new Message("requests");
+        message.addToObjects(getRequestWithIds());
+        return message;
     }
 
-    public String requestDetails(int requestId) throws Exception {
-        Requestable request = findRequestWithId(requestId);
-        return request.toString();
-    }
-
-    public void acceptRequest(int requestId) throws Exception {
-        Requestable request = findRequestWithId(requestId);
-        RequestableState state = request.getState();
-        switch (state) {
-            case EDITED:
-                request.edit();
-                break;
-            case CREATED:
-                request.changeStateAccepted();
-                break;
+    public Message requestDetails(int requestId, AuthToken authToken) {
+        Message message = new Message("details of request");
+        try {
+            message.addToObjects(findRequestWithId(requestId).toString());
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
         }
-        deleteRequest(request, requestId);
+        return message;
     }
 
-    public void declineRequest(int requestId) throws Exception {
-        Requestable request = findRequestWithId(requestId);
-        request.changeStateRejected();
-        deleteRequest(request, requestId);
+    public Message acceptRequest(int requestId, AuthToken authToken) {
+        Message message = new Message("request accepted");
+        try {
+            Requestable request = findRequestWithId(requestId);
+            RequestableState state = request.getState();
+            switch (state) {
+                case EDITED:
+                    request.edit();
+                    break;
+                case CREATED:
+                    request.changeStateAccepted();
+                    break;
+            }
+            deleteRequest(request, requestId);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    public Message declineRequest(int requestId, AuthToken authToken) {
+        Message message = new Message("request declined");
+        try {
+            Requestable request = findRequestWithId(requestId);
+            request.changeStateRejected();
+            deleteRequest(request, requestId);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
     public ArrayList<SubCategory> manageSubCategories() {

@@ -8,7 +8,6 @@ import client.model.account.Buyer;
 import client.model.account.Manager;
 import client.model.product.Discount;
 import client.model.product.Product;
-import client.model.product.RequestableState;
 import client.model.product.category.Category;
 import client.model.product.category.CategorySet;
 import client.model.product.category.SubCategory;
@@ -20,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static client.model.account.Manager.*;
 import static client.model.product.Product.getProductWithItsName;
 import static client.model.product.category.CategorySet.getAllCategorySets;
 import static client.model.product.category.CategorySet.getCategorySetByName;
@@ -254,32 +252,39 @@ public class ManagerController implements client.controller.account.user.Account
     }
 
     public HashMap<Integer, Requestable> manageRequests() {
-        return getRequestWithIds();
+        client.writeMessage(new Message("manageRequests"));
+        return (HashMap<Integer, Requestable>) client.readMessage().getObjects().get(0);
     }
 
     public String requestDetails(int requestId) throws Exception {
-        Requestable request = findRequestWithId(requestId);
-        return request.toString();
+        Message message = new Message("requestDetails");
+        message.addToObjects(requestId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        return (String) answer.getObjects().get(0);
     }
 
     public void acceptRequest(int requestId) throws Exception {
-        Requestable request = findRequestWithId(requestId);
-        RequestableState state = request.getState();
-        switch (state) {
-            case EDITED:
-                request.edit();
-                break;
-            case CREATED:
-                request.changeStateAccepted();
-                break;
+        Message message = new Message("acceptRequest");
+        message.addToObjects(requestId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
-        deleteRequest(request, requestId);
     }
 
     public void declineRequest(int requestId) throws Exception {
-        Requestable request = findRequestWithId(requestId);
-        request.changeStateRejected();
-        deleteRequest(request, requestId);
+        Message message = new Message("declineRequest");
+        message.addToObjects(requestId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public ArrayList<SubCategory> manageSubCategories() {
