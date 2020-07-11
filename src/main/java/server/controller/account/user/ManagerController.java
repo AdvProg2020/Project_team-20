@@ -295,45 +295,86 @@ public class ManagerController extends Server implements AccountController {
         return message;
     }
 
-    public ArrayList<SubCategory> manageSubCategories() {
-        return getAllSubCategories();
+    public Message manageSubCategories(AuthToken authToken) {
+        Message message = new Message("sub categories");
+        message.addToObjects(getAllSubCategories());
+        return message;
     }
 
-    public ArrayList<CategorySet> manageCategorySets() {
-        return getAllCategorySets();
+    public Message manageCategorySets(AuthToken authToken) {
+        Message message = new Message("category sets");
+        message.addToObjects(getAllCategorySets());
+        return message;
     }
 
-    public ArrayList<Category> manageAllCategories() {
-        return Category.getAllCategories();
+    public Message manageAllCategories(AuthToken authToken) {
+        Message message = new Message("all categories");
+        message.addToObjects(Category.getAllCategories());
+        return message;
     }
 
-    public void editCategoryName(String categoryName, String newName) throws Exception {
-        Category category = Category.getCategoryByName(categoryName);
-        category.setName(newName);
+    public Message editCategoryName(String categoryName, String newName, AuthToken authToken) {
+        Message message = new Message("category name edited");
+        try {
+            Category category = Category.getCategoryByName(categoryName);
+            category.setName(newName);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void removeFieldFromCategory(String name, String fieldName) throws Exception {
-        SubCategory subCategory = getCategoryByName(name);
-        subCategory.removeField(fieldName);
+    public Message removeFieldFromCategory(String name, String fieldName, AuthToken authToken) {
+        Message message = new Message("field removed");
+        try {
+            SubCategory subCategory = getCategoryByName(name);
+            subCategory.removeField(fieldName);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void removeSubCategoryFromAllSubCategories(String categoryName, String subCategoryName) throws Exception {
-        CategorySet categorySet = getCategorySetByName(categoryName);
-        SubCategory subCategory = getCategoryByName(subCategoryName);
-        subCategory.setParent(null);
-        categorySet.removeSubCategory(subCategory);
+    public Message removeSubCategoryFromAllSubCategories(String categoryName, String subCategoryName, AuthToken authToken) {
+        Message message = new Message("sub category removed");
+        try {
+            CategorySet categorySet = getCategorySetByName(categoryName);
+            SubCategory subCategory = getCategoryByName(subCategoryName);
+            subCategory.setParent(null);
+            categorySet.removeSubCategory(subCategory);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void removeCategorySetFromCategorySet(String parentName, String subName) throws CategorySet.CategoryDoesNotFoundException {
-        CategorySet parentCategorySet = getCategorySetByName(parentName);
-        CategorySet categorySet = getCategorySetByName(subName);
-        parentCategorySet.removeSubCategorySet(categorySet);
+    public Message removeCategorySetFromCategorySet(String parentName, String subName, AuthToken authToken) {
+        Message message = new Message("category set removed");
+        try {
+            CategorySet parentCategorySet = getCategorySetByName(parentName);
+            CategorySet categorySet = getCategorySetByName(subName);
+            parentCategorySet.removeSubCategorySet(categorySet);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void removeProductFromCategory(String categoryName, String productName) throws Exception {
-        SubCategory subCategory = getCategoryByName(categoryName);
-        Product product = getProductWithItsName(productName);
-        subCategory.removeProduct(product);
+    public Message removeProductFromCategory(String categoryName, String productName) {
+        Message message = new Message("product removed from category");
+        try {
+            SubCategory subCategory = getCategoryByName(categoryName);
+            Product product = getProductWithItsName(productName);
+            subCategory.removeProduct(product);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
     public void addCategory(String categoryName) throws Exception {

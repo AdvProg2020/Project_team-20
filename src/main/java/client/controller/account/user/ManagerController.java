@@ -19,10 +19,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static client.model.product.Product.getProductWithItsName;
-import static client.model.product.category.CategorySet.getAllCategorySets;
 import static client.model.product.category.CategorySet.getCategorySetByName;
-import static client.model.product.category.SubCategory.*;
+import static client.model.product.category.SubCategory.getCategoryByName;
+import static client.model.product.category.SubCategory.removeCategory;
 
 public class ManagerController implements client.controller.account.user.AccountController {
 
@@ -288,44 +287,73 @@ public class ManagerController implements client.controller.account.user.Account
     }
 
     public ArrayList<SubCategory> manageSubCategories() {
-        return getAllSubCategories();
+        client.writeMessage(new Message("manageSubCategories"));
+        return (ArrayList<SubCategory>) client.readMessage().getObjects().get(0);
     }
 
     public ArrayList<CategorySet> manageCategorySets() {
-        return getAllCategorySets();
+        client.writeMessage(new Message("manageCategorySets"));
+        return (ArrayList<CategorySet>) client.readMessage().getObjects().get(0);
     }
 
     public ArrayList<Category> manageAllCategories() {
-        return Category.getAllCategories();
+        client.writeMessage(new Message("manageAllCategories"));
+        return (ArrayList<Category>) client.readMessage().getObjects().get(0);
     }
 
     public void editCategoryName(String categoryName, String newName) throws Exception {
-        Category category = Category.getCategoryByName(categoryName);
-        category.setName(newName);
+        Message message = new Message("editCategoryName");
+        message.addToObjects(categoryName);
+        message.addToObjects(newName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void removeFieldFromCategory(String name, String fieldName) throws Exception {
-        SubCategory subCategory = getCategoryByName(name);
-        subCategory.removeField(fieldName);
+        Message message = new Message("removeFieldFromCategory");
+        message.addToObjects(name);
+        message.addToObjects(fieldName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void removeSubCategoryFromAllSubCategories(String categoryName, String subCategoryName) throws Exception {
-        CategorySet categorySet = getCategorySetByName(categoryName);
-        SubCategory subCategory = getCategoryByName(subCategoryName);
-        subCategory.setParent(null);
-        categorySet.removeSubCategory(subCategory);
+        Message message = new Message("removeSubCategoryFromAllSubCategories");
+        message.addToObjects(categoryName);
+        message.addToObjects(subCategoryName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
-    public void removeCategorySetFromCategorySet(String parentName, String subName) throws CategorySet.CategoryDoesNotFoundException {
-        CategorySet parentCategorySet = getCategorySetByName(parentName);
-        CategorySet categorySet = getCategorySetByName(subName);
-        parentCategorySet.removeSubCategorySet(categorySet);
+    public void removeCategorySetFromCategorySet(String parentName, String subName) throws Exception {
+        Message message = new Message("removeCategorySetFromCategorySet");
+        message.addToObjects(parentName);
+        message.addToObjects(subName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void removeProductFromCategory(String categoryName, String productName) throws Exception {
-        SubCategory subCategory = getCategoryByName(categoryName);
-        Product product = getProductWithItsName(productName);
-        subCategory.removeProduct(product);
+        Message message = new Message("removeProductFromCategory");
+        message.addToObjects(categoryName);
+        message.addToObjects(productName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void addCategory(String categoryName) throws Exception {
