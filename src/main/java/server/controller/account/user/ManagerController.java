@@ -34,6 +34,8 @@ public class ManagerController extends Server implements AccountController {
 
     private ManagerController() {
         super(7000);
+        setMethods();
+        System.out.println("manager controller run");
     }
 
     public static ManagerController getInstance() {
@@ -43,35 +45,60 @@ public class ManagerController extends Server implements AccountController {
     }
 
 
-    public ArrayList<Account> manageUsers() {
-        return getAllAccounts();
+    public Message manageUsers(AuthToken authToken) {
+        Message message = new Message("all users");
+        message.addToObjects(getAllAccounts());
+        return message;
     }
 
-    public Account viewUser(String userName) throws Exception {
-        return Account.getAccountWithUsername(userName);
+    public Message viewUser(String userName, AuthToken authToken) {
+        Message message = new Message("view user");
+        try {
+            message.addToObjects(Account.getAccountWithUsername(userName));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void deleteUser(String userName) throws Exception {
-        Account account = Account.getAccountWithUsername(userName);
-        Account.deleteAccount(account);
+    public Message deleteUser(String userName) {
+        Message message = new Message("delete was successful");
+        try {
+            Account account = Account.getAccountWithUsername(userName);
+            Account.deleteAccount(account);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void createManagerProfile(String name, String lastName, String email, String phoneNumber,
-                                     String userName, String password, String creditString) throws Exception {
-        if (Account.hasThisAccount(userName))
-            throw new LoginController.AccountIsAvailableException();
+    public Message createManagerProfile(String name, String lastName, String email, String phoneNumber,
+                                        String userName, String password, String creditString) {
+        Message message = new Message("manager created");
+        if (Account.hasThisAccount(userName)) {
+            message = new Message("Error");
+            message.addToObjects(new LoginController.AccountIsAvailableException());
+            return message;
+        }
         double credit;
         try {
             credit = Double.parseDouble(creditString);
         } catch (Exception e) {
-            throw new LoginController.CreditIsNotNumber();
+            message = new Message("Error");
+            message.addToObjects(new LoginController.CreditIsNotNumber());
+            return message;
         }
         Account.addAccount(new Manager(name, lastName, email, phoneNumber, userName, password, credit,
                 false));
+        return message;
     }
 
-    public ArrayList<Product> manageAllProducts() {
-        return getAllProducts();
+    public Message manageAllProducts() {
+        Message message = new Message("all products");
+        message.addToObjects(Product.getAllProducts());
+        return message;
     }
 
     public void mangerRemoveProduct(String productId) throws Exception {

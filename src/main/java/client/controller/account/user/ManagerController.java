@@ -2,6 +2,8 @@ package client.controller.account.user;
 
 import client.controller.MainController;
 import client.controller.account.LoginController;
+import client.network.Client;
+import client.network.Message;
 import javafx.scene.image.Image;
 import client.model.Requestable;
 import client.model.account.*;
@@ -27,6 +29,7 @@ public class ManagerController implements client.controller.account.user.Account
 
     private MainController mainController;
     private static Manager currentManager;
+    private static Client client;
 
     private static ManagerController managerController = null;
 
@@ -38,39 +41,66 @@ public class ManagerController implements client.controller.account.user.Account
         if (managerController == null)
             managerController = new ManagerController();
         currentManager = (Manager) MainController.getInstance().getAccount();
+        client = new Client(7000);
+        client.setAuthToken(LoginController.getClient().getAuthToken());
+        client.readMessage();
+        System.out.println(client.getAuthToken());
         return managerController;
     }
 
 
     public ArrayList<Account> manageUsers() {
-        return getAllAccounts();
+        client.writeMessage(new Message("manageUsers"));
+        return (ArrayList<Account>) client.readMessage().getObjects().get(0);
     }
 
     public Account viewUser(String userName) throws Exception {
-        return Account.getAccountWithUsername(userName);
+        Message message = new Message("viewUser");
+        message.addToObjects(userName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        return (Account) answer.getObjects().get(0);
     }
 
     public void deleteUser(String userName) throws Exception {
-        Account account = Account.getAccountWithUsername(userName);
-        Account.deleteAccount(account);
+        Message message = new Message("deleteUser");
+        message.addToObjects(userName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void createManagerProfile(String name, String lastName, String email, String phoneNumber,
                                      String userName, String password, String creditString) throws Exception {
-        if (Account.hasThisAccount(userName))
-            throw new LoginController.AccountIsAvailableException();
-        double credit;
         try {
-            credit = Double.parseDouble(creditString);
+             Double.parseDouble(creditString);
         } catch (Exception e) {
             throw new LoginController.CreditIsNotNumber();
         }
-        Account.addAccount(new Manager(name, lastName, email, phoneNumber, userName, password, credit,
-                false));
+        Message message = new Message("createManagerProfile");
+        message.addToObjects(name);
+        message.addToObjects(lastName);
+        message.addToObjects(email);
+        message.addToObjects(phoneNumber);
+        message.addToObjects(userName);
+        message.addToObjects(password);
+        message.addToObjects(creditString);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public ArrayList<Product> manageAllProducts() {
-        return getAllProducts();
+        client.writeMessage(new Message("manageAllProducts"));
+        // todo check for arraylist
+        return (ArrayList<Product>) client.readMessage().getObjects().get(0);
     }
 
     public void mangerRemoveProduct(String productId) throws Exception {
