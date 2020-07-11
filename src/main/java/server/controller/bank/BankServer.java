@@ -58,6 +58,8 @@ public class BankServer {
         client.writeMessage(new Message("client accepted"));
         while (true) {
             Message message = client.readMessage();
+            if (message.getText().equals("exit"))
+                break;
             try {
                 client.writeMessage(callCommand(message.getText(), message));
             } catch (Exception e) {
@@ -94,7 +96,7 @@ public class BankServer {
         methods.add("createReceipt");
         methods.add("getTransactions");
         methods.add("pay");
-        methods.add("getBalance");
+        methods.add("logout");
     }
 
     public Message pay(AuthToken authToken, String receiptID) {
@@ -118,7 +120,7 @@ public class BankServer {
         return validPayReceipt(bankAccount, receiptID);
     }
 
-    public void exit(AuthToken authToken) {
+    public void logout(AuthToken authToken) {
         loggedInAccounts.remove(authToken);
     }
 
