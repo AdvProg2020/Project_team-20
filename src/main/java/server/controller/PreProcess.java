@@ -1,5 +1,6 @@
 package server.controller;
 
+import server.network.AuthToken;
 import com.gilecode.yagson.YaGson;
 import server.controller.account.user.BuyerController;
 import server.controller.gift.Action;
@@ -33,7 +34,8 @@ public class PreProcess {
     }
 
 
-    public void purchaseGift(Buyer buyer) {
+    public void purchaseGift(AuthToken authToken) {
+        Buyer buyer = (Buyer) Main.getAccountWithToken(authToken);
         Action[] actions = {() -> {
             ArrayList<Buyer> buyerArrayList = new ArrayList<>();
             buyerArrayList.add(buyer);
@@ -49,13 +51,13 @@ public class PreProcess {
             buyers.clear();
         }};
         Event[] events = {() -> {
-            double totalPrice = (double) buyerController.getTotalPrice(buyer).getObjects().get(0);
+            double totalPrice = (double) buyerController.getTotalPrice(authToken).getObjects().get(0);
             return totalPrice >= 1000000;
         }, () -> {
-            double totalPrice = (double) buyerController.getTotalPrice(buyer).getObjects().get(0);
+            double totalPrice = (double) buyerController.getTotalPrice(authToken).getObjects().get(0);
             return totalPrice >= 10000000;
         }, () -> {
-            double totalPrice = (double) buyerController.getTotalPrice(buyer).getObjects().get(0);
+            double totalPrice = (double) buyerController.getTotalPrice(authToken).getObjects().get(0);
             return totalPrice >= 100000000;
         }};
         GiftController[] giftControllers = {new GiftController(actions[0], events[2]),

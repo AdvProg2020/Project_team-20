@@ -1,16 +1,15 @@
 package server.controller.account.user;
 
 import javafx.scene.image.Image;
-import server.model.account.Account;
 import server.network.AuthToken;
 import server.network.Message;
 
 public interface AccountController {
-    Message getAccountInfo(String username);
+    Message getAccountInfo(AuthToken authToken);
 
-    Message editField(String field, String context, Account account) throws Exception;
+    Message editField(String field, String context, AuthToken authToken) throws Exception;
 
-    Message changeMainImage(Image image, Account account);
+    Message changeMainImage(Image image, AuthToken authToken);
 
-    Message logout(AuthToken authToken, Account account);
+    Message logout(AuthToken authToken);
 }

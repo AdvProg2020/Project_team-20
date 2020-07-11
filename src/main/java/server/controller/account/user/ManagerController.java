@@ -293,10 +293,10 @@ public class ManagerController extends Server implements AccountController {
 
 
     @Override
-    public Message getAccountInfo(String username) {
+    public Message getAccountInfo(AuthToken authToken) {
         Message message = new Message("account info");
         try {
-            message.addToObjects(Account.getAccountWithUsername(username));
+            message.addToObjects(Account.getAccountWithUsername(authToken.getUsername()));
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -305,7 +305,8 @@ public class ManagerController extends Server implements AccountController {
     }
 
     @Override
-    public Message editField(String field, String context, Account currentManager) throws Exception {
+    public Message editField(String field, String context, AuthToken authToken) {
+        Manager currentManager = (Manager) Main.getAccountWithToken(authToken);
         switch (field) {
             case "name":
                 currentManager.setName(context);
@@ -333,19 +334,22 @@ public class ManagerController extends Server implements AccountController {
         return new Message("edited");
     }
 
-    public Message setProfileImage(String path, Account currentManager) {
+    public Message setProfileImage(String path, AuthToken authToken) {
+        Manager currentManager = (Manager) Main.getAccountWithToken(authToken);
         currentManager.setImagePath(path);
         return new Message("set profile image was successful");
     }
 
     @Override
-    public Message changeMainImage(Image image, Account currentManager) {
+    public Message changeMainImage(Image image, AuthToken authToken) {
+        Manager currentManager = (Manager) Main.getAccountWithToken(authToken);
         currentManager.getGraphicPackage().setMainImage(image);
         return new Message("change main image");
     }
 
     @Override
-    public Message logout(AuthToken authToken, Account currentManager) {
+    public Message logout(AuthToken authToken) {
+        Manager currentManager = (Manager) Main.getAccountWithToken(authToken);
         Main.removeFromTokenHashMap(authToken, currentManager);
         return new Message("logout was successful");
     }

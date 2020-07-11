@@ -305,10 +305,10 @@ public class SellerController implements AccountController {
     }
 
     @Override
-    public Message getAccountInfo(String username) {
+    public Message getAccountInfo(AuthToken authToken) {
         Message message = new Message("account info");
         try {
-            message.addToObjects(Account.getAccountWithUsername(username));
+            message.addToObjects(Account.getAccountWithUsername(authToken.getUsername()));
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -317,8 +317,8 @@ public class SellerController implements AccountController {
     }
 
     @Override
-    public Message editField(String field, String context, Account account) throws Exception {
-        Seller seller = (Seller) account;
+    public Message editField(String field, String context, AuthToken authToken) {
+        Seller seller = (Seller) Main.getAccountWithToken(authToken);
         switch (field) {
             case "name":
                 seller.changeStateEdited(context, seller.getLastName(), seller.getEmail(), seller.getPhoneNumber(),
@@ -363,19 +363,22 @@ public class SellerController implements AccountController {
         }
     }
 
-    public Message setProfileImage(String path, Account currentSeller) {
+    public Message setProfileImage(String path, AuthToken authToken) {
+        Seller currentSeller = (Seller) Main.getAccountWithToken(authToken);
         currentSeller.setImagePath(path);
         return new Message("set profile image was successful");
     }
 
     @Override
-    public Message changeMainImage(Image image, Account currentSeller) {
+    public Message changeMainImage(Image image, AuthToken authToken) {
+        Seller currentSeller = (Seller) Main.getAccountWithToken(authToken);
         currentSeller.getGraphicPackage().setMainImage(image);
         return new Message("change main image");
     }
 
     @Override
-    public Message logout(AuthToken authToken, Account currentSeller) {
+    public Message logout(AuthToken authToken) {
+        Seller currentSeller = (Seller) Main.getAccountWithToken(authToken);
         Main.removeFromTokenHashMap(authToken, currentSeller);
         return new Message("logout was successful");
     }

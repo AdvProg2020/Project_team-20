@@ -21,8 +21,8 @@ public class SupporterController implements AccountController {
     }
 
     @Override
-    public Message editField(String field, String context, Account account) throws Exception {
-        Supporter currentSupporter = (Supporter) account;
+    public Message editField(String field, String context, AuthToken authToken) {
+        Supporter currentSupporter = (Supporter) Main.getAccountWithToken(authToken);
         switch (field) {
             case "name":
                 currentSupporter.setName(context);
@@ -49,10 +49,10 @@ public class SupporterController implements AccountController {
 
 
     @Override
-    public Message getAccountInfo(String username) {
+    public Message getAccountInfo(AuthToken authToken) {
         Message message = new Message("account info");
         try {
-            message.addToObjects(Account.getAccountWithUsername(username));
+            message.addToObjects(Account.getAccountWithUsername(authToken.getUsername()));
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -60,19 +60,22 @@ public class SupporterController implements AccountController {
         return message;
     }
 
-    public Message setProfileImage(String path, Account currentSupporter) {
+    public Message setProfileImage(String path, AuthToken authToken) {
+        Supporter currentSupporter = (Supporter) Main.getAccountWithToken(authToken);
         currentSupporter.setImagePath(path);
         return new Message("set profile image was successful");
     }
 
     @Override
-    public Message changeMainImage(Image image, Account currentSupporter) {
+    public Message changeMainImage(Image image, AuthToken authToken) {
+        Supporter currentSupporter = (Supporter) Main.getAccountWithToken(authToken);
         currentSupporter.getGraphicPackage().setMainImage(image);
         return new Message("change main image");
     }
 
     @Override
-    public Message logout(AuthToken authToken, Account currentSupporter) {
+    public Message logout(AuthToken authToken) {
+        Supporter currentSupporter = (Supporter) Main.getAccountWithToken(authToken);
         Main.removeFromTokenHashMap(authToken, currentSupporter);
         return new Message("logout was successful");
     }

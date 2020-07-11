@@ -43,8 +43,9 @@ public abstract class Server {
         clients.add(client);
         client.writeMessage(new Message("client accepted"));
         while (true) {
+            Message message = client.readMessage();
             try {
-                Message message = client.readMessage();
+                message.addToObjects(message.getAuthToken());
                 if (message.getAuthToken().authenticate())
                     client.writeMessage(callCommand(message.getText(), message));
                 else {
@@ -55,7 +56,6 @@ public abstract class Server {
             } catch (InvalidCommand invalidCommand) {
                 invalidCommand.printStackTrace();
             } catch (NullPointerException nullPointerException) {
-                Message message = client.readMessage();
                 try {
                     client.writeMessage(callCommand(message.getText(), message));
                 } catch (InvalidCommand invalidCommand) {

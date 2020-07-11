@@ -1,7 +1,7 @@
 package client.network.server;
 
-import server.network.Client;
-import server.network.Message;
+import client.network.Client;
+import client.network.Message;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -10,13 +10,13 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static server.network.AuthToken.generateAuth;
+import static client.network.AuthToken.generateAuth;
 
 public abstract class Server {
 
 
     protected ServerSocket serverSocket;
-    protected ArrayList<server.network.Client> clients;
+    protected ArrayList<Client> clients;
     protected ArrayList<String> methods;
 
     public Server(int port) {
@@ -33,7 +33,7 @@ public abstract class Server {
     protected void handleClients() {
         while (true) {
             try {
-                server.network.Client client = new server.network.Client(serverSocket.accept());
+                Client client = new Client(serverSocket.accept());
                 new Thread(() -> handleClient(client)).start();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -54,13 +54,13 @@ public abstract class Server {
                     clients.remove(client);
                     return;
                 }
-            } catch (server.network.server.Server.InvalidCommand invalidCommand) {
+            } catch (Server.InvalidCommand invalidCommand) {
                 invalidCommand.printStackTrace();
             }
         }
     }
 
-    public Message callCommand(String command, Message message) throws server.network.server.Server.InvalidCommand {
+    public Message callCommand(String command, Message message) throws Server.InvalidCommand {
         for (String method : methods) {
             if (method.equals(command)) {
                 try {
@@ -71,7 +71,7 @@ public abstract class Server {
                 }
             }
         }
-        throw new server.network.server.Server.InvalidCommand();
+        throw new Server.InvalidCommand();
     }
 
 
