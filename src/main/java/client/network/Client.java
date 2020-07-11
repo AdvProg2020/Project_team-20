@@ -8,6 +8,11 @@ import java.net.Socket;
 
 public class Client {
     private static final String HOST = "127.0.0.1";
+    private static final int DEFAULT_PORT = 8000;
+
+    //private static final int SEND_SIZE = ;
+    private static final String END_MESSAGE = "END_MESSAGE";
+
 
     private DataOutputStream dataOutputStream;
     private DataInputStream dataInputStream;
@@ -27,12 +32,10 @@ public class Client {
 
     public Client(int port) {
         try {
-            System.out.println("in client constructor");
             this.socket = new Socket(HOST, port);
             this.dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             this.dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         } catch (IOException e) {
-            System.out.println("in cacth");
             e.printStackTrace();
         }
     }
@@ -47,13 +50,10 @@ public class Client {
     }
 
 
-    public void writeMessage(Message massage) {
+    public void writeMessage(Message message) {
         try {
-            massage.setAuth(authToken);
-            System.out.println(authToken);
-            if (authToken != null)
-            System.out.println(authToken.getKey());
-            dataOutputStream.writeUTF(massage.toYaGson());
+            message.setAuth(authToken);
+            dataOutputStream.writeUTF(message.toYaGson());
             dataOutputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,4 +92,5 @@ public class Client {
     public void setAuthToken(AuthToken authToken) {
         this.authToken = authToken;
     }
+
 }

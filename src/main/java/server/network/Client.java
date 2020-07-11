@@ -1,7 +1,7 @@
 package server.network;
 
 import com.gilecode.yagson.YaGson;
-import server.model.account.Account;
+import client.model.account.Account;
 
 import java.io.*;
 import java.net.Socket;

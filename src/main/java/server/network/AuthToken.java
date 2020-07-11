@@ -1,6 +1,6 @@
 package server.network;
 
-import server.model.account.Account;
+import client.model.account.Account;
 import server.controller.Main;
 
 import java.time.LocalDateTime;

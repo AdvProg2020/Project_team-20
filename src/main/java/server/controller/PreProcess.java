@@ -1,14 +1,14 @@
 package server.controller;
 
-import server.network.AuthToken;
+import client.network.AuthToken;
 import com.gilecode.yagson.YaGson;
 import server.controller.account.user.BuyerController;
 import server.controller.gift.Action;
 import server.controller.gift.Event;
 import server.controller.gift.GiftController;
-import server.model.account.Account;
-import server.model.account.Buyer;
-import server.model.product.Discount;
+import client.model.account.Account;
+import client.model.account.Buyer;
+import client.model.product.Discount;
 
 import java.io.*;
 import java.time.LocalDateTime;

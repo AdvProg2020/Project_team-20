@@ -1,14 +1,21 @@
 package client.network;
 
+import client.model.account.Account;
+import server.controller.Main;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Random;
 
 public class AuthToken {
     private String username;
     private int key;
+    private LocalDateTime timeCreated;
 
     private AuthToken(String username, int key) {
         this.username = username;
         this.key = key;
+        timeCreated = LocalDateTime.now();
     }
 
 
@@ -21,8 +28,10 @@ public class AuthToken {
 
     //is valid
     public boolean authenticate() {
+        HashMap<String, Account> hashMap = Main.getAuthTokenAccountHashMap();
         //TODO edit this field
-        return true;
+
+        return hashMap.containsKey(String.valueOf(key));
     }
 
     private static int generateRandomInt(int upperbound) {
@@ -37,6 +46,10 @@ public class AuthToken {
 
     public void setKey(int key) {
         this.key = key;
+    }
+
+    public LocalDateTime getTimeCreated() {
+        return timeCreated;
     }
 
     public String getUsername() {

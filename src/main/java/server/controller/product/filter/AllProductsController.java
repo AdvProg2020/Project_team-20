@@ -1,13 +1,13 @@
 package server.controller.product.filter;
 
 import server.controller.MainController;
-import server.model.account.GeneralAccount;
-import server.model.account.TempAccount;
-import server.model.product.Advertisement;
-import server.model.product.category.Category;
-import server.model.product.category.SubCategory;
-import server.model.product.Product;
-import server.model.product.category.CategorySet;
+import client.model.account.GeneralAccount;
+import client.model.account.TempAccount;
+import client.model.product.Advertisement;
+import client.model.product.category.Category;
+import client.model.product.category.SubCategory;
+import client.model.product.Product;
+import client.model.product.category.CategorySet;
 
 import java.util.ArrayList;
 

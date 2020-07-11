@@ -1,7 +1,7 @@
 package server.network.server;
 
-import server.network.Client;
-import server.network.Message;
+import client.network.Client;
+import client.network.Message;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

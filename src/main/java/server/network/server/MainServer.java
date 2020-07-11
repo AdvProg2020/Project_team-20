@@ -1,6 +1,6 @@
 package server.network.server;
 
-import server.network.Client;
+import client.network.Client;
 
 public class MainServer extends Server{
     private static final int DEFAULT_PORT = 8000;

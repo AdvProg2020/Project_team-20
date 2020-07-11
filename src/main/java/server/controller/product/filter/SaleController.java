@@ -1,7 +1,7 @@
 package server.controller.product.filter;
 
 import server.controller.MainController;
-import server.model.product.Sale;
+import client.model.product.Sale;
 
 import java.util.ArrayList;
 

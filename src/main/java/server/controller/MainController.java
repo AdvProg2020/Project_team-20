@@ -1,9 +1,8 @@
 package server.controller;
 
-import server.model.account.Account;
-import server.model.account.GeneralAccount;
-import server.model.account.TempAccount;
-import server.model.product.Cart;
+import client.model.account.GeneralAccount;
+import client.model.account.TempAccount;
+import client.model.product.Cart;
 
 public class MainController {
     private static MainController mainController = null;

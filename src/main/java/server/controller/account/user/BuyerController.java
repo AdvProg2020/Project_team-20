@@ -3,13 +3,13 @@ package server.controller.account.user;
 import server.controller.Main;
 import server.controller.PreProcess;
 import javafx.scene.image.Image;
-import server.model.account.*;
-import server.model.product.*;
-import server.model.product.comment.Score;
-import server.model.receipt.BuyerReceipt;
-import server.model.receipt.SellerReceipt;
-import server.network.AuthToken;
-import server.network.Message;
+import client.model.account.*;
+import client.model.product.*;
+import client.model.product.comment.Score;
+import client.model.receipt.BuyerReceipt;
+import client.model.receipt.SellerReceipt;
+import client.network.AuthToken;
+import client.network.Message;
 import server.network.server.Server;
 
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ public class BuyerController extends Server implements AccountController {
     private BuyerController() {
         super(6000);
         setMethods();
+        System.out.println("buyer controller run");
     }
 
     public static BuyerController getInstance() {

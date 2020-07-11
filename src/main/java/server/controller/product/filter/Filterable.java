@@ -1,11 +1,11 @@
 package server.controller.product.filter;
 
-import server.model.filter.Filter;
-import server.model.filter.NameFilter;
-import server.model.filter.OptionalFilter;
-import server.model.filter.RangeFilter;
-import server.model.product.category.Category;
-import server.model.product.Product;
+import client.model.filter.Filter;
+import client.model.filter.NameFilter;
+import client.model.filter.OptionalFilter;
+import client.model.filter.RangeFilter;
+import client.model.product.category.Category;
+import client.model.product.Product;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

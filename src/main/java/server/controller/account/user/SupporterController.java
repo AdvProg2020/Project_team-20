@@ -2,10 +2,10 @@ package server.controller.account.user;
 
 import javafx.scene.image.Image;
 import server.controller.Main;
-import server.model.account.Account;
-import server.model.account.Supporter;
-import server.network.AuthToken;
-import server.network.Message;
+import client.model.account.Account;
+import client.model.account.Supporter;
+import client.network.AuthToken;
+import client.network.Message;
 
 public class SupporterController implements AccountController {
 

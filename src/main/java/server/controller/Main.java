@@ -3,16 +3,16 @@ package server.controller;
 import server.controller.account.LoginController;
 import server.controller.account.user.BuyerController;
 import server.controller.bank.BankServer;
-import server.model.account.Account;
-import server.model.account.Buyer;
-import server.model.account.Manager;
-import server.model.account.Seller;
-import server.model.product.*;
-import server.model.product.category.SubCategory;
-import server.model.product.category.CategorySet;
-import server.model.receipt.BuyerReceipt;
-import server.model.receipt.SellerReceipt;
-import server.network.AuthToken;
+import client.model.account.Account;
+import client.model.account.Buyer;
+import client.model.account.Manager;
+import client.model.account.Seller;
+import client.model.product.*;
+import client.model.product.category.SubCategory;
+import client.model.product.category.CategorySet;
+import client.model.receipt.BuyerReceipt;
+import client.model.receipt.SellerReceipt;
+import client.network.AuthToken;
 
 import java.util.HashMap;
 

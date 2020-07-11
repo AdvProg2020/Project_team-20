@@ -1,6 +1,6 @@
 package server.controller.product.filter;
 
-import server.model.product.Product;
+import client.model.product.Product;
 
 import java.util.Comparator;
 

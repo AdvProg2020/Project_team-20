@@ -1,8 +1,8 @@
 package server.controller.account.user;
 
 import javafx.scene.image.Image;
-import server.network.AuthToken;
-import server.network.Message;
+import client.network.AuthToken;
+import client.network.Message;
 
 public interface AccountController {
     Message getAccountInfo(AuthToken authToken);

@@ -3,11 +3,11 @@ package server.controller.product;
 import server.controller.Main;
 import server.controller.MainController;
 import server.controller.account.user.BuyerController;
-import server.model.account.*;
-import server.model.product.Product;
-import server.model.product.comment.Comment;
-import server.model.product.comment.Reply;
-import server.network.AuthToken;
+import client.model.account.*;
+import client.model.product.Product;
+import client.model.product.comment.Comment;
+import client.model.product.comment.Reply;
+import client.network.AuthToken;
 
 import java.util.ArrayList;
 

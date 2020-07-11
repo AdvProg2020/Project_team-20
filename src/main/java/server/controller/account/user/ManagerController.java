@@ -3,30 +3,30 @@ package server.controller.account.user;
 import javafx.scene.image.Image;
 import server.controller.Main;
 import server.controller.account.LoginController;
-import server.model.Requestable;
-import server.model.account.Account;
-import server.model.account.Buyer;
-import server.model.account.Manager;
-import server.model.product.Discount;
-import server.model.product.Product;
-import server.model.product.RequestableState;
-import server.model.product.category.Category;
-import server.model.product.category.CategorySet;
-import server.model.product.category.SubCategory;
-import server.network.AuthToken;
-import server.network.Message;
+import client.model.Requestable;
+import client.model.account.Account;
+import client.model.account.Buyer;
+import client.model.account.Manager;
+import client.model.product.Discount;
+import client.model.product.Product;
+import client.model.product.RequestableState;
+import client.model.product.category.Category;
+import client.model.product.category.CategorySet;
+import client.model.product.category.SubCategory;
+import client.network.AuthToken;
+import client.network.Message;
 import server.network.server.Server;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static server.model.account.Manager.*;
-import static server.model.product.Discount.removeDiscountCode;
-import static server.model.product.Product.*;
-import static server.model.product.category.CategorySet.getAllCategorySets;
-import static server.model.product.category.CategorySet.getCategorySetByName;
-import static server.model.product.category.SubCategory.*;
+import static client.model.account.Manager.*;
+import static client.model.product.Discount.removeDiscountCode;
+import static client.model.product.Product.*;
+import static client.model.product.category.CategorySet.getAllCategorySets;
+import static client.model.product.category.CategorySet.getCategorySetByName;
+import static client.model.product.category.SubCategory.*;
 
 public class ManagerController extends Server implements AccountController {
 

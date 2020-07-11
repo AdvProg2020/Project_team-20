@@ -2,10 +2,10 @@ package server.controller.account;
 
 import server.controller.Main;
 import server.controller.MainController;
-import server.model.account.*;
-import server.model.product.Cart;
-import server.network.AuthToken;
-import server.network.Message;
+import client.model.account.*;
+import client.model.product.Cart;
+import client.network.AuthToken;
+import client.network.Message;
 import server.network.server.Server;
 
 import java.util.ArrayList;

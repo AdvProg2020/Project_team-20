@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Message {
     private String text;
-    private ArrayList<Object> objects = new ArrayList<>();
+    private ArrayList<Object> objects;
     private AuthToken authToken = null;
 
     public Message(String text, AuthToken authToken) {
@@ -40,12 +40,12 @@ public class Message {
         return objects;
     }
 
-    public static server.network.Message getFailedMessage() {
-        return new server.network.Message("failed!");
+    public static Message getFailedMessage() {
+        return new Message("failed!");
     }
 
-    public static server.network.Message getDoneMessage() {
-        return new server.network.Message("Done!");
+    public static Message getDoneMessage() {
+        return new Message("Done!");
     }
 
     public String toYaGson() {

@@ -28,6 +28,7 @@ public class BuyerController implements AccountController {
         currentBuyer = (Buyer) MainController.getInstance().getAccount();
         client = new Client(6000);
         client.setAuthToken(LoginController.getClient().getAuthToken());
+        client.readMessage();
         System.out.println(client.getAuthToken());
         return buyerController;
     }
@@ -101,7 +102,8 @@ public class BuyerController implements AccountController {
 
     public Cart viewCart() {
         client.writeMessage(new Message("viewCart"));
-        return (Cart) client.readMessage().getObjects().get(0);
+        Message result = client.readMessage();
+        return (Cart) result.getObjects().get(0);
     }
 
     public Product getProductById(String id) throws Exception {

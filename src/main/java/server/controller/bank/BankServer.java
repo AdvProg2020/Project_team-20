@@ -1,14 +1,12 @@
 package server.controller.bank;
 
-import client.model.account.Account;
+import client.network.AuthToken;
+import client.network.Client;
+import client.network.Message;
 import server.model.bank.BankAccount;
 import server.model.bank.BankReceipt;
 import server.model.bank.BankReceiptType;
-import server.network.AuthToken;
-import server.network.Client;
-import server.network.Message;
 import server.network.server.Server;
-import sun.tools.jstat.Token;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
