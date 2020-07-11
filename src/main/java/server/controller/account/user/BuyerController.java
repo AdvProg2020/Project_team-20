@@ -21,6 +21,7 @@ public class BuyerController extends Server implements AccountController {
 
     private BuyerController() {
         super(6000);
+        setMethods();
     }
 
     public static BuyerController getInstance() {
@@ -39,7 +40,7 @@ public class BuyerController extends Server implements AccountController {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         PreProcess preProcess = new PreProcess();
         preProcess.setBuyerController(buyerController);
-        preProcess.purchaseGift(currentBuyer);
+        preProcess.purchaseGift(authToken);
         Message message = new Message("all discounts");
         message.addToObjects(Discount.getAllDiscountsBuyer(currentBuyer));
         return message;
@@ -298,7 +299,24 @@ public class BuyerController extends Server implements AccountController {
 
     @Override
     protected void setMethods() {
-        // todo add method names
+        methods.add("getAllProducts");
+        methods.add("getAllDiscounts");
+        methods.add("viewOrders");
+        methods.add("rate");
+        methods.add("getBuyerReceiptById");
+        methods.add("purchase");
+        methods.add("getTotalPrice");
+        methods.add("getDiscount");
+        methods.add("viewCart");
+        methods.add("getProductById");
+        methods.add("increaseProduct");
+        methods.add("decreaseProduct");
+        methods.add("getCredit");
+        methods.add("getAccountInfo");
+        methods.add("setProfileImage");
+        methods.add("changeMainImage");
+        methods.add("logout");
+        // todo add sth we need
     }
 
     public static class buyerHasNotBought extends Exception {

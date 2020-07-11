@@ -12,10 +12,12 @@ public class Message {
     public Message(String text, AuthToken authToken) {
         this.text = text;
         this.authToken = authToken;
+        this.objects = new ArrayList<>();
     }
 
     public Message(String text) {
         this.text = text;
+        this.objects = new ArrayList<>();
     }
 
     public AuthToken getAuthToken() {
