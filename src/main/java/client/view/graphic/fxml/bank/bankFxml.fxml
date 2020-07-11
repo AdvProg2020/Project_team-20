@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="666.0" prefWidth="994.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.bank.BankControllerFxml">
+   <children>
+      <ImageView fitHeight="680.0" fitWidth="994.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Desktop/Bank.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="newName" layoutX="628.0" layoutY="315.0" prefHeight="32.0" prefWidth="292.0" promptText="Username" style="-fx-background-color: transparent;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="newPassword" layoutX="628.0" layoutY="385.0" prefHeight="32.0" prefWidth="292.0" promptText="Password" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </PasswordField>
+      <JFXButton layoutX="609.0" layoutY="138.0" prefHeight="50.0" prefWidth="82.0" text="Login" textFill="#32673b" />
+      <JFXButton layoutX="694.0" layoutY="137.0" prefHeight="50.0" prefWidth="82.0" text="New User" textFill="#32673b" />
+      <JFXButton layoutX="919.0" layoutY="21.0" prefHeight="25.0" prefWidth="61.0" style="-fx-border-color: #32673b;" text="Exit" textFill="#32673b">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="805.0" layoutY="21.0" prefHeight="34.0" prefWidth="96.0" style="-fx-border-color: #32673b;" text="Erpshop" textFill="#32673b">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

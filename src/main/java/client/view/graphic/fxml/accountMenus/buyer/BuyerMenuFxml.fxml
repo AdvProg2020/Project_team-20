@@ -22,7 +22,7 @@
                         <Insets left="5.0" right="5.0" />
                     </VBox.margin>
                 </JFXTextField>
-                <VBox prefHeight="208.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
+                <VBox prefHeight="240.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                     <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
                     </VBox.margin>
@@ -32,6 +32,7 @@
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handlePurchase" prefHeight="40.0" prefWidth="396.0" text="Purchase" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewOrders" prefHeight="40.0" prefWidth="444.0" text="View orders" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewDiscountCodes" prefHeight="40.0" prefWidth="367.0" text="View discount codes" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewErpBank" prefHeight="40.0" prefWidth="367.0" text="Erp bank" textFill="#d8f9ff" />
                     </children>
                 </VBox>
                 <VBox prefHeight="108.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">

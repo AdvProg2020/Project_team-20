@@ -29,7 +29,7 @@ public class ProgramApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         initializeScenes();
         mainStage = primaryStage;
-        mainStage.initStyle(StageStyle.UNDECORATED);
+        mainStage.initStyle(StageStyle.UTILITY);
         if (firstManager)
             setMenu(MenuNames.MAINMENU);
         else
