@@ -25,9 +25,10 @@ public class AuthToken {
 
     //is valid
     public boolean authenticate() {
-        HashMap<AuthToken, Account> hashMap = Main.getAuthTokenAccountHashMap();
+        HashMap<String, Account> hashMap = Main.getAuthTokenAccountHashMap();
         //TODO edit this field
-        return hashMap.containsKey(this);
+
+        return hashMap.containsKey(String.valueOf(key));
     }
 
     private static int generateRandomInt(int upperbound) {

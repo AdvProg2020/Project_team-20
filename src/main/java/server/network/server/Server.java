@@ -44,11 +44,14 @@ public abstract class Server {
         client.writeMessage(new Message("client accepted"));
         while (true) {
             Message message = client.readMessage();
+            System.out.println(message);
+            if (message.getAuthToken() != null)
+                System.out.println(message.getAuthToken().getKey());
             try {
-                message.addToObjects(message.getAuthToken());
-                if (message.getAuthToken().authenticate())
+                if (message.getAuthToken().authenticate()) {
+                    message.addToObjects(message.getAuthToken());
                     client.writeMessage(callCommand(message.getText(), message));
-                else {
+                } else {
                     client.writeMessage(new Message("token is invalid"));
                     clients.remove(client);
                     return;
@@ -57,7 +60,9 @@ public abstract class Server {
                 invalidCommand.printStackTrace();
             } catch (NullPointerException nullPointerException) {
                 try {
-                    client.writeMessage(callCommand(message.getText(), message));
+                    Message answer = callCommand(message.getText(), message);
+                    client.setAuthToken(answer.getAuthToken());
+                    client.writeMessage(answer);
                 } catch (InvalidCommand invalidCommand) {
                     invalidCommand.printStackTrace();
                 }

@@ -50,6 +50,9 @@ public class Client {
     public void writeMessage(Message massage) {
         try {
             massage.setAuth(authToken);
+            System.out.println(authToken);
+            if (authToken != null)
+            System.out.println(authToken.getKey());
             dataOutputStream.writeUTF(massage.toYaGson());
             dataOutputStream.flush();
         } catch (IOException e) {

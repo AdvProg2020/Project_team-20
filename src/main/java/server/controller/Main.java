@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 public class Main {
     private static PreProcess preProcess = new PreProcess();
-    private static HashMap<AuthToken, Account> authTokenAccountHashMap = new HashMap<>();
+    private static HashMap<String, Account> authTokenAccountHashMap = new HashMap<>();
 
     public static void main(String[] args) {
         loadData();
@@ -66,24 +66,24 @@ public class Main {
         Advertisement.store();
     }
 
-    public static HashMap<AuthToken, Account> getAuthTokenAccountHashMap() {
+    public static HashMap<String, Account> getAuthTokenAccountHashMap() {
         return authTokenAccountHashMap;
     }
 
     public static void addToTokenHashMap(AuthToken token, Account account) {
-        authTokenAccountHashMap.put(token, account);
+        authTokenAccountHashMap.put(String.valueOf(token.getKey()), account);
     }
 
     public static void removeFromTokenHashMap(AuthToken token, Account account) {
-        authTokenAccountHashMap.remove(token, account);
+        authTokenAccountHashMap.remove(String.valueOf(token.getKey()), account);
     }
 
     public static void removeFromTokenHashMap(AuthToken token) {
-        authTokenAccountHashMap.remove(token);
+        authTokenAccountHashMap.remove(String.valueOf(token.getKey()));
     }
 
     public static Account getAccountWithToken(AuthToken token) {
-        return authTokenAccountHashMap.get(token);
+        return authTokenAccountHashMap.get(String.valueOf(token.getKey()));
     }
 }
 
