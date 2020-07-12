@@ -316,6 +316,7 @@ public class BuyerController extends Server implements AccountController {
         methods.add("decreaseProduct");
         methods.add("getCredit");
         methods.add("getAccountInfo");
+        methods.add("editField");
         methods.add("setProfileImage");
         methods.add("changeMainImage");
         methods.add("logout");
