@@ -17,9 +17,9 @@ public class BankControllerFxml {
     public JFXButton loginButton;
     public JFXButton newUserButton;
     public ImageView newUserPanel;
-    public PasswordField passwordRepeatTxt;
-    public PasswordField nameTxt;
-    public PasswordField lastNameTxt;
+    public TextField passwordRepeatTxt;
+    public TextField nameTxt;
+    public TextField lastNameTxt;
     private BankController bankController = BankController.getInstance();
     private boolean loginBtnMode = true;
 
@@ -50,6 +50,11 @@ public class BankControllerFxml {
             handleLogin();
         else
             handleCreateUser();
+        usernameTxt.setText("");
+        passwordRepeatTxt.setText("");
+        newPasswordTxt.setText("");
+        nameTxt.setText("");
+        lastNameTxt.setText("");
     }
 
     private void handleLogin() {
@@ -60,7 +65,6 @@ public class BankControllerFxml {
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
-        //TODO
     }
 
     private void handleCreateUser() {
@@ -69,6 +73,12 @@ public class BankControllerFxml {
         String name = nameTxt.getText();
         String repeatPass = passwordRepeatTxt.getText();
         String lastName = lastNameTxt.getText();
+        try {
+            String accountNumber = bankController.createUser(username, password, name, lastName, repeatPass);
+            new AlertController().create(AlertType.INFO, "Thanks for creating account in our bank. Your account number is: " + accountNumber);
+        } catch (Exception e) {
+            new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
     }
 
 

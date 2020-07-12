@@ -34,6 +34,7 @@ public class BankServer {
             this.clients = new ArrayList<>();
             this.methods = new ArrayList<>();
             this.loggedInAccounts = new HashMap<>();
+            setMethods();
             new Thread(this::handleClients).start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -266,7 +267,7 @@ public class BankServer {
             message = new Message("Confirmation");
             LocalDateTime now = LocalDateTime.now();
             int random = ThreadLocalRandom.current().nextInt(10,  100);
-            String accountNumber = now.getYear() + now.getMonth().toString() + now.getDayOfMonth() + random + bankCount;
+            String accountNumber = now.getYear() + Integer.toString(now.getMonthValue()) + now.getDayOfMonth() + random + bankCount;
             account.setAccountNumber(accountNumber);
             message.addToObjects(accountNumber);
             bankCount++;

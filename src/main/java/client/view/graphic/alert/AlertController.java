@@ -47,8 +47,8 @@ public class AlertController implements Initializable {
         }
         else {
             try {
-                root = FXMLLoader.load(new File("src/main/java/client/view/graphic/alert/alertErrorFxml.fxml").toURI().toURL());
-                Scene alertScene = new Scene(root, 219, 358);
+                root = FXMLLoader.load(new File("src/main/java/client/view/graphic/alert/alertInfoFxml.fxml").toURI().toURL());
+                Scene alertScene = new Scene(root, 358, 219);
                 mainStage.setScene(alertScene);
                 mainStage.initStyle(StageStyle.UNDECORATED);
                 mainStage.show();
@@ -82,6 +82,7 @@ public class AlertController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         if (alertType.equals(AlertType.INFO))
             messageTxt.setText(text);
-        message.setText(text);
+        else
+            message.setText(text);
     }
 }
