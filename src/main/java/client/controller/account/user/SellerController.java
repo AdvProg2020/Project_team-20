@@ -1,29 +1,27 @@
 package client.controller.account.user;
 
 import client.controller.MainController;
-import javafx.scene.image.Image;
+import client.controller.account.LoginController;
 import client.model.account.Account;
 import client.model.account.Buyer;
-import client.model.account.Manager;
 import client.model.account.Seller;
-import client.model.product.*;
-import client.model.product.Field.Field;
-import client.model.product.Field.FieldType;
-import client.model.product.Field.NumericalField;
-import client.model.product.Field.OptionalField;
+import client.model.product.Product;
+import client.model.product.Sale;
 import client.model.product.category.SubCategory;
 import client.model.receipt.SellerReceipt;
+import client.network.Client;
+import client.network.Message;
+import javafx.scene.image.Image;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 public class SellerController implements AccountController {
     private static SellerController sellerController = null;
     private MainController mainController = MainController.getInstance();
     private static Seller seller;
+    private static Client client;
 
     private SellerController() {
     }
@@ -32,227 +30,184 @@ public class SellerController implements AccountController {
         if (sellerController == null)
             sellerController = new SellerController();
         seller = (Seller) MainController.getInstance().getAccount();
+        client = new Client(4000);
+        client.setAuthToken(LoginController.getClient().getAuthToken());
+        client.readMessage();
+        System.out.println(client.getAuthToken());
         return sellerController;
     }
 
     public void addAdvertisement(Product product, Seller seller, String text) throws Exception {
-        if (seller.getCredit() < 500000)
-            throw new Account.notEnoughMoneyException();
-        Advertisement adv = new Advertisement(seller, product, LocalDateTime.now().plusDays(5), text);
-        Manager.addRequest(adv);
+        Message message = new Message("addAdvertisement");
+        message.addToObjects(product.getId());
+        message.addToObjects(seller.getUsername());
+        message.addToObjects(text);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public String viewCompanyInformation() {
-        return seller.getDetails();
+        Message message = new Message("viewCompanyInformation");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (String) answer.getObjects().get(0);
     }
 
     public ArrayList<SellerReceipt> viewSalesHistory() {
-        return seller.getSaleHistory();
+        Message message = new Message("viewSalesHistory");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (ArrayList<SellerReceipt>) answer.getObjects().get(0);
     }
 
     public ArrayList<Product> getAllProducts() {
-        return Product.getAllProducts();
+        Message message = new Message("getAllProducts");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (ArrayList<Product>) answer.getObjects().get(0);
     }
 
     public ArrayList<Product> getSellerProducts() {
-        return seller.getProducts();
+        Message message = new Message("getSellerProducts");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (ArrayList<Product>) answer.getObjects().get(0);
     }
 
     public Product viewProduct(String productId) throws Exception {
-        return Product.getProductById(productId);
+        Message message = new Message("addAdvertisement");
+        message.addToObjects(productId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        return (Product) answer.getObjects().get(0);
     }
 
     public ArrayList<Buyer> viewBuyers(String productId) throws Exception {
-        Product product = Product.getProductById(productId);
-        return product.getBuyers();
+        Message message = new Message("viewBuyers");
+        message.addToObjects(productId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        return (ArrayList<Buyer>) answer.getObjects().get(0);
     }
 
     public void editProduct(String productId, ArrayList<String> details, ArrayList<String> numericalFieldsToRemove,
                             HashMap<String, Double> numericalFieldsToAdd,
                             ArrayList<String> optionalFieldsTORemove,
                             HashMap<String, ArrayList<String>> optionalFieldsToAdd) throws Exception {
-        Product product = Product.getProductById(productId);
-        ArrayList<Field> fields = new ArrayList<>(product.getGeneralFields());
-        editFields(fields, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsTORemove,
-                optionalFieldsToAdd);
-        String description = product.getDescription();
-        int count = product.getCount(seller);
-        double price = product.getPrice(seller);
-        if (!details.get(0).isEmpty()) {
-            description = details.get(0);
+        Message message = new Message("editProduct");
+        message.addToObjects(productId);
+        message.addToObjects(details);
+        message.addToObjects(numericalFieldsToRemove);
+        message.addToObjects(numericalFieldsToAdd);
+        message.addToObjects(optionalFieldsTORemove);
+        message.addToObjects(optionalFieldsToAdd);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
-
-        if (!details.get(1).isEmpty()) {
-            count = Integer.parseInt(details.get(1));
-        }
-        if (!details.get(2).isEmpty()) {
-            price = Double.parseDouble(details.get(2));
-        }
-        product.changeStateEdited(fields, description, count, price, seller);
-        Manager.addRequest(product);
     }
-
-    private void editFields(ArrayList<Field> fields, ArrayList<String> numericalFieldsToRemove,
-                            HashMap<String, Double> numericalFieldsToAdd,
-                            ArrayList<String> optionalFieldsTORemove,
-                            HashMap<String, ArrayList<String>> optionalFieldsToAdd) throws Exception {
-        fields.removeAll(createFieldsToRemove(numericalFieldsToRemove, fields));
-        fields.removeAll(createFieldsToRemove(optionalFieldsTORemove, fields));
-        fields.addAll(createOptionalFields(optionalFieldsToAdd));
-        fields.addAll(createNumericalFields(numericalFieldsToAdd));
-    }
-
 
     public void addToProduct(String id, int count, double price) throws Exception {
-        if (seller.hasProduct(id)) {
-            throw new AlreadyHaveThisProductException();
-        } else {
-            Product product = Product.getProductById(id);
-            AddSellerRequest request = new AddSellerRequest(product, seller, count, price);
-            Manager.addRequest(request);
+        Message message = new Message("addToProduct");
+        message.addToObjects(id);
+        message.addToObjects(count);
+        message.addToObjects(price);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
                               HashMap<String, ArrayList<String>> optionalFields, String path) {
-        String name = details.get(0), description = details.get(1);
-        int count = Integer.parseInt(details.get(2));
-        double price = Double.parseDouble(details.get(3));
-        ArrayList<Field> fields = new ArrayList<>();
-        fields.addAll(createNumericalFields(numericalFields));
-        fields.addAll(createOptionalFields(optionalFields));
-        Product product = new Product(fields, seller, name, description, count, price);
-        product.setImagePath(path);
-        Manager.addRequest(product);
-    }
-
-    private ArrayList<Field> createOptionalFields(HashMap<String, ArrayList<String>> optionalFields) {
-        ArrayList<Field> fields = new ArrayList<>();
-        String name;
-        ArrayList<String> optionalFiled;
-        Set<Map.Entry<String, ArrayList<String>>> optionalSet = optionalFields.entrySet();
-        for (Map.Entry<String, ArrayList<String>> mentry : optionalSet) {
-            name = mentry.getKey();
-            optionalFiled = mentry.getValue();
-            fields.add(new OptionalField(name, FieldType.OPTIONAL, optionalFiled));
-        }
-        return fields;
-    }
-
-    private ArrayList<Field> createFieldsToRemove(ArrayList<String> fieldsToRemove, ArrayList<Field> fields)
-            throws Exception {
-        ArrayList<Field> newFields = new ArrayList<>();
-        for (String field : fieldsToRemove) {
-            for (Field newField : fields) {
-                if (newField.getName().equals(field))
-                    newFields.add(newField);
-                else if (!containsField(fields, field)) {
-                    throw new hasNotThisFiledException(newField);
-                }
-            }
-        }
-        return newFields;
-    }
-
-    private boolean containsField(ArrayList<Field> fields, String name) {
-        for (Field field : fields) {
-            if (field.getName().equals(name))
-                return true;
-        }
-        return false;
-    }
-
-    private ArrayList<Field> createNumericalFields(HashMap<String, Double> numericalFields) {
-        ArrayList<Field> fields = new ArrayList<>();
-        String name;
-        double numericalField;
-        Set<Map.Entry<String, Double>> numericalSet = numericalFields.entrySet();
-        for (Map.Entry<String, Double> mentry : numericalSet) {
-            name = mentry.getKey();
-            numericalField = mentry.getValue();
-            fields.add(new NumericalField(name, FieldType.NUMERICAL, numericalField));
-        }
-        return fields;
+        Message message = new Message("createProduct");
+        message.addToObjects(details);
+        message.addToObjects(numericalFields);
+        message.addToObjects(optionalFields);
+        message.addToObjects(path);
+        client.writeMessage(message);
+        client.readMessage();
     }
 
     public void deleteProduct(String productId) throws Exception {
-        Product product = Product.getProductById(productId);
-        seller.removeFromProductsToSell(product);
-        product.removeSeller(seller.getUsername());
-        Product.removeProduct(productId);
+        Message message = new Message("deleteProduct");
+        message.addToObjects(productId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public ArrayList<SubCategory> showCategories() {
-        return SubCategory.getAllSubCategories();
+        Message message = new Message("showCategories");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (ArrayList<SubCategory>) answer.getObjects().get(0);
     }
 
     public ArrayList<Sale> viewOffs() {
-        return seller.getSales();
+        Message message = new Message("viewOffs");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (ArrayList<Sale>) answer.getObjects().get(0);
     }
 
-    public Sale viewOff(String offId) throws SaleUnavailableException {
-        return getSaleWithId(offId);
+    public Sale viewOff(String offId) throws Exception {
+        Message message = new Message("viewOff");
+        message.addToObjects(offId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        return (Sale) answer.getObjects().get(0);
     }
 
     public void editOff(String offId, LocalDateTime startDate, LocalDateTime endDate, String salePercentageStr, ArrayList<String> productIdsToRemove,
                         ArrayList<String> productIdsToAdd) throws Exception {
-        Sale sale = getSaleWithId(offId);
-        ArrayList<Product> productsToRemove = Product.getProductsWithIds(productIdsToRemove),
-                productsToAdd = Product.getProductsWithIds(productIdsToAdd), newProducts = getSaleProducts(offId);
-        double salePercentage;
-        if (startDate == null) {
-            startDate = sale.getStartDate();
+        Message message = new Message("editOff");
+        message.addToObjects(offId);
+        message.addToObjects(startDate);
+        message.addToObjects(endDate);
+        message.addToObjects(salePercentageStr);
+        message.addToObjects(productIdsToAdd);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
-        if (endDate == null) {
-            endDate = sale.getEndDate();
-        }
-        if (salePercentageStr != null) {
-            salePercentage = Double.parseDouble(salePercentageStr) / 100;
-        } else salePercentage = sale.getSalePercentage();
-
-        for (Product product : productsToRemove) {
-            if (seller.hasProduct(product.getId()))
-                newProducts.remove(product);
-            else
-                throw new HaveNotThisProductException(product);
-        }
-        newProducts.addAll(productsToAdd);
-        sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
-        Manager.addRequest(sale);
-    }
-
-    private ArrayList<Product> getSaleProducts(String offId) throws Exception {
-        Sale sale = getSaleWithId(offId);
-        return new ArrayList<>(sale.getProducts());
     }
 
     public void addOff(LocalDateTime startDate, LocalDateTime endDate, double percentage, ArrayList<String> productIds) throws Exception {
-        String id = Integer.toString(Sale.allSalesCount);
-        try {
-            double salePercentage = percentage / 100;
-            if (salePercentage > 1)
-                throw new discountPercentageNotValidException();
-            ArrayList<Product> products = Product.getProductsWithIds(productIds);
-            Sale sale = new Sale(id, products, startDate, endDate, salePercentage, seller);
-            Manager.addRequest(sale);
-        } catch (Exception e) {
-            if (e instanceof Product.productNotFoundException)
-                throw e;
-            else
-                throw new FormatInvalidException();
+        Message message = new Message("addOff");
+        message.addToObjects(startDate);
+        message.addToObjects(endDate);
+        message.addToObjects(percentage);
+        message.addToObjects(productIds);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public double viewBalance() {
-        return seller.getCredit();
-    }
-
-    private Sale getSaleWithId(String offId) throws SaleUnavailableException {
-        for (Sale sale : seller.getSales()) {
-            if (sale.getId().equals(offId))
-                return sale;
-        }
-        throw new SaleUnavailableException();
+        Message message = new Message("viewBalance");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (double) answer.getObjects().get(0);
     }
 
     public static class SaleUnavailableException extends Exception {
@@ -261,110 +216,65 @@ public class SellerController implements AccountController {
         }
     }
 
-    public static class AlreadyHaveThisProductException extends Exception {
-        public AlreadyHaveThisProductException() {
-            super("seller already have this product");
-        }
-    }
-
-    public static class hasNotThisFiledException extends Exception {
-        public hasNotThisFiledException(Field field) {
-            super(field.getName() + " is not in this product");
-        }
-    }
-
-    public static class HaveNotThisProductException extends Exception {
-        public HaveNotThisProductException(Product product) {
-            super("seller have not this product with this id: " + product.getId());
-        }
-
-        private String generateString(Product product) {
-            return "";
-        }
-    }
-
-    public static class FormatInvalidException extends Exception {
-        public FormatInvalidException() {
-            super("Your input format is invalid!");
-        }
-
-        private String generateString(Product product) {
-            return "";
-        }
-    }
-
     public HashMap<Product, Integer> getProductsToSell() {
-        return seller.getProductsToSell();
+        Message message = new Message("getProductsToSell");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (HashMap<Product, Integer>) answer.getObjects().get(0);
     }
 
     public int getProductCount(Product product) {
-        return seller.getProductCount(product);
+        Message message = new Message("getProductCount");
+        message.addToObjects(product.getId());
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (int) answer.getObjects().get(0);
+    }
+
+    public static Seller getSeller() {
+        client.writeMessage(new Message("getSeller"));
+        return (Seller) client.readMessage().getObjects().get(0);
     }
 
     @Override
     public Account getAccountInfo() {
-        return seller;
+        client.writeMessage(new Message("getAccountInfo"));
+        return (Account) client.readMessage().getObjects().get(0);
     }
 
     @Override
     public void editField(String field, String context) throws Exception {
-        switch (field) {
-            case "name":
-                seller.changeStateEdited(context, seller.getLastName(), seller.getEmail(), seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit(), seller.getDetails());
-                break;
-            case "lastName":
-                seller.changeStateEdited(seller.getName(), context, seller.getEmail(), seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit(), seller.getDetails());
-                break;
-            case "email":
-                seller.changeStateEdited(seller.getName(), seller.getLastName(), context, seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit(), seller.getDetails());
-                break;
-            case "phoneNumber":
-                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(), context,
-                        seller.getPassword(), seller.getCredit(), seller.getDetails());
-                break;
-            case "password":
-                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), context, seller.getCredit(), seller.getDetails());
-                break;
-            case "credit":
-                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), seller.getPassword(), Double.parseDouble(context), seller.getDetails());
-                break;
-            case "companyInfo":
-                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), seller.getPassword(), seller.getCredit(), context);
-                break;
-            default:
-                throw new ManagerController.fieldIsInvalidException();
-        }
-        Manager.addRequest(seller);
-    }
-
-    public static class discountPercentageNotValidException extends Exception {
-        public discountPercentageNotValidException() {
-            super("Discount percentage must be lower than 100!");
+        Message message = new Message("editField");
+        message.addToObjects(field);
+        message.addToObjects(context);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public void setProfileImage(String path) {
+        Message message = new Message("setProfileImage");
+        message.addToObjects(path);
+        client.writeMessage(message);
         seller.setImagePath(path);
-    }
-
-    public static Seller getSeller() {
-        return seller;
+        client.readMessage();
     }
 
     @Override
     public void changeMainImage(Image image) {
+        Message message = new Message("changeMainImage");
+        message.addToObjects(image);
+        client.writeMessage(message);
         seller.getGraphicPackage().setMainImage(image);
+        client.readMessage();
     }
 
     @Override
     public void logout() {
-        seller = null;
+        client.writeMessage(new Message("logout"));
         mainController.logout();
+        client.readMessage();
     }
 }
