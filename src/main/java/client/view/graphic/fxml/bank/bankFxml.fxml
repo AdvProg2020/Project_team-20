@@ -25,8 +25,8 @@
             <Font size="16.0" />
          </font>
       </PasswordField>
-      <JFXButton layoutX="609.0" layoutY="138.0" prefHeight="50.0" prefWidth="82.0" text="Login" textFill="#32673b" />
-      <JFXButton layoutX="694.0" layoutY="137.0" prefHeight="50.0" prefWidth="82.0" text="New User" textFill="#32673b" />
+      <JFXButton fx:id="loginButton" layoutX="609.0" layoutY="137.0" onAction="#handleLogin" prefHeight="52.0" prefWidth="82.0" text="Login" textFill="#32673b" />
+      <JFXButton fx:id="newUserButton" layoutX="694.0" layoutY="137.0" onAction="#handleNewUser" prefHeight="52.0" prefWidth="82.0" text="New User" textFill="#32673b" />
       <JFXButton layoutX="919.0" layoutY="21.0" prefHeight="25.0" prefWidth="61.0" style="-fx-border-color: #32673b;" text="Exit" textFill="#32673b">
          <font>
             <Font size="17.0" />
@@ -37,5 +37,26 @@
             <Font size="17.0" />
          </font>
       </JFXButton>
+      <JFXButton layoutX="626.0" layoutY="495.0" prefHeight="37.0" prefWidth="308.0" text=" " textFill="#32673b" />
+      <ImageView fx:id="newUserPanel" fitHeight="44.0" fitWidth="308.0" layoutX="626.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Desktop/newUserButton.png" />
+         </image>
+      </ImageView>
+      <PasswordField fx:id="passwordRepeat" layoutX="627.0" layoutY="439.0" prefHeight="32.0" prefWidth="102.0" promptText="Password" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </PasswordField>
+      <PasswordField fx:id="name" layoutX="730.0" layoutY="439.0" prefHeight="32.0" prefWidth="102.0" promptText="Name" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </PasswordField>
+      <PasswordField fx:id="lastName" layoutX="832.0" layoutY="439.0" prefHeight="32.0" prefWidth="102.0" promptText="Last name" style="-fx-background-color: transparent; -fx-text-inner-color: white;">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </PasswordField>
    </children>
 </AnchorPane>
