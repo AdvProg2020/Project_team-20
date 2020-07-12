@@ -190,7 +190,7 @@ public class BankServer {
         AuthToken authToken = AuthToken.generateAuth(bankAccount.getUsername());
         loggedInAccounts.put(authToken, bankAccount);
         message = new Message("Confirmation");
-        message.addToObjects(authToken);
+        message.setAuth(authToken);
         return message;
     }
 
