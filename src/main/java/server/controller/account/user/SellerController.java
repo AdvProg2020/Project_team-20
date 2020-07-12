@@ -39,13 +39,13 @@ public class SellerController extends Server implements AccountController {
         return sellerController;
     }
 
-    public Message addAdvertisement(Product product, String sellerUsername, String text, AuthToken authToken) {
+    public Message addAdvertisement(String productId, String sellerUsername, String text, AuthToken authToken) {
         Message message = new Message("addAdvertisement");
         try {
             Seller seller = Seller.getSellerWithUsername(sellerUsername);
             if (seller.getCredit() < 500000)
                 throw new Account.notEnoughMoneyException();
-            Advertisement adv = new Advertisement(seller, product, LocalDateTime.now().plusDays(5), text);
+            Advertisement adv = new Advertisement(seller, Product.getProductById(productId), LocalDateTime.now().plusDays(5), text);
             Manager.addRequest(adv);
         } catch (Exception e) {
             message = new Message("Error");
@@ -464,11 +464,11 @@ public class SellerController extends Server implements AccountController {
         return message;
     }
 
-    public Message getProductCount(Product product, AuthToken authToken) {
+    public Message getProductCount(String productId, AuthToken authToken) {
         Message message = new Message("getProductCount");
         try {
             Seller seller = (Seller) Main.getAccountWithToken(authToken);
-            message.addToObjects(seller.getProductCount(product));
+            message.addToObjects(seller.getProductCount(Product.getProductById(productId)));
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
