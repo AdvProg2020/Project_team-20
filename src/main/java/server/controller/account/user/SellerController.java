@@ -1,21 +1,22 @@
 package server.controller.account.user;
 
-import server.controller.Main;
-import server.controller.MainController;
-import javafx.scene.image.Image;
 import client.model.account.Account;
-import client.model.account.Buyer;
 import client.model.account.Manager;
 import client.model.account.Seller;
-import client.model.product.*;
+import client.model.product.AddSellerRequest;
+import client.model.product.Advertisement;
 import client.model.product.Field.Field;
 import client.model.product.Field.FieldType;
 import client.model.product.Field.NumericalField;
 import client.model.product.Field.OptionalField;
+import client.model.product.Product;
+import client.model.product.Sale;
 import client.model.product.category.SubCategory;
-import client.model.receipt.SellerReceipt;
 import client.network.AuthToken;
 import client.network.Message;
+import javafx.scene.image.Image;
+import server.controller.Main;
+import server.network.server.Server;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,76 +24,139 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class SellerController implements AccountController {
+public class SellerController extends Server implements AccountController {
     private static SellerController sellerController = null;
-    private MainController mainController = MainController.getInstance();
-    private static Seller seller;
 
     private SellerController() {
+        super(4000);
+        setMethods();
+        System.out.println("seller controller run");
     }
 
     public static SellerController getInstance() {
         if (sellerController == null)
             sellerController = new SellerController();
-        seller = (Seller) MainController.getInstance().getAccount();
         return sellerController;
     }
 
-    public void addAdvertisement(Product product, Seller seller, String text) throws Exception {
-        if (seller.getCredit() < 500000)
-            throw new Account.notEnoughMoneyException();
-        Advertisement adv = new Advertisement(seller, product, LocalDateTime.now().plusDays(5), text);
-        Manager.addRequest(adv);
-    }
-
-    public String viewCompanyInformation() {
-        return seller.getDetails();
-    }
-
-    public ArrayList<SellerReceipt> viewSalesHistory() {
-        return seller.getSaleHistory();
-    }
-
-    public ArrayList<Product> getAllProducts() {
-        return Product.getAllProducts();
-    }
-
-    public ArrayList<Product> getSellerProducts() {
-        return seller.getProducts();
-    }
-
-    public Product viewProduct(String productId) throws Exception {
-        return Product.getProductById(productId);
-    }
-
-    public ArrayList<Buyer> viewBuyers(String productId) throws Exception {
-        Product product = Product.getProductById(productId);
-        return product.getBuyers();
-    }
-
-    public void editProduct(String productId, ArrayList<String> details, ArrayList<String> numericalFieldsToRemove,
-                            HashMap<String, Double> numericalFieldsToAdd,
-                            ArrayList<String> optionalFieldsTORemove,
-                            HashMap<String, ArrayList<String>> optionalFieldsToAdd) throws Exception {
-        Product product = Product.getProductById(productId);
-        ArrayList<Field> fields = new ArrayList<>(product.getGeneralFields());
-        editFields(fields, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsTORemove,
-                optionalFieldsToAdd);
-        String description = product.getDescription();
-        int count = product.getCount(seller);
-        double price = product.getPrice(seller);
-        if (!details.get(0).isEmpty()) {
-            description = details.get(0);
+    public Message addAdvertisement(Product product, String sellerUsername, String text, AuthToken authToken) {
+        Message message = new Message("addAdvertisement");
+        try {
+            Seller seller = Seller.getSellerWithUsername(sellerUsername);
+            if (seller.getCredit() < 500000)
+                throw new Account.notEnoughMoneyException();
+            Advertisement adv = new Advertisement(seller, product, LocalDateTime.now().plusDays(5), text);
+            Manager.addRequest(adv);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
         }
+        return message;
+    }
 
-        if (!details.get(1).isEmpty()) {
-            count = Integer.parseInt(details.get(1));
+    public Message viewCompanyInformation(AuthToken authToken) {
+        Message message = new Message("viewCompanyInformation");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            message.addToObjects(seller.getDetails());
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
         }
-        if (!details.get(2).isEmpty()) {
-            price = Double.parseDouble(details.get(2));
+        return message;
+    }
+
+    public Message viewSalesHistory(AuthToken authToken) {
+        Message message = new Message("viewSalesHistory");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            message.addToObjects(seller.getSaleHistory());
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
         }
-        product.changeStateEdited(fields, description, count, price, seller);
-        Manager.addRequest(product);
+        return message;
+    }
+
+    public Message getAllProducts(AuthToken authToken) {
+        Message message = new Message("getAllProducts");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            message.addToObjects(Product.getAllProducts());
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    public Message getSellerProducts(AuthToken authToken) {
+        Message message = new Message("getSellerProducts");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            message.addToObjects(seller.getProducts());
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    public Message viewProduct(String productId, AuthToken authToken) {
+        Message message = new Message("viewProduct");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            message.addToObjects(Product.getProductById(productId));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    public Message viewBuyers(String productId, AuthToken authToken) {
+        Message message = new Message("viewBuyers");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            Product product = Product.getProductById(productId);
+            message.addToObjects(product.getBuyers());
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    public Message editProduct(String productId, ArrayList<String> details, ArrayList<String> numericalFieldsToRemove,
+                               HashMap<String, Double> numericalFieldsToAdd,
+                               ArrayList<String> optionalFieldsTORemove,
+                               HashMap<String, ArrayList<String>> optionalFieldsToAdd, AuthToken authToken) {
+        Message message = new Message("editProduct");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            Product product = Product.getProductById(productId);
+            ArrayList<Field> fields = new ArrayList<>(product.getGeneralFields());
+            editFields(fields, numericalFieldsToRemove, numericalFieldsToAdd, optionalFieldsTORemove,
+                    optionalFieldsToAdd);
+            String description = product.getDescription();
+            int count = product.getCount(seller);
+            double price = product.getPrice(seller);
+            if (!details.get(0).isEmpty()) {
+                description = details.get(0);
+            }
+            if (!details.get(1).isEmpty()) {
+                count = Integer.parseInt(details.get(1));
+            }
+            if (!details.get(2).isEmpty()) {
+                price = Double.parseDouble(details.get(2));
+            }
+            product.changeStateEdited(fields, description, count, price, seller);
+            Manager.addRequest(product);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
     private void editFields(ArrayList<Field> fields, ArrayList<String> numericalFieldsToRemove,
@@ -106,27 +170,43 @@ public class SellerController implements AccountController {
     }
 
 
-    public void addToProduct(String id, int count, double price) throws Exception {
-        if (seller.hasProduct(id)) {
-            throw new AlreadyHaveThisProductException();
-        } else {
-            Product product = Product.getProductById(id);
-            AddSellerRequest request = new AddSellerRequest(product, seller, count, price);
-            Manager.addRequest(request);
+    public Message addToProduct(String id, int count, double price, AuthToken authToken) {
+        Message message = new Message("addToProduct");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            if (seller.hasProduct(id)) {
+                throw new AlreadyHaveThisProductException();
+            } else {
+                Product product = Product.getProductById(id);
+                AddSellerRequest request = new AddSellerRequest(product, seller, count, price);
+                Manager.addRequest(request);
+            }
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
         }
+        return message;
     }
 
-    public void createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
-                              HashMap<String, ArrayList<String>> optionalFields, String path) {
-        String name = details.get(0), description = details.get(1);
-        int count = Integer.parseInt(details.get(2));
-        double price = Double.parseDouble(details.get(3));
-        ArrayList<Field> fields = new ArrayList<>();
-        fields.addAll(createNumericalFields(numericalFields));
-        fields.addAll(createOptionalFields(optionalFields));
-        Product product = new Product(fields, seller, name, description, count, price);
-        product.setImagePath(path);
-        Manager.addRequest(product);
+    public Message createProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
+                                 HashMap<String, ArrayList<String>> optionalFields, String path, AuthToken authToken) {
+        Message message = new Message("createProduct");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            String name = details.get(0), description = details.get(1);
+            int count = Integer.parseInt(details.get(2));
+            double price = Double.parseDouble(details.get(3));
+            ArrayList<Field> fields = new ArrayList<>();
+            fields.addAll(createNumericalFields(numericalFields));
+            fields.addAll(createOptionalFields(optionalFields));
+            Product product = new Product(fields, seller, name, description, count, price);
+            product.setImagePath(path);
+            Manager.addRequest(product);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
     private ArrayList<Field> createOptionalFields(HashMap<String, ArrayList<String>> optionalFields) {
@@ -178,84 +258,160 @@ public class SellerController implements AccountController {
         return fields;
     }
 
-    public void deleteProduct(String productId) throws Exception {
-        Product product = Product.getProductById(productId);
-        seller.removeFromProductsToSell(product);
-        product.removeSeller(seller.getUsername());
-        Product.removeProduct(productId);
-    }
-
-    public ArrayList<SubCategory> showCategories() {
-        return SubCategory.getAllSubCategories();
-    }
-
-    public ArrayList<Sale> viewOffs() {
-        return seller.getSales();
-    }
-
-    public Sale viewOff(String offId) throws SaleUnavailableException {
-        return getSaleWithId(offId);
-    }
-
-    public void editOff(String offId, LocalDateTime startDate, LocalDateTime endDate, String salePercentageStr, ArrayList<String> productIdsToRemove,
-                        ArrayList<String> productIdsToAdd) throws Exception {
-        Sale sale = getSaleWithId(offId);
-        ArrayList<Product> productsToRemove = Product.getProductsWithIds(productIdsToRemove),
-                productsToAdd = Product.getProductsWithIds(productIdsToAdd), newProducts = getSaleProducts(offId);
-        double salePercentage;
-        if (startDate == null) {
-            startDate = sale.getStartDate();
+    public Message deleteProduct(String productId, AuthToken authToken) {
+        Message message = new Message("deleteProduct");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            Product product = Product.getProductById(productId);
+            seller.removeFromProductsToSell(product);
+            product.removeSeller(seller.getUsername());
+            Product.removeProduct(productId);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
         }
-        if (endDate == null) {
-            endDate = sale.getEndDate();
-        }
-        if (salePercentageStr != null) {
-            salePercentage = Double.parseDouble(salePercentageStr) / 100;
-        } else salePercentage = sale.getSalePercentage();
-
-        for (Product product : productsToRemove) {
-            if (seller.hasProduct(product.getId()))
-                newProducts.remove(product);
-            else
-                throw new HaveNotThisProductException(product);
-        }
-        newProducts.addAll(productsToAdd);
-        sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
-        Manager.addRequest(sale);
+        return message;
     }
 
-    private ArrayList<Product> getSaleProducts(String offId) throws Exception {
-        Sale sale = getSaleWithId(offId);
+    public Message showCategories(AuthToken authToken) {
+        Message message = new Message("showCategories");
+        message.addToObjects(SubCategory.getAllSubCategories());
+        return message;
+    }
+
+    public Message viewOffs(AuthToken authToken) {
+        Seller seller = (Seller) Main.getAccountWithToken(authToken);
+        Message message = new Message("viewOffs");
+        message.addToObjects(seller.getSales());
+        return message;
+    }
+
+    public Message viewOff(String offId, AuthToken authToken) {
+        Message message = new Message("viewOff");
+        try {
+            message.addToObjects(getSaleWithId(offId, authToken));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    public Message editOff(String offId, LocalDateTime startDate, LocalDateTime endDate, String salePercentageStr, ArrayList<String> productIdsToRemove,
+                           ArrayList<String> productIdsToAdd, AuthToken authToken) {
+        Message message = new Message("editOff");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            Sale sale = getSaleWithId(offId, authToken);
+            ArrayList<Product> productsToRemove = Product.getProductsWithIds(productIdsToRemove),
+                    productsToAdd = Product.getProductsWithIds(productIdsToAdd), newProducts = getSaleProducts(offId, authToken);
+            double salePercentage;
+            if (startDate == null) {
+                startDate = sale.getStartDate();
+            }
+            if (endDate == null) {
+                endDate = sale.getEndDate();
+            }
+            if (salePercentageStr != null) {
+                salePercentage = Double.parseDouble(salePercentageStr) / 100;
+            } else salePercentage = sale.getSalePercentage();
+
+            for (Product product : productsToRemove) {
+                if (seller.hasProduct(product.getId()))
+                    newProducts.remove(product);
+                else
+                    throw new HaveNotThisProductException(product);
+            }
+            newProducts.addAll(productsToAdd);
+            sale.changeStateEdited(newProducts, startDate, endDate, salePercentage);
+            Manager.addRequest(sale);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    private ArrayList<Product> getSaleProducts(String offId, AuthToken authToken) throws Exception {
+        Sale sale = getSaleWithId(offId, authToken);
         return new ArrayList<>(sale.getProducts());
     }
 
-    public void addOff(LocalDateTime startDate, LocalDateTime endDate, double percentage, ArrayList<String> productIds) throws Exception {
-        String id = Integer.toString(Sale.allSalesCount);
+    public Message addOff(LocalDateTime startDate, LocalDateTime endDate, double percentage, ArrayList<String> productIds,
+                          AuthToken authToken) {
+        Message message = new Message("addOff");
         try {
-            double salePercentage = percentage / 100;
-            if (salePercentage > 1)
-                throw new discountPercentageNotValidException();
-            ArrayList<Product> products = Product.getProductsWithIds(productIds);
-            Sale sale = new Sale(id, products, startDate, endDate, salePercentage, seller);
-            Manager.addRequest(sale);
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            String id = Integer.toString(Sale.allSalesCount);
+            try {
+                double salePercentage = percentage / 100;
+                if (salePercentage > 1)
+                    throw new discountPercentageNotValidException();
+                ArrayList<Product> products = Product.getProductsWithIds(productIds);
+                Sale sale = new Sale(id, products, startDate, endDate, salePercentage, seller);
+                Manager.addRequest(sale);
+            } catch (Exception e) {
+                if (e instanceof Product.productNotFoundException)
+                    throw e;
+                else
+                    throw new FormatInvalidException();
+            }
         } catch (Exception e) {
-            if (e instanceof Product.productNotFoundException)
-                throw e;
-            else
-                throw new FormatInvalidException();
+            message = new Message("Error");
+            message.addToObjects(e);
         }
+        return message;
     }
 
-    public double viewBalance() {
-        return seller.getCredit();
+    public Message viewBalance(AuthToken authToken) {
+        Message message = new Message("viewBalance");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            message.addToObjects(seller.getCredit());
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    private Sale getSaleWithId(String offId) throws SaleUnavailableException {
+    private Sale getSaleWithId(String offId, AuthToken authToken) throws SaleUnavailableException {
+        Seller seller = (Seller) Main.getAccountWithToken(authToken);
         for (Sale sale : seller.getSales()) {
             if (sale.getId().equals(offId))
                 return sale;
         }
         throw new SaleUnavailableException();
+    }
+
+    @Override
+    protected void setMethods() {
+        methods.add("addAdvertisement");
+        methods.add("viewCompanyInformation");
+        methods.add("viewSalesHistory");
+        methods.add("getAllProducts");
+        methods.add("getSellerProducts");
+        methods.add("viewProduct");
+        methods.add("viewBuyers");
+        methods.add("editProduct");
+        methods.add("editFields");
+        methods.add("addToProduct");
+        methods.add("createProduct");
+        methods.add("deleteProduct");
+        methods.add("showCategories");
+        methods.add("viewOffs");
+        methods.add("viewOff");
+        methods.add("editOff");
+        methods.add("addOff");
+        methods.add("viewBalance");
+        methods.add("getProductsToSell");
+        methods.add("getProductCount");
+        methods.add("getAccountInfo");
+        methods.add("editField");
+        methods.add("setProfileImage");
+        methods.add("changeMainImage");
+        methods.add("logout");
+        methods.add("getSeller");
     }
 
     public static class SaleUnavailableException extends Exception {
@@ -296,12 +452,28 @@ public class SellerController implements AccountController {
         }
     }
 
-    public HashMap<Product, Integer> getProductsToSell() {
-        return seller.getProductsToSell();
+    public Message getProductsToSell(AuthToken authToken) {
+        Message message = new Message("account info");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            message.addToObjects(seller.getProductsToSell());
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public int getProductCount(Product product) {
-        return seller.getProductCount(product);
+    public Message getProductCount(Product product, AuthToken authToken) {
+        Message message = new Message("getProductCount");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            message.addToObjects(seller.getProductCount(product));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
     @Override
@@ -349,7 +521,7 @@ public class SellerController implements AccountController {
                         seller.getPhoneNumber(), seller.getPassword(), seller.getCredit(), context);
                 break;
             default:
-                Message message = new Message("edit request sent");
+                Message message = new Message("Error");
                 message.addToObjects(new ManagerController.fieldIsInvalidException());
                 return message;
         }
@@ -361,6 +533,14 @@ public class SellerController implements AccountController {
         public discountPercentageNotValidException() {
             super("Discount percentage must be lower than 100!");
         }
+
+    }
+
+    public Message getSeller(AuthToken authToken) {
+        Seller currentSeller = (Seller) Main.getAccountWithToken(authToken);
+        Message message = new Message("seller");
+        message.addToObjects(currentSeller);
+        return message;
     }
 
     public Message setProfileImage(String path, AuthToken authToken) {
