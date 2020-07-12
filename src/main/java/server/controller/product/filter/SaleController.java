@@ -10,6 +10,7 @@ public class SaleController extends Filterable {
     private MainController mainController;
 
     public SaleController() {
+        super(200);
         this.mainController = MainController.getInstance();
     }
 

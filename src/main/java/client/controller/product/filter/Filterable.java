@@ -1,14 +1,11 @@
 package client.controller.product.filter;
 
 import client.model.filter.Filter;
-import client.model.filter.NameFilter;
-import client.model.filter.OptionalFilter;
-import client.model.filter.RangeFilter;
-import client.model.product.category.Category;
 import client.model.product.Product;
+import client.network.Client;
+import client.network.Message;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 
 public abstract class Filterable {
@@ -17,114 +14,110 @@ public abstract class Filterable {
     protected String currentSort = "ByNumberOfViews";
     protected ArrayList<Product> productsToShow;
     protected ArrayList<Product> productsBeforeFiltering;
+    protected static Client client;
 
     public void filter(String filterType, ArrayList<String> details) throws Exception {
-        if (filterType.equalsIgnoreCase("category")) {
-            filterByCategory(details);
-        } else if (filterType.equalsIgnoreCase("product name")) {
-            filterByProductName(details);
-        } else if (filterType.equalsIgnoreCase("optional field")) {
-            filterByOptionalFilter(details);
-        } else if (filterType.equalsIgnoreCase("numerical field")) {
-            filterByNumericalFilter(details);
+        Message message = new Message("filter");
+        message.addToObjects(filterType);
+        message.addToObjects(details);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public void disAbleFilter(String filterName) throws Exception {
-        Filter filter = getFilterByName(filterName);
-        if (filter == null)
-            throw new FilterNotFoundException();
-        filters.remove(filter);
-        filterNames.remove(filter.getName());
+        Message message = new Message("disAbleFilter");
+        message.addToObjects(filterName);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public ArrayList<Product> getProducts() {
-        return productsToShow.stream()
-                .filter(product -> {
-                    for (Filter filter : filters)
-                        if (!filter.validFilter(product))
-                            return false;
-                    return true;
-                })
-                .collect(Collectors
-                        .toCollection(ArrayList::new));
+        Message message = new Message("getProducts");
+        client.writeMessage(message);
+        return (ArrayList<Product>) client.readMessage().getObjects().get(0);
     }
 
-    public ArrayList<Product> getProductFilterByCategory(){
-        return productsToShow;
+    public ArrayList<Product> getProductFilterByCategory() {
+        Message message = new Message("getProductFilterByCategory");
+        client.writeMessage(message);
+        return (ArrayList<Product>) client.readMessage().getObjects().get(0);
     }
 
     public ArrayList<Product> showProducts() throws Exception {
-        switch (currentSort) {
-            case "ByScores":
-                return sortByScores();
-            case "ByDates":
-                return sortByAddingDate();
-            case "ByNumberOfViews":
-                return sortByNUmberOfViews();
+        Message message = new Message("showProducts");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
-        throw new SortNotFoundException();
+        return (ArrayList<Product>) client.readMessage().getObjects().get(0);
     }
 
     public void changeSort(String newSort) throws Exception {
-        this.currentSort = newSort;
-        showProducts();
+        Message message = new Message("changeSort");
+        message.addToObjects(newSort);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void disableSort() {
-        currentSort = null;
+        Message message = new Message("disableSort");
+        client.writeMessage(message);
+        client.readMessage();
     }
 
-    public void disableFilterByCategory(){
-        productsToShow = productsBeforeFiltering;
+    public void disableFilterByCategory() {
+        Message message = new Message("disableFilterByCategory");
+        client.writeMessage(message);
+        client.readMessage();
     }
 
     public void filterByCategory(ArrayList<String> details) throws Exception {
-        String name = details.get(0);
-        productsBeforeFiltering = productsToShow;
-        ArrayList<Category> categories = Category.getAllCategories();
-        Category category1;
-        for (Category category : categories){
-            if(category.getName().equals(name)){
-                category1 = category;
-                productsToShow = category1.getProducts();
-                break;
-            }
+        Message message = new Message("filterByCategory");
+        message.addToObjects(details);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public void filterByProductName(ArrayList<String> details) {
-        filters.add(new NameFilter(details.get(0)));
+        Message message = new Message("filterByProductName");
+        message.addToObjects(details);
+        client.writeMessage(message);
+        client.readMessage();
     }
 
     public void filterByOptionalFilter(ArrayList<String> details) {
-        String name = details.get(0);
-        details.remove(0);
-        filters.add(new OptionalFilter(name, details));
+        Message message = new Message("filterByOptionalFilter");
+        message.addToObjects(details);
+        client.writeMessage(message);
+        client.readMessage();
     }
 
     public void filterByNumericalFilter(ArrayList<String> details) {
-        filters.add(new RangeFilter(details.get(0), Double.parseDouble(details.get(1)),
-                Double.parseDouble(details.get(2))));
-    }
-
-    private Filter getFilterByName(String name) {
-        for (Filter filter : filters) {
-            if (filter.getName().equals(name))
-                return filter;
-        }
-        return null;
+        Message message = new Message("filterByNumericalFilter");
+        message.addToObjects(details);
+        client.writeMessage(message);
+        client.readMessage();
     }
 
     public ArrayList<Filter> getFilters() {
-        return filters;
+        Message message = new Message("getFilters");
+        client.writeMessage(message);
+        return (ArrayList<Filter>) client.readMessage().getObjects().get(0);
     }
 
-    private ArrayList<Product> sortByNUmberOfViews() {
-        ArrayList<Product> products = getProducts();
-        products.sort(new CompareNumberOfViews());
-        return products;
-    }
 
     public static class FilterNotFoundException extends Exception {
         public FilterNotFoundException() {
@@ -132,25 +125,9 @@ public abstract class Filterable {
         }
     }
 
-    public static class SortNotFoundException extends Exception {
-        public SortNotFoundException() {
-            super("you didn't select any sortType");
-        }
-    }
-
-    private ArrayList<Product> sortByScores() {
-        ArrayList<Product> products = getProducts();
-        products.sort(new CompareScores());
-        return products;
-    }
-
-    private ArrayList<Product> sortByAddingDate() {
-        ArrayList<Product> products = getProducts();
-        products.sort(new CompareDates());
-        return products;
-    }
-
     public String getCurrentSort() {
-        return currentSort;
+        Message message = new Message("getCurrentSort");
+        client.writeMessage(message);
+        return (String) client.readMessage().getObjects().get(0);
     }
 }

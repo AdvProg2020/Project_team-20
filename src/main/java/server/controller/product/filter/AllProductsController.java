@@ -13,7 +13,9 @@ public class AllProductsController extends Filterable {
 
     private AllProductsController() {
         super(5000);
+        setMethods();
         productsToShow = Product.getAllProducts();
+        System.out.println("all products controller run");
     }
 
     public static AllProductsController getInstance() {
