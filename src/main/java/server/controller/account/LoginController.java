@@ -26,20 +26,27 @@ public class LoginController extends Server {
     }
 
 
-    public void createAccount(String username, String type, ArrayList<String> details, String detail) throws Exception {
-        if (Account.hasThisAccount(username)) {
-            throw new AccountIsAvailableException();
+    public Message createAccount(String username, String type, ArrayList<String> details, String detail) {
+        Message message = new Message("create account was successful");
+        try {
+            if (Account.hasThisAccount(username)) {
+                throw new AccountIsAvailableException();
+            }
+            switch (type) {
+                case "manager":
+                    createManagerAccount(username, details);
+                    break;
+                case "buyer":
+                    createBuyerAccount(username, details);
+                    break;
+                case "seller":
+                    createSellerAccount(username, details, detail);
+            }
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
         }
-        switch (type) {
-            case "manager":
-                createManagerAccount(username, details);
-                break;
-            case "buyer":
-                createBuyerAccount(username, details);
-                break;
-            case "seller":
-                createSellerAccount(username, details, detail);
-        }
+        return message;
     }
 
     private void createManagerAccount(String username, ArrayList<String> details) throws Exception {
@@ -129,6 +136,7 @@ public class LoginController extends Server {
     @Override
     protected void setMethods() {
         methods.add("login");
+        methods.add("createAccount");
     }
 
     public static class AccountIsAvailableException extends Exception {

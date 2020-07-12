@@ -44,6 +44,8 @@ public abstract class Server {
         client.writeMessage(new Message("client accepted"));
         while (true) {
             Message message = client.readMessage();
+            if (message.getText().equals("buy"))
+                return;
             System.out.println(message);
             if (message.getAuthToken() != null)
                 System.out.println(message.getAuthToken().getKey());
@@ -64,7 +66,8 @@ public abstract class Server {
                     client.setAuthToken(answer.getAuthToken());
                     client.writeMessage(answer);
                 } catch (InvalidCommand invalidCommand) {
-                    invalidCommand.printStackTrace();
+                    //invalidCommand.printStackTrace();
+                    return;
                 }
             }
         }

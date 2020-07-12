@@ -33,12 +33,12 @@ public class Main {
 
 
     private static void runServers() {
-        new BankServer();
-        BuyerController.getInstance();
-        LoginController.getInstance();
-        ManagerController.getInstance();
-        SellerController.getInstance();
-        SupporterController.getInstance();
+        new BankServer(); // 9000
+        BuyerController.getInstance(); // 6000
+        LoginController.getInstance(); // 1100
+        ManagerController.getInstance(); // 7000
+        SellerController.getInstance(); // 4000
+        SupporterController.getInstance(); // 3000
 
         //TODO run all requierd servers
     }

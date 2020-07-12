@@ -45,7 +45,7 @@ public class ManageUsersController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         removeCreatePanel();
-        table.getItems().setAll(Account.getAllAccounts());
+        table.getItems().setAll(managerController.manageUsers());
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
         type.setCellValueFactory(new PropertyValueFactory<>("accountType"));
         removeManageUsersPanel();
@@ -80,7 +80,7 @@ public class ManageUsersController implements Initializable {
 
     private void showManageUsersPanel() {
         table.setOpacity(1);
-        table.getItems().setAll(Account.getAllAccounts());
+        table.getItems().setAll(managerController.manageUsers());
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
         type.setCellValueFactory(new PropertyValueFactory<>("accountType"));
     }
@@ -141,7 +141,7 @@ public class ManageUsersController implements Initializable {
             title.setOpacity(0);
             message.setOpacity(0);
             deleteUser.setOpacity(0);
-            table.getItems().setAll(Account.getAllAccounts());
+            table.getItems().setAll(managerController.manageUsers());
             username.setCellValueFactory(new PropertyValueFactory<>("username"));
             type.setCellValueFactory(new PropertyValueFactory<>("accountType"));
             new AlertController().create(AlertType.CONFIRMATION, "delete user was successful");

@@ -60,6 +60,16 @@ public class Client {
         }
     }
 
+    public void disconnect() {
+        try {
+            dataInputStream.close();
+            dataOutputStream.close();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public DataOutputStream getDataOutputStream() {
         return dataOutputStream;
