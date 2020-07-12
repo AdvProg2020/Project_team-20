@@ -4,6 +4,7 @@ import server.controller.account.LoginController;
 import server.controller.account.user.BuyerController;
 import server.controller.account.user.ManagerController;
 import server.controller.account.user.SellerController;
+import server.controller.account.user.SupporterController;
 import server.controller.bank.BankServer;
 import client.model.account.Account;
 import client.model.account.Buyer;
@@ -37,6 +38,8 @@ public class Main {
         LoginController.getInstance();
         ManagerController.getInstance();
         SellerController.getInstance();
+        SupporterController.getInstance();
+
         //TODO run all requierd servers
     }
 

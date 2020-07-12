@@ -1,6 +1,9 @@
 package client.controller.account.user;
 
 import client.controller.MainController;
+import client.controller.account.LoginController;
+import client.network.Client;
+import client.network.Message;
 import javafx.scene.image.Image;
 import client.model.account.Account;
 import client.model.account.Buyer;
@@ -13,6 +16,7 @@ public class SupporterController implements AccountController {
     private static SupporterController supporterController = null;
     private static Supporter currentSupporter;
     private MainController mainController;
+    private static Client client;
 
     private ArrayList<Buyer> buyers;
 
@@ -25,50 +29,53 @@ public class SupporterController implements AccountController {
         if (supporterController == null)
             supporterController = new SupporterController();
         currentSupporter = (Supporter) MainController.getInstance().getAccount();
+        client = new Client(3000);
+        client.setAuthToken(LoginController.getClient().getAuthToken());
+        client.readMessage();
+        System.out.println(client.getAuthToken());
         return supporterController;
     }
 
     @Override
+    public Account getAccountInfo() {
+        client.writeMessage(new Message("getAccountInfo"));
+        return (Account) client.readMessage().getObjects().get(0);
+    }
+
+    @Override
     public void editField(String field, String context) throws Exception {
-        switch (field) {
-            case "name":
-                currentSupporter.setName(context);
-                break;
-            case "lastName":
-                currentSupporter.setLastName(context);
-                break;
-            case "email":
-                currentSupporter.setEmail(context);
-                break;
-            case "phoneNumber":
-                currentSupporter.setPhoneNumber(context);
-                break;
-            case "password":
-                currentSupporter.setPassword(context);
-                break;
-            default:
-                throw new ManagerController.fieldIsInvalidException();
+        Message message = new Message("editField");
+        message.addToObjects(field);
+        message.addToObjects(context);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
     }
 
-
-    @Override
-    public Account getAccountInfo() {
-        return currentSupporter;
-    }
-
     public void setProfileImage(String path) {
+        Message message = new Message("setProfileImage");
+        message.addToObjects(path);
+        client.writeMessage(message);
         currentSupporter.setImagePath(path);
+        client.readMessage();
     }
 
     @Override
     public void changeMainImage(Image image) {
+        Message message = new Message("changeMainImage");
+        message.addToObjects(image);
+        client.writeMessage(message);
         currentSupporter.getGraphicPackage().setMainImage(image);
+        client.readMessage();
     }
 
     @Override
     public void logout() {
+        client.writeMessage(new Message("logout"));
         mainController.logout();
+        client.readMessage();
     }
 
     //todo complete these

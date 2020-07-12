@@ -6,15 +6,19 @@ import client.model.account.Account;
 import client.model.account.Supporter;
 import client.network.AuthToken;
 import client.network.Message;
+import server.network.server.Server;
 
-public class SupporterController implements AccountController {
+public class SupporterController extends Server implements AccountController {
 
     private static SupporterController supporterController = null;
 
     private SupporterController() {
+        super(3000);
+        setMethods();
+        System.out.println("supporter controller run");
     }
 
-    public SupporterController getInstance() {
+    public static SupporterController getInstance() {
         if (supporterController == null)
             supporterController = new SupporterController();
         return supporterController;
@@ -40,7 +44,7 @@ public class SupporterController implements AccountController {
                 currentSupporter.setPassword(context);
                 break;
             default:
-                Message message = new Message("edit request sent");
+                Message message = new Message("Error");
                 message.addToObjects(new ManagerController.fieldIsInvalidException());
                 return message;
         }
@@ -92,5 +96,14 @@ public class SupporterController implements AccountController {
     public String showMessagesFromBuyer(String buyerUserName) {
 
         return "";
+    }
+
+    @Override
+    protected void setMethods() {
+        methods.add("getAccountInfo");
+        methods.add("editField");
+        methods.add("setProfileImage");
+        methods.add("changeMainImage");
+        methods.add("logout");
     }
 }
