@@ -17,6 +17,7 @@ import client.model.receipt.BuyerReceipt;
 import client.model.receipt.SellerReceipt;
 import client.network.AuthToken;
 import server.controller.product.filter.AllProductsController;
+import server.controller.product.filter.SaleController;
 
 import java.util.HashMap;
 
@@ -41,6 +42,7 @@ public class Main {
         SellerController.getInstance(); // 4000
         SupporterController.getInstance(); // 3000
         AllProductsController.getInstance(); // 5000
+        new SaleController(); // 2000
         //TODO run all requierd servers
     }
 

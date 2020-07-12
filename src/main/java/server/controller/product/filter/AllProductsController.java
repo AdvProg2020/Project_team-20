@@ -7,6 +7,8 @@ import client.model.product.category.CategorySet;
 import client.model.product.category.SubCategory;
 import client.network.Message;
 
+import java.util.ArrayList;
+
 public class AllProductsController extends Filterable {
 
     public static AllProductsController allProductsController = null;
@@ -79,11 +81,6 @@ public class AllProductsController extends Filterable {
         return message;
     }
 
-    public static class NotLoggedInException extends Exception {
-        public NotLoggedInException() {
-            super("You have not logged in. Please go to LoginMenu and log in!:)");
-        }
-    }
 
     public static class InvalidCommandException extends Exception {
         public InvalidCommandException() {
@@ -130,5 +127,75 @@ public class AllProductsController extends Filterable {
         methods.add("getProduct");
         methods.add("getAdvertisement");
         methods.add("disableCategoryFields");
+    }
+
+    @Override
+    public Message filter(String filterType, ArrayList<String> details) {
+        return super.filter(filterType, details);
+    }
+
+    @Override
+    public Message disAbleFilter(String filterName) {
+        return super.disAbleFilter(filterName);
+    }
+
+    @Override
+    public Message getProducts() {
+        return super.getProducts();
+    }
+
+    @Override
+    public Message getProductFilterByCategory() {
+        return super.getProductFilterByCategory();
+    }
+
+    @Override
+    public Message showProducts() {
+        return super.showProducts();
+    }
+
+    @Override
+    public Message changeSort(String newSort) {
+        return super.changeSort(newSort);
+    }
+
+    @Override
+    public Message disableSort() {
+        return super.disableSort();
+    }
+
+    @Override
+    public Message disableFilterByCategory() {
+        return super.disableFilterByCategory();
+    }
+
+    @Override
+    public Message filterByCategory(ArrayList<String> details) {
+        return super.filterByCategory(details);
+    }
+
+    @Override
+    public Message filterByProductName(ArrayList<String> details) {
+        return super.filterByProductName(details);
+    }
+
+    @Override
+    public Message filterByOptionalFilter(ArrayList<String> details) {
+        return super.filterByOptionalFilter(details);
+    }
+
+    @Override
+    public Message filterByNumericalFilter(ArrayList<String> details) {
+        return super.filterByNumericalFilter(details);
+    }
+
+    @Override
+    public Message getFilters() {
+        return super.getFilters();
+    }
+
+    @Override
+    public Message getCurrentSort() {
+        return super.getCurrentSort();
     }
 }

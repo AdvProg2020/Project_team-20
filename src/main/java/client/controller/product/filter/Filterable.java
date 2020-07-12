@@ -9,11 +9,6 @@ import java.util.ArrayList;
 
 
 public abstract class Filterable {
-    protected ArrayList<Filter> filters = new ArrayList<>();
-    protected ArrayList<String> filterNames = new ArrayList<>();
-    protected String currentSort = "ByNumberOfViews";
-    protected ArrayList<Product> productsToShow;
-    protected ArrayList<Product> productsBeforeFiltering;
     protected static Client client;
 
     public void filter(String filterType, ArrayList<String> details) throws Exception {
@@ -56,7 +51,7 @@ public abstract class Filterable {
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
-        return (ArrayList<Product>) client.readMessage().getObjects().get(0);
+        return (ArrayList<Product>) answer.getObjects().get(0);
     }
 
     public void changeSort(String newSort) throws Exception {
