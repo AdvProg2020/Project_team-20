@@ -1,6 +1,6 @@
 package server.network;
 
-import client.model.account.Account;
+import client.model.account.GeneralAccount;
 import server.controller.Main;
 
 import java.time.LocalDateTime;
@@ -28,7 +28,7 @@ public class AuthToken {
 
     //is valid
     public boolean authenticate() {
-        HashMap<String, Account> hashMap = Main.getAuthTokenAccountHashMap();
+        HashMap<String, GeneralAccount> hashMap = Main.getAuthTokenAccountHashMap();
         //TODO edit this field
 
         return hashMap.containsKey(String.valueOf(key));

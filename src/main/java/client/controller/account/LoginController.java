@@ -58,6 +58,7 @@ public class LoginController {
         Object object = answer.getObjects().get(0);
         GeneralAccount account = (GeneralAccount) answer.getObjects().get(1);
         MainController mainController = MainController.getInstance();
+        mainController.setAccount(new TempAccount());
         Cart cart = ((TempAccount) mainController.getAccount()).getCart();
         MainController.getInstance().setAccount(account);
         if (object.equals(AccountType.MANAGER))
