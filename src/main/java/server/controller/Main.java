@@ -1,6 +1,7 @@
 package server.controller;
 
 import client.model.account.*;
+import server.HasFirstManager;
 import server.controller.account.LoginController;
 import server.controller.account.user.BuyerController;
 import server.controller.account.user.ManagerController;
@@ -13,6 +14,7 @@ import client.model.product.category.CategorySet;
 import client.model.receipt.BuyerReceipt;
 import client.model.receipt.SellerReceipt;
 import client.network.AuthToken;
+import server.controller.product.AdvertisementController;
 import server.controller.product.ProductController;
 import server.controller.product.filter.AllProductsController;
 import server.controller.product.filter.SaleController;
@@ -22,6 +24,7 @@ import java.util.HashMap;
 public class Main {
     private static PreProcess preProcess = new PreProcess();
     private static HashMap<String, GeneralAccount> authTokenAccountHashMap = new HashMap<>();
+    private static boolean hasFirstManager = false;
 
     public static void main(String[] args) {
         loadData();
@@ -30,6 +33,8 @@ public class Main {
         PreProcess.AddPeriod();
         runServers();
     }
+
+
 
 
     private static void runServers() {
@@ -42,6 +47,8 @@ public class Main {
         AllProductsController.getInstance(); // 5000
         new SaleController(); // 2000
         new ProductController(); // 1000
+        new HasFirstManager(); // 777
+        new AdvertisementController(); // 696
         //TODO run all requierd servers
     }
 

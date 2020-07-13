@@ -2,6 +2,7 @@ package client.controller.product;
 
 import client.controller.MainController;
 import client.controller.account.LoginController;
+import client.model.account.Seller;
 import client.model.product.Product;
 import client.model.product.comment.Comment;
 import client.network.Client;
@@ -35,6 +36,27 @@ public class ProductController {
         client.writeMessage(message);
         Message answer = client.readMessage();
         client.setAuthToken(answer.getAuthToken());
+    }
+
+    public Seller getSellerByUsername(String sellerId) throws Exception {
+        Message message = new Message("getSellerByUsername");
+        message.addToObjects(currentProduct.getId());
+        message.addToObjects(sellerId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        return (Seller) answer.getObjects().get(0);
+    }
+
+    public double getFirstPrice() {
+        try {
+            return currentProduct.getPrice(getSellerByUsername(currentProduct.getSellerUsernames().get(0)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public void addProductToCart(String sellerId) throws Exception {

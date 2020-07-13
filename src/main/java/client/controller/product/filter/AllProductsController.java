@@ -1,5 +1,6 @@
 package client.controller.product.filter;
 
+import client.model.filter.Filter;
 import client.model.product.Advertisement;
 import client.model.product.Product;
 import client.model.product.category.Category;
@@ -103,5 +104,101 @@ public class AllProductsController extends Filterable {
         Message message = new Message("disableCategoryFields");
         client.writeMessage(message);
         client.readMessage();
+    }
+
+    @Override
+    public void filter(String filterType, ArrayList<String> details) throws Exception {
+        client = new Client(5000);
+        client.readMessage();
+        super.filter(filterType, details);
+    }
+
+    @Override
+    public void disAbleFilter(String filterName) throws Exception {
+        client = new Client(5000);
+        client.readMessage();
+        super.disAbleFilter(filterName);
+    }
+
+    @Override
+    public ArrayList<Product> getProducts() {
+        client = new Client(5000);
+        client.readMessage();
+        return super.getProducts();
+    }
+
+    @Override
+    public ArrayList<Product> getProductFilterByCategory() {
+        client = new Client(5000);
+        client.readMessage();
+        return super.getProductFilterByCategory();
+    }
+
+    @Override
+    public ArrayList<Product> showProducts() throws Exception {
+        client = new Client(5000);
+        client.readMessage();
+        return super.showProducts();
+    }
+
+    @Override
+    public void changeSort(String newSort) throws Exception {
+        client = new Client(5000);
+        client.readMessage();
+        super.changeSort(newSort);
+    }
+
+    @Override
+    public void disableSort() {
+        client = new Client(5000);
+        client.readMessage();
+        super.disableSort();
+    }
+
+    @Override
+    public void disableFilterByCategory() {
+        client = new Client(5000);
+        client.readMessage();
+        super.disableFilterByCategory();
+    }
+
+    @Override
+    public void filterByCategory(ArrayList<String> details) throws Exception {
+        client = new Client(5000);
+        client.readMessage();
+        super.filterByCategory(details);
+    }
+
+    @Override
+    public void filterByProductName(ArrayList<String> details) {
+        super.filterByProductName(details);
+    }
+
+    @Override
+    public void filterByOptionalFilter(ArrayList<String> details) {
+        client = new Client(5000);
+        client.readMessage();
+        super.filterByOptionalFilter(details);
+    }
+
+    @Override
+    public void filterByNumericalFilter(ArrayList<String> details) {
+        client = new Client(5000);
+        client.readMessage();
+        super.filterByNumericalFilter(details);
+    }
+
+    @Override
+    public ArrayList<Filter> getFilters() {
+        client = new Client(5000);
+        client.readMessage();
+        return super.getFilters();
+    }
+
+    @Override
+    public String getCurrentSort() {
+        client = new Client(5000);
+        client.readMessage();
+        return super.getCurrentSort();
     }
 }

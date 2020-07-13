@@ -44,6 +44,20 @@ public class ProductController extends Server {
         return message;
     }
 
+    public Message getSellerByUsername(String productId, String sellerId, AuthToken authToken) {
+        Message message = new Message("getSellerByUsername");
+        try {
+            Product currentProduct = Product.getProductById(productId);
+            Seller seller = currentProduct.getSellerByUsername(sellerId);
+            message.addToObjects(seller);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+
+    }
+
     public Message addComment(String productId, String title, String content, AuthToken authToken) {
         Message message = new Message("addComment");
         try {
@@ -137,6 +151,7 @@ public class ProductController extends Server {
         methods.add("addScore");
         methods.add("addReplyToComment");
         methods.add("getAnotherProduct");
+        methods.add("getSellerByUsername");
     }
 
     public static class AccountNotBuyerException extends Exception {

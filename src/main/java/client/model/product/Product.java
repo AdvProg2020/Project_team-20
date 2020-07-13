@@ -13,10 +13,7 @@ import client.model.product.comment.Score;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 
 public class Product implements Requestable {
@@ -247,6 +244,10 @@ public class Product implements Requestable {
 
     private int getNumberFields() {
         return generalFields.size();
+    }
+
+    public ArrayList<String> getSellerUsernames() {
+        return sellersUsername;
     }
 
     public static class ProductUnavailableException extends Exception {
