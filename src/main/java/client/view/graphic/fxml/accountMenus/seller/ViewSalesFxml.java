@@ -2,6 +2,7 @@ package client.view.graphic.fxml.accountMenus.seller;
 
 import client.controller.MediaController;
 import client.controller.account.user.SellerController;
+import client.controller.product.ReceiptController;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -45,9 +46,10 @@ public class ViewSalesFxml implements Initializable {
     }
 
     public void showProducts(SellerReceipt sellerReceipt) {
-        HashMap<Product, Integer> productsCount = sellerReceipt.getProducts();
+        ReceiptController receiptController = new ReceiptController();
+        HashMap<Product, Integer> productsCount = receiptController.getProducts(sellerReceipt);
         ArrayList<ProductQuantity> productQuantities = new ArrayList<>();
-        for (Product product:productsCount.keySet()) {
+        for (Product product : productsCount.keySet()) {
             productQuantities.add(new ProductQuantity(product.getName(), productsCount.get(product)));
         }
         productsTable.getItems().setAll(productQuantities);

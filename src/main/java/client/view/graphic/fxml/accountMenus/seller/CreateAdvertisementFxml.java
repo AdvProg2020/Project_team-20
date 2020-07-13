@@ -31,7 +31,8 @@ public class CreateAdvertisementFxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        table.getItems().setAll(seller.getProducts());
+        SellerController sellerController = SellerController.getInstance();
+        table.getItems().setAll(sellerController.getSellerProducts());
         productNames.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 

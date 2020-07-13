@@ -34,7 +34,8 @@ public class CreateOffFxml implements Initializable {
     public TableColumn<String, Product> chosenProducts;
     public TableView<Product> table;
     public TableColumn<String, Product> productNames;
-    public ArrayList<Product> products;
+    public ArrayList<Product> allProducts;
+    public ArrayList<Product> selectedProducts;
 
     private SellerController sellerController = SellerController.getInstance();
     private Seller seller = (Seller) sellerController.getAccountInfo();
@@ -43,8 +44,9 @@ public class CreateOffFxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        products = new ArrayList<>();
-        table.getItems().setAll(seller.getProducts());
+        selectedProducts = new ArrayList<>();
+        allProducts = sellerController.getSellerProducts();
+        table.getItems().setAll(allProducts);
         productNames.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 
@@ -69,7 +71,7 @@ public class CreateOffFxml implements Initializable {
         LocalDateTime startLocalDateTime = LocalDateTime.of(startDate, startTime);
         LocalDateTime endLocalDateTime = LocalDateTime.of(endDate, endTime);
         ArrayList<String> productIds = new ArrayList<>();
-        for (Product product : products) {
+        for (Product product : selectedProducts) {
             productIds.add(product.getId());
         }
         try {
@@ -83,10 +85,10 @@ public class CreateOffFxml implements Initializable {
 
     public void selectRequest(MouseEvent event) {
         Product product = table.getSelectionModel().getSelectedItem();
-        if (!products.contains(product))
-            products.add(product);
+        if (!selectedProducts.contains(product))
+            selectedProducts.add(product);
         chosenTable.getItems().removeAll();
-        chosenTable.getItems().setAll(products);
+        chosenTable.getItems().setAll(selectedProducts);
         chosenProducts.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 

@@ -78,7 +78,7 @@ public class SellerController implements AccountController {
     }
 
     public Product viewProduct(String productId) throws Exception {
-        Message message = new Message("addAdvertisement");
+        Message message = new Message("viewProduct");
         message.addToObjects(productId);
         client.writeMessage(message);
         Message answer = client.readMessage();

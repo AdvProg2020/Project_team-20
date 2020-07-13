@@ -16,6 +16,7 @@ import client.model.receipt.SellerReceipt;
 import client.network.AuthToken;
 import server.controller.product.AdvertisementController;
 import server.controller.product.ProductController;
+import server.controller.product.ReceiptController;
 import server.controller.product.filter.AllProductsController;
 import server.controller.product.filter.SaleController;
 
@@ -49,6 +50,7 @@ public class Main {
         new ProductController(); // 1000
         new HasFirstManager(); // 777
         new AdvertisementController(); // 696
+        new ReceiptController(); // 500
         //TODO run all requierd servers
     }
 

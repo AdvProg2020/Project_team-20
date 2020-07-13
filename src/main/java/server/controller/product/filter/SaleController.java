@@ -28,10 +28,18 @@ public class SaleController extends Filterable {
         return message;
     }
 
+    public Message getSaleProducts(Sale sale) {
+        Message message = new Message("getSaleProducts");
+        message.addToObjects(sale.getProducts());
+        return message;
+    }
+
+
     @Override
     protected void setMethods() {
         super.setMethods();
         methods.add("getAllSales");
+        methods.add("getSaleProducts");
     }
 
     @Override

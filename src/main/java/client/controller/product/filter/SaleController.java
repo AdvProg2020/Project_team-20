@@ -1,6 +1,7 @@
 package client.controller.product.filter;
 
 import client.controller.MainController;
+import client.model.product.Product;
 import client.model.product.Sale;
 import client.network.Client;
 import client.network.Message;
@@ -22,6 +23,13 @@ public class SaleController extends Filterable {
         client.writeMessage(message);
         Message answer = client.readMessage();
         return (ArrayList<Sale>) answer.getObjects().get(0);
+    }
+
+    public ArrayList<Product> getSaleProducts(Sale sale) {
+        Message message = new Message("getSaleProducts");
+        message.addToObjects(sale);
+        client.writeMessage(message);
+        return (ArrayList<Product>) client.readMessage().getObjects().get(0);
     }
 
 }
