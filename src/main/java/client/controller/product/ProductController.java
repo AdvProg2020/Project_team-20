@@ -21,8 +21,6 @@ public class ProductController {
         if (LoginController.getClient() == null) {
             client = new Client(1000);
             Message message = client.readMessage();
-            System.out.println("in product menu constructor");
-            System.out.println(message.getText());
             connectWithTempAccount();
         } else {
             client = new Client(1000);

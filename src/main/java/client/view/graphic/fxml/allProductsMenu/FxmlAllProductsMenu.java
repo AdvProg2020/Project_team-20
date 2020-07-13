@@ -3,6 +3,7 @@ package client.view.graphic.fxml.allProductsMenu;
 import client.controller.Main;
 import client.controller.MainController;
 import client.controller.MediaController;
+import client.controller.product.AdvertisementController;
 import client.controller.product.ProductController;
 import client.controller.product.filter.AllProductsController;
 import client.model.account.Buyer;
@@ -176,7 +177,9 @@ public class FxmlAllProductsMenu implements Initializable {
 
     private void showAdds() {
         if (adds.size() > 1) {
-            Product product = adds.get(1).getProduct();
+            Advertisement advertisement = adds.get(1);
+            AdvertisementController advertisementController = new AdvertisementController(advertisement);
+            Product product = advertisementController.getProduct();
             Image img1 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productAddImg.setImage(img1);
             addTxt.setText(adds.get(1).getText());
@@ -184,7 +187,8 @@ public class FxmlAllProductsMenu implements Initializable {
         }
         if (adds.size() > 0) {
             Advertisement add2 = adds.get(0);
-            Product product = add2.getProduct();
+            AdvertisementController advertisementController = new AdvertisementController(add2);
+            Product product = advertisementController.getProduct();
             Image img1 = new Image(new File("src/main/resources/Images/" + product.getImagePath()).toURI().toString());
             productAddImg2.setImage(img1);
             productAddImg2.setImage(img1);
@@ -719,7 +723,9 @@ public class FxmlAllProductsMenu implements Initializable {
         if (adds.size() - 1 < currentAdd) {
             currentAdd = 0;
         }
-        Product product = adds.get(currentAdd).getProduct();
+        Advertisement advertisement = adds.get(currentAdd);
+        AdvertisementController advertisementController = new AdvertisementController(advertisement);
+        Product product = advertisementController.getProduct();
         FadeTransition transition = new FadeTransition(Duration.seconds(1), productAddImg);
         transition.setToValue(0);
         transition.play();
