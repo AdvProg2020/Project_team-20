@@ -99,7 +99,6 @@ public class ProductMenuFxml implements Initializable {
 
     public void handleExit(ActionEvent actionEvent) {
         FxmlAllProductsMenu.key = false;
-        Main.storeData();
         FxmlMainMenu.window.close();
     }
 

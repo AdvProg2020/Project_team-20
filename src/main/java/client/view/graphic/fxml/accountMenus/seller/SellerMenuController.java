@@ -1,8 +1,13 @@
 package client.view.graphic.fxml.accountMenus.seller;
 
-import client.controller.Main;
 import client.controller.MediaController;
 import client.controller.account.user.SellerController;
+import client.model.account.Seller;
+import client.view.graphic.MenuNames;
+import client.view.graphic.ProgramApplication;
+import client.view.graphic.alert.AlertController;
+import client.view.graphic.alert.AlertType;
+import client.view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +20,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import client.model.account.Seller;
-import client.view.graphic.MenuNames;
-import client.view.graphic.ProgramApplication;
-import client.view.graphic.alert.AlertController;
-import client.view.graphic.alert.AlertType;
-import client.view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -122,7 +121,6 @@ public class SellerMenuController implements Initializable {
 
     public void handleExit() {
         FxmlAllProductsMenu.key = false;
-        Main.storeData();
         window.close();
     }
 

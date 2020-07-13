@@ -2,6 +2,7 @@ package server.network.server;
 
 import client.network.Client;
 import client.network.Message;
+import server.controller.Main;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -43,6 +44,7 @@ public abstract class Server {
         clients.add(client);
         client.writeMessage(new Message("client accepted"));
         while (true) {
+            Main.storeData();
             Message message = client.readMessage();
             if (message.getText().equals("buy"))
                 return;

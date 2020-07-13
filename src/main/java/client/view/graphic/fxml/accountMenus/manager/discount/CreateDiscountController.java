@@ -1,9 +1,13 @@
 package client.view.graphic.fxml.accountMenus.manager.discount;
 
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTimePicker;
 import client.controller.MediaController;
 import client.controller.account.user.ManagerController;
+import client.model.account.Buyer;
+import client.view.graphic.ProgramApplication;
+import client.view.graphic.alert.AlertController;
+import client.view.graphic.alert.AlertType;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -11,11 +15,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import client.model.account.Account;
-import client.model.account.Buyer;
-import client.view.graphic.ProgramApplication;
-import client.view.graphic.alert.AlertController;
-import client.view.graphic.alert.AlertType;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -44,7 +43,7 @@ public class CreateDiscountController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buyers = new ArrayList<>();
-        table.getItems().setAll(Account.getAllBuyers());
+        table.getItems().setAll(managerController.getAllBuyers());
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
     }
 

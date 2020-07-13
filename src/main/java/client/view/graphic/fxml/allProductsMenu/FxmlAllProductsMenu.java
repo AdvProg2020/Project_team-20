@@ -1,6 +1,5 @@
 package client.view.graphic.fxml.allProductsMenu;
 
-import client.controller.Main;
 import client.controller.MainController;
 import client.controller.MediaController;
 import client.controller.product.AdvertisementController;
@@ -335,7 +334,6 @@ public class FxmlAllProductsMenu implements Initializable {
 
     public void handleExit(ActionEvent actionEvent) {
         FxmlAllProductsMenu.key = false;
-        Main.storeData();
         FxmlMainMenu.window.close();
     }
 

@@ -144,7 +144,6 @@ public class ManagerMenuController implements Initializable {
 
     public void handleExit() {
         FxmlAllProductsMenu.key = false;
-        Main.storeData();
         window.close();
     }
 
