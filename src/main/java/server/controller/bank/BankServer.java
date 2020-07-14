@@ -3,9 +3,9 @@ package server.controller.bank;
 import client.network.AuthToken;
 import client.network.Client;
 import client.network.Message;
-import server.model.bank.BankAccount;
-import server.model.bank.BankReceipt;
-import server.model.bank.BankReceiptType;
+import client.model.bank.BankAccount;
+import client.model.bank.BankReceipt;
+import client.model.bank.BankReceiptType;
 import server.network.server.Server;
 
 import java.io.IOException;
@@ -60,7 +60,9 @@ public class BankServer {
             if (message.getText().equals("exit"))
                 break;
             try {
-                client.writeMessage(callCommand(message.getText(), message));
+                Message answer = callCommand(message.getText(), message);
+                client.setAuthToken(answer.getAuthToken());
+                client.writeMessage(answer);
             } catch (Exception e) {
                 e.printStackTrace();
             }
