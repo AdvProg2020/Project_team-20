@@ -17,6 +17,7 @@ public abstract class Filterable {
         message.addToObjects(details);
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -27,6 +28,7 @@ public abstract class Filterable {
         message.addToObjects(filterName);
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -35,19 +37,24 @@ public abstract class Filterable {
     public ArrayList<Product> getProducts() {
         Message message = new Message("getProducts");
         client.writeMessage(message);
-        return (ArrayList<Product>) client.readMessage().getObjects().get(0);
+        Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
+        return (ArrayList<Product>) answer.getObjects().get(0);
     }
 
     public ArrayList<Product> getProductFilterByCategory() {
         Message message = new Message("getProductFilterByCategory");
         client.writeMessage(message);
-        return (ArrayList<Product>) client.readMessage().getObjects().get(0);
+        Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
+        return (ArrayList<Product>) answer.getObjects().get(0);
     }
 
     public ArrayList<Product> showProducts() throws Exception {
         Message message = new Message("showProducts");
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -59,6 +66,7 @@ public abstract class Filterable {
         message.addToObjects(newSort);
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -68,12 +76,14 @@ public abstract class Filterable {
         Message message = new Message("disableSort");
         client.writeMessage(message);
         client.readMessage();
+        client.writeMessage(new Message("buy"));
     }
 
     public void disableFilterByCategory() {
         Message message = new Message("disableFilterByCategory");
         client.writeMessage(message);
         client.readMessage();
+        client.writeMessage(new Message("buy"));
     }
 
     public void filterByCategory(ArrayList<String> details) throws Exception {
@@ -81,6 +91,7 @@ public abstract class Filterable {
         message.addToObjects(details);
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -91,6 +102,7 @@ public abstract class Filterable {
         message.addToObjects(details);
         client.writeMessage(message);
         client.readMessage();
+        client.writeMessage(new Message("buy"));
     }
 
     public void filterByOptionalFilter(ArrayList<String> details) {
@@ -98,6 +110,7 @@ public abstract class Filterable {
         message.addToObjects(details);
         client.writeMessage(message);
         client.readMessage();
+        client.writeMessage(new Message("buy"));
     }
 
     public void filterByNumericalFilter(ArrayList<String> details) {
@@ -105,11 +118,13 @@ public abstract class Filterable {
         message.addToObjects(details);
         client.writeMessage(message);
         client.readMessage();
+        client.writeMessage(new Message("buy"));
     }
 
     public ArrayList<Filter> getFilters() {
         Message message = new Message("getFilters");
         client.writeMessage(message);
+        client.writeMessage(new Message("buy"));
         return (ArrayList<Filter>) client.readMessage().getObjects().get(0);
     }
 
@@ -123,6 +138,7 @@ public abstract class Filterable {
     public String getCurrentSort() {
         Message message = new Message("getCurrentSort");
         client.writeMessage(message);
+        client.writeMessage(new Message("buy"));
         return (String) client.readMessage().getObjects().get(0);
     }
 }
