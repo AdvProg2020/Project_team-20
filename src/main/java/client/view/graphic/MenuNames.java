@@ -7,5 +7,6 @@ public enum MenuNames {
     SELLERMENU,
     ALLPRODUCTSMENU,
     MAINMENU,
-    LOGIN_MANAGER
+    LOGIN_MANAGER,
+    ERP_BANK
 }

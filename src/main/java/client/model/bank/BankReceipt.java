@@ -52,4 +52,27 @@ public class BankReceipt {
     public String getID() {
         return ID;
     }
+
+    @Override
+    public String toString() {
+        if (bankReceiptType.equals(BankReceiptType.MOVE))
+            return  " money=" + money + "\n" +
+                " sourceID='" + sourceID +  "\n" +
+                " destID='" + destID +  "\n" +
+                " description='" + description +  "\n" +
+                " ID='" + ID +  "\n" +
+                " payment state=" + receiptState + "\n" +  "\n";
+        else if (bankReceiptType.equals(BankReceiptType.DEPOSIT))
+            return  " money=" + money + "\n" +
+                    " destID='" + destID +  "\n" +
+                    " description='" + description +  "\n" +
+                    " ID='" + ID +  "\n" +
+                    " payment state=" + receiptState + "\n" +  "\n";
+        else
+            return  " money=" + money + "\n" +
+                    " destID='" + destID +  "\n" +
+                    " description='" + description +  "\n" +
+                    " ID='" + ID +  "\n" +
+                    " payment state=" + receiptState + "\n" +  "\n";
+    }
 }

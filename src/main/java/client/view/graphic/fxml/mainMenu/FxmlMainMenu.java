@@ -2,6 +2,7 @@ package client.view.graphic.fxml.mainMenu;
 
 import client.controller.Main;
 import client.controller.MediaController;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -45,5 +46,9 @@ public class FxmlMainMenu {
 
     public static void setWindow(Stage window) {
         FxmlMainMenu.window = window;
+    }
+
+    public void handleErpBank(ActionEvent actionEvent) {
+        ProgramApplication.setMenu(MenuNames.ERP_BANK);
     }
 }

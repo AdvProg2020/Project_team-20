@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="666.0" prefWidth="994.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.bank.BankControllerFxml">
+   <children>
+      <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="994.0">
+         <left>
+            <VBox prefWidth="204.0" style="-fx-background-color: #2b3325;" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXTextField promptText="Search">
+                     <VBox.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <VBox prefHeight="199.0" prefWidth="204.0" style="-fx-background-color: #3f4a36;">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                     </VBox.margin>
+                     <children>
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleTransitionBalance" prefHeight="40.0" prefWidth="296.0" text="Transactions &amp; Balance" textFill="#c7d5cc" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleDeposit" prefHeight="40.0" prefWidth="396.0" text="Deposit" textFill="#c7d5cc" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleWithdraw" prefHeight="40.0" prefWidth="444.0" text="Withdraw" textFill="#c7d5cc" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleMove" prefHeight="40.0" prefWidth="367.0" text="Move" textFill="#c7d5cc" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handlePay" prefHeight="40.0" prefWidth="367.0" text="Pay" textFill="#c7d5cc" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="77.0" prefWidth="204.0" style="-fx-background-color: #3f4a36;">
+                     <children>
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Log out" textFill="#c7d5cc" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleExit" prefHeight="40.0" prefWidth="367.0" text="Exit" textFill="#c7d5cc" />
+                     </children>
+                  </VBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+         <top>
+            <HBox prefHeight="170.0" prefWidth="994.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="115.0" prefWidth="1004.0" style="-fx-background-color: #6d967c;">
+                     <children>
+                        <Pane layoutY="114.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="57.0" prefWidth="204.0" style="-fx-background-color: #2b3325;" />
+                        <Circle fill="#ffbf71" layoutX="102.0" layoutY="86.0" radius="72.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                        <ImageView fitHeight="144.0" fitWidth="144.0" layoutX="30.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../Desktop/BankAccount.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="WHITE" layoutX="204.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!" wrappingWidth="287.2060546875">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="210.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enjoy our safe world, Keep calm and pay." />
+                        <ImageView fitHeight="65.0" fitWidth="225.0" layoutX="769.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../Desktop/Screen%20Shot%202020-07-13%20at%207.35.05%20PM.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+         </top>
+         <bottom>
+            <HBox prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <right>
+            <VBox prefHeight="200.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

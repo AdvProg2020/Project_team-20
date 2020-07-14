@@ -16,7 +16,7 @@
             <Image url="@../../../../../../resources/Images/MainMenu.png" />
          </image>
       </ImageView>
-      <VBox layoutX="303.0" layoutY="332.0" opacity="0.85" prefHeight="170.0" prefWidth="397.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-border-color: #abf3edabf3ed;">
+      <VBox layoutX="303.0" layoutY="308.0" opacity="0.85" prefHeight="170.0" prefWidth="397.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-border-color: #abf3edabf3ed;">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -42,6 +42,14 @@
                   <Font name="Helvetica" size="22.0" />
                </font>
                <VBox.margin>
+                  <Insets left="20.0" right="20.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleErpBank" onMouseEntered="#enterMouse" onMouseExited="#exitMouse" opacity="0.85" prefHeight="49.0" prefWidth="357.0" style="-fx-background-radius: 20; -fx-background-color: #f2f3dd; -fx-border-color: #27304f; -fx-border-radius: 20; -fx-border-width: 5;" text="Erpbank" textFill="#27304f">
+               <font>
+                  <Font name="Helvetica" size="22.0" />
+               </font>
+               <VBox.margin>
                   <Insets bottom="15.0" left="20.0" right="20.0" top="10.0" />
                </VBox.margin>
             </Button>
@@ -59,7 +67,7 @@
             </Button>
          </children>
       </HBox>
-      <ImageView fitHeight="243.0" fitWidth="297.0" layoutX="387.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="243.0" fitWidth="297.0" layoutX="387.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../resources/Images/erpShop.png" />
          </image>

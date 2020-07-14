@@ -52,7 +52,7 @@ public class Client {
 
     public void writeMessage(Message message) {
         try {
-            message.setAuth(authToken);
+            //message.setAuth(authToken);
             dataOutputStream.writeUTF(message.toYaGson());
             dataOutputStream.flush();
         } catch (IOException e) {

@@ -96,6 +96,7 @@ public class BankServer {
         methods.add("getTransactions");
         methods.add("pay");
         methods.add("logout");
+        methods.add("getBalance");
     }
 
     public Message pay(AuthToken authToken, String receiptID) {
@@ -185,7 +186,7 @@ public class BankServer {
         BankAccount bankAccount = loginAccount(username, password);
         if (bankAccount==null) {
             message = new Message("Error");
-            message.addToObjects("username is not available");
+            message.addToObjects("username or password invalid");
             return message;
         }
         AuthToken authToken = AuthToken.generateAuth(bankAccount.getUsername());

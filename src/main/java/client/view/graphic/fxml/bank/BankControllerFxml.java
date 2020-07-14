@@ -1,14 +1,27 @@
 package client.view.graphic.fxml.bank;
 
+import client.controller.Main;
 import client.controller.bank.BankController;
+import client.view.graphic.MenuNames;
+import client.view.graphic.ProgramApplication;
 import client.view.graphic.alert.AlertController;
 import client.view.graphic.alert.AlertType;
+import client.view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 import com.jfoenix.controls.JFXButton;
+import com.sun.tools.hat.internal.model.Root;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
+import java.awt.*;
+import java.io.File;
 
 public class BankControllerFxml {
 
@@ -20,8 +33,10 @@ public class BankControllerFxml {
     public TextField passwordRepeatTxt;
     public TextField nameTxt;
     public TextField lastNameTxt;
+    public BorderPane borderPane;
     private BankController bankController = BankController.getInstance();
     private boolean loginBtnMode = true;
+    private static Stage window;
 
     public void handleLogin(ActionEvent actionEvent) {
         newUserPanel.setOpacity(0);
@@ -62,6 +77,8 @@ public class BankControllerFxml {
         String password = newPasswordTxt.getText();
         try {
             bankController.login(username, password);
+            Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/bank/BankAccountFxml.fxml").toURI().toURL());
+            window.setScene(new Scene(root, 994, 666));
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
@@ -82,4 +99,46 @@ public class BankControllerFxml {
     }
 
 
+    public void handleExit(ActionEvent actionEvent) {
+        FxmlAllProductsMenu.key = false;
+        Main.storeData();
+        window.close();
+    }
+
+    public void loadUI(String ui) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/bank/" + ui + "Fxml" + ".fxml").toURI().toURL());
+            borderPane.setCenter(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void handleErpShop(ActionEvent actionEvent) {
+        ProgramApplication.setMenu(MenuNames.MAINMENU);
+    }
+
+    public static void setWindow(Stage window) {
+        BankControllerFxml.window = window;
+    }
+
+    public void handleTransitionBalance(ActionEvent actionEvent) {
+        loadUI("Transitions");
+    }
+
+    public void handleDeposit(ActionEvent actionEvent) {
+    }
+
+    public void handleWithdraw(ActionEvent actionEvent) {
+    }
+
+    public void handleMove(ActionEvent actionEvent) {
+    }
+
+    public void handlePay(ActionEvent actionEvent) {
+    }
+
+    public void handleLogout(ActionEvent actionEvent) {
+    }
 }

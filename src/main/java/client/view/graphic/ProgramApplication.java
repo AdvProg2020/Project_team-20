@@ -1,6 +1,7 @@
 package client.view.graphic;
 
 import client.controller.MediaController;
+import client.view.graphic.fxml.bank.BankControllerFxml;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,7 +21,7 @@ public class ProgramApplication extends Application {
 
     private static ArrayList<MenuNames> history = new ArrayList<>();
 
-    private static Scene mainMenu, buyerMenu, managerMenu, registerAndLoginMenu, sellerMenu, allProductsMenu, loginManager;
+    private static Scene mainMenu, buyerMenu, managerMenu, registerAndLoginMenu, sellerMenu, allProductsMenu, loginManager, erpBank;
     private static Stage mainStage;
     private static boolean firstManager;
     private static MediaController mediaController = new MediaController();
@@ -46,6 +47,8 @@ public class ProgramApplication extends Application {
         registerAndLoginMenu = new Scene(root, 994, 666);
         root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/registerAndLoginMenu/FxmlManagerLogin.fxml").toURI().toURL());
         loginManager = new Scene(root, 994, 666);
+        root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/bank/bankFxml.fxml").toURI().toURL());
+        erpBank = new Scene(root, 994, 666);
     }
 
     public static Stage getMainStage() {
@@ -98,6 +101,12 @@ public class ProgramApplication extends Application {
                 ManagerLoginController.setWindow(mainStage);
                 mainStage.show();
                 new Thread(() -> mediaController.mainTheme()).start();
+                break;
+            case ERP_BANK:
+                mainStage.setTitle("ErpBank");
+                mainStage.setScene(erpBank);
+                BankControllerFxml.setWindow(mainStage);
+                mainStage.show();
                 break;
         }
     }

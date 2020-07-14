@@ -152,12 +152,6 @@ public class BuyerMenuController implements Initializable {
     }
 
     public void handleViewErpBank(ActionEvent actionEvent) {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/bank/bankFxml.fxml").toURI().toURL());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        window.setScene(new Scene(root, 994, 666));
+        ProgramApplication.setMenu(MenuNames.ERP_BANK);
     }
 }

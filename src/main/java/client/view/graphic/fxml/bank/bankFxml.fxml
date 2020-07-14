@@ -27,12 +27,12 @@
       </PasswordField>
       <JFXButton fx:id="loginButton" layoutX="609.0" layoutY="137.0" onAction="#handleLogin" prefHeight="52.0" prefWidth="82.0" text="Login" textFill="#32673b" />
       <JFXButton fx:id="newUserButton" layoutX="694.0" layoutY="137.0" onAction="#handleNewUser" prefHeight="52.0" prefWidth="82.0" text="New User" textFill="#32673b" />
-      <JFXButton layoutX="919.0" layoutY="21.0" prefHeight="25.0" prefWidth="61.0" style="-fx-border-color: #32673b;" text="Exit" textFill="#32673b">
+      <JFXButton layoutX="919.0" layoutY="21.0" onAction="#handleExit" prefHeight="25.0" prefWidth="61.0" style="-fx-border-color: #32673b;" text="Exit" textFill="#32673b">
          <font>
             <Font size="17.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="805.0" layoutY="21.0" prefHeight="34.0" prefWidth="96.0" style="-fx-border-color: #32673b;" text="Erpshop" textFill="#32673b">
+      <JFXButton layoutX="805.0" layoutY="21.0" onAction="#handleErpShop" prefHeight="34.0" prefWidth="96.0" style="-fx-border-color: #32673b;" text="Erpshop" textFill="#32673b">
          <font>
             <Font size="17.0" />
          </font>

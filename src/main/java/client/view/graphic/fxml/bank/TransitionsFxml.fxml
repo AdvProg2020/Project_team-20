@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="477.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.bank.TransitionsFxml">
+   <children>
+      <Text fill="#89a08b" layoutX="54.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your balance:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="balanceTxt" fill="#445b56" layoutX="160.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="119.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fill="#89a08b" layoutX="54.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Transitions:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="depositsTxt" fill="#445b56" layoutX="54.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.2060546875" />
+      <Text fx:id="withdrawsTxt" fill="#445b56" layoutX="244.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.2060546875" />
+      <Text fx:id="movesTxt" fill="#445b56" layoutX="433.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.2060546875" />
+      <Text fill="#cdd7d2" layoutX="54.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deposit" />
+      <Text fill="#cdd7d2" layoutX="244.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Withdraw" />
+      <Text fill="#cdd7d2" layoutX="433.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Move" />
+   </children>
+</AnchorPane>
