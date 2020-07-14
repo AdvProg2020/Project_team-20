@@ -33,7 +33,6 @@ public class BankController {
         if (ansTxt.equals("Error"))
             throw new BankException((String)answer.getObjects().get(0));
         else {
-            System.out.println("hi " + answer.getAuthToken());
             client.setAuthToken(answer.getAuthToken());
         }
     }
@@ -130,6 +129,26 @@ public class BankController {
         Message answer = client.readMessage();
         if (answer.getText().equals("Error"))
             throw new BankException(answer.getObjects().get(0).toString());
+    }
+
+    public void handlePay(String receiptID) throws Exception{
+        Message message = new Message("pay");
+        message.addToObjects(client.getAuthToken());
+        message.addToObjects(receiptID);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error"))
+            throw new BankException(answer.getObjects().get(0).toString());
+    }
+
+    public void logout() {
+        Message message = new Message("logout");
+        message.addToObjects(client.getAuthToken());
+        client.writeMessage(message);
+        client.readMessage();
+        message = new Message("exit");
+        client.writeMessage(message);
+        client.setAuthToken(null);
     }
 
     public Client getClient() {

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.bank.PayFxml">
+   <children>
+      <Text fill="#89a08b" layoutX="64.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Here you can pay your receipts!">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fill="#89a08b" layoutX="64.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can see them in the transactions menu.">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text fill="#89a08b" layoutX="64.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Receipt ID to pay:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <JFXTextField fx:id="receiptID" focusColor="#89a08b" layoutX="191.0" layoutY="85.0" prefWidth="134.0" unFocusColor="#cdd7d2" />
+      <JFXButton layoutX="344.0" layoutY="85.0" onAction="#handlePay" style="-fx-background-color: #89a08b;" text="Pay" textFill="WHITE" />
+   </children>
+</AnchorPane>

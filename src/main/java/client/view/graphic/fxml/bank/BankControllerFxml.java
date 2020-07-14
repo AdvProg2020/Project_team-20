@@ -62,7 +62,7 @@ public class BankControllerFxml {
 
     public void handleLoginBtn(ActionEvent actionEvent) {
         if (loginBtnMode)
-            handleLogin();
+            handleLoginMenu();
         else
             handleCreateUser();
         usernameTxt.setText("");
@@ -72,7 +72,7 @@ public class BankControllerFxml {
         lastNameTxt.setText("");
     }
 
-    private void handleLogin() {
+    private void handleLoginMenu() {
         String username = usernameTxt.getText();
         String password = newPasswordTxt.getText();
         try {
@@ -80,6 +80,7 @@ public class BankControllerFxml {
             Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/bank/BankAccountFxml.fxml").toURI().toURL());
             window.setScene(new Scene(root, 994, 666));
         } catch (Exception e) {
+            e.printStackTrace();
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
@@ -140,8 +141,11 @@ public class BankControllerFxml {
     }
 
     public void handlePay(ActionEvent actionEvent) {
+        loadUI("Pay");
     }
 
     public void handleLogout(ActionEvent actionEvent) {
+        bankController.logout();
+        ProgramApplication.setMenu(MenuNames.ERP_BANK);
     }
 }

@@ -19,11 +19,12 @@ public class TransitionsFxml implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         balanceTxt.setText(Double.toString(bankController.getBalance()));
-        //showTransactions();
+        showTransactions();
     }
 
     private void showTransactions() {
         ArrayList<BankReceipt> deposits = bankController.getDeposits();
+        System.out.println(deposits.size());
         ArrayList<BankReceipt> withdraws = bankController.getWithdraws();
         ArrayList<BankReceipt> moves = bankController.getMoves();
         StringBuilder depositsStr = new StringBuilder();

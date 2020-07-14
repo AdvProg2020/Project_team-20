@@ -23,7 +23,6 @@ public class BankServer {
     ArrayList<BankAccount> bankAccounts;
     private static int bankCount=0;
     protected ServerSocket serverSocket;
-    protected ArrayList<Client> clients;
     protected HashMap<AuthToken, BankAccount> loggedInAccounts;
     protected ArrayList<String> methods;
 
@@ -31,7 +30,6 @@ public class BankServer {
         bankAccounts = new ArrayList<>();
         try {
             this.serverSocket = new ServerSocket(9000);
-            this.clients = new ArrayList<>();
             this.methods = new ArrayList<>();
             this.loggedInAccounts = new HashMap<>();
             setMethods();
@@ -53,10 +51,10 @@ public class BankServer {
     }
 
     protected void handleClient(Client client) {
-        clients.add(client);
         client.writeMessage(new Message("client accepted"));
         while (true) {
             Message message = client.readMessage();
+            System.out.println(message.getText());
             if (message.getText().equals("exit"))
                 break;
             try {
@@ -103,7 +101,7 @@ public class BankServer {
 
     public Message pay(AuthToken authToken, String receiptID) {
         Message message;
-        BankAccount bankAccount = loggedInAccounts.get(authToken);
+        BankAccount bankAccount = loggedInAccounts.get(getRealAuthToken(authToken));
         if (!isTokenExists(authToken)) {
             message = new Message("Error");
             message.addToObjects("token is invalid");
@@ -122,8 +120,11 @@ public class BankServer {
         return validPayReceipt(bankAccount, receiptID);
     }
 
-    public void logout(AuthToken authToken) {
-        loggedInAccounts.remove(authToken);
+    public Message logout(AuthToken authToken) {
+        Message message = new Message("Confirmation");
+        AuthToken realToken = getRealAuthToken(authToken);
+        loggedInAccounts.remove(realToken);
+        return message;
     }
 
     public Message getBalance(AuthToken authToken) {
@@ -172,13 +173,16 @@ public class BankServer {
             return "wasPaid";
         BankAccount sourceBankAccount = getBankAccountByID(bankReceipt.getSourceID());
         BankAccount destBankAccount = getBankAccountByID(bankReceipt.getDestID());
-        if (sourceBankAccount==null || destBankAccount==null) {
+        if (sourceBankAccount==null && !bankReceipt.getBankReceiptType().equals(BankReceiptType.DEPOSIT)) {
             return "invalidAccount";
-        }
-        if (sourceBankAccount.getMoney()<bankReceipt.getMoney())
+        } else if (destBankAccount==null && !bankReceipt.getBankReceiptType().equals(BankReceiptType.WITHDRAW))
+            return "invalidAccount";
+        if (!bankReceipt.getBankReceiptType().equals(BankReceiptType.DEPOSIT) && sourceBankAccount.getMoney()<bankReceipt.getMoney())
             return "notEnoughMoney";
-        sourceBankAccount.decreaseMoney(bankReceipt.getMoney());
-        destBankAccount.increaseMoney(bankAccount.getMoney());
+        if (!bankReceipt.getBankReceiptType().equals(BankReceiptType.DEPOSIT))
+            sourceBankAccount.decreaseMoney(bankReceipt.getMoney());
+        if (!bankReceipt.getBankReceiptType().equals(BankReceiptType.WITHDRAW))
+            destBankAccount.increaseMoney(bankReceipt.getMoney());
         bankReceipt.setReceiptState(true);
         return "Confirmation";
     }
@@ -318,6 +322,7 @@ public class BankServer {
         BankReceipt bankReceipt = new BankReceipt(receiptType, money, sourceID, destID, description);
         message = new Message("Confirmation");
         message.addToObjects(bankReceipt.getID());
+        account.addReceipt(bankReceipt);
         return message;
     }
 

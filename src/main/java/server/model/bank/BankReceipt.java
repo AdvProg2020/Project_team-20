@@ -49,6 +49,10 @@ public class BankReceipt {
         this.receiptState = receiptState;
     }
 
+    public boolean getReceiptState() {
+        return receiptState;
+    }
+
     public String getID() {
         return ID;
     }
