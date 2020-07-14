@@ -61,28 +61,28 @@ public class BankReceipt {
     @Override
     public String toString() {
         if (bankReceiptType.equals(BankReceiptType.MOVE))
-            return  "money= " + money + "\n" +
-                "sourceID= " + sourceID +  "\n" +
-                "destID= " + destID +  "\n" +
-                "description= " + description +  "\n" +
-                "ID= " + ID +  "\n" +
-                "payment state= " + receiptState + "\n"  +
-                    "__________"+  "\n" ;
+            return "money= " + money + "\n" +
+                    "sourceID= " + sourceID + "\n" +
+                    "destID= " + destID + "\n" +
+                    "description= " + description + "\n" +
+                    "ID= " + ID + "\n" +
+                    "payment state= " + receiptState + "\n" +
+                    "__________" + "\n";
 
         else if (bankReceiptType.equals(BankReceiptType.DEPOSIT))
-            return  "money= " + money + "\n" +
-                    "destID= " + destID +  "\n" +
-                    "description= " + description +  "\n" +
-                    "ID= " + ID +  "\n" +
+            return "money= " + money + "\n" +
+                    "destID= " + destID + "\n" +
+                    "description= " + description + "\n" +
+                    "ID= " + ID + "\n" +
                     "payment state= " + receiptState + "\n" +
-                    "__________"+  "\n" ;
+                    "__________" + "\n";
         else
-            return  "money= " + money + "\n" +
-                    "sourceID= " + sourceID +  "\n" +
-                    "description= " + description +  "\n" +
-                    "ID= " + ID +  "\n" +
+            return "money= " + money + "\n" +
+                    "sourceID= " + sourceID + "\n" +
+                    "description= " + description + "\n" +
+                    "ID= " + ID + "\n" +
                     "payment state= " + receiptState + "\n" +
-                    "__________"+  "\n" ;
+                    "__________" + "\n";
     }
 
     public static void store() {
@@ -101,7 +101,9 @@ public class BankReceipt {
         try {
             InputStream inputStream = new FileInputStream("src/main/resources/aboutBank/bankReceiptCount.txt");
             Scanner fileScanner = new Scanner(inputStream);
-            bankReceiptCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            if (fileScanner.hasNextLine())
+                bankReceiptCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            else bankReceiptCount = 0;
             fileScanner.close();
         } catch (IOException ignored) {
         }

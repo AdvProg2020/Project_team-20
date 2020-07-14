@@ -7,6 +7,7 @@ import client.network.AuthToken;
 import client.network.Client;
 import client.network.Message;
 import com.gilecode.yagson.YaGson;
+import server.controller.Main;
 import server.network.server.Server;
 
 import java.io.*;
@@ -55,6 +56,7 @@ public class BankServer {
     protected void handleClient(Client client) {
         client.writeMessage(new Message("client accepted"));
         while (true) {
+            Main.storeData();
             Message message = client.readMessage();
             System.out.println(message.getText());
             if (message.getText().equals("exit"))
@@ -451,7 +453,9 @@ public class BankServer {
         try {
             InputStream inputStream = new FileInputStream("src/main/resources/aboutBank/bankCount.txt");
             Scanner fileScanner = new Scanner(inputStream);
-            bankCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            if (fileScanner.hasNextLine())
+                bankCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            else bankCount = 0;
             fileScanner.close();
         } catch (IOException ignored) {
         }
