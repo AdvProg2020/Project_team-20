@@ -1,6 +1,5 @@
 package client.view.graphic.fxml.mainMenu;
 
-import client.controller.Main;
 import client.controller.MediaController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -9,6 +8,9 @@ import javafx.stage.Stage;
 import client.view.graphic.MenuNames;
 import client.view.graphic.ProgramApplication;
 import client.view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class FxmlMainMenu {
     public static Stage window;
@@ -32,7 +34,6 @@ public class FxmlMainMenu {
 
     public void handleExit() {
         FxmlAllProductsMenu.key = false;
-        Main.storeData();
         window.close();
     }
 

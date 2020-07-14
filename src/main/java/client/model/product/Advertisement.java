@@ -46,7 +46,7 @@ public class Advertisement implements Requestable {
         return selectedAdds;
     }
 
-    public void addAdvertisement() {
+    private void addAdvertisement() {
         try {
             Advertisement add = getAddBySeller((Seller) Seller.getAccountWithUsername(sellerId));
             if (add != null)
@@ -70,7 +70,7 @@ public class Advertisement implements Requestable {
         return true;
     }
 
-    public static Advertisement getAddBySeller(Seller seller) {
+    private static Advertisement getAddBySeller(Seller seller) {
         for (Advertisement add : allAdds) {
             if (add.getSeller().equals(seller))
                 return add;
@@ -80,6 +80,14 @@ public class Advertisement implements Requestable {
 
     public String getText() {
         return text;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public String getSellerId() {
+        return sellerId;
     }
 
     @Override
@@ -119,7 +127,7 @@ public class Advertisement implements Requestable {
         return allAdds;
     }
 
-    public Seller getSeller() {
+    private Seller getSeller() {
         try {
             return Seller.getSellerWithUsername(sellerId);
         } catch (Exception e) {

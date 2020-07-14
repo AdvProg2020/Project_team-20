@@ -1,5 +1,6 @@
 package client.view.graphic.fxml.accountMenus.manager;
 
+import client.controller.product.ProductController;
 import com.jfoenix.controls.JFXButton;
 import client.controller.MediaController;
 import client.controller.account.user.ManagerController;
@@ -98,8 +99,9 @@ public class ManageProducts implements Initializable {
         fromForBack = from;
         Image img1 = new Image(new File("src/main/resources/Images/" + products.get(from).getImagePath()).toURI().toString());
         productImg1.setImage(img1);
+        ProductController productController = new ProductController(products.get(from));
         product1.setText(products.get(from).getName());
-        product1Price.setText(Double.toString(products.get(from).getFirstPrice()));
+        product1Price.setText(Double.toString(productController.getFirstPrice()));
         product1Score.setImage(new Score(products.get(from).getAverage()).getScoreImg());
         removeProduct1.setOpacity(1);
         setProduct2(from);
@@ -116,8 +118,9 @@ public class ManageProducts implements Initializable {
         if (products.size() > (1 + from)) {
             Image img2 = new Image(new File("src/main/resources/Images/" + products.get(1 + from).getImagePath()).toURI().toString());
             productImg2.setImage(img2);
+            ProductController productController = new ProductController(products.get(1 + from));
             product2.setText(products.get(1 + from).getName());
-            product2Price.setText(Double.toString(products.get(1 + from).getFirstPrice()));
+            product2Price.setText(Double.toString(productController.getFirstPrice()));
             product2Score.setImage(new Score(products.get(1 + from).getAverage()).getScoreImg());
             removeProduct2.setOpacity(1);
         } else {
@@ -133,8 +136,9 @@ public class ManageProducts implements Initializable {
         if (products.size() > (2 + from)) {
             Image img3 = new Image(new File("src/main/resources/Images/" + products.get(2 + from).getImagePath()).toURI().toString());
             productImg3.setImage(img3);
+            ProductController productController = new ProductController(products.get(2 + from));
             product3.setText(products.get(2 + from).getName());
-            product3Price.setText(Double.toString(products.get(2 + from).getFirstPrice()));
+            product3Price.setText(Double.toString(productController.getFirstPrice()));
             product3Score.setImage(new Score(products.get(2 + from).getAverage()).getScoreImg());
             removeProduct3.setOpacity(1);
         } else {
@@ -150,8 +154,9 @@ public class ManageProducts implements Initializable {
         if (products.size() > (3 + from)) {
             Image img4 = new Image(new File("src/main/resources/Images/" + products.get(3 + from).getImagePath()).toURI().toString());
             productImg4.setImage(img4);
+            ProductController productController = new ProductController(products.get(3 + from));
             product4.setText(products.get(3 + from).getName());
-            product4Price.setText(Double.toString(products.get(3 + from).getFirstPrice()));
+            product4Price.setText(Double.toString(productController.getFirstPrice()));
             product4Score.setImage(new Score(products.get(3 + from).getAverage()).getScoreImg());
             removeProduct4.setOpacity(1);
         } else {
@@ -167,8 +172,9 @@ public class ManageProducts implements Initializable {
         if (products.size() > (4 + from)) {
             Image img5 = new Image(new File("src/main/resources/Images/" + products.get(4 + from).getImagePath()).toURI().toString());
             productImg5.setImage(img5);
+            ProductController productController = new ProductController(products.get(4 + from));
             product5.setText(products.get(4 + from).getName());
-            product5Price.setText(Double.toString(products.get(4 + from).getFirstPrice()));
+            product5Price.setText(Double.toString(productController.getFirstPrice()));
             product5Score.setImage(new Score(products.get(4 + from).getAverage()).getScoreImg());
             removeProduct5.setOpacity(1);
         } else {
@@ -184,8 +190,9 @@ public class ManageProducts implements Initializable {
         if (products.size() > (5 + from)) {
             Image img6 = new Image(new File("src/main/resources/Images/" + products.get(5 + from).getImagePath()).toURI().toString());
             productImg6.setImage(img6);
+            ProductController productController = new ProductController(products.get(5 + from));
             product6.setText(products.get(5 + from).getName());
-            product6Price.setText(Double.toString(products.get(5 + from).getFirstPrice()));
+            product6Price.setText(Double.toString(productController.getFirstPrice()));
             product6Score.setImage(new Score(products.get(5 + from).getAverage()).getScoreImg());
             removeProduct6.setOpacity(1);
         } else {
@@ -201,8 +208,9 @@ public class ManageProducts implements Initializable {
         if (products.size() > (6 + from)) {
             Image img7 = new Image(new File("src/main/resources/Images/" + products.get(6 + from).getImagePath()).toURI().toString());
             productImg7.setImage(img7);
+            ProductController productController = new ProductController(products.get(6 + from));
             product7.setText(products.get(6 + from).getName());
-            product7Price.setText(Double.toString(products.get(6 + from).getFirstPrice()));
+            product7Price.setText(Double.toString(productController.getFirstPrice()));
             product7Score.setImage(new Score(products.get(6 + from).getAverage()).getScoreImg());
             removeProduct7.setOpacity(1);
         } else {
@@ -218,8 +226,9 @@ public class ManageProducts implements Initializable {
         if (products.size() > (7 + from)) {
             Image img8 = new Image(new File("src/main/resources/Images/" + products.get(7 + from).getImagePath()).toURI().toString());
             productImg8.setImage(img8);
+            ProductController productController = new ProductController(products.get(7 + from));
             product8.setText(products.get(7 + from).getName());
-            product8Price.setText(Double.toString(products.get(7 + from).getFirstPrice()));
+            product8Price.setText(Double.toString(productController.getFirstPrice()));
             product8Score.setImage(new Score(products.get(7 + from).getAverage()).getScoreImg());
             removeProduct8.setOpacity(1);
         } else {
@@ -235,8 +244,9 @@ public class ManageProducts implements Initializable {
         if (products.size() > (8 + from)) {
             Image img9 = new Image(new File("src/main/resources/Images/" + products.get(8 + from).getImagePath()).toURI().toString());
             productImg9.setImage(img9);
+            ProductController productController = new ProductController(products.get(8 + from));
             product9.setText(products.get(8 + from).getName());
-            product9Price.setText(Double.toString(products.get(8 + from).getFirstPrice()));
+            product9Price.setText(Double.toString(productController.getFirstPrice()));
             product9Score.setImage(new Score(products.get(8 + from).getAverage()).getScoreImg());
             removeProduct9.setOpacity(1);
         } else {

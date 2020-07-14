@@ -4,6 +4,7 @@ import client.controller.MainController;
 import client.controller.account.LoginController;
 import client.model.Requestable;
 import client.model.account.Account;
+import client.model.account.AccountType;
 import client.model.account.Buyer;
 import client.model.account.Manager;
 import client.model.product.Discount;
@@ -447,11 +448,21 @@ public class ManagerController implements client.controller.account.user.Account
         }
     }
 
+    public ArrayList<Buyer> getAllBuyers() {
+        ArrayList<Buyer> buyers = new ArrayList<>();
+        for (Account account : manageUsers()) {
+            if (account.getAccountType().equals(AccountType.BUYER))
+                buyers.add((Buyer) account);
+        }
+        return buyers;
+    }
+
     public static class fieldIsInvalidException extends Exception {
         public fieldIsInvalidException() {
             super("field is invalid!");
         }
     }
+
     @Override
     public Account getAccountInfo() {
         client.writeMessage(new Message("getAccountInfo"));

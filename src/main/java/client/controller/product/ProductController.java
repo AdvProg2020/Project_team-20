@@ -1,108 +1,118 @@
 package client.controller.product;
 
 import client.controller.MainController;
-import client.controller.account.user.BuyerController;
-import client.model.account.*;
+import client.controller.account.LoginController;
+import client.model.account.Seller;
 import client.model.product.Product;
 import client.model.product.comment.Comment;
-import client.model.product.comment.Reply;
+import client.network.Client;
+import client.network.Message;
 
 import java.util.ArrayList;
 
 public class ProductController {
     private Product currentProduct;
-    MainController mainController;
+    private MainController mainController;
+    private Client client;
 
     public ProductController(Product product) {
         this.currentProduct = product;
-        product.increaseProductViews();
         mainController = MainController.getInstance();
+        if (LoginController.getClient() == null) {
+            client = new Client(1000);
+            Message message = client.readMessage();
+            connectWithTempAccount();
+        } else {
+            client = new Client(1000);
+            client.readMessage();
+            client.setAuthToken(LoginController.getClient().getAuthToken());
+        }
+    }
+
+    private void connectWithTempAccount() {
+        Message message = new Message("connectWithTempAccount");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        client.setAuthToken(answer.getAuthToken());
+    }
+
+    public Seller getSellerByUsername(String sellerId) throws Exception {
+        Message message = new Message("getSellerByUsername");
+        message.addToObjects(currentProduct.getId());
+        message.addToObjects(sellerId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        return (Seller) answer.getObjects().get(0);
+    }
+
+    public double getFirstPrice() {
+        try {
+            return currentProduct.getPrice(getSellerByUsername(currentProduct.getSellerUsernames().get(0)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public void addProductToCart(String sellerId) throws Exception {
-        Seller seller = currentProduct.getSellerByUsername(sellerId);
-        if (seller == null)
-            throw new SellerNotFound();
-        GeneralAccount currentAccount = mainController.getAccount();
-
-        if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
-                !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)))
-            throw new AccountNotBuyerException();
-        else if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
-                (((Account) currentAccount).getAccountType().equals(AccountType.BUYER))) {
-            ((Buyer) currentAccount).addProductToCart(currentProduct, seller);
-        } else if (currentAccount instanceof TempAccount) {
-            ((TempAccount) currentAccount).addProductToCart(currentProduct, seller);
+        Message message = new Message("addProductToCart");
+        message.addToObjects(sellerId);
+        message.addToObjects(currentProduct.getId());
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public void addComment(Product product, String title, String content) throws Exception {
-        GeneralAccount currentAccount = mainController.getAccount();
-        if ((currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
-                !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER))) ||
-                currentAccount.getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT))
-            throw new AccountNotBuyerException();
-        product.addComment(new Comment((Buyer) currentAccount, product, title, content));
+        Message message = new Message("addComment");
+        message.addToObjects(product.getId());
+        message.addToObjects(title);
+        message.addToObjects(content);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void addScore(double score, Product product) throws Exception {
-        GeneralAccount currentAccount = mainController.getAccount();
-        if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
-                !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)) ||
-                currentAccount.getGeneralAccountType().equals(GeneralAccountType.TEMP_ACCOUNT))
-            throw new AccountNotBuyerException();
-        BuyerController.getInstance().rate(product.getId(), score);
+        Message message = new Message("addScore");
+        message.addToObjects(score);
+        message.addToObjects(product.getId());
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void addReplyToComment(Comment comment, String title, String content) throws Exception {
-        GeneralAccount currentAccount = mainController.getAccount();
-        if (currentAccount.getGeneralAccountType().equals(GeneralAccountType.ACCOUNT) &&
-                !(((Account) currentAccount).getAccountType().equals(AccountType.BUYER)))
-            throw new AccountNotBuyerException();
-        comment.addToReplies(new Reply((Buyer) currentAccount, title, content));
-    }
-
-    public Product getCurrentProduct() {
-        return currentProduct;
+        Message message = new Message("addReplyToComment");
+        message.addToObjects(comment);
+        message.addToObjects(title);
+        message.addToObjects(content);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public Product getAnotherProduct(String id, ArrayList<String> othersIds) throws Exception {
-        if (hasExistInOthers(id, othersIds))
-            throw new ProductIsInCompare();
-        else if (currentProduct.getId().equals(id))
-            throw new ThisProductIsFirstProduct();
-        return Product.getProductById(id);
+        Message message = new Message("getAnotherProduct");
+        message.addToObjects(id);
+        message.addToObjects(othersIds);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        return (Product) answer.getObjects().get(0);
     }
 
-    private boolean hasExistInOthers(String id, ArrayList<String> othersIds) {
-        for (String otherId : othersIds) {
-            if (id.equals(otherId))
-                return true;
-        }
-        return false;
-    }
-
-    public static class AccountNotBuyerException extends Exception {
-        public AccountNotBuyerException() {
-            super("Account not buyer");
-        }
-    }
-
-    public static class SellerNotFound extends Exception {
-        public SellerNotFound() {
-            super("Seller not found");
-        }
-    }
-
-    public static class ProductIsInCompare extends Exception {
-        public ProductIsInCompare() {
-            super("this product is in compare");
-        }
-    }
-
-    public static class ThisProductIsFirstProduct extends Exception {
-        public ThisProductIsFirstProduct() {
-            super("this product is first product");
-        }
-    }
 }

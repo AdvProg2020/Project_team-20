@@ -191,12 +191,12 @@ public class ManageProductsFxml implements Initializable {
 
     public void handleClicked(MouseEvent mouseEvent) throws Exception {
         productId = mainTable.getSelectionModel().getSelectedItem().getId();
-        product = Product.getProductById(productId);
+        SellerController sellerController = SellerController.getInstance();
+        product = sellerController.viewProduct(productId);
 
         setOpacity(1);
         clearTextFields();
 
-        SellerController sellerController = SellerController.getInstance();
         ArrayList<Product> products = sellerController.getAllProducts();
         ArrayList<Field> fields = product.getGeneralFields();
 

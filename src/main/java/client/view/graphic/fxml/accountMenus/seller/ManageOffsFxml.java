@@ -1,5 +1,6 @@
 package client.view.graphic.fxml.accountMenus.seller;
 
+import client.controller.product.filter.SaleController;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import client.controller.MediaController;
@@ -66,7 +67,8 @@ public class ManageOffsFxml implements Initializable {
         endDate.setText(sale.getEndDate().toString());
         productsToAdd = new ArrayList<>();
         productsToRemove = new ArrayList<>();
-        saleProductNamesTable.getItems().setAll(sale.getProducts());
+        SaleController saleController = new SaleController();
+        saleProductNamesTable.getItems().setAll(saleController.getSaleProducts(sale));
         saleProductNames.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 
@@ -74,7 +76,7 @@ public class ManageOffsFxml implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         table.getItems().setAll(seller.getSales());
         saleIds.setCellValueFactory(new PropertyValueFactory<>("id"));
-        table1.getItems().setAll(seller.getProducts());
+        table1.getItems().setAll(sellerController.getSellerProducts());
         productNames.setCellValueFactory(new PropertyValueFactory<>("name"));
     }
 

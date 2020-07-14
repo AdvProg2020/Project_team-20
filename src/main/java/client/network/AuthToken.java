@@ -1,6 +1,6 @@
 package client.network;
 
-import client.model.account.Account;
+import client.model.account.GeneralAccount;
 import server.controller.Main;
 
 import java.time.LocalDateTime;
@@ -18,6 +18,9 @@ public class AuthToken {
         timeCreated = LocalDateTime.now();
     }
 
+    private AuthToken(int key) {
+
+    }
 
     public static AuthToken generateAuth(String username) {
         StringBuilder toBeHashed = new StringBuilder();
@@ -25,10 +28,15 @@ public class AuthToken {
         return new AuthToken(username, key);
     }
 
+    public static AuthToken generateAuth() {
+        int key = generateRandomInt(20);
+        return new AuthToken(key);
+    }
+
 
     //is valid
     public boolean authenticate() {
-        HashMap<String, Account> hashMap = Main.getAuthTokenAccountHashMap();
+        HashMap<String, GeneralAccount> hashMap = Main.getAuthTokenAccountHashMap();
         //TODO edit this field
 
         return hashMap.containsKey(String.valueOf(key));

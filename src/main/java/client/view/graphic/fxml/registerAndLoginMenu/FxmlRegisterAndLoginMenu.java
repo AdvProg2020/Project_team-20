@@ -182,7 +182,6 @@ public class FxmlRegisterAndLoginMenu {
 
     public void handleExit() {
         FxmlAllProductsMenu.key = false;
-        Main.storeData();
         window.close();
     }
 

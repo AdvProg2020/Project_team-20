@@ -8,6 +8,8 @@ import client.model.product.category.SubCategory;
 import client.model.product.category.CategorySet;
 import client.model.receipt.BuyerReceipt;
 import client.model.receipt.SellerReceipt;
+import client.network.Client;
+import client.network.Message;
 import client.view.console.MainMenu;
 import client.view.console.Menu;
 import client.view.console.account.RegisterAndLoginMenu;
@@ -20,13 +22,13 @@ public class Main {
     private static PreProcess preProcess = new PreProcess();
 
     public static void main(String[] args) {
-        loadData();
+        //loadData();
         if (PreProcess.getPeriod() == 10)
             preProcess.processOnlyOneTime();
         PreProcess.AddPeriod();
 
         // for graphic client.view
-        ProgramApplication.setFirstManager(Manager.isHasFirstManger());
+        ProgramApplication.setFirstManager(receiveHasFirstManager());
         ProgramApplication.startApp(args);
     }
 
@@ -47,6 +49,16 @@ public class Main {
     }
 
  */
+
+    private static boolean receiveHasFirstManager() {
+        Client client = new Client(777);
+        client.readMessage();
+        client.writeMessage(new Message("sendHasFirstManager"));
+        Message answer = client.readMessage();
+        boolean hasFirstManager  = (boolean) answer.getObjects().get(0);
+        client.writeMessage(new Message("buy"));
+        return hasFirstManager;
+    }
 
     public static void setCurrentMenu(Menu currentMenu) {
         Main.currentMenu = currentMenu;
