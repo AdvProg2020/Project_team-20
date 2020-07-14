@@ -1,6 +1,7 @@
 package server.controller;
 
 import client.model.account.*;
+import client.model.bank.BankReceipt;
 import server.HasFirstManager;
 import server.controller.account.LoginController;
 import server.controller.account.user.BuyerController;
@@ -67,6 +68,9 @@ public class Main {
         SellerReceipt.load();
         BuyerReceipt.load();
         Advertisement.load();
+        Supporter.load();
+        BankServer.load();
+        BankReceipt.load();
     }
 
     public static void storeData() {
@@ -82,6 +86,9 @@ public class Main {
         SellerReceipt.store();
         BuyerReceipt.store();
         Advertisement.store();
+        Supporter.store();
+        BankServer.store();
+        BankReceipt.store();
     }
 
     public static HashMap<String, GeneralAccount> getAuthTokenAccountHashMap() {

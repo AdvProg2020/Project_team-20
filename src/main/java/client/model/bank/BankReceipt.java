@@ -1,5 +1,10 @@
 package client.model.bank;
 
+import com.gilecode.yagson.YaGson;
+
+import java.io.*;
+import java.util.Scanner;
+
 public class BankReceipt {
     private static int bankReceiptCount = 0;
     private BankReceiptType bankReceiptType;
@@ -78,5 +83,27 @@ public class BankReceipt {
                     "ID= " + ID +  "\n" +
                     "payment state= " + receiptState + "\n" +
                     "__________"+  "\n" ;
+    }
+
+    public static void store() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutBank/bankReceiptCount.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(bankReceiptCount) + "\n");
+            fileWriter.close();
+        } catch (IOException ignored) {
+        }
+    }
+
+    public static void load() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutBank/bankReceiptCount.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            bankReceiptCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            fileScanner.close();
+        } catch (IOException ignored) {
+        }
     }
 }

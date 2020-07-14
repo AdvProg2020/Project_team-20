@@ -13,7 +13,7 @@ public class Supporter extends Account{
 
     public static void store() {
         YaGson yaGson = new YaGson();
-        File file = new File("src/main/resources/aboutSupporter/supporters.txt");
+        File file = new File("src/main/resources/aboutSupporter/supporters.txt.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, false);
             for (Account account : allAccounts) {

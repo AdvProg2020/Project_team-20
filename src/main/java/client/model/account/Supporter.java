@@ -28,11 +28,11 @@ public class Supporter extends Account{
     public static void load() {
         YaGson yaGson = new YaGson();
         try {
-            InputStream inputStream = new FileInputStream("src/main/resources/aboutSupporter/supporter.txt");
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutSupporter/supporters.txt");
             Scanner fileScanner = new Scanner(inputStream);
             while (fileScanner.hasNextLine()) {
-                Supporter buyer = yaGson.fromJson(fileScanner.nextLine(), Supporter.class);
-                allAccounts.add(buyer);
+                Supporter supporter = yaGson.fromJson(fileScanner.nextLine(), Supporter.class);
+                allAccounts.add(supporter);
             }
         } catch (Exception ignored) {
         }

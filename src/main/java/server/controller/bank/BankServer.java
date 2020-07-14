@@ -1,14 +1,15 @@
 package server.controller.bank;
 
-import client.network.AuthToken;
-import client.network.Client;
-import client.network.Message;
 import client.model.bank.BankAccount;
 import client.model.bank.BankReceipt;
 import client.model.bank.BankReceiptType;
+import client.network.AuthToken;
+import client.network.Client;
+import client.network.Message;
+import com.gilecode.yagson.YaGson;
 import server.network.server.Server;
 
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
@@ -17,11 +18,12 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BankServer {
-    ArrayList<BankAccount> bankAccounts;
-    private static int bankCount=0;
+    private static ArrayList<BankAccount> bankAccounts;
+    private static int bankCount = 0;
     protected ServerSocket serverSocket;
     protected HashMap<AuthToken, BankAccount> loggedInAccounts;
     protected ArrayList<String> methods;
@@ -173,11 +175,11 @@ public class BankServer {
             return "wasPaid";
         BankAccount sourceBankAccount = getBankAccountByID(bankReceipt.getSourceID());
         BankAccount destBankAccount = getBankAccountByID(bankReceipt.getDestID());
-        if (sourceBankAccount==null && !bankReceipt.getBankReceiptType().equals(BankReceiptType.DEPOSIT)) {
+        if (sourceBankAccount == null && !bankReceipt.getBankReceiptType().equals(BankReceiptType.DEPOSIT)) {
             return "invalidAccount";
-        } else if (destBankAccount==null && !bankReceipt.getBankReceiptType().equals(BankReceiptType.WITHDRAW))
+        } else if (destBankAccount == null && !bankReceipt.getBankReceiptType().equals(BankReceiptType.WITHDRAW))
             return "invalidAccount";
-        if (!bankReceipt.getBankReceiptType().equals(BankReceiptType.DEPOSIT) && sourceBankAccount.getMoney()<bankReceipt.getMoney())
+        if (!bankReceipt.getBankReceiptType().equals(BankReceiptType.DEPOSIT) && sourceBankAccount.getMoney() < bankReceipt.getMoney())
             return "notEnoughMoney";
         if (!bankReceipt.getBankReceiptType().equals(BankReceiptType.DEPOSIT))
             sourceBankAccount.decreaseMoney(bankReceipt.getMoney());
@@ -190,7 +192,7 @@ public class BankServer {
     public Message getToken(String username, String password) {
         Message message;
         BankAccount bankAccount = loginAccount(username, password);
-        if (bankAccount==null) {
+        if (bankAccount == null) {
             message = new Message("Error");
             message.addToObjects("username is not available");
             return message;
@@ -204,7 +206,7 @@ public class BankServer {
 
     private BankAccount loginAccount(String username, String password) {
         BankAccount bankAccount = getBankAccountByUsername(username);
-        if (bankAccount==null)
+        if (bankAccount == null)
             return null;
         if (!(password.equals(bankAccount.getPassword())))
             return null;
@@ -264,7 +266,7 @@ public class BankServer {
             message = new Message("Error");
             message.addToObjects("passwords do not match");
             return message;
-        } else if (getBankAccountByUsername(username)!=null) {
+        } else if (getBankAccountByUsername(username) != null) {
             message = new Message("Error");
             message.addToObjects("username is not available");
             return message;
@@ -273,7 +275,7 @@ public class BankServer {
             bankAccounts.add(account);
             message = new Message("Confirmation");
             LocalDateTime now = LocalDateTime.now();
-            int random = ThreadLocalRandom.current().nextInt(10,  100);
+            int random = ThreadLocalRandom.current().nextInt(10, 100);
             String accountNumber = now.getYear() + Integer.toString(now.getMonthValue()) + now.getDayOfMonth() + random + bankCount;
             account.setAccountNumber(accountNumber);
             message.addToObjects(accountNumber);
@@ -284,19 +286,19 @@ public class BankServer {
 
     public Message createReceipt(AuthToken authToken, BankReceiptType receiptType, double money, String sourceID, String destID, String description) {
         Message message;
-        if (receiptType!=BankReceiptType.DEPOSIT && receiptType!=BankReceiptType.MOVE
-        && receiptType!=BankReceiptType.WITHDRAW) {
+        if (receiptType != BankReceiptType.DEPOSIT && receiptType != BankReceiptType.MOVE
+                && receiptType != BankReceiptType.WITHDRAW) {
             message = new Message("Error");
             message.addToObjects("invalid receipt type");
             return message;
         }
-        if (money<=0) {
+        if (money <= 0) {
             message = new Message("Error");
             message.addToObjects("invalid money");
             return message;
         }
         message = checkValidAccounts(destID, sourceID, receiptType);
-        if (message!=null)
+        if (message != null)
             return message;
         if (!description.matches("\\w*")) {
             message = new Message("Error");
@@ -327,8 +329,8 @@ public class BankServer {
     }
 
     private boolean isTokenExists(AuthToken authToken) {
-        for (AuthToken authToken1:loggedInAccounts.keySet()) {
-            if (authToken.getKey()==authToken1.getKey())
+        for (AuthToken authToken1 : loggedInAccounts.keySet()) {
+            if (authToken.getKey() == authToken1.getKey())
                 return true;
         }
         return false;
@@ -343,7 +345,7 @@ public class BankServer {
     private boolean validAccountMakeReceipt(BankAccount account, String sourceID, String destID, BankReceiptType receiptType) {
         System.out.println("source " + sourceID);
         System.out.println("dest " + destID);
-        if (receiptType==BankReceiptType.MOVE || receiptType==BankReceiptType.WITHDRAW) {
+        if (receiptType == BankReceiptType.MOVE || receiptType == BankReceiptType.WITHDRAW) {
             return sourceID.equals(account.getAccountNumber());
         } else {
             return destID.equals(account.getAccountNumber());
@@ -354,19 +356,15 @@ public class BankServer {
         Message message;
         BankAccount sourceBankAccount = getBankAccountByID(sourceID);
         BankAccount destBankAccount = getBankAccountByID(destID);
-        if (getBankAccountByID(sourceID)==null && bankReceiptType!=BankReceiptType.DEPOSIT) {
+        if (getBankAccountByID(sourceID) == null && bankReceiptType != BankReceiptType.DEPOSIT) {
             message = new Message("Error");
             message.addToObjects("source account id is invalid");
             return message;
-        }
-
-        else if (getBankAccountByID(destID)==null && bankReceiptType!=BankReceiptType.WITHDRAW) {
+        } else if (getBankAccountByID(destID) == null && bankReceiptType != BankReceiptType.WITHDRAW) {
             message = new Message("Error");
             message.addToObjects("dest account id is invalid");
             return message;
-        }
-
-        else if (destID.equals(sourceID)) {
+        } else if (destID.equals(sourceID)) {
             message = new Message("Error");
             message.addToObjects("equal source and dest account");
             return message;
@@ -376,15 +374,15 @@ public class BankServer {
     }
 
     private AuthToken getRealAuthToken(AuthToken authToken) {
-        for (AuthToken authToken1:loggedInAccounts.keySet()) {
-            if (authToken.getKey()==authToken1.getKey())
+        for (AuthToken authToken1 : loggedInAccounts.keySet()) {
+            if (authToken.getKey() == authToken1.getKey())
                 return authToken1;
         }
         return null;
     }
 
     private BankAccount getBankAccountByID(String ID) {
-        for (BankAccount bankAccount:bankAccounts) {
+        for (BankAccount bankAccount : bankAccounts) {
             if (bankAccount.getAccountNumber().equals(ID))
                 return bankAccount;
         }
@@ -392,12 +390,70 @@ public class BankServer {
     }
 
     private BankAccount getBankAccountByUsername(String username) {
-        for (BankAccount bankAccount:bankAccounts) {
+        for (BankAccount bankAccount : bankAccounts) {
             if (bankAccount.getUsername().equals(username))
                 return bankAccount;
         }
         return null;
     }
 
+    public static void store() {
+        storeBankNumbers();
+        storeBankAccounts();
+    }
 
+    public static void load() {
+        loadBankAccounts();
+        loadBankNumbers();
+    }
+
+
+    private static void storeBankAccounts() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutBank/bankAccounts.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (BankAccount account : bankAccounts) {
+                fileWriter.write(yaGson.toJson(account) + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException ignored) {
+        }
+    }
+
+    private static void loadBankAccounts() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutBank/bankAccounts.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                BankAccount account = yaGson.fromJson(fileScanner.nextLine(), BankAccount.class);
+                bankAccounts.add(account);
+            }
+        } catch (Exception ignored) {
+        }
+
+    }
+
+    private static void storeBankNumbers() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutBank/bankCount.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            fileWriter.write(yaGson.toJson(bankCount) + "\n");
+            fileWriter.close();
+        } catch (IOException ignored) {
+        }
+    }
+
+    private static void loadBankNumbers() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutBank/bankCount.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            bankCount = yaGson.fromJson(fileScanner.nextLine(), Integer.class);
+            fileScanner.close();
+        } catch (IOException ignored) {
+        }
+    }
 }
