@@ -44,7 +44,7 @@ public class ProductController extends Server {
         return message;
     }
 
-    public Message getSellerByUsername(String productId, String sellerId, AuthToken authToken) {
+    public Message getSellerByUsername(String productId, String sellerId) {
         Message message = new Message("getSellerByUsername");
         try {
             Product currentProduct = Product.getProductById(productId);

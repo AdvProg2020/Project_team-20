@@ -46,6 +46,7 @@ public abstract class Server {
         while (true) {
             Main.storeData();
             Message message = client.readMessage();
+            System.out.println(message.getText());
             if (message.getText().equals("buy"))
                 return;
             System.out.println(message);
