@@ -186,7 +186,7 @@ public class BankServer {
         BankAccount bankAccount = loginAccount(username, password);
         if (bankAccount==null) {
             message = new Message("Error");
-            message.addToObjects("username or password invalid");
+            message.addToObjects("username is not available");
             return message;
         }
         AuthToken authToken = AuthToken.generateAuth(bankAccount.getUsername());
