@@ -118,6 +118,20 @@ public class BankController {
             throw new BankException(answer.getObjects().get(0).toString());
     }
 
+    public void handleCreateMove(String money, String description, String sourceId, String destId) throws Exception{
+        Message message = new Message("createReceipt");
+        message.addToObjects(client.getAuthToken());
+        message.addToObjects(BankReceiptType.MOVE);
+        message.addToObjects(Double.parseDouble(money));
+        message.addToObjects(sourceId);
+        message.addToObjects(destId);
+        message.addToObjects(description);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error"))
+            throw new BankException(answer.getObjects().get(0).toString());
+    }
+
     public Client getClient() {
         return client;
     }

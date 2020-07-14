@@ -7,27 +7,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.bank.DepositFxml">
    <children>
-      <Text fill="#89a08b" layoutX="66.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money:">
+      <Text fill="#89a08b" layoutX="75.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money:">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Text fill="#89a08b" layoutX="67.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DestID:">
+      <Text fill="#89a08b" layoutX="75.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DestID:">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Text fill="#89a08b" layoutX="67.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:">
+      <Text fill="#89a08b" layoutX="75.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <JFXTextArea fx:id="descriptionTxt" focusColor="#cdd7d2" layoutX="67.0" layoutY="127.0" prefHeight="127.0" prefWidth="241.0" unFocusColor="#89a08b" />
-      <JFXTextField fx:id="moneyTxt" focusColor="#89a08b" layoutX="187.0" layoutY="17.0" prefWidth="134.0" unFocusColor="#cdd7d2" />
-      <JFXTextField fx:id="destTxt" focusColor="#89a08b" layoutX="188.0" layoutY="57.0" prefWidth="134.0" unFocusColor="#cdd7d2" />
-      <JFXButton layoutX="67.0" layoutY="271.0" onAction="#handleCreate" style="-fx-background-color: #89a08b;" text="Create" textFill="WHITE" />
+      <JFXTextArea fx:id="descriptionTxt" focusColor="#cdd7d2" layoutX="75.0" layoutY="131.0" prefHeight="127.0" prefWidth="241.0" unFocusColor="#89a08b" />
+      <JFXTextField fx:id="moneyTxt" focusColor="#89a08b" layoutX="188.0" layoutY="26.0" prefWidth="134.0" unFocusColor="#cdd7d2" />
+      <JFXTextField fx:id="destTxt" focusColor="#89a08b" layoutX="188.0" layoutY="66.0" prefWidth="134.0" unFocusColor="#cdd7d2" />
+      <JFXButton layoutX="75.0" layoutY="271.0" onAction="#handleCreate" style="-fx-background-color: #89a08b;" text="Create" textFill="WHITE" />
    </children>
 </AnchorPane>
