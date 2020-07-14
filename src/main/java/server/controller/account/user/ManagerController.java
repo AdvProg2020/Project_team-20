@@ -601,4 +601,9 @@ public class ManagerController extends Server implements AccountController {
         Main.removeFromTokenHashMap(authToken, currentManager);
         return new Message("logout was successful");
     }
+
+    @Override
+    public Message callCommand(String command, Message message) throws InvalidCommand {
+        return super.callCommand(command, message);
+    }
 }
