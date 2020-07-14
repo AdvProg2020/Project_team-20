@@ -10,14 +10,16 @@ import client.network.Message;
 import java.util.ArrayList;
 
 public class BankController {
-    private static BankController bankController;
-    private static Client client;
+    private static BankController bankController = null;
+    private Client client;
 
     public static BankController getInstance() {
-        if (bankController==null)
+        if (bankController==null) {
             bankController = new BankController();
-        client = new Client(9000);
-        client.readMessage();
+            Client client = new Client(9000);
+            bankController.setClient(client);
+            client.readMessage();
+        }
         return bankController;
     }
 
@@ -31,7 +33,7 @@ public class BankController {
         if (ansTxt.equals("Error"))
             throw new BankException((String)answer.getObjects().get(0));
         else {
-            System.out.println(answer.getAuthToken());
+            System.out.println("hi " + answer.getAuthToken());
             client.setAuthToken(answer.getAuthToken());
         }
     }
@@ -57,6 +59,7 @@ public class BankController {
         message.addToObjects(client.getAuthToken());
         client.writeMessage(message);
         Message answer = client.readMessage();
+        System.out.println(answer.getObjects().get(0));
         return (double)answer.getObjects().get(0);
     }
 
@@ -87,8 +90,40 @@ public class BankController {
         return (ArrayList<BankReceipt>)answer.getObjects().get(0);
     }
 
-    public static Client getClient() {
+    public void handleCreateDeposit(String money, String description, String destId) throws Exception{
+        Message message = new Message("createReceipt");
+        message.addToObjects(client.getAuthToken());
+        message.addToObjects(BankReceiptType.DEPOSIT);
+        message.addToObjects(Double.parseDouble(money));
+        message.addToObjects("-1");
+        message.addToObjects(destId);
+        message.addToObjects(description);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error"))
+            throw new BankException(answer.getObjects().get(0).toString());
+    }
+
+    public void handleCreateWithdraw(String money, String description, String sourceId) throws Exception{
+        Message message = new Message("createReceipt");
+        message.addToObjects(client.getAuthToken());
+        message.addToObjects(BankReceiptType.WITHDRAW);
+        message.addToObjects(Double.parseDouble(money));
+        message.addToObjects(sourceId);
+        message.addToObjects("-1");
+        message.addToObjects(description);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error"))
+            throw new BankException(answer.getObjects().get(0).toString());
+    }
+
+    public Client getClient() {
         return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public static class BankException extends Exception {

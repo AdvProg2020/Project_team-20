@@ -128,12 +128,15 @@ public class BankControllerFxml {
     }
 
     public void handleDeposit(ActionEvent actionEvent) {
+        loadUI("Deposit");
     }
 
     public void handleWithdraw(ActionEvent actionEvent) {
+        loadUI("Withdraw");
     }
 
     public void handleMove(ActionEvent actionEvent) {
+        loadUI("Move");
     }
 
     public void handlePay(ActionEvent actionEvent) {

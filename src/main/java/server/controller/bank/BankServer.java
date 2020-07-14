@@ -128,7 +128,7 @@ public class BankServer {
 
     public Message getBalance(AuthToken authToken) {
         Message message;
-        BankAccount bankAccount = loggedInAccounts.get(authToken);
+        BankAccount bankAccount = loggedInAccounts.get(getRealAuthToken(authToken));
         if (!isTokenExists(authToken)) {
             message = new Message("Error");
             message.addToObjects("token is invalid");
@@ -209,7 +209,7 @@ public class BankServer {
 
     public Message getTransactions(AuthToken authToken, BankReceiptType bankReceiptType) {
         Message message;
-        BankAccount account = loggedInAccounts.get(authToken);
+        BankAccount account = loggedInAccounts.get(getRealAuthToken(authToken));
         if (!isTokenExists(authToken)) {
             message = new Message("Error");
             message.addToObjects("token is invalid");
@@ -291,7 +291,7 @@ public class BankServer {
             message.addToObjects("invalid money");
             return message;
         }
-        message = checkValidAccounts(destID, sourceID);
+        message = checkValidAccounts(destID, sourceID, receiptType);
         if (message!=null)
             return message;
         if (!description.matches("\\w*")) {
@@ -304,7 +304,7 @@ public class BankServer {
             message.addToObjects("token is invalid");
             return message;
         }
-        BankAccount account = loggedInAccounts.get(authToken);
+        BankAccount account = loggedInAccounts.get(getRealAuthToken(authToken));
         if (!validAccountMakeReceipt(account, sourceID, destID, receiptType)) {
             message = new Message("Error");
             message.addToObjects("token is invalid");
@@ -323,7 +323,7 @@ public class BankServer {
 
     private boolean isTokenExists(AuthToken authToken) {
         for (AuthToken authToken1:loggedInAccounts.keySet()) {
-            if (authToken.equals(authToken1))
+            if (authToken.getKey()==authToken1.getKey())
                 return true;
         }
         return false;
@@ -336,6 +336,8 @@ public class BankServer {
     }
 
     private boolean validAccountMakeReceipt(BankAccount account, String sourceID, String destID, BankReceiptType receiptType) {
+        System.out.println("source " + sourceID);
+        System.out.println("dest " + destID);
         if (receiptType==BankReceiptType.MOVE || receiptType==BankReceiptType.WITHDRAW) {
             return sourceID.equals(account.getAccountNumber());
         } else {
@@ -343,17 +345,17 @@ public class BankServer {
         }
     }
 
-    private Message checkValidAccounts(String destID, String sourceID) {
+    private Message checkValidAccounts(String destID, String sourceID, BankReceiptType bankReceiptType) {
         Message message;
         BankAccount sourceBankAccount = getBankAccountByID(sourceID);
         BankAccount destBankAccount = getBankAccountByID(destID);
-        if (getBankAccountByID(sourceID)==null) {
+        if (getBankAccountByID(sourceID)==null && bankReceiptType!=BankReceiptType.DEPOSIT) {
             message = new Message("Error");
             message.addToObjects("source account id is invalid");
             return message;
         }
 
-        else if (getBankAccountByID(destID)==null) {
+        else if (getBankAccountByID(destID)==null && bankReceiptType!=BankReceiptType.WITHDRAW) {
             message = new Message("Error");
             message.addToObjects("dest account id is invalid");
             return message;
@@ -365,6 +367,14 @@ public class BankServer {
             return message;
         }
 
+        return null;
+    }
+
+    private AuthToken getRealAuthToken(AuthToken authToken) {
+        for (AuthToken authToken1:loggedInAccounts.keySet()) {
+            if (authToken.getKey()==authToken1.getKey())
+                return authToken1;
+        }
         return null;
     }
 
