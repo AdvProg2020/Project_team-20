@@ -18,15 +18,6 @@ public class ProductController {
     public ProductController(Product product) {
         this.currentProduct = product;
         mainController = MainController.getInstance();
-        if (LoginController.getClient() == null) {
-            client = new Client(1000);
-            Message message = client.readMessage();
-            connectWithTempAccount();
-        } else {
-            client = new Client(1000);
-            client.readMessage();
-            client.setAuthToken(LoginController.getClient().getAuthToken());
-        }
     }
 
     private void connectWithTempAccount() {
@@ -36,12 +27,26 @@ public class ProductController {
         client.setAuthToken(answer.getAuthToken());
     }
 
+    private void connect() {
+        if (LoginController.getClient() == null) {
+            client = new Client(1000);
+            client.readMessage();
+            connectWithTempAccount();
+        } else {
+            client = new Client(1000);
+            client.readMessage();
+            client.setAuthToken(LoginController.getClient().getAuthToken());
+        }
+    }
+
     public Seller getSellerByUsername(String sellerId) throws Exception {
+        connect();
         Message message = new Message("getSellerByUsername");
         message.addToObjects(currentProduct.getId());
         message.addToObjects(sellerId);
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -58,61 +63,82 @@ public class ProductController {
     }
 
     public void addProductToCart(String sellerId) throws Exception {
+        connect();
         Message message = new Message("addProductToCart");
         message.addToObjects(sellerId);
         message.addToObjects(currentProduct.getId());
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public void addComment(Product product, String title, String content) throws Exception {
+        connect();
         Message message = new Message("addComment");
         message.addToObjects(product.getId());
         message.addToObjects(title);
         message.addToObjects(content);
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public void addScore(double score, Product product) throws Exception {
+        connect();
         Message message = new Message("addScore");
         message.addToObjects(score);
         message.addToObjects(product.getId());
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public void addReplyToComment(Comment comment, String title, String content) throws Exception {
+        connect();
         Message message = new Message("addReplyToComment");
         message.addToObjects(comment);
         message.addToObjects(title);
         message.addToObjects(content);
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
     }
 
     public Product getAnotherProduct(String id, ArrayList<String> othersIds) throws Exception {
+        connect();
         Message message = new Message("getAnotherProduct");
         message.addToObjects(id);
         message.addToObjects(othersIds);
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
         return (Product) answer.getObjects().get(0);
     }
+
+    public ArrayList<Seller> getSellers() {
+        connect();
+        Message message = new Message("getSellers");
+        message.addToObjects(currentProduct.getId());
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        client.writeMessage(new Message("buy"));
+        return (ArrayList<Seller>) answer.getObjects().get(0);
+    }
+
 
 }

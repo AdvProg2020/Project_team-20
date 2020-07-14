@@ -1,13 +1,25 @@
 package client.view.graphic.fxml.allProductsMenu;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
-import client.controller.Main;
 import client.controller.MainController;
 import client.controller.MediaController;
 import client.controller.account.user.SellerController;
 import client.controller.product.ProductController;
+import client.model.account.Seller;
+import client.model.product.Field.Field;
+import client.model.product.Field.NumericalField;
+import client.model.product.Field.OptionalField;
+import client.model.product.Product;
+import client.model.product.comment.Comment;
+import client.model.product.comment.Reply;
+import client.view.graphic.MenuNames;
+import client.view.graphic.ProgramApplication;
+import client.view.graphic.alert.AlertController;
+import client.view.graphic.alert.AlertType;
+import client.view.graphic.fxml.mainMenu.FxmlMainMenu;
+import client.view.graphic.score.Score;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,19 +36,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
-import client.model.account.Seller;
-import client.model.product.Field.Field;
-import client.model.product.Field.NumericalField;
-import client.model.product.Field.OptionalField;
-import client.model.product.Product;
-import client.model.product.comment.Comment;
-import client.model.product.comment.Reply;
-import client.view.graphic.MenuNames;
-import client.view.graphic.ProgramApplication;
-import client.view.graphic.alert.AlertController;
-import client.view.graphic.alert.AlertType;
-import client.view.graphic.fxml.mainMenu.FxmlMainMenu;
-import client.view.graphic.score.Score;
 
 import java.io.File;
 import java.net.URL;
@@ -114,12 +113,12 @@ public class ProductMenuFxml implements Initializable {
         description.setText(currentProduct.getDescription());
         score.setImage(new Score(currentProduct.getAverage()).getScoreImg());
 
-        for (Field field:currentProduct.getGeneralFields()) {
+        for (Field field : currentProduct.getGeneralFields()) {
             if (field instanceof NumericalField) {
-                fields.appendText(field.getName() + ": " + ((NumericalField)field).getNumericalField() + "\n");
+                fields.appendText(field.getName() + ": " + ((NumericalField) field).getNumericalField() + "\n");
             } else {
                 StringBuilder optionalFields = new StringBuilder();
-                for (String str: ((OptionalField)field).getOptionalFiled())
+                for (String str : ((OptionalField) field).getOptionalFiled())
                     optionalFields.append(str).append(", ");
                 fields.appendText(field.getName() + ": " + optionalFields + "\n");
             }
@@ -133,8 +132,9 @@ public class ProductMenuFxml implements Initializable {
 
         if (currentProduct.isInSale())
             saleImg.setOpacity(1);
+        ProductController productController = new ProductController(currentProduct);
 
-        for (Seller seller:currentProduct.getSellers())
+        for (Seller seller : productController.getSellers())
             sellerUserNames.add(seller.getUsername());
         sellers.setItems(sellerUserNames);
         showComments();
@@ -165,7 +165,7 @@ public class ProductMenuFxml implements Initializable {
         text2.setStyle("-fx-background-color: transparent; -fx-text-inner-color: #575957;");
         text2.setText(comment);
         commentReplyBox.getChildren().add(text2);
-        if (type==0) {
+        if (type == 0) {
             JFXButton button = new JFXButton();
             button.setText("...");
             button.setStyle("-fx-background-color:  #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius:60; -fx-border-radius:60;");
@@ -185,18 +185,23 @@ public class ProductMenuFxml implements Initializable {
         Offline.setOpacity(0);
         realPrice.setOpacity(0);
         String selected = sellers.getSelectionModel().getSelectedItem();
-        seller = currentProduct.getSellerByUsername(selected);
-        price.setText(Double.toString(currentProduct.getPrice(seller)));
+        ProductController productController = new ProductController(currentProduct);
+        try {
+            seller = productController.getSellerByUsername(selected);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        price.setText(Double.toString(currentProduct.getPrice(selected)));
         if (currentProduct.isInSale(seller)) {
             Offline.setOpacity(1);
             realPrice.setOpacity(1);
-            realPrice.setText(Double.toString(currentProduct.getPrice(seller)));
+            realPrice.setText(Double.toString(currentProduct.getPrice(selected)));
             price.setText(Double.toString(currentProduct.getPriceWithOff(seller)));
         }
     }
 
     public void handleAddToCart(ActionEvent actionEvent) {
-        if (seller==null) {
+        if (seller == null) {
             new AlertController().create(AlertType.ERROR, "please select a seller");
             return;
         }
@@ -214,23 +219,23 @@ public class ProductMenuFxml implements Initializable {
         allRepliesBox.getChildren().clear();
         JFXButton jfxButton = (JFXButton) actionEvent.getSource();
         TextField idText = null;
-        for (Node node:(jfxButton.getParent()).getParent().getChildrenUnmodifiable()) {
+        for (Node node : (jfxButton.getParent()).getParent().getChildrenUnmodifiable()) {
             if (node instanceof HBox) {
-                for (Node node1:((HBox) node).getChildrenUnmodifiable()) {
+                for (Node node1 : ((HBox) node).getChildrenUnmodifiable()) {
                     if (node1 instanceof TextField)
-                        idText = (TextField)node1;
+                        idText = (TextField) node1;
                 }
                 break;
             }
         }
-        if (idText==null) {
+        if (idText == null) {
             return;
         }
         String id = idText.getText();
         try {
             comment = currentProduct.getCommentWithId(id);
             ArrayList<Reply> replies = comment.getReplies();
-            for (Reply reply:replies) {
+            for (Reply reply : replies) {
                 createComment(reply.getBuyer().getUsername(), reply.getContent(), null, allRepliesBox, 1);
             }
             allRepliesBox.setOpacity(1);
@@ -244,7 +249,7 @@ public class ProductMenuFxml implements Initializable {
     public void showRepliesComment(Comment commentToShow) {
         allRepliesBox.getChildren().clear();
         ArrayList<Reply> replies = comment.getReplies();
-        for (Reply reply:replies) {
+        for (Reply reply : replies) {
             try {
                 createComment(reply.getBuyer().getUsername(), reply.getContent(), null, allRepliesBox, 1);
             } catch (Exception e) {
@@ -255,10 +260,10 @@ public class ProductMenuFxml implements Initializable {
 
     public void showComments() {
         allCommentsBox.getChildren().clear();
-        for (Comment comment:currentProduct.getComments()) {
+        for (Comment comment : currentProduct.getComments()) {
             try {
                 VBox commentVBox = new VBox();
-                createComment(comment.getBuyer().getUsername(), comment.getContent(), comment.getCommentId(), commentVBox, 0);
+                createComment(comment.getBuyerUserName(), comment.getContent(), comment.getCommentId(), commentVBox, 0);
                 allCommentsBox.getChildren().add(commentVBox);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -299,7 +304,7 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void handleRateProduct(ActionEvent actionEvent) {
-        double score = Double.parseDouble(((Button)actionEvent.getSource()).getId().substring(((Button)actionEvent.getSource()).getId().length()-1));
+        double score = Double.parseDouble(((Button) actionEvent.getSource()).getId().substring(((Button) actionEvent.getSource()).getId().length() - 1));
         try {
             productController.addScore(score, currentProduct);
             new AlertController().create(AlertType.CONFIRMATION, "Thanks for rating");
@@ -312,29 +317,27 @@ public class ProductMenuFxml implements Initializable {
     }
 
     public void handleRateEnter(MouseEvent event) {
-        ((Button)event.getSource()).setStyle("-fx-background-radius:30; -fx-background-color:#5fccd0; -fx-border-color:#5fccd0; -fx-border-radius:30; -fx-border-width:1");
-        ((Button)event.getSource()).setTextFill(Color.WHITE);
+        ((Button) event.getSource()).setStyle("-fx-background-radius:30; -fx-background-color:#5fccd0; -fx-border-color:#5fccd0; -fx-border-radius:30; -fx-border-width:1");
+        ((Button) event.getSource()).setTextFill(Color.WHITE);
     }
 
     public void handleRateExit(MouseEvent event) {
-        ((Button)event.getSource()).setStyle("-fx-background-radius:30; -fx-background-color:transparent; -fx-border-color:#5fccd0; -fx-border-radius:30; -fx-border-width:1");
-        ((Button)event.getSource()).setTextFill(Color.valueOf("#5fccd0"));
+        ((Button) event.getSource()).setStyle("-fx-background-radius:30; -fx-background-color:transparent; -fx-border-color:#5fccd0; -fx-border-radius:30; -fx-border-width:1");
+        ((Button) event.getSource()).setTextFill(Color.valueOf("#5fccd0"));
     }
 
     public void handleAnotherSeller(ActionEvent actionEvent) {
-        if(SellerController.getSeller()==null){
+        if (SellerController.getSeller() == null) {
             new AlertController().create(AlertType.ERROR, "you are not a seller!");
-        }
-        else{
+        } else {
             int count = Integer.parseInt(newCount.getText());
             double price = Double.parseDouble(newPrice.getText());
             SellerController sellerController = SellerController.getInstance();
             try {
-                sellerController.addToProduct(currentProduct.getId(),count,price);
+                sellerController.addToProduct(currentProduct.getId(), count, price);
+            } catch (Exception e) {
+                new AlertController().create(AlertType.ERROR, e.getMessage());
             }
-           catch (Exception e){
-               new AlertController().create(AlertType.ERROR, e.getMessage());
-           }
         }
         newCount.clear();
         newPrice.clear();

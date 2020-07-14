@@ -1,6 +1,7 @@
 package client.controller.account;
 
 import client.controller.MainController;
+import client.controller.account.user.BuyerController;
 import client.model.account.*;
 import client.model.product.Cart;
 import client.network.Client;
@@ -64,6 +65,7 @@ public class LoginController {
         if (object.equals(AccountType.MANAGER))
             return AccountType.MANAGER;
         else if (object.equals(AccountType.BUYER)) {
+            BuyerController.getInstance().getCurrentBuyer().setCart(cart);
             return AccountType.BUYER;
         }
         return AccountType.SELLER;

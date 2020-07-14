@@ -118,8 +118,7 @@ public class ProductController extends Server {
             else if (productId.equals(id))
                 throw new ThisProductIsFirstProduct();
             message.addToObjects(Product.getProductById(id));
-        } catch (
-                Exception e) {
+        } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
         }
@@ -152,6 +151,18 @@ public class ProductController extends Server {
         methods.add("addReplyToComment");
         methods.add("getAnotherProduct");
         methods.add("getSellerByUsername");
+        methods.add("getSellers");
+    }
+
+    public Message getSellers(String productId, AuthToken authToken) {
+        Message message = new Message("getSellers");
+        try {
+            Product product = Product.getProductById(productId);
+            ArrayList<Seller> sellers = product.getSellers();
+            message.addToObjects(sellers);
+        } catch (Exception ignored) {
+        }
+        return message;
     }
 
     public static class AccountNotBuyerException extends Exception {
