@@ -284,6 +284,10 @@ public class Product implements Requestable {
         return priceWithName.get(seller.getUsername());
     }
 
+    public double getPrice(String sellerUsername) {
+        return priceWithName.get(sellerUsername);
+    }
+
     public double getPriceWithOff(Seller seller) {
         Sale sale = Sale.getProductSale(this);
         double price = getPrice(seller);

@@ -115,4 +115,13 @@ public class ProductController {
         return (Product) answer.getObjects().get(0);
     }
 
+    public ArrayList<Seller> getSellers() {
+        Message message = new Message("getSellers");
+        message.addToObjects(currentProduct.getId());
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (ArrayList<Seller>) answer.getObjects().get(0);
+    }
+
+
 }

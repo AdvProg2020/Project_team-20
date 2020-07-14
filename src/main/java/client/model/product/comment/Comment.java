@@ -50,4 +50,8 @@ public class Comment {
     public String getCommentId() {
         return commentId;
     }
+
+    public String getBuyerUserName() {
+        return buyersUsername;
+    }
 }
