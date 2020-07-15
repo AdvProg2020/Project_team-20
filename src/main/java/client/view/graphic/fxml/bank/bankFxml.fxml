@@ -37,7 +37,7 @@
             <Font size="17.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="626.0" layoutY="495.0" onAction="#handleLoginBtn" prefHeight="37.0" prefWidth="308.0" text="Login" textFill="#32673b" />
+      <JFXButton fx:id="mainButtonLogin" layoutX="626.0" layoutY="495.0" onAction="#handleLoginBtn" prefHeight="37.0" prefWidth="308.0" text="Login" textFill="#32673b" />
       <ImageView fx:id="newUserPanel" fitHeight="44.0" fitWidth="308.0" layoutX="626.0" layoutY="434.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../resources/Images/newUserButton.png" />
