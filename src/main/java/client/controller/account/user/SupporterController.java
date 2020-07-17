@@ -79,17 +79,14 @@ public class SupporterController implements AccountController {
         client.disconnect();
     }
 
-    //todo complete these
-    public void connectToChat() {
-
+    public void connectToChat() throws Exception {
+        Message message = new Message("connectToChat");
+        message.addToObjects(currentSupporter.getUsername());
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
-    public void answerToBuyer(String buyerUserName) {
-
-    }
-
-    public String showMessagesFromBuyer(String buyerUserName) {
-
-        return "";
-    }
 }

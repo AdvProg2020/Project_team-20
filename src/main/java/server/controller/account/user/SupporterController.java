@@ -1,11 +1,12 @@
 package server.controller.account.user;
 
-import javafx.scene.image.Image;
-import server.controller.Main;
 import client.model.account.Account;
 import client.model.account.Supporter;
 import client.network.AuthToken;
 import client.network.Message;
+import client.network.chat.ChatRoom;
+import javafx.scene.image.Image;
+import server.controller.Main;
 import server.network.server.Server;
 
 public class SupporterController extends Server implements AccountController {
@@ -84,19 +85,18 @@ public class SupporterController extends Server implements AccountController {
         return new Message("logout was successful");
     }
 
-    //todo complete these
-    public void connectToChat() {
-
+    public Message connectToChat(String username) {
+        Message message = new Message("connectToChat");
+        try {
+            Supporter supporter = Account.getSupporterWithUsername(username);
+            new ChatRoom(supporter);
+        } catch (Exception e) {
+            message = new Message("buy");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
-    public void answerToBuyer(String buyerUserName) {
-
-    }
-
-    public String showMessagesFromBuyer(String buyerUserName) {
-
-        return "";
-    }
 
     @Override
     protected void setMethods() {
@@ -105,5 +105,6 @@ public class SupporterController extends Server implements AccountController {
         methods.add("setProfileImage");
         methods.add("changeMainImage");
         methods.add("logout");
+        methods.add("connectToChat");
     }
 }

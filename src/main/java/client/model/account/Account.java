@@ -156,7 +156,14 @@ public abstract class Account extends GeneralAccount {
         if (account instanceof Seller) {
             return (Seller) account;
         }
-        throw new AccountIsNotBuyerException();
+        throw new AccountIsNotSellerException();
+    }
+
+    public static Supporter getSupporterWithUsername(String username) throws Exception {
+        Account account = getAccountWithUsername(username);
+        if (account instanceof Supporter)
+            return (Supporter) account;
+        throw new AccountIsNotSupporterException();
     }
 
     public static class notEnoughMoneyException extends Exception {
@@ -210,5 +217,17 @@ public abstract class Account extends GeneralAccount {
 
     public String getImagePath() {
         return this.imagePath;
+    }
+
+    public static class AccountIsNotSellerException extends Exception {
+        public AccountIsNotSellerException() {
+            super("Account Is Not seller!");
+        }
+    }
+
+    public static class AccountIsNotSupporterException extends Exception {
+        public AccountIsNotSupporterException() {
+            super("Account Is Not supporter!");
+        }
     }
 }
