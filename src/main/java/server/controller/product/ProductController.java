@@ -134,7 +134,6 @@ public class ProductController extends Server {
     }
 
     public Message connectWithTempAccount() {
-        System.out.println("in token generator");
         AuthToken authToken = AuthToken.generateAuth();
         Main.addToTokenHashMap(authToken, new TempAccount());
         Message answer = new Message("token for tempAccount");

@@ -15,6 +15,7 @@ import client.model.product.category.CategorySet;
 import client.model.receipt.BuyerReceipt;
 import client.model.receipt.SellerReceipt;
 import client.network.AuthToken;
+import server.controller.chat.ChatController;
 import server.controller.product.AdvertisementController;
 import server.controller.product.ProductController;
 import server.controller.product.ReceiptController;
@@ -52,6 +53,7 @@ public class Main {
         new HasFirstManager(); // 777
         new AdvertisementController(); // 696
         new ReceiptController(); // 500
+        ChatController.getInstance(); //572
         //TODO run all requierd servers
     }
 
