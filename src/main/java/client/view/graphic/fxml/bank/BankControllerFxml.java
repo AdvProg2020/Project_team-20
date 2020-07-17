@@ -34,6 +34,7 @@ public class BankControllerFxml {
     public TextField nameTxt;
     public TextField lastNameTxt;
     public BorderPane borderPane;
+    public JFXButton mainButtonLogin;
     private BankController bankController = BankController.getInstance();
     private boolean loginBtnMode = true;
     private static Stage window;
@@ -44,8 +45,8 @@ public class BankControllerFxml {
         nameTxt.setOpacity(0);
         lastNameTxt.setOpacity(0);
         loginButton.setStyle("-fx-background-color: #ddf1ee;");
-        loginButton.setText("Login");
         loginBtnMode = true;
+        mainButtonLogin.setText("Login");
         newUserButton.setStyle("-fx-background-color: #b3c9c9;");
     }
 
@@ -55,8 +56,8 @@ public class BankControllerFxml {
         nameTxt.setOpacity(1);
         lastNameTxt.setOpacity(1);
         loginButton.setStyle("-fx-background-color: #b3c9c9;");
-        loginButton.setText("Create");
         loginBtnMode = false;
+        mainButtonLogin.setText("Create");
         newUserButton.setStyle("-fx-background-color: #ddf1ee;");
     }
 
