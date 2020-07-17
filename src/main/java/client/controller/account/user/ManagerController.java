@@ -503,7 +503,6 @@ public class ManagerController implements client.controller.account.user.Account
         client.writeMessage(new Message("logout"));
         mainController.logout();
         client.readMessage();
-        client.writeMessage(new Message("buy"));
         client.disconnect();
     }
 

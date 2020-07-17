@@ -25,7 +25,7 @@ public class AllProductsController extends Filterable {
         Message message = client.readMessage();
         client.setAuthToken(message.getAuthToken());
         System.out.println(message.getText());
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return allProductsController;
     }
 
@@ -35,7 +35,7 @@ public class AllProductsController extends Filterable {
         Message message = new Message("purchase");
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -47,7 +47,7 @@ public class AllProductsController extends Filterable {
         Message message = new Message("getAllSubCategories");
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (ArrayList<SubCategory>) answer.getObjects().get(0);
     }
 
@@ -57,7 +57,7 @@ public class AllProductsController extends Filterable {
         Message message = new Message("getAllCategories");
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (ArrayList<Category>) answer.getObjects().get(0);
     }
 
@@ -67,7 +67,7 @@ public class AllProductsController extends Filterable {
         Message message = new Message("getAllCategorySets");
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (ArrayList<CategorySet>) answer.getObjects().get(0);
     }
 
@@ -77,7 +77,7 @@ public class AllProductsController extends Filterable {
         Message message = new Message("getProductsToShow");
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (ArrayList<Product>) answer.getObjects().get(0);
     }
 
@@ -89,7 +89,7 @@ public class AllProductsController extends Filterable {
         message.addToObjects(id);
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -102,7 +102,7 @@ public class AllProductsController extends Filterable {
         Message message = new Message("getAdvertisement");
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (ArrayList<Advertisement>) answer.getObjects().get(0);
     }
 
@@ -112,7 +112,7 @@ public class AllProductsController extends Filterable {
         Message message = new Message("disableCategoryFields");
         client.writeMessage(message);
         client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
     }
 
     @Override

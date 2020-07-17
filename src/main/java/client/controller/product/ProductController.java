@@ -46,7 +46,7 @@ public class ProductController {
         message.addToObjects(sellerId);
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -69,7 +69,7 @@ public class ProductController {
         message.addToObjects(currentProduct.getId());
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -83,7 +83,7 @@ public class ProductController {
         message.addToObjects(content);
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -96,7 +96,7 @@ public class ProductController {
         message.addToObjects(product.getId());
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -110,7 +110,7 @@ public class ProductController {
         message.addToObjects(content);
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -123,7 +123,7 @@ public class ProductController {
         message.addToObjects(othersIds);
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -136,7 +136,7 @@ public class ProductController {
         message.addToObjects(currentProduct.getId());
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (ArrayList<Seller>) answer.getObjects().get(0);
     }
 

@@ -19,7 +19,7 @@ public class ReceiptController {
         Message message = new Message("getProducts");
         message.addToObjects(receipt);
         client.writeMessage(message);
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (HashMap<Product, Integer>) client.readMessage().getObjects().get(0);
 
     }

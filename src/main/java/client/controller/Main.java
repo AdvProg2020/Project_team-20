@@ -56,7 +56,7 @@ public class Main {
         client.writeMessage(new Message("sendHasFirstManager"));
         Message answer = client.readMessage();
         boolean hasFirstManager  = (boolean) answer.getObjects().get(0);
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return hasFirstManager;
     }
 

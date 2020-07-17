@@ -20,7 +20,7 @@ public class AdvertisementController {
         message.addToObjects(advertisement.getSellerId());
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (Seller) answer.getObjects().get(0);
     }
 
@@ -30,7 +30,7 @@ public class AdvertisementController {
         message.addToObjects(advertisement.getProductId());
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (Product) answer.getObjects().get(0);
     }
 

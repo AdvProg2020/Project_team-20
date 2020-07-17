@@ -40,7 +40,7 @@ public class LoginController {
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
     }
 
     public AccountType login(String username, String password) throws Exception {
@@ -54,7 +54,7 @@ public class LoginController {
         }
         client.setAuthToken(answer.getAuthToken());
 
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
 
         Object object = answer.getObjects().get(0);
         GeneralAccount account = (GeneralAccount) answer.getObjects().get(1);

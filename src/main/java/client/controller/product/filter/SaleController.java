@@ -22,7 +22,7 @@ public class SaleController extends Filterable {
         Message message = new Message("getAllSales");
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (ArrayList<Sale>) answer.getObjects().get(0);
     }
 
@@ -32,7 +32,7 @@ public class SaleController extends Filterable {
         message.addToObjects(sale);
         client.writeMessage(message);
         Message answer = client.readMessage();
-        client.writeMessage(new Message("buy"));
+        client.disconnect();
         return (ArrayList<Product>) answer.getObjects().get(0);
     }
 

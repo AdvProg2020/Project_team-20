@@ -276,7 +276,6 @@ public class SellerController implements AccountController {
         client.writeMessage(new Message("logout"));
         mainController.logout();
         client.readMessage();
-        client.writeMessage(new Message("buy"));
         client.disconnect();
     }
 }

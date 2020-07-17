@@ -62,6 +62,7 @@ public class Client {
 
     public void disconnect() {
         try {
+            writeMessage(new Message("buy"));
             dataInputStream.close();
             dataOutputStream.close();
             socket.close();
