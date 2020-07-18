@@ -1,5 +1,6 @@
 package client.model.product;
 
+import client.model.account.Account;
 import client.model.account.Seller;
 import client.model.product.Field.Field;
 
@@ -66,5 +67,22 @@ public class FileProduct extends Product {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    @Override
+    public String toString() {
+        try {
+            Seller seller = (Seller) Account.getAccountWithUsername(sellersUsername.get(0));
+            String productString = "Name                : " + name + "\n" + "\n" +
+                    "RequestType         : Product" + "\n" + "\n" +
+                    "Seller              : " + seller.getName() + "\n" + "\n" +
+                    "Price               : " + priceWithName.get(seller.getUsername()) + "\n" + "\n" +
+                    "file type               : " + fileType;
+            if (state.equals(RequestableState.EDITED))
+                productString = "<Edited>\n" + productString;
+            return productString;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -23,24 +23,24 @@ import java.util.Set;
 public class Product implements Requestable {
     private static ArrayList<Product> allProducts = new ArrayList<>();
     private static int productCount = 1;
-    private String id;
-    private int views;
-    private String name;
+    protected String id;
+    protected int views;
+    protected String name;
     protected RequestableState state;
     protected ArrayList<Field> generalFields;
     protected ArrayList<String> sellersUsername;
-    private ArrayList<String> buyersUsername;
-    private ArrayList<String> categoriesName;
+    protected ArrayList<String> buyersUsername;
+    protected ArrayList<String> categoriesName;
     protected String description;
     protected HashMap<String, Double> priceWithName;
     private HashMap<String, Integer> countWithName;
-    private ArrayList<Score> scores;
-    private ArrayList<Comment> comments;
-    private double numberVisited;
-    private String imagePath;
+    protected ArrayList<Score> scores;
+    protected ArrayList<Comment> comments;
+    protected double numberVisited;
+    protected String imagePath;
     protected Product editedProduct;
-    private LocalDateTime addingDate;
-    private GraphicPackage graphicPackage;
+    protected LocalDateTime addingDate;
+    protected GraphicPackage graphicPackage;
     protected ProductType productType;
 
     public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
