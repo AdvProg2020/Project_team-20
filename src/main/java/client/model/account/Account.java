@@ -12,6 +12,7 @@ public abstract class Account extends GeneralAccount {
     protected String password;
     protected AccountType accountType;
     protected double credit;
+    protected NetworkState networkState;
     private String imagePath;
 
     public Account(String name, String lastName, String email, String phoneNumber, String username, String password,
@@ -25,6 +26,7 @@ public abstract class Account extends GeneralAccount {
         this.password = password;
         this.credit = credit;
         this.accountType = accountType;
+        this.networkState = NetworkState.OFFLINE;
     }
 
     public static ArrayList<Account> getAllAccounts() {
@@ -83,6 +85,10 @@ public abstract class Account extends GeneralAccount {
         return accountType;
     }
 
+    public NetworkState getNetworkState() {
+        return networkState;
+    }
+
     public void increaseCredit(double money) {
         credit += money;
     }
@@ -135,6 +141,10 @@ public abstract class Account extends GeneralAccount {
         this.password = password;
     }
 
+    public void setNetworkState(NetworkState networkState) {
+        this.networkState = networkState;
+    }
+
     public static Account getAccountWithUsername(String username) throws Exception {
         for (Account account : allAccounts) {
             if (account.getUsername().equals(username))
@@ -182,7 +192,8 @@ public abstract class Account extends GeneralAccount {
                         "username: " + username + '\n' + '\n' +
                         "password: " + password + '\n' + '\n' +
                         "accountType: " + accountType + '\n' + '\n' +
-                        "credit: " + credit;
+                        "credit: " + credit + '\n' + '\n' +
+                        "network state: " + networkState;
     }
 
     public static class AccountUnavailableException extends Exception {

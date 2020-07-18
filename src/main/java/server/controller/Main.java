@@ -98,16 +98,20 @@ public class Main {
     }
 
     public static void addToTokenHashMap(AuthToken token, GeneralAccount account) {
-        authTokenAccountHashMap.put(String.valueOf(token.getKey()), account);
+        try {
+            ((Account) account).setNetworkState(NetworkState.ONLINE);
+            authTokenAccountHashMap.put(String.valueOf(token.getKey()), account);
+        } catch (Exception e) {
+            authTokenAccountHashMap.put(String.valueOf(token.getKey()), account);
+        }
+
     }
 
     public static void removeFromTokenHashMap(AuthToken token, GeneralAccount account) {
+        ((Account) account).setNetworkState(NetworkState.OFFLINE);
         authTokenAccountHashMap.remove(String.valueOf(token.getKey()), account);
     }
 
-    public static void removeFromTokenHashMap(AuthToken token) {
-        authTokenAccountHashMap.remove(String.valueOf(token.getKey()));
-    }
 
     public static GeneralAccount getAccountWithToken(AuthToken token) {
         return authTokenAccountHashMap.get(String.valueOf(token.getKey()));
