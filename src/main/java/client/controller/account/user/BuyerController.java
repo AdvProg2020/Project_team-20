@@ -197,19 +197,5 @@ public class BuyerController implements AccountController {
         client.disconnect();
     }
 
-    //todo complete connect to supporter
-    public void connectToSupporter(String supporterUsername) throws Exception {
-        Supporter supporter = (Supporter) Account.getAccountWithUsername(supporterUsername);
-
-    }
-
-    public void sendMessageToSupporter(String message) {
-
-    }
-
-    public String showSupporterMessage() {
-
-        return "";
-    }
 
 }

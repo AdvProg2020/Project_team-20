@@ -399,19 +399,5 @@ public class BuyerController extends Server implements AccountController {
         return new Message("logout was successful");
     }
 
-    //todo complete connect to supporter
-    public void connectToSupporter(String supporterUsername) throws Exception {
-        Supporter supporter = (Supporter) Account.getAccountWithUsername(supporterUsername);
-
-    }
-
-    public void sendMessageToSupporter(String message) {
-
-    }
-
-    public String showSupporterMessage() {
-
-        return "";
-    }
 
 }

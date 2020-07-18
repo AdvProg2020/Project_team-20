@@ -2,6 +2,7 @@ package client.controller.chat;
 
 import client.controller.account.LoginController;
 import client.model.account.Account;
+import client.model.account.AccountType;
 import client.network.Client;
 import client.network.Message;
 import client.network.chat.ChatMessage;
@@ -52,9 +53,9 @@ public class ChatController {
         return (ArrayList<String>) answer.getObjects().get(0);
     }
 
-    public void writeNewMessage(String chatRoomId, String username, String contest) throws Exception {
+    public void writeNewMessage(String chatRoomId, String name, String contest, AccountType type) throws Exception {
         connect();
-        ChatMessage chatMessage = new ChatMessage(username, contest);
+        ChatMessage chatMessage = new ChatMessage(name, contest, type);
         Message message = new Message("writeNewMessage");
         message.addToObjects(chatRoomId);
         message.addToObjects(chatMessage);
