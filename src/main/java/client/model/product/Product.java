@@ -80,6 +80,10 @@ public class Product implements Requestable {
         return true;
     }
 
+    public boolean isSold(String sellerUsername) {
+        return countWithName.get(sellerUsername) == 0;
+    }
+
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
@@ -253,6 +257,12 @@ public class Product implements Requestable {
     public static class ProductUnavailableException extends Exception {
         public ProductUnavailableException() {
             super("product unavailable");
+        }
+    }
+
+    public static class ProductIsSoldException extends Exception {
+        public ProductIsSoldException(String name) {
+            super("product " + name + "is sold");
         }
     }
 

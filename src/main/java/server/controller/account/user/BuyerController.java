@@ -92,7 +92,7 @@ public class BuyerController extends Server implements AccountController {
         }
     }
 
-    public Message purchase(String address, String phoneNumber, String discountCode, AuthToken authToken) {
+    public synchronized Message purchase(String address, String phoneNumber, String discountCode, AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         receiveInformation(address, phoneNumber, currentBuyer);
@@ -195,19 +195,26 @@ public class BuyerController extends Server implements AccountController {
     }
 
     public Message getTotalPrice(AuthToken authToken) {
+        Message message = new Message("totalPrice");
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         double totalPrice = 0;
-        for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
-            Sale saleForProduct = getSaleForProduct(selectedProduct);
-            Seller seller = selectedProduct.getSeller();
-            if (saleForProduct != null && saleForProduct.validSaleTime())
-                totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount() *
-                        (1 - saleForProduct.getSalePercentage());
-            else
-                totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
+        try {
+            for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
+                if (selectedProduct.isSold())
+                    throw new Product.ProductIsSoldException(selectedProduct.getProduct().getName());
+                            Sale saleForProduct = getSaleForProduct(selectedProduct);
+                Seller seller = selectedProduct.getSeller();
+                if (saleForProduct != null && saleForProduct.validSaleTime())
+                    totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount() *
+                            (1 - saleForProduct.getSalePercentage());
+                else
+                    totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
+            }
+            message.addToObjects(totalPrice);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
         }
-        Message message = new Message("totalPrice");
-        message.addToObjects(totalPrice);
         return message;
     }
 

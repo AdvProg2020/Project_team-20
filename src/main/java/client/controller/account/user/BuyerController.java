@@ -92,6 +92,15 @@ public class BuyerController implements AccountController {
 
     public double getTotalPrice() {
         client.writeMessage(new Message("getTotalPrice"));
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            try {
+                throw (Exception) answer.getObjects().get(0);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
         return (double) client.readMessage().getObjects().get(0);
     }
 

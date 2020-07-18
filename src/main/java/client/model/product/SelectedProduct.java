@@ -36,4 +36,8 @@ public class SelectedProduct {
     public int getCount() {
         return count;
     }
+
+    public boolean isSold() {
+        return product.isSold(seller.getUsername());
+    }
 }
