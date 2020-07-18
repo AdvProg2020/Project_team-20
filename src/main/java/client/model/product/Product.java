@@ -1,6 +1,5 @@
 package client.model.product;
 
-import com.gilecode.yagson.YaGson;
 import client.model.GraphicPackage;
 import client.model.Requestable;
 import client.model.account.Account;
@@ -10,10 +9,15 @@ import client.model.product.Field.Field;
 import client.model.product.category.SubCategory;
 import client.model.product.comment.Comment;
 import client.model.product.comment.Score;
+import com.gilecode.yagson.YaGson;
+import com.oracle.tools.packager.IOUtils;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.Set;
 
 
 public class Product implements Requestable {
@@ -22,21 +26,22 @@ public class Product implements Requestable {
     private String id;
     private int views;
     private String name;
-    private RequestableState state;
-    private ArrayList<Field> generalFields;
-    private ArrayList<String> sellersUsername;
+    protected RequestableState state;
+    protected ArrayList<Field> generalFields;
+    protected ArrayList<String> sellersUsername;
     private ArrayList<String> buyersUsername;
     private ArrayList<String> categoriesName;
-    private String description;
-    private HashMap<String, Double> priceWithName;
+    protected String description;
+    protected HashMap<String, Double> priceWithName;
     private HashMap<String, Integer> countWithName;
     private ArrayList<Score> scores;
     private ArrayList<Comment> comments;
     private double numberVisited;
     private String imagePath;
-    private Product editedProduct;
+    protected Product editedProduct;
     private LocalDateTime addingDate;
     private GraphicPackage graphicPackage;
+    protected ProductType productType;
 
     public Product(ArrayList<Field> generalFields, Seller seller, String name, String description, int count,
                    double price) {
@@ -60,6 +65,7 @@ public class Product implements Requestable {
         this.addingDate = LocalDateTime.now();
         productCount++;
         this.graphicPackage = new GraphicPackage();
+        this.productType = ProductType.NONEFILE;
     }
 
     public Product(ArrayList<Field> generalFields, String description, int count, double price, Seller seller) {
@@ -70,6 +76,16 @@ public class Product implements Requestable {
         this.priceWithName = new HashMap<>();
         this.countWithName.put(seller.getUsername(), count);
         this.priceWithName.put(seller.getUsername(), price);
+        this.productType = ProductType.NONEFILE;
+    }
+
+    public Product(ArrayList<Field> generalFields, String description, double price, Seller seller) {
+        this.views = 0;
+        this.generalFields = generalFields;
+        this.description = description;
+        this.priceWithName = new HashMap<>();
+        this.priceWithName.put(seller.getUsername(), price);
+        this.productType = ProductType.FILE;
     }
 
     public boolean isSold() {
@@ -127,6 +143,16 @@ public class Product implements Requestable {
         } else
             throw new ProductIsUnderEditingException();
     }
+
+    public void changeStateEdited(ArrayList<Field> generalFields, String description,
+                                  double price, Seller seller, File file, String fileType) throws Exception {
+        if (editedProduct == null) {
+            editedProduct = new Product(generalFields, description, price, seller);
+            state = RequestableState.EDITED;
+        } else
+            throw new ProductIsUnderEditingException();
+    }
+
 
     public void edit() {
         Set<Seller> sellerSet = editedProduct.getCount().keySet();
@@ -390,7 +416,7 @@ public class Product implements Requestable {
         for (Score score : getScores()) {
             sum += score.getScore();
         }
-        if (getScores().size()==0)
+        if (getScores().size() == 0)
             return 0;
         return sum / getScores().size();
     }
@@ -487,20 +513,63 @@ public class Product implements Requestable {
 
     public static void store() {
         storeProducts();
+        storeFileProducts();
         storeNumberOfProducts();
     }
 
     public static void load() {
         loadProducts();
+        loadFileProducts();
         loadNumberOfProducts();
     }
 
-    public static void storeProducts() {
+    private static void storeFileProducts() {
+        YaGson yaGson = new YaGson();
+        File file = new File("src/main/resources/aboutProduct/fileProducts.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file, false);
+            for (Product product : allProducts) {
+                if (product instanceof FileProduct) {
+                    fileWriter.write(yaGson.toJson(product) + "\n");
+                    //TODO check
+                    File productFile = ((FileProduct) product).getFile();
+                    File storedFile = new File("src/main/resources/aboutProduct/file products/"
+                            + product.getId() + "." + ((FileProduct) product).getFileType());
+                    FileOutputStream fileOutputStream = new FileOutputStream(storedFile, false);
+                    fileOutputStream.write(IOUtils.readFully(productFile));
+                    fileOutputStream.close();
+                }
+            }
+            fileWriter.close();
+        } catch (IOException ignored) {
+        }
+    }
+
+    private static void loadFileProducts() {
+        YaGson yaGson = new YaGson();
+        try {
+            InputStream inputStream = new FileInputStream("src/main/resources/aboutProduct/fileProducts.txt");
+            Scanner fileScanner = new Scanner(inputStream);
+            while (fileScanner.hasNextLine()) {
+                FileProduct product = yaGson.fromJson(fileScanner.nextLine(), FileProduct.class);
+                //TODO check
+                File storedFile = new File("src/main/resources/aboutProduct/file products/"
+                        + product.getId() + "." + product.getFileType());
+                product.setFile(storedFile);
+                allProducts.add(product);
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
+    private static void storeProducts() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutProduct/products.txt");
         try {
             FileWriter fileWriter = new FileWriter(file, false);
             for (Product product : allProducts) {
+                if (product instanceof FileProduct)
+                    continue;
                 fileWriter.write(yaGson.toJson(product) + "\n");
             }
             fileWriter.close();
@@ -508,7 +577,7 @@ public class Product implements Requestable {
         }
     }
 
-    public static void loadProducts() {
+    private static void loadProducts() {
         YaGson yaGson = new YaGson();
         try {
             InputStream inputStream = new FileInputStream("src/main/resources/aboutProduct/products.txt");
@@ -521,7 +590,7 @@ public class Product implements Requestable {
         }
     }
 
-    public static void storeNumberOfProducts() {
+    private static void storeNumberOfProducts() {
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutProduct/numberOfProducts.txt");
         try {
@@ -532,7 +601,7 @@ public class Product implements Requestable {
         }
     }
 
-    public static void loadNumberOfProducts() {
+    private static void loadNumberOfProducts() {
         YaGson yaGson = new YaGson();
         try {
             InputStream inputStream = new FileInputStream("src/main/resources/aboutProduct/numberOfProducts.txt");
@@ -553,5 +622,9 @@ public class Product implements Requestable {
 
     public double getFirstPrice() {
         return getPrice(getSellerByUsername(sellersUsername.get(0)));
+    }
+
+    public ProductType getProductType() {
+        return productType;
     }
 }
