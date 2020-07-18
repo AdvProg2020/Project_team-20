@@ -13,6 +13,7 @@ import client.network.Client;
 import client.network.Message;
 import javafx.scene.image.Image;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -138,6 +139,20 @@ public class SellerController implements AccountController {
         message.addToObjects(path);
         client.writeMessage(message);
         client.readMessage();
+    }
+
+    public void createFileProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
+                                  HashMap<String, ArrayList<String>> optionalFields, String filePath) throws Exception {
+        Message message = new Message("createFileProduct");
+        message.addToObjects(details);
+        message.addToObjects(numericalFields);
+        message.addToObjects(optionalFields);
+        client.writeMessage(message);
+        client.writeFile(new File(filePath));
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void deleteProduct(String productId) throws Exception {
