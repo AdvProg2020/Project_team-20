@@ -12,8 +12,9 @@ public class FileProduct extends Product {
     private File file;
     private String fileType;
 
-    public FileProduct(ArrayList<Field> generalFields, String description, double price, Seller seller, File file, String fileType) {
-        super(generalFields, description, price, seller);
+    public FileProduct(ArrayList<Field> generalFields, String description, double price, Seller seller, File file,
+                       String fileType, String name) {
+        super(generalFields, description, price, seller, name);
         this.file = file;
         this.fileType = fileType;
         this.productType = ProductType.FILE;
@@ -33,7 +34,7 @@ public class FileProduct extends Product {
     public void changeStateEdited(ArrayList<Field> generalFields, String description, double price, Seller seller,
                                   File file, String fileType) throws Exception {
         if (editedProduct == null) {
-            editedProduct = new FileProduct(generalFields, description, price, seller, file, fileType);
+            editedProduct = new FileProduct(generalFields, description, price, seller, file, fileType, this.name);
             editedProduct.state = RequestableState.EDITED;
         } else
             throw new ProductIsUnderEditingException();
@@ -77,7 +78,8 @@ public class FileProduct extends Product {
                     "RequestType         : Product" + "\n" + "\n" +
                     "Seller              : " + seller.getName() + "\n" + "\n" +
                     "Price               : " + priceWithName.get(seller.getUsername()) + "\n" + "\n" +
-                    "file type               : " + fileType;
+                    "product type        : " + productType + "\n" + "\n" +
+                    "file type           : " + fileType;
             if (state.equals(RequestableState.EDITED))
                 productString = "<Edited>\n" + productString;
             return productString;

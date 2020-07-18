@@ -3,21 +3,20 @@ package server.controller.account.user;
 import client.model.account.Account;
 import client.model.account.Manager;
 import client.model.account.Seller;
-import client.model.product.AddSellerRequest;
-import client.model.product.Advertisement;
+import client.model.product.*;
 import client.model.product.Field.Field;
 import client.model.product.Field.FieldType;
 import client.model.product.Field.NumericalField;
 import client.model.product.Field.OptionalField;
-import client.model.product.Product;
-import client.model.product.Sale;
 import client.model.product.category.SubCategory;
 import client.network.AuthToken;
+import client.network.Client;
 import client.network.Message;
 import javafx.scene.image.Image;
 import server.controller.Main;
 import server.network.server.Server;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -202,6 +201,29 @@ public class SellerController extends Server implements AccountController {
             Product product = new Product(fields, seller, name, description, count, price);
             product.setImagePath(path);
             Manager.addRequest(product);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    public Message createFileProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
+                                 HashMap<String, ArrayList<String>> optionalFields, AuthToken authToken) {
+        Message message = new Message("createFileProduct");
+        try {
+            Client client = getClientWithToken(authToken);
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            String name = details.get(0), description = details.get(1);
+            String fileType = details.get(2);
+            //TODO check for read (connect to client)
+            File file = client.readFile(name, fileType);
+            double price = Double.parseDouble(details.get(3));
+            ArrayList<Field> fields = new ArrayList<>();
+            fields.addAll(createNumericalFields(numericalFields));
+            fields.addAll(createOptionalFields(optionalFields));
+            FileProduct fileProduct = new FileProduct(fields, description, price, seller, file, fileType, name);
+            Manager.addRequest(fileProduct);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -397,6 +419,7 @@ public class SellerController extends Server implements AccountController {
         methods.add("editFields");
         methods.add("addToProduct");
         methods.add("createProduct");
+        methods.add("createFileProduct");
         methods.add("deleteProduct");
         methods.add("showCategories");
         methods.add("viewOffs");

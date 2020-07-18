@@ -1,5 +1,6 @@
 package server.network.server;
 
+import client.network.AuthToken;
 import client.network.Client;
 import client.network.Message;
 import server.controller.Main;
@@ -89,6 +90,14 @@ public abstract class Server {
         throw new InvalidCommand();
     }
 
+    protected Client getClientWithToken(AuthToken authToken) throws InvalidToken {
+        for (Client client : clients) {
+            if (client.getAuthToken().getKey() == authToken.getKey())
+                return client;
+        }
+        throw new InvalidToken();
+    }
+
 
     private Method getMethodByName(String name) {
         Class clazz = this.getClass();
@@ -100,6 +109,12 @@ public abstract class Server {
     public static class InvalidCommand extends Exception {
         public InvalidCommand() {
             super("invalid command");
+        }
+    }
+
+    public static class InvalidToken extends Exception {
+        public InvalidToken() {
+            super("token is invalid");
         }
     }
 

@@ -21,7 +21,7 @@ import java.util.Set;
 
 
 public class Product implements Requestable {
-    private static ArrayList<Product> allProducts = new ArrayList<>();
+    private static final ArrayList<Product> allProducts = new ArrayList<>();
     private static int productCount = 1;
     protected String id;
     protected int views;
@@ -79,11 +79,24 @@ public class Product implements Requestable {
         this.productType = ProductType.NONEFILE;
     }
 
-    public Product(ArrayList<Field> generalFields, String description, double price, Seller seller) {
+    public Product(ArrayList<Field> generalFields, String description, double price, Seller seller, String name) {
+        this.name = name;
+        id = Integer.toString(productCount);
+        state = RequestableState.CREATED;
+        productCount += 1;
+        this.numberVisited = 0;
         this.views = 0;
         this.generalFields = generalFields;
         this.description = description;
+        this.sellersUsername = new ArrayList<>();
+        this.sellersUsername.add(seller.getUsername());
+        this.buyersUsername = new ArrayList<>();
+        this.categoriesName = new ArrayList<>();
         this.priceWithName = new HashMap<>();
+        this.comments = new ArrayList<>();
+        this.scores = new ArrayList<>();
+        this.graphicPackage = new GraphicPackage();
+        this.addingDate = LocalDateTime.now();
         this.priceWithName.put(seller.getUsername(), price);
         this.productType = ProductType.FILE;
     }
@@ -146,11 +159,6 @@ public class Product implements Requestable {
 
     public void changeStateEdited(ArrayList<Field> generalFields, String description,
                                   double price, Seller seller, File file, String fileType) throws Exception {
-        if (editedProduct == null) {
-            editedProduct = new Product(generalFields, description, price, seller);
-            state = RequestableState.EDITED;
-        } else
-            throw new ProductIsUnderEditingException();
     }
 
 
@@ -470,6 +478,7 @@ public class Product implements Requestable {
                     "RequestType         : Product" + "\n" + "\n" +
                     "Seller              : " + seller.getName() + "\n" + "\n" +
                     "Price               : " + priceWithName.get(seller.getUsername()) + "\n" + "\n" +
+                    "product type        : " + productType + "\n" + "\n" +
                     "Count               : " + countWithName.get(seller.getUsername());
             if (state.equals(RequestableState.EDITED))
                 productString = "<Edited>\n" + productString;
@@ -537,6 +546,7 @@ public class Product implements Requestable {
                             + product.getId() + "." + ((FileProduct) product).getFileType());
                     FileOutputStream fileOutputStream = new FileOutputStream(storedFile, false);
                     fileOutputStream.write(IOUtils.readFully(productFile));
+                    fileOutputStream.flush();
                     fileOutputStream.close();
                 }
             }
