@@ -2,6 +2,7 @@ package client.network;
 
 import client.model.account.Account;
 import com.gilecode.yagson.YaGson;
+import com.oracle.tools.packager.IOUtils;
 
 import java.io.*;
 import java.net.Socket;
@@ -69,6 +70,41 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public File readFile(String name, String fileType) {
+        File deliveredFile = new File("src/main/resources/files/"
+                + name + "." + fileType);
+        int bytesRead;
+        int current = 0;
+        try {
+            byte[] byteArray = new byte[999999999];
+            bytesRead = dataInputStream.read(byteArray, 0, byteArray.length);
+            current = bytesRead;
+            do {
+                bytesRead = dataInputStream.read(byteArray, current, (byteArray.length - current));
+                if (bytesRead >= 0) current += bytesRead;
+            } while (bytesRead > -1);
+            FileOutputStream fileOutputStream = new FileOutputStream(deliveredFile, false);
+            dataInputStream.readByte();
+            fileOutputStream.write(byteArray);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return deliveredFile;
+    }
+
+    public void writeFile(File file) {
+        try {
+            byte[] myByteArray = IOUtils.readFully(file);
+            dataOutputStream.write(myByteArray, 0, myByteArray.length);
+            dataOutputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Done.");
     }
 
 
