@@ -122,7 +122,8 @@ public class Buyer extends Account implements Requestable {
                 "Email: " + email + "\n" + "\n" +
                 "Address: " + address + "\n" + "\n" +
                 "Credit: " + credit + "\n" + "\n" +
-                "Phone numbers: " + phoneNumber + "\n" + "\n";
+                "Phone numbers: " + phoneNumber + "\n" + "\n" +
+                "network state: " + networkState;
         return buyerString;
     }
 
@@ -148,6 +149,7 @@ public class Buyer extends Account implements Requestable {
             Scanner fileScanner = new Scanner(inputStream);
             while (fileScanner.hasNextLine()) {
                 Buyer buyer = yaGson.fromJson(fileScanner.nextLine(), Buyer.class);
+                buyer.setNetworkState(NetworkState.OFFLINE);
                 allAccounts.add(buyer);
             }
         } catch (Exception ignored) {

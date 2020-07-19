@@ -54,6 +54,7 @@ public class Supporter extends Account{
             Scanner fileScanner = new Scanner(inputStream);
             while (fileScanner.hasNextLine()) {
                 Supporter supporter = yaGson.fromJson(fileScanner.nextLine(), Supporter.class);
+                supporter.setNetworkState(NetworkState.OFFLINE);
                 allAccounts.add(supporter);
             }
         } catch (Exception ignored) {

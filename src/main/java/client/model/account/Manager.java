@@ -114,7 +114,9 @@ public class Manager extends Account {
             String managerStr;
             while (fileScanner.hasNextLine()) {
                 managerStr = fileScanner.nextLine();
-                allAccounts.add(yaGson.fromJson(managerStr, Manager.class));
+                Manager manager = yaGson.fromJson(managerStr, Manager.class);
+                manager.setNetworkState(NetworkState.OFFLINE);
+                allAccounts.add(manager);
             }
             fileScanner.close();
         } catch (IOException ignored) {

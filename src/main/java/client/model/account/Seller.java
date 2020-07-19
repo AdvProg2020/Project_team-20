@@ -185,7 +185,9 @@ public class Seller extends Account implements Requestable {
         sellerString += "Username: " + username + "\n" + "\n" +
                 "Email: " + email + "\n" + "\n" +
                 "Credit: " + credit + "\n" + "\n" +
-                "Phone number: " + phoneNumber + "\n" + "\n";
+                "Phone number: " + phoneNumber + "\n" + "\n" +
+                "network state: " + networkState;
+        ;
         if (state.equals(RequestableState.EDITED)) {
             sellerString += "Edited Fields:\n" + "\n";
             sellerString += "Name: " + editedSeller.getName() + "\n" + "\n" +
@@ -220,6 +222,7 @@ public class Seller extends Account implements Requestable {
             Scanner fileScanner = new Scanner(inputStream);
             while (fileScanner.hasNextLine()) {
                 Seller seller = yaGson.fromJson(fileScanner.nextLine(), Seller.class);
+                seller.setNetworkState(NetworkState.OFFLINE);
                 allAccounts.add(seller);
             }
         } catch (Exception ignored) {
