@@ -82,6 +82,9 @@ public class SupporterController extends Server implements AccountController {
     public Message logout(AuthToken authToken) {
         Supporter currentSupporter = (Supporter) Main.getAccountWithToken(authToken);
         Main.removeFromTokenHashMap(authToken, currentSupporter);
+        for (SupporterChatRoom chatRoom : currentSupporter.getChatRooms()) {
+            removeChatRoom(chatRoom.getId(), authToken);
+        }
         return new Message("logout was successful");
     }
 
@@ -103,6 +106,7 @@ public class SupporterController extends Server implements AccountController {
         try {
             SupporterChatRoom supporterChatRoom =  SupporterChatRoom.getChatRoom(chatRoomId);
             currentSupporter.removeFromChatRooms(supporterChatRoom);
+            SupporterChatRoom.removeChatRoom(supporterChatRoom);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);

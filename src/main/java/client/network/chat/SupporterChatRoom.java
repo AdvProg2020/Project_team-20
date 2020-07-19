@@ -27,6 +27,10 @@ public class SupporterChatRoom {
         SUPPORTER_CHAT_ROOMS.add(this);
     }
 
+    public static void removeChatRoom(SupporterChatRoom supporterChatRoom) {
+        SUPPORTER_CHAT_ROOMS.remove(supporterChatRoom);
+    }
+
     public boolean isBusy() {
         return busy;
     }
