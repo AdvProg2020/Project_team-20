@@ -1,15 +1,37 @@
 package client.model.account;
 
+import client.network.chat.SupporterChatRoom;
 import com.gilecode.yagson.YaGson;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Supporter extends Account{
+    private final ArrayList<SupporterChatRoom> chatRooms;
+
     public Supporter(String name, String lastName, String email,
                      String phoneNumber, String username, String password, AccountType accountType) {
         super(name, lastName, email, phoneNumber, username, password, 0, accountType);
+        this.chatRooms = new ArrayList<>();
     }
+
+    public ArrayList<SupporterChatRoom> getChatRooms() {
+        return chatRooms;
+    }
+
+    public void addToChatRooms(SupporterChatRoom supporterChatRoom) {
+        chatRooms.add(supporterChatRoom);
+    }
+
+    public void removeFromChatRooms(SupporterChatRoom supporterChatRoom) {
+        for (SupporterChatRoom chatRoom : chatRooms) {
+            if (chatRoom.getId().equals(supporterChatRoom.getId()))
+                supporterChatRoom = chatRoom;
+        }
+        chatRooms.remove(supporterChatRoom);
+    }
+
 
     public static void store() {
         YaGson yaGson = new YaGson();
