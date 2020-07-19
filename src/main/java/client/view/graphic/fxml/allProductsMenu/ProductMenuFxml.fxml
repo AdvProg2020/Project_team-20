@@ -81,7 +81,7 @@
             <Font size="11.0" />
          </font>
       </JFXButton>
-      <JFXTextField focusColor="#5fccd0" layoutX="566.0" layoutY="378.0" text="Comments" unFocusColor="#575957" />
+      <JFXTextField focusColor="#5fccd0" layoutX="566.0" layoutY="376.0" text="Comments" unFocusColor="#575957" />
       <ScrollPane layoutX="758.0" layoutY="390.0" prefHeight="81.0" prefWidth="180.0" style="-fx-background-color: transparent;">
          <content>
             <VBox fx:id="allRepliesBox" opacity="0.0" prefHeight="78.0" prefWidth="158.0" />

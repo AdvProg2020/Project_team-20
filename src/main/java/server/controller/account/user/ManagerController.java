@@ -4,6 +4,7 @@ import client.model.Requestable;
 import client.model.account.Account;
 import client.model.account.Buyer;
 import client.model.account.Manager;
+import client.model.account.Supporter;
 import client.model.product.Discount;
 import client.model.product.Product;
 import client.model.product.RequestableState;
@@ -92,6 +93,18 @@ public class ManagerController extends Server implements AccountController {
         }
         Account.addAccount(new Manager(name, lastName, email, phoneNumber, userName, password, credit,
                 false));
+        return message;
+    }
+
+    public Message createSupporterProfile(String name, String lastName, String email, String phoneNumber,
+                                        String userName, String password, AuthToken authToken) {
+        Message message = new Message("supporter created");
+        if (Account.hasThisAccount(userName)) {
+            message = new Message("Error");
+            message.addToObjects(new LoginController.AccountIsAvailableException());
+            return message;
+        }
+        Account.addAccount(new Supporter(name, lastName, email, phoneNumber, userName, password));
         return message;
     }
 
@@ -531,6 +544,7 @@ public class ManagerController extends Server implements AccountController {
         methods.add("setProfileImage");
         methods.add("changeMainImage");
         methods.add("logout");
+        methods.add("createSupporterProfile");
     }
 
     public static class fieldIsInvalidException extends Exception {

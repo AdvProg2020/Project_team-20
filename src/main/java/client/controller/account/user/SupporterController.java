@@ -26,7 +26,7 @@ public class SupporterController implements AccountController {
         this.buyers = new ArrayList<>();
     }
 
-    public SupporterController getInstance() {
+    public static SupporterController getInstance() {
         if (supporterController == null)
             supporterController = new SupporterController();
         currentSupporter = (Supporter) MainController.getInstance().getAccount();

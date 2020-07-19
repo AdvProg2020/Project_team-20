@@ -122,7 +122,14 @@ public class LoginController extends Server {
             Main.addToTokenHashMap(message.getAuthToken(), account);
             return message;
         }
-        message.addToObjects(AccountType.SELLER);
+        else if (account instanceof Seller) {
+            message.addToObjects(AccountType.SELLER);
+            message.addToObjects(account);
+            message.setAuth(AuthToken.generateAuth(account.getUsername()));
+            Main.addToTokenHashMap(message.getAuthToken(), account);
+            return message;
+        }
+        message.addToObjects(AccountType.SUPPORTER);
         message.addToObjects(account);
         message.setAuth(AuthToken.generateAuth(account.getUsername()));
         Main.addToTokenHashMap(message.getAuthToken(), account);

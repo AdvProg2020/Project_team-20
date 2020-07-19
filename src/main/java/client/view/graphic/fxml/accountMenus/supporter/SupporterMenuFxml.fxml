@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="666.0" prefWidth="994.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.accountMenus.supporter.SupporterMenuFxml">
+   <left>
+      <VBox prefWidth="204.0" style="-fx-background-color: #2a3030;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXTextField promptText="Search">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <ScrollPane prefHeight="265.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
+               <content>
+                  <VBox fx:id="chats" prefHeight="325.0" prefWidth="186.0" style="-fx-background-color: #333b3d;" />
+               </content>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </ScrollPane>
+            <VBox prefHeight="119.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
+               <children>
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Add chatroom" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Log out" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleExit" prefHeight="40.0" prefWidth="367.0" text="Exit" textFill="#d8f9ff" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <top>
+      <HBox prefHeight="170.0" prefWidth="994.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="115.0" prefWidth="1004.0" style="-fx-background-color: #B2FCFF;">
+               <children>
+                  <Pane layoutY="114.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="57.0" prefWidth="204.0" style="-fx-background-color: #2a3030;" />
+                  <Circle fill="#ffbf71" layoutX="102.0" layoutY="86.0" radius="72.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                  <ImageView fx:id="profileImg" fitHeight="144.0" fitWidth="144.0" layoutX="30.0" layoutY="14.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../resources/Images/ProfileImg.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#ff826f" layoutX="204.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Supporter!" wrappingWidth="323.2060546875">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#ee6755" layoutX="210.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Support us we need you!" />
+                  <ImageView fitHeight="27.0" fitWidth="121.0" layoutX="859.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../resources/Images/erpShopTxt.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <VBox prefHeight="200.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>

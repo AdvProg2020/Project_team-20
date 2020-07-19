@@ -92,6 +92,22 @@ public class ManagerController implements client.controller.account.user.Account
         }
     }
 
+    public void createSupporterProfile(String name, String lastName, String email, String phoneNumber,
+                                     String userName, String password) throws Exception {
+        Message message = new Message("createSupporterProfile");
+        message.addToObjects(name);
+        message.addToObjects(lastName);
+        message.addToObjects(email);
+        message.addToObjects(phoneNumber);
+        message.addToObjects(userName);
+        message.addToObjects(password);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+    }
+
     public ArrayList<Product> manageAllProducts() {
         client.writeMessage(new Message("manageAllProducts"));
         // todo check for arraylist

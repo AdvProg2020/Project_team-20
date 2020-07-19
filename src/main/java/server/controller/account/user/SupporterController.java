@@ -139,5 +139,6 @@ public class SupporterController extends Server implements AccountController {
         methods.add("prepareChatRoomForNewClient");
         methods.add("removeChatRoom");
         methods.add("getAllChatRooms");
+        methods.add("createChatRoom");
     }
 }

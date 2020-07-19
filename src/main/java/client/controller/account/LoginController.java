@@ -68,6 +68,9 @@ public class LoginController {
             BuyerController.getInstance().getCurrentBuyer().setCart(cart);
             return AccountType.BUYER;
         }
+        else if (object.equals(AccountType.SUPPORTER)) {
+            return AccountType.SUPPORTER;
+        }
         return AccountType.SELLER;
     }
 

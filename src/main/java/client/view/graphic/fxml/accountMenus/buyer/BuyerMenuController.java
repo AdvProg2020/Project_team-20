@@ -51,7 +51,6 @@ public class BuyerMenuController implements Initializable {
     public static void start(Stage stage) throws Exception {
         window = stage;
         Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/buyer/BuyerMenuFxml.fxml").toURI().toURL());
-        stage.setTitle("Sign up menu");
         stage.setScene(new Scene(root, 994, 666));
         stage.show();
         int randInt = ThreadLocalRandom.current().nextInt(0, 10);

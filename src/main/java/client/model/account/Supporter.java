@@ -11,8 +11,8 @@ public class Supporter extends Account{
     private final ArrayList<SupporterChatRoom> chatRooms;
 
     public Supporter(String name, String lastName, String email,
-                     String phoneNumber, String username, String password, AccountType accountType) {
-        super(name, lastName, email, phoneNumber, username, password, 0, accountType);
+                     String phoneNumber, String username, String password) {
+        super(name, lastName, email, phoneNumber, username, password, 0, AccountType.SUPPORTER);
         this.chatRooms = new ArrayList<>();
     }
 

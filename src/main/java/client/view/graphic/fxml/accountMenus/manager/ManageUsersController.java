@@ -35,8 +35,9 @@ public class ManageUsersController implements Initializable {
     public Button deleteUser;
     public JFXButton createManager;
     public Text title;
-    public Button managerText;
+    public JFXButton managerText;
     public Button signUpButton;
+    public String createState="Manager";
 
     private Account account;
     ManagerController managerController = ManagerController.getInstance();
@@ -92,12 +93,6 @@ public class ManageUsersController implements Initializable {
         title.setOpacity(0);
     }
 
-    public void enterMouse(MouseEvent mouseEvent) {
-    }
-
-    public void exitMouse(MouseEvent mouseEvent) {
-    }
-
     public void handleSignUp(ActionEvent actionEvent) throws Exception {
         String username = newUsername.getText(), name = newName.getText(), password = newPassword.getText(),
                 lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
@@ -112,8 +107,13 @@ public class ManageUsersController implements Initializable {
             return;
         }
         try {
-            managerController.createManagerProfile(name, lastName, email, phoneNumber, username, password, creditString);
-            new AlertController().create(AlertType.CONFIRMATION, "create manager was successful");
+            if (createState.equals("Manager")) {
+                managerController.createManagerProfile(name, lastName, email, phoneNumber, username, password, creditString);
+                new AlertController().create(AlertType.CONFIRMATION, "create manager was successful");
+            } else {
+                managerController.createSupporterProfile(name, lastName, email, phoneNumber, username, password);
+                new AlertController().create(AlertType.CONFIRMATION, "create supporter was successful");
+            }
             removeCreatePanel();
             showManageUsersPanel();
         } catch (Exception e) {
@@ -147,6 +147,16 @@ public class ManageUsersController implements Initializable {
             new AlertController().create(AlertType.CONFIRMATION, "delete user was successful");
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
+        }
+    }
+
+    public void changeCreateState(ActionEvent actionEvent) {
+        if (createState.equals("Manager")) {
+            createState = "Supporter";
+            managerText.setText("Supporter");
+        } else {
+            createState = "Manager";
+            managerText.setText("Manager");
         }
     }
 }

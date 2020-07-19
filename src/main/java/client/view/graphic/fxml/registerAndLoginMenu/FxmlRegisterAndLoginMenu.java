@@ -3,6 +3,8 @@ package client.view.graphic.fxml.registerAndLoginMenu;
 import client.controller.Main;
 import client.controller.MediaController;
 import client.controller.account.LoginController;
+import client.controller.account.user.SupporterController;
+import client.view.graphic.fxml.accountMenus.supporter.SupporterMenuFxml;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -73,6 +75,10 @@ public class FxmlRegisterAndLoginMenu {
                     break;
                 case SELLER:
                     SellerMenuController.start(window);
+                    break;
+                case SUPPORTER:
+                    SupporterMenuFxml.start(window);
+                    break;
             }
             clear();
             new AlertController().create(AlertType.CONFIRMATION, "login was successful");
