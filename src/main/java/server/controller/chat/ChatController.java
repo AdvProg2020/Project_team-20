@@ -7,7 +7,7 @@ import client.model.account.TempAccount;
 import client.network.AuthToken;
 import client.network.Message;
 import client.network.chat.ChatMessage;
-import client.network.chat.ChatRoom;
+import client.network.chat.SupporterChatRoom;
 import server.controller.Main;
 import server.network.server.Server;
 
@@ -34,12 +34,12 @@ public class ChatController extends Server {
         return answer;
     }
 
-    public Message getBuyers(String chatRoomId, AuthToken authToken) {
+    public Message getBuyer(String chatRoomId, AuthToken authToken) {
         Message message = new Message("getBuyersUsernames");
         try {
             Buyer buyer = (Buyer) Main.getAccountWithToken(authToken);
-            ChatRoom chatRoom = ChatRoom.getChatRoom(chatRoomId);
-            message.addToObjects(chatRoom.getBuyers());
+            SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatRoomId);
+            message.addToObjects(supporterChatRoom.getBuyer());
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -51,8 +51,8 @@ public class ChatController extends Server {
         Message message = new Message("writeNewMessage");
         try {
             Buyer buyer = (Buyer) Main.getAccountWithToken(authToken);
-            ChatRoom chatRoom = ChatRoom.getChatRoom(chatRoomId);
-            chatRoom.addToChatMessages(chatMessage);
+            SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatRoomId);
+            supporterChatRoom.addToChatMessages(chatMessage);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -63,8 +63,8 @@ public class ChatController extends Server {
     public Message getAllMessages(String chatRoomId, AuthToken authToken) {
         Message message = new Message("getAllMessages");
         try {
-            ChatRoom chatRoom = ChatRoom.getChatRoom(chatRoomId);
-            message.addToObjects(chatRoom.getChatMessages());
+            SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatRoomId);
+            message.addToObjects(supporterChatRoom.getChatMessages());
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -74,7 +74,7 @@ public class ChatController extends Server {
 
     public Message getAllChatRooms(AuthToken authToken) {
         Message message = new Message("getAllChatRooms");
-        message.addToObjects(ChatRoom.getChatRooms());
+        message.addToObjects(SupporterChatRoom.getSupporterChatRooms());
         return message;
     }
 
@@ -82,9 +82,12 @@ public class ChatController extends Server {
         Message message = new Message("account added to chatroom");
         GeneralAccount generalAccount = Main.getAccountWithToken(authToken);
         try {
-            ChatRoom chatRoom = ChatRoom.getChatRoom(chatRoomId);
+            SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatRoomId);
+            if (supporterChatRoom.isBusy())
+                throw new SupporterChatRoom.ChatRoomIsBusy();
             if (generalAccount instanceof Buyer) {
-            chatRoom.addToBuyers((Buyer) generalAccount);
+                supporterChatRoom.prepareToAcceptNewBuyer();
+            supporterChatRoom.setBuyer((Buyer) generalAccount);
             } else {
                 message = new Message("Error");
                 message.addToObjects(new Account.AccountIsNotBuyerException());
@@ -100,7 +103,7 @@ public class ChatController extends Server {
     protected void setMethods() {
         methods.add("getAllMessages");
         methods.add("writeNewMessage");
-        methods.add("getBuyers");
+        methods.add("getBuyer");
         methods.add("connectWithTempAccount");
         methods.add("getAllChatRooms");
         methods.add("addToChatRoom");

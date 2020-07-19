@@ -4,7 +4,7 @@ import client.model.account.Account;
 import client.model.account.Supporter;
 import client.network.AuthToken;
 import client.network.Message;
-import client.network.chat.ChatRoom;
+import client.network.chat.SupporterChatRoom;
 import javafx.scene.image.Image;
 import server.controller.Main;
 import server.network.server.Server;
@@ -85,18 +85,49 @@ public class SupporterController extends Server implements AccountController {
         return new Message("logout was successful");
     }
 
-    public Message connectToChat(String username) {
-        Message message = new Message("connectToChat");
+    public synchronized Message createChatRoom(String username, AuthToken authToken) {
+        Message message = new Message("createChatRoom");
         try {
             Supporter supporter = Account.getSupporterWithUsername(username);
-            new ChatRoom(supporter);
+            new SupporterChatRoom(supporter);
         } catch (Exception e) {
-            message = new Message("buy");
+            message = new Message("Error");
             message.addToObjects(e);
         }
         return message;
     }
 
+    public Message removeChatRoom(String chatRoomId, AuthToken authToken) {
+        Supporter currentSupporter = (Supporter) Main.getAccountWithToken(authToken);
+        Message message = new Message("removeChatRoom");
+        try {
+            SupporterChatRoom supporterChatRoom =  SupporterChatRoom.getChatRoom(chatRoomId);
+            currentSupporter.removeFromChatRooms(supporterChatRoom);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    public Message getAllChatRooms(AuthToken authToken) {
+        Supporter currentSupporter = (Supporter) Main.getAccountWithToken(authToken);
+        Message message = new Message("getAllChatRooms");
+        message.addToObjects(currentSupporter.getChatRooms());
+        return message;
+    }
+
+    public Message prepareChatRoomForNewClient(String chatRoomId, AuthToken authToken) {
+        Message message = new Message("prepareChatRoomForNewClient");
+        try {
+            SupporterChatRoom supporterChatRoom =  SupporterChatRoom.getChatRoom(chatRoomId);
+            supporterChatRoom.prepareToAcceptNewBuyer();
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
 
     @Override
     protected void setMethods() {
@@ -105,6 +136,8 @@ public class SupporterController extends Server implements AccountController {
         methods.add("setProfileImage");
         methods.add("changeMainImage");
         methods.add("logout");
-        methods.add("connectToChat");
+        methods.add("prepareChatRoomForNewClient");
+        methods.add("removeChatRoom");
+        methods.add("getAllChatRooms");
     }
 }

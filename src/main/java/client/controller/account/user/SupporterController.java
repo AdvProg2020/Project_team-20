@@ -2,12 +2,13 @@ package client.controller.account.user;
 
 import client.controller.MainController;
 import client.controller.account.LoginController;
-import client.network.Client;
-import client.network.Message;
-import javafx.scene.image.Image;
 import client.model.account.Account;
 import client.model.account.Buyer;
 import client.model.account.Supporter;
+import client.network.Client;
+import client.network.Message;
+import client.network.chat.SupporterChatRoom;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
@@ -79,9 +80,36 @@ public class SupporterController implements AccountController {
         client.disconnect();
     }
 
-    public void connectToChat() throws Exception {
-        Message message = new Message("connectToChat");
+    public void createChatRoom() throws Exception {
+        Message message = new Message("createChatRoom");
         message.addToObjects(currentSupporter.getUsername());
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+    }
+
+    public void removeChatRoom(String chatRoomId) throws Exception {
+        Message message = new Message("removeChatRoom");
+        message.addToObjects(chatRoomId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+    }
+
+    public ArrayList<SupporterChatRoom> getAllChatRooms() {
+        Message message = new Message("getAllChatRooms");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (ArrayList<SupporterChatRoom>) answer.getObjects().get(0);
+    }
+
+    public void prepareChatRoomForNewClient(String chatRoomId) throws Exception{
+        Message message = new Message("prepareChatRoomForNewClient");
+        message.addToObjects(chatRoomId);
         client.writeMessage(message);
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {
