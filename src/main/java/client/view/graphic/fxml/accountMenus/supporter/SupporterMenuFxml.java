@@ -2,10 +2,8 @@ package client.view.graphic.fxml.accountMenus.supporter;
 
 import client.controller.MediaController;
 import client.controller.account.user.SupporterController;
-import client.model.account.Supporter;
 import client.network.chat.SupporterChatRoom;
 import client.view.graphic.ProgramApplication;
-import client.view.graphic.popUp.PopUpControllerFxml;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +23,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class SupporterMenuFxml implements Initializable {
     private static Stage window;
@@ -33,12 +30,16 @@ public class SupporterMenuFxml implements Initializable {
     public ImageView profileImg;
     public VBox chats;
     private SupporterController supporterController = SupporterController.getInstance();
+    private ArrayList<JFXButton> buttons;
+    private ArrayList<Separator> separators;
 
     MediaController mediaController = ProgramApplication.getMediaController();
 
     {
         mediaController.stop();
         mediaController.buyerMenu();
+        buttons = new ArrayList<>();
+        separators = new ArrayList<>();
     }
 
     public static void start(Stage stage) throws Exception {
@@ -54,11 +55,14 @@ public class SupporterMenuFxml implements Initializable {
     }
 
     public void updateChats() {
-        chats.getChildren().removeAll();
+        chats.getChildren().removeAll(buttons);
+        chats.getChildren().removeAll(separators);
+        buttons = new ArrayList<>();
+        separators = new ArrayList<>();
         ArrayList<SupporterChatRoom> supporterChatRooms = supporterController.getAllChatRooms();
-        for (SupporterChatRoom supporterChatRoom:supporterChatRooms) {
+        for (SupporterChatRoom supporterChatRoom : supporterChatRooms) {
             JFXButton button = new JFXButton();
-            if (supporterChatRoom.getBuyer()!=null)
+            if (supporterChatRoom.getBuyer() != null)
                 button.setText(supporterChatRoom.getBuyer().getUsername());
             else
                 button.setText("No buyer");
@@ -72,11 +76,13 @@ public class SupporterMenuFxml implements Initializable {
             separator.setStyle("-fx-padding: 5px; -fx-border-insets: 5px; -fx-background-insets: 5px;");
             chats.getChildren().add(button);
             chats.getChildren().add(separator);
+            buttons.add(button);
+            separators.add(separator);
         }
     }
 
     public void goToChat(ActionEvent actionEvent) {
-        for (Node node:chats.getChildren())
+        for (Node node : chats.getChildren())
             if (node instanceof JFXButton)
                 ((JFXButton) node).setStyle("-fx-background-color: transparent;");
         JFXButton button = (JFXButton) actionEvent.getSource();
