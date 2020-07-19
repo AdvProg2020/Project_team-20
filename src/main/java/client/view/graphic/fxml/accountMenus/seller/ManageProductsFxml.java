@@ -1,7 +1,7 @@
 package client.view.graphic.fxml.accountMenus.seller;
 
 import client.controller.MediaController;
-import client.controller.account.user.SellerController;
+import client.controller.account.user.seller.SellerController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

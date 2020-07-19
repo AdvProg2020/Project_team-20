@@ -4,7 +4,7 @@ import client.controller.product.filter.SaleController;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import client.controller.MediaController;
-import client.controller.account.user.SellerController;
+import client.controller.account.user.seller.SellerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

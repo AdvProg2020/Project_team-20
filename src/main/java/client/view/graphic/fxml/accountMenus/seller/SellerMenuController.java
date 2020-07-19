@@ -1,7 +1,7 @@
 package client.view.graphic.fxml.accountMenus.seller;
 
 import client.controller.MediaController;
-import client.controller.account.user.SellerController;
+import client.controller.account.user.seller.SellerController;
 import client.model.account.Seller;
 import client.view.graphic.MenuNames;
 import client.view.graphic.ProgramApplication;

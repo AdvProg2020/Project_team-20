@@ -1,5 +1,5 @@
 import client.controller.MainController;
-import client.controller.account.user.SellerController;
+import client.controller.account.user.seller.SellerController;
 import mockit.Tested;
 import client.model.account.Buyer;
 import client.model.account.Seller;

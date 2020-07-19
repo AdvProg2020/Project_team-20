@@ -1,7 +1,8 @@
-package client.controller.account.user;
+package client.controller.account.user.seller;
 
 import client.controller.MainController;
 import client.controller.account.LoginController;
+import client.controller.account.user.AccountController;
 import client.model.account.Account;
 import client.model.account.Buyer;
 import client.model.account.Seller;
@@ -20,11 +21,15 @@ import java.util.HashMap;
 
 public class SellerController implements AccountController {
     private static SellerController sellerController = null;
-    private MainController mainController = MainController.getInstance();
+    private final MainController mainController = MainController.getInstance();
     private static Seller seller;
     private static Client client;
+    private SellerServer sellerServer;
 
     private SellerController() {
+        // for p2p
+        sellerServer = new SellerServer();
+        sellerServer.run();
     }
 
     public static SellerController getInstance() {

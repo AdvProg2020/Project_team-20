@@ -33,7 +33,7 @@
             </ScrollPane>
             <VBox prefHeight="119.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                <children>
-                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Add chatroom" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleAddChatRoom" prefHeight="40.0" prefWidth="367.0" text="Add chatroom" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Log out" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleExit" prefHeight="40.0" prefWidth="367.0" text="Exit" textFill="#d8f9ff" />
                </children>

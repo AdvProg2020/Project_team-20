@@ -1,7 +1,7 @@
 package client.view.graphic.fxml.accountMenus.seller;
 
 import client.controller.MediaController;
-import client.controller.account.user.SellerController;
+import client.controller.account.user.seller.SellerController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;

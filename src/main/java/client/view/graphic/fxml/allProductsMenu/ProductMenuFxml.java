@@ -2,7 +2,7 @@ package client.view.graphic.fxml.allProductsMenu;
 
 import client.controller.MainController;
 import client.controller.MediaController;
-import client.controller.account.user.SellerController;
+import client.controller.account.user.seller.SellerController;
 import client.controller.product.ProductController;
 import client.model.account.Seller;
 import client.model.product.Field.Field;

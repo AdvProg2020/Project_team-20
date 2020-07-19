@@ -2,7 +2,7 @@ package client.view.graphic.fxml.accountMenus.seller;
 
 import com.jfoenix.controls.JFXTextField;
 import client.controller.MediaController;
-import client.controller.account.user.SellerController;
+import client.controller.account.user.seller.SellerController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;

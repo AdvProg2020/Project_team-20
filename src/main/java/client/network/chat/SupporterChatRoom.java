@@ -17,10 +17,13 @@ public class SupporterChatRoom {
 
     public SupporterChatRoom(Supporter supporter) {
         chatRoomCount += 1;
+        System.out.println("chat room count " + chatRoomCount);
         this.id = String.valueOf(chatRoomCount);
+        System.out.println("id " + id);
         this.supporter = supporter;
         this.chatMessages = new ArrayList<>();
         this.busy = false;
+        supporter.addToChatRooms(this);
         SUPPORTER_CHAT_ROOMS.add(this);
     }
 

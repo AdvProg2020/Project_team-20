@@ -1,6 +1,6 @@
 package client.view.console.account;
 
-import client.controller.account.user.SellerController;
+import client.controller.account.user.seller.SellerController;
 import client.model.account.Account;
 import client.model.account.Buyer;
 import client.model.product.category.SubCategory;

@@ -3,7 +3,7 @@ package client.view.graphic.fxml.accountMenus;
 import client.controller.MediaController;
 import client.controller.account.user.BuyerController;
 import client.controller.account.user.ManagerController;
-import client.controller.account.user.SellerController;
+import client.controller.account.user.seller.SellerController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;

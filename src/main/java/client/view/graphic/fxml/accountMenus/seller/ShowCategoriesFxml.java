@@ -1,6 +1,6 @@
 package client.view.graphic.fxml.accountMenus.seller;
 
-import client.controller.account.user.SellerController;
+import client.controller.account.user.seller.SellerController;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
