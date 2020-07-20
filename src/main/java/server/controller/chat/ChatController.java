@@ -5,6 +5,7 @@ import client.model.account.Buyer;
 import client.model.account.GeneralAccount;
 import client.model.account.TempAccount;
 import client.network.AuthToken;
+import client.network.Client;
 import client.network.Message;
 import client.network.chat.ChatMessage;
 import client.network.chat.SupporterChatRoom;
@@ -53,11 +54,20 @@ public class ChatController extends Server {
             Buyer buyer = (Buyer) Main.getAccountWithToken(authToken);
             SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatRoomId);
             supporterChatRoom.addToChatMessages(chatMessage);
+            sendMessagesToClients(chatMessage);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
         }
         return message;
+    }
+
+    private synchronized void sendMessagesToClients(ChatMessage chatMessage) {
+        for (Client client : clients) {
+            Message message = new Message("new message");
+            message.addToObjects(chatMessage);
+            client.writeMessage(message);
+        }
     }
 
     public Message getAllMessages(String chatRoomId, AuthToken authToken) {
@@ -75,6 +85,9 @@ public class ChatController extends Server {
     public Message getAllChatRooms(AuthToken authToken) {
         Message message = new Message("getAllChatRooms");
         message.addToObjects(SupporterChatRoom.getSupporterChatRooms());
+        for (SupporterChatRoom supporterChatRoom : SupporterChatRoom.getSupporterChatRooms()) {
+            System.out.println(supporterChatRoom);
+        }
         return message;
     }
 

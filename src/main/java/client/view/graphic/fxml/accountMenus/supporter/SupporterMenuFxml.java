@@ -2,9 +2,14 @@ package client.view.graphic.fxml.accountMenus.supporter;
 
 import client.controller.MediaController;
 import client.controller.account.user.SupporterController;
+import client.controller.chat.ChatController;
+import client.model.account.AccountType;
+import client.network.chat.ChatMessage;
 import client.network.chat.SupporterChatRoom;
 import client.view.graphic.ProgramApplication;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+import com.sun.javaws.util.JfxHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,9 +34,16 @@ public class SupporterMenuFxml implements Initializable {
     public BorderPane borderPane;
     public ImageView profileImg;
     public VBox chats;
+    public VBox messages;
+    public JFXTextField newComment;
+    public JFXButton addCommentBtn;
     private SupporterController supporterController = SupporterController.getInstance();
     private ArrayList<JFXButton> buttons;
     private ArrayList<Separator> separators;
+    private ChatController chatController = ChatController.getInstance();
+    private String chatId;
+    private boolean threadStop = false;
+    private boolean updateThreadStarted = false;
 
     MediaController mediaController = ProgramApplication.getMediaController();
 
@@ -61,38 +73,91 @@ public class SupporterMenuFxml implements Initializable {
         separators = new ArrayList<>();
         ArrayList<SupporterChatRoom> supporterChatRooms = supporterController.getAllChatRooms();
         for (SupporterChatRoom supporterChatRoom : supporterChatRooms) {
-            JFXButton button = new JFXButton();
-            if (supporterChatRoom.getBuyer() != null)
-                button.setText(supporterChatRoom.getBuyer().getUsername());
-            else
-                button.setText("No buyer");
-            button.setId(supporterChatRoom.getId());
-            button.setTextFill(new Color(0.84375, 0.97265625, 0.99609375, 1));
-            button.setOnAction(this::goToChat);
-            button.setPrefWidth(367);
-            button.setPrefHeight(40);
-            Separator separator = new Separator();
-            separator.setOpacity(0.05);
-            separator.setStyle("-fx-padding: 5px; -fx-border-insets: 5px; -fx-background-insets: 5px;");
-            chats.getChildren().add(button);
-            chats.getChildren().add(separator);
-            buttons.add(button);
-            separators.add(separator);
+            if (supporterChatRoom.getBuyer()==null) {
+                JFXButton button = new JFXButton();
+                if (supporterChatRoom.getBuyer() != null)
+                    button.setText(supporterChatRoom.getBuyer().getUsername());
+                else
+                    button.setText("No buyer");
+                button.setId(supporterChatRoom.getId());
+                button.setTextFill(new Color(0.84375, 0.97265625, 0.99609375, 1));
+                button.setOnAction(this::goToChat);
+                button.setPrefWidth(367);
+                button.setPrefHeight(40);
+                Separator separator = new Separator();
+                separator.setOpacity(0.05);
+                separator.setStyle("-fx-padding: 5px; -fx-border-insets: 5px; -fx-background-insets: 5px;");
+                chats.getChildren().add(button);
+                chats.getChildren().add(separator);
+                buttons.add(button);
+                separators.add(separator);
+            }
         }
     }
 
     public void goToChat(ActionEvent actionEvent) {
+        JFXButton chat = (JFXButton) actionEvent.getSource();
+        chatId = chat.getId();
+        try {
+            if (chat.getText().equals("No buyer"))
+                return;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         for (Node node : chats.getChildren())
             if (node instanceof JFXButton)
                 ((JFXButton) node).setStyle("-fx-background-color: transparent;");
-        JFXButton button = (JFXButton) actionEvent.getSource();
-        button.setStyle("-fx-background-color: #525d5d;");
+        chat.setStyle("-fx-background-color: #525d5d;");
+        messages.setOpacity(1);
+        newComment.setOpacity(1);
+        addCommentBtn.setOpacity(1);
+        updateMessages();
+        if (!updateThreadStarted)
+            new Thread(this::update).start();
+        updateThreadStarted = true;
+    }
+
+    private void update() {
+        while (!threadStop) {
+            try {
+                System.out.println("UpdateSup");
+                Thread.sleep(3000);
+                updateChats();
+                updateMessages();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void updateMessages() {
+        try {
+            ArrayList<ChatMessage> chatMessages = chatController.getAllMessages(chatId);
+            for (ChatMessage chatMessage:chatMessages) {
+                JFXButton button = new JFXButton();
+                button.setTextFill(new Color(0.3632, 0.4118, 0.41406, 1));
+                button.setPrefWidth(278);
+                button.setPrefHeight(30);
+                if (chatMessage.getType().equals(AccountType.BUYER))
+                    button.setStyle("-fx-alignment: LEFT;");
+                else {
+                    button.setStyle("-fx-alignment: RIGHT;");
+                    button.setTextFill(new Color(0.42578, 0.69140625, 0.65625, 1));
+                }
+                button.setText(chatMessage.getContest());
+                messages.getChildren().add(button);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleLogout(ActionEvent actionEvent) {
+        threadStop = true;
     }
 
     public void handleExit(ActionEvent actionEvent) {
+        threadStop = true;
     }
 
     public void handleDragDropped(DragEvent event) {
@@ -105,6 +170,17 @@ public class SupporterMenuFxml implements Initializable {
         try {
             supporterController.createChatRoom();
             updateChats();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addComment(ActionEvent actionEvent) {
+        String context = newComment.getText();
+        try {
+            if (chatId==null||context.equals(""))
+                return;
+            chatController.writeNewMessage(chatId, supporterController.getAccountInfo().getUsername(), context, AccountType.SUPPORTER);
         } catch (Exception e) {
             e.printStackTrace();
         }

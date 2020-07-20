@@ -21,6 +21,7 @@ import server.controller.product.ProductController;
 import server.controller.product.ReceiptController;
 import server.controller.product.filter.AllProductsController;
 import server.controller.product.filter.SaleController;
+import server.network.server.DNS;
 
 import java.util.HashMap;
 
@@ -54,6 +55,7 @@ public class Main {
         new AdvertisementController(); // 696
         new ReceiptController(); // 500
         ChatController.getInstance(); //572
+        new DNS(); // 1673
         //TODO run all requierd servers
     }
 
