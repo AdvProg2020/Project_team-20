@@ -70,6 +70,9 @@ public class SupporterMenuFxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        supporterController.setSupporterChatRooms(supporterController.getAllChatRooms());
+        System.out.println(supporterController.getSupporterChatRooms());
+        //new Thread(supporterController::updateChatRooms);
         updateChats();
     }
 
@@ -78,10 +81,11 @@ public class SupporterMenuFxml implements Initializable {
         chats.getChildren().removeAll(separators);
         buttons = new ArrayList<>();
         separators = new ArrayList<>();
-        ArrayList<SupporterChatRoom> supporterChatRooms = supporterController.getAllChatRooms();
-        System.out.println("in update chats");
+        ArrayList<SupporterChatRoom> supporterChatRooms = supporterController.getSupporterChatRooms();
+        System.out.println("in update chats in menu");
         System.out.println(supporterChatRooms);
         for (SupporterChatRoom supporterChatRoom : supporterChatRooms) {
+            System.out.println(supporterChatRoom.getBuyer());
             if (supporterChatRoom.getBuyer()==null) {
                 JFXButton button = new JFXButton();
                 if (supporterChatRoom.getBuyer() != null)

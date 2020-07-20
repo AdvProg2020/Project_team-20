@@ -2,6 +2,7 @@ package server.controller;
 
 import client.model.account.*;
 import client.model.bank.BankReceipt;
+import client.network.Client;
 import server.HasFirstManager;
 import server.controller.account.LoginController;
 import server.controller.account.user.BuyerController;
@@ -22,12 +23,14 @@ import server.controller.product.ReceiptController;
 import server.controller.product.filter.AllProductsController;
 import server.controller.product.filter.SaleController;
 import server.network.server.DNS;
+import server.network.server.Server;
 
 import java.util.HashMap;
 
 public class Main {
     private static PreProcess preProcess = new PreProcess();
     private static HashMap<String, GeneralAccount> authTokenAccountHashMap = new HashMap<>();
+    private static HashMap<Account, Client> accountClientHashMap = new HashMap<>();
     private static boolean hasFirstManager = false;
 
     public static void main(String[] args) {
@@ -37,8 +40,6 @@ public class Main {
         PreProcess.AddPeriod();
         runServers();
     }
-
-
 
 
     private static void runServers() {
@@ -112,6 +113,19 @@ public class Main {
     public static void removeFromTokenHashMap(AuthToken token, GeneralAccount account) {
         ((Account) account).setNetworkState(NetworkState.OFFLINE);
         authTokenAccountHashMap.remove(String.valueOf(token.getKey()), account);
+    }
+
+    public static void addToClientHashMap(Client client, Account account) {
+        accountClientHashMap.put(account, client);
+    }
+
+    public static void removeFromClientHashMap(Client client, Account account) {
+       accountClientHashMap.remove(account, client);
+    }
+
+
+    public static Client getClientWithAccount(Account account) {
+        return accountClientHashMap.get(account);
     }
 
 

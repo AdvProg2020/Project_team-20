@@ -10,6 +10,7 @@ import client.network.Message;
 import client.network.chat.ChatMessage;
 import client.network.chat.SupporterChatRoom;
 import server.controller.Main;
+import server.controller.account.user.SupporterController;
 import server.network.server.Server;
 
 public class ChatController extends Server {
@@ -64,6 +65,7 @@ public class ChatController extends Server {
 
     private synchronized void sendMessagesToClients(ChatMessage chatMessage) {
         for (Client client : clients) {
+            System.out.println(client);
             Message message = new Message("new message");
             message.addToObjects(chatMessage);
             client.writeMessage(message);
@@ -102,6 +104,7 @@ public class ChatController extends Server {
             if (generalAccount instanceof Buyer) {
                 supporterChatRoom.prepareToAcceptNewBuyer();
             supporterChatRoom.setBuyer((Buyer) generalAccount);
+                SupporterController.getInstance().updateChatRooms(chatRoomId);
             } else {
                 message = new Message("Error");
                 message.addToObjects(new Account.AccountIsNotBuyerException());

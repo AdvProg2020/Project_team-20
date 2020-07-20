@@ -81,7 +81,7 @@ public class ChatController {
         message.addToObjects(chatRoomId);
         client.writeMessage(message);
         Message answer = client.readMessage();
-        chatMessages = new ArrayList<>();
+        chatMessages = getAllMessages(chatRoomId);
         new Thread(this::updateChatMessages).start();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);

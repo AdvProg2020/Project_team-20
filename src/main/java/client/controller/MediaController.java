@@ -17,7 +17,7 @@ public class MediaController {
     }
 
     public void mainTheme() {
-        try {
+        /*try {
             stop();
             String path = "src/main/resources/sound/McCoy-Tyner-Trio-When-Sunny-Gets-Blue_2889354 (2).mp3";
             if (isFirst)
@@ -28,6 +28,8 @@ public class MediaController {
                 Exception e) {
             e.printStackTrace();
         }
+
+         */
     }
 
     public void clickOnButton() {
@@ -44,40 +46,62 @@ public class MediaController {
     }
 
     public void registerAndLogin() {
+        /*
         stop();
         play("src/main/resources/sound/Sleep Away.mp3");
+
+         */
     }
 
     public void allProducts() {
+        /*
         stop();
         play("src/main/resources/sound/Ludovico-Einaudi-Una-Mattina-128.mp3");
+
+         */
     }
 
     public void productMenu() {
+        /*
         stop();
         play("src/main/resources/sound/81276965.mp3");
+
+         */
     }
 
     private void play(String path) {
+        /*
         this.media = new Media(new File(path).toURI().toString());
         this.mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
         mediaPlayer.setVolume(0.6);
         mediaPlayer.setAutoPlay(true);
+
+
+         */
     }
 
     public void buyerMenu() {
+        /*
         stop();
         play("src/main/resources/sound/Iday Vals (320).mp3");
+
+         */
     }
 
     public void managerMenu() {
+        /*
         stop();
         play("src/main/resources/sound/Lobster Soup.mp3");
+
+         */
     }
 
     public void sellerMenu() {
+        /*
         stop();
         play("src/main/resources/sound/04 Porz Goret.mp3");
+
+         */
     }
 }

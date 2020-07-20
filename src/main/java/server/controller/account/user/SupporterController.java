@@ -1,6 +1,7 @@
 package server.controller.account.user;
 
 import client.model.account.Account;
+import client.model.account.Manager;
 import client.model.account.Supporter;
 import client.network.AuthToken;
 import client.network.Client;
@@ -92,10 +93,15 @@ public class SupporterController extends Server implements AccountController {
     }
 
     public synchronized Message createChatRoom(String username, AuthToken authToken) {
-        Message message = new Message("createChatRoom");
+        for (Client client : clients) {
+            System.out.println(client);
+        }
+        Message message = new Message("createChatRoom server side");
         try {
             Supporter supporter = Account.getSupporterWithUsername(username);
-            new SupporterChatRoom(supporter);
+            SupporterChatRoom supporterChatRoom = new SupporterChatRoom(supporter);
+            new Thread(() -> updateChatRooms(supporterChatRoom.getId())).start();
+            //updateChatRooms(supporterChatRoom.getId());
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -107,7 +113,7 @@ public class SupporterController extends Server implements AccountController {
         Supporter currentSupporter = (Supporter) Main.getAccountWithToken(authToken);
         Message message = new Message("removeChatRoom");
         try {
-            SupporterChatRoom supporterChatRoom =  SupporterChatRoom.getChatRoom(chatRoomId);
+            SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatRoomId);
             currentSupporter.removeFromChatRooms(supporterChatRoom);
             SupporterChatRoom.removeChatRoom(supporterChatRoom);
         } catch (Exception e) {
@@ -119,35 +125,45 @@ public class SupporterController extends Server implements AccountController {
 
     public Message getAllChatRooms(AuthToken authToken) {
         Supporter currentSupporter = (Supporter) Main.getAccountWithToken(authToken);
-        try {
-            Client client = getClientWithToken(authToken);
-            new Thread(() -> updateChatRooms(client, currentSupporter.getChatRooms())).start();
-        } catch (InvalidToken invalidToken) {
-            invalidToken.printStackTrace();
-        }
         Message message = new Message("getAllChatRooms");
         message.addToObjects(currentSupporter.getChatRooms());
+        for (SupporterChatRoom chatRoom : currentSupporter.getChatRooms()) {
+            System.out.println(chatRoom);
+        }
         return message;
     }
 
-    private void updateChatRooms(Client client, ArrayList<SupporterChatRoom> supporterChatRooms) {
-        while (true) {
-            try {
-                Thread.sleep(500);
-                Message message = new Message("chatRooms");
-                message.addToObjects(supporterChatRooms);
+    public void updateChatRooms(String chatRoomId) {
+        try {
+            Message message = new Message("chatRooms updated");
+            System.out.println("update chatroom in server");
+            SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatRoomId);
+            Supporter supporter = supporterChatRoom.getSupporter();
+            message.addToObjects(supporter.getChatRooms());
+            /*for (Client client : clients) {
                 client.writeMessage(message);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println(client);
             }
 
+             */
+            for (SupporterChatRoom chatRoom : supporter.getChatRooms()) {
+                System.out.println(chatRoom);
+                System.out.println(chatRoom.getBuyer());
+            }
+
+
+            Client client = Main.getClientWithAccount(supporter);
+            client.writeMessage(message);
+            System.out.println(client.getAccount());
+        } catch (Exception invalidToken) {
+            invalidToken.printStackTrace();
         }
     }
 
     public Message prepareChatRoomForNewClient(String chatRoomId, AuthToken authToken) {
         Message message = new Message("prepareChatRoomForNewClient");
         try {
-            SupporterChatRoom supporterChatRoom =  SupporterChatRoom.getChatRoom(chatRoomId);
+            SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatRoomId);
             supporterChatRoom.prepareToAcceptNewBuyer();
         } catch (Exception e) {
             message = new Message("Error");
