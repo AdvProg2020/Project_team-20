@@ -3,11 +3,14 @@ package server.controller.account.user;
 import client.model.account.Account;
 import client.model.account.Supporter;
 import client.network.AuthToken;
+import client.network.Client;
 import client.network.Message;
 import client.network.chat.SupporterChatRoom;
 import javafx.scene.image.Image;
 import server.controller.Main;
 import server.network.server.Server;
+
+import java.util.ArrayList;
 
 public class SupporterController extends Server implements AccountController {
 
@@ -116,9 +119,29 @@ public class SupporterController extends Server implements AccountController {
 
     public Message getAllChatRooms(AuthToken authToken) {
         Supporter currentSupporter = (Supporter) Main.getAccountWithToken(authToken);
+        try {
+            Client client = getClientWithToken(authToken);
+            new Thread(() -> updateChatRooms(client, currentSupporter.getChatRooms())).start();
+        } catch (InvalidToken invalidToken) {
+            invalidToken.printStackTrace();
+        }
         Message message = new Message("getAllChatRooms");
         message.addToObjects(currentSupporter.getChatRooms());
         return message;
+    }
+
+    private void updateChatRooms(Client client, ArrayList<SupporterChatRoom> supporterChatRooms) {
+        while (true) {
+            try {
+                Thread.sleep(500);
+                Message message = new Message("chatRooms");
+                message.addToObjects(supporterChatRooms);
+                client.writeMessage(message);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     public Message prepareChatRoomForNewClient(String chatRoomId, AuthToken authToken) {

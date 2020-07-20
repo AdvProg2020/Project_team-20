@@ -94,7 +94,7 @@ public abstract class Server {
 
     protected Client getClientWithToken(AuthToken authToken) throws InvalidToken {
         for (Client client : clients) {
-            if (client.getAuthToken().getKey() == authToken.getKey())
+            if (client .getAuthToken() != null && client.getAuthToken().getKey() == authToken.getKey())
                 return client;
         }
         throw new InvalidToken();

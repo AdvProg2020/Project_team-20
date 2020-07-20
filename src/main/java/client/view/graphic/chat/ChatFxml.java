@@ -5,6 +5,7 @@ import client.model.account.AccountType;
 import client.model.account.Buyer;
 import client.network.chat.ChatMessage;
 import client.network.chat.SupporterChatRoom;
+import client.view.graphic.fxml.accountMenus.supporter.SupporterMenuFxml;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -73,28 +74,18 @@ public class ChatFxml implements Initializable {
         try {
             chatRoomId = chat.getId();
             chatController.addToChatRoom(chatRoomId);
-            new Thread(this::update).start();
+            updateMessages();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void update() {
-        while (!threadStop) {
-            try {
-                System.out.println("UpdateBuy");
-                Thread.sleep(3000);
-                updateMessages();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void updateMessages() {
+    private synchronized void updateMessages() {
         try {
-            ArrayList<ChatMessage> chatMessages = chatController.getAllMessages(chatRoomId);
-            for (ChatMessage chatMessage:chatMessages) {
+            ArrayList<ChatMessage> chatMessages = chatController.getChatMessages();
+            messagesChats.getChildren().removeAll(buttons);
+            buttons = new ArrayList<>();
+            for (ChatMessage chatMessage : chatMessages) {
                 JFXButton button = new JFXButton();
                 button.setTextFill(new Color(0.3632, 0.4118, 0.41406, 1));
                 button.setPrefWidth(278);
@@ -107,6 +98,7 @@ public class ChatFxml implements Initializable {
                 }
                 button.setText(chatMessage.getContest());
                 messagesChats.getChildren().add(button);
+                buttons.add(button);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -121,9 +113,10 @@ public class ChatFxml implements Initializable {
     public void addComment(ActionEvent actionEvent) {
         String context = newComment.getText();
         try {
-            if (chatRoomId==null||context.equals(""))
+            if (chatRoomId == null || context.equals(""))
                 return;
             chatController.writeNewMessage(chatRoomId, buyer.getUsername(), context, AccountType.BUYER);
+            updateMessages();
         } catch (Exception e) {
             e.printStackTrace();
         }

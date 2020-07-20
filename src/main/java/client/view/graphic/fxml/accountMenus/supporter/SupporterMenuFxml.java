@@ -30,6 +30,12 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SupporterMenuFxml implements Initializable {
+    private static SupporterMenuFxml supporterMenuFxml = null;
+
+    public static SupporterMenuFxml getInstance() {
+        return supporterMenuFxml;
+    }
+
     private static Stage window;
     public BorderPane borderPane;
     public ImageView profileImg;
@@ -52,6 +58,7 @@ public class SupporterMenuFxml implements Initializable {
         mediaController.buyerMenu();
         buttons = new ArrayList<>();
         separators = new ArrayList<>();
+        supporterMenuFxml = this;
     }
 
     public static void start(Stage stage) throws Exception {
@@ -72,6 +79,8 @@ public class SupporterMenuFxml implements Initializable {
         buttons = new ArrayList<>();
         separators = new ArrayList<>();
         ArrayList<SupporterChatRoom> supporterChatRooms = supporterController.getAllChatRooms();
+        System.out.println("in update chats");
+        System.out.println(supporterChatRooms);
         for (SupporterChatRoom supporterChatRoom : supporterChatRooms) {
             if (supporterChatRoom.getBuyer()==null) {
                 JFXButton button = new JFXButton();
@@ -111,28 +120,15 @@ public class SupporterMenuFxml implements Initializable {
         messages.setOpacity(1);
         newComment.setOpacity(1);
         addCommentBtn.setOpacity(1);
+        updateChats();
         updateMessages();
-        if (!updateThreadStarted)
-            new Thread(this::update).start();
         updateThreadStarted = true;
     }
 
-    private void update() {
-        while (!threadStop) {
-            try {
-                System.out.println("UpdateSup");
-                Thread.sleep(3000);
-                updateChats();
-                updateMessages();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     private void updateMessages() {
         try {
-            ArrayList<ChatMessage> chatMessages = chatController.getAllMessages(chatId);
+            ArrayList<ChatMessage> chatMessages = chatController.getChatMessages();
             for (ChatMessage chatMessage:chatMessages) {
                 JFXButton button = new JFXButton();
                 button.setTextFill(new Color(0.3632, 0.4118, 0.41406, 1));
@@ -146,6 +142,7 @@ public class SupporterMenuFxml implements Initializable {
                 }
                 button.setText(chatMessage.getContest());
                 messages.getChildren().add(button);
+                updateChats();
             }
         } catch (Exception e) {
             e.printStackTrace();

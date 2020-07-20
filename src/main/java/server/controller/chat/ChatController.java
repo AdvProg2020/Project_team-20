@@ -48,7 +48,7 @@ public class ChatController extends Server {
         return message;
     }
 
-    public Message writeNewMessage(String chatRoomId, ChatMessage chatMessage, AuthToken authToken) {
+    public synchronized Message writeNewMessage(String chatRoomId, ChatMessage chatMessage, AuthToken authToken) {
         Message message = new Message("writeNewMessage");
         try {
             Buyer buyer = (Buyer) Main.getAccountWithToken(authToken);
@@ -67,6 +67,7 @@ public class ChatController extends Server {
             Message message = new Message("new message");
             message.addToObjects(chatMessage);
             client.writeMessage(message);
+            System.out.println(chatMessage);
         }
     }
 

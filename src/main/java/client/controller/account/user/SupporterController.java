@@ -7,6 +7,7 @@ import client.model.account.Buyer;
 import client.model.account.Supporter;
 import client.network.Client;
 import client.network.Message;
+import client.network.chat.ChatMessage;
 import client.network.chat.SupporterChatRoom;
 import javafx.scene.image.Image;
 
@@ -18,6 +19,7 @@ public class SupporterController implements AccountController {
     private static Supporter currentSupporter;
     private MainController mainController;
     private static Client client;
+    private ArrayList<SupporterChatRoom> supporterChatRooms = new ArrayList<>();
 
     private ArrayList<Buyer> buyers;
 
@@ -85,8 +87,18 @@ public class SupporterController implements AccountController {
         message.addToObjects(currentSupporter.getUsername());
         client.writeMessage(message);
         Message answer = client.readMessage();
+        supporterChatRooms = getAllChatRooms();
+       // new Thread(this::updateChatRooms);
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
+        }
+    }
+
+    private void updateChatRooms() {
+        while (true) {
+            Message message = client.readMessage();
+            //chatMessages.add();
+            supporterChatRooms = (ArrayList<SupporterChatRoom>) message.getObjects().get(0);
         }
     }
 
@@ -107,6 +119,8 @@ public class SupporterController implements AccountController {
         return (ArrayList<SupporterChatRoom>) answer.getObjects().get(0);
     }
 
+
+
     public void prepareChatRoomForNewClient(String chatRoomId) throws Exception{
         Message message = new Message("prepareChatRoomForNewClient");
         message.addToObjects(chatRoomId);
@@ -117,4 +131,9 @@ public class SupporterController implements AccountController {
         }
     }
 
+
+
+    public ArrayList<SupporterChatRoom> getSupporterChatRooms() {
+        return supporterChatRooms;
+    }
 }
