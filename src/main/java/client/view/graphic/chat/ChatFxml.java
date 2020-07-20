@@ -82,7 +82,8 @@ public class ChatFxml implements Initializable {
     private void update() {
         while (!threadStop) {
             try {
-                Thread.sleep(10000);
+                System.out.println("UpdateBuy");
+                Thread.sleep(3000);
                 updateMessages();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -105,6 +106,7 @@ public class ChatFxml implements Initializable {
                     button.setTextFill(new Color(0.42578, 0.69140625, 0.65625, 1));
                 }
                 button.setText(chatMessage.getContest());
+                messagesChats.getChildren().add(button);
             }
         } catch (Exception e) {
             e.printStackTrace();

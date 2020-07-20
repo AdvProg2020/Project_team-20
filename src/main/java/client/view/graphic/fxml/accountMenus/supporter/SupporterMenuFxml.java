@@ -99,9 +99,7 @@ public class SupporterMenuFxml implements Initializable {
         JFXButton chat = (JFXButton) actionEvent.getSource();
         chatId = chat.getId();
         try {
-            System.out.println(chatId);
-            SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatId);
-            if (supporterChatRoom.getBuyer()==null)
+            if (chat.getText().equals("No buyer"))
                 return;
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,9 +120,10 @@ public class SupporterMenuFxml implements Initializable {
     private void update() {
         while (!threadStop) {
             try {
-                Thread.sleep(10000);
-                updateMessages();
+                System.out.println("UpdateSup");
+                Thread.sleep(3000);
                 updateChats();
+                updateMessages();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -146,6 +145,7 @@ public class SupporterMenuFxml implements Initializable {
                     button.setTextFill(new Color(0.42578, 0.69140625, 0.65625, 1));
                 }
                 button.setText(chatMessage.getContest());
+                messages.getChildren().add(button);
             }
         } catch (Exception e) {
             e.printStackTrace();
