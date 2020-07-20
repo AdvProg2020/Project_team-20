@@ -62,9 +62,9 @@ public class PurchaseMenu implements Initializable {
                 discountCodeText.setOpacity(0);
                 discountCode.setOpacity(0);
                 submitDiscount.setOpacity(0);
-                totalPrice.setText("");
-                discount.setText("");
-                address.setText("");
+                totalPrice.clear();
+                discount.clear();
+                address.clear();
                 submit = false;
             } catch (Exception e) {
                 new AlertController().create(AlertType.ERROR, e.getMessage());
@@ -105,9 +105,11 @@ public class PurchaseMenu implements Initializable {
                 passwordText.setOpacity(0);
                 usernameText.setOpacity(0);
                 submitAccountInformation.setOpacity(0);
-                totalPrice.setText("");
-                discount.setText("");
-                address.setText("");
+                totalPrice.clear();
+                discount.clear();
+                address.clear();
+                username.clear();
+                password.clear();
                 submit = false;
             } catch (Exception e) {
                 new AlertController().create(AlertType.ERROR, e.getMessage());
