@@ -93,7 +93,7 @@ public class BuyerController extends Server implements AccountController {
         }
     }
 
-    public synchronized Message purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart, AuthToken authToken) {
+    public synchronized Message purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart, String username, String password,AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         receiveInformation(address, phoneNumber, currentBuyer);
@@ -114,7 +114,7 @@ public class BuyerController extends Server implements AccountController {
             return message;
         }
         try {
-            pay(totalPrice, currentBuyer,payWithBankCart);
+            pay(totalPrice, currentBuyer,payWithBankCart, username, password);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);

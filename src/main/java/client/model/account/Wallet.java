@@ -20,7 +20,7 @@ public class Wallet {
         this.money = (1-wage/100)*money;
     }
 
-    public void buyWithWallet(double money1){
+    public void buyWithWallet(double money1) throws Exception{
         if((money - money1)>minMoney){
             money = money - money1;
         }

@@ -22,7 +22,6 @@
                         <Insets left="5.0" right="5.0" />
                     </VBox.margin>
                 </JFXTextField>
-                <VBox prefHeight="279.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                 <VBox prefHeight="273.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                     <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
