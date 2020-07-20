@@ -99,5 +99,9 @@ public class ChatController {
         }
     }
 
+    public void disconnect() {
+        client.disconnect();
+    }
+
 
 }

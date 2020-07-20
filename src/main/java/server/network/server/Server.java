@@ -47,8 +47,10 @@ public abstract class Server {
         while (true) {
             Main.storeData();
             Message message = client.readMessage();
-            if (message.getText().equals("buy"))
+            if (message.getText().equals("buy")) {
+                clients.remove(client);
                 return;
+            }
             System.out.println(message);
             if (message.getAuthToken() != null)
                 System.out.println(message.getAuthToken().getKey());
