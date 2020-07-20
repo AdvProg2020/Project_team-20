@@ -116,7 +116,7 @@ public class BuyerMenu extends Menu {
         if (answer.equalsIgnoreCase("no"))
             return;
         try {
-            buyerController.purchase(address, phoneNumber, discountCode);
+            //buyerController.purchase(address, phoneNumber, discountCode);
             System.out.println("Thanks for your buying!");
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -9,6 +9,7 @@ import client.network.Client;
 import client.network.Message;
 import javafx.scene.image.Image;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class BuyerController implements AccountController {
@@ -56,6 +57,10 @@ public class BuyerController implements AccountController {
         return (ArrayList<BuyerReceipt>) client.readMessage().getObjects().get(0);
     }
 
+    public void ChargeWallet(double money , String username , String password){
+        //ToDo
+    }
+
     public void rate(String productId, double score) throws Exception {
         Message message = new Message("rate");
         message.addToObjects(productId);
@@ -78,11 +83,15 @@ public class BuyerController implements AccountController {
         return (BuyerReceipt) answer.getObjects().get(0);
     }
 
-    public void purchase(String address, String phoneNumber, String discountCode) throws Exception {
+    public void purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart,String username,String password) throws Exception {
         Message message = new Message("purchase");
         message.addToObjects(address);
         message.addToObjects(phoneNumber);
         message.addToObjects(discountCode);
+        //i changed it
+        message.addToObjects(payWithBankCart);
+        message.addToObjects(username);
+        message.addToObjects(password);
         client.writeMessage(message);
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {

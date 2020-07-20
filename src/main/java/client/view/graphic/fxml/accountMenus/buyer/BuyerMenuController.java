@@ -107,6 +107,11 @@ public class BuyerMenuController implements Initializable {
         }
     }
 
+    public void handleViewWallet(ActionEvent actionEvent) {
+        ViewCartFxml.setBorderPane(borderPane);
+        loadUI("chargeWallet");
+    }
+
     public void handlePersonalInfo(ActionEvent actionEvent) {
         loadUI("personalInfo");
     }

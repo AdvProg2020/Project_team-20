@@ -12,6 +12,7 @@ import client.network.AuthToken;
 import client.network.Message;
 import server.network.server.Server;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class BuyerController extends Server implements AccountController {
@@ -92,7 +93,7 @@ public class BuyerController extends Server implements AccountController {
         }
     }
 
-    public synchronized Message purchase(String address, String phoneNumber, String discountCode, AuthToken authToken) {
+    public synchronized Message purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart, String username, String password,AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         receiveInformation(address, phoneNumber, currentBuyer);
@@ -113,7 +114,7 @@ public class BuyerController extends Server implements AccountController {
             return message;
         }
         try {
-            pay(totalPrice, currentBuyer);
+            pay(totalPrice, currentBuyer,payWithBankCart, username, password);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -182,12 +183,25 @@ public class BuyerController extends Server implements AccountController {
                 discountPercentage, cart.getAllProducts(), false, totalPrice, cart.getAllSellers()));
     }
 
-    private void pay(double totalPrice, Buyer currentBuyer) throws Exception {
-        currentBuyer.decreaseCredit(totalPrice);
+    private void pay(double totalPrice, Buyer currentBuyer,Boolean payWithBankCart, String username , String password) throws Exception {
+        //i changed it
+        if(payWithBankCart){
+            loginToBankAccount(username,password);
+            //connect to bank server and pay
+        }
+        else {
+            currentBuyer.decreaseCredit(totalPrice);
+        }
         for (Seller seller : currentBuyer.getCart().getAllSellers()) {
             seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer));
         }
     }
+
+    //i add it
+    private void loginToBankAccount(String username,String password){
+
+    }
+
 
     private void receiveInformation(String address, String phoneNumber, Buyer currentBuyer) {
         currentBuyer.setAddress(address);
