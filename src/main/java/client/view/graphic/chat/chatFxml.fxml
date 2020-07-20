@@ -10,7 +10,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.chat.ChatFxml">
    <children>
       <ImageView fitHeight="388.0" fitWidth="254.0" layoutX="5.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
@@ -30,11 +29,11 @@
       </Text>
       <ScrollPane layoutX="270.0" layoutY="99.0" prefHeight="250.0" prefWidth="296.0">
          <content>
-            <VBox fx:id="messagesChats" prefHeight="248.0" prefWidth="278.0" />
+            <VBox fx:id="messagesChats" prefHeight="284.0" prefWidth="278.0" />
          </content>
       </ScrollPane>
       <JFXTextField fx:id="newComment" focusColor="#6db1a8" layoutX="271.0" layoutY="357.0" opacity="0.0" prefHeight="27.0" prefWidth="134.0" promptText="Comment..." unFocusColor="#575957" />
-      <JFXButton layoutX="408.0" layoutY="359.0" onAction="#addComment" opacity="0.0" prefHeight="15.0" prefWidth="45.0" style="-fx-background-color: #beded3; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Send">
+      <JFXButton fx:id="addCommentBtn" layoutX="408.0" layoutY="359.0" onAction="#addComment" opacity="0.0" prefHeight="15.0" prefWidth="45.0" style="-fx-background-color: #beded3; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="Send">
          <font>
             <Font size="11.0" />
          </font>

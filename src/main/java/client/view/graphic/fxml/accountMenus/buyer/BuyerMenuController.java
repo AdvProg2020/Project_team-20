@@ -3,6 +3,7 @@ package client.view.graphic.fxml.accountMenus.buyer;
 import client.controller.Main;
 import client.controller.MediaController;
 import client.controller.account.user.BuyerController;
+import client.view.graphic.chat.ChatFxml;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -159,6 +160,7 @@ public class BuyerMenuController implements Initializable {
         Stage stage = new Stage();
         try {
             isChatting = true;
+            ChatFxml.setBuyer(buyerController.getCurrentBuyer());
             Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/chat/chatFxml.fxml").toURI().toURL());
             stage.setScene(new Scene(root, 600, 400));
             stage.show();
