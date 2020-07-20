@@ -36,18 +36,25 @@ public class PurchaseMenu implements Initializable {
     public Text discountCodeText;
 
     public static BorderPane borderPane;
+    public TextField password;
+    public TextField username;
+    public Text usernameText;
+    public Text passwordText;
+    public Button submitAccountInformation;
 
+    private String bankUsername;
+    private String bankPassword;
     private Boolean submit;
     private String address2;
     private String phone2;
     private String discountCode2;
     MediaController mediaController = ProgramApplication.getMediaController();
 
-    public void handlePay(ActionEvent actionEvent) {
+    public void handlePayByWallet(ActionEvent actionEvent) {
         if (submit) {
             BuyerController buyerController = BuyerController.getInstance();
             try {
-                buyerController.purchase(address2, phone2, discountCode2);
+                buyerController.purchase(address2, phone2, discountCode2,false,null,null);
                 new AlertController().create(AlertType.CONFIRMATION, "Thanks for buying");
                 phoneText.setOpacity(0);
                 phone.setOpacity(0);
@@ -55,6 +62,49 @@ public class PurchaseMenu implements Initializable {
                 discountCodeText.setOpacity(0);
                 discountCode.setOpacity(0);
                 submitDiscount.setOpacity(0);
+                totalPrice.setText("");
+                discount.setText("");
+                address.setText("");
+                submit = false;
+            } catch (Exception e) {
+                new AlertController().create(AlertType.ERROR, e.getMessage());
+            }
+        } else {
+            new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
+        }
+    }
+
+    public void handlePayByCart(ActionEvent actionEvent){
+        submit = false;
+        username.setOpacity(1);
+        password.setOpacity(1);
+        passwordText.setOpacity(1);
+        usernameText.setOpacity(1);
+        submitAccountInformation.setOpacity(1);
+    }
+
+    public void finalStepPayByCart(ActionEvent actionEvent){
+        bankPassword = password.getText();
+        bankUsername = username.getText();
+        if(bankUsername!=null && bankPassword!=null){
+            submit = true;
+        }
+        if (submit) {
+            BuyerController buyerController = BuyerController.getInstance();
+            try {
+                buyerController.purchase(address2, phone2, discountCode2,true,bankUsername,bankPassword);
+                new AlertController().create(AlertType.CONFIRMATION, "Thanks for buying");
+                phoneText.setOpacity(0);
+                phone.setOpacity(0);
+                submitPhone.setOpacity(0);
+                discountCodeText.setOpacity(0);
+                discountCode.setOpacity(0);
+                submitDiscount.setOpacity(0);
+                username.setOpacity(0);
+                password.setOpacity(0);
+                passwordText.setOpacity(0);
+                usernameText.setOpacity(0);
+                submitAccountInformation.setOpacity(0);
                 totalPrice.setText("");
                 discount.setText("");
                 address.setText("");
@@ -79,13 +129,17 @@ public class PurchaseMenu implements Initializable {
         discountCodeText.setOpacity(0);
         discountCode.setOpacity(0);
         submitDiscount.setOpacity(0);
+        username.setOpacity(0);
+        password.setOpacity(0);
+        passwordText.setOpacity(0);
+        usernameText.setOpacity(0);
+        submitAccountInformation.setOpacity(0);
         submit = false;
         BuyerController buyerController = BuyerController.getInstance();
         Cart cart = buyerController.viewCart();
         discount.appendText(Double.toString(buyerController.getDiscount()));
         totalPrice.appendText(Double.toString(buyerController.getTotalPrice()));
     }
-
 
     public void handlePhone(ActionEvent actionEvent) {
         phone2 = phone.getText();

@@ -57,6 +57,10 @@ public class BuyerController implements AccountController {
         return (ArrayList<BuyerReceipt>) client.readMessage().getObjects().get(0);
     }
 
+    public void ChargeWallet(double money , String username , String password){
+        //ToDo
+    }
+
     public void rate(String productId, double score) throws Exception {
         Message message = new Message("rate");
         message.addToObjects(productId);
