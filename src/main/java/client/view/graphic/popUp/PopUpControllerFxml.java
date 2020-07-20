@@ -43,6 +43,8 @@ public class PopUpControllerFxml implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<Sale> sales = Sale.getAllSales();
+        if (sales.size()==0)
+            return;
         int rand = ThreadLocalRandom.current().nextInt(0, sales.size());
         Sale sale = sales.get(rand);
         offPercentageTxt.setText(sale.getSalePercentage() * 100 + "%");

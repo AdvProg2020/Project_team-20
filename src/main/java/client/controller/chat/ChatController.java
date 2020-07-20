@@ -33,11 +33,11 @@ public class ChatController {
 
     private void connect() throws Exception {
         if (LoginController.getClient() == null) {
+            throw new Account.AccountIsNotBuyerException();
+        } else {
             client = new Client(572);
             client.readMessage();
-            connectWithTempAccount();
-        } else {
-            throw new Account.AccountIsNotBuyerException();
+            client.setAuthToken(LoginController.getClient().getAuthToken());
         }
     }
 
@@ -61,8 +61,8 @@ public class ChatController {
         message.addToObjects(chatRoomId);
         message.addToObjects(chatMessage);
         client.writeMessage(message);
-        client.disconnect();
         Message answer = client.readMessage();
+        client.disconnect();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }
@@ -83,6 +83,7 @@ public class ChatController {
         Message message = new Message("getAllChatRooms");
         client.writeMessage(message);
         Message answer = client.readMessage();
+        client.disconnect();
         return (ArrayList<SupporterChatRoom>) answer.getObjects().get(0);
     }
 
@@ -91,8 +92,8 @@ public class ChatController {
         Message message = new Message("addToChatRoom");
         message.addToObjects(chatRoomId);
         client.writeMessage(message);
-        client.disconnect();
         Message answer = client.readMessage();
+        client.disconnect();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
         }

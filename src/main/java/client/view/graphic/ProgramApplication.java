@@ -30,7 +30,7 @@ public class ProgramApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         initializeScenes();
         mainStage = primaryStage;
-        mainStage.initStyle(StageStyle.UNDECORATED);
+        //mainStage.initStyle(StageStyle.UNDECORATED);
         if (firstManager)
             setMenu(MenuNames.MAINMENU);
         else

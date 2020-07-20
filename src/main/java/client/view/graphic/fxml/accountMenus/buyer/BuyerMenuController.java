@@ -40,6 +40,7 @@ public class BuyerMenuController implements Initializable {
     public ImageView profileImg;
     private BuyerController buyerController = BuyerController.getInstance();
     private static boolean loadFromViewCart = false;
+    private static boolean isChatting = false;
 
     MediaController mediaController = ProgramApplication.getMediaController();
 
@@ -151,5 +152,23 @@ public class BuyerMenuController implements Initializable {
 
     public void handleViewErpBank(ActionEvent actionEvent) {
         ProgramApplication.setMenu(MenuNames.ERP_BANK);
+    }
+
+    public void handleSupport(ActionEvent actionEvent) {
+    if (!isChatting) {
+        Stage stage = new Stage();
+        try {
+            isChatting = true;
+            Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/chat/chatFxml.fxml").toURI().toURL());
+            stage.setScene(new Scene(root, 600, 400));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    }
+
+    public static void setIsChatting(boolean isChatting) {
+        BuyerMenuController.isChatting = isChatting;
     }
 }
