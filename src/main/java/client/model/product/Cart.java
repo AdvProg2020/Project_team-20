@@ -115,6 +115,15 @@ public class Cart {
         return allProduct;
     }
 
+    public ArrayList<FileProduct> getAllFileProductsArrayList() {
+        ArrayList<FileProduct> allProduct = new ArrayList<>();
+        for (SelectedProduct selectedProduct : selectedProducts) {
+            if (selectedProduct.getProduct() instanceof FileProduct)
+                allProduct.add((FileProduct) selectedProduct.getProduct());
+        }
+        return allProduct;
+    }
+
     public HashMap<Product, Integer> getAllProductsSeller(Seller seller) {
         HashMap<Product, Integer> allProductSeller = new HashMap<>();
         for (SelectedProduct selectedProduct : selectedProducts) {

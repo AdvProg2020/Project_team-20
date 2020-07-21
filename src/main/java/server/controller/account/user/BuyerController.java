@@ -1,5 +1,6 @@
 package server.controller.account.user;
 
+import client.controller.account.user.seller.SellerNetwork;
 import server.controller.Main;
 import server.controller.PreProcess;
 import javafx.scene.image.Image;
@@ -10,6 +11,7 @@ import client.model.receipt.BuyerReceipt;
 import client.model.receipt.SellerReceipt;
 import client.network.AuthToken;
 import client.network.Message;
+import server.network.server.DNS;
 import server.network.server.Server;
 
 import java.awt.*;
@@ -100,7 +102,7 @@ public class BuyerController extends Server implements AccountController {
         }
     }
 
-    public synchronized Message purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart, String username, String password,AuthToken authToken) {
+    public synchronized Message purchase(String address, String phoneNumber, String discountCode, Boolean payWithBankCart, String username, String password, AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         receiveInformation(address, phoneNumber, currentBuyer);
@@ -121,7 +123,7 @@ public class BuyerController extends Server implements AccountController {
             return message;
         }
         try {
-            pay(totalPrice, currentBuyer,payWithBankCart, username, password);
+            pay(totalPrice, currentBuyer, payWithBankCart, username, password);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -135,7 +137,7 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
-    public Message purchaseFileProducts(String discountCode,Boolean payWithBankCart, String username, String password,AuthToken authToken) {
+    public Message purchaseFileProducts(String discountCode, Boolean payWithBankCart, String username, String password, AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         double discountPercentage = 0;
@@ -155,7 +157,7 @@ public class BuyerController extends Server implements AccountController {
             return message;
         }
         try {
-            pay(totalPrice, currentBuyer,payWithBankCart, username, password);
+            pay(totalPrice, currentBuyer, payWithBankCart, username, password);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -163,13 +165,39 @@ public class BuyerController extends Server implements AccountController {
         }
         makeFileReceipt(totalPrice, discountPercentage, currentBuyer);
         addBuyerToFileProductsBuyers(authToken);
-        currentBuyer.getCart().resetFileCart();
         // TODO need to send files
-        message = new Message("purchase was successful");
+        try {
+            return sendDataToBuyer(currentBuyer);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+    }
+
+    private Message sendDataToBuyer(Buyer buyer) throws Exception {
+        Message message = new Message("send data to buyer");
+        DNS dns = DNS.getInstance();
+        ArrayList<SellerNetwork> sellerNetworks = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<String> fileTypes = new ArrayList<>();
+        ArrayList<String> productIds = new ArrayList<>();
+        Cart cart = buyer.getCart();
+        for (FileProduct fileProduct : cart.getAllFileProductsArrayList()) {
+            sellerNetworks.add(dns.getSellerNetwork(fileProduct.getSellers().get(0).getUsername()));
+            names.add(fileProduct.getName());
+            fileTypes.add(fileProduct.getFileType());
+            productIds.add(fileProduct.getId());
+        }
+        message.addToObjects(sellerNetworks);
+        message.addToObjects(names);
+        message.addToObjects(fileTypes);
+        message.addToObjects(productIds);
+        buyer.getCart().resetFileCart();
         return message;
     }
 
-    public Message purchaseAll(String address, String phoneNumber, String discountCode,Boolean payWithBankCart, String username, String password,AuthToken authToken) {
+    public Message purchaseAll(String address, String phoneNumber, String discountCode, Boolean payWithBankCart, String username, String password, AuthToken authToken) {
         Message message = purchase(address, phoneNumber, discountCode, payWithBankCart, username, password, authToken);
         if (message.getText().equals("Error"))
             return message;
@@ -277,13 +305,12 @@ public class BuyerController extends Server implements AccountController {
                 discountPercentage, cart.getAllProducts(), false, totalPrice, cart.getAllSellers()));
     }
 
-    private void pay(double totalPrice, Buyer currentBuyer,Boolean payWithBankCart, String username , String password) throws Exception {
+    private void pay(double totalPrice, Buyer currentBuyer, Boolean payWithBankCart, String username, String password) throws Exception {
         //i changed it
-        if(payWithBankCart){
-            loginToBankAccount(username,password);
+        if (payWithBankCart) {
+            loginToBankAccount(username, password);
             //connect to bank server and pay
-        }
-        else {
+        } else {
             currentBuyer.decreaseCredit(totalPrice);
         }
         for (Seller seller : currentBuyer.getCart().getAllSellers()) {
@@ -292,7 +319,7 @@ public class BuyerController extends Server implements AccountController {
     }
 
     //i add it
-    private void loginToBankAccount(String username,String password){
+    private void loginToBankAccount(String username, String password) {
 
     }
 
@@ -312,7 +339,7 @@ public class BuyerController extends Server implements AccountController {
                     continue;
                 if (selectedProduct.isSold())
                     throw new Product.ProductIsSoldException(selectedProduct.getProduct().getName());
-                            Sale saleForProduct = getSaleForProduct(selectedProduct);
+                Sale saleForProduct = getSaleForProduct(selectedProduct);
                 Seller seller = selectedProduct.getSeller();
                 if (saleForProduct != null && saleForProduct.validSaleTime())
                     totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount() *
