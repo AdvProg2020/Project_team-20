@@ -46,6 +46,7 @@ public class SupporterChatRoom {
     public void prepareToAcceptNewBuyer() {
         clearChatRoom();
         this.busy = false;
+        this.buyer = null;
     }
 
     public Supporter getSupporter() {

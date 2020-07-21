@@ -184,7 +184,6 @@ public class SupporterMenuFxml implements Initializable {
 
     public void handleLogout(ActionEvent actionEvent) {
         threadStop = true;
-        chatController.disconnect();
         supporterController.logout();
         ProgramApplication.setMenu(MenuNames.MAINMENU);
     }

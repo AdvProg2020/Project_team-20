@@ -6,10 +6,12 @@ import client.controller.account.user.seller.SellerNetwork;
 import client.model.account.*;
 import client.model.product.*;
 import client.model.receipt.BuyerReceipt;
+import client.network.AuthToken;
 import client.network.Client;
 import client.network.Message;
 import javafx.scene.image.Image;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class BuyerController implements AccountController {
@@ -57,8 +59,18 @@ public class BuyerController implements AccountController {
         return (ArrayList<BuyerReceipt>) client.readMessage().getObjects().get(0);
     }
 
-    public void ChargeWallet(double money, String username, String password) {
-        //ToDo
+    public void ChargeWallet(double money , String username , String password , String accountId) throws Exception {
+        Message message = new Message("chargeWallet");
+        message.addToObjects(money);
+        message.addToObjects(username);
+        message.addToObjects(password);
+        message.addToObjects(accountId);
+        message.addToObjects("123");//todo market's account
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void rate(String productId, double score) throws Exception {
@@ -88,7 +100,8 @@ public class BuyerController implements AccountController {
         purchaseFileProducts(discountCode, payWithBankCart, username, password);
     }
 
-    public void purchase(String address, String phoneNumber, String discountCode, Boolean payWithBankCart, String username, String password) throws Exception {
+
+    public void purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart,String username,String password) throws Exception {
         Message message = new Message("purchase");
         message.addToObjects(address);
         message.addToObjects(phoneNumber);

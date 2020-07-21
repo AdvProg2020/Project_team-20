@@ -251,6 +251,30 @@ public class SellerController implements AccountController {
         return (double) answer.getObjects().get(0);
     }
 
+    public String chargeWallet(double money , String username , String password , String sourceId){
+        Message message = new Message("chargeWallet");
+        message.addToObjects(money);
+        message.addToObjects(username);
+        message.addToObjects(password);
+        message.addToObjects(sourceId);
+        message.addToObjects("123");//todo market's account
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (String) answer.getObjects().get(0);
+    }
+
+    public String withdrawMoneyFromWallet(double money , String username , String password , String sourceId){
+        Message message = new Message("withdrawMoneyFromWallet");
+        message.addToObjects(money);
+        message.addToObjects(username);
+        message.addToObjects(password);
+        message.addToObjects(sourceId);
+        message.addToObjects("123");//todo market's account
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (String) answer.getObjects().get(0);
+    }
+
     public static class SaleUnavailableException extends Exception {
         public SaleUnavailableException() {
             super("sale(off) unavailable");

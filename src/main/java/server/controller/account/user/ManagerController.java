@@ -91,7 +91,7 @@ public class ManagerController extends Server implements AccountController {
             message.addToObjects(new LoginController.CreditIsNotNumber());
             return message;
         }
-        Account.addAccount(new Manager(name, lastName, email, phoneNumber, userName, password, credit,
+        Account.addAccount(new Manager(name, lastName, email, phoneNumber, userName, password,
                 false));
         return message;
     }

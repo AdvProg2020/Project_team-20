@@ -15,8 +15,8 @@ public class Manager extends Account {
     private static HashMap<Integer, Requestable> requestWithIds = new HashMap<>();
 
     public Manager(String name, String lastName, String email, String phoneNumber, String username, String password,
-                   double credit, boolean firstManager) {
-        super(name, lastName, email, phoneNumber, username, password, credit, AccountType.MANAGER);
+                 boolean firstManager) {
+        super(name, lastName, email, phoneNumber, username, password,AccountType.MANAGER);
         this.firstManager = firstManager;
     }
 

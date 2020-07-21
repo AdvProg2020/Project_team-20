@@ -99,5 +99,14 @@ public class ChatController {
         }
     }
 
+    public void prepareChatRoomForNewClient(String chatRoomId) throws Exception{
+        Message message = new Message("prepareChatRoomForNewClient");
+        message.addToObjects(chatRoomId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+    }
 
 }

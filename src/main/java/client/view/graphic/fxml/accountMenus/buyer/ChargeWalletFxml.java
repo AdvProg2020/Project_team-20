@@ -11,12 +11,13 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class chargeWalletFxml implements Initializable {
+public class ChargeWalletFxml implements Initializable {
 
     public TextField moneyInWallet;
     public TextField amountOfMoney;
     public TextField bankPassword;
     public TextField bankUsername;
+    public TextField accountId;
 
     private BuyerController buyerController = BuyerController.getInstance();
 
@@ -30,11 +31,20 @@ public class chargeWalletFxml implements Initializable {
         String username = bankUsername.getText();
         String password = bankPassword.getText();
         String money = amountOfMoney.getText();
-        if(username!=null && password!=null && money!=null){
-            buyerController.ChargeWallet(Double.parseDouble(money),username,password);
+        String sourceID = accountId.getText();
+        if(username!=null && password!=null && money!=null && sourceID!=null){
+            try {
+                buyerController.ChargeWallet(Double.parseDouble(money),username,password,sourceID);
+            }
+            catch (Exception e){
+                new AlertController().create(AlertType.ERROR, e.getMessage());
+            }
         }
         else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
+        bankPassword.clear();
+        bankUsername.clear();
+        amountOfMoney.clear();
     }
 }

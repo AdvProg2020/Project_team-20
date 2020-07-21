@@ -73,6 +73,8 @@ public class SellerMenuController implements Initializable {
         loadUI("manageOffs");
     }
 
+    public void handleViewWallet(ActionEvent actionEvent){loadUI("yourWallet");}
+
     public void handleLogout(ActionEvent actionEvent) throws Exception {
         sellerController.logout();
         ProgramApplication.setMenu(MenuNames.MAINMENU);
