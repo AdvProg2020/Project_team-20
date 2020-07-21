@@ -51,7 +51,6 @@ public class ChatController extends Server {
     public Message writeNewMessage(String chatRoomId, ChatMessage chatMessage, AuthToken authToken) {
         Message message = new Message("writeNewMessage");
         try {
-            Buyer buyer = (Buyer) Main.getAccountWithToken(authToken);
             SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatRoomId);
             supporterChatRoom.addToChatMessages(chatMessage);
             sendMessagesToClients(chatMessage);
@@ -112,6 +111,19 @@ public class ChatController extends Server {
         return message;
     }
 
+    public Message prepareChatRoomForNewClient(String chatRoomId, AuthToken authToken) {
+        Message message = new Message("prepareChatRoomForNewClient");
+        try {
+            SupporterChatRoom supporterChatRoom =  SupporterChatRoom.getChatRoom(chatRoomId);
+            supporterChatRoom.prepareToAcceptNewBuyer();
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+
     @Override
     protected void setMethods() {
         methods.add("getAllMessages");
@@ -120,5 +132,6 @@ public class ChatController extends Server {
         methods.add("connectWithTempAccount");
         methods.add("getAllChatRooms");
         methods.add("addToChatRoom");
+        methods.add("prepareChatRoomForNewClient");
     }
 }

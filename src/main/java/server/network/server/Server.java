@@ -1,5 +1,7 @@
 package server.network.server;
 
+import client.model.account.Account;
+import client.model.account.GeneralAccount;
 import client.network.AuthToken;
 import client.network.Client;
 import client.network.Message;
@@ -47,6 +49,7 @@ public abstract class Server {
         while (true) {
             Main.storeData();
             Message message = client.readMessage();
+            System.out.println(message.getText());
             if (message.getText().equals("buy")) {
                 clients.remove(client);
                 return;
@@ -57,6 +60,11 @@ public abstract class Server {
             try {
                 if (message.getAuthToken().authenticate()) {
                     message.addToObjects(message.getAuthToken());
+                    GeneralAccount generalAccount = Main.getAccountWithToken(message.getAuthToken());
+                    if (generalAccount instanceof Account) {
+                        client.setAccount((Account) generalAccount);
+                        Main.addToClientHashMap(client, (Account) generalAccount);
+                    }
                     client.writeMessage(callCommand(message.getText(), message));
                 } else {
                     client.writeMessage(new Message("token is invalid"));
@@ -70,6 +78,7 @@ public abstract class Server {
                     Message answer = callCommand(message.getText(), message);
                     client.setAuthToken(answer.getAuthToken());
                     client.writeMessage(answer);
+                    System.out.println(client);
                 } catch (InvalidCommand invalidCommand) {
                     //invalidCommand.printStackTrace();
                     return;
@@ -92,9 +101,9 @@ public abstract class Server {
         throw new InvalidCommand();
     }
 
-    protected Client getClientWithToken(AuthToken authToken) throws InvalidToken {
+    protected  Client getClientWithToken(AuthToken authToken) throws InvalidToken {
         for (Client client : clients) {
-            if (client.getAuthToken().getKey() == authToken.getKey())
+            if (client.getAuthToken() != null && client.getAuthToken().getKey() == authToken.getKey())
                 return client;
         }
         throw new InvalidToken();

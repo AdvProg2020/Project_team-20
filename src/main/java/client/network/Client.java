@@ -138,4 +138,11 @@ public class Client {
         this.authToken = authToken;
     }
 
+    @Override
+    public String toString() {
+        return "Client{" +
+                "account=" + account +
+                ", authToken=" + authToken +
+                '}';
+    }
 }
