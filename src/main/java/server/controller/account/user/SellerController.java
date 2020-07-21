@@ -209,20 +209,20 @@ public class SellerController extends Server implements AccountController {
     }
 
     public Message createFileProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
-                                 HashMap<String, ArrayList<String>> optionalFields, AuthToken authToken) {
+                                 HashMap<String, ArrayList<String>> optionalFields, String fileType, AuthToken authToken) {
         Message message = new Message("createFileProduct");
         try {
             Client client = getClientWithToken(authToken);
             Seller seller = (Seller) Main.getAccountWithToken(authToken);
             String name = details.get(0), description = details.get(1);
-            String fileType = details.get(2);
+            double price = Double.parseDouble(details.get(2));
             //TODO check for read (connect to client)
             File file = client.readFile(name, fileType);
-            double price = Double.parseDouble(details.get(3));
             ArrayList<Field> fields = new ArrayList<>();
             fields.addAll(createNumericalFields(numericalFields));
             fields.addAll(createOptionalFields(optionalFields));
             FileProduct fileProduct = new FileProduct(fields, description, price, seller, file, fileType, name);
+            message.addToObjects(fileProduct.getId());
             Manager.addRequest(fileProduct);
         } catch (Exception e) {
             message = new Message("Error");
