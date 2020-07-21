@@ -136,7 +136,11 @@ public class ChatFxml implements Initializable {
     public void handleClose(ActionEvent actionEvent) {
         threadStop = true;
         BuyerMenuController.setIsChatting(false);
-        chatController.disconnect();
+        try {
+            chatController.prepareChatRoomForNewClient(chatRoomId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void addComment(ActionEvent actionEvent) {
