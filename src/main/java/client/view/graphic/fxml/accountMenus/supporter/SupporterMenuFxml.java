@@ -6,16 +6,19 @@ import client.controller.chat.ChatController;
 import client.model.account.AccountType;
 import client.network.chat.ChatMessage;
 import client.network.chat.SupporterChatRoom;
+import client.view.graphic.MenuNames;
 import client.view.graphic.ProgramApplication;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.javaws.util.JfxHelper;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -30,6 +33,13 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SupporterMenuFxml implements Initializable {
+    private static SupporterMenuFxml supporterMenuFxml = null;
+    public ScrollPane messageBar;
+
+    public static SupporterMenuFxml getInstance() {
+        return supporterMenuFxml;
+    }
+
     private static Stage window;
     public BorderPane borderPane;
     public ImageView profileImg;
@@ -39,9 +49,10 @@ public class SupporterMenuFxml implements Initializable {
     public JFXButton addCommentBtn;
     private SupporterController supporterController = SupporterController.getInstance();
     private ArrayList<JFXButton> buttons;
+    private ArrayList<JFXButton> messageButtons;
     private ArrayList<Separator> separators;
     private ChatController chatController = ChatController.getInstance();
-    private String chatId;
+    private String chatId=null;
     private boolean threadStop = false;
     private boolean updateThreadStarted = false;
 
@@ -52,6 +63,7 @@ public class SupporterMenuFxml implements Initializable {
         mediaController.buyerMenu();
         buttons = new ArrayList<>();
         separators = new ArrayList<>();
+        supporterMenuFxml = this;
     }
 
     public static void start(Stage stage) throws Exception {
@@ -64,6 +76,31 @@ public class SupporterMenuFxml implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateChats();
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        updateChats();
+                        updateMessages();
+                    }
+                };
+
+                while (threadStop) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                    }
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
     public void updateChats() {
@@ -72,8 +109,8 @@ public class SupporterMenuFxml implements Initializable {
         buttons = new ArrayList<>();
         separators = new ArrayList<>();
         ArrayList<SupporterChatRoom> supporterChatRooms = supporterController.getAllChatRooms();
+
         for (SupporterChatRoom supporterChatRoom : supporterChatRooms) {
-            if (supporterChatRoom.getBuyer()==null) {
                 JFXButton button = new JFXButton();
                 if (supporterChatRoom.getBuyer() != null)
                     button.setText(supporterChatRoom.getBuyer().getUsername());
@@ -91,7 +128,6 @@ public class SupporterMenuFxml implements Initializable {
                 chats.getChildren().add(separator);
                 buttons.add(button);
                 separators.add(separator);
-            }
         }
     }
 
@@ -108,44 +144,38 @@ public class SupporterMenuFxml implements Initializable {
             if (node instanceof JFXButton)
                 ((JFXButton) node).setStyle("-fx-background-color: transparent;");
         chat.setStyle("-fx-background-color: #525d5d;");
-        messages.setOpacity(1);
+        messageBar.setOpacity(1);
         newComment.setOpacity(1);
         addCommentBtn.setOpacity(1);
+        messageButtons = new ArrayList<>();
+        updateChats();
         updateMessages();
-        if (!updateThreadStarted)
-            new Thread(this::update).start();
         updateThreadStarted = true;
     }
 
-    private void update() {
-        while (!threadStop) {
-            try {
-                System.out.println("UpdateSup");
-                Thread.sleep(3000);
-                updateChats();
-                updateMessages();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     private void updateMessages() {
         try {
+            if (chatId==null)
+                return;
             ArrayList<ChatMessage> chatMessages = chatController.getAllMessages(chatId);
+            messages.getChildren().removeAll(messageButtons);
+            messageButtons = new ArrayList<>();
             for (ChatMessage chatMessage:chatMessages) {
                 JFXButton button = new JFXButton();
                 button.setTextFill(new Color(0.3632, 0.4118, 0.41406, 1));
                 button.setPrefWidth(278);
                 button.setPrefHeight(30);
                 if (chatMessage.getType().equals(AccountType.BUYER))
-                    button.setStyle("-fx-alignment: LEFT;");
+                    button.setStyle("-fx-alignment: center-left; -fx-font-size:20");
                 else {
-                    button.setStyle("-fx-alignment: RIGHT;");
+                    button.setStyle("-fx-alignment: center-right; -fx-font-size:20");
                     button.setTextFill(new Color(0.42578, 0.69140625, 0.65625, 1));
                 }
                 button.setText(chatMessage.getContest());
                 messages.getChildren().add(button);
+                messageButtons.add(button);
+                updateChats();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,10 +184,14 @@ public class SupporterMenuFxml implements Initializable {
 
     public void handleLogout(ActionEvent actionEvent) {
         threadStop = true;
+        chatController.disconnect();
+        supporterController.logout();
+        ProgramApplication.setMenu(MenuNames.MAINMENU);
     }
 
     public void handleExit(ActionEvent actionEvent) {
         threadStop = true;
+        window.close();
     }
 
     public void handleDragDropped(DragEvent event) {
@@ -180,6 +214,7 @@ public class SupporterMenuFxml implements Initializable {
         try {
             if (chatId==null||context.equals(""))
                 return;
+            newComment.setText("");
             chatController.writeNewMessage(chatId, supporterController.getAccountInfo().getUsername(), context, AccountType.SUPPORTER);
         } catch (Exception e) {
             e.printStackTrace();
