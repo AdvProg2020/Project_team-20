@@ -51,7 +51,6 @@ public class ChatController extends Server {
     public Message writeNewMessage(String chatRoomId, ChatMessage chatMessage, AuthToken authToken) {
         Message message = new Message("writeNewMessage");
         try {
-            Buyer buyer = (Buyer) Main.getAccountWithToken(authToken);
             SupporterChatRoom supporterChatRoom = SupporterChatRoom.getChatRoom(chatRoomId);
             supporterChatRoom.addToChatMessages(chatMessage);
             sendMessagesToClients(chatMessage);

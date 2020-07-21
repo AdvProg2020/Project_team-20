@@ -7,6 +7,7 @@ import client.network.chat.ChatMessage;
 import client.network.chat.SupporterChatRoom;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Separator;
@@ -67,46 +68,68 @@ public class ChatFxml implements Initializable {
     public void goToChat(ActionEvent actionEvent) {
         messagesChats.getChildren().removeAll(buttons);
         messagesChats.getChildren().removeAll(separators);
+        buttons = new ArrayList<>();
         newComment.setOpacity(1);
         addCommentBtn.setOpacity(1);
         JFXButton chat = (JFXButton) actionEvent.getSource();
         try {
             chatRoomId = chat.getId();
             chatController.addToChatRoom(chatRoomId);
-            new Thread(this::update).start();
+
+
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    Runnable updater = new Runnable() {
+
+                        @Override
+                        public void run() {
+                            updateMessages();
+                        }
+                    };
+
+                    while (true) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ex) {
+                        }
+
+                        // UI update is run on the Application thread
+                        Platform.runLater(updater);
+                    }
+                }
+
+            });
+            // don't let thread prevent JVM shutdown
+            thread.setDaemon(true);
+            thread.start();
+
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private void update() {
-        while (!threadStop) {
-            try {
-                System.out.println("UpdateBuy");
-                Thread.sleep(3000);
-                updateMessages();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
     private void updateMessages() {
         try {
             ArrayList<ChatMessage> chatMessages = chatController.getAllMessages(chatRoomId);
+            messagesChats.getChildren().removeAll(buttons);
+            buttons = new ArrayList<>();
             for (ChatMessage chatMessage:chatMessages) {
+                System.out.println(chatMessage.getContest());
                 JFXButton button = new JFXButton();
                 button.setTextFill(new Color(0.3632, 0.4118, 0.41406, 1));
                 button.setPrefWidth(278);
                 button.setPrefHeight(30);
-                if (chatMessage.getType().equals(AccountType.BUYER))
-                    button.setStyle("-fx-alignment: LEFT;");
+                if (chatMessage.getType().equals(AccountType.SUPPORTER))
+                    button.setStyle("-fx-alignment: center-left; -fx-font-size:20");
                 else {
-                    button.setStyle("-fx-alignment: RIGHT;");
+                    button.setStyle("-fx-alignment: center-right; -fx-font-size:20");
                     button.setTextFill(new Color(0.42578, 0.69140625, 0.65625, 1));
                 }
                 button.setText(chatMessage.getContest());
                 messagesChats.getChildren().add(button);
+                buttons.add(button);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,6 +146,7 @@ public class ChatFxml implements Initializable {
         try {
             if (chatRoomId==null||context.equals(""))
                 return;
+            newComment.setText("");
             chatController.writeNewMessage(chatRoomId, buyer.getUsername(), context, AccountType.BUYER);
         } catch (Exception e) {
             e.printStackTrace();
