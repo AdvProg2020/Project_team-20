@@ -5,6 +5,7 @@ import client.model.account.AccountType;
 import client.model.account.Buyer;
 import client.network.chat.ChatMessage;
 import client.network.chat.SupporterChatRoom;
+import client.view.graphic.fxml.accountMenus.buyer.BuyerMenuController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
@@ -89,19 +90,16 @@ public class ChatFxml implements Initializable {
                         }
                     };
 
-                    while (true) {
+                    while (threadStop) {
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException ex) {
                         }
-
-                        // UI update is run on the Application thread
                         Platform.runLater(updater);
                     }
                 }
 
             });
-            // don't let thread prevent JVM shutdown
             thread.setDaemon(true);
             thread.start();
 
@@ -138,6 +136,7 @@ public class ChatFxml implements Initializable {
 
     public void handleClose(ActionEvent actionEvent) {
         threadStop = true;
+        BuyerMenuController.setIsChatting(false);
         chatController.disconnect();
     }
 
