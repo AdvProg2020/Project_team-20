@@ -60,14 +60,11 @@ public abstract class Server {
             try {
                 if (message.getAuthToken().authenticate()) {
                     message.addToObjects(message.getAuthToken());
-
                     GeneralAccount generalAccount = Main.getAccountWithToken(message.getAuthToken());
                     if (generalAccount instanceof Account) {
                         client.setAccount((Account) generalAccount);
                         Main.addToClientHashMap(client, (Account) generalAccount);
                     }
-
-
                     client.writeMessage(callCommand(message.getText(), message));
                 } else {
                     client.writeMessage(new Message("token is invalid"));
@@ -79,13 +76,6 @@ public abstract class Server {
             } catch (NullPointerException nullPointerException) {
                 try {
                     Message answer = callCommand(message.getText(), message);
-                    /*if (answer.getText().equals("AccountType in login")) {
-                        client.setAccount((Account) answer.getObjects().get(1));
-                        //Main.addToClientHashMap(client, (Account) answer.getObjects().get(1));
-                        System.out.println(answer.getObjects().get(1));
-                    }
-
-                     */
                     client.setAuthToken(answer.getAuthToken());
                     client.writeMessage(answer);
                     System.out.println(client);

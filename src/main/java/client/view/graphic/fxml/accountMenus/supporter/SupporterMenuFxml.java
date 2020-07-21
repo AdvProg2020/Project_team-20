@@ -30,12 +30,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SupporterMenuFxml implements Initializable {
-    private static SupporterMenuFxml supporterMenuFxml = null;
-
-    public static SupporterMenuFxml getInstance() {
-        return supporterMenuFxml;
-    }
-
     private static Stage window;
     public BorderPane borderPane;
     public ImageView profileImg;
@@ -58,7 +52,6 @@ public class SupporterMenuFxml implements Initializable {
         mediaController.buyerMenu();
         buttons = new ArrayList<>();
         separators = new ArrayList<>();
-        supporterMenuFxml = this;
     }
 
     public static void start(Stage stage) throws Exception {
@@ -70,9 +63,6 @@ public class SupporterMenuFxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        supporterController.setSupporterChatRooms(supporterController.getAllChatRooms());
-        System.out.println(supporterController.getSupporterChatRooms());
-        //new Thread(supporterController::updateChatRooms);
         updateChats();
     }
 
@@ -81,11 +71,8 @@ public class SupporterMenuFxml implements Initializable {
         chats.getChildren().removeAll(separators);
         buttons = new ArrayList<>();
         separators = new ArrayList<>();
-        ArrayList<SupporterChatRoom> supporterChatRooms = supporterController.getSupporterChatRooms();
-        System.out.println("in update chats in menu");
-        System.out.println(supporterChatRooms);
+        ArrayList<SupporterChatRoom> supporterChatRooms = supporterController.getAllChatRooms();
         for (SupporterChatRoom supporterChatRoom : supporterChatRooms) {
-            System.out.println(supporterChatRoom.getBuyer());
             if (supporterChatRoom.getBuyer()==null) {
                 JFXButton button = new JFXButton();
                 if (supporterChatRoom.getBuyer() != null)
@@ -124,15 +111,28 @@ public class SupporterMenuFxml implements Initializable {
         messages.setOpacity(1);
         newComment.setOpacity(1);
         addCommentBtn.setOpacity(1);
-        updateChats();
         updateMessages();
+        if (!updateThreadStarted)
+            new Thread(this::update).start();
         updateThreadStarted = true;
     }
 
+    private void update() {
+        while (!threadStop) {
+            try {
+                System.out.println("UpdateSup");
+                Thread.sleep(3000);
+                updateChats();
+                updateMessages();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void updateMessages() {
         try {
-            ArrayList<ChatMessage> chatMessages = chatController.getChatMessages();
+            ArrayList<ChatMessage> chatMessages = chatController.getAllMessages(chatId);
             for (ChatMessage chatMessage:chatMessages) {
                 JFXButton button = new JFXButton();
                 button.setTextFill(new Color(0.3632, 0.4118, 0.41406, 1));
@@ -146,7 +146,6 @@ public class SupporterMenuFxml implements Initializable {
                 }
                 button.setText(chatMessage.getContest());
                 messages.getChildren().add(button);
-                updateChats();
             }
         } catch (Exception e) {
             e.printStackTrace();
