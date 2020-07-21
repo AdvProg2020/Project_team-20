@@ -10,6 +10,7 @@ import client.view.graphic.ProgramApplication;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.sun.javaws.util.JfxHelper;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -47,7 +48,7 @@ public class SupporterMenuFxml implements Initializable {
     private ArrayList<JFXButton> buttons;
     private ArrayList<Separator> separators;
     private ChatController chatController = ChatController.getInstance();
-    private String chatId;
+    private String chatId=null;
     private boolean threadStop = false;
     private boolean updateThreadStarted = false;
 
@@ -64,15 +65,78 @@ public class SupporterMenuFxml implements Initializable {
     public static void start(Stage stage) throws Exception {
         window = stage;
         Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/supporter/SupporterMenuFxml.fxml").toURI().toURL());
+
+
+
         stage.setScene(new Scene(root, 994, 666));
         stage.show();
     }
+    /*
+        public void start(Stage primaryStage) {
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        incrementCount();
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                    }
+
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+        thread.setDaemon(true);
+        thread.start();
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+     */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         supporterController.setSupporterChatRooms(supporterController.getAllChatRooms());
         System.out.println(supporterController.getSupporterChatRooms());
-        //new Thread(supporterController::updateChatRooms);
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        updateChats();
+                        updateMessages();
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ex) {
+                    }
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+        thread.setDaemon(true);
+        thread.start();
+
         updateChats();
     }
 
@@ -85,7 +149,7 @@ public class SupporterMenuFxml implements Initializable {
         System.out.println("in update chats in menu");
         System.out.println(supporterChatRooms);
         for (SupporterChatRoom supporterChatRoom : supporterChatRooms) {
-            System.out.println(supporterChatRoom.getBuyer());
+            System.out.println(supporterChatRoom.getBuyer() + "Buyer");
             if (supporterChatRoom.getBuyer()==null) {
                 JFXButton button = new JFXButton();
                 if (supporterChatRoom.getBuyer() != null)
@@ -132,6 +196,8 @@ public class SupporterMenuFxml implements Initializable {
 
     private void updateMessages() {
         try {
+            if (chatId==null)
+                return;
             ArrayList<ChatMessage> chatMessages = chatController.getChatMessages();
             for (ChatMessage chatMessage:chatMessages) {
                 JFXButton button = new JFXButton();
