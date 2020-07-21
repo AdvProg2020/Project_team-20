@@ -12,7 +12,7 @@ public class Supporter extends Account{
 
     public Supporter(String name, String lastName, String email,
                      String phoneNumber, String username, String password) {
-        super(name, lastName, email, phoneNumber, username, password, 0, AccountType.SUPPORTER);
+        super(name, lastName, email, phoneNumber, username, password, AccountType.SUPPORTER);
         this.chatRooms = new ArrayList<>();
     }
 
