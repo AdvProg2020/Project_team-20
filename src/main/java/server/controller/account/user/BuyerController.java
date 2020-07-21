@@ -98,7 +98,7 @@ public class BuyerController extends Server implements AccountController {
         }
     }
 
-    public synchronized Message purchaseByBank(String address, String phoneNumber, String discountCode, String username, String password,String sourceId , String destId ,AuthToken authToken) {
+    public synchronized Message purchase(String address, String phoneNumber, String discountCode,Boolean payByBankCart, String username, String password,String sourceId , String destId ,AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         receiveInformation(address, phoneNumber, currentBuyer);
@@ -119,7 +119,7 @@ public class BuyerController extends Server implements AccountController {
             return message;
         }
         try {
-           payByBank(totalPrice,currentBuyer,username , password ,sourceId , destId);
+           pay(totalPrice,currentBuyer,payByBankCart,username , password ,sourceId , destId);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -133,39 +133,13 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
-    public synchronized Message purchaseByWallet(String address, String phoneNumber, String discountCode, AuthToken authToken) {
-        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
-        Message message;
-        receiveInformation(address, phoneNumber, currentBuyer);
-        double discountPercentage = 0;
-        double totalPrice = (double) getTotalPrice(authToken).getObjects().get(0);
-        try {
-            if (!discountCode.equals("") && Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
-                discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode))
-                        .getDiscountPercentage();
-                if (Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, Integer.parseInt(discountCode)) == 0) {
-                    System.out.println(discountPercentage);
-                    totalPrice *= (1 - discountPercentage);
-                }
-            }
-        } catch (Exception e) {
-            message = new Message("Error");
-            message.addToObjects(e);
-            return message;
+    private void pay(double totalPrice, Buyer currentBuyer,Boolean payByBankCart ,String username , String password , String sourceId , String destinationId) throws Exception {
+        if(payByBankCart){
+            payByBank(totalPrice,currentBuyer,username,password,sourceId,destinationId);
         }
-        try {
-            payByWallet(totalPrice, currentBuyer);
-        } catch (Exception e) {
-            message = new Message("Error");
-            message.addToObjects(e);
-            return message;
+        else{
+            payByWallet(totalPrice,currentBuyer);
         }
-        decreaseAllProductBought(authToken);
-        makeReceipt(totalPrice, discountPercentage, currentBuyer);
-        addBuyerToProductsBuyers(authToken);
-        currentBuyer.getCart().resetCart();
-        message = new Message("purchase was successful");
-        return message;
     }
 
     private void payByBank(double totalPrice, Buyer currentBuyer,String username , String password , String sourceId , String destinationId) throws Exception {

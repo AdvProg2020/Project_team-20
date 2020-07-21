@@ -5,6 +5,7 @@ import client.controller.account.LoginController;
 import client.model.account.*;
 import client.model.product.*;
 import client.model.receipt.BuyerReceipt;
+import client.network.AuthToken;
 import client.network.Client;
 import client.network.Message;
 import javafx.scene.image.Image;
@@ -94,14 +95,16 @@ public class BuyerController implements AccountController {
     }
 
     public void purchaseByBank(String address, String phoneNumber, String discountCode,String username,String password , String accountId) throws Exception {
-        Message message = new Message("purchaseByBank");
+        Message message = new Message("purchase");
         message.addToObjects(address);
         message.addToObjects(phoneNumber);
         message.addToObjects(discountCode);
         //i changed it
+        message.addToObjects(true);
         message.addToObjects(username);
         message.addToObjects(password);
         message.addToObjects(accountId);
+        message.addToObjects("123"); //todo
         //
         client.writeMessage(message);
         Message answer = client.readMessage();
@@ -111,10 +114,15 @@ public class BuyerController implements AccountController {
     }
 
     public void purchaseByWallet(String address, String phoneNumber, String discountCode) throws Exception {
-        Message message = new Message("purchaseByWallet");
+        Message message = new Message("purchase");
         message.addToObjects(address);
         message.addToObjects(phoneNumber);
         message.addToObjects(discountCode);
+        message.addToObjects(false);
+        message.addToObjects(null);
+        message.addToObjects(null);
+        message.addToObjects(null);
+        message.addToObjects(null);
         client.writeMessage(message);
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {
