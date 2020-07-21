@@ -142,7 +142,7 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
-    public Message purchaseFileProducts(String discountCode, Boolean payWithBankCart, String username, String password, AuthToken authToken) {
+    public Message purchaseFileProducts(String discountCode,Boolean payByBankCart, String username, String password,String sourceId ,AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         double discountPercentage = 0;
@@ -162,7 +162,7 @@ public class BuyerController extends Server implements AccountController {
             return message;
         }
         try {
-            pay(totalPrice, currentBuyer, payWithBankCart, username, password);
+            pay(totalPrice, currentBuyer, payByBankCart, username, password, sourceId, discountCode);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -202,11 +202,11 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
-    public Message purchaseAll(String address, String phoneNumber, String discountCode, Boolean payWithBankCart, String username, String password, AuthToken authToken) {
-        Message message = purchase(address, phoneNumber, discountCode, payWithBankCart, username, password, authToken);
+    public Message purchaseAll(String address, String phoneNumber, String discountCode,Boolean payByBankCart, String username, String password,String sourceId , String destId ,AuthToken authToken) {
+        Message message = purchase(address, phoneNumber, discountCode, payByBankCart, username, password, sourceId, destId, authToken);
         if (message.getText().equals("Error"))
             return message;
-        return purchaseFileProducts(discountCode, payWithBankCart, username, password, authToken);
+        return purchaseFileProducts(discountCode, payByBankCart, username, password, sourceId, authToken);
     }
 
     private void pay(double totalPrice, Buyer currentBuyer,Boolean payByBankCart ,String username , String password , String sourceId , String destinationId) throws Exception {
