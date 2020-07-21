@@ -93,6 +93,13 @@ public class BuyerController extends Server implements AccountController {
         }
     }
 
+    private void addBuyerToFileProductsBuyers(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
+        for (Product product : currentBuyer.getCart().getAllFileProducts().keySet()) {
+            product.addBuyer(currentBuyer);
+        }
+    }
+
     public synchronized Message purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart, String username, String password,AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
@@ -128,9 +135,52 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
+    public Message purchaseFileProducts(String discountCode,Boolean payWithBankCart, String username, String password,AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
+        Message message;
+        double discountPercentage = 0;
+        double totalPrice = (double) getFileTotalPrice(authToken).getObjects().get(0);
+        try {
+            if (!discountCode.equals("") && Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
+                discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode))
+                        .getDiscountPercentage();
+                if (Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, Integer.parseInt(discountCode)) == 0) {
+                    System.out.println(discountPercentage);
+                    totalPrice *= (1 - discountPercentage);
+                }
+            }
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+        try {
+            pay(totalPrice, currentBuyer,payWithBankCart, username, password);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+        makeFileReceipt(totalPrice, discountPercentage, currentBuyer);
+        addBuyerToFileProductsBuyers(authToken);
+        currentBuyer.getCart().resetFileCart();
+        // TODO need to send files
+        message = new Message("purchase was successful");
+        return message;
+    }
+
+    public Message purchaseAll(String address, String phoneNumber, String discountCode,Boolean payWithBankCart, String username, String password,AuthToken authToken) {
+        Message message = purchase(address, phoneNumber, discountCode, payWithBankCart, username, password, authToken);
+        if (message.getText().equals("Error"))
+            return message;
+        return purchaseFileProducts(discountCode, payWithBankCart, username, password, authToken);
+    }
+
     private void decreaseAllProductBought(AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
+            if (selectedProduct.getProduct() instanceof FileProduct)
+                continue;
             decreaseProductSeller(selectedProduct.getProduct(), selectedProduct.getCount(), selectedProduct.getSeller());
         }
     }
@@ -138,6 +188,28 @@ public class BuyerController extends Server implements AccountController {
     private void decreaseProductSeller(Product product, int number, Seller seller) {
         seller.decreaseProduct(product, number);
         product.decreaseCountSeller(seller, number);
+    }
+
+    private void makeFileReceipt(double totalPrice, double discountPercentage, Buyer currentBuyer) {
+        makeBuyerFileReceipt(totalPrice, discountPercentage, currentBuyer);
+        makeSellerFileReceipt(discountPercentage, currentBuyer);
+    }
+
+    private void makeBuyerFileReceipt(double totalPrice, double discountPercentage, Buyer currentBuyer) {
+        Cart cart = currentBuyer.getCart();
+        currentBuyer.addReceipt(new BuyerReceipt(Integer.toString(BuyerReceipt.getBuyerReceiptCount()),
+                discountPercentage, cart.getAllFileProducts(), false, totalPrice, cart.getAllFileSellers()));
+    }
+
+    private void makeSellerFileReceipt(double discountPercentage, Buyer currentBuyer) {
+        Cart cart = currentBuyer.getCart();
+        ArrayList<Seller> sellers = cart.getAllFileSellers();
+        for (Seller seller : sellers) {
+            seller.addToSaleHistory(new SellerReceipt(Integer.toString(SellerReceipt.getSellerReceiptCount()),
+                    discountPercentage, cart.getAllFileProductsSeller(seller),
+                    false, getTotalFilePriceTotalDiscountSeller(seller, 0, currentBuyer), currentBuyer,
+                    getTotalFilePriceTotalDiscountSeller(seller, 1, currentBuyer)));
+        }
     }
 
     private void makeReceipt(double totalPrice, double discountPercentage, Buyer currentBuyer) {
@@ -161,6 +233,28 @@ public class BuyerController extends Server implements AccountController {
         double totalPriceSeller = 0;
         double totalDiscount = 0;
         ArrayList<SelectedProduct> allSelectedProductsSeller = cart.getAllProductsOfSeller(seller);
+        for (SelectedProduct selectedProduct : allSelectedProductsSeller) {
+            Product product = selectedProduct.getProduct();
+            Sale sale = getSaleForProductOfSeller(product, seller);
+            if (sale != null) {
+                totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount() *
+                        (1 - sale.getSalePercentage());
+                totalDiscount += product.getPrice(seller) * selectedProduct.getCount() * sale.getSalePercentage();
+            } else
+                totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount();
+        }
+        if (type == 0)
+            return totalPriceSeller;
+        else
+            return totalDiscount;
+    }
+
+
+    private double getTotalFilePriceTotalDiscountSeller(Seller seller, int type, Buyer currentBuyer) {
+        Cart cart = currentBuyer.getCart();
+        double totalPriceSeller = 0;
+        double totalDiscount = 0;
+        ArrayList<SelectedProduct> allSelectedProductsSeller = cart.getAllFileProductsOfSeller(seller);
         for (SelectedProduct selectedProduct : allSelectedProductsSeller) {
             Product product = selectedProduct.getProduct();
             Sale sale = getSaleForProductOfSeller(product, seller);
@@ -214,6 +308,8 @@ public class BuyerController extends Server implements AccountController {
         double totalPrice = 0;
         try {
             for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
+                if (selectedProduct.getProduct() instanceof FileProduct)
+                    continue;
                 if (selectedProduct.isSold())
                     throw new Product.ProductIsSoldException(selectedProduct.getProduct().getName());
                             Sale saleForProduct = getSaleForProduct(selectedProduct);
@@ -223,6 +319,32 @@ public class BuyerController extends Server implements AccountController {
                             (1 - saleForProduct.getSalePercentage());
                 else
                     totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
+            }
+            message.addToObjects(totalPrice);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    public Message getFileTotalPrice(AuthToken authToken) {
+        Message message = new Message("fileTotalPrice");
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
+        double totalPrice = 0;
+        try {
+            for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
+                if (selectedProduct.getProduct() instanceof FileProduct) {
+                    if (selectedProduct.isSold())
+                        throw new Product.ProductIsSoldException(selectedProduct.getProduct().getName());
+                    Sale saleForProduct = getSaleForProduct(selectedProduct);
+                    Seller seller = selectedProduct.getSeller();
+                    if (saleForProduct != null && saleForProduct.validSaleTime())
+                        totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount() *
+                                (1 - saleForProduct.getSalePercentage());
+                    else
+                        totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
+                }
             }
             message.addToObjects(totalPrice);
         } catch (Exception e) {
@@ -328,8 +450,11 @@ public class BuyerController extends Server implements AccountController {
         methods.add("viewOrders");
         methods.add("rate");
         methods.add("getBuyerReceiptById");
+        methods.add("purchaseAll");
         methods.add("purchase");
+        methods.add("purchaseFileProducts");
         methods.add("getTotalPrice");
+        methods.add("getFileTotalPrice");
         methods.add("getDiscount");
         methods.add("viewCart");
         methods.add("getProductById");

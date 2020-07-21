@@ -1,5 +1,6 @@
 package client.network;
 
+import client.controller.account.user.seller.SellerNetwork;
 import client.model.account.Account;
 import com.gilecode.yagson.YaGson;
 import com.oracle.tools.packager.IOUtils;
@@ -45,6 +46,16 @@ public class Client {
     public Client(InetAddress inetAddress, int port) {
         try {
             this.socket = new Socket(inetAddress, port);
+            this.dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            this.dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Client(SellerNetwork sellerNetwork) {
+        try {
+            this.socket = new Socket(sellerNetwork.getInetAddress(), sellerNetwork.getPort());
             this.dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             this.dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         } catch (IOException e) {

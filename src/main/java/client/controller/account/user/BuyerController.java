@@ -2,6 +2,7 @@ package client.controller.account.user;
 
 import client.controller.MainController;
 import client.controller.account.LoginController;
+import client.controller.account.user.seller.SellerNetwork;
 import client.model.account.*;
 import client.model.product.*;
 import client.model.receipt.BuyerReceipt;
@@ -9,7 +10,6 @@ import client.network.Client;
 import client.network.Message;
 import javafx.scene.image.Image;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class BuyerController implements AccountController {
@@ -57,7 +57,7 @@ public class BuyerController implements AccountController {
         return (ArrayList<BuyerReceipt>) client.readMessage().getObjects().get(0);
     }
 
-    public void ChargeWallet(double money , String username , String password){
+    public void ChargeWallet(double money, String username, String password) {
         //ToDo
     }
 
@@ -83,7 +83,12 @@ public class BuyerController implements AccountController {
         return (BuyerReceipt) answer.getObjects().get(0);
     }
 
-    public void purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart,String username,String password) throws Exception {
+    public void purchaseAll(String address, String phoneNumber, String discountCode, Boolean payWithBankCart, String username, String password) throws Exception {
+        purchase(address, phoneNumber, discountCode, payWithBankCart, username, password);
+        purchaseFileProducts(discountCode, payWithBankCart, username, password);
+    }
+
+    public void purchase(String address, String phoneNumber, String discountCode, Boolean payWithBankCart, String username, String password) throws Exception {
         Message message = new Message("purchase");
         message.addToObjects(address);
         message.addToObjects(phoneNumber);
@@ -99,8 +104,46 @@ public class BuyerController implements AccountController {
         }
     }
 
+    public void purchaseFileProducts(String discountCode, Boolean payWithBankCart, String username, String password) throws Exception {
+        Message message = new Message("purchaseFileProducts");
+        message.addToObjects(discountCode);
+        message.addToObjects(payWithBankCart);
+        message.addToObjects(username);
+        message.addToObjects(password);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        ArrayList<SellerNetwork> sellerNetworks = (ArrayList<SellerNetwork>) answer.getObjects().get(0);
+        ArrayList<String> names = (ArrayList<String>) answer.getObjects().get(1);
+        ArrayList<String> fileTypes = (ArrayList<String>) answer.getObjects().get(2);
+        ArrayList<String> productIds = (ArrayList<String>) answer.getObjects().get(3);
+        new Thread(() -> receiveFiles(sellerNetworks, productIds, names, fileTypes)).start();
+    }
+
+    private void receiveFiles(ArrayList<SellerNetwork> sellerNetworks, ArrayList<String> productIds, ArrayList<String> names, ArrayList<String> fileTypes) {
+        int iterator = 0;
+        for (SellerNetwork network : sellerNetworks) {
+            Client client = new Client(network);
+            Message message = new Message("getFile");
+            message.addToObjects(productIds.get(iterator));
+            client.writeMessage(message);
+            client.readFileForBuyer(names.get(iterator), fileTypes.get(iterator));
+            iterator += 1;
+        }
+    }
+
     public double getTotalPrice() {
-        client.writeMessage(new Message("getTotalPrice"));
+        return getFileProductTotalPrice() + getNoneFileProductTotalPrice();
+    }
+
+    public double getFileProductTotalPrice() {
+        client.writeMessage(new Message("getFileTotalPrice"));
+        return getPrice();
+    }
+
+    private double getPrice() {
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {
             try {
@@ -111,6 +154,11 @@ public class BuyerController implements AccountController {
             }
         }
         return (double) client.readMessage().getObjects().get(0);
+    }
+
+    public double getNoneFileProductTotalPrice() {
+        client.writeMessage(new Message("getTotalPrice"));
+        return getPrice();
     }
 
     public double getDiscount() {
