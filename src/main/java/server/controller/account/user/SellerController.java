@@ -1,6 +1,7 @@
 package server.controller.account.user;
 
 import client.model.account.Account;
+import client.model.account.Buyer;
 import client.model.account.Manager;
 import client.model.account.Seller;
 import client.model.product.*;
@@ -14,6 +15,7 @@ import client.network.Client;
 import client.network.Message;
 import javafx.scene.image.Image;
 import server.controller.Main;
+import server.model.bank.BankReceiptType;
 import server.network.server.Server;
 
 import java.io.File;
@@ -30,6 +32,87 @@ public class SellerController extends Server implements AccountController {
         super(4000);
         setMethods();
         System.out.println("seller controller run");
+    }
+
+    //i add it
+    public Message chargeWallet(double money ,String username,String password , String sourceId , String destId ,AuthToken authToken) throws Exception {
+        Client client = new Client(9000);
+        Message message2 = new Message("getToken");
+        message2.addToObjects(username);
+        message2.addToObjects(password);
+        client.writeMessage(message2);
+        Message answer2 = client.readMessage();
+        AuthToken authToken2 = answer2.getAuthToken();
+        //not sure
+        Message message = new Message("createReceipt");
+        BankReceiptType bankReceiptType = BankReceiptType.MOVE;
+        message.addToObjects(bankReceiptType);
+        message.addToObjects(money);
+        message.addToObjects(sourceId);
+        message.addToObjects(destId);
+        message.addToObjects("");//description
+        message.addToObjects(authToken);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        String receiptId = (String) answer.getObjects().get(0);
+        //
+        Message message3 = new Message("pay");
+        message3.addToObjects(receiptId);
+        message3.addToObjects(authToken2);
+        client.writeMessage(message3);
+        Message answer1 = client.readMessage();
+        if(answer1.getObjects().get(0).equals("error")){
+            Message message5 = new Message("Error");
+            message5.addToObjects(answer1.getObjects().get(1));
+            return message5;
+        }
+        //increase credit
+        Seller currentSeller = (Seller) Main.getAccountWithToken(authToken);
+        currentSeller.increaseCredit(money);
+        Message message6 = new Message("Confirmation");
+        return message6;
+    }
+    //i add it
+    public Message withdrawMoneyFromWallet(double money ,String username,String password , String sourceId , String destId ,AuthToken authToken) throws Exception {
+        Seller currentSeller = (Seller) Main.getAccountWithToken(authToken);
+        if(money < currentSeller.getCredit()-100000 ) {
+            Client client = new Client(9000);
+            Message message2 = new Message("getToken");
+            message2.addToObjects(username);
+            message2.addToObjects(password);
+            client.writeMessage(message2);
+            Message answer2 = client.readMessage();
+            AuthToken authToken2 = answer2.getAuthToken();
+            //not sure
+            Message message = new Message("createReceipt");
+            BankReceiptType bankReceiptType = BankReceiptType.WITHDRAW;
+            message.addToObjects(bankReceiptType);
+            message.addToObjects(money);
+            message.addToObjects(sourceId);
+            message.addToObjects(destId);
+            message.addToObjects("");//description
+            message.addToObjects(authToken);
+            client.writeMessage(message);
+            Message answer = client.readMessage();
+            String receiptId = (String) answer.getObjects().get(0);
+            //
+            Message message3 = new Message("pay");
+            message3.addToObjects(receiptId);
+            message3.addToObjects(authToken2);
+            client.writeMessage(message3);
+            Message answer1 = client.readMessage();
+            if (answer1.getObjects().get(0).equals("error")) {
+                throw new Exception();
+            }
+            currentSeller.decreaseCredit(money);
+            Message message5 = new Message("Confirmation");
+            return message5;
+        }
+        else{
+            Message message6 = new Message("Error");
+            message6.addToObjects("you don't have enough money");
+            return message6;
+        }
     }
 
     public static SellerController getInstance() {
@@ -517,31 +600,27 @@ public class SellerController extends Server implements AccountController {
         switch (field) {
             case "name":
                 seller.changeStateEdited(context, seller.getLastName(), seller.getEmail(), seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit(), seller.getDetails());
+                        seller.getPassword(),seller.getDetails());
                 break;
             case "lastName":
                 seller.changeStateEdited(seller.getName(), context, seller.getEmail(), seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit(), seller.getDetails());
+                        seller.getPassword(), seller.getDetails());
                 break;
             case "email":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), context, seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getCredit(), seller.getDetails());
+                        seller.getPassword(),seller.getDetails());
                 break;
             case "phoneNumber":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(), context,
-                        seller.getPassword(), seller.getCredit(), seller.getDetails());
+                        seller.getPassword(), seller.getDetails());
                 break;
             case "password":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), context, seller.getCredit(), seller.getDetails());
-                break;
-            case "credit":
-                seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), seller.getPassword(), Double.parseDouble(context), seller.getDetails());
+                        seller.getPhoneNumber(), context, seller.getDetails());
                 break;
             case "companyInfo":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), seller.getPassword(), seller.getCredit(), context);
+                        seller.getPhoneNumber(), seller.getPassword(),context);
                 break;
             default:
                 Message message = new Message("Error");

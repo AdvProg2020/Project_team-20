@@ -20,6 +20,8 @@ public class YourWalletFxml implements Initializable {
     public TextField bankUsername1;
     public TextField bankPassword1;
     public TextField amountOfMoney1;
+    public TextField accountId;
+    public TextField accountId1;
 
     private SellerController sellerController = SellerController.getInstance();
     client.model.account.Seller seller = (Seller) sellerController.getAccountInfo();
@@ -34,27 +36,31 @@ public class YourWalletFxml implements Initializable {
         String username = bankUsername.getText();
         String password = bankPassword.getText();
         String money = amountOfMoney.getText();
-        if (username != null && password != null && money != null) {
-            sellerController.chargeWallet(Double.parseDouble(money), username, password);
+        String sourceId = accountId.getText();
+        if (username != null && password != null && money != null && sourceId !=null) {
+            sellerController.chargeWallet(Double.parseDouble(money), username, password , sourceId);
         } else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
         bankPassword.clear();
         bankUsername.clear();
         amountOfMoney.clear();
+        accountId.clear();
     }
 
     public void withdrawMoney(ActionEvent actionEvent) {
         String username = bankUsername1.getText();
         String password = bankPassword1.getText();
         String money = amountOfMoney1.getText();
+        String sourceId = accountId1.getText();
         if (username != null && password != null && money != null) {
-            sellerController.withdrawMoneyFromWallet(Double.parseDouble(money), username, password);
+            sellerController.withdrawMoneyFromWallet(Double.parseDouble(money), username, password, sourceId);
         } else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
         bankPassword1.clear();
         bankUsername1.clear();
         amountOfMoney1.clear();
+        accountId1.clear();
     }
 }

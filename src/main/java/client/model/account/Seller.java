@@ -21,12 +21,10 @@ public class Seller extends Account implements Requestable {
     private String details;
     private RequestableState state;
     private Seller editedSeller;
-    private Wallet wallet;
 
     public Seller(String name, String lastName, String email, String phoneNumber, String username, String password,
-                  double credit, String details) {
-        super(name, lastName, email, phoneNumber, username, password, credit, AccountType.SELLER);
-        this.wallet = new Wallet(0);
+               String details) {
+        super(name, lastName, email, phoneNumber, username, password,AccountType.SELLER);
         state = RequestableState.CREATED;
         this.saleHistory = new ArrayList<>();
         this.productIDsToSell = new HashMap<>();
@@ -36,8 +34,8 @@ public class Seller extends Account implements Requestable {
     }
 
     public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password,
-                                  double credit, String details) {
-        editedSeller = new Seller(name, lastName, email, phoneNumber, username, password, credit, details);
+                                  String details) {
+        editedSeller = new Seller(name, lastName, email, phoneNumber, username, password,details);
         state = RequestableState.EDITED;
     }
 
@@ -109,11 +107,6 @@ public class Seller extends Account implements Requestable {
             }
         }
         return products;
-    }
-
-
-    public Wallet getWallet() {
-        return wallet;
     }
 
     public void decreaseProduct(Product product, int number) {

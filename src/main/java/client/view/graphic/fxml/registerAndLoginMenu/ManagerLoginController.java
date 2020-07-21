@@ -22,7 +22,6 @@ public class ManagerLoginController {
     public PasswordField newPassword;
     public TextField newLastName;
     public TextField newEmail;
-    public TextField newCredit;
     public TextField newPhoneNumber;
     private static Stage window;
 
@@ -31,10 +30,10 @@ public class ManagerLoginController {
     public void handleSignUp() throws Exception {
         LoginController loginController = LoginController.getInstance();
         String username = newUsername.getText(), name = newName.getText(), password = newPassword.getText(),
-                lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
+                lastName = newLastName.getText(), email = newEmail.getText(),
                 phoneNumber = newPhoneNumber.getText();
         if (username.isEmpty() || name.isEmpty() || password.isEmpty() || lastName.isEmpty() ||
-                email.isEmpty() || creditString.isEmpty() || phoneNumber.isEmpty()) {
+                email.isEmpty() || phoneNumber.isEmpty()) {
             try {
                 new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
             } catch (Exception e) {
@@ -48,7 +47,6 @@ public class ManagerLoginController {
         details.add(email);
         details.add(phoneNumber);
         details.add(password);
-        details.add(creditString);
         try {
             loginController.createAccount(username, "manager", details, "");
         } catch (Exception e) {
@@ -84,7 +82,6 @@ public class ManagerLoginController {
 
     public void exitMouseExit(MouseEvent event) {
         ((Button) event.getSource()).setStyle("-fx-background-color: #ff4c4c;");
-        ;
     }
 
     public static void setWindow(Stage window) {

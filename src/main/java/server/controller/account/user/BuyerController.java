@@ -11,6 +11,7 @@ import client.model.receipt.BuyerReceipt;
 import client.model.receipt.SellerReceipt;
 import client.network.AuthToken;
 import client.network.Message;
+import server.model.bank.BankReceiptType;
 import server.network.server.Server;
 
 import java.awt.*;
@@ -97,7 +98,7 @@ public class BuyerController extends Server implements AccountController {
         }
     }
 
-    public synchronized Message purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart, String username, String password,AuthToken authToken) {
+    public synchronized Message purchaseByBank(String address, String phoneNumber, String discountCode, String username, String password,String sourceId , String destId ,AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         receiveInformation(address, phoneNumber, currentBuyer);
@@ -118,7 +119,7 @@ public class BuyerController extends Server implements AccountController {
             return message;
         }
         try {
-            pay(totalPrice, currentBuyer,payWithBankCart, username, password);
+           payByBank(totalPrice,currentBuyer,username , password ,sourceId , destId);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -130,6 +131,128 @@ public class BuyerController extends Server implements AccountController {
         currentBuyer.getCart().resetCart();
         message = new Message("purchase was successful");
         return message;
+    }
+
+    public synchronized Message purchaseByWallet(String address, String phoneNumber, String discountCode, AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
+        Message message;
+        receiveInformation(address, phoneNumber, currentBuyer);
+        double discountPercentage = 0;
+        double totalPrice = (double) getTotalPrice(authToken).getObjects().get(0);
+        try {
+            if (!discountCode.equals("") && Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
+                discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode))
+                        .getDiscountPercentage();
+                if (Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, Integer.parseInt(discountCode)) == 0) {
+                    System.out.println(discountPercentage);
+                    totalPrice *= (1 - discountPercentage);
+                }
+            }
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+        try {
+            payByWallet(totalPrice, currentBuyer);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+        decreaseAllProductBought(authToken);
+        makeReceipt(totalPrice, discountPercentage, currentBuyer);
+        addBuyerToProductsBuyers(authToken);
+        currentBuyer.getCart().resetCart();
+        message = new Message("purchase was successful");
+        return message;
+    }
+
+    private void payByBank(double totalPrice, Buyer currentBuyer,String username , String password , String sourceId , String destinationId) throws Exception {
+        //i changed it
+        Client client = new Client(9000);
+        Message message2 = new Message("getToken");
+        message2.addToObjects(username);
+        message2.addToObjects(password);
+        client.writeMessage(message2);
+        Message answer2 = client.readMessage();
+        AuthToken authToken = answer2.getAuthToken();
+        //not sure
+        Message message = new Message("createReceipt");
+        BankReceiptType bankReceiptType = BankReceiptType.MOVE ;
+        message.addToObjects(bankReceiptType);
+        message.addToObjects(totalPrice);
+        message.addToObjects(sourceId);
+        message.addToObjects(destinationId);
+        message.addToObjects("");//description
+        message.addToObjects(authToken);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        String receiptId = (String) answer.getObjects().get(0);
+        //pay
+        Message message1 = new Message("pay");
+        message1.addToObjects(receiptId);
+        message1.addToObjects(authToken);
+        client.writeMessage(message1);
+        Message answer1 = client.readMessage();
+        if(answer1.getObjects().get(0).equals("error")){
+           throw new Exception();
+        }
+        for (Seller seller : currentBuyer.getCart().getAllSellers()) {
+            seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer)*95/100);
+        }
+    }
+
+    private void payByWallet(double totalPrice, Buyer currentBuyer) throws Exception {
+        //i changed it
+        if(currentBuyer.getCredit() < totalPrice){
+            throw new Exception();
+        }
+        else {
+            currentBuyer.decreaseCredit(totalPrice);
+            for (Seller seller : currentBuyer.getCart().getAllSellers()) {
+                seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer) * 95 / 100);
+            }
+        }
+    }
+
+    //i add it
+    public Message chargeWallet(double money ,String username,String password , String sourceId , String destId ,AuthToken authToken) throws Exception {
+        Client client = new Client(9000);
+        Message message2 = new Message("getToken");
+        message2.addToObjects(username);
+        message2.addToObjects(password);
+        client.writeMessage(message2);
+        Message answer2 = client.readMessage();
+        AuthToken authToken2 = answer2.getAuthToken();
+        //not sure
+        Message message = new Message("createReceipt");
+        BankReceiptType bankReceiptType = BankReceiptType.MOVE;
+        message.addToObjects(bankReceiptType);
+        message.addToObjects(money);
+        message.addToObjects(sourceId);
+        message.addToObjects(destId);
+        message.addToObjects("");//description
+        message.addToObjects(authToken);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        String receiptId = (String) answer.getObjects().get(0);
+        //
+        Message message3 = new Message("pay");
+        message3.addToObjects(receiptId);
+        message3.addToObjects(authToken2);
+        client.writeMessage(message3);
+        Message answer1 = client.readMessage();
+        if(answer1.getObjects().get(0).equals("error")){
+            Message message5 = new Message("Error");
+            message5.addToObjects(answer1.getObjects().get(1));
+            return message5;
+        }
+         //increase credit
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
+        currentBuyer.increaseCredit(money);
+        Message message6 = new Message("Confirmation");
+        return message6;
     }
 
     private void decreaseAllProductBought(AuthToken authToken) {
@@ -186,34 +309,6 @@ public class BuyerController extends Server implements AccountController {
         currentBuyer.addReceipt(new BuyerReceipt(Integer.toString(BuyerReceipt.getBuyerReceiptCount()),
                 discountPercentage, cart.getAllProducts(), false, totalPrice, cart.getAllSellers()));
     }
-
-    private void pay(double totalPrice, Buyer currentBuyer,Boolean payWithBankCart, String username , String password) throws Exception {
-        //i changed it
-        if(payWithBankCart){
-            loginToBankAccount(username,password);
-            //connect to bank server and pay
-        }
-        else {
-            currentBuyer.decreaseCredit(totalPrice);
-        }
-        for (Seller seller : currentBuyer.getCart().getAllSellers()) {
-            seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer));
-        }
-    }
-
-    //i add it
-    private void loginToBankAccount(String username,String password) {
-        Client client = new Client(9000);
-        Message message = new Message("getToken");
-        message.addToObjects(username);
-        message.addToObjects(password);
-        client.writeMessage(message);
-        Message answer = client.readMessage();
-        AuthToken authToken = answer.getAuthToken();
-        Message message1 = new Message("pay");
-
-    }
-
 
     private void receiveInformation(String address, String phoneNumber, Buyer currentBuyer) {
         currentBuyer.setAddress(address);
@@ -380,28 +475,23 @@ public class BuyerController extends Server implements AccountController {
         switch (field) {
             case "name":
                 currentBuyer.changeStateEdited(context, currentBuyer.getLastName(), currentBuyer.getEmail(),
-                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword());
                 break;
             case "lastName":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), context, currentBuyer.getEmail(),
-                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword());
                 break;
             case "email":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), context,
-                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword());
                 break;
             case "phoneNumber":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
-                        currentBuyer.getEmail(), context, currentBuyer.getPassword(), currentBuyer.getCredit());
+                        currentBuyer.getEmail(), context, currentBuyer.getPassword());
                 break;
             case "password":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
-                        currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), context, currentBuyer.getCredit());
-                break;
-            case "credit":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
-                        currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(),
-                        Double.parseDouble(context));
+                        currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), context);
                 break;
             default:
                 Message message = new Message("Error");

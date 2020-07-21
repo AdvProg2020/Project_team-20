@@ -57,8 +57,18 @@ public class BuyerController implements AccountController {
         return (ArrayList<BuyerReceipt>) client.readMessage().getObjects().get(0);
     }
 
-    public void ChargeWallet(double money , String username , String password){
-        //ToDo
+    public void ChargeWallet(double money , String username , String password , String accountId) throws Exception {
+        Message message = new Message("chargeWallet");
+        message.addToObjects(money);
+        message.addToObjects(username);
+        message.addToObjects(password);
+        message.addToObjects(accountId);
+        message.addToObjects("123");//todo market's account
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void rate(String productId, double score) throws Exception {
@@ -83,15 +93,15 @@ public class BuyerController implements AccountController {
         return (BuyerReceipt) answer.getObjects().get(0);
     }
 
-    public void purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart,String username,String password) throws Exception {
-        Message message = new Message("purchase");
+    public void purchaseByBank(String address, String phoneNumber, String discountCode,String username,String password , String accountId) throws Exception {
+        Message message = new Message("purchaseByBank");
         message.addToObjects(address);
         message.addToObjects(phoneNumber);
         message.addToObjects(discountCode);
         //i changed it
-        message.addToObjects(payWithBankCart);
         message.addToObjects(username);
         message.addToObjects(password);
+        message.addToObjects(accountId);
         //
         client.writeMessage(message);
         Message answer = client.readMessage();
@@ -99,6 +109,19 @@ public class BuyerController implements AccountController {
             throw (Exception) answer.getObjects().get(0);
         }
     }
+
+    public void purchaseByWallet(String address, String phoneNumber, String discountCode) throws Exception {
+        Message message = new Message("purchaseByWallet");
+        message.addToObjects(address);
+        message.addToObjects(phoneNumber);
+        message.addToObjects(discountCode);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+    }
+
 
     public double getTotalPrice() {
         client.writeMessage(new Message("getTotalPrice"));

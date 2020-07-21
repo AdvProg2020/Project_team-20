@@ -28,10 +28,10 @@
         <TextField fx:id="bankUsername" layoutX="111.0" layoutY="158.0" />
         <Text fill="#575957" layoutX="21.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
         <TextField fx:id="bankPassword" layoutX="111.0" layoutY="194.0" />
-        <Text fill="#575957" layoutX="21.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How much do you want to charge your wallet" />
-        <Text fill="#575957" layoutX="21.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money:" />
-        <TextField fx:id="amountOfMoney" layoutX="111.0" layoutY="265.0" />
-        <Button layoutX="20.0" layoutY="318.0" onAction="#chargeWallet" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="charge your wallet" textFill="#252e3b" />
+        <Text fill="#575957" layoutX="21.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How much do you want to charge your wallet" />
+        <Text fill="#575957" layoutX="21.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money:" />
+        <TextField fx:id="amountOfMoney" layoutX="103.0" layoutY="320.0" />
+        <Button layoutX="21.0" layoutY="378.0" onAction="#chargeWallet" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="charge your wallet" textFill="#252e3b" />
       <Separator layoutX="388.0" layoutY="117.0" prefHeight="8.0" prefWidth="289.0" />
       <Text fill="#5dabaa" layoutX="388.0" layoutY="114.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="withdraw money from your wallet" wrappingWidth="207.58889770507812">
          <font>
@@ -43,9 +43,13 @@
       <TextField fx:id="bankUsername1" layoutX="470.0" layoutY="158.0" />
       <TextField fx:id="bankPassword1" layoutX="470.0" layoutY="194.0" />
       <Text fill="#575957" layoutX="389.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
-      <Text fill="#575957" layoutX="389.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How much do you want to withdraw from your wallet" />
-      <Text fill="#575957" layoutX="388.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money:" />
-      <TextField fx:id="amountOfMoney1" layoutX="470.0" layoutY="265.0" />
-      <Button layoutX="388.0" layoutY="318.0" onAction="#withdrawMoney" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="withdraw money" textFill="#252e3b" />
+      <Text fill="#575957" layoutX="382.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How much do you want to withdraw from your wallet" />
+      <Text fill="#575957" layoutX="388.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money:" />
+      <TextField fx:id="amountOfMoney1" layoutX="478.0" layoutY="320.0" />
+      <Button layoutX="389.0" layoutY="378.0" onAction="#withdrawMoney" prefHeight="29.0" prefWidth="134.0" style="-fx-background-color: #edf3be#edf3be; -fx-border-color: #252e3b; -fx-background-radius: 5; -fx-border-radius: 5;" text="withdraw money" textFill="#252e3b" />
+      <Text fill="#575957" layoutX="20.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AccountId:" />
+      <TextField fx:id="accountId" layoutX="113.0" layoutY="232.0" />
+      <Text fill="#575957" layoutX="389.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AccountId:" />
+      <TextField fx:id="accountId1" layoutX="470.0" layoutY="232.0" />
     </children>
 </AnchorPane>
