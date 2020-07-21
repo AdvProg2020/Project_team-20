@@ -1,5 +1,7 @@
 package client.controller.account.user.seller;
 
+import client.model.product.FileProduct;
+import client.model.product.Product;
 import client.network.Client;
 import client.network.Message;
 
@@ -21,6 +23,7 @@ public class SellerServer {
             Message message = new Message("connect to DNS");
             message.addToObjects(username);
             message.addToObjects(port);
+            message.addToObjects(serverSocket.getInetAddress());
             client.writeMessage(message);
             client.readMessage();
         } catch (IOException e) {
@@ -49,11 +52,28 @@ public class SellerServer {
     }
 
     private void handleClient(Client client) {
-        
+        Message message = client.readMessage();
+        String productId = (String) message.getObjects().get(0);
+        for (Product sellerProduct : SellerController.getInstance().getSellerProducts()) {
+            if (sellerProduct.getId().equals(productId)) {
+                if (sellerProduct instanceof FileProduct) {
+                    String path = "src/main/resources/aboutSeller/sellerFiles/" +
+                            sellerProduct.getId() + "." + ((FileProduct) sellerProduct).getFileType();
+                    client.writeFile(new File(path));
+                    return;
+                }
+            }
+        }
     }
 
     private int generatePort() {
         Random rand = new Random();
         return rand.nextInt(20000) + 1000;
+    }
+
+    private static class ProductIsNotFile extends Exception {
+        public ProductIsNotFile() {
+            super("product is not file");
+        }
     }
 }

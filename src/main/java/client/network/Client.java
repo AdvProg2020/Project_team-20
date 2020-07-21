@@ -5,6 +5,7 @@ import com.gilecode.yagson.YaGson;
 import com.oracle.tools.packager.IOUtils;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
 
 public class Client {
@@ -34,6 +35,16 @@ public class Client {
     public Client(int port) {
         try {
             this.socket = new Socket(HOST, port);
+            this.dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            this.dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Client(InetAddress inetAddress, int port) {
+        try {
+            this.socket = new Socket(inetAddress, port);
             this.dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             this.dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         } catch (IOException e) {

@@ -56,7 +56,7 @@ public class Main {
         new AdvertisementController(); // 696
         new ReceiptController(); // 500
         ChatController.getInstance(); //572
-        new DNS(); // 1673
+        DNS.getInstance(); // 1673
         //TODO run all requierd servers
     }
 
