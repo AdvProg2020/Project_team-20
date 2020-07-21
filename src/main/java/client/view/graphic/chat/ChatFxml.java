@@ -114,7 +114,6 @@ public class ChatFxml implements Initializable {
             messagesChats.getChildren().removeAll(buttons);
             buttons = new ArrayList<>();
             for (ChatMessage chatMessage:chatMessages) {
-                System.out.println(chatMessage.getContest());
                 JFXButton button = new JFXButton();
                 button.setTextFill(new Color(0.3632, 0.4118, 0.41406, 1));
                 button.setPrefWidth(278);

@@ -6,6 +6,7 @@ import client.controller.chat.ChatController;
 import client.model.account.AccountType;
 import client.network.chat.ChatMessage;
 import client.network.chat.SupporterChatRoom;
+import client.view.graphic.MenuNames;
 import client.view.graphic.ProgramApplication;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -88,19 +89,16 @@ public class SupporterMenuFxml implements Initializable {
                     }
                 };
 
-                while (true) {
+                while (threadStop) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                     }
-
-                    // UI update is run on the Application thread
                     Platform.runLater(updater);
                 }
             }
 
         });
-        // don't let thread prevent JVM shutdown
         thread.setDaemon(true);
         thread.start();
     }
@@ -164,7 +162,6 @@ public class SupporterMenuFxml implements Initializable {
             messages.getChildren().removeAll(messageButtons);
             messageButtons = new ArrayList<>();
             for (ChatMessage chatMessage:chatMessages) {
-                System.out.println(chatMessage.getContest());
                 JFXButton button = new JFXButton();
                 button.setTextFill(new Color(0.3632, 0.4118, 0.41406, 1));
                 button.setPrefWidth(278);
@@ -187,10 +184,14 @@ public class SupporterMenuFxml implements Initializable {
 
     public void handleLogout(ActionEvent actionEvent) {
         threadStop = true;
+        chatController.disconnect();
+        supporterController.logout();
+        ProgramApplication.setMenu(MenuNames.MAINMENU);
     }
 
     public void handleExit(ActionEvent actionEvent) {
         threadStop = true;
+        window.close();
     }
 
     public void handleDragDropped(DragEvent event) {
