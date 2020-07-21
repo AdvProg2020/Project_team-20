@@ -43,7 +43,9 @@ public class Client {
 
     public Message readMessage() {
         try {
-            return new YaGson().fromJson(dataInputStream.readUTF(), Message.class);
+            Message message =  new YaGson().fromJson(dataInputStream.readUTF(), Message.class);
+            if (message.getAuthToken()!=null)
+                authToken = message.getAuthToken();
         } catch (IOException e) {
             e.printStackTrace();
         }
