@@ -230,6 +230,14 @@ public class SellerController implements AccountController {
         return (double) answer.getObjects().get(0);
     }
 
+    public void chargeWallet(double money , String username , String password){
+        //todo
+    }
+
+    public void withdrawMoneyFromWallet(double money , String username , String password){
+        //todo
+    }
+
     public static class SaleUnavailableException extends Exception {
         public SaleUnavailableException() {
             super("sale(off) unavailable");

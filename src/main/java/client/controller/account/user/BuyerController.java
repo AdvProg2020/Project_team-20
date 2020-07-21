@@ -92,6 +92,7 @@ public class BuyerController implements AccountController {
         message.addToObjects(payWithBankCart);
         message.addToObjects(username);
         message.addToObjects(password);
+        //
         client.writeMessage(message);
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {

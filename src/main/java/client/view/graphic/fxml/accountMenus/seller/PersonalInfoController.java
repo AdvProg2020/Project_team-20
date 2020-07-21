@@ -26,7 +26,6 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
     public Button phoneOk;
     public Button nameOk;
     public Button lastNameOk;
-    public Button creditOk;
 
     public TextField gmailEdit;
     public TextField phoneNumberEdit;
@@ -37,8 +36,6 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
     public TextField companyInfoEdit;
     public Button companyInfoOk;
     static boolean leave = false;
-    public TextField credit;
-    public TextField creditEdit;
 
     SellerController sellerController = SellerController.getInstance();
     Seller seller = (Seller) sellerController.getAccountInfo();
@@ -54,7 +51,6 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
         username.appendText(seller.getUsername());
         password.appendText(seller.getPassword());
         companyInfo.appendText(seller.getDetails());
-        credit.appendText(String.valueOf(seller.getCredit()));
     }
 
     public void handleEdit(ActionEvent actionEvent) {
@@ -88,7 +84,6 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
         phoneNumberEdit.setOpacity(0);
         nameEdit.setOpacity(0);
         lastNameEdit.setOpacity(0);
-        creditEdit.setOpacity(0);
         passwordEdit.setOpacity(0);
         companyInfoEdit.setOpacity(0);
         gmailOk.setOpacity(0);
@@ -96,7 +91,6 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
         nameOk.setOpacity(0);
         passwordOk.setOpacity(0);
         phoneOk.setOpacity(0);
-        creditOk.setOpacity(0);
         companyInfoOk.setOpacity(0);
     }
 
@@ -105,14 +99,12 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
         phoneNumberEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         nameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         lastNameEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
-        creditEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         passwordEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         companyInfoEdit.setStyle("-fx-text-inner-color: white; -fx-background-color: #45546e;");
         gmailEdit.setOpacity(0.71);
         phoneNumberEdit.setOpacity(0.71);
         nameEdit.setOpacity(0.71);
         lastNameEdit.setOpacity(0.71);
-        creditEdit.setOpacity(0.71);
         passwordEdit.setOpacity(0.71);
         companyInfoEdit.setOpacity(0.71);
         gmailOk.setOpacity(0.71);
@@ -120,7 +112,6 @@ public class PersonalInfoController extends MotherPersonalInfo implements Initia
         nameOk.setOpacity(0.71);
         passwordOk.setOpacity(0.71);
         phoneOk.setOpacity(0.71);
-        creditOk.setOpacity(0.71);
         companyInfoOk.setOpacity(0.71);
     }
 

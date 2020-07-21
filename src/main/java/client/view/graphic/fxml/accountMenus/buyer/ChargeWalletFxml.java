@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class chargeWalletFxml implements Initializable {
+public class ChargeWalletFxml implements Initializable {
 
     public TextField moneyInWallet;
     public TextField amountOfMoney;
@@ -36,5 +36,8 @@ public class chargeWalletFxml implements Initializable {
         else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
+        bankPassword.clear();
+        bankUsername.clear();
+        amountOfMoney.clear();
     }
 }

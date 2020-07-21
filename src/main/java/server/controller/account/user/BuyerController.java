@@ -1,5 +1,6 @@
 package server.controller.account.user;
 
+import client.network.Client;
 import server.controller.Main;
 import server.controller.PreProcess;
 import javafx.scene.image.Image;
@@ -13,7 +14,10 @@ import client.network.Message;
 import server.network.server.Server;
 
 import java.awt.*;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
 
 public class BuyerController extends Server implements AccountController {
 
@@ -198,7 +202,15 @@ public class BuyerController extends Server implements AccountController {
     }
 
     //i add it
-    private void loginToBankAccount(String username,String password){
+    private void loginToBankAccount(String username,String password) {
+        Client client = new Client(9000);
+        Message message = new Message("getToken");
+        message.addToObjects(username);
+        message.addToObjects(password);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        AuthToken authToken = answer.getAuthToken();
+        Message message1 = new Message("pay");
 
     }
 
