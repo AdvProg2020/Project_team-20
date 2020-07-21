@@ -7,6 +7,8 @@ import client.network.AuthToken;
 public class Protector {
     private static Instrumentation instrumentation;
 
+    // Brute force attack
+
 
     // Broken Authentication
     public boolean isAuthenticationSecure(Message message) {
@@ -14,6 +16,8 @@ public class Protector {
             return false;
         return true;
     }
+    // -> Password is wick!
+
 
     private boolean checkTokenTime(AuthToken authToken) {
         return authToken.validTime();
