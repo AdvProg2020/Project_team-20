@@ -1,5 +1,6 @@
 package server.controller.account;
 
+import client.network.Client;
 import server.controller.Main;
 import server.controller.MainController;
 import client.model.account.*;
@@ -151,6 +152,55 @@ public class LoginController extends Server {
 
     public void logout() {
         MainController.getInstance().setAccount(new TempAccount());
+    }
+
+    @Override
+    protected void handleClient(Client client) {
+        clients.add(client);
+        client.writeMessage(new Message("client accepted"));
+        while (true) {
+            Main.storeData();
+            Message message = client.readMessage();
+            try {
+                protector.isMessageSecure(message, client.getSocket());
+            } catch (Exception e) {
+                Message insecureMessage = new Message("Error");
+                insecureMessage.addToObjects(e);
+                client.writeMessage(insecureMessage);
+                return;
+            }
+            if (message.getText().equals("AccountType"))
+                protector.removeIpFromLoginIps(client.getSocket());
+            if (message.getText().equals("buy")) {
+                clients.remove(client);
+                return;
+            }
+
+            try {
+                if (message.getAuthToken().authenticate()) {
+                    message.addToObjects(message.getAuthToken());
+                    GeneralAccount generalAccount = Main.getAccountWithToken(message.getAuthToken());
+                    if (generalAccount instanceof Account) {
+                        client.setAccount((Account) generalAccount);
+                    }
+                    client.writeMessage(callCommand(message.getText(), message));
+                } else {
+                    client.writeMessage(new Message("token is invalid"));
+                    clients.remove(client);
+                    return;
+                }
+            } catch (InvalidCommand invalidCommand) {
+                invalidCommand.printStackTrace();
+            } catch (NullPointerException nullPointerException) {
+                try {
+                    Message answer = callCommand(message.getText(), message);
+                    client.setAuthToken(answer.getAuthToken());
+                    client.writeMessage(answer);
+                } catch (InvalidCommand invalidCommand) {
+                    return;
+                }
+            }
+        }
     }
 
     @Override

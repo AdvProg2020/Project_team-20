@@ -6,6 +6,7 @@ import client.network.AuthToken;
 import client.network.Client;
 import client.network.Message;
 import server.controller.Main;
+import server.network.security.Protector;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -20,12 +21,14 @@ public abstract class Server {
     protected ServerSocket serverSocket;
     protected ArrayList<Client> clients;
     protected ArrayList<String> methods;
+    protected Protector protector;
 
     public Server(int port) {
         try {
             this.serverSocket = new ServerSocket(port);
             this.clients = new ArrayList<>();
             this.methods = new ArrayList<>();
+            this.protector = new Protector();
             new Thread(this::handleClients).start();
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,6 +52,15 @@ public abstract class Server {
         while (true) {
             Main.storeData();
             Message message = client.readMessage();
+            try {
+                protector.isMessageSecure(message, client.getSocket());
+            } catch (Exception e) {
+                Message insecureMessage = new Message("Error");
+                insecureMessage.addToObjects(e);
+                client.writeMessage(insecureMessage);
+                return;
+            }
+            
             System.out.println(message.getText());
             if (message.getText().equals("buy")) {
                 clients.remove(client);
@@ -63,7 +75,6 @@ public abstract class Server {
                     GeneralAccount generalAccount = Main.getAccountWithToken(message.getAuthToken());
                     if (generalAccount instanceof Account) {
                         client.setAccount((Account) generalAccount);
-                        Main.addToClientHashMap(client, (Account) generalAccount);
                     }
                     client.writeMessage(callCommand(message.getText(), message));
                 } else {

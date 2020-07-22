@@ -16,7 +16,7 @@ public class Protector {
 
 
 
-    public boolean isMessageSecure(Message message, Socket socket) throws Exception {
+    public void isMessageSecure(Message message, Socket socket) throws Exception {
         String ip = getIp(socket);
         isClientOverload();
         getAddIp(message, ip);
@@ -25,17 +25,16 @@ public class Protector {
         isIpDangerous(ip);
         isAuthenticationSecure(message);
         isMessageImproper(message);
-        return true;
     }
 
-    public void removeIpFromLoginIps(String ip) throws Exception{
+    public void removeIpFromLoginIps(Socket socket) {
+        String ip = getIp(socket);
         for (String ip1:loginClientsIp.keySet()) {
             if (ip.equals(ip1)) {
                 loginClientsIp.remove(ip1);
                 return;
             }
         }
-        throw new IpNotFoundException();
     }
 
     public void removeIpFromAllIps(String ip) throws Exception{
