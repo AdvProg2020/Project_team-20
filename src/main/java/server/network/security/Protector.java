@@ -10,44 +10,49 @@ import client.network.Message;
 import client.network.AuthToken;
 
 public class Protector {
-    private static Instrumentation instrumentation;
-    private ArrayList<DangerousIp> dangerousIps;
+    private ArrayList<DangerousIp> dangerousIps = new ArrayList<>();
     private HashMap<String, ActivityDensity> allClientsIp = new HashMap<>();
     private HashMap<String, Integer> loginClientsIp = new HashMap<>();
 
 
 
     public boolean isMessageSecure(Message message, Socket socket) throws Exception {
-        getAddIp(message, socket);
+        String ip = getIp(socket);
+        isClientOverload();
+        getAddIp(message, ip);
+        checkLoginAttempts(ip);
+        checkActivityDensity(ip);
+        isIpDangerous(ip);
+        isAuthenticationSecure(message);
+        isMessageImproper(message);
         return true;
     }
 
-    public void removeIpFromLoginIps(Socket socket) {
-        String ip = getIp(socket);
+    public void removeIpFromLoginIps(String ip) throws Exception{
         for (String ip1:loginClientsIp.keySet()) {
             if (ip.equals(ip1)) {
                 loginClientsIp.remove(ip1);
                 return;
             }
         }
+        throw new IpNotFoundException();
     }
 
-    public void removeIpFromAllIps(Socket socket) {
-        String ip = getIp(socket);
+    public void removeIpFromAllIps(String ip) throws Exception{
         for (String ip1:allClientsIp.keySet()) {
             if (ip.equals(ip1)) {
                 allClientsIp.remove(ip1);
                 return;
             }
         }
+        throw new IpNotFoundException();
     }
 
 
 
 
     // Brute force & Denial of Service (DoS) attack
-    private void isIpDangerous(Socket socket) throws Exception{
-        String ip = getIp(socket);
+    private void isIpDangerous(String ip) throws Exception{
         DangerousIp dangerousIp = getDangerousIpByIp(ip);
         if (dangerousIp==null)
             return;
@@ -58,8 +63,7 @@ public class Protector {
         throw new BlockUserException();
     }
 
-    public void getAddIp(Message message, Socket socket) {
-        String ip = getIp(socket);
+    public void getAddIp(Message message, String ip) {
         if (allClientsIp.get(ip)==null)
             allClientsIp.put(ip, new ActivityDensity());
         else
@@ -72,8 +76,7 @@ public class Protector {
         }
     }
 
-    public void checkLoginAttempts(Socket socket) {
-        String ip = getIp(socket);
+    public void checkLoginAttempts(String ip) {
         int attempts = loginClientsIp.get(ip);
         if (attempts>3) {
             loginClientsIp.remove(ip);
@@ -81,8 +84,7 @@ public class Protector {
         }
     }
 
-    public void checkActivityDensity(Socket socket) {
-        String ip = getIp(socket);
+    public void checkActivityDensity(String ip) {
         ActivityDensity activityDensity = allClientsIp.get(ip);
         if (activityDensity.getActivityDensity()>100) {
             allClientsIp.remove(ip);
@@ -90,8 +92,9 @@ public class Protector {
         }
     }
 
-    public boolean isClientOverload() {
-        return allClientsIp.size() > 1000000;
+    public void isClientOverload() throws Exception{
+        if (allClientsIp.size() > 1000000)
+            throw new BusyServerException();
     }
 
 
@@ -126,11 +129,12 @@ public class Protector {
     }
 
     private boolean checkSizes(Message message) {
+         Instrumentation instrumentation;
         if (message.getText().length()>100)
             return false;
         if (message.getObjects().size()>100)
             return false;
-        return instrumentation.getObjectSize(message) <= 1000000000;
+        return message.toYaGson().length() <= 1000000000;
     }
 
 
@@ -172,6 +176,11 @@ public class Protector {
         }
     }
 
+    public static class BusyServerException extends Exception {
+        public BusyServerException() {
+            super("Unfortunately our servers are really busy. Come back soon!");
+        }
+    }
 
     public static class MalMessageException extends Exception {
         public MalMessageException() {
