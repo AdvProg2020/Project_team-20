@@ -1,17 +1,26 @@
 package server.network.server;
 
+import client.controller.account.user.seller.SellerNetwork;
 import client.network.Client;
 import client.network.Message;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.HashMap;
 
 public class DNS {
-    private final HashMap<String, Integer> sellerPorts = new HashMap<>();
+    private  static DNS dns = null;
+    private final HashMap<String, SellerNetwork> sellerPorts = new HashMap<>();
     private ServerSocket serverSocket;
 
-    public DNS() {
+    public static DNS getInstance() {
+        if (dns == null)
+            dns = new DNS();
+        return dns;
+    }
+
+    private DNS() {
         try {
             serverSocket = new ServerSocket(1673);
             System.out.println("dns server is run");
@@ -21,9 +30,9 @@ public class DNS {
         }
     }
 
-    public int getSellerPort(String sellerUsername) {
+    public SellerNetwork getSellerNetwork(String sellerUsername) throws SellerIsNotOnline {
         if (sellerPorts.get(sellerUsername) == null)
-            return -1;
+            throw new SellerIsNotOnline();
         return sellerPorts.get(sellerUsername);
     }
 
@@ -34,11 +43,18 @@ public class DNS {
                 Message message = client.readMessage();
                 String sellerUsername = (String) message.getObjects().get(0);
                 int port = (int) message.getObjects().get(1);
-                sellerPorts.put(sellerUsername, port);
+                InetAddress inetAddress = (InetAddress) message.getObjects().get(2);
+                sellerPorts.put(sellerUsername, new SellerNetwork(inetAddress, port));
                 client.writeMessage(new Message("added"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static class SellerIsNotOnline extends Exception {
+        public SellerIsNotOnline() {
+            super("seller is not online for receive files");
         }
     }
 }

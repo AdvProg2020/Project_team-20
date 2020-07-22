@@ -2,9 +2,11 @@ package client.controller.account.user;
 
 import client.controller.MainController;
 import client.controller.account.LoginController;
+import client.controller.account.user.seller.SellerNetwork;
 import client.model.account.*;
 import client.model.product.*;
 import client.model.receipt.BuyerReceipt;
+import client.network.AuthToken;
 import client.network.Client;
 import client.network.Message;
 import javafx.scene.image.Image;
@@ -57,8 +59,18 @@ public class BuyerController implements AccountController {
         return (ArrayList<BuyerReceipt>) client.readMessage().getObjects().get(0);
     }
 
-    public void ChargeWallet(double money , String username , String password){
-        //ToDo
+    public void ChargeWallet(double money, String username, String password, String accountId) throws Exception {
+        Message message = new Message("chargeWallet");
+        message.addToObjects(money);
+        message.addToObjects(username);
+        message.addToObjects(password);
+        message.addToObjects(accountId);
+        message.addToObjects("123");//todo market's account
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void rate(String productId, double score) throws Exception {
@@ -83,15 +95,22 @@ public class BuyerController implements AccountController {
         return (BuyerReceipt) answer.getObjects().get(0);
     }
 
-    public void purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart,String username,String password) throws Exception {
+    public void purchaseAll(String address, String phoneNumber, String discountCode, Boolean payByBankCart, String username, String password, String sourceId, String destId) throws Exception {
+        purchase(address, phoneNumber, discountCode, payByBankCart, username, password, sourceId, destId);
+        purchaseFileProducts(discountCode, payByBankCart, username, password, sourceId);
+    }
+
+
+    public void purchase(String address, String phoneNumber, String discountCode,Boolean payByBankCart, String username, String password,String sourceId , String destId) throws Exception {
         Message message = new Message("purchase");
         message.addToObjects(address);
         message.addToObjects(phoneNumber);
         message.addToObjects(discountCode);
-        //i changed it
-        message.addToObjects(payWithBankCart);
+        message.addToObjects(payByBankCart);
         message.addToObjects(username);
         message.addToObjects(password);
+        message.addToObjects(sourceId);
+        message.addToObjects(destId);
         client.writeMessage(message);
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {
@@ -99,8 +118,47 @@ public class BuyerController implements AccountController {
         }
     }
 
+    public void purchaseFileProducts(String discountCode, Boolean payByBankCart, String username, String password, String sourceId) throws Exception {
+        Message message = new Message("purchaseFileProducts");
+        message.addToObjects(discountCode);
+        message.addToObjects(payByBankCart);
+        message.addToObjects(username);
+        message.addToObjects(password);
+        message.addToObjects(sourceId);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
+        ArrayList<SellerNetwork> sellerNetworks = (ArrayList<SellerNetwork>) answer.getObjects().get(0);
+        ArrayList<String> names = (ArrayList<String>) answer.getObjects().get(1);
+        ArrayList<String> fileTypes = (ArrayList<String>) answer.getObjects().get(2);
+        ArrayList<String> productIds = (ArrayList<String>) answer.getObjects().get(3);
+        new Thread(() -> receiveFiles(sellerNetworks, productIds, names, fileTypes)).start();
+    }
+
+    private void receiveFiles(ArrayList<SellerNetwork> sellerNetworks, ArrayList<String> productIds, ArrayList<String> names, ArrayList<String> fileTypes) {
+        int iterator = 0;
+        for (SellerNetwork network : sellerNetworks) {
+            Client client = new Client(network);
+            Message message = new Message("getFile");
+            message.addToObjects(productIds.get(iterator));
+            client.writeMessage(message);
+            client.readFileForBuyer(names.get(iterator), fileTypes.get(iterator));
+            iterator += 1;
+        }
+    }
+
     public double getTotalPrice() {
-        client.writeMessage(new Message("getTotalPrice"));
+        return getFileProductTotalPrice() + getNoneFileProductTotalPrice();
+    }
+
+    public double getFileProductTotalPrice() {
+        client.writeMessage(new Message("getFileTotalPrice"));
+        return getPrice();
+    }
+
+    private double getPrice() {
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {
             try {
@@ -111,6 +169,11 @@ public class BuyerController implements AccountController {
             }
         }
         return (double) client.readMessage().getObjects().get(0);
+    }
+
+    public double getNoneFileProductTotalPrice() {
+        client.writeMessage(new Message("getTotalPrice"));
+        return getPrice();
     }
 
     public double getDiscount() {

@@ -27,18 +27,12 @@
             </font>
         </Text>
         <TextField fx:id="phone" editable="false" layoutX="252.0" layoutY="141.0" style="-fx-background-color: transparent;" />
-        <Text fill="#575957" layoutX="105.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="credit:">
+        <Text fill="#575957" layoutX="105.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
             <font>
                 <Font size="14.0" />
             </font>
         </Text>
-        <TextField fx:id="credit" editable="false" layoutX="250.0" layoutY="301.0" style="-fx-background-color: transparent;" />
-        <Text fill="#575957" layoutX="106.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </Text>
-        <TextField fx:id="password" editable="false" layoutX="250.0" layoutY="336.0" style="-fx-background-color: transparent;" />
+        <TextField fx:id="password" editable="false" layoutX="251.0" layoutY="302.0" style="-fx-background-color: transparent;" />
         <Text fill="#5dabaa" layoutX="104.0" layoutY="104.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Conatct inforamation">
             <font>
                 <Font size="12.0" />
@@ -102,23 +96,23 @@
         <TextField fx:id="lastNameEdit" layoutX="427.0" layoutY="266.0" opacity="0.0" promptText="Edited lastname" style="-fx-background-color: #296294;" />
         <TextField fx:id="creditEdit" layoutX="427.0" layoutY="301.0" opacity="0.0" promptText="Edited credit" style="-fx-background-color: #296294;" />
         <TextField fx:id="passwordEdit" layoutX="427.0" layoutY="336.0" opacity="0.0" promptText="Edited password" style="-fx-background-color: #296294;" />
-      <Text fill="#575957" layoutX="106.0" layoutY="389.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company info:">
+      <Text fill="#575957" layoutX="105.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company info:">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="companyInfo" editable="false" layoutX="252.0" layoutY="371.0" style="-fx-background-color: transparent;" />
+      <TextField fx:id="companyInfo" editable="false" layoutX="251.0" layoutY="336.0" style="-fx-background-color: transparent;" />
       <TextField fx:id="companyInfoEdit" layoutX="427.0" layoutY="371.0" opacity="0.0" promptText="Edited Company info" style="-fx-background-color: #296294;" />
       <Button fx:id="companyInfoOk" layoutX="618.0" layoutY="371.0" mnemonicParsing="false" onAction="#handleOk" onMouseEntered="#handleEnterOk" onMouseExited="#handleExitOk" opacity="0.0" prefHeight="27.0" prefWidth="31.0" style="-fx-background-color: #60d520;" text="Ok" textFill="WHITE">
          <font>
             <Font size="11.0" />
          </font>
       </Button>
-      <Text fill="#575957" layoutX="106.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+      <Text fill="#575957" layoutX="103.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
          <font>
             <Font size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="username" editable="false" layoutX="252.0" layoutY="404.0" style="-fx-background-color: transparent;" />
+      <TextField fx:id="username" editable="false" layoutX="252.0" layoutY="371.0" style="-fx-background-color: transparent;" />
     </children>
 </AnchorPane>

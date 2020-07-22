@@ -6,15 +6,17 @@ import client.controller.account.user.AccountController;
 import client.model.account.Account;
 import client.model.account.Buyer;
 import client.model.account.Seller;
+import client.model.product.FileProduct;
 import client.model.product.Product;
 import client.model.product.Sale;
 import client.model.product.category.SubCategory;
 import client.model.receipt.SellerReceipt;
 import client.network.Client;
 import client.network.Message;
+import com.oracle.tools.packager.IOUtils;
 import javafx.scene.image.Image;
 
-import java.io.File;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -147,16 +149,35 @@ public class SellerController implements AccountController {
     }
 
     public void createFileProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
-                                  HashMap<String, ArrayList<String>> optionalFields, String filePath) throws Exception {
+                                  HashMap<String, ArrayList<String>> optionalFields, String filePath, String fileType)
+            throws Exception {
         Message message = new Message("createFileProduct");
+        // details contains fileType
         message.addToObjects(details);
         message.addToObjects(numericalFields);
         message.addToObjects(optionalFields);
+        message.addToObjects(fileType);
         client.writeMessage(message);
         client.writeFile(new File(filePath));
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {
             throw (Exception) answer.getObjects().get(0);
+        }
+        copyFromFile(filePath, (String) answer.getObjects().get(0), fileType);
+    }
+
+    private void copyFromFile(String filePath, String id, String fileType) {
+        String newPath = "src/main/resources/aboutSeller/sellerFiles/" +
+                id + "." + fileType;
+        File oldFile = new File(filePath);
+        try {
+            byte[] myByteArray = IOUtils.readFully(oldFile);
+            FileOutputStream fileOutputStream = new FileOutputStream(newPath, false);
+            fileOutputStream.write(myByteArray);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -228,6 +249,30 @@ public class SellerController implements AccountController {
         client.writeMessage(message);
         Message answer = client.readMessage();
         return (double) answer.getObjects().get(0);
+    }
+
+    public String chargeWallet(double money , String username , String password , String sourceId){
+        Message message = new Message("chargeWallet");
+        message.addToObjects(money);
+        message.addToObjects(username);
+        message.addToObjects(password);
+        message.addToObjects(sourceId);
+        message.addToObjects("123");//todo market's account
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (String) answer.getObjects().get(0);
+    }
+
+    public String withdrawMoneyFromWallet(double money , String username , String password , String sourceId){
+        Message message = new Message("withdrawMoneyFromWallet");
+        message.addToObjects(money);
+        message.addToObjects(username);
+        message.addToObjects(password);
+        message.addToObjects(sourceId);
+        message.addToObjects("123");//todo market's account
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (String) answer.getObjects().get(0);
     }
 
     public static class SaleUnavailableException extends Exception {

@@ -74,7 +74,7 @@ public class LoginController extends Server {
         if (Manager.isHasFirstManger()) {
             throw new ThereIsFirstManagerException();
         }
-        Account.addAccount(new Manager(name, lastName, email, phoneNumber, username, password, credit, true));
+        Account.addAccount(new Manager(name, lastName, email, phoneNumber, username, password, true));
         Manager.setHasFirstManger(true);
     }
 
@@ -87,7 +87,7 @@ public class LoginController extends Server {
         } catch (Exception e) {
             throw new CreditIsNotNumber();
         }
-        Manager.addRequest(new Buyer(name, lastName, email, phoneNumber, username, password, credit));
+        Manager.addRequest(new Buyer(name, lastName, email, phoneNumber, username, password));
     }
 
     private void createSellerAccount(String username, ArrayList<String> details, String detail) throws CreditIsNotNumber {
@@ -99,7 +99,7 @@ public class LoginController extends Server {
         } catch (Exception e) {
             throw new CreditIsNotNumber();
         }
-        Manager.addRequest(new Seller(name, lastName, email, phoneNumber, username, password, credit, detail));
+        Manager.addRequest(new Seller(name, lastName, email, phoneNumber, username, password,  detail));
     }
 
     public Message login(String username, String password) throws Exception {

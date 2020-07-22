@@ -36,7 +36,6 @@ public class FxmlRegisterAndLoginMenu {
     public TextField newEmail;
     public TextField newName;
     public TextField newLastName;
-    public TextField newCredit;
     public TextField newCompanyInfo;
     public TextField newPhoneNumber;
     MediaController mediaController = ProgramApplication.getMediaController();
@@ -137,10 +136,10 @@ public class FxmlRegisterAndLoginMenu {
     public void handleSignUpBuyer() throws Exception {
         LoginController loginController = LoginController.getInstance();
         String name = newName.getText(), username = newUsername.getText(), password = newPassword.getText(),
-                lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
+                lastName = newLastName.getText(), email = newEmail.getText(),
                 phoneNumber = newPhoneNumber.getText();
         if (phoneNumber.isEmpty() || username.isEmpty() || name.isEmpty() || password.isEmpty() || lastName.isEmpty() ||
-                email.isEmpty() || creditString.isEmpty()) {
+                email.isEmpty() ) {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
             return;
         }
@@ -150,7 +149,6 @@ public class FxmlRegisterAndLoginMenu {
         details.add(email);
         details.add(phoneNumber);
         details.add(password);
-        details.add(creditString);
         try {
             loginController.createAccount(username, "buyer", details, "");
             ProgramApplication.back();
@@ -163,10 +161,10 @@ public class FxmlRegisterAndLoginMenu {
     public void handleSignUpSeller() throws Exception {
         LoginController loginController = LoginController.getInstance();
         String name = newName.getText(), username = newUsername.getText(), password = newPassword.getText(),
-                lastName = newLastName.getText(), email = newEmail.getText(), creditString = newCredit.getText(),
+                lastName = newLastName.getText(), email = newEmail.getText(),
                 phoneNumber = newPhoneNumber.getText(), detail = newCompanyInfo.getText();
         if (phoneNumber.isEmpty() || username.isEmpty() || name.isEmpty() || password.isEmpty() || lastName.isEmpty() ||
-                email.isEmpty() || creditString.isEmpty() || detail.isEmpty()) {
+                email.isEmpty() || detail.isEmpty()) {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
             return;
         }
@@ -176,7 +174,6 @@ public class FxmlRegisterAndLoginMenu {
         details.add(email);
         details.add(phoneNumber);
         details.add(password);
-        details.add(creditString);
         try {
             loginController.createAccount(username, "seller", details, detail);
             ProgramApplication.back();

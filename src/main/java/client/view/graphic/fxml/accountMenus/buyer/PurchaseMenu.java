@@ -41,9 +41,11 @@ public class PurchaseMenu implements Initializable {
     public Text usernameText;
     public Text passwordText;
     public Button submitAccountInformation;
+    public Button payWithWalletButton;
+    public Button payWithCartButton;
+    public Text accountText;
+    public TextField accountNumber;
 
-    private String bankUsername;
-    private String bankPassword;
     private Boolean submit;
     private String address2;
     private String phone2;
@@ -54,7 +56,7 @@ public class PurchaseMenu implements Initializable {
         if (submit) {
             BuyerController buyerController = BuyerController.getInstance();
             try {
-                buyerController.purchase(address2, phone2, discountCode2,false,null,null);
+                buyerController.purchaseByWallet(address2, phone2, discountCode2);
                 new AlertController().create(AlertType.CONFIRMATION, "Thanks for buying");
                 phoneText.setOpacity(0);
                 phone.setOpacity(0);
@@ -80,19 +82,22 @@ public class PurchaseMenu implements Initializable {
         password.setOpacity(1);
         passwordText.setOpacity(1);
         usernameText.setOpacity(1);
+        accountText.setOpacity(1);
+        accountNumber.setOpacity(1);
         submitAccountInformation.setOpacity(1);
     }
 
     public void finalStepPayByCart(ActionEvent actionEvent){
-        bankPassword = password.getText();
-        bankUsername = username.getText();
-        if(bankUsername!=null && bankPassword!=null){
+        String bankPassword = password.getText();
+        String bankUsername = username.getText();
+        String bankId = accountNumber.getText();
+        if(bankUsername !=null && bankPassword !=null){
             submit = true;
         }
         if (submit) {
             BuyerController buyerController = BuyerController.getInstance();
             try {
-                buyerController.purchase(address2, phone2, discountCode2,true,bankUsername,bankPassword);
+                buyerController.purchaseByBank(address2, phone2, discountCode2, bankUsername, bankPassword, bankId);
                 new AlertController().create(AlertType.CONFIRMATION, "Thanks for buying");
                 phoneText.setOpacity(0);
                 phone.setOpacity(0);
@@ -105,11 +110,14 @@ public class PurchaseMenu implements Initializable {
                 passwordText.setOpacity(0);
                 usernameText.setOpacity(0);
                 submitAccountInformation.setOpacity(0);
+                accountNumber.setOpacity(0);
+                accountText.setOpacity(0);
                 totalPrice.clear();
                 discount.clear();
                 address.clear();
                 username.clear();
                 password.clear();
+                accountNumber.clear();
                 submit = false;
             } catch (Exception e) {
                 new AlertController().create(AlertType.ERROR, e.getMessage());
@@ -136,6 +144,8 @@ public class PurchaseMenu implements Initializable {
         passwordText.setOpacity(0);
         usernameText.setOpacity(0);
         submitAccountInformation.setOpacity(0);
+        accountNumber.setOpacity(0);
+        accountText.setOpacity(0);
         submit = false;
         BuyerController buyerController = BuyerController.getInstance();
         Cart cart = buyerController.viewCart();

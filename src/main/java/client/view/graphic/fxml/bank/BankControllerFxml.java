@@ -8,7 +8,6 @@ import client.view.graphic.alert.AlertController;
 import client.view.graphic.alert.AlertType;
 import client.view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 import com.jfoenix.controls.JFXButton;
-import com.sun.tools.hat.internal.model.Root;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

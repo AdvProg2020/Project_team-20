@@ -18,19 +18,15 @@ public class Buyer extends Account implements Requestable {
     private String address;
     private RequestableState state;
     private Buyer editedBuyer;
-    private Wallet wallet;
 
-    public Buyer(String name, String lastName, String email, String phoneNumber, String username, String password,
-                 double credit) {
-        super(name, lastName, email, phoneNumber, username, password, credit, AccountType.BUYER);
+    public Buyer(String name, String lastName, String email, String phoneNumber, String username, String password) {
+        super(name, lastName, email, phoneNumber, username, password, AccountType.BUYER);
         state = RequestableState.CREATED;
-        this.wallet = new Wallet(0);
         this.purchaseHistory = new ArrayList<>();
     }
 
-    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password,
-                                  double credit) {
-        editedBuyer = new Buyer(name, lastName, email, phoneNumber, username, password, credit);
+    public void changeStateEdited(String name, String lastName, String email, String phoneNumber, String password) {
+        editedBuyer = new Buyer(name, lastName, email, phoneNumber, username, password);
         state = RequestableState.EDITED;
     }
 
@@ -54,10 +50,6 @@ public class Buyer extends Account implements Requestable {
                 return buyerReceipt;
         }
         throw new orderNotFoundException();
-    }
-
-    public Wallet getWallet() {
-        return wallet;
     }
 
     public ArrayList<BuyerReceipt> getPurchaseHistory() {

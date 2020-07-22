@@ -22,7 +22,7 @@
                         <Insets left="5.0" right="5.0" />
                     </VBox.margin>
                 </JFXTextField>
-                <VBox prefHeight="319.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
+                <VBox prefHeight="352.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                     <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
                     </VBox.margin>
@@ -35,6 +35,7 @@
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateProduct" prefHeight="40.0" prefWidth="396.0" text="Create product" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateOff" prefHeight="40.0" prefWidth="367.0" text="Create off" textFill="#d8f9ff" />
                   <JFXButton alignment="BASELINE_LEFT" onAction="#handleAdvertisement" prefHeight="40.0" prefWidth="367.0" text="Create advertisement" textFill="#d8f9ff" />
+                  <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="290.0" onAction="#handleViewWallet" prefHeight="40.0" prefWidth="367.0" text="Your Wallet" textFill="#d8f9ff" />
                     </children>
                 </VBox>
                 <VBox prefHeight="14.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">

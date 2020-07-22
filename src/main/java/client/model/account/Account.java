@@ -15,8 +15,7 @@ public abstract class Account extends GeneralAccount {
     protected NetworkState networkState;
     private String imagePath;
 
-    public Account(String name, String lastName, String email, String phoneNumber, String username, String password,
-                   double credit, AccountType accountType) {
+    public Account(String name, String lastName, String email, String phoneNumber, String username, String password, AccountType accountType) {
         super(GeneralAccountType.ACCOUNT);
         this.name = name;
         this.lastName = lastName;
@@ -24,9 +23,9 @@ public abstract class Account extends GeneralAccount {
         this.phoneNumber = phoneNumber;
         this.username = username;
         this.password = password;
-        this.credit = credit;
         this.accountType = accountType;
         this.networkState = NetworkState.OFFLINE;
+        this.credit = 0;
     }
 
     public static ArrayList<Account> getAllAccounts() {
@@ -49,7 +48,6 @@ public abstract class Account extends GeneralAccount {
         this.phoneNumber = account.getPhoneNumber();
         this.username = account.getUsername();
         this.password = account.getPassword();
-        this.credit = account.getCredit();
         this.accountType = account.getAccountType();
     }
 

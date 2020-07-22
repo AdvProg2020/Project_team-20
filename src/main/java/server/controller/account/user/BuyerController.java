@@ -1,5 +1,7 @@
 package server.controller.account.user;
 
+import client.controller.account.user.seller.SellerNetwork;
+import client.network.Client;
 import server.controller.Main;
 import server.controller.PreProcess;
 import javafx.scene.image.Image;
@@ -10,10 +12,15 @@ import client.model.receipt.BuyerReceipt;
 import client.model.receipt.SellerReceipt;
 import client.network.AuthToken;
 import client.network.Message;
+import server.network.server.DNS;
+import server.model.bank.BankReceiptType;
 import server.network.server.Server;
 
 import java.awt.*;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.regex.Matcher;
 
 public class BuyerController extends Server implements AccountController {
 
@@ -93,7 +100,14 @@ public class BuyerController extends Server implements AccountController {
         }
     }
 
-    public synchronized Message purchase(String address, String phoneNumber, String discountCode,Boolean payWithBankCart, String username, String password,AuthToken authToken) {
+    private void addBuyerToFileProductsBuyers(AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
+        for (Product product : currentBuyer.getCart().getAllFileProducts().keySet()) {
+            product.addBuyer(currentBuyer);
+        }
+    }
+
+    public synchronized Message purchase(String address, String phoneNumber, String discountCode,Boolean payByBankCart, String username, String password,String sourceId , String destId ,AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         receiveInformation(address, phoneNumber, currentBuyer);
@@ -114,7 +128,7 @@ public class BuyerController extends Server implements AccountController {
             return message;
         }
         try {
-            pay(totalPrice, currentBuyer,payWithBankCart, username, password);
+           pay(totalPrice,currentBuyer,payByBankCart,username , password ,sourceId , destId);
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -128,9 +142,174 @@ public class BuyerController extends Server implements AccountController {
         return message;
     }
 
+    public Message purchaseFileProducts(String discountCode,Boolean payByBankCart, String username, String password,String sourceId ,AuthToken authToken) {
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
+        Message message;
+        double discountPercentage = 0;
+        double totalPrice = (double) getFileTotalPrice(authToken).getObjects().get(0);
+        try {
+            if (!discountCode.equals("") && Discount.validDiscountCodeBuyer(currentBuyer, Integer.parseInt(discountCode))) {
+                discountPercentage = Discount.getDiscountByDiscountCode(Integer.parseInt(discountCode))
+                        .getDiscountPercentage();
+                if (Discount.decreaseDiscountCodeUsageBuyer(currentBuyer, Integer.parseInt(discountCode)) == 0) {
+                    System.out.println(discountPercentage);
+                    totalPrice *= (1 - discountPercentage);
+                }
+            }
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+        try {
+            pay(totalPrice, currentBuyer, payByBankCart, username, password, sourceId, discountCode);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+        makeFileReceipt(totalPrice, discountPercentage, currentBuyer);
+        addBuyerToFileProductsBuyers(authToken);
+        // TODO need to send files
+        try {
+            return sendDataToBuyer(currentBuyer);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+    }
+
+    private Message sendDataToBuyer(Buyer buyer) throws Exception {
+        Message message = new Message("send data to buyer");
+        DNS dns = DNS.getInstance();
+        ArrayList<SellerNetwork> sellerNetworks = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<String> fileTypes = new ArrayList<>();
+        ArrayList<String> productIds = new ArrayList<>();
+        Cart cart = buyer.getCart();
+        for (FileProduct fileProduct : cart.getAllFileProductsArrayList()) {
+            sellerNetworks.add(dns.getSellerNetwork(fileProduct.getSellers().get(0).getUsername()));
+            names.add(fileProduct.getName());
+            fileTypes.add(fileProduct.getFileType());
+            productIds.add(fileProduct.getId());
+        }
+        message.addToObjects(sellerNetworks);
+        message.addToObjects(names);
+        message.addToObjects(fileTypes);
+        message.addToObjects(productIds);
+        buyer.getCart().resetFileCart();
+        return message;
+    }
+
+    public Message purchaseAll(String address, String phoneNumber, String discountCode,Boolean payByBankCart, String username, String password,String sourceId , String destId ,AuthToken authToken) {
+        Message message = purchase(address, phoneNumber, discountCode, payByBankCart, username, password, sourceId, destId, authToken);
+        if (message.getText().equals("Error"))
+            return message;
+        return purchaseFileProducts(discountCode, payByBankCart, username, password, sourceId, authToken);
+    }
+
+    private void pay(double totalPrice, Buyer currentBuyer,Boolean payByBankCart ,String username , String password , String sourceId , String destinationId) throws Exception {
+        if(payByBankCart){
+            payByBank(totalPrice,currentBuyer,username,password,sourceId,destinationId);
+        }
+        else{
+            payByWallet(totalPrice,currentBuyer);
+        }
+    }
+
+    private void payByBank(double totalPrice, Buyer currentBuyer,String username , String password , String sourceId , String destinationId) throws Exception {
+        //i changed it
+        Client client = new Client(9000);
+        Message message2 = new Message("getToken");
+        message2.addToObjects(username);
+        message2.addToObjects(password);
+        client.writeMessage(message2);
+        Message answer2 = client.readMessage();
+        AuthToken authToken = answer2.getAuthToken();
+        //not sure
+        Message message = new Message("createReceipt");
+        BankReceiptType bankReceiptType = BankReceiptType.MOVE ;
+        message.addToObjects(bankReceiptType);
+        message.addToObjects(totalPrice);
+        message.addToObjects(sourceId);
+        message.addToObjects(destinationId);
+        message.addToObjects("");//description
+        message.addToObjects(authToken);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        String receiptId = (String) answer.getObjects().get(0);
+        //pay
+        Message message1 = new Message("pay");
+        message1.addToObjects(receiptId);
+        message1.addToObjects(authToken);
+        client.writeMessage(message1);
+        Message answer1 = client.readMessage();
+        if(answer1.getObjects().get(0).equals("error")){
+           throw new Exception();
+        }
+        for (Seller seller : currentBuyer.getCart().getAllSellers()) {
+            seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer)*95/100);
+        }
+    }
+
+    private void payByWallet(double totalPrice, Buyer currentBuyer) throws Exception {
+        //i changed it
+        if(currentBuyer.getCredit() < totalPrice){
+            throw new Exception();
+        }
+        else {
+            currentBuyer.decreaseCredit(totalPrice);
+            for (Seller seller : currentBuyer.getCart().getAllSellers()) {
+                seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer) * 95 / 100);
+            }
+        }
+    }
+
+    //i add it
+    public Message chargeWallet(double money ,String username,String password , String sourceId , String destId ,AuthToken authToken) throws Exception {
+        Client client = new Client(9000);
+        Message message2 = new Message("getToken");
+        message2.addToObjects(username);
+        message2.addToObjects(password);
+        client.writeMessage(message2);
+        Message answer2 = client.readMessage();
+        AuthToken authToken2 = answer2.getAuthToken();
+        //not sure
+        Message message = new Message("createReceipt");
+        BankReceiptType bankReceiptType = BankReceiptType.MOVE;
+        message.addToObjects(bankReceiptType);
+        message.addToObjects(money);
+        message.addToObjects(sourceId);
+        message.addToObjects(destId);
+        message.addToObjects("");//description
+        message.addToObjects(authToken);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        String receiptId = (String) answer.getObjects().get(0);
+        //
+        Message message3 = new Message("pay");
+        message3.addToObjects(receiptId);
+        message3.addToObjects(authToken2);
+        client.writeMessage(message3);
+        Message answer1 = client.readMessage();
+        if(answer1.getObjects().get(0).equals("error")){
+            Message message5 = new Message("Error");
+            message5.addToObjects(answer1.getObjects().get(1));
+            return message5;
+        }
+         //increase credit
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
+        currentBuyer.increaseCredit(money);
+        Message message6 = new Message("Confirmation");
+        return message6;
+    }
+
     private void decreaseAllProductBought(AuthToken authToken) {
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
+            if (selectedProduct.getProduct() instanceof FileProduct)
+                continue;
             decreaseProductSeller(selectedProduct.getProduct(), selectedProduct.getCount(), selectedProduct.getSeller());
         }
     }
@@ -138,6 +317,28 @@ public class BuyerController extends Server implements AccountController {
     private void decreaseProductSeller(Product product, int number, Seller seller) {
         seller.decreaseProduct(product, number);
         product.decreaseCountSeller(seller, number);
+    }
+
+    private void makeFileReceipt(double totalPrice, double discountPercentage, Buyer currentBuyer) {
+        makeBuyerFileReceipt(totalPrice, discountPercentage, currentBuyer);
+        makeSellerFileReceipt(discountPercentage, currentBuyer);
+    }
+
+    private void makeBuyerFileReceipt(double totalPrice, double discountPercentage, Buyer currentBuyer) {
+        Cart cart = currentBuyer.getCart();
+        currentBuyer.addReceipt(new BuyerReceipt(Integer.toString(BuyerReceipt.getBuyerReceiptCount()),
+                discountPercentage, cart.getAllFileProducts(), false, totalPrice, cart.getAllFileSellers()));
+    }
+
+    private void makeSellerFileReceipt(double discountPercentage, Buyer currentBuyer) {
+        Cart cart = currentBuyer.getCart();
+        ArrayList<Seller> sellers = cart.getAllFileSellers();
+        for (Seller seller : sellers) {
+            seller.addToSaleHistory(new SellerReceipt(Integer.toString(SellerReceipt.getSellerReceiptCount()),
+                    discountPercentage, cart.getAllFileProductsSeller(seller),
+                    false, getTotalFilePriceTotalDiscountSeller(seller, 0, currentBuyer), currentBuyer,
+                    getTotalFilePriceTotalDiscountSeller(seller, 1, currentBuyer)));
+        }
     }
 
     private void makeReceipt(double totalPrice, double discountPercentage, Buyer currentBuyer) {
@@ -177,31 +378,33 @@ public class BuyerController extends Server implements AccountController {
             return totalDiscount;
     }
 
+
+    private double getTotalFilePriceTotalDiscountSeller(Seller seller, int type, Buyer currentBuyer) {
+        Cart cart = currentBuyer.getCart();
+        double totalPriceSeller = 0;
+        double totalDiscount = 0;
+        ArrayList<SelectedProduct> allSelectedProductsSeller = cart.getAllFileProductsOfSeller(seller);
+        for (SelectedProduct selectedProduct : allSelectedProductsSeller) {
+            Product product = selectedProduct.getProduct();
+            Sale sale = getSaleForProductOfSeller(product, seller);
+            if (sale != null) {
+                totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount() *
+                        (1 - sale.getSalePercentage());
+                totalDiscount += product.getPrice(seller) * selectedProduct.getCount() * sale.getSalePercentage();
+            } else
+                totalPriceSeller += product.getPrice(seller) * selectedProduct.getCount();
+        }
+        if (type == 0)
+            return totalPriceSeller;
+        else
+            return totalDiscount;
+    }
+
     private void makeBuyerReceipt(double totalPrice, double discountPercentage, Buyer currentBuyer) {
         Cart cart = currentBuyer.getCart();
         currentBuyer.addReceipt(new BuyerReceipt(Integer.toString(BuyerReceipt.getBuyerReceiptCount()),
                 discountPercentage, cart.getAllProducts(), false, totalPrice, cart.getAllSellers()));
     }
-
-    private void pay(double totalPrice, Buyer currentBuyer,Boolean payWithBankCart, String username , String password) throws Exception {
-        //i changed it
-        if(payWithBankCart){
-            loginToBankAccount(username,password);
-            //connect to bank server and pay
-        }
-        else {
-            currentBuyer.decreaseCredit(totalPrice);
-        }
-        for (Seller seller : currentBuyer.getCart().getAllSellers()) {
-            seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer));
-        }
-    }
-
-    //i add it
-    private void loginToBankAccount(String username,String password){
-
-    }
-
 
     private void receiveInformation(String address, String phoneNumber, Buyer currentBuyer) {
         currentBuyer.setAddress(address);
@@ -214,15 +417,43 @@ public class BuyerController extends Server implements AccountController {
         double totalPrice = 0;
         try {
             for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
+                if (selectedProduct.getProduct() instanceof FileProduct)
+                    continue;
                 if (selectedProduct.isSold())
                     throw new Product.ProductIsSoldException(selectedProduct.getProduct().getName());
-                            Sale saleForProduct = getSaleForProduct(selectedProduct);
+                Sale saleForProduct = getSaleForProduct(selectedProduct);
                 Seller seller = selectedProduct.getSeller();
                 if (saleForProduct != null && saleForProduct.validSaleTime())
                     totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount() *
                             (1 - saleForProduct.getSalePercentage());
                 else
                     totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
+            }
+            message.addToObjects(totalPrice);
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
+    public Message getFileTotalPrice(AuthToken authToken) {
+        Message message = new Message("fileTotalPrice");
+        Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
+        double totalPrice = 0;
+        try {
+            for (SelectedProduct selectedProduct : currentBuyer.getCart().getSelectedProducts()) {
+                if (selectedProduct.getProduct() instanceof FileProduct) {
+                    if (selectedProduct.isSold())
+                        throw new Product.ProductIsSoldException(selectedProduct.getProduct().getName());
+                    Sale saleForProduct = getSaleForProduct(selectedProduct);
+                    Seller seller = selectedProduct.getSeller();
+                    if (saleForProduct != null && saleForProduct.validSaleTime())
+                        totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount() *
+                                (1 - saleForProduct.getSalePercentage());
+                    else
+                        totalPrice += selectedProduct.getProduct().getPrice(seller) * selectedProduct.getCount();
+                }
             }
             message.addToObjects(totalPrice);
         } catch (Exception e) {
@@ -328,8 +559,11 @@ public class BuyerController extends Server implements AccountController {
         methods.add("viewOrders");
         methods.add("rate");
         methods.add("getBuyerReceiptById");
+        methods.add("purchaseAll");
         methods.add("purchase");
+        methods.add("purchaseFileProducts");
         methods.add("getTotalPrice");
+        methods.add("getFileTotalPrice");
         methods.add("getDiscount");
         methods.add("viewCart");
         methods.add("getProductById");
@@ -368,28 +602,23 @@ public class BuyerController extends Server implements AccountController {
         switch (field) {
             case "name":
                 currentBuyer.changeStateEdited(context, currentBuyer.getLastName(), currentBuyer.getEmail(),
-                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword());
                 break;
             case "lastName":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), context, currentBuyer.getEmail(),
-                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword());
                 break;
             case "email":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(), context,
-                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword(), currentBuyer.getCredit());
+                        currentBuyer.getPhoneNumber(), currentBuyer.getPassword());
                 break;
             case "phoneNumber":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
-                        currentBuyer.getEmail(), context, currentBuyer.getPassword(), currentBuyer.getCredit());
+                        currentBuyer.getEmail(), context, currentBuyer.getPassword());
                 break;
             case "password":
                 currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
-                        currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), context, currentBuyer.getCredit());
-                break;
-            case "credit":
-                currentBuyer.changeStateEdited(currentBuyer.getName(), currentBuyer.getLastName(),
-                        currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), currentBuyer.getPassword(),
-                        Double.parseDouble(context));
+                        currentBuyer.getEmail(), currentBuyer.getPhoneNumber(), context);
                 break;
             default:
                 Message message = new Message("Error");
