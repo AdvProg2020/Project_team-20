@@ -100,7 +100,7 @@ public class Protector {
 
 
 
-    // Broken Authentication
+    // Broken Authentication & Replay Attacks
     private void isAuthenticationSecure(Message message) throws Exception {
         if (!checkTokenTime(message.getAuthToken()))
             throw new AuthenticationTimeOutException();
@@ -108,6 +108,8 @@ public class Protector {
     // -> Password is weak!
 
     private boolean checkTokenTime(AuthToken authToken) {
+        if (authToken==null)
+            return true;
         return authToken.validTime();
     }
 
