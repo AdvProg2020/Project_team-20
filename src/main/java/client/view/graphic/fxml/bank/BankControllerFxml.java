@@ -80,7 +80,6 @@ public class BankControllerFxml {
             Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/bank/BankAccountFxml.fxml").toURI().toURL());
             window.setScene(new Scene(root, 994, 666));
         } catch (Exception e) {
-            e.printStackTrace();
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }

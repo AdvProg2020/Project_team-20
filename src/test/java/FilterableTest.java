@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class FilterableTest {
 
-
+/*
     @Tested
     AllProductsController allProductsController = AllProductsController.getInstance();
 
@@ -194,7 +194,7 @@ public class FilterableTest {
         /*arrayList.add("optional");
         arrayList.add("this is option");
         arrayList.add("second");
-        arrayList.add("third");*/
+        arrayList.add("third");
         try {
             allProductsController.filter("optional field", arrayList);
             ArrayList<Product> arrayList1 = new ArrayList<>();
@@ -228,6 +228,6 @@ public class FilterableTest {
             e.printStackTrace();
         }
     }
-
-
+    */
 }
+

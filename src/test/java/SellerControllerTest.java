@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/*
 public class SellerControllerTest {
 
     @Tested
@@ -103,3 +103,6 @@ public class SellerControllerTest {
 
 
 }
+
+
+ */
