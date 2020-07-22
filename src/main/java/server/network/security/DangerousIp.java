@@ -18,7 +18,7 @@ public class DangerousIp {
         if (dangerousIpType.equals(DangerousIpType.LOGIN_DANGER))
             after = timeWentDangerous.plusMinutes(3);
         else
-            after = timeWentDangerous.plusMinutes(30);
+            after = timeWentDangerous.plusMinutes(300);
         return !now.isAfter(after);
     }
 

@@ -12,14 +12,64 @@ import client.network.AuthToken;
 public class Protector {
     private static Instrumentation instrumentation;
     private ArrayList<DangerousIp> dangerousIps;
-    private HashMap<String, Integer> allClientsIp = new HashMap<>();
+    private HashMap<String, ActivityDensity> allClientsIp = new HashMap<>();
     private HashMap<String, Integer> loginClientsIp = new HashMap<>();
 
 
 
-    public boolean isMessageSecure(Message message, Socket socket) {
+    public boolean isMessageSecure(Message message, Socket socket) throws Exception {
         getAddIp(message, socket);
         return true;
+    }
+
+    public void removeIpFromLoginIps(Socket socket) {
+        String ip = getIp(socket);
+        for (String ip1:loginClientsIp.keySet()) {
+            if (ip.equals(ip1)) {
+                loginClientsIp.remove(ip1);
+                return;
+            }
+        }
+    }
+
+    public void removeIpFromAllIps(Socket socket) {
+        String ip = getIp(socket);
+        for (String ip1:allClientsIp.keySet()) {
+            if (ip.equals(ip1)) {
+                allClientsIp.remove(ip1);
+                return;
+            }
+        }
+    }
+
+
+
+
+    // Brute force & Denial of Service (DoS) attack
+    private void isIpDangerous(Socket socket) throws Exception{
+        String ip = getIp(socket);
+        DangerousIp dangerousIp = getDangerousIpByIp(ip);
+        if (dangerousIp==null)
+            return;
+        else if (!dangerousIp.isStillDangerous()) {
+            dangerousIps.remove(dangerousIp);
+            return;
+        }
+        throw new BlockUserException();
+    }
+
+    public void getAddIp(Message message, Socket socket) {
+        String ip = getIp(socket);
+        if (allClientsIp.get(ip)==null)
+            allClientsIp.put(ip, new ActivityDensity());
+        else
+            allClientsIp.get(ip).addActivity();
+        if (message.getText().equals("login")) {
+            if (allClientsIp.get(ip)==null)
+                loginClientsIp.put(ip, 1);
+            else
+                loginClientsIp.replace(ip, loginClientsIp.get(ip)+1);
+        }
     }
 
     public void checkLoginAttempts(Socket socket) {
@@ -31,66 +81,48 @@ public class Protector {
         }
     }
 
-    public void getAddIp(Message message, Socket socket) {
+    public void checkActivityDensity(Socket socket) {
         String ip = getIp(socket);
-        if (allClientsIp.get(ip)==null)
-            allClientsIp.put(ip, 1);
-        else
-            allClientsIp.replace(ip, allClientsIp.get(ip)+1);
-        if (message.getText().equals("login")) {
-            if (allClientsIp.get(ip)==null)
-                loginClientsIp.put(ip, 1);
-            else
-                loginClientsIp.replace(ip, loginClientsIp.get(ip)+1);
+        ActivityDensity activityDensity = allClientsIp.get(ip);
+        if (activityDensity.getActivityDensity()>100) {
+            allClientsIp.remove(ip);
+            dangerousIps.add(new DangerousIp(ip, DangerousIpType.EXCESSIVE_ACTIVITY));
         }
     }
 
-    public void removeIpFromLoginIps(Socket socket) throws Exception{
-        String ip = getIp(socket);
-        for (String ip1:allClientsIp.keySet()) {
-            if (ip.equals(ip1)) {
-                loginClientsIp.remove(ip1);
-                return;
-            }
-        }
+    public boolean isClientOverload() {
+        return allClientsIp.size() > 1000000;
     }
 
-    // Brute force attack
-    private boolean isIpDangerous(Socket socket) {
-        String ip = getIp(socket);
-        DangerousIp dangerousIp = getDangerousIpByIp(ip);
-        if (dangerousIp==null)
-            return false;
-        else if (!dangerousIp.isStillDangerous()) {
-            dangerousIps.remove(dangerousIp);
-            return false;
-        }
-        return true;
-    }
-    
+
+
+
     // Broken Authentication
-    private boolean isAuthenticationSecure(Message message) {
-        return checkTokenTime(message.getAuthToken());
+    private void isAuthenticationSecure(Message message) throws Exception {
+        if (!checkTokenTime(message.getAuthToken()))
+            throw new AuthenticationTimeOutException();
     }
-    // -> Password is wick!
-
+    // -> Password is weak!
 
     private boolean checkTokenTime(AuthToken authToken) {
         return authToken.validTime();
     }
 
 
+
+
     // Improper inputs
-    public boolean isMessageImproper(Message message) {
+    public void isMessageImproper(Message message) throws Exception {
         if (!checkSizes(message))
-            return false;
-        return checkMessagePattern(message);
+            throw new MalMessageException();
+        checkMessagePattern(message);
     }
 
-    private boolean checkMessagePattern(Message message) {
+    private void checkMessagePattern(Message message) throws Exception{
         if (message.getText()==null)
-            return false;
-        return message.getText().matches("\\w+");
+            throw new MalMessageException();
+        if (!message.getText().matches("\\w+"))
+            throw new MalMessageException();
     }
 
     private boolean checkSizes(Message message) {
@@ -100,6 +132,9 @@ public class Protector {
             return false;
         return instrumentation.getObjectSize(message) <= 1000000000;
     }
+
+
+
 
     public void removeIp(Socket socket) {
         String ip = getIp(socket);
@@ -119,9 +154,28 @@ public class Protector {
         return null;
     }
 
-    public static class IpNotFound extends Exception {
-        public IpNotFound() {
+    public static class IpNotFoundException extends Exception {
+        public IpNotFoundException() {
             super("IP not found");
+        }
+    }
+
+    public static class BlockUserException extends Exception {
+        public BlockUserException() {
+            super("You are currently blocked. Please try again later.");
+        }
+    }
+
+    public static class AuthenticationTimeOutException extends Exception {
+        public AuthenticationTimeOutException() {
+            super("Your authentication is expired. Please exit and try again.");
+        }
+    }
+
+
+    public static class MalMessageException extends Exception {
+        public MalMessageException() {
+            super("Your message is not suitable. Please try again later. (long names, ...)");
         }
     }
 }
