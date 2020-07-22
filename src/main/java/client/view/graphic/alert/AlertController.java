@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AlertController implements Initializable {
-    public Button message;
+    public Text message;
     static Stage mainStage;
     static AlertType alertType;
     static String text;

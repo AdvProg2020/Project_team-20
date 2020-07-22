@@ -18,8 +18,11 @@ public class AuthToken {
         timeCreated = LocalDateTime.now();
     }
 
-    private AuthToken(int key) {
+    private AuthToken(int key) {}
 
+    public boolean validTime() {
+        LocalDateTime now = LocalDateTime.now();
+        return (now.getMinute() - timeCreated.getMinute()) <= 58;
     }
 
     public static AuthToken generateAuth(String username) {

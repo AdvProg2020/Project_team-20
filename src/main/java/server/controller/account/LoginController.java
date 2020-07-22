@@ -9,9 +9,16 @@ import client.network.Message;
 import server.network.server.Server;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LoginController extends Server {
     private static LoginController loginController = null;
+    private String[] insecurePasswords = {"12345","123456","123456789","test1","password","12345678","zinch","g_czechout","asdf"
+            ,"qwerty","1234567890","1234567","Aa123456.","iloveyou","1234","abc123","111111","123123","dubsmash","test","princess","qwertyuiop","sunshine","BvtTest123","11111","ashley"
+            ,"00000","000000","password1","monkey","livetest","55555","soccer","charlie","asdfghjkl","654321","family"
+            ," michael","123321","football","baseball","q1w2e3r4t5y6","nicole","jessica","purple","shadow","hannah","chocolate","michelle","daniel","maggie","qwerty123","hello","112233","jordan","tigger","666666"
+            ,"987654321","superman","12345678910","summer","1q2w3e4r5t","fitness","bailey","zxcvbnm","fuckyou","121212","buster","butterfly","dragon","jennifer","amanda","justin","cookie","basketball","shopping","pepper","joshua","hunter","ginger"
+            ,"matthew","abcd1234","taylor","samantha","whatever","andrew","1qaz2wsx3edc","thomas","jasmine","animoto","madison","0987654321","54321","flower","Password","maria","babygirl","lovely","sophie","Chegg123"};
 
     private LoginController() {
         super(1100);
@@ -27,7 +34,13 @@ public class LoginController extends Server {
 
 
     public Message createAccount(String username, String type, ArrayList<String> details, String detail) {
-        Message message = new Message("create account was successful");
+        Message message;
+        String password = details.get(4);
+        if (isInSecurePass(password)) {
+            message = new Message("Error");
+            message.addToObjects(new InsecurePassException());
+        }
+        message = new Message("create account was successful");
         try {
             if (Account.hasThisAccount(username)) {
                 throw new AccountIsAvailableException();
@@ -100,7 +113,7 @@ public class LoginController extends Server {
        Account account = Account.getAccountWithUsername(username);
         if (!account.getPassword().equals(password)) {
             Message message = new Message("Error");
-            message.addToObjects(new LoginController.IncorrectPasswordException());
+            message.addToObjects(new LoginController.AccountUnavailableException());
             return message;
         }
         MainController mainController = MainController.getInstance();
@@ -146,6 +159,12 @@ public class LoginController extends Server {
         methods.add("createAccount");
     }
 
+    private boolean isInSecurePass(String pass) {
+        if (Arrays.asList(insecurePasswords).contains(pass))
+            return true;
+        else return pass.length() < 5;
+    }
+
     public static class AccountIsAvailableException extends Exception {
         public AccountIsAvailableException() {
             super("Account already exist");
@@ -154,13 +173,13 @@ public class LoginController extends Server {
 
     public static class AccountUnavailableException extends Exception {
         public AccountUnavailableException() {
-            super("Account is unavailable");
+            super("Username or password is invalid");
         }
     }
 
-    public static class IncorrectPasswordException extends Exception {
-        public IncorrectPasswordException() {
-            super("password is incorrect");
+    public static class InsecurePassException extends Exception {
+        public InsecurePassException() {
+            super("password is weak");
         }
     }
 
