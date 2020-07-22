@@ -56,7 +56,7 @@ public class PurchaseMenu implements Initializable {
         if (submit) {
             BuyerController buyerController = BuyerController.getInstance();
             try {
-                buyerController.purchaseByWallet(address2, phone2, discountCode2);
+                buyerController.purchase(address2, phone2, discountCode2,false,null,null,null,null);
                 new AlertController().create(AlertType.CONFIRMATION, "Thanks for buying");
                 phoneText.setOpacity(0);
                 phone.setOpacity(0);
@@ -97,7 +97,7 @@ public class PurchaseMenu implements Initializable {
         if (submit) {
             BuyerController buyerController = BuyerController.getInstance();
             try {
-                buyerController.purchaseByBank(address2, phone2, discountCode2, bankUsername, bankPassword, bankId);
+                buyerController.purchase(address2, phone2, discountCode2,true, bankUsername, bankPassword, bankId,"123");//todo
                 new AlertController().create(AlertType.CONFIRMATION, "Thanks for buying");
                 phoneText.setOpacity(0);
                 phone.setOpacity(0);
