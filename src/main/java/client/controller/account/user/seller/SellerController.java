@@ -257,7 +257,7 @@ public class SellerController implements AccountController {
         message.addToObjects(username);
         message.addToObjects(password);
         message.addToObjects(sourceId);
-        message.addToObjects("123");//todo market's account
+        message.addToObjects("2020722893");//todo market's account
         client.writeMessage(message);
         Message answer = client.readMessage();
         return (String) answer.getObjects().get(0);
@@ -269,7 +269,7 @@ public class SellerController implements AccountController {
         message.addToObjects(username);
         message.addToObjects(password);
         message.addToObjects(sourceId);
-        message.addToObjects("123");//todo market's account
+        message.addToObjects("2020722893");//todo market's account
         client.writeMessage(message);
         Message answer = client.readMessage();
         return (String) answer.getObjects().get(0);

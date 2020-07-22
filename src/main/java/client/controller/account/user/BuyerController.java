@@ -65,7 +65,7 @@ public class BuyerController implements AccountController {
         message.addToObjects(username);
         message.addToObjects(password);
         message.addToObjects(accountId);
-        message.addToObjects("123");//todo market's account
+        message.addToObjects("2020722893");//todo market's account
         client.writeMessage(message);
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {
