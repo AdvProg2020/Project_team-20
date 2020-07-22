@@ -18,23 +18,46 @@ public class Protector {
 
 
     public boolean isMessageSecure(Message message, Socket socket) {
-        getAddIp(socket);
+        getAddIp(message, socket);
         return true;
     }
 
-    public void getAddIp(Socket socket) {
-        SocketAddress socketAddress = socket.getRemoteSocketAddress();
-        String ip =((InetSocketAddress)socketAddress).getAddress().toString();
+    public void checkLoginAttempts(Socket socket) {
+        String ip = getIp(socket);
+        int attempts = loginClientsIp.get(ip);
+        if (attempts>3) {
+            loginClientsIp.remove(ip);
+            dangerousIps.add(new DangerousIp(ip, DangerousIpType.LOGIN_DANGER));
+        }
+    }
+
+    public void getAddIp(Message message, Socket socket) {
+        String ip = getIp(socket);
         if (allClientsIp.get(ip)==null)
             allClientsIp.put(ip, 1);
         else
             allClientsIp.replace(ip, allClientsIp.get(ip)+1);
+        if (message.getText().equals("login")) {
+            if (allClientsIp.get(ip)==null)
+                loginClientsIp.put(ip, 1);
+            else
+                loginClientsIp.replace(ip, loginClientsIp.get(ip)+1);
+        }
+    }
+
+    public void removeIpFromLoginIps(Socket socket) throws Exception{
+        String ip = getIp(socket);
+        for (String ip1:allClientsIp.keySet()) {
+            if (ip.equals(ip1)) {
+                loginClientsIp.remove(ip1);
+                return;
+            }
+        }
     }
 
     // Brute force attack
     private boolean isIpDangerous(Socket socket) {
-        SocketAddress socketAddress = socket.getRemoteSocketAddress();
-        String ip =((InetSocketAddress)socketAddress).getAddress().toString();
+        String ip = getIp(socket);
         DangerousIp dangerousIp = getDangerousIpByIp(ip);
         if (dangerousIp==null)
             return false;
@@ -44,10 +67,7 @@ public class Protector {
         }
         return true;
     }
-
-
-
-
+    
     // Broken Authentication
     private boolean isAuthenticationSecure(Message message) {
         return checkTokenTime(message.getAuthToken());
@@ -82,9 +102,13 @@ public class Protector {
     }
 
     public void removeIp(Socket socket) {
-        SocketAddress socketAddress = socket.getRemoteSocketAddress();
-        String ip =((InetSocketAddress)socketAddress).getAddress().toString();
+        String ip = getIp(socket);
         allClientsIp.remove(ip);
+    }
+
+    private String getIp(Socket socket) {
+        SocketAddress socketAddress = socket.getRemoteSocketAddress();
+        return ((InetSocketAddress)socketAddress).getAddress().toString();
     }
 
     private DangerousIp getDangerousIpByIp(String ip) {
@@ -93,5 +117,11 @@ public class Protector {
                 return dangerousIp;
         }
         return null;
+    }
+
+    public static class IpNotFound extends Exception {
+        public IpNotFound() {
+            super("IP not found");
+        }
     }
 }

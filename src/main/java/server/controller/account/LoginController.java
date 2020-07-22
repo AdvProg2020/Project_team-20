@@ -113,7 +113,7 @@ public class LoginController extends Server {
        Account account = Account.getAccountWithUsername(username);
         if (!account.getPassword().equals(password)) {
             Message message = new Message("Error");
-            message.addToObjects(new LoginController.IncorrectPasswordException());
+            message.addToObjects(new LoginController.AccountUnavailableException());
             return message;
         }
         MainController mainController = MainController.getInstance();
@@ -173,13 +173,7 @@ public class LoginController extends Server {
 
     public static class AccountUnavailableException extends Exception {
         public AccountUnavailableException() {
-            super("Account is unavailable");
-        }
-    }
-
-    public static class IncorrectPasswordException extends Exception {
-        public IncorrectPasswordException() {
-            super("password is incorrect");
+            super("Username or password is invalid");
         }
     }
 
