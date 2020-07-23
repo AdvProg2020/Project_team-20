@@ -321,6 +321,13 @@ public class BuyerController extends Server implements AccountController {
         message.addToObjects("ERPShop");//description
         client.writeMessage(message);
         Message answer = client.readMessage();
+
+        if(answer.getText().equals("Error")){
+            Message message5 = new Message("Error");
+            message5.addToObjects(answer.getObjects().get(0));
+            return message5;
+        }
+
         String receiptId = (String) answer.getObjects().get(0);
         System.out.println(receiptId);
         //
