@@ -34,10 +34,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -124,6 +121,7 @@ public class FxmlAllProductsMenu implements Initializable {
     public ImageView noticeImg7;
     public ImageView noticeImg8;
     public ImageView noticeImg9;
+    public ScrollPane scrollBarFilter;
     private AllProductsController allProductsController = AllProductsController.getInstance();
     private static ArrayList<Product> products;
 
@@ -168,6 +166,8 @@ public class FxmlAllProductsMenu implements Initializable {
             }
         }
         adds = allProductsController.getAdvertisement();
+        scrollBarFilter.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollBarFilter.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         if (products.size() != 0)
             initializeProducts(0);
         showAdds();

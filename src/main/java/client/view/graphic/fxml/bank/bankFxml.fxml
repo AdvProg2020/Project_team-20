@@ -48,12 +48,12 @@
             <Font size="16.0" />
          </font>
       </PasswordField>
-      <TextField fx:id="nameTxt" layoutX="729.0" layoutY="439.0" opacity="0.0" prefHeight="32.0" prefWidth="102.0" promptText="Username" style="-fx-background-color: transparent; -fx-text-inner-color: #32673b;">
+      <TextField fx:id="nameTxt" layoutX="729.0" layoutY="439.0" opacity="0.0" prefHeight="32.0" prefWidth="102.0" promptText="Name" style="-fx-background-color: transparent; -fx-text-inner-color: #32673b;">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <TextField fx:id="lastNameTxt" layoutX="831.0" layoutY="439.0" opacity="0.0" prefHeight="32.0" prefWidth="102.0" promptText="Username" style="-fx-background-color: transparent; -fx-text-inner-color: #32673b;">
+      <TextField fx:id="lastNameTxt" layoutX="831.0" layoutY="439.0" opacity="0.0" prefHeight="32.0" prefWidth="102.0" promptText="Lastname" style="-fx-background-color: transparent; -fx-text-inner-color: #32673b;">
          <font>
             <Font size="16.0" />
          </font>

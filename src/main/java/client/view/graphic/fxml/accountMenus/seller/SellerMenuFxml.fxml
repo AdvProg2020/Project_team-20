@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -22,22 +23,27 @@
                         <Insets left="5.0" right="5.0" />
                     </VBox.margin>
                 </JFXTextField>
-                <VBox prefHeight="352.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
-                    <VBox.margin>
-                        <Insets bottom="10.0" top="20.0" />
-                    </VBox.margin>
-                    <children>
+            <ScrollPane fx:id="scroll" prefHeight="351.0" prefWidth="204.0" style="-fx-background-color: transparent;">
+               <content>
+                  <VBox prefHeight="399.0" prefWidth="186.0" style="-fx-background-color: #333b3d;">
+                     <children>
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handlePersonalInfo" prefHeight="40.0" prefWidth="296.0" text="Personal Info." textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewSales" prefHeight="40.0" prefWidth="458.0" text="View sales history" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleManageProducts" prefHeight="40.0" prefWidth="396.0" text="Manage products" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleShowCategories" prefHeight="40.0" prefWidth="444.0" text="Show categories" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleManageOffs" prefHeight="40.0" prefWidth="367.0" text="Manage offs" textFill="#d8f9ff" />
-                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateProduct" prefHeight="40.0" prefWidth="396.0" text="Create product" textFill="#d8f9ff" />
-                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateOff" prefHeight="40.0" prefWidth="367.0" text="Create off" textFill="#d8f9ff" />
-                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleAdvertisement" prefHeight="40.0" prefWidth="367.0" text="Create advertisement" textFill="#d8f9ff" />
-                  <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="290.0" onAction="#handleViewWallet" prefHeight="40.0" prefWidth="367.0" text="Your Wallet" textFill="#d8f9ff" />
-                    </children>
-                </VBox>
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateProduct" prefHeight="40.0" prefWidth="396.0" text="Create product" textFill="#d8f9ff" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateOff" prefHeight="40.0" prefWidth="367.0" text="Create off" textFill="#d8f9ff" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleAdvertisement" prefHeight="40.0" prefWidth="367.0" text="Create advertisement" textFill="#d8f9ff" />
+                        <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="290.0" onAction="#handleViewWallet" prefHeight="40.0" prefWidth="367.0" text="Your Wallet" textFill="#d8f9ff" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewWallet" prefHeight="40.0" prefWidth="367.0" text="Creat file product" textFill="#d8f9ff" />
+                     </children>
+                  </VBox>
+               </content>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </ScrollPane>
                 <VBox prefHeight="14.0" prefWidth="204.0" style="-fx-background-color: #333b3d;">
                     <children>
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleLogout" prefHeight="40.0" prefWidth="367.0" text="Log out" textFill="#d8f9ff" />

@@ -48,7 +48,7 @@
                            </children>
                         </Pane>
                      </children></VBox>
-                  <ScrollPane layoutX="14.0" layoutY="27.0" prefHeight="314.0" prefWidth="204.0" style="-fx-border-color: #9aeee7;">
+                  <ScrollPane fx:id="scrollBarFilter" layoutX="14.0" layoutY="27.0" prefHeight="314.0" prefWidth="204.0" style="-fx-border-color: #9aeee7;">
                      <content>
                         <VBox prefHeight="423.0" prefWidth="184.0">
                            <children>

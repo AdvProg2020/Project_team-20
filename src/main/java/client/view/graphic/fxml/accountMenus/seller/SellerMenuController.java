@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
@@ -35,6 +36,7 @@ public class SellerMenuController implements Initializable {
     private static Stage window;
     public BorderPane borderPane;
     public ImageView profileImg;
+    public ScrollPane scroll;
     private SellerController sellerController = SellerController.getInstance();
     private Seller seller = (Seller) sellerController.getAccountInfo();
 
@@ -138,6 +140,8 @@ public class SellerMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Seller seller = SellerController.getSeller();
+        //scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        //scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         if (seller.getImagePath() != null) {
             Image img1 = new Image(new File("src/main/resources/Images/" + seller.getImagePath()).toURI().toString());
             profileImg.setImage(img1);
