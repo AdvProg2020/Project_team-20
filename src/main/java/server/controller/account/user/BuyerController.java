@@ -321,6 +321,11 @@ public class BuyerController extends Server implements AccountController {
         message.addToObjects("ERPShop");//description
         client.writeMessage(message);
         Message answer = client.readMessage();
+        if(answer.getText().equals("Error")){
+            Message message5 = new Message("Error");
+            message5.addToObjects(answer.getObjects().get(0));
+            return message5;
+        }
 
         if(answer.getText().equals("Error")){
             Message message5 = new Message("Error");
@@ -329,7 +334,11 @@ public class BuyerController extends Server implements AccountController {
         }
 
         String receiptId = (String) answer.getObjects().get(0);
+        //debug
+        System.out.println("1)receipt ID:");
         System.out.println(receiptId);
+        System.out.println("2)answer's text:");
+        System.out.println(answer.getText());
         //
         Message message3 = new Message("pay");
         message3.addToObjects(authToken2);
