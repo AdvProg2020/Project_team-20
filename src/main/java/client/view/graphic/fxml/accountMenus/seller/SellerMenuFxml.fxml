@@ -36,7 +36,7 @@
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateOff" prefHeight="40.0" prefWidth="367.0" text="Create off" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleAdvertisement" prefHeight="40.0" prefWidth="367.0" text="Create advertisement" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="290.0" onAction="#handleViewWallet" prefHeight="40.0" prefWidth="367.0" text="Your Wallet" textFill="#d8f9ff" />
-                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewWallet" prefHeight="40.0" prefWidth="367.0" text="Creat file product" textFill="#d8f9ff" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateFileProduct" prefHeight="40.0" prefWidth="367.0" text="Creat file product" textFill="#d8f9ff" />
                      </children>
                   </VBox>
                </content>

@@ -31,8 +31,8 @@ public class SellerController implements AccountController {
 
     private SellerController() {
         // for p2p
-        sellerServer = new SellerServer(seller.getUsername());
-        sellerServer.run();
+        // sellerServer = new SellerServer(seller.getUsername());
+        // sellerServer.run();
     }
 
     public static SellerController getInstance() {
@@ -150,7 +150,7 @@ public class SellerController implements AccountController {
     }
 
     public void createFileProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
-                                  HashMap<String, ArrayList<String>> optionalFields, String filePath, String fileType)
+                                  HashMap<String, ArrayList<String>> optionalFields, String filePath, String fileType, String fileImg)
             throws Exception {
         Message message = new Message("createFileProduct");
         // details contains fileType
