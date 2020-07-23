@@ -229,24 +229,58 @@ public class BuyerController extends Server implements AccountController {
         AuthToken authToken = answer2.getAuthToken();
         //not sure
         Message message = new Message("createReceipt");
-        BankReceiptType bankReceiptType = BankReceiptType.MOVE ;
+        BankReceiptType bankReceiptType = BankReceiptType.WITHDRAW ;
         message.addToObjects(authToken);
         message.addToObjects(bankReceiptType);
         message.addToObjects(totalPrice);
         message.addToObjects(sourceId);
-        message.addToObjects(destinationId);
+        message.addToObjects(-1);
         message.addToObjects("");//description
         client.writeMessage(message);
         Message answer = client.readMessage();
         String receiptId = (String) answer.getObjects().get(0);
+
         //pay
         Message message1 = new Message("pay");
         message1.addToObjects(receiptId);
         message1.addToObjects(authToken);
         client.writeMessage(message1);
         Message answer1 = client.readMessage();
-        if(answer1.getObjects().get(0).equals("error")){
-           throw new Exception();
+        if(answer1.getText().equals("error")){
+            throw new Exception((String) answer1.getObjects().get(0));
+        }
+        //
+
+        Client client10 = new Client(9000);
+        Message message210 = new Message("getToken");
+        message210.addToObjects("a");
+        message210.addToObjects("12345");
+        client10.writeMessage(message210);
+        Message answer210 = client.readMessage();
+        AuthToken authToken10 = answer210.getAuthToken();
+
+
+
+        Message message10 = new Message("createReceipt");
+        BankReceiptType bankReceiptType10 = BankReceiptType.DEPOSIT ;
+        message10.addToObjects(authToken10);
+        message10.addToObjects(bankReceiptType10);
+        message10.addToObjects(totalPrice*5/100);
+        message10.addToObjects(-1);
+        message10.addToObjects(destinationId);
+        message10.addToObjects("");//description
+        client.writeMessage(message10);
+        Message answer10 = client.readMessage();
+        String receiptId10 = (String) answer10.getObjects().get(0);
+
+        //pay
+        Message message110 = new Message("pay");
+        message110.addToObjects(receiptId10);
+        message110.addToObjects(authToken10);
+        client10.writeMessage(message110);
+        Message answer110 = client.readMessage();
+        if(answer110.getText().equals("error")){
+           throw new Exception((String) answer110.getObjects().get(0));
         }
         for (Seller seller : currentBuyer.getCart().getAllSellers()) {
             seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer)*95/100);
