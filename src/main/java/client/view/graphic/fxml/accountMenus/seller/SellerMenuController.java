@@ -153,4 +153,8 @@ public class SellerMenuController implements Initializable {
     public void handleCreateFileProduct(ActionEvent actionEvent) {
         loadUI("createFileProduct");
     }
+
+    public void handleCreateActions(ActionEvent actionEvent) {
+        loadUI("createAuction");
+    }
 }

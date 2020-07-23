@@ -23,9 +23,9 @@
                         <Insets left="5.0" right="5.0" />
                     </VBox.margin>
                 </JFXTextField>
-            <ScrollPane fx:id="scroll" prefHeight="351.0" prefWidth="204.0" style="-fx-background-color: transparent;">
+            <ScrollPane fx:id="scroll" prefHeight="301.0" prefWidth="204.0" style="-fx-background-color: transparent;">
                <content>
-                  <VBox prefHeight="399.0" prefWidth="186.0" style="-fx-background-color: #333b3d;">
+                  <VBox prefHeight="442.0" prefWidth="186.0" style="-fx-background-color: #333b3d;">
                      <children>
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handlePersonalInfo" prefHeight="40.0" prefWidth="296.0" text="Personal Info." textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleViewSales" prefHeight="40.0" prefWidth="458.0" text="View sales history" textFill="#d8f9ff" />
@@ -36,7 +36,8 @@
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateOff" prefHeight="40.0" prefWidth="367.0" text="Create off" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" onAction="#handleAdvertisement" prefHeight="40.0" prefWidth="367.0" text="Create advertisement" textFill="#d8f9ff" />
                         <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="290.0" onAction="#handleViewWallet" prefHeight="40.0" prefWidth="367.0" text="Your Wallet" textFill="#d8f9ff" />
-                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateFileProduct" prefHeight="40.0" prefWidth="367.0" text="Creat file product" textFill="#d8f9ff" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateFileProduct" prefHeight="40.0" prefWidth="367.0" text="Create file product" textFill="#d8f9ff" />
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#handleCreateActions" prefHeight="40.0" prefWidth="367.0" text="Create auction" textFill="#d8f9ff" />
                      </children>
                   </VBox>
                </content>
