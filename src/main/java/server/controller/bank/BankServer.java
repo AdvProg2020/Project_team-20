@@ -24,14 +24,13 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BankServer {
-    private static ArrayList<BankAccount> bankAccounts;
+    private static ArrayList<BankAccount> bankAccounts = new ArrayList<>();
     private static int bankCount = 0;
     protected ServerSocket serverSocket;
     protected HashMap<AuthToken, BankAccount> loggedInAccounts;
     protected ArrayList<String> methods;
 
     public BankServer() {
-        bankAccounts = new ArrayList<>();
         try {
             this.serverSocket = new ServerSocket(9000);
             this.methods = new ArrayList<>();

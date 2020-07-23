@@ -304,44 +304,39 @@ public class BuyerController extends Server implements AccountController {
     public Message chargeWallet(double money ,String username,String password , String sourceId , String destId ,AuthToken authToken) throws Exception {
         Client client = new Client(9000);
         client.readMessage();//todo
-        Message message2 = new Message("getToken");
-        message2.addToObjects(username);
-        message2.addToObjects(password);
+        Message message1 = new Message("getToken");
+        message1.addToObjects(username);
+        message1.addToObjects(password);
+        client.writeMessage(message1);
+        Message answer1 = client.readMessage();
+        AuthToken authToken1 = answer1.getAuthToken();
+        //not sure
+        Message message2 = new Message("createReceipt");
+        BankReceiptType bankReceiptType = BankReceiptType.MOVE;
+        message2.addToObjects(authToken);
+        message2.addToObjects(bankReceiptType);
+        message2.addToObjects(money);
+        message2.addToObjects(sourceId);
+        message2.addToObjects(destId);
+        message2.addToObjects("ERPShop");//description
         client.writeMessage(message2);
         Message answer2 = client.readMessage();
-        AuthToken authToken2 = answer2.getAuthToken();
-        //not sure
-        Message message = new Message("createReceipt");
-        BankReceiptType bankReceiptType = BankReceiptType.MOVE;
-        message.addToObjects(authToken);
-        message.addToObjects(bankReceiptType);
-        message.addToObjects(money);
-        message.addToObjects(sourceId);
-        message.addToObjects(destId);
-        message.addToObjects("ERPShop");//description
-        client.writeMessage(message);
-        Message answer = client.readMessage();
-        if(answer.getText().equals("Error")){
-            Message message5 = new Message("Error");
-            message5.addToObjects(answer.getObjects().get(0));
-            return message5;
+        if(answer2.getText().equals("Error")){
+            Message message = new Message("Error");
+            message.addToObjects(answer2.getObjects().get(0));
+            return message;
         }
-        String receiptId = (String) answer.getObjects().get(0);
-        //debug
-        System.out.println("1)receipt ID:");
-        System.out.println(receiptId);
-        System.out.println("2)answer's text:");
-        System.out.println(answer.getText());
-        //
+        String receiptId = (String) answer2.getObjects().get(0);
+
         Message message3 = new Message("pay");
-        message3.addToObjects(authToken2);
+        message3.addToObjects(authToken1);
         message3.addToObjects(receiptId);
         client.writeMessage(message3);
-        Message answer1 = client.readMessage();
-        if(answer1.getText().equals("Error")){
-            Message message5 = new Message("Error");
-            message5.addToObjects(answer1.getObjects().get(0));
-            return message5;
+        Message answer3 = client.readMessage();
+        if(answer3.getText().equals("Error")){
+            Message message = new Message("Error");
+            message.addToObjects(answer3.getObjects().get(0));
+            return message;
         }
          //increase credit
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
