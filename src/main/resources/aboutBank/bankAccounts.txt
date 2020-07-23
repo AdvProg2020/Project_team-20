@@ -1,0 +1,1 @@
+{"@type":"client.model.bank.BankAccount","@val":{"firstName":"paniz","lastName":"hal","username":"a","password":"12345","accountNumber":"2020723414","bankReceipts":[{"bankReceiptType":"DEPOSIT","money":1000000.0,"sourceID":"-1","destID":"2020723414","description":"First","ID":"0","receiptState":true}],"money":1000000.0}}

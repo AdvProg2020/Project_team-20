@@ -20,7 +20,8 @@ public class Protector {
         String ip = getIp(socket);
         isClientOverload();
         getAddIp(message, ip);
-        checkLoginAttempts(ip);
+        if (message.getText().equals("login"))
+            checkLoginAttempts(ip);
         checkActivityDensity(ip);
         isIpDangerous(ip);
         isAuthenticationSecure(message);
