@@ -93,7 +93,6 @@ public class Product implements Requestable {
         this.buyersUsername = new ArrayList<>();
         this.categoriesName = new ArrayList<>();
         this.priceWithName = new HashMap<>();
-        this.countWithName = new HashMap<>();
         this.comments = new ArrayList<>();
         this.scores = new ArrayList<>();
         this.graphicPackage = new GraphicPackage();
