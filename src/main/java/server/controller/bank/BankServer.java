@@ -434,14 +434,17 @@ public class BankServer {
             Scanner fileScanner = new Scanner(inputStream);
             while (fileScanner.hasNextLine()) {
                 BankAccount account = yaGson.fromJson(fileScanner.nextLine(), BankAccount.class);
+                System.out.println(account.getUsername());
                 bankAccounts.add(account);
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
     private static void storeBankNumbers() {
+
         YaGson yaGson = new YaGson();
         File file = new File("src/main/resources/aboutBank/bankCount.txt");
         try {
@@ -450,6 +453,7 @@ public class BankServer {
             fileWriter.close();
         } catch (IOException ignored) {
         }
+
     }
 
     private static void loadBankNumbers() {
