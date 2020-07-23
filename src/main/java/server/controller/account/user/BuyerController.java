@@ -253,8 +253,8 @@ public class BuyerController extends Server implements AccountController {
 
         Client client10 = new Client(9000);
         Message message210 = new Message("getToken");
-        message210.addToObjects("a");
-        message210.addToObjects("12345");
+        message210.addToObjects("ERPshop");
+        message210.addToObjects("ERPshop1379");
         client10.writeMessage(message210);
         Message answer210 = client.readMessage();
         AuthToken authToken10 = answer210.getAuthToken();
@@ -303,6 +303,7 @@ public class BuyerController extends Server implements AccountController {
     //i add it
     public Message chargeWallet(double money ,String username,String password , String sourceId , String destId ,AuthToken authToken) throws Exception {
         Client client = new Client(9000);
+        client.readMessage();//todo
         Message message2 = new Message("getToken");
         message2.addToObjects(username);
         message2.addToObjects(password);
@@ -321,6 +322,7 @@ public class BuyerController extends Server implements AccountController {
         client.writeMessage(message);
         Message answer = client.readMessage();
         String receiptId = (String) answer.getObjects().get(0);
+        System.out.println(receiptId);
         //
         Message message3 = new Message("pay");
         message3.addToObjects(authToken2);
