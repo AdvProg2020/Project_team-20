@@ -31,8 +31,8 @@ public class SellerController implements AccountController {
 
     private SellerController() {
         // for p2p
-        sellerServer = new SellerServer(seller.getUsername());
-        sellerServer.run();
+        //sellerServer = new SellerServer(seller.getUsername());
+        //sellerServer.run();
     }
 
     public static SellerController getInstance() {

@@ -153,7 +153,7 @@ public class LoginController extends Server {
     public void logout() {
         MainController.getInstance().setAccount(new TempAccount());
     }
-/*
+
     @Override
     protected void handleClient(Client client) {
         clients.add(client);
@@ -203,7 +203,6 @@ public class LoginController extends Server {
         }
     }
 
- */
 
     @Override
     protected void setMethods() {
