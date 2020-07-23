@@ -150,7 +150,7 @@ public class SellerController implements AccountController {
     }
 
     public void createFileProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
-                                  HashMap<String, ArrayList<String>> optionalFields, String filePath, String fileType)
+                                  HashMap<String, ArrayList<String>> optionalFields, String filePath, String fileType, String fileImg)
             throws Exception {
         Message message = new Message("createFileProduct");
         // details contains fileType
@@ -158,6 +158,7 @@ public class SellerController implements AccountController {
         message.addToObjects(numericalFields);
         message.addToObjects(optionalFields);
         message.addToObjects(fileType);
+        message.addToObjects(fileImg);
         client.writeMessage(message);
         client.writeFile(new File(filePath));
         Message answer = client.readMessage();

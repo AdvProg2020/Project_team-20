@@ -178,4 +178,8 @@ public class BuyerMenuController implements Initializable {
     public static void setIsChatting(boolean isChatting) {
         BuyerMenuController.isChatting = isChatting;
     }
+
+    public void handlePurchaseFile(ActionEvent actionEvent) {
+        loadUI("purchaseFile");
+    }
 }

@@ -2,6 +2,10 @@ package client.view.graphic.fxml.accountMenus.buyer;
 
 import client.controller.MediaController;
 import client.controller.account.user.BuyerController;
+import client.model.product.Cart;
+import client.view.graphic.ProgramApplication;
+import client.view.graphic.alert.AlertController;
+import client.view.graphic.alert.AlertType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,16 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import client.model.product.Cart;
-import client.view.graphic.ProgramApplication;
-import client.view.graphic.alert.AlertController;
-import client.view.graphic.alert.AlertType;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PurchaseMenuFxml implements Initializable {
+public class PurchaseFileFxml implements Initializable {
     public Text addressText;
     public TextField address;
     public Text phoneText;
@@ -56,7 +56,7 @@ public class PurchaseMenuFxml implements Initializable {
         if (submit) {
             BuyerController buyerController = BuyerController.getInstance();
             try {
-                buyerController.purchase(address2, phone2, discountCode2,false,null,null,null,null);
+                buyerController.purchaseFileProducts(discountCode2, false, null, null, null);
                 new AlertController().create(AlertType.CONFIRMATION, "Thanks for buying");
                 phoneText.setOpacity(0);
                 phone.setOpacity(0);
@@ -97,7 +97,7 @@ public class PurchaseMenuFxml implements Initializable {
         if (submit) {
             BuyerController buyerController = BuyerController.getInstance();
             try {
-                buyerController.purchase(address2, phone2, discountCode2,true, bankUsername, bankPassword, bankId,"2020722893");
+                buyerController.purchaseFileProducts(discountCode2, true, bankUsername, bankPassword, "2020722893");
                 new AlertController().create(AlertType.CONFIRMATION, "Thanks for buying");
                 phoneText.setOpacity(0);
                 phone.setOpacity(0);
@@ -181,6 +181,8 @@ public class PurchaseMenuFxml implements Initializable {
             borderPane.setCenter(root);
         } catch (Exception e) {
             e.printStackTrace();
+            ;
         }
     }
+
 }

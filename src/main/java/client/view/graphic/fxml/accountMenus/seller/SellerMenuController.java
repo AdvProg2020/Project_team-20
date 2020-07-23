@@ -140,8 +140,8 @@ public class SellerMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Seller seller = SellerController.getSeller();
-        //scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        //scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         if (seller.getImagePath() != null) {
             Image img1 = new Image(new File("src/main/resources/Images/" + seller.getImagePath()).toURI().toString());
             profileImg.setImage(img1);
@@ -150,5 +150,9 @@ public class SellerMenuController implements Initializable {
 
     public void handleAdvertisement(ActionEvent actionEvent) {
         loadUI("createAdvertisement");
+    }
+
+    public void handleCreateFileProduct(ActionEvent actionEvent) {
+        loadUI("createFileProduct");
     }
 }
