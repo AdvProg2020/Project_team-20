@@ -103,6 +103,7 @@ public class BuyerController implements AccountController {
 
 
     public void purchase(String address, String phoneNumber, String discountCode,Boolean payByBankCart, String username, String password,String sourceId , String destId) throws Exception {
+        System.out.println("paniz paniz paniz paniz");
         Message message = new Message("purchase");
         message.addToObjects(address);
         message.addToObjects(phoneNumber);
@@ -151,7 +152,7 @@ public class BuyerController implements AccountController {
     }
 
     public double getTotalPrice() {
-        return getFileProductTotalPrice() + getNoneFileProductTotalPrice();
+        return  getFileProductTotalPrice() + getNoneFileProductTotalPrice();
     }
 
     public double getFileProductTotalPrice() {

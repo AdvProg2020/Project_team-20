@@ -53,7 +53,6 @@ public abstract class Server {
             Main.storeData();
             Message message = client.readMessage();
 
-            /*
             try {
                 protector.isMessageSecure(message, client.getSocket());
             } catch (Exception e) {
@@ -65,8 +64,6 @@ public abstract class Server {
             }
 
 
-
-             */
             System.out.println(message.getText());
             if (message.getText().equals("buy")) {
                 clients.remove(client);

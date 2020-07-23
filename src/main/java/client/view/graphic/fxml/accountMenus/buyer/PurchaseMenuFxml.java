@@ -181,7 +181,6 @@ public class PurchaseMenuFxml implements Initializable {
             borderPane.setCenter(root);
         } catch (Exception e) {
             e.printStackTrace();
-            ;
         }
     }
 }

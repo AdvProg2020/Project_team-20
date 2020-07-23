@@ -302,7 +302,7 @@ public class SellerController extends Server implements AccountController {
     }
 
     public Message createFileProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
-                                 HashMap<String, ArrayList<String>> optionalFields, String fileType, AuthToken authToken) {
+                                 HashMap<String, ArrayList<String>> optionalFields, String fileType, String imgPath, AuthToken authToken) {
         Message message = new Message("createFileProduct");
         try {
             Client client = getClientWithToken(authToken);
@@ -315,6 +315,7 @@ public class SellerController extends Server implements AccountController {
             fields.addAll(createNumericalFields(numericalFields));
             fields.addAll(createOptionalFields(optionalFields));
             FileProduct fileProduct = new FileProduct(fields, description, price, seller, file, fileType, name);
+            fileProduct.setImagePath(imgPath);
             message.addToObjects(fileProduct.getId());
             Manager.addRequest(fileProduct);
         } catch (Exception e) {

@@ -108,6 +108,7 @@ public class BuyerController extends Server implements AccountController {
     }
 
     public synchronized Message purchase(String address, String phoneNumber, String discountCode,Boolean payByBankCart, String username, String password,String sourceId , String destId ,AuthToken authToken) {
+        System.out.println("hi hi hi hi hi hi hi hi hi hi");
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         Message message;
         receiveInformation(address, phoneNumber, currentBuyer);
@@ -251,7 +252,7 @@ public class BuyerController extends Server implements AccountController {
             throw new Exception((String) answer3.getObjects().get(0));
         }
         //
-        client.disconnect();
+        //client.disconnect();
         Client client2 = new Client(9000);
         client2.readMessage();
         Message message4 = new Message("getToken");
@@ -287,7 +288,7 @@ public class BuyerController extends Server implements AccountController {
         for (Seller seller : currentBuyer.getCart().getAllSellers()) {
             seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer)*95/100);
         }
-        client2.disconnect();
+        //client2.disconnect();
     }
 
     private static class NotEnoughMoney extends Exception {
