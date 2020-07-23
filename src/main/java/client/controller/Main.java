@@ -32,6 +32,7 @@ public class Main {
         ProgramApplication.startApp(args);
     }
 
+    
 
     // for console client.view
 /*
