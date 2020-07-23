@@ -10,7 +10,7 @@ import client.model.product.category.SubCategory;
 import client.model.product.comment.Comment;
 import client.model.product.comment.Score;
 import com.gilecode.yagson.YaGson;
-package com.oracle.tools.packager;
+import com.oracle.tools.packager.IOUtils;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -93,6 +93,7 @@ public class Product implements Requestable {
         this.buyersUsername = new ArrayList<>();
         this.categoriesName = new ArrayList<>();
         this.priceWithName = new HashMap<>();
+        this.countWithName = new HashMap<>();
         this.comments = new ArrayList<>();
         this.scores = new ArrayList<>();
         this.graphicPackage = new GraphicPackage();

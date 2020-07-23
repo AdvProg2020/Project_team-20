@@ -16,10 +16,10 @@ import org.junit.Test;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-
+/*
 public class FilterableTest {
 
-/*
+
     @Tested
     AllProductsController allProductsController = AllProductsController.getInstance();
 
@@ -27,7 +27,7 @@ public class FilterableTest {
     ArrayList<Product> products = new ArrayList<>();
     ArrayList<String> strings = new ArrayList<>();
     ArrayList<Field> fields = new ArrayList<>(), fields1 = new ArrayList<>(), fields2 = new ArrayList<>();
-    Seller seller = new Seller("ehsan", "ehsan", "ehsan@", "4444"
+   /* Seller seller = new Seller("ehsan", "ehsan", "ehsan@", "4444"
             , "aaa", "ehsan", 5000, "aaa");
     Buyer buyer = new Buyer("sadegh", "amoo", "amoo@", "1"
             , "biJohar", "sadegh", 500000);
@@ -186,28 +186,9 @@ public class FilterableTest {
     }
 
 
-    @Test
-    public void filterByOptional() {
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("optional1");
-        strings.add("test");
-        /*arrayList.add("optional");
-        arrayList.add("this is option");
-        arrayList.add("second");
-        arrayList.add("third");
-        try {
-            allProductsController.filter("optional field", arrayList);
-            ArrayList<Product> arrayList1 = new ArrayList<>();
-            arrayList1.add(products.get(1));
-            arrayList1.add(products.get(2));
-            //arrayList1.add(products.get(0));
-            ArrayList<Product> result = allProductsController.getProducts();
-            Assert.assertEquals(arrayList1, result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-    }
+
+
 
     @Test
     public void filterByCategory() {
@@ -228,6 +209,6 @@ public class FilterableTest {
             e.printStackTrace();
         }
     }
-    */
-}
+   }
 
+ */
