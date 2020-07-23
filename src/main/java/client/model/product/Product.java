@@ -10,7 +10,7 @@ import client.model.product.category.SubCategory;
 import client.model.product.comment.Comment;
 import client.model.product.comment.Score;
 import com.gilecode.yagson.YaGson;
-package com.oracle.tools.packager;
+import sourceCode.IOUtils;
 
 import java.io.*;
 import java.time.LocalDateTime;
