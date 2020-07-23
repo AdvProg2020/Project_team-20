@@ -247,7 +247,7 @@ public class BuyerController extends Server implements AccountController {
         message3.addToObjects(receiptId);
         client.writeMessage(message3);
         Message answer3 = client.readMessage();
-        if(answer3.getText().equals("error")){
+        if(answer3.getText().equals("Error")){
             throw new Exception((String) answer3.getObjects().get(0));
         }
         //
@@ -281,7 +281,7 @@ public class BuyerController extends Server implements AccountController {
         message6.addToObjects(receiptId5);
         client2.writeMessage(message6);
         Message answer6 = client2.readMessage();
-        if(answer6.getText().equals("error")){
+        if(answer6.getText().equals("Error")){
            throw new Exception((String) answer6.getObjects().get(0));
         }
         for (Seller seller : currentBuyer.getCart().getAllSellers()) {
@@ -290,10 +290,17 @@ public class BuyerController extends Server implements AccountController {
         client2.disconnect();
     }
 
+    private static class NotEnoughMoney extends Exception {
+        public NotEnoughMoney() {
+            super("your money is not enough");
+        }
+    }
+
+
     private void payByWallet(double totalPrice, Buyer currentBuyer) throws Exception {
         //i changed it
         if(currentBuyer.getCredit() < totalPrice){
-            throw new Exception();
+            throw new NotEnoughMoney();
         }
         else {
             currentBuyer.decreaseCredit(totalPrice);
@@ -316,7 +323,7 @@ public class BuyerController extends Server implements AccountController {
             message5.addToObjects(authToken2);
             message5.addToObjects(bankReceiptType2);
             message5.addToObjects(totalPrice*5/100);
-            message5.addToObjects(-1);
+            message5.addToObjects("-1");
             message5.addToObjects("2020722893");
             message5.addToObjects("nothing");
             client2.writeMessage(message5);
@@ -329,7 +336,7 @@ public class BuyerController extends Server implements AccountController {
             message6.addToObjects(receiptId5);
             client2.writeMessage(message6);
             Message answer6 = client2.readMessage();
-            if(answer6.getText().equals("error")){
+            if(answer6.getText().equals("Error")){
                 throw new Exception((String) answer6.getObjects().get(0));
             }
 

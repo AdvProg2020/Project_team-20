@@ -169,7 +169,7 @@ public class BuyerController implements AccountController {
                 return 0;
             }
         }
-        return (double) client.readMessage().getObjects().get(0);
+        return (double) answer.getObjects().get(0);
     }
 
     public double getNoneFileProductTotalPrice() {
