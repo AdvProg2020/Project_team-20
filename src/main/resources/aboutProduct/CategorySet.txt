@@ -1,1 +1,0 @@
-{"@type":"client.model.product.category.CategorySet","@val":{"categorySets":[],"subCategories":["Juice","Gum"],"name":"Edible"}}

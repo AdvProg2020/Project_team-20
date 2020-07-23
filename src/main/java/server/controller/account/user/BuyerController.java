@@ -219,72 +219,75 @@ public class BuyerController extends Server implements AccountController {
     }
 
     private void payByBank(double totalPrice, Buyer currentBuyer,String username , String password , String sourceId , String destinationId) throws Exception {
-        //i changed it
+        //first client
         Client client = new Client(9000);
-        Message message2 = new Message("getToken");
-        message2.addToObjects(username);
-        message2.addToObjects(password);
-        client.writeMessage(message2);
-        Message answer2 = client.readMessage();
-        AuthToken authToken = answer2.getAuthToken();
-        //not sure
-        Message message = new Message("createReceipt");
-        BankReceiptType bankReceiptType = BankReceiptType.WITHDRAW ;
-        message.addToObjects(authToken);
-        message.addToObjects(bankReceiptType);
-        message.addToObjects(totalPrice);
-        message.addToObjects(sourceId);
-        message.addToObjects(-1);
-        message.addToObjects("");//description
-        client.writeMessage(message);
-        Message answer = client.readMessage();
-        String receiptId = (String) answer.getObjects().get(0);
-
-        //pay
-        Message message1 = new Message("pay");
-        message1.addToObjects(receiptId);
-        message1.addToObjects(authToken);
+        client.readMessage();
+        Message message1 = new Message("getToken");
+        message1.addToObjects(username);
+        message1.addToObjects(password);
         client.writeMessage(message1);
         Message answer1 = client.readMessage();
-        if(answer1.getText().equals("error")){
-            throw new Exception((String) answer1.getObjects().get(0));
-        }
-        //
-
-        Client client10 = new Client(9000);
-        Message message210 = new Message("getToken");
-        message210.addToObjects("ERPshop");
-        message210.addToObjects("ERPshop1379");
-        client10.writeMessage(message210);
-        Message answer210 = client.readMessage();
-        AuthToken authToken10 = answer210.getAuthToken();
-
-
-
-        Message message10 = new Message("createReceipt");
-        BankReceiptType bankReceiptType10 = BankReceiptType.DEPOSIT ;
-        message10.addToObjects(authToken10);
-        message10.addToObjects(bankReceiptType10);
-        message10.addToObjects(totalPrice*5/100);
-        message10.addToObjects(-1);
-        message10.addToObjects(destinationId);
-        message10.addToObjects("");//description
-        client.writeMessage(message10);
-        Message answer10 = client.readMessage();
-        String receiptId10 = (String) answer10.getObjects().get(0);
+        AuthToken authToken1 = answer1.getAuthToken();
+        //not sure
+        Message message2 = new Message("createReceipt");
+        BankReceiptType bankReceiptType = BankReceiptType.WITHDRAW ;
+        message2.addToObjects(authToken1);
+        message2.addToObjects(bankReceiptType);
+        message2.addToObjects(totalPrice);
+        message2.addToObjects(sourceId);
+        message2.addToObjects(-1);
+        message2.addToObjects("nothing");
+        client.writeMessage(message2);
+        Message answer2 = client.readMessage();
+        String receiptId = (String) answer2.getObjects().get(0);
 
         //pay
-        Message message110 = new Message("pay");
-        message110.addToObjects(receiptId10);
-        message110.addToObjects(authToken10);
-        client10.writeMessage(message110);
-        Message answer110 = client.readMessage();
-        if(answer110.getText().equals("error")){
-           throw new Exception((String) answer110.getObjects().get(0));
+        Message message3 = new Message("pay");
+        message3.addToObjects(authToken1);
+        message3.addToObjects(receiptId);
+        client.writeMessage(message3);
+        Message answer3 = client.readMessage();
+        if(answer3.getText().equals("error")){
+            throw new Exception((String) answer3.getObjects().get(0));
+        }
+        //
+        client.disconnect();
+        Client client2 = new Client(9000);
+        client2.readMessage();
+        Message message4 = new Message("getToken");
+        message4.addToObjects("ERPshop");
+        message4.addToObjects("ERPshop1379");
+        client2.writeMessage(message4);
+        Message answer4 = client2.readMessage();
+        AuthToken authToken2 = answer4.getAuthToken();
+
+
+
+        Message message5 = new Message("createReceipt");
+        BankReceiptType bankReceiptType2 = BankReceiptType.DEPOSIT ;
+        message5.addToObjects(authToken2);
+        message5.addToObjects(bankReceiptType2);
+        message5.addToObjects(totalPrice*5/100);
+        message5.addToObjects(-1);
+        message5.addToObjects(destinationId);
+        message5.addToObjects("nothing");
+        client2.writeMessage(message5);
+        Message answer5 = client2.readMessage();
+        String receiptId5 = (String) answer5.getObjects().get(0);
+
+        //pay
+        Message message6 = new Message("pay");
+        message6.addToObjects(authToken2);
+        message6.addToObjects(receiptId5);
+        client2.writeMessage(message6);
+        Message answer6 = client2.readMessage();
+        if(answer6.getText().equals("error")){
+           throw new Exception((String) answer6.getObjects().get(0));
         }
         for (Seller seller : currentBuyer.getCart().getAllSellers()) {
             seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer)*95/100);
         }
+        client2.disconnect();
     }
 
     private void payByWallet(double totalPrice, Buyer currentBuyer) throws Exception {
@@ -297,6 +300,39 @@ public class BuyerController extends Server implements AccountController {
             for (Seller seller : currentBuyer.getCart().getAllSellers()) {
                 seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer) * 95 / 100);
             }
+            Client client2 = new Client(9000);
+            client2.readMessage();
+            Message message4 = new Message("getToken");
+            message4.addToObjects("ERPshop");
+            message4.addToObjects("ERPshop1379");
+            client2.writeMessage(message4);
+            Message answer4 = client2.readMessage();
+            AuthToken authToken2 = answer4.getAuthToken();
+
+
+
+            Message message5 = new Message("createReceipt");
+            BankReceiptType bankReceiptType2 = BankReceiptType.DEPOSIT ;
+            message5.addToObjects(authToken2);
+            message5.addToObjects(bankReceiptType2);
+            message5.addToObjects(totalPrice*5/100);
+            message5.addToObjects(-1);
+            message5.addToObjects("2020722893");
+            message5.addToObjects("nothing");
+            client2.writeMessage(message5);
+            Message answer5 = client2.readMessage();
+            String receiptId5 = (String) answer5.getObjects().get(0);
+
+            //pay
+            Message message6 = new Message("pay");
+            message6.addToObjects(authToken2);
+            message6.addToObjects(receiptId5);
+            client2.writeMessage(message6);
+            Message answer6 = client2.readMessage();
+            if(answer6.getText().equals("error")){
+                throw new Exception((String) answer6.getObjects().get(0));
+            }
+
         }
     }
 
@@ -324,6 +360,7 @@ public class BuyerController extends Server implements AccountController {
         if(answer2.getText().equals("Error")){
             Message message = new Message("Error");
             message.addToObjects(answer2.getObjects().get(0));
+            client.disconnect();
             return message;
         }
         String receiptId = (String) answer2.getObjects().get(0);
@@ -336,6 +373,7 @@ public class BuyerController extends Server implements AccountController {
         if(answer3.getText().equals("Error")){
             Message message = new Message("Error");
             message.addToObjects(answer3.getObjects().get(0));
+            client.disconnect();
             return message;
         }
          //increase credit
@@ -343,6 +381,7 @@ public class BuyerController extends Server implements AccountController {
         //debug
         System.out.println(currentBuyer.getCredit());
         currentBuyer.increaseCredit(money);
+        client.disconnect();
         return new Message("Confirmation");
     }
 
