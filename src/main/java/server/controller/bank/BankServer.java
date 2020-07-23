@@ -7,6 +7,7 @@ import client.network.AuthToken;
 import client.network.Client;
 import client.network.Message;
 import com.gilecode.yagson.YaGson;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import server.controller.Main;
 import server.network.server.Server;
 
@@ -150,6 +151,8 @@ public class BankServer {
     }
 
     private Message validPayReceipt(BankAccount bankAccount, String receiptID) {
+        System.out.println("4)receipt id:");
+        System.out.println(receiptID);
         Message message;
         String result = payReceipt(bankAccount, receiptID);
         if (result.equals("wasPaid")) {
@@ -327,6 +330,8 @@ public class BankServer {
         message = new Message("Confirmation");
         message.addToObjects(bankReceipt.getID());
         account.addReceipt(bankReceipt);
+        System.out.println("3)receipt Id:");
+        System.out.println(bankReceipt.getID());
         return message;
     }
 
