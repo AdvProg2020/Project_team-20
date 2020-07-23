@@ -122,7 +122,7 @@ public class BuyerMenuController implements Initializable {
     }
 
     public void handlePurchase(ActionEvent actionEvent) {
-        PurchaseMenu.setBorderPane(borderPane);
+        PurchaseMenuFxml.setBorderPane(borderPane);
         loadUI("purchaseMenu");
     }
 

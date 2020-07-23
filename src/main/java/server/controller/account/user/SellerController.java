@@ -37,40 +37,50 @@ public class SellerController extends Server implements AccountController {
     //i add it
     public Message chargeWallet(double money ,String username,String password , String sourceId , String destId ,AuthToken authToken) throws Exception {
         Client client = new Client(9000);
-        Message message2 = new Message("getToken");
-        message2.addToObjects(username);
-        message2.addToObjects(password);
+        client.readMessage();//todo
+        Message message1 = new Message("getToken");
+        message1.addToObjects(username);
+        message1.addToObjects(password);
+        client.writeMessage(message1);
+        Message answer1 = client.readMessage();
+        AuthToken authToken1 = answer1.getAuthToken();
+        //not sure
+        Message message2 = new Message("createReceipt");
+        BankReceiptType bankReceiptType = BankReceiptType.MOVE;
+        message2.addToObjects(authToken);
+        message2.addToObjects(bankReceiptType);
+        message2.addToObjects(money);
+        message2.addToObjects(sourceId);
+        message2.addToObjects(destId);
+        message2.addToObjects("ERPShop");//description
         client.writeMessage(message2);
         Message answer2 = client.readMessage();
-        AuthToken authToken2 = answer2.getAuthToken();
-        //not sure
-        Message message = new Message("createReceipt");
-        BankReceiptType bankReceiptType = BankReceiptType.MOVE;
-        message.addToObjects(bankReceiptType);
-        message.addToObjects(money);
-        message.addToObjects(sourceId);
-        message.addToObjects(destId);
-        message.addToObjects("");//description
-        message.addToObjects(authToken);
-        client.writeMessage(message);
-        Message answer = client.readMessage();
-        String receiptId = (String) answer.getObjects().get(0);
-        //
+        if(answer2.getText().equals("Error")){
+            Message message = new Message("Error");
+            message.addToObjects(answer2.getObjects().get(0));
+            client.disconnect();
+            return message;
+        }
+        String receiptId = (String) answer2.getObjects().get(0);
+
         Message message3 = new Message("pay");
+        message3.addToObjects(authToken1);
         message3.addToObjects(receiptId);
-        message3.addToObjects(authToken2);
         client.writeMessage(message3);
-        Message answer1 = client.readMessage();
-        if(answer1.getObjects().get(0).equals("error")){
-            Message message5 = new Message("Error");
-            message5.addToObjects(answer1.getObjects().get(1));
-            return message5;
+        Message answer3 = client.readMessage();
+        if(answer3.getText().equals("Error")){
+            Message message = new Message("Error");
+            message.addToObjects(answer3.getObjects().get(0));
+            client.disconnect();
+            return message;
         }
         //increase credit
         Seller currentSeller = (Seller) Main.getAccountWithToken(authToken);
+        //debug
+        System.out.println(currentSeller.getCredit());
         currentSeller.increaseCredit(money);
-        Message message6 = new Message("Confirmation");
-        return message6;
+        client.disconnect();
+        return new Message("Confirmation");
     }
     //i add it
     public Message withdrawMoneyFromWallet(double money ,String username,String password , String sourceId , String destId ,AuthToken authToken) throws Exception {
