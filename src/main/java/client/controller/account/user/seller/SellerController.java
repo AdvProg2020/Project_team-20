@@ -158,6 +158,7 @@ public class SellerController implements AccountController {
         message.addToObjects(numericalFields);
         message.addToObjects(optionalFields);
         message.addToObjects(fileType);
+        message.addToObjects(fileImg);
         client.writeMessage(message);
         client.writeFile(new File(filePath));
         Message answer = client.readMessage();
