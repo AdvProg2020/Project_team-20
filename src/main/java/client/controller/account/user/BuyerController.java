@@ -69,7 +69,8 @@ public class BuyerController implements AccountController {
         client.writeMessage(message);
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {
-            throw (Exception) answer.getObjects().get(0);
+            String context = (String)answer.getObjects().get(0);
+            throw new Exception(context);
         }
     }
 

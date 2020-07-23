@@ -13,7 +13,7 @@ import client.model.receipt.SellerReceipt;
 import client.network.AuthToken;
 import client.network.Message;
 import server.network.server.DNS;
-import server.model.bank.BankReceiptType;
+import client.model.bank.BankReceiptType;
 import server.network.server.Server;
 
 import java.awt.*;
@@ -230,12 +230,12 @@ public class BuyerController extends Server implements AccountController {
         //not sure
         Message message = new Message("createReceipt");
         BankReceiptType bankReceiptType = BankReceiptType.MOVE ;
+        message.addToObjects(authToken);
         message.addToObjects(bankReceiptType);
         message.addToObjects(totalPrice);
         message.addToObjects(sourceId);
         message.addToObjects(destinationId);
         message.addToObjects("");//description
-        message.addToObjects(authToken);
         client.writeMessage(message);
         Message answer = client.readMessage();
         String receiptId = (String) answer.getObjects().get(0);
@@ -278,31 +278,30 @@ public class BuyerController extends Server implements AccountController {
         //not sure
         Message message = new Message("createReceipt");
         BankReceiptType bankReceiptType = BankReceiptType.MOVE;
+        message.addToObjects(authToken);
         message.addToObjects(bankReceiptType);
         message.addToObjects(money);
         message.addToObjects(sourceId);
         message.addToObjects(destId);
-        message.addToObjects("");//description
-        message.addToObjects(authToken);
+        message.addToObjects("ERPShop");//description
         client.writeMessage(message);
         Message answer = client.readMessage();
         String receiptId = (String) answer.getObjects().get(0);
         //
         Message message3 = new Message("pay");
-        message3.addToObjects(receiptId);
         message3.addToObjects(authToken2);
+        message3.addToObjects(receiptId);
         client.writeMessage(message3);
         Message answer1 = client.readMessage();
-        if(answer1.getObjects().get(0).equals("error")){
+        if(answer1.getText().equals("Error")){
             Message message5 = new Message("Error");
-            message5.addToObjects(answer1.getObjects().get(1));
+            message5.addToObjects(answer1.getObjects().get(0));
             return message5;
         }
          //increase credit
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
         currentBuyer.increaseCredit(money);
-        Message message6 = new Message("Confirmation");
-        return message6;
+        return new Message("Confirmation");
     }
 
     private void decreaseAllProductBought(AuthToken authToken) {
@@ -574,6 +573,7 @@ public class BuyerController extends Server implements AccountController {
         methods.add("editField");
         methods.add("setProfileImage");
         methods.add("changeMainImage");
+        methods.add("chargeWallet");
         methods.add("logout");
         // todo add sth we need
     }
