@@ -15,13 +15,17 @@ public class AuthToken {
     private AuthToken(String username, int key) {
         this.username = username;
         this.key = key;
-        timeCreated = LocalDateTime.now();
+        this.timeCreated = LocalDateTime.now();
     }
 
-    private AuthToken(int key) {}
+    private AuthToken(int key) {
+        this.key = key;
+        this.timeCreated = LocalDateTime.now();
+    }
 
     public boolean validTime() {
         LocalDateTime now = LocalDateTime.now();
+        System.out.println("TIME: " + timeCreated);
         return (now.getMinute() - timeCreated.getMinute()) <= 58;
     }
 

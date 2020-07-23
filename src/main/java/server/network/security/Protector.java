@@ -69,7 +69,7 @@ public class Protector {
         else
             allClientsIp.get(ip).addActivity();
         if (message.getText().equals("login")) {
-            if (allClientsIp.get(ip)==null)
+            if (loginClientsIp.get(ip)==null)
                 loginClientsIp.put(ip, 1);
             else
                 loginClientsIp.replace(ip, loginClientsIp.get(ip)+1);

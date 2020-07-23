@@ -9,6 +9,7 @@ public class DangerousIp {
 
     public DangerousIp(String ip, DangerousIpType dangerousIpType) {
         this.timeWentDangerous = LocalDateTime.now();
+        this.dangerousIpType = dangerousIpType;
         this.ip = ip;
     }
 
@@ -16,7 +17,7 @@ public class DangerousIp {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime after;
         if (dangerousIpType.equals(DangerousIpType.LOGIN_DANGER))
-            after = timeWentDangerous.plusMinutes(3);
+            after = timeWentDangerous.plusMinutes(1);
         else
             after = timeWentDangerous.plusMinutes(300);
         return !now.isAfter(after);
