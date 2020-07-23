@@ -340,6 +340,8 @@ public class BuyerController extends Server implements AccountController {
         }
          //increase credit
         Buyer currentBuyer = (Buyer) Main.getAccountWithToken(authToken);
+        //debug
+        System.out.println(currentBuyer.getCredit());
         currentBuyer.increaseCredit(money);
         return new Message("Confirmation");
     }

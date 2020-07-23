@@ -7,24 +7,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ChargeWalletFxml implements Initializable {
 
-    public TextField moneyInWallet;
+
     public TextField amountOfMoney;
     public TextField bankPassword;
     public TextField bankUsername;
     public TextField accountId;
+    public Text moneyInWallet;
 
     private BuyerController buyerController = BuyerController.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         double money = buyerController.getCurrentBuyer().getCredit();//we should change credit to wallet
-        moneyInWallet.appendText(Double.toString(money));
+        moneyInWallet.setText(Double.toString(money));
     }
 
     public void chargeWallet(ActionEvent actionEvent) {
@@ -43,8 +45,11 @@ public class ChargeWalletFxml implements Initializable {
         else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
+        double money2 = buyerController.getCurrentBuyer().getCredit();//we should change credit to wallet
+        moneyInWallet.setText(Double.toString(money2));
         bankPassword.clear();
         bankUsername.clear();
         amountOfMoney.clear();
+        accountId.clear();
     }
 }
