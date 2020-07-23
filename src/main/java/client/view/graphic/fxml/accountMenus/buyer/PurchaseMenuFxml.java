@@ -19,7 +19,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PurchaseMenu implements Initializable {
+public class PurchaseMenuFxml implements Initializable {
     public Text addressText;
     public TextField address;
     public Text phoneText;
@@ -128,7 +128,7 @@ public class PurchaseMenu implements Initializable {
     }
 
     public static void setBorderPane(BorderPane borderPane) {
-        PurchaseMenu.borderPane = borderPane;
+        PurchaseMenuFxml.borderPane = borderPane;
     }
 
     @Override
