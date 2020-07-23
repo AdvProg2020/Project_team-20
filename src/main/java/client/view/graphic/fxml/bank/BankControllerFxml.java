@@ -101,7 +101,6 @@ public class BankControllerFxml {
 
     public void handleExit(ActionEvent actionEvent) {
         FxmlAllProductsMenu.key = false;
-        Main.storeData();
         window.close();
     }
 
