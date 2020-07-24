@@ -182,11 +182,6 @@ public class LoginController extends Server {
                         client.setAccount((Account) generalAccount);
                     }
                     Message sendMessage = callCommand(message.getText(), message);
-                    System.out.println(message.getText() + " 00 0 00 0 00 000 0 000 000000000000000 000 0 00 00 00 00 00 0 ");
-                    if (sendMessage.getText().equals("AccountType")) {
-                        System.out.println("IP REMOVED 00 0 00 0 00 000 0 000 000000000000000 000 0 00 00 00 00 00 0 ");
-                        protector.removeIpFromLoginIps(client.getSocket());
-                    }
                     client.writeMessage(sendMessage);
                 } else {
                     client.writeMessage(new Message("token is invalid"));
@@ -199,6 +194,10 @@ public class LoginController extends Server {
                 try {
                     message.addToObjects(client);
                     Message answer = callCommand(message.getText(), message);
+                    if (answer.getText().equals("AccountType")) {
+                        System.out.println("IP REMOVED 00 0 00 0 00 000 0 000 000000000000000 000 0 00 00 00 00 00 0 ");
+                        protector.removeIpFromLoginIps(client.getSocket());
+                    }
                     client.setAuthToken(answer.getAuthToken());
                     client.writeMessage(answer);
                 } catch (InvalidCommand invalidCommand) {
