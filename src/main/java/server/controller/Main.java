@@ -9,6 +9,7 @@ import server.controller.account.user.BuyerController;
 import server.controller.account.user.ManagerController;
 import server.controller.account.user.SellerController;
 import server.controller.account.user.SupporterController;
+import server.controller.auction.AuctionController;
 import server.controller.bank.BankServer;
 import client.model.product.*;
 import client.model.product.category.SubCategory;
@@ -51,12 +52,13 @@ public class Main {
         SupporterController.getInstance(); // 3000
         AllProductsController.getInstance(); // 5000
         new SaleController(); // 2000
-        new ProductController(); // 1000
+        ProductController.getInstance(); // 1000
         new HasFirstManager(); // 777
         new AdvertisementController(); // 696
         new ReceiptController(); // 500
         ChatController.getInstance(); //572
         DNS.getInstance(); // 1673
+        AuctionController.getInstance(); // 7777
         //TODO run all requierd servers
     }
 
