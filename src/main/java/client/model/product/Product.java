@@ -572,7 +572,8 @@ public class Product implements Requestable {
                 product.setFile(storedFile);
                 allProducts.add(product);
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

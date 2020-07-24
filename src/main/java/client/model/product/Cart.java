@@ -21,8 +21,6 @@ public class Cart {
 
     public void increaseProduct(String id, int number) throws Exception {
         SelectedProduct selectedProduct = getSelectedProductByProductId(id);
-        if (selectedProduct.getProduct() instanceof FileProduct)
-            return;
         if (selectedProduct.getSeller().getProductCount(selectedProduct.getProduct()) < number)
             throw new notEnoughProductCountException();
         selectedProduct.increaseProduct(number);
@@ -30,8 +28,6 @@ public class Cart {
 
     public void decreaseProduct(String id, int number) throws Exception {
         SelectedProduct selectedProduct = getSelectedProductByProductId(id);
-        if (selectedProduct.getProduct() instanceof FileProduct)
-            return;
         if (selectedProduct.getCount() > number)
             selectedProduct.decreaseProduct(number);
         else
@@ -96,7 +92,7 @@ public class Cart {
         return allSelectedProducts;
     }
 
-    public HashMap<Product, Integer> getAllProducts() {
+    public HashMap<Product, Integer> getAllNoneFileProducts() {
         HashMap<Product, Integer> allProduct = new HashMap<>();
         for (SelectedProduct selectedProduct : selectedProducts) {
             if (selectedProduct.getProduct() instanceof FileProduct)
@@ -105,6 +101,15 @@ public class Cart {
         }
         return allProduct;
     }
+
+    public HashMap<Product, Integer> getAllProducts() {
+        HashMap<Product, Integer> allProduct = new HashMap<>();
+        for (SelectedProduct selectedProduct : selectedProducts) {
+            allProduct.put(selectedProduct.getProduct(), selectedProduct.getCount());
+        }
+        return allProduct;
+    }
+
 
     public HashMap<Product, Integer> getAllFileProducts() {
         HashMap<Product, Integer> allProduct = new HashMap<>();
