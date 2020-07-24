@@ -26,11 +26,10 @@ public class YourWalletFxml implements Initializable {
     public Text moneyInWallet;
 
     private SellerController sellerController = SellerController.getInstance();
-    client.model.account.Seller seller = (Seller) sellerController.getAccountInfo();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        double money = seller.getCredit();//we should change credit to wallet
+        double money = sellerController.getCredit();//we should change credit to wallet
         moneyInWallet.setText(Double.toString(money));
     }
 
@@ -44,7 +43,7 @@ public class YourWalletFxml implements Initializable {
         } else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
-        double money2 = seller.getCredit();//we should change credit to wallet
+        double money2 = sellerController.getCredit();//we should change credit to wallet
         moneyInWallet.setText(Double.toString(money2));
         bankPassword.clear();
         bankUsername.clear();
@@ -67,7 +66,7 @@ public class YourWalletFxml implements Initializable {
         } else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
-        double money2 = seller.getCredit();//we should change credit to wallet
+        double money2 = sellerController.getCredit();//we should change credit to wallet
         moneyInWallet.setText(Double.toString(money2));
         bankPassword1.clear();
         bankUsername1.clear();

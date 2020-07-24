@@ -513,6 +513,13 @@ public class SellerController extends Server implements AccountController {
         throw new SaleUnavailableException();
     }
 
+    public Message getCredit(AuthToken authToken) {
+        Seller currentSeller = (Seller) Main.getAccountWithToken(authToken);
+        Message message = new Message("get credit");
+        message.addToObjects(currentSeller.getCredit());
+        return message;
+    }
+
     @Override
     protected void setMethods() {
         methods.add("addAdvertisement");
@@ -536,6 +543,7 @@ public class SellerController extends Server implements AccountController {
         methods.add("editOff");
         methods.add("addOff");
         methods.add("viewBalance");
+        methods.add("getCredit");
         methods.add("getProductsToSell");
         methods.add("getProductCount");
         methods.add("getAccountInfo");
