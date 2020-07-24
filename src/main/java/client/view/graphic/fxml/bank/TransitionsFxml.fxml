@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="477.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.bank.TransitionsFxml">
+<AnchorPane prefHeight="513.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.bank.TransitionsFxml">
    <children>
       <Text fill="#89a08b" layoutX="54.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your balance:">
          <font>
@@ -21,11 +22,23 @@
             <Font size="15.0" />
          </font>
       </Text>
-      <Text fx:id="depositsTxt" fill="#445b56" layoutX="54.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.2060546875" />
-      <Text fx:id="withdrawsTxt" fill="#445b56" layoutX="244.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.2060546875" />
-      <Text fx:id="movesTxt" fill="#445b56" layoutX="433.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.2060546875" />
       <Text fill="#cdd7d2" layoutX="54.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deposit" />
-      <Text fill="#cdd7d2" layoutX="244.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Withdraw" />
-      <Text fill="#cdd7d2" layoutX="433.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Move" />
+      <Text fill="#cdd7d2" layoutX="291.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Withdraw" />
+      <Text fill="#cdd7d2" layoutX="529.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Move" />
+      <ScrollPane fx:id="depositsScroll" layoutX="54.0" layoutY="95.0" prefHeight="317.0" prefWidth="200.0" style="-fx-background-color: #89a08b#89a08b;">
+         <content>
+            <Text fx:id="depositsTxt" fill="#445b56" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="171.2060546875" />
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="withdrawScroll" layoutX="292.0" layoutY="95.0" prefHeight="317.0" prefWidth="200.0" style="-fx-background-color: #89a08b#89a08b;">
+         <content>
+            <Text fx:id="withdrawsTxt" fill="#445b56" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="171.2060546875" />
+         </content>
+      </ScrollPane>
+      <ScrollPane fx:id="movesScroll" layoutX="529.0" layoutY="95.0" prefHeight="317.0" prefWidth="200.0" style="-fx-background-color: #89a08b#89a08b;">
+         <content>
+            <Text fx:id="movesTxt" fill="#445b56" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.2060546875" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
