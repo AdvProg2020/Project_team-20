@@ -141,9 +141,11 @@ public class LoginController extends Server {
     protected void handleClient(Client client) {
         clients.add(client);
         client.writeMessage(new Message("client accepted"));
+        System.out.println(" 1111111 ");
         while (true) {
             Main.storeData();
             Message message = client.readMessage();
+
             try {
                 protector.isMessageSecure(message, client.getSocket());
             } catch (Exception e) {
@@ -166,8 +168,9 @@ public class LoginController extends Server {
                         client.setAccount((Account) generalAccount);
                     }
                     Message sendMessage = callCommand(message.getText(), message);
+                    System.out.println(message.getText()+ " 00 0 00 0 00 000 0 000 000000000000000 000 0 00 00 00 00 00 0 ");
                     if (sendMessage.getText().equals("AccountType")) {
-                        System.out.println("IP REMOVED");
+                        System.out.println("IP REMOVED 00 0 00 0 00 000 0 000 000000000000000 000 0 00 00 00 00 00 0 ");
                         protector.removeIpFromLoginIps(client.getSocket());
                     }
                     client.writeMessage(sendMessage);
