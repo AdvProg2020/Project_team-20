@@ -607,6 +607,7 @@ public class SellerController extends Server implements AccountController {
         methods.add("viewCompanyInformation");
         methods.add("viewSalesHistory");
         methods.add("getAllProducts");
+        methods.add("getCredit");
         methods.add("getSellerProducts");
         methods.add("viewProduct");
         methods.add("viewBuyers");
