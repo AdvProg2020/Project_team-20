@@ -66,12 +66,6 @@ public class LoginController extends Server {
     private void createManagerAccount(String username, ArrayList<String> details) throws Exception {
         String name = details.get(0), lastName = details.get(1), email = details.get(2), phoneNumber = details.get(3),
                 password = details.get(4);
-        double credit;
-        try {
-            credit = Double.parseDouble(details.get(5));
-        } catch (Exception e) {
-            throw new CreditIsNotNumber();
-        }
         if (Manager.isHasFirstManger()) {
             throw new ThereIsFirstManagerException();
         }
@@ -82,24 +76,12 @@ public class LoginController extends Server {
     private void createBuyerAccount(String username, ArrayList<String> details) throws CreditIsNotNumber {
         String name = details.get(0), lastName = details.get(1), email = details.get(2), phoneNumber = details.get(3),
                 password = details.get(4);
-        double credit;
-        try {
-            credit = Double.parseDouble(details.get(5));
-        } catch (Exception e) {
-            throw new CreditIsNotNumber();
-        }
         Manager.addRequest(new Buyer(name, lastName, email, phoneNumber, username, password));
     }
 
     private void createSellerAccount(String username, ArrayList<String> details, String detail) throws CreditIsNotNumber {
         String name = details.get(0), lastName = details.get(1), email = details.get(2), phoneNumber = details.get(3),
                 password = details.get(4);
-        double credit;
-        try {
-            credit = Double.parseDouble(details.get(5));
-        } catch (Exception e) {
-            throw new CreditIsNotNumber();
-        }
         Manager.addRequest(new Seller(name, lastName, email, phoneNumber, username, password,  detail));
     }
 

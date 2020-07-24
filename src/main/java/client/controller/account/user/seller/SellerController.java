@@ -291,6 +291,11 @@ public class SellerController implements AccountController {
         return (HashMap<Product, Integer>) answer.getObjects().get(0);
     }
 
+    public double getCredit() {
+        client.writeMessage(new Message("getCredit"));
+        return (double) client.readMessage().getObjects().get(0);
+    }
+
     public int getProductCount(Product product) {
         Message message = new Message("getProductCount");
         message.addToObjects(product.getId());
