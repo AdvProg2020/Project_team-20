@@ -130,6 +130,7 @@ public class BuyerController extends Server implements AccountController {
         }
         try {
            pay(totalPrice,currentBuyer,payByBankCart,username , password ,sourceId , destId);
+           System.out.println("shayan shayan shayan shayan");
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -236,7 +237,7 @@ public class BuyerController extends Server implements AccountController {
         message2.addToObjects(bankReceiptType);
         message2.addToObjects(totalPrice);
         message2.addToObjects(sourceId);
-        message2.addToObjects(-1);
+        message2.addToObjects("-1");
         message2.addToObjects("nothing");
         client.writeMessage(message2);
         Message answer2 = client.readMessage();
@@ -269,7 +270,7 @@ public class BuyerController extends Server implements AccountController {
         message5.addToObjects(authToken2);
         message5.addToObjects(bankReceiptType2);
         message5.addToObjects(totalPrice*5/100);
-        message5.addToObjects(-1);
+        message5.addToObjects("-1");
         message5.addToObjects(destinationId);
         message5.addToObjects("nothing");
         client2.writeMessage(message5);
