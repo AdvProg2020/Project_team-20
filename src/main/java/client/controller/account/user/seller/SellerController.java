@@ -6,14 +6,18 @@ import client.controller.account.user.AccountController;
 import client.model.account.Account;
 import client.model.account.Buyer;
 import client.model.account.Seller;
+import client.model.auction.Auction;
+import client.model.product.Field.Field;
 import client.model.product.FileProduct;
 import client.model.product.Product;
 import client.model.product.Sale;
 import client.model.product.category.SubCategory;
 import client.model.receipt.SellerReceipt;
+import client.network.AuthToken;
 import client.network.Client;
 import client.network.Message;
 //import com.oracle.tools.packager.IOUtils;
+import server.controller.Main;
 import sourceCode.IOUtils;
 import javafx.scene.image.Image;
 
@@ -44,6 +48,18 @@ public class SellerController implements AccountController {
         if (sellerController == null)
             sellerController = new SellerController();
         return sellerController;
+    }
+
+    public void createAuction(ArrayList<String> details, String path, LocalDateTime endDate) throws Exception{
+        Message message = new Message("createAuction");
+        message.addToObjects(details);
+        message.addToObjects(path);
+        message.addToObjects(endDate);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error")) {
+            throw (Exception) answer.getObjects().get(0);
+        }
     }
 
     public void addAdvertisement(Product product, Seller seller, String text) throws Exception {

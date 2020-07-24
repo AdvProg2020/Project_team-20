@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 public class Auction {
     private static ArrayList<Auction> allAuctions = new ArrayList<>();
+    private static int auctionCounts = 0;
     private String id;
     private SellerChatRoom sellerChatRoom;
     private Product product;
@@ -21,11 +22,12 @@ public class Auction {
     private HashMap<String, Double> buyersPrice;
     private String sellerUsername;
 
-    public Auction(Product product, LocalDateTime endDate, String sellerUsername, String id) {
+    public Auction(Product product, LocalDateTime endDate, String sellerUsername) {
         this.product = product;
         this.endDate = endDate;
         this.sellerUsername = sellerUsername;
-        this.id = id;
+        this.id = Integer.toString(auctionCounts);
+        auctionCounts++;
         try {
             sellerChatRoom = new SellerChatRoom(sellerUsername);
         } catch (Exception e) {
@@ -59,6 +61,16 @@ public class Auction {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public double getHighestPrice() {
+        double highest = -1;
+        for (String buyerID : buyersPrice.keySet()) {
+            if (buyersPrice.get(buyerID)>highest) {
+                highest = buyersPrice.get(buyerID);
+            }
+        }
+        return highest;
     }
 
     public void buyerIncreaseMoney(Buyer buyer, double priceIncrease) {
