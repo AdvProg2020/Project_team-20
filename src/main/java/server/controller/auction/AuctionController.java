@@ -154,6 +154,34 @@ public class AuctionController extends Server {
         }
     }
 
+    public Message getHighestPrice(String auctionID, AuthToken authToken) {
+        Message message = new Message("Confirmation");
+        Auction auction;
+        try {
+            auction = getAuctionByID(auctionID);
+            message.addToObjects(auction.getBuyersPrice());
+            return message;
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+    }
+
+    public Message getProduct(String auctionID, AuthToken authToken) {
+        Message message = new Message("Confirmation");
+        Auction auction;
+        try {
+            auction = getAuctionByID(auctionID);
+            message.addToObjects(auction.getProduct());
+            return message;
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+            return message;
+        }
+    }
+
     public Message isEnded(String auctionID, AuthToken authToken) {
         Message message;
         Auction auction;
@@ -228,6 +256,8 @@ public class AuctionController extends Server {
         methods.add("getAllAuctions");
         methods.add("getHighest");
         methods.add("isEnded");
+        methods.add("getProduct");
+        methods.add("getHighestPrice");
     }
 
 }

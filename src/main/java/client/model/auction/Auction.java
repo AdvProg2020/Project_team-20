@@ -63,6 +63,16 @@ public class Auction {
         return null;
     }
 
+    public double getHighestPrice() {
+        double highest = -1;
+        for (String buyerID : buyersPrice.keySet()) {
+            if (buyersPrice.get(buyerID)>highest) {
+                highest = buyersPrice.get(buyerID);
+            }
+        }
+        return highest;
+    }
+
     public void buyerIncreaseMoney(Buyer buyer, double priceIncrease) {
         String buyerId = buyer.getUsername();
         double beforeMoney = buyersPrice.get(buyerId);
