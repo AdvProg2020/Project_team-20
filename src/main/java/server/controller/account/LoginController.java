@@ -154,6 +154,7 @@ public class LoginController extends Server {
         MainController.getInstance().setAccount(new TempAccount());
     }
 
+
     @Override
     protected void handleClient(Client client) {
         clients.add(client);
@@ -169,8 +170,7 @@ public class LoginController extends Server {
                 client.writeMessage(insecureMessage);
                 return;
             }
-            if (message.getText().equals("AccountType"))
-                protector.removeIpFromLoginIps(client.getSocket());
+
             if (message.getText().equals("buy")) {
                 clients.remove(client);
                 return;
@@ -183,7 +183,12 @@ public class LoginController extends Server {
                     if (generalAccount instanceof Account) {
                         client.setAccount((Account) generalAccount);
                     }
-                    client.writeMessage(callCommand(message.getText(), message));
+                    Message sendMessage = callCommand(message.getText(), message);
+                    if (sendMessage.getText().equals("AccountType")) {
+                        System.out.println("IP REMOVED");
+                        protector.removeIpFromLoginIps(client.getSocket());
+                    }
+                    client.writeMessage(sendMessage);
                 } else {
                     client.writeMessage(new Message("token is invalid"));
                     clients.remove(client);
