@@ -380,7 +380,7 @@ public class BuyerController extends Server implements AccountController {
         //not sure
         Message message2 = new Message("createReceipt");
         BankReceiptType bankReceiptType = BankReceiptType.MOVE;
-        message2.addToObjects(authToken);
+        message2.addToObjects(authToken1);
         message2.addToObjects(bankReceiptType);
         message2.addToObjects(money);
         message2.addToObjects(sourceId);

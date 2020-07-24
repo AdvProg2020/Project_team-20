@@ -47,6 +47,7 @@ public class ManageUsersController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         removeCreatePanel();
         table.getItems().setAll(managerController.manageUsers());
+        System.out.println("you are loser...........");
         username.setCellValueFactory(new PropertyValueFactory<>("username"));
         type.setCellValueFactory(new PropertyValueFactory<>("accountType"));
         removeManageUsersPanel();

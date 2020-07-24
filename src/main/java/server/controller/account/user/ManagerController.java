@@ -48,7 +48,8 @@ public class ManagerController extends Server implements AccountController {
 
     public Message manageUsers(AuthToken authToken) {
         Message message = new Message("all users");
-        message.addToObjects(getAllAccounts());
+        message.addToObjects(Account.getAllAccounts());
+        System.out.println("you are not loser........");
         return message;
     }
 

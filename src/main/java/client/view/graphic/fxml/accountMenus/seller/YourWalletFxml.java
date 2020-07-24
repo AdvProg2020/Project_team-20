@@ -1,6 +1,5 @@
 package client.view.graphic.fxml.accountMenus.seller;
 
-import client.controller.account.user.BuyerController;
 import client.controller.account.user.seller.SellerController;
 import client.model.account.Seller;
 import client.view.graphic.alert.AlertController;
