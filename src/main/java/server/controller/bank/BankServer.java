@@ -67,6 +67,7 @@ public class BankServer {
                 client.writeMessage(answer);
             } catch (Exception e) {
                 e.printStackTrace();
+                return;
             }
 
         }

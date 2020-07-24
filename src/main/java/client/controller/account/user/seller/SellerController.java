@@ -31,18 +31,18 @@ public class SellerController implements AccountController {
 
     private SellerController() {
         // for p2p
-        //sellerServer = new SellerServer(seller.getUsername());
-        //sellerServer.run();
+        sellerServer = new SellerServer(seller.getUsername());
+        sellerServer.run();
     }
 
     public static SellerController getInstance() {
-        if (sellerController == null)
-            sellerController = new SellerController();
         seller = (Seller) MainController.getInstance().getAccount();
         client = new Client(4000);
         client.setAuthToken(LoginController.getClient().getAuthToken());
         client.readMessage();
         System.out.println(client.getAuthToken());
+        if (sellerController == null)
+            sellerController = new SellerController();
         return sellerController;
     }
 
@@ -160,6 +160,7 @@ public class SellerController implements AccountController {
         message.addToObjects(fileType);
         message.addToObjects(fileImg);
         client.writeMessage(message);
+        client.readMessage();
         client.writeFile(new File(filePath));
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {

@@ -143,6 +143,7 @@ public class BuyerController implements AccountController {
         int iterator = 0;
         for (SellerNetwork network : sellerNetworks) {
             Client client = new Client(network);
+            client.readMessage();
             Message message = new Message("getFile");
             message.addToObjects(productIds.get(iterator));
             client.writeMessage(message);
