@@ -2,42 +2,28 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import javafx.scene.control.TextArea?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="526.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.accountMenus.seller.CreateAuctionFxml">
+<AnchorPane prefHeight="423.0" prefWidth="689.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.accountMenus.seller.CreateAuctionFxml">
    <children>
       <Text fill="#575957" layoutX="26.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="create auction:" />
       <Line endX="100.0" layoutX="126.0" layoutY="50.0" startX="-100.0" />
       <TextField fx:id="productName" layoutX="26.0" layoutY="62.0" promptText="product's name" style="-fx-border-color: #009f9c;" />
       <TextField fx:id="productCompany" layoutX="26.0" layoutY="113.0" promptText="product's company" style="-fx-border-color: #009f9c;" />
-      <TextField fx:id="productPrice" layoutX="26.0" layoutY="167.0" promptText="product's price" style="-fx-border-color: #009f9c;" />
-      <TextArea fx:id="numerical" layoutX="289.0" layoutY="66.0" prefHeight="95.0" prefWidth="255.0" promptText="field's name : type1 type2 .... " style="-fx-border-color: #009f9c;" />
-      <Text fill="#575957" layoutX="292.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numerical Fields:">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Text>
-      <TextArea fx:id="optional" layoutX="289.0" layoutY="200.0" prefHeight="95.0" prefWidth="255.0" promptText="field's name : type1 type2 ...." style="-fx-border-color: #009f9c;" />
-      <Text fill="#575957" layoutX="294.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Optional Fields:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fill="#575957" layoutX="58.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="product's image:" />
-      <TextField fx:id="count" layoutX="26.0" layoutY="218.0" promptText="count of product" style="-fx-border-color: #009f9c;" />
-      <Pane layoutX="26.0" layoutY="295.0" prefHeight="167.0" prefWidth="167.0" style="-fx-border-color: #009f9c;">
+      <Text fill="#575957" layoutX="59.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="product's image:" />
+      <Pane layoutX="27.0" layoutY="178.0" prefHeight="167.0" prefWidth="167.0" style="-fx-border-color: #009f9c;">
          <children>
             <ImageView fx:id="productImg" fitHeight="161.0" fitWidth="161.0" layoutX="3.0" layoutY="3.0" onDragDropped="#handleDrop" onDragOver="#handleDragOver" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <JFXButton fx:id="create" layoutX="289.0" layoutY="365.0" onAction="#createProductButton" opacity="0.71" style="-fx-background-color: #009f9c;" text="create" textFill="WHITE" />
-      <JFXDatePicker fx:id="startDatePicker" defaultColor="#5fccd0" layoutX="289.0" layoutY="316.0" opacity="0.95" promptText="End date" />
+      <JFXButton fx:id="create" layoutX="288.0" layoutY="165.0" onAction="#createProductButton" opacity="0.71" style="-fx-background-color: #009f9c;" text="create" textFill="WHITE" />
+      <JFXDatePicker fx:id="endDatePicker" defaultColor="#5fccd0" layoutX="288.0" layoutY="62.0" opacity="0.95" promptText="End date" />
+      <JFXTimePicker fx:id="endTimePicker" defaultColor="#5fccd0" layoutX="288.0" layoutY="113.0" opacity="0.9" promptText="End time" />
    </children>
 </AnchorPane>
