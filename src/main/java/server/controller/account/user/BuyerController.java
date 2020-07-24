@@ -130,7 +130,6 @@ public class BuyerController extends Server implements AccountController {
         }
         try {
            pay(totalPrice,currentBuyer,payByBankCart,username , password ,sourceId , destId);
-           System.out.println("shayan shayan shayan shayan");
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);

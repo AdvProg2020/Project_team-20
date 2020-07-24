@@ -16,7 +16,6 @@
         </Text>
         <Separator layoutX="21.0" layoutY="21.0" prefHeight="8.0" prefWidth="289.0" />
         <Text fill="#575957" layoutX="21.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount of money in your wallet:" wrappingWidth="207.58889770507812" />
-        <TextField fx:id="moneyInWallet" editable="false" layoutX="241.0" layoutY="45.0" prefHeight="14.0" prefWidth="167.0" visible="false" />
         <Separator layoutX="21.0" layoutY="117.0" prefHeight="8.0" prefWidth="289.0" />
         <Text fill="#5dabaa" layoutX="21.0" layoutY="114.0" opacity="0.5" strokeType="OUTSIDE" strokeWidth="0.0" text="Charge your wallet" wrappingWidth="207.58889770507812">
             <font>
@@ -51,5 +50,6 @@
       <TextField fx:id="accountId" layoutX="113.0" layoutY="232.0" />
       <Text fill="#575957" layoutX="389.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AccountId:" />
       <TextField fx:id="accountId1" layoutX="470.0" layoutY="232.0" />
+      <Text fx:id="moneyInWallet" layoutX="262.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="194.13671875" />
     </children>
 </AnchorPane>
