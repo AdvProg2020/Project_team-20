@@ -130,7 +130,7 @@ public class Protector {
         if (!message.getText().matches("\\w+")) {
             throw new MalMessageException();
         }
-         */
+        */
     }
 
     private boolean checkSizes(Message message) {
