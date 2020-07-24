@@ -37,9 +37,11 @@ public class LoginController extends Server {
     public Message createAccount(String username, String type, ArrayList<String> details, String detail) {
         Message message;
         String password = details.get(4);
+        System.out.println("IBLIJBlkjbdalkjbakldjsba.kjsb;.akjsb     " + password);
         if (isInSecurePass(password)) {
             message = new Message("Error");
             message.addToObjects(new InsecurePassException());
+            return message;
         }
         message = new Message("create account was successful");
         try {
