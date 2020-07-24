@@ -124,8 +124,17 @@ public abstract class Filterable {
     public ArrayList<Filter> getFilters() {
         Message message = new Message("getFilters");
         client.writeMessage(message);
+        Message answer = client.readMessage();
         client.disconnect();
-        return (ArrayList<Filter>) client.readMessage().getObjects().get(0);
+        return (ArrayList<Filter>) answer.getObjects().get(0);
+    }
+
+    public Product getProductWithItsName(String name) {
+        Message message = new Message("getProductWithItsName");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        client.disconnect();
+        return (Product) answer.getObjects().get(0);
     }
 
 
@@ -138,7 +147,8 @@ public abstract class Filterable {
     public String getCurrentSort() {
         Message message = new Message("getCurrentSort");
         client.writeMessage(message);
+        Message answer = client.readMessage();
         client.disconnect();
-        return (String) client.readMessage().getObjects().get(0);
+        return (String) answer.getObjects().get(0);
     }
 }
