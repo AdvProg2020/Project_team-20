@@ -48,6 +48,7 @@ public class AllProductsController extends Filterable {
                 client.readMessage();
                 continue;
             }
+            client.writeMessage(new Message("give me that image"));
             client.receiveImage(path);
             client.readMessage();
         }

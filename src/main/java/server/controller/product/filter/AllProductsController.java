@@ -128,7 +128,8 @@ public class AllProductsController extends Filterable {
     public Message sendProductsImage(int i, Client client) {
         String path = "src/main/resources/Images/" + Product.getAllProducts().get(i).getImagePath();
         client.writeMessage(new Message(path));
-        if (client.readMessage().getText().equals("has file"))
+        Message message = client.readMessage();
+        if (message.getText().equals("has file"))
             return new Message("okay");
         client.writeFile(new File(path));
         return new Message("success");
