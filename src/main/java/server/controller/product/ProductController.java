@@ -13,11 +13,18 @@ import server.network.server.Server;
 import java.util.ArrayList;
 
 public class ProductController extends Server {
+    private static ProductController productController=null;
 
-    public ProductController() {
+    private ProductController() {
         super(1000);
         setMethods();
         System.out.println("product controller run");
+    }
+
+    public static ProductController getInstance() {
+        if (productController==null)
+            productController = new ProductController();
+        return productController;
     }
 
     public Message addProductToCart(String sellerId, String productId, AuthToken authToken) {

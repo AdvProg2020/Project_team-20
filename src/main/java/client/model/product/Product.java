@@ -624,6 +624,10 @@ public class Product implements Requestable {
         }
     }
 
+    public void setSellerPrice(Seller seller, double price) {
+        this.priceWithName.replace(seller.getUsername(), price);
+    }
+
     public RequestType getRequestType() {
         return RequestType.Product;
     }
