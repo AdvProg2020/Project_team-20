@@ -1,9 +1,6 @@
 package server.controller.account.user;
 
-import client.model.account.Account;
-import client.model.account.Buyer;
-import client.model.account.Manager;
-import client.model.account.Seller;
+import client.model.account.*;
 import client.model.product.*;
 import client.model.product.Field.Field;
 import client.model.product.Field.FieldType;
@@ -34,8 +31,71 @@ public class SellerController extends Server implements AccountController {
         System.out.println("seller controller run");
     }
 
+
+    @Override
+    protected void handleClient(Client client) {
+        clients.add(client);
+        client.writeMessage(new Message("client accepted"));
+        while (true) {
+            Main.storeData();
+            Message message = client.readMessage();
+/*
+            try {
+                protector.isMessageSecure(message, client.getSocket());
+            } catch (Exception e) {
+                Message insecureMessage = new Message("Error");
+                e.printStackTrace();
+                insecureMessage.addToObjects(e);
+                client.writeMessage(insecureMessage);
+                return;
+            }
+
+ */
+
+
+            System.out.println(message.getText());
+            if (message.getText().equals("buy")) {
+                clients.remove(client);
+                return;
+            }
+            System.out.println(message);
+            if (message.getAuthToken() != null)
+                System.out.println(message.getAuthToken().getKey());
+            try {
+                if (message.getAuthToken().authenticate()) {
+                    message.addToObjects(message.getAuthToken());
+                    GeneralAccount generalAccount = Main.getAccountWithToken(message.getAuthToken());
+                    if (generalAccount instanceof Account) {
+                        client.setAccount((Account) generalAccount);
+                    }
+                    if (message.getText().equals("createFileProduct"))
+                        message.addToObjects(client);
+                    client.writeMessage(callCommand(message.getText(), message));
+                } else {
+                    client.writeMessage(new Message("token is invalid"));
+                    clients.remove(client);
+                    return;
+                }
+            } catch (InvalidCommand invalidCommand) {
+                invalidCommand.printStackTrace();
+            } catch (NullPointerException nullPointerException) {
+                try {
+                    if (message.getText().equals("createFileProduct"))
+                        message.addToObjects(client);
+                    Message answer = callCommand(message.getText(), message);
+                    client.setAuthToken(answer.getAuthToken());
+                    client.writeMessage(answer);
+                    System.out.println(client);
+                } catch (InvalidCommand invalidCommand) {
+                    //invalidCommand.printStackTrace();
+                    return;
+                }
+            }
+        }
+    }
+
     //i add it
-    public Message chargeWallet(double money ,String username,String password , String sourceId , String destId ,AuthToken authToken) throws Exception {
+    public Message chargeWallet(double money, String username, String password, String sourceId, String destId, AuthToken authToken) throws Exception {
         Client client = new Client(9000);
         client.readMessage();//todo
         Message message1 = new Message("getToken");
@@ -55,7 +115,7 @@ public class SellerController extends Server implements AccountController {
         message2.addToObjects("ERPShop");//description
         client.writeMessage(message2);
         Message answer2 = client.readMessage();
-        if(answer2.getText().equals("Error")){
+        if (answer2.getText().equals("Error")) {
             Message message = new Message("Error");
             message.addToObjects(answer2.getObjects().get(0));
             client.disconnect();
@@ -68,7 +128,7 @@ public class SellerController extends Server implements AccountController {
         message3.addToObjects(receiptId);
         client.writeMessage(message3);
         Message answer3 = client.readMessage();
-        if(answer3.getText().equals("Error")){
+        if (answer3.getText().equals("Error")) {
             Message message = new Message("Error");
             message.addToObjects(answer3.getObjects().get(0));
             client.disconnect();
@@ -315,10 +375,11 @@ public class SellerController extends Server implements AccountController {
     }
 
     public Message createFileProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
-                                 HashMap<String, ArrayList<String>> optionalFields, String fileType, String imgPath, AuthToken authToken) {
+                                     HashMap<String, ArrayList<String>> optionalFields, String fileType, String imgPath, AuthToken authToken
+            , Client client) {
         Message message = new Message("createFileProduct");
+        client.writeMessage(new Message("in create file product"));
         try {
-            Client client = getClientWithToken(authToken);
             Seller seller = (Seller) Main.getAccountWithToken(authToken);
             String name = details.get(0), description = details.get(1);
             double price = Double.parseDouble(details.get(2));
@@ -527,8 +588,6 @@ public class SellerController extends Server implements AccountController {
         methods.add("viewSalesHistory");
         methods.add("getAllProducts");
         methods.add("getSellerProducts");
-        methods.add("chargeWallet");
-        methods.add("withdrawMoneyFromWallet");
         methods.add("viewProduct");
         methods.add("viewBuyers");
         methods.add("editProduct");
@@ -543,7 +602,6 @@ public class SellerController extends Server implements AccountController {
         methods.add("editOff");
         methods.add("addOff");
         methods.add("viewBalance");
-        methods.add("getCredit");
         methods.add("getProductsToSell");
         methods.add("getProductCount");
         methods.add("getAccountInfo");

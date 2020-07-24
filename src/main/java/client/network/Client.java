@@ -182,4 +182,8 @@ public class Client {
                 ", authToken=" + authToken +
                 '}';
     }
+
+    public void receiveImage(String path) {
+        readFile(new File(path));
+    }
 }

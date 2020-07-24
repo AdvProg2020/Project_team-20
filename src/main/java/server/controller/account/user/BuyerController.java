@@ -514,7 +514,7 @@ public class BuyerController extends Server implements AccountController {
     private void makeBuyerReceipt(double totalPrice, double discountPercentage, Buyer currentBuyer) {
         Cart cart = currentBuyer.getCart();
         currentBuyer.addReceipt(new BuyerReceipt(Integer.toString(BuyerReceipt.getBuyerReceiptCount()),
-                discountPercentage, cart.getAllProducts(), false, totalPrice, cart.getAllSellers()));
+                discountPercentage, cart.getAllNoneFileProducts(), false, totalPrice, cart.getAllSellers()));
     }
 
     private void receiveInformation(String address, String phoneNumber, Buyer currentBuyer) {

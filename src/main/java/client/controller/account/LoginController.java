@@ -7,6 +7,7 @@ import client.model.product.Cart;
 import client.network.Client;
 import client.network.Message;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class LoginController {
@@ -48,14 +49,28 @@ public class LoginController {
         message.addToObjects(username);
         message.addToObjects(password);
         client.writeMessage(message);
-        Message answer = client.readMessage();
-        if (answer.getText().equals("Error")) {
-            throw (Exception) answer.getObjects().get(0);
+        Message answer1 = client.readMessage();
+        if (answer1.getText().equals("Error")) {
+            throw (Exception) answer1.getObjects().get(0);
         }
+
+
+        Message receiveImageMessage = new Message("giveProductsImage");
+        client.writeMessage(receiveImageMessage);
+        String path = client.readMessage().getText();
+        if (hasImage(path)) {
+            System.out.println("have image for account");
+            client.writeMessage(new Message("has file"));
+            client.readMessage();
+        } else {
+            client.writeMessage(new Message("give me that image"));
+            client.receiveImage(path);
+        }
+        client.writeMessage(new Message("now log me in"));
+
+        Message answer = client.readMessage();
+        System.out.println(answer.getText());
         client.setAuthToken(answer.getAuthToken());
-
-        client.disconnect();
-
         Object object = answer.getObjects().get(0);
         GeneralAccount account = (GeneralAccount) answer.getObjects().get(1);
         MainController mainController = MainController.getInstance();
@@ -67,12 +82,18 @@ public class LoginController {
         else if (object.equals(AccountType.BUYER)) {
             BuyerController.getInstance().getCurrentBuyer().setCart(cart);
             return AccountType.BUYER;
-        }
-        else if (object.equals(AccountType.SUPPORTER)) {
+        } else if (object.equals(AccountType.SUPPORTER)) {
             return AccountType.SUPPORTER;
         }
         return AccountType.SELLER;
     }
+
+
+    private static boolean hasImage(String path) {
+        File f = new File(path);
+        return f.exists() && !f.isDirectory();
+    }
+
 
     public static class CreditIsNotNumber extends Exception {
         public CreditIsNotNumber() {

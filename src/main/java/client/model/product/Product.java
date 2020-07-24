@@ -94,11 +94,13 @@ public class Product implements Requestable {
         this.sellersUsername.add(seller.getUsername());
         this.buyersUsername = new ArrayList<>();
         this.categoriesName = new ArrayList<>();
+        this.countWithName = new HashMap<>();
         this.priceWithName = new HashMap<>();
         this.comments = new ArrayList<>();
         this.scores = new ArrayList<>();
         this.graphicPackage = new GraphicPackage();
         this.addingDate = LocalDateTime.now();
+        this.countWithName.put(seller.getUsername(), 123123);
         this.priceWithName.put(seller.getUsername(), price);
         this.productType = ProductType.FILE;
     }
@@ -570,7 +572,8 @@ public class Product implements Requestable {
                 product.setFile(storedFile);
                 allProducts.add(product);
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

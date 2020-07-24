@@ -20,12 +20,15 @@ public class SellerServer {
         try {
             this.serverSocket = new ServerSocket(port);
             Client client = new Client(1673);
+            client.readMessage();
             Message message = new Message("connect to DNS");
             message.addToObjects(username);
             message.addToObjects(port);
             message.addToObjects(serverSocket.getInetAddress());
             client.writeMessage(message);
             client.readMessage();
+            client.disconnect();
+            System.out.println("connected to dns");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,6 +55,9 @@ public class SellerServer {
     }
 
     private void handleClient(Client client) {
+        System.out.println("in handle client");
+        client.readMessage();
+        client.writeMessage(new Message("in receive file from seller"));
         Message message = client.readMessage();
         String productId = (String) message.getObjects().get(0);
         for (Product sellerProduct : SellerController.getInstance().getSellerProducts()) {
