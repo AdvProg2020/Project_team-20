@@ -51,6 +51,8 @@ public class ViewCartFxml implements Initializable {
         cart = buyerController.viewCart();
         totalPrice2 = buyerController.getTotalPrice();
         HashMap<Product, Integer> products = cart.getAllProducts();
+        System.out.println("hi hi hi hi hi hi hi hi hi"+cart.getAllFileProducts().size());
+        System.out.println("2hi hi hi hi hi hi hi hi hi"+cart.getAllProducts().size());
         ArrayList<CartTmp> cartTmpS = new ArrayList<>();
         for (Product product : products.keySet()) {
             String name = product.getName();

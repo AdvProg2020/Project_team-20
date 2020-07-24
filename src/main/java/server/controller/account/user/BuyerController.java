@@ -300,6 +300,7 @@ public class BuyerController extends Server implements AccountController {
 
     private void payByWallet(double totalPrice, Buyer currentBuyer) throws Exception {
         //i changed it
+        System.out.println(totalPrice);
         if(currentBuyer.getCredit() < totalPrice){
             throw new NotEnoughMoney();
         }
@@ -317,8 +318,7 @@ public class BuyerController extends Server implements AccountController {
             Message answer1 = client.readMessage();
             AuthToken authToken1 = answer1.getAuthToken();
 
-
-
+            System.out.println("RECEIPT RECEIPT RECEIPT");
             Message message2 = new Message("createReceipt");
             BankReceiptType bankReceiptType2 = BankReceiptType.DEPOSIT ;
             message2.addToObjects(authToken1);
