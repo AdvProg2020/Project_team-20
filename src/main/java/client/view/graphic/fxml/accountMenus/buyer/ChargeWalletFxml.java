@@ -25,7 +25,7 @@ public class ChargeWalletFxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        double money = buyerController.getCurrentBuyer().getCredit();//we should change credit to wallet
+        double money = buyerController.getCredit();//we should change credit to wallet
         moneyInWallet.setText(Double.toString(money));
     }
 
@@ -45,7 +45,7 @@ public class ChargeWalletFxml implements Initializable {
         else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
-        double money2 = buyerController.getCurrentBuyer().getCredit();
+        double money2 = buyerController.getCredit();
         moneyInWallet.setText(Double.toString(money2));
         bankPassword.clear();
         bankUsername.clear();

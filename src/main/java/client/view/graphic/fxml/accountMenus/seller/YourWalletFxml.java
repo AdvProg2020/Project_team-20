@@ -44,6 +44,8 @@ public class YourWalletFxml implements Initializable {
         } else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
+        double money2 = seller.getCredit();//we should change credit to wallet
+        moneyInWallet.setText(Double.toString(money2));
         bankPassword.clear();
         bankUsername.clear();
         amountOfMoney.clear();
@@ -65,6 +67,8 @@ public class YourWalletFxml implements Initializable {
         } else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
+        double money2 = seller.getCredit();//we should change credit to wallet
+        moneyInWallet.setText(Double.toString(money2));
         bankPassword1.clear();
         bankUsername1.clear();
         amountOfMoney1.clear();
