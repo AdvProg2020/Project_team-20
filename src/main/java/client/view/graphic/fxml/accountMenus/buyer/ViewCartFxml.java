@@ -2,6 +2,7 @@ package client.view.graphic.fxml.accountMenus.buyer;
 
 import client.controller.MediaController;
 import client.controller.account.user.BuyerController;
+import client.controller.product.filter.AllProductsController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,6 +46,7 @@ public class ViewCartFxml implements Initializable {
     private Double totalPrice2;
     public static BorderPane borderPane;
     MediaController mediaController = ProgramApplication.getMediaController();
+    AllProductsController allProductsController = AllProductsController.getInstance();
 
     private ArrayList<CartTmp> convertToCartTmp() throws Exception {
         BuyerController buyerController = BuyerController.getInstance();
@@ -98,7 +100,7 @@ public class ViewCartFxml implements Initializable {
 
     public void selectProduct(MouseEvent mouseEvent) throws Exception {
         String name = mainTable.getSelectionModel().getSelectedItem().getProductName();
-        id = Product.getProductWithItsName(name).getId();
+        id = allProductsController.getProductWithItsName(name).getId();
         minusIcon.setOpacity(1);
         recycleBinIcon.setOpacity(1);
         plusIcon.setOpacity(1);
@@ -148,7 +150,7 @@ public class ViewCartFxml implements Initializable {
 
     public void handleDelete(ActionEvent actionEvent) throws Exception {
         HashMap<Product, Integer> products = cart.getAllProducts();
-        int quantity = products.get(Product.getProductById(id));
+        int quantity = products.get(allProductsController.getProduct(id));
         cart.decreaseProduct(id , quantity);
         minusIcon.setOpacity(0);
         recycleBinIcon.setOpacity(0);

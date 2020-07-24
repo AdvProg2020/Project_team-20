@@ -209,6 +209,13 @@ public class AllProductsController extends Filterable {
     }
 
     @Override
+    public Product getProductWithItsName(String name) {
+        client = new Client(5000);
+        client.readMessage();
+        return super.getProductWithItsName(name);
+    }
+
+    @Override
     public void filterByProductName(ArrayList<String> details) {
         client = new Client(5000);
         client.readMessage();

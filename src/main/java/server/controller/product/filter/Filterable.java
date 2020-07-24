@@ -40,6 +40,19 @@ public abstract class Filterable extends Server {
         methods.add("filterByNumericalFilter");
         methods.add("getFilters");
         methods.add("getCurrentSort");
+        methods.add("getProductWithItsName");
+    }
+
+
+    public Message getProductWithItsName(String name) {
+        Message message = new Message("getProductWithItsName");
+        try {
+            message.addToObjects(Product.getProductWithItsName(name));
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
     }
 
     public Message filter(String filterType, ArrayList<String> details) {
