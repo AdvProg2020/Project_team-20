@@ -50,7 +50,9 @@ public class ViewOrderFxml implements Initializable {
     }
 
     private void showSellers(BuyerReceipt buyerReceipt) {
-        sellersTable.getItems().setAll(buyerReceipt.getSellers());
+        ReceiptController receiptController = new ReceiptController();
+        ArrayList<Seller> sellersBuyer = receiptController.getSellers(buyerReceipt);
+        sellersTable.getItems().setAll(sellersBuyer);
         sellersColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
     }
 

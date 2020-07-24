@@ -66,12 +66,6 @@ public class LoginController extends Server {
     private void createManagerAccount(String username, ArrayList<String> details) throws Exception {
         String name = details.get(0), lastName = details.get(1), email = details.get(2), phoneNumber = details.get(3),
                 password = details.get(4);
-        double credit;
-        try {
-            credit = Double.parseDouble(details.get(5));
-        } catch (Exception e) {
-            throw new CreditIsNotNumber();
-        }
         if (Manager.isHasFirstManger()) {
             throw new ThereIsFirstManagerException();
         }
@@ -82,24 +76,12 @@ public class LoginController extends Server {
     private void createBuyerAccount(String username, ArrayList<String> details) throws CreditIsNotNumber {
         String name = details.get(0), lastName = details.get(1), email = details.get(2), phoneNumber = details.get(3),
                 password = details.get(4);
-        double credit;
-        try {
-            credit = Double.parseDouble(details.get(5));
-        } catch (Exception e) {
-            throw new CreditIsNotNumber();
-        }
         Manager.addRequest(new Buyer(name, lastName, email, phoneNumber, username, password));
     }
 
     private void createSellerAccount(String username, ArrayList<String> details, String detail) throws CreditIsNotNumber {
         String name = details.get(0), lastName = details.get(1), email = details.get(2), phoneNumber = details.get(3),
                 password = details.get(4);
-        double credit;
-        try {
-            credit = Double.parseDouble(details.get(5));
-        } catch (Exception e) {
-            throw new CreditIsNotNumber();
-        }
         Manager.addRequest(new Seller(name, lastName, email, phoneNumber, username, password,  detail));
     }
 
@@ -154,13 +136,16 @@ public class LoginController extends Server {
         MainController.getInstance().setAccount(new TempAccount());
     }
 
+
     @Override
     protected void handleClient(Client client) {
         clients.add(client);
         client.writeMessage(new Message("client accepted"));
+        System.out.println(" 1111111 ");
         while (true) {
             Main.storeData();
             Message message = client.readMessage();
+
             try {
                 protector.isMessageSecure(message, client.getSocket());
             } catch (Exception e) {
@@ -169,8 +154,7 @@ public class LoginController extends Server {
                 client.writeMessage(insecureMessage);
                 return;
             }
-            if (message.getText().equals("AccountType"))
-                protector.removeIpFromLoginIps(client.getSocket());
+
             if (message.getText().equals("buy")) {
                 clients.remove(client);
                 return;
@@ -183,7 +167,13 @@ public class LoginController extends Server {
                     if (generalAccount instanceof Account) {
                         client.setAccount((Account) generalAccount);
                     }
-                    client.writeMessage(callCommand(message.getText(), message));
+                    Message sendMessage = callCommand(message.getText(), message);
+                    System.out.println(message.getText()+ " 00 0 00 0 00 000 0 000 000000000000000 000 0 00 00 00 00 00 0 ");
+                    if (sendMessage.getText().equals("AccountType")) {
+                        System.out.println("IP REMOVED 00 0 00 0 00 000 0 000 000000000000000 000 0 00 00 00 00 00 0 ");
+                        protector.removeIpFromLoginIps(client.getSocket());
+                    }
+                    client.writeMessage(sendMessage);
                 } else {
                     client.writeMessage(new Message("token is invalid"));
                     clients.remove(client);

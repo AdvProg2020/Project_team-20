@@ -12,7 +12,7 @@ import client.network.Client;
 import client.network.Message;
 import javafx.scene.image.Image;
 import server.controller.Main;
-import server.model.bank.BankReceiptType;
+import client.model.bank.BankReceiptType;
 import server.network.server.Server;
 
 import java.io.File;
@@ -142,43 +142,56 @@ public class SellerController extends Server implements AccountController {
         client.disconnect();
         return new Message("Confirmation");
     }
-
     //i add it
-    public Message withdrawMoneyFromWallet(double money, String username, String password, String sourceId, String destId, AuthToken authToken) throws Exception {
+    public Message withdrawMoneyFromWallet(double money ,String username,String password , String destId ,AuthToken authToken) throws Exception {
+        System.out.println("bita bita bita bita bita bita");
         Seller currentSeller = (Seller) Main.getAccountWithToken(authToken);
-        if (money < currentSeller.getCredit() - 100000) {
+        if(money < currentSeller.getCredit()-100000 ) {
             Client client = new Client(9000);
-            Message message2 = new Message("getToken");
-            message2.addToObjects(username);
-            message2.addToObjects(password);
-            client.writeMessage(message2);
-            Message answer2 = client.readMessage();
-            AuthToken authToken2 = answer2.getAuthToken();
+            client.readMessage();
+            Message message1 = new Message("getToken");
+            message1.addToObjects(username);
+            message1.addToObjects(password);
+            client.writeMessage(message1);
+            Message answer1 = client.readMessage();
+            AuthToken authToken1 = answer1.getAuthToken();
             //not sure
-            Message message = new Message("createReceipt");
-            BankReceiptType bankReceiptType = BankReceiptType.WITHDRAW;
-            message.addToObjects(bankReceiptType);
-            message.addToObjects(money);
-            message.addToObjects(sourceId);
-            message.addToObjects(destId);
-            message.addToObjects("");//description
-            message.addToObjects(authToken);
-            client.writeMessage(message);
-            Message answer = client.readMessage();
-            String receiptId = (String) answer.getObjects().get(0);
+            System.out.println("yalda yalda yalda yalda yalda");
+            Message message2 = new Message("createReceipt");
+            BankReceiptType bankReceiptType = BankReceiptType.DEPOSIT;
+            message2.addToObjects(authToken1);
+            message2.addToObjects(bankReceiptType);
+            message2.addToObjects(money);
+            message2.addToObjects("-1");
+            message2.addToObjects(destId);
+            message2.addToObjects("nothing");//description
+            client.writeMessage(message2);
+            System.out.println("8");
+            Message answer2 = client.readMessage();
+            System.out.println("9");
+            if(answer2.getText().equals("Error")){
+                Message message6 = new Message("Error");
+                message6.addToObjects(answer2.getObjects().get(0));
+                return message6;
+            }
+            String receiptId = (String) answer2.getObjects().get(0);
+            System.out.println("yalda yalda yalda yalda yalda");
             //
             Message message3 = new Message("pay");
+            message3.addToObjects(authToken1);
             message3.addToObjects(receiptId);
-            message3.addToObjects(authToken2);
             client.writeMessage(message3);
-            Message answer1 = client.readMessage();
-            if (answer1.getObjects().get(0).equals("error")) {
-                throw new Exception();
+            Message answer3 = client.readMessage();
+            if (answer1.getText().equals("Error")) {
+                Message message6 = new Message("Error");
+                message6.addToObjects(answer3.getObjects().get(0));
+                return message6;
             }
             currentSeller.decreaseCredit(money);
             Message message5 = new Message("Confirmation");
             return message5;
-        } else {
+        }
+        else{
             Message message6 = new Message("Error");
             message6.addToObjects("you don't have enough money");
             return message6;
@@ -561,6 +574,13 @@ public class SellerController extends Server implements AccountController {
         throw new SaleUnavailableException();
     }
 
+    public Message getCredit(AuthToken authToken) {
+        Seller currentSeller = (Seller) Main.getAccountWithToken(authToken);
+        Message message = new Message("get credit");
+        message.addToObjects(currentSeller.getCredit());
+        return message;
+    }
+
     @Override
     protected void setMethods() {
         methods.add("addAdvertisement");
@@ -672,7 +692,7 @@ public class SellerController extends Server implements AccountController {
         switch (field) {
             case "name":
                 seller.changeStateEdited(context, seller.getLastName(), seller.getEmail(), seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getDetails());
+                        seller.getPassword(),seller.getDetails());
                 break;
             case "lastName":
                 seller.changeStateEdited(seller.getName(), context, seller.getEmail(), seller.getPhoneNumber(),
@@ -680,7 +700,7 @@ public class SellerController extends Server implements AccountController {
                 break;
             case "email":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), context, seller.getPhoneNumber(),
-                        seller.getPassword(), seller.getDetails());
+                        seller.getPassword(),seller.getDetails());
                 break;
             case "phoneNumber":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(), context,
@@ -692,7 +712,7 @@ public class SellerController extends Server implements AccountController {
                 break;
             case "companyInfo":
                 seller.changeStateEdited(seller.getName(), seller.getLastName(), seller.getEmail(),
-                        seller.getPhoneNumber(), seller.getPassword(), context);
+                        seller.getPhoneNumber(), seller.getPassword(),context);
                 break;
             default:
                 Message message = new Message("Error");

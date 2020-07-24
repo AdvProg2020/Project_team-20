@@ -123,11 +123,14 @@ public class Protector {
         checkMessagePattern(message);
     }
 
-    private void checkMessagePattern(Message message) throws Exception{
+    private synchronized void checkMessagePattern(Message message) throws Exception{
         if (message.getText()==null)
             throw new MalMessageException();
-        if (!message.getText().matches("\\w+"))
+        /*
+        if (!message.getText().matches("\\w+")) {
             throw new MalMessageException();
+        }
+         */
     }
 
     private boolean checkSizes(Message message) {

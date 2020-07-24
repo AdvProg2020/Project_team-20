@@ -10,29 +10,45 @@ public class SellerChatRoom {
     private static final ArrayList<SellerChatRoom> SELLER_CHAT_ROOMS = new ArrayList<>();
 
     private final String id;
-    private final Seller seller;
-    private final ArrayList<Buyer> buyers;
+    private final String sellerId;
+    private final ArrayList<String> buyersId;
     private ArrayList<ChatMessage> chatMessages;
 
-    public SellerChatRoom(Seller seller) {
+    public SellerChatRoom(String sellerId) {
         chatRoomCount += 1;
         this.id = String.valueOf(chatRoomCount);
-        this.seller = seller;
-        this.buyers = new ArrayList<>();
+        this.sellerId = sellerId;
+        this.buyersId = new ArrayList<>();
         this.chatMessages = new ArrayList<>();
         SELLER_CHAT_ROOMS.add(this);
     }
 
     public Seller getSeller() {
-        return seller;
+        try {
+            return Seller.getSellerWithUsername(sellerId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public ArrayList<Buyer> getBuyers() {
+        ArrayList<Buyer> buyers = new ArrayList<>();
+        for (String buyerId:buyersId) {
+            try {
+                buyers.add(Buyer.getBuyerWithUsername(buyerId));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return buyers;
     }
 
-    public void addToBuyers(Buyer buyer) {
-        this.buyers.add(buyer);
+    public void removeBuyer(String buyerId) {
+        this.buyersId.remove(buyerId);
+    }
+
+    public void addToBuyers(String buyerId) {
+        this.buyersId.add(buyerId);
     }
 
     public ArrayList<ChatMessage> getChatMessages() {

@@ -236,7 +236,7 @@ public class BuyerController extends Server implements AccountController {
         message2.addToObjects(bankReceiptType);
         message2.addToObjects(totalPrice);
         message2.addToObjects(sourceId);
-        message2.addToObjects(-1);
+        message2.addToObjects("-1");
         message2.addToObjects("nothing");
         client.writeMessage(message2);
         Message answer2 = client.readMessage();
@@ -269,7 +269,7 @@ public class BuyerController extends Server implements AccountController {
         message5.addToObjects(authToken2);
         message5.addToObjects(bankReceiptType2);
         message5.addToObjects(totalPrice*5/100);
-        message5.addToObjects(-1);
+        message5.addToObjects("-1");
         message5.addToObjects(destinationId);
         message5.addToObjects("nothing");
         client2.writeMessage(message5);
@@ -308,38 +308,61 @@ public class BuyerController extends Server implements AccountController {
             for (Seller seller : currentBuyer.getCart().getAllSellers()) {
                 seller.increaseCredit(getTotalPriceTotalDiscountSeller(seller, 0, currentBuyer) * 95 / 100);
             }
-            Client client2 = new Client(9000);
-            client2.readMessage();
-            Message message4 = new Message("getToken");
-            message4.addToObjects("ERPshop");
-            message4.addToObjects("ERPshop1379");
-            client2.writeMessage(message4);
-            Message answer4 = client2.readMessage();
-            AuthToken authToken2 = answer4.getAuthToken();
+            Client client = new Client(9000);
+            client.readMessage();
+            Message message1 = new Message("getToken");
+            message1.addToObjects("ERPshop");
+            message1.addToObjects("ERPshop1379");
+            client.writeMessage(message1);
+            Message answer1 = client.readMessage();
+            AuthToken authToken1 = answer1.getAuthToken();
 
 
 
-            Message message5 = new Message("createReceipt");
+            Message message2 = new Message("createReceipt");
             BankReceiptType bankReceiptType2 = BankReceiptType.DEPOSIT ;
-            message5.addToObjects(authToken2);
-            message5.addToObjects(bankReceiptType2);
-            message5.addToObjects(totalPrice*5/100);
-            message5.addToObjects("-1");
-            message5.addToObjects("2020722893");
-            message5.addToObjects("nothing");
-            client2.writeMessage(message5);
-            Message answer5 = client2.readMessage();
-            String receiptId5 = (String) answer5.getObjects().get(0);
+            message2.addToObjects(authToken1);
+            message2.addToObjects(bankReceiptType2);
+            message2.addToObjects(totalPrice*5/100);
+            message2.addToObjects("-1");
+            message2.addToObjects("2020722893");
+            message2.addToObjects("nothing");
+            client.writeMessage(message2);
+            Message answer2 = client.readMessage();
+            String receiptId2 = (String) answer2.getObjects().get(0);
 
             //pay
-            Message message6 = new Message("pay");
-            message6.addToObjects(authToken2);
-            message6.addToObjects(receiptId5);
-            client2.writeMessage(message6);
-            Message answer6 = client2.readMessage();
-            if(answer6.getText().equals("Error")){
-                throw new Exception((String) answer6.getObjects().get(0));
+            Message message3 = new Message("pay");
+            message3.addToObjects(authToken1);
+            message3.addToObjects(receiptId2);
+            client.writeMessage(message3);
+            Message answer3 = client.readMessage();
+            if(answer3.getText().equals("Error")){
+                throw new Exception((String) answer3.getObjects().get(0));
             }
+
+            Message message8 = new Message("createReceipt");
+            BankReceiptType bankReceiptType8 = BankReceiptType.WITHDRAW ;
+            message8.addToObjects(authToken1);
+            message8.addToObjects(bankReceiptType8);
+            message8.addToObjects(totalPrice);
+            message8.addToObjects("2020722893");
+            message8.addToObjects("-1");
+            message8.addToObjects("nothing");
+            client.writeMessage(message8);
+            Message answer8 = client.readMessage();
+            String receiptId8 = (String) answer8.getObjects().get(0);
+
+            //pay
+            Message message9 = new Message("pay");
+            message9.addToObjects(authToken1);
+            message9.addToObjects(receiptId8);
+            client.writeMessage(message9);
+            Message answer9 = client.readMessage();
+            if(answer9.getText().equals("Error")){
+                throw new Exception((String) answer9.getObjects().get(0));
+            }
+
 
         }
     }

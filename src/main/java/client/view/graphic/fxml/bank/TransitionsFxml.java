@@ -3,6 +3,8 @@ package client.view.graphic.fxml.bank;
 import client.controller.bank.BankController;
 import client.model.bank.BankReceipt;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -11,13 +13,24 @@ import java.util.ResourceBundle;
 
 public class TransitionsFxml implements Initializable {
     public Text balanceTxt;
+    public ScrollPane depositsScroll;
     public Text depositsTxt;
+    public ScrollPane withdrawScroll;
     public Text withdrawsTxt;
+    public ScrollPane movesScroll;
     public Text movesTxt;
+
     private BankController bankController = BankController.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        depositsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        depositsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        withdrawScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        withdrawScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        movesScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        movesScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
         balanceTxt.setText(Double.toString(bankController.getBalance()));
         showTransactions();
     }

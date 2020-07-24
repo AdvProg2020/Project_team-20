@@ -266,16 +266,17 @@ public class SellerController implements AccountController {
         return (String) answer.getObjects().get(0);
     }
 
-    public String withdrawMoneyFromWallet(double money , String username , String password , String sourceId){
+    public void withdrawMoneyFromWallet(double money , String username , String password , String sourceId) throws Exception {
         Message message = new Message("withdrawMoneyFromWallet");
         message.addToObjects(money);
         message.addToObjects(username);
         message.addToObjects(password);
         message.addToObjects(sourceId);
-        message.addToObjects("2020722893");//todo market's account
         client.writeMessage(message);
         Message answer = client.readMessage();
-        return (String) answer.getObjects().get(0);
+        if(answer.getText().equals("Error")){
+            throw new Exception((String) answer.getObjects().get(0));
+        }
     }
 
     public static class SaleUnavailableException extends Exception {
@@ -289,6 +290,11 @@ public class SellerController implements AccountController {
         client.writeMessage(message);
         Message answer = client.readMessage();
         return (HashMap<Product, Integer>) answer.getObjects().get(0);
+    }
+
+    public double getCredit() {
+        client.writeMessage(new Message("getCredit"));
+        return (double) client.readMessage().getObjects().get(0);
     }
 
     public int getProductCount(Product product) {

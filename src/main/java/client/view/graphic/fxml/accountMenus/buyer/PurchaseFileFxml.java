@@ -175,14 +175,26 @@ public class PurchaseFileFxml implements Initializable {
     public void handleReject(ActionEvent actionEvent) {
         BuyerController buyerController = BuyerController.getInstance();
         buyerController.viewCart().resetCart();
-        Parent root;
-        try {
-            root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/buyer/" + "purchaseMenu" + "Fxml" + ".fxml").toURI().toURL());
-            borderPane.setCenter(root);
-        } catch (Exception e) {
-            e.printStackTrace();
-            ;
-        }
+        phoneText.setOpacity(0);
+        phone.setOpacity(0);
+        submitPhone.setOpacity(0);
+        discountCodeText.setOpacity(0);
+        discountCode.setOpacity(0);
+        submitDiscount.setOpacity(0);
+        username.setOpacity(0);
+        password.setOpacity(0);
+        passwordText.setOpacity(0);
+        usernameText.setOpacity(0);
+        submitAccountInformation.setOpacity(0);
+        accountNumber.setOpacity(0);
+        accountText.setOpacity(0);
+        totalPrice.clear();
+        discount.clear();
+        address.clear();
+        username.clear();
+        password.clear();
+        accountNumber.clear();
+        submit = false;
     }
 
 }
