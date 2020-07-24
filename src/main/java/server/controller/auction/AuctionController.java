@@ -220,9 +220,14 @@ public class AuctionController extends Server {
     @Override
     protected void setMethods() {
         methods.add("addBuyer");
+        methods.add("removeBuyer");
         methods.add("addMessage");
+        methods.add("increaseBuyerPrice");
+        methods.add("getBuyersPrices");
         methods.add("getAllMessages");
         methods.add("getAllAuctions");
+        methods.add("getHighest");
+        methods.add("isEnded");
     }
 
 }
