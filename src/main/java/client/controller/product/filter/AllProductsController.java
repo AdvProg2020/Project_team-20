@@ -9,6 +9,7 @@ import client.model.product.category.SubCategory;
 import client.network.Client;
 import client.network.Message;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class AllProductsController extends Filterable {
@@ -26,7 +27,35 @@ public class AllProductsController extends Filterable {
         client.setAuthToken(message.getAuthToken());
         System.out.println(message.getText());
         client.disconnect();
+        receiveProductsImage();
         return allProductsController;
+    }
+
+    private static void receiveProductsImage() {
+        client = new Client(5000);
+        client.readMessage();
+        client.writeMessage(new Message("productsImage"));
+        Message answer = client.readMessage();
+        int numberOfProducts = (int) answer.getObjects().get(0);
+        for (int i = 0; i < numberOfProducts; i++) {
+            Message message = new Message("sendProductsImage");
+            message.addToObjects(i);
+            client.writeMessage(message);
+            String path = client.readMessage().getText();
+            if (hasImage(path)) {
+                System.out.println("have image");
+                client.writeMessage(new Message("has file"));
+                client.readMessage();
+                continue;
+            }
+            client.receiveImage(path);
+            client.readMessage();
+        }
+    }
+
+    private static boolean hasImage(String path) {
+        File f = new File(path);
+        return f.exists() && !f.isDirectory();
     }
 
     public void purchase() throws Exception {

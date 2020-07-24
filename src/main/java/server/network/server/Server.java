@@ -64,8 +64,6 @@ public abstract class Server {
             }
             
  */
-
-
             System.out.println(message.getText());
             if (message.getText().equals("buy")) {
                 clients.remove(client);

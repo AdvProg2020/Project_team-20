@@ -55,6 +55,7 @@ public class SellerServer {
     }
 
     private void handleClient(Client client) {
+        System.out.println("in handle client");
         client.readMessage();
         client.writeMessage(new Message("in receive file from seller"));
         Message message = client.readMessage();
