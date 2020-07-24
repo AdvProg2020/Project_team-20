@@ -2,11 +2,12 @@ package client.controller.account.user.seller;
 import java.net.InetAddress;
 
 public class SellerNetwork {
-    private final InetAddress inetAddress;
+    //private final InetAddress inetAddress;
+    String ip;
     private final int port;
 
     public SellerNetwork(InetAddress inetAddress, int port) {
-        this.inetAddress = inetAddress;
+        this.ip = inetAddress.getHostAddress();
         this.port = port;
     }
 
@@ -15,11 +16,13 @@ public class SellerNetwork {
     }
 
     public String getHostAddress() {
-        return inetAddress.getHostAddress();
+        return ip;
     }
 
-    public InetAddress getInetAddress() {
+   /* public InetAddress getInetAddress() {
         return inetAddress;
     }
+
+    */
 }
 

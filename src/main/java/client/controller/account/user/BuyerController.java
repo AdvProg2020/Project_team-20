@@ -130,6 +130,7 @@ public class BuyerController implements AccountController {
         client.writeMessage(message);
         Message answer = client.readMessage();
         if (answer.getText().equals("Error")) {
+            ((Exception) answer.getObjects().get(0)).printStackTrace();
             throw (Exception) answer.getObjects().get(0);
         }
         ArrayList<SellerNetwork> sellerNetworks = (ArrayList<SellerNetwork>) answer.getObjects().get(0);
@@ -140,6 +141,7 @@ public class BuyerController implements AccountController {
     }
 
     private void receiveFiles(ArrayList<SellerNetwork> sellerNetworks, ArrayList<String> productIds, ArrayList<String> names, ArrayList<String> fileTypes) {
+        System.out.println("in receive files");
         int iterator = 0;
         for (SellerNetwork network : sellerNetworks) {
             Client client = new Client(network);

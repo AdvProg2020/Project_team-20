@@ -244,4 +244,9 @@ public class AllProductsController extends Filterable {
     public Message getCurrentSort() {
         return super.getCurrentSort();
     }
+
+    @Override
+    public Message getProductWithItsName(String name) {
+        return super.getProductWithItsName(name);
+    }
 }
