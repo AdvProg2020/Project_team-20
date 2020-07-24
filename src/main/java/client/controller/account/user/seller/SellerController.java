@@ -51,7 +51,7 @@ public class SellerController implements AccountController {
     }
 
     public void createAuction(ArrayList<String> details, String path, LocalDateTime endDate) throws Exception{
-        Message message = new Message("addAdvertisement");
+        Message message = new Message("createAuction");
         message.addToObjects(details);
         message.addToObjects(path);
         message.addToObjects(endDate);

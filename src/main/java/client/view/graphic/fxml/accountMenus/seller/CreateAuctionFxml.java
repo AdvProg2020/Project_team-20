@@ -76,6 +76,13 @@ public class CreateAuctionFxml {
             LocalDateTime endLocalDateTime = LocalDateTime.of(endDate, endTime);
 
             SellerController.getInstance().createAuction(details, path, endLocalDateTime);
+            new AlertController().create(AlertType.CONFIRMATION, "Thanks fot creating auction.");
+            productImg.setImage(null);
+            endDatePicker.setValue(null);
+            endTimePicker.setValue(null);
+            productName.setText("");
+            productCompany.setText("");
+            path = "";
         } catch (Exception e) {
             new AlertController().create(AlertType.ERROR, e.getMessage());
         }

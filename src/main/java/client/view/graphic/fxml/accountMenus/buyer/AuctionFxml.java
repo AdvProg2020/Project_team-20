@@ -50,6 +50,7 @@ public class AuctionFxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        buttons = new ArrayList<>();
         auctionController = AuctionController.getInstance();
         buyerUsername = ((Buyer)MainController.getInstance().getAccount()).getUsername();
         updateMessages();

@@ -30,6 +30,8 @@ public class ViewAuctionsFxml implements Initializable {
 
     public void handleJoin(ActionEvent actionEvent) {
         Auction auction = auctionsTable.getSelectionModel().getSelectedItem();
+        if (moneyTxt.getText().equals(""))
+            return;
         double price =  Double.parseDouble(moneyTxt.getText());
         if (auction==null)
             return;
@@ -41,7 +43,7 @@ public class ViewAuctionsFxml implements Initializable {
             root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/buyer/auctionFxml.fxml").toURI().toURL());
             window.setScene(new Scene(root, 994, 666));
         } catch (Exception e) {
-            e.printStackTrace();
+            new AlertController().create(AlertType.ERROR, e.getMessage());
         }
     }
 

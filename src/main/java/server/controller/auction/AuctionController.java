@@ -159,7 +159,7 @@ public class AuctionController extends Server {
         Auction auction;
         try {
             auction = getAuctionByID(auctionID);
-            message.addToObjects(auction.getBuyersPrice());
+            message.addToObjects(auction.getHighestPrice());
             return message;
         } catch (Exception e) {
             message = new Message("Error");

@@ -12,7 +12,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="670.0" prefWidth="967.0" style="-fx-background-color: #54c6c7;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.graphic.fxml.accountMenus.buyer.AuctionFxml">
    <children>
       <Pane prefHeight="48.0" prefWidth="994.0" style="-fx-background-color: #252e3b;">
@@ -56,13 +55,12 @@
             <Image url="@../../../../../../../resources/Images/auction.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="productImg" fitHeight="150.0" fitWidth="150.0" layoutX="446.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" />
-      <Text fx:id="productNameTxt" fill="#fdfffd" layoutX="447.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="126.2060546875">
+      <Text fx:id="productNameTxt" fill="#fdfffd" layoutX="519.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="126.2060546875">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Text fx:id="productDetailsTxt" fill="WHITE" layoutX="447.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="126.2060546875">
+      <Text fx:id="productDetailsTxt" fill="WHITE" layoutX="519.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="126.2060546875">
          <font>
             <Font size="20.0" />
          </font>
@@ -77,5 +75,12 @@
             <Font size="20.0" />
          </font>
       </Text>
+      <Pane layoutX="444.0" layoutY="298.0" prefHeight="150.0" prefWidth="150.0" style="-fx-border-color: white;">
+         <children>
+            <ImageView fx:id="productImg" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <Text fill="WHITE" layoutX="444.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
+      <Text fill="WHITE" layoutX="444.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comapny:" />
    </children>
 </AnchorPane>
