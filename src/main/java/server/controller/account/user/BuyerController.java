@@ -124,11 +124,13 @@ public class BuyerController extends Server implements AccountController {
                 }
             }
         } catch (Exception e) {
+            System.out.println("hi hi hi hi hi hi hi hi hi hi 1111");
             message = new Message("Error");
             message.addToObjects(e);
             return message;
         }
         try {
+            System.out.println(totalPrice + "     lop lop lopl op");
            pay(totalPrice,currentBuyer,payByBankCart,username , password ,sourceId , destId);
         } catch (Exception e) {
             message = new Message("Error");
@@ -380,7 +382,7 @@ public class BuyerController extends Server implements AccountController {
         //not sure
         Message message2 = new Message("createReceipt");
         BankReceiptType bankReceiptType = BankReceiptType.MOVE;
-        message2.addToObjects(authToken);
+        message2.addToObjects(authToken1);
         message2.addToObjects(bankReceiptType);
         message2.addToObjects(money);
         message2.addToObjects(sourceId);

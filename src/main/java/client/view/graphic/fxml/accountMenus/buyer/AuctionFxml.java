@@ -79,9 +79,11 @@ public class AuctionFxml implements Initializable {
                         }
                     };
 
-                    while (threadStop) {
+                    while (true) {
                         try {
                             Thread.sleep(1000);
+                            if (!threadStop)
+                                break;
                         } catch (InterruptedException ex) {
                         }
                         Platform.runLater(updater);
@@ -98,13 +100,17 @@ public class AuctionFxml implements Initializable {
     }
 
     private void processAuctionEnd(Message message) {
+        if (message.getText().equals("Error"))
+            ((Exception)message.getObjects().get(0)).printStackTrace();
         if (message.getText().equals("No"))
             return;
-        if (message.getText().equals("Won"))
-            new AlertController().create(AlertType.INFO, "You won! Thanks for buying.");
+        if (message.getText().equals("Won")) {
+            BuyerMenuController.whereCame = "Won";
+        }
         if (message.getText().equals("Lost"))
-            new AlertController().create(AlertType.INFO, "You Lost!");
+            BuyerMenuController.whereCame = "Lost";
         try {
+            threadStop = false;
             BuyerMenuController.start(window);
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,6 +164,7 @@ public class AuctionFxml implements Initializable {
 
     public void handleExit(ActionEvent actionEvent) {
         try {
+            threadStop = false;
             auctionController.removeBuyer(auctionID);
             new AlertController().create(AlertType.INFO, "If you leave the auction you will be removed from list of buyers!");
             BuyerMenuController.start(window);
