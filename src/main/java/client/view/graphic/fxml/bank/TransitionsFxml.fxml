@@ -25,17 +25,17 @@
       <Text fill="#cdd7d2" layoutX="54.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deposit" />
       <Text fill="#cdd7d2" layoutX="291.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Withdraw" />
       <Text fill="#cdd7d2" layoutX="529.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Move" />
-      <ScrollPane fx:id="depositsScroll" layoutX="54.0" layoutY="95.0" prefHeight="317.0" prefWidth="200.0" style="-fx-background-color: #89a08b#89a08b;">
+      <ScrollPane fx:id="depositsScroll" layoutX="54.0" layoutY="95.0" prefHeight="317.0" prefWidth="200.0" style="-fx-background-color: #cdd7d2;">
          <content>
             <Text fx:id="depositsTxt" fill="#445b56" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="171.2060546875" />
          </content>
       </ScrollPane>
-      <ScrollPane fx:id="withdrawScroll" layoutX="292.0" layoutY="95.0" prefHeight="317.0" prefWidth="200.0" style="-fx-background-color: #89a08b#89a08b;">
+      <ScrollPane fx:id="withdrawScroll" layoutX="292.0" layoutY="95.0" prefHeight="317.0" prefWidth="200.0" style="-fx-background-color: #cdd7d2;">
          <content>
             <Text fx:id="withdrawsTxt" fill="#445b56" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="171.2060546875" />
          </content>
       </ScrollPane>
-      <ScrollPane fx:id="movesScroll" layoutX="529.0" layoutY="95.0" prefHeight="317.0" prefWidth="200.0" style="-fx-background-color: #89a08b#89a08b;">
+      <ScrollPane fx:id="movesScroll" layoutX="529.0" layoutY="95.0" prefHeight="317.0" prefWidth="200.0" style="-fx-background-color: #cdd7d2;">
          <content>
             <Text fx:id="movesTxt" fill="#445b56" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.2060546875" />
          </content>
