@@ -53,7 +53,7 @@
       </JFXButton>
       <ImageView fitHeight="449.0" fitWidth="612.0" layoutX="382.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../../../../Desktop/auction.png" />
+            <Image url="@../../../../../../../resources/Images/auction.png" />
          </image>
       </ImageView>
       <ImageView fx:id="productImg" fitHeight="150.0" fitWidth="150.0" layoutX="446.0" layoutY="300.0" pickOnBounds="true" preserveRatio="true" />
