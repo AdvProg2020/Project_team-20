@@ -45,7 +45,7 @@ public class ChargeWalletFxml implements Initializable {
         else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
-        double money2 = buyerController.getCredit();
+        double money2 = buyerController.getCredit();;
         moneyInWallet.setText(Double.toString(money2));
         bankPassword.clear();
         bankUsername.clear();
