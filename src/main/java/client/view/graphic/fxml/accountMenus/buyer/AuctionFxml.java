@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class AuctionFxml implements Initializable {
@@ -41,6 +42,8 @@ public class AuctionFxml implements Initializable {
     public Text productNameTxt;
     public Text productDetailsTxt;
     public Text highestPrice;
+    public Text yourPriceTxt;
+
     private ArrayList<JFXButton> buttons;
     private AuctionController auctionController;
     private boolean threadStop = true;
@@ -73,6 +76,7 @@ public class AuctionFxml implements Initializable {
                                 Message message = auctionController.isEnded(auctionID);
                                 processAuctionEnd(message);
                                 highestPrice.setText(Double.toString(auctionController.getHighestPrice(auctionID)));
+                                updateYourPrice();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -99,6 +103,16 @@ public class AuctionFxml implements Initializable {
 
     }
 
+    private void updateYourPrice() {
+        try {
+            HashMap<String, Double> prices = auctionController.getBuyersPrices(auctionID);
+            double price = prices.get(buyerUsername);
+            yourPriceTxt.setText(Double.toString(price));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void processAuctionEnd(Message message) {
         if (message.getText().equals("Error"))
             ((Exception)message.getObjects().get(0)).printStackTrace();
@@ -123,19 +137,30 @@ public class AuctionFxml implements Initializable {
             messagesChats.getChildren().removeAll(buttons);
             buttons = new ArrayList<>();
             for (ChatMessage chatMessage:chatMessages) {
+                JFXButton buttonName = new JFXButton();
                 JFXButton button = new JFXButton();
                 button.setTextFill(new Color(0.3632, 0.4118, 0.41406, 1));
+                buttonName.setTextFill(new Color(0.3632, 0.4118, 0.41406, 1));
                 button.setPrefWidth(278);
                 button.setPrefHeight(30);
-                if (chatMessage.getSenderName().equals(buyerUsername))
+                buttonName.setPrefWidth(278);
+                buttonName.setPrefHeight(30);
+                if (chatMessage.getSenderName().equals(buyerUsername)) {
                     button.setStyle("-fx-alignment: center-left; -fx-font-size:20");
+                    buttonName.setStyle("-fx-alignment: center-left; -fx-font-size:15");
+                }
                 else {
                     button.setStyle("-fx-alignment: center-right; -fx-font-size:20");
                     button.setTextFill(new Color(0.42578, 0.69140625, 0.65625, 1));
+                    buttonName.setStyle("-fx-alignment: center-right; -fx-font-size:15");
+                    buttonName.setTextFill(new Color(0.42578, 0.69140625, 0.65625, 1));
                 }
+                buttonName.setText(chatMessage.getSenderName() + ":");
                 button.setText(chatMessage.getContest());
+                messagesChats.getChildren().add(buttonName);
                 messagesChats.getChildren().add(button);
                 buttons.add(button);
+                buttons.add(buttonName);
             }
         } catch (Exception e) {
             e.printStackTrace();
