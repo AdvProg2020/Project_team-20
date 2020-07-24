@@ -173,7 +173,8 @@ public class BuyerController extends Server implements AccountController {
         addBuyerToFileProductsBuyers(authToken);
         // TODO need to send files
         try {
-            return sendDataToBuyer(currentBuyer);
+            Message message1 = sendDataToBuyer(currentBuyer);
+            return message1;
         } catch (Exception e) {
             message = new Message("Error");
             message.addToObjects(e);
@@ -191,6 +192,7 @@ public class BuyerController extends Server implements AccountController {
         Cart cart = buyer.getCart();
         for (FileProduct fileProduct : cart.getAllFileProductsArrayList()) {
             sellerNetworks.add(dns.getSellerNetwork(fileProduct.getSellers().get(0).getUsername()));
+            System.out.println(sellerNetworks.get(0).getHostAddress() + "  " +  sellerNetworks.get(0).getPort() + "  " + sellerNetworks.get(0).getHostAddress() );
             names.add(fileProduct.getName());
             fileTypes.add(fileProduct.getFileType());
             productIds.add(fileProduct.getId());

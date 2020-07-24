@@ -56,7 +56,7 @@ public class Client {
 
     public Client(SellerNetwork sellerNetwork) {
         try {
-            this.socket = new Socket(sellerNetwork.getInetAddress(), sellerNetwork.getPort());
+            this.socket = new Socket(sellerNetwork.getHostAddress(), sellerNetwork.getPort());
             this.dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             this.dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
         } catch (IOException e) {

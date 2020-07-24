@@ -1,6 +1,7 @@
 package server.controller.account.user;
 
 import client.model.account.*;
+import client.model.auction.Auction;
 import client.model.product.*;
 import client.model.product.Field.Field;
 import client.model.product.Field.FieldType;
@@ -374,6 +375,25 @@ public class SellerController extends Server implements AccountController {
         return message;
     }
 
+    public Message createAuction(ArrayList<String> details, String path, LocalDateTime endDate,AuthToken authToken) {
+        Message message = new Message("createAuction");
+        try {
+            Seller seller = (Seller) Main.getAccountWithToken(authToken);
+            String name = details.get(0), description = details.get(1);
+            int count = 1;
+            double price = 0;
+            ArrayList<Field> fields = new ArrayList<>();
+            Product product = new Product(fields, seller, name, description, count, price);
+            product.setImagePath(path);
+
+            new Auction(product, endDate, seller.getUsername());
+        } catch (Exception e) {
+            message = new Message("Error");
+            message.addToObjects(e);
+        }
+        return message;
+    }
+
     public Message createFileProduct(ArrayList<String> details, HashMap<String, Double> numericalFields,
                                      HashMap<String, ArrayList<String>> optionalFields, String fileType, String imgPath, AuthToken authToken
             , Client client) {
@@ -607,6 +627,7 @@ public class SellerController extends Server implements AccountController {
         methods.add("getAccountInfo");
         methods.add("editField");
         methods.add("setProfileImage");
+        methods.add("createAuction");
         methods.add("changeMainImage");
         methods.add("logout");
         methods.add("getSeller");

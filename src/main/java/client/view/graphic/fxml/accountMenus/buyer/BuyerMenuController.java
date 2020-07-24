@@ -184,5 +184,7 @@ public class BuyerMenuController implements Initializable {
     }
 
     public void handleViewAuctions(ActionEvent actionEvent) {
+        ViewAuctionsFxml.setWindow(window);
+        loadUI("viewAuctions");
     }
 }

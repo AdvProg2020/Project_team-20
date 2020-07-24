@@ -148,5 +148,31 @@ public class AuctionController {
 
     }
 
+    public Product getProduct(String auctionID) throws Exception{
+        connect();
+        Message message = new Message("getProduct");
+        message.addToObjects(auctionID);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error"))
+            throw (Exception)answer.getObjects().get(0);;
+        client.disconnect();
+        return (Product) answer.getObjects().get(0);
+
+    }
+
+    public double getHighestPrice(String auctionID) throws Exception{
+        connect();
+        Message message = new Message("getHighestPrice");
+        message.addToObjects(auctionID);
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        if (answer.getText().equals("Error"))
+            throw (Exception)answer.getObjects().get(0);;
+        client.disconnect();
+        return (double) answer.getObjects().get(0);
+
+    }
+
 
 }
