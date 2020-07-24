@@ -40,6 +40,7 @@ public class DNS {
         while (true) {
             try {
                 Client client = new Client(serverSocket.accept());
+                client.writeMessage(new Message("welcome to DNS"));
                 Message message = client.readMessage();
                 String sellerUsername = (String) message.getObjects().get(0);
                 int port = (int) message.getObjects().get(1);
