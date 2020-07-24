@@ -182,4 +182,7 @@ public class BuyerMenuController implements Initializable {
     public void handlePurchaseFile(ActionEvent actionEvent) {
         loadUI("purchaseFile");
     }
+
+    public void handleViewAuctions(ActionEvent actionEvent) {
+    }
 }
