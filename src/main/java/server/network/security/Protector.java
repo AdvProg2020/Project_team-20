@@ -132,9 +132,9 @@ public class Protector {
 
     private boolean checkSizes(Message message) {
          Instrumentation instrumentation;
-        if (message.getText().length()>100)
+        if (message.getText().length()>1000000000)
             return false;
-        if (message.getObjects().size()>100)
+        if (message.getObjects().size()>1000000000)
             return false;
         return message.toYaGson().length() <= 1000000000;
     }
