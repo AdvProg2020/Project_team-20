@@ -89,9 +89,10 @@ public class SupporterMenuFxml implements Initializable {
                     }
                 };
 
-                while (threadStop) {
+                while (!threadStop) {
                     try {
                         Thread.sleep(1000);
+                        System.out.println("hello");
                     } catch (InterruptedException ex) {
                     }
                     Platform.runLater(updater);

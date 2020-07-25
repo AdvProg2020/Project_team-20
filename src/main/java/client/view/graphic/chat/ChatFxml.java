@@ -92,7 +92,7 @@ public class ChatFxml implements Initializable {
                         }
                     };
 
-                    while (threadStop) {
+                    while (!threadStop) {
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException ex) {
