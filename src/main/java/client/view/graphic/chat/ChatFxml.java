@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ChatFxml implements Initializable {
     private String chatRoomId;
     private boolean threadStop = false;
     public static Buyer buyer;
+    private static Stage stage;
 
     private ChatController chatController = ChatController.getInstance();
     private ArrayList<JFXButton> buttons;
@@ -138,6 +140,7 @@ public class ChatFxml implements Initializable {
         BuyerMenuController.setIsChatting(false);
         try {
             chatController.prepareChatRoomForNewClient(chatRoomId);
+            stage.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,5 +160,9 @@ public class ChatFxml implements Initializable {
 
     public static void setBuyer(Buyer buyer) {
         ChatFxml.buyer = buyer;
+    }
+
+    public static void setStage(Stage stage) {
+        ChatFxml.stage = stage;
     }
 }
