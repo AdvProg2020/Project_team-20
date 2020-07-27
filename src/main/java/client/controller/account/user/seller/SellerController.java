@@ -270,16 +270,19 @@ public class SellerController implements AccountController {
         return (double) answer.getObjects().get(0);
     }
 
-    public String chargeWallet(double money , String username , String password , String sourceId){
+    public void chargeWallet(double money, String username, String password, String accountId) throws Exception {
         Message message = new Message("chargeWallet");
         message.addToObjects(money);
         message.addToObjects(username);
         message.addToObjects(password);
-        message.addToObjects(sourceId);
+        message.addToObjects(accountId);
         message.addToObjects("2020722893");//todo market's account
         client.writeMessage(message);
         Message answer = client.readMessage();
-        return (String) answer.getObjects().get(0);
+        if (answer.getText().equals("Error")) {
+            String context = (String)answer.getObjects().get(0);
+            throw new Exception(context);
+        }
     }
 
     public void withdrawMoneyFromWallet(double money , String username , String password , String sourceId) throws Exception {
@@ -309,8 +312,10 @@ public class SellerController implements AccountController {
     }
 
     public double getCredit() {
-        client.writeMessage(new Message("getCredit"));
-        return (double) client.readMessage().getObjects().get(0);
+        Message message = new Message("getCredit");
+        client.writeMessage(message);
+        Message answer = client.readMessage();
+        return (double) answer.getObjects().get(0);
     }
 
     public int getProductCount(Product product) {
