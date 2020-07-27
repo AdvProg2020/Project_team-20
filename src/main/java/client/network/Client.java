@@ -66,16 +66,18 @@ public class Client {
 
     public Message readMessage() {
         try {
-            /*
+
             return new YaGson().fromJson(dataInputStream.readUTF(), Message.class);
 
-             */
+              /*
             byte[] byteArray = new byte[999999999];
             int bytesRead = dataInputStream.read(byteArray, 0, byteArray.length);
             ByteArrayInputStream in = new ByteArrayInputStream(byteArray);
             ObjectInputStream is = new ObjectInputStream(in);
             return (Message) is.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+
+             */
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return new Message("read failed");
@@ -84,6 +86,7 @@ public class Client {
 
     public void writeMessage(Message message) {
         try {
+            /*
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bos);
             oos.writeObject(message);
@@ -91,12 +94,14 @@ public class Client {
             byte [] data = bos.toByteArray();
             dataOutputStream.write(data, 0, data.length);
             dataOutputStream.flush();
-            /*
+
+             */
+
             message.setAuth(authToken);
             dataOutputStream.writeUTF(message.toYaGson());
             dataOutputStream.flush();
 
-             */
+
         } catch (IOException e) {
             e.printStackTrace();
         }
