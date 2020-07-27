@@ -124,11 +124,13 @@ public class BuyerController extends Server implements AccountController {
                 }
             }
         } catch (Exception e) {
+            System.out.println("hi hi hi hi hi hi hi hi hi hi 1111");
             message = new Message("Error");
             message.addToObjects(e);
             return message;
         }
         try {
+            System.out.println(totalPrice + "     lop lop lopl op");
            pay(totalPrice,currentBuyer,payByBankCart,username , password ,sourceId , destId);
         } catch (Exception e) {
             message = new Message("Error");

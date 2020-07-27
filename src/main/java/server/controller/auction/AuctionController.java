@@ -209,7 +209,7 @@ public class AuctionController extends Server {
                     message = new Message("Won");
                     product.setSellerPrice(seller, price);
                     buyer.addProductToCart(product, seller);
-                    BuyerController.getInstance().purchase(null, null, null, false,null, null, null, null, authToken);
+                    BuyerController.getInstance().purchase("", "", "", false,null, null, null, null, authToken);
                 }
                 else {
                     message = new Message("Lost");

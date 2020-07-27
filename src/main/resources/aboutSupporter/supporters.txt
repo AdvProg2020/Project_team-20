@@ -1,0 +1,1 @@
+{"@type":"client.model.account.Supporter","@val":{"chatRooms":[],"name":"maryam","lastName":"Shayesteh","email":"mary@gmail.com","phoneNumber":"09128171866","username":"Maryam","password":"123","accountType":"SUPPORTER","credit":0.0,"networkState":"OFFLINE","generalAccountType":"ACCOUNT","graphicPackage":{}}}

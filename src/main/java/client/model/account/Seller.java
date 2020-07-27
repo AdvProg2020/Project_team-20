@@ -110,6 +110,8 @@ public class Seller extends Account implements Requestable {
     }
 
     public void decreaseProduct(Product product, int number) {
+        if (productIDsToSell.get(product.getId())==null)
+            return;
         int firstNum = this.productIDsToSell.get(product.getId());
         this.productIDsToSell.replace(product.getId(), firstNum - number);
     }

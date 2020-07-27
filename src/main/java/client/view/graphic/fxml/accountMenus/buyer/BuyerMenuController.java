@@ -23,6 +23,7 @@ import client.view.graphic.alert.AlertController;
 import client.view.graphic.alert.AlertType;
 import client.view.graphic.fxml.allProductsMenu.FxmlAllProductsMenu;
 import client.view.graphic.popUp.PopUpControllerFxml;
+import javafx.stage.StageStyle;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -42,6 +43,7 @@ public class BuyerMenuController implements Initializable {
     private BuyerController buyerController = BuyerController.getInstance();
     private static boolean loadFromViewCart = false;
     private static boolean isChatting = false;
+    public static String whereCame = "";
 
     MediaController mediaController = ProgramApplication.getMediaController();
 
@@ -55,6 +57,11 @@ public class BuyerMenuController implements Initializable {
         Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/fxml/accountMenus/buyer/BuyerMenuFxml.fxml").toURI().toURL());
         stage.setScene(new Scene(root, 994, 666));
         stage.show();
+        if (whereCame.equals("Won"))
+            new AlertController().create(AlertType.INFO, "You won! Thanks for buying.");
+        else if (whereCame.equals("Lost"))
+            new AlertController().create(AlertType.INFO, "You Lost!");
+        whereCame = "";
         int randInt = ThreadLocalRandom.current().nextInt(0, 10);
         if (randInt % 2 == 0) {
             new PopUpControllerFxml().create();
@@ -163,7 +170,9 @@ public class BuyerMenuController implements Initializable {
     public void handleSupport(ActionEvent actionEvent) {
     if (!isChatting) {
         Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
         try {
+            ChatFxml.setStage(stage);
             isChatting = true;
             ChatFxml.setBuyer(buyerController.getCurrentBuyer());
             Parent root = FXMLLoader.load(new File("src/main/java/client/view/graphic/chat/chatFxml.fxml").toURI().toURL());

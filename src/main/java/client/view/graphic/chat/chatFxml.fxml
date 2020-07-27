@@ -38,5 +38,11 @@
             <Font size="11.0" />
          </font>
       </JFXButton>
+      <ImageView fitHeight="34.0" fitWidth="34.0" layoutX="558.0" layoutY="7.0" opacity="0.85" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../resources/Images/Close.png" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="558.0" layoutY="7.0" onAction="#handleClose" prefHeight="34.0" prefWidth="34.0" text=" " />
    </children>
 </AnchorPane>
