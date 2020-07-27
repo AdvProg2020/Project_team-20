@@ -11,7 +11,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 public class Client {
-    private static final String HOST = "172.20.10.2";
+    private static final String HOST = "192.168.43.183";
     private static final int DEFAULT_PORT = 8000;
 
     //private static final int SEND_SIZE = ;
