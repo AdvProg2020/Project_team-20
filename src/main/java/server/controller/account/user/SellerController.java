@@ -629,6 +629,7 @@ public class SellerController extends Server implements AccountController {
         methods.add("changeMainImage");
         methods.add("logout");
         methods.add("getSeller");
+        methods.add("getCredit");
     }
 
     public static class SaleUnavailableException extends Exception {

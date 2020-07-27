@@ -11,7 +11,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 
 public class Client {
-    private static final String HOST = "127.0.0.1";
+    private static final String HOST = "172.20.10.2";
     private static final int DEFAULT_PORT = 8000;
 
     //private static final int SEND_SIZE = ;
@@ -66,8 +66,16 @@ public class Client {
 
     public Message readMessage() {
         try {
+            /*
             return new YaGson().fromJson(dataInputStream.readUTF(), Message.class);
-        } catch (IOException e) {
+
+             */
+            byte[] byteArray = new byte[999999999];
+            int bytesRead = dataInputStream.read(byteArray, 0, byteArray.length);
+            ByteArrayInputStream in = new ByteArrayInputStream(byteArray);
+            ObjectInputStream is = new ObjectInputStream(in);
+            return (Message) is.readObject();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return new Message("read failed");
@@ -76,9 +84,19 @@ public class Client {
 
     public void writeMessage(Message message) {
         try {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(message);
+            oos.flush();
+            byte [] data = bos.toByteArray();
+            dataOutputStream.write(data, 0, data.length);
+            dataOutputStream.flush();
+            /*
             message.setAuth(authToken);
             dataOutputStream.writeUTF(message.toYaGson());
             dataOutputStream.flush();
+
+             */
         } catch (IOException e) {
             e.printStackTrace();
         }
