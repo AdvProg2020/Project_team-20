@@ -599,6 +599,8 @@ public class SellerController extends Server implements AccountController {
     @Override
     protected void setMethods() {
         methods.add("addAdvertisement");
+        methods.add("chargeWallet");
+        methods.add("withdrawMoneyFromWallet");
         methods.add("viewCompanyInformation");
         methods.add("viewSalesHistory");
         methods.add("getAllProducts");

@@ -39,7 +39,7 @@ public class YourWalletFxml implements Initializable {
         String sourceId = accountId.getText();
         if (username != null && password != null && money != null && sourceId !=null) {
             try {
-                sellerController.chargeWallet(Double.parseDouble(money), username, password , sourceId);
+                sellerController.chargeWallet(Double.parseDouble(money),username,password,sourceId);
             }
             catch (Exception e){
                 new AlertController().create(AlertType.ERROR, e.getMessage());
@@ -47,8 +47,9 @@ public class YourWalletFxml implements Initializable {
         } else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
-        //double money2 = sellerController.getCredit();//we should change credit to wallet
-        //moneyInWallet.setText(Double.toString(money2));
+        System.out.println("after charge");
+        double money2 = sellerController.getCredit();//we should change credit to wallet
+        moneyInWallet.setText(Double.toString(money2));
         bankPassword.clear();
         bankUsername.clear();
         amountOfMoney.clear();
