@@ -45,8 +45,9 @@ public class ManagerController implements client.controller.account.user.Account
 
 
     public ArrayList<Account> manageUsers() {
-        client.writeMessage(new Message("manageUsers"));
-        return (ArrayList<Account>) client.readMessage().getObjects().get(0);
+        Message message = new Message("manageUsers");
+        client.writeMessage(message);
+        return  (ArrayList<Account>)  client.readMessage().getObjects().get(0);
     }
 
     public Account viewUser(String userName) throws Exception {

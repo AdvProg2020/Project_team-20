@@ -1,6 +1,5 @@
 package client.view.graphic.fxml.accountMenus.seller;
 
-import client.controller.account.user.BuyerController;
 import client.controller.account.user.seller.SellerController;
 import client.model.account.Seller;
 import client.view.graphic.alert.AlertController;
@@ -39,10 +38,16 @@ public class YourWalletFxml implements Initializable {
         String money = amountOfMoney.getText();
         String sourceId = accountId.getText();
         if (username != null && password != null && money != null && sourceId !=null) {
-            sellerController.chargeWallet(Double.parseDouble(money), username, password , sourceId);
+            try {
+                sellerController.chargeWallet(Double.parseDouble(money),username,password,sourceId);
+            }
+            catch (Exception e){
+                new AlertController().create(AlertType.ERROR, e.getMessage());
+            }
         } else {
             new AlertController().create(AlertType.ERROR, "please fill all of the boxes");
         }
+        System.out.println("after charge");
         double money2 = sellerController.getCredit();//we should change credit to wallet
         moneyInWallet.setText(Double.toString(money2));
         bankPassword.clear();

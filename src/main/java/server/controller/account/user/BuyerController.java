@@ -322,7 +322,6 @@ public class BuyerController extends Server implements AccountController {
             Message answer1 = client.readMessage();
             AuthToken authToken1 = answer1.getAuthToken();
 
-            System.out.println("RECEIPT RECEIPT RECEIPT");
             Message message2 = new Message("createReceipt");
             BankReceiptType bankReceiptType2 = BankReceiptType.DEPOSIT ;
             message2.addToObjects(authToken1);
