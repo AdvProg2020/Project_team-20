@@ -155,6 +155,7 @@ public class LoginController extends Server {
     protected void handleClient(Client client) {
         clients.add(client);
         client.writeMessage(new Message("client accepted"));
+        System.out.println(" 1111111 ");
         while (true) {
             Main.storeData();
             Message message = client.readMessage();
@@ -163,21 +164,16 @@ public class LoginController extends Server {
                 protector.isMessageSecure(message, client.getSocket());
             } catch (Exception e) {
                 Message insecureMessage = new Message("Error");
-                e.printStackTrace();
                 insecureMessage.addToObjects(e);
                 client.writeMessage(insecureMessage);
                 return;
             }
 
-
-            System.out.println(message.getText());
             if (message.getText().equals("buy")) {
                 clients.remove(client);
                 return;
             }
-            System.out.println(message);
-            if (message.getAuthToken() != null)
-                System.out.println(message.getAuthToken().getKey());
+
             try {
                 if (message.getAuthToken().authenticate()) {
                     message.addToObjects(message.getAuthToken());
@@ -185,7 +181,8 @@ public class LoginController extends Server {
                     if (generalAccount instanceof Account) {
                         client.setAccount((Account) generalAccount);
                     }
-                    client.writeMessage(callCommand(message.getText(), message));
+                    Message sendMessage = callCommand(message.getText(), message);
+                    client.writeMessage(sendMessage);
                 } else {
                     client.writeMessage(new Message("token is invalid"));
                     clients.remove(client);
@@ -195,6 +192,7 @@ public class LoginController extends Server {
                 invalidCommand.printStackTrace();
             } catch (NullPointerException nullPointerException) {
                 try {
+                    message.addToObjects(client);
                     Message answer = callCommand(message.getText(), message);
                     if (answer.getText().equals("AccountType")) {
                         System.out.println("IP REMOVED 00 0 00 0 00 000 0 000 000000000000000 000 0 00 00 00 00 00 0 ");
@@ -202,14 +200,20 @@ public class LoginController extends Server {
                     }
                     client.setAuthToken(answer.getAuthToken());
                     client.writeMessage(answer);
-                    System.out.println(client);
                 } catch (InvalidCommand invalidCommand) {
-                    //invalidCommand.printStackTrace();
                     return;
                 }
             }
         }
     }
+
+
+/*
+                    if (answer.getText().equals("AccountType")) {
+                        System.out.println("IP REMOVED 00 0 00 0 00 000 0 000 000000000000000 000 0 00 00 00 00 00 0 ");
+                        protector.removeIpFromLoginIps(client.getSocket());
+                    }
+ */
 
     @Override
     protected void setMethods() {
